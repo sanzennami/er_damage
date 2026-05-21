@@ -6,7 +6,7 @@ import ITEM_UNIQUE_EFFECTS from './data/itemUniqueEffects.json';
 import DAK_LOADOUT_ASSETS from './data/dakLoadoutAssets.json';
 import MASTERY_STATS from './data/masteryStats.json';
 
-const APP_VERSION = 'v0.1.023';
+const APP_VERSION = 'v0.1.024';
 
 const CHARACTER_IMAGE_URLS = import.meta.glob('../assets/characters/*.png', {
   eager: true,
@@ -1054,8 +1054,8 @@ function skillMainSlot(skill) {
   return match?.[0] || 'Q';
 }
 
-function skillTargetCount(counts, key) {
-  return Math.max(1, Math.min(MULTI_TARGET_MAX, getNumber(counts[key]) || 1));
+function skillTargetCount(counts, key, maxTargets = MULTI_TARGET_MAX) {
+  return Math.max(1, Math.min(maxTargets, getNumber(counts[key]) || 1));
 }
 
 function groupSkillRows(skills) {
@@ -1371,10 +1371,10 @@ export default function App() {
     }));
   }
 
-  function updateSkillTargetCount(key, value) {
+  function updateSkillTargetCount(key, value, maxTargets = MULTI_TARGET_MAX) {
     setSkillTargetCounts((current) => ({
       ...current,
-      [key]: Math.max(1, Math.min(MULTI_TARGET_MAX, getNumber(value) || 1))
+      [key]: Math.max(1, Math.min(maxTargets, getNumber(value) || 1))
     }));
   }
 
@@ -1599,36 +1599,60 @@ export default function App() {
     );
   }
 
-  function renderTargetStepper(key) {
-    const count = skillTargetCount(skillTargetCounts, key);
+  function renderTargetStepper(key, maxTargets = MULTI_TARGET_MAX) {
+    const count = skillTargetCount(skillTargetCounts, key, maxTargets);
     return (
       <div className="targetStepper">
         <span>命中目标</span>
-        <button type="button" onClick={() => updateSkillTargetCount(key, count - 1)}>-</button>
+        <button type="button" onClick={() => updateSkillTargetCount(key, count - 1, maxTargets)}>-</button>
         <b>{count}</b>
-        <button type="button" onClick={() => updateSkillTargetCount(key, count + 1)}>+</button>
+        <button type="button" onClick={() => updateSkillTargetCount(key, count + 1, maxTargets)}>+</button>
       </div>
     );
   }
 
   function renderSkillDamageLeaf(skill, label, options = {}) {
     const targetKey = options.targetKey || skill.id;
-    const count = skillTargetCount(skillTargetCounts, targetKey);
+    const maxTargets = options.targetMax || MULTI_TARGET_MAX;
+    const count = skillTargetCount(skillTargetCounts, targetKey, maxTargets);
     const primaryRaw = getNumber(options.primaryRaw ?? skill.rawDamage);
     const primaryFinal = getNumber(options.primaryFinal ?? skill.damage);
     const secondaryRaw = getNumber(options.secondaryRaw ?? primaryRaw);
     const secondaryFinal = getNumber(options.secondaryFinal ?? primaryFinal);
     const totalRaw = primaryRaw + secondaryRaw * Math.max(0, count - 1);
     const totalFinal = primaryFinal + secondaryFinal * Math.max(0, count - 1);
+    const hasSingleFullBreakdown = options.primarySingleRaw !== undefined || options.secondarySingleRaw !== undefined;
+    const totalLabel = typeof options.totalLabel === 'function'
+      ? options.totalLabel(count)
+      : options.totalLabel || (count > 1 ? `${count} 目标总计` : '单目标');
 
     return (
       <div className="skillDamageLeaf" key={targetKey}>
         <div className="skillLeafHead">
           <strong>{label}</strong>
-          {renderTargetStepper(targetKey)}
+          {renderTargetStepper(targetKey, maxTargets)}
         </div>
         <div className="skillLeafValues">
-          {options.showBreakdown ? (
+          {hasSingleFullBreakdown ? (
+            <>
+              <div>
+                <span>主要目标单发</span>
+                <DamageValue raw={options.primarySingleRaw ?? skill.rawDamage} final={options.primarySingleFinal ?? skill.damage} />
+              </div>
+              <div>
+                <span>主要目标全中</span>
+                <DamageValue raw={primaryRaw} final={primaryFinal} />
+              </div>
+              <div>
+                <span>次要目标单发</span>
+                <DamageValue raw={options.secondarySingleRaw ?? secondaryRaw} final={options.secondarySingleFinal ?? secondaryFinal} />
+              </div>
+              <div>
+                <span>次要目标全中</span>
+                <DamageValue raw={secondaryRaw} final={secondaryFinal} />
+              </div>
+            </>
+          ) : options.showBreakdown ? (
             <>
               <div>
                 <span>主要目标</span>
@@ -1641,7 +1665,7 @@ export default function App() {
             </>
           ) : null}
           <div className="skillTotalValue">
-            <span>{count > 1 ? `${count} 目标总计` : '单目标'}</span>
+            <span>{totalLabel}</span>
             <DamageValue raw={totalRaw} final={totalFinal} />
           </div>
         </div>
@@ -1672,14 +1696,21 @@ export default function App() {
           <div className="skillSubGrid">
             {slotSkills.map((skill) => {
               if (selectedHero === '俞岷' && skill.id === 'yumin-q') {
+                const primarySingle = scaledSkillDamage(skill, result.finalMod);
                 const primary = scaledSkillDamage(skill, result.finalMod, { hits: 3 });
+                const secondarySingle = scaledSkillDamage(skill, result.finalMod, { scale: 0.5 });
                 const secondary = scaledSkillDamage(skill, result.finalMod, { scale: 0.5, hits: 3 });
                 return renderSkillDamageLeaf(skill, '普通Q（三段）', {
                   targetKey: `${skill.id}-targets`,
+                  primarySingleRaw: primarySingle.raw,
+                  primarySingleFinal: primarySingle.final,
                   primaryRaw: primary.raw,
                   primaryFinal: primary.final,
+                  secondarySingleRaw: secondarySingle.raw,
+                  secondarySingleFinal: secondarySingle.final,
                   secondaryRaw: secondary.raw,
                   secondaryFinal: secondary.final,
+                  totalLabel: (nextCount) => `${nextCount > 1 ? `${nextCount} 目标总计` : '单目标'}（只算全中）`,
                   showBreakdown: true
                 });
               }
@@ -1691,8 +1722,14 @@ export default function App() {
                   primaryFinal: primary.final
                 });
               }
-              const label = skill.title.replace(/^[QWER]\s*/, '').replace(/^E([QW])\s*/, '强化$1 ') || skill.title;
-              return renderSkillDamageLeaf(skill, label, { targetKey: `${skill.id}-targets` });
+              const yuminLabel = selectedHero === '俞岷' && skill.id === 'yumin-w'
+                ? '普通W'
+                : selectedHero === '俞岷' && skill.id === 'yumin-ew'
+                  ? '强化W'
+                  : '';
+              const label = yuminLabel || skill.title.replace(/^[QWER]\s*/, '').replace(/^E([QW])\s*/, '强化$1 ') || skill.title;
+              const targetMax = selectedHero === '俞岷' && skill.id === 'yumin-e' ? 3 : MULTI_TARGET_MAX;
+              return renderSkillDamageLeaf(skill, label, { targetKey: `${skill.id}-targets`, targetMax });
             })}
           </div>
         ) : (
