@@ -1,11 +1,12 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import ER_GAME_DATA from './data/erGameData.json';
+import ER_SKILL_DAMAGE_TABLE from './data/erSkillDamageTable.json';
 import DEFAULT_HELP_NOTES from './data/helpNotes.json';
 import ITEM_UNIQUE_EFFECTS from './data/itemUniqueEffects.json';
 import DAK_LOADOUT_ASSETS from './data/dakLoadoutAssets.json';
 import MASTERY_STATS from './data/masteryStats.json';
 
-const APP_VERSION = 'v0.1.020';
+const APP_VERSION = 'v0.1.021';
 
 const CHARACTER_IMAGE_URLS = import.meta.glob('../assets/characters/*.png', {
   eager: true,
@@ -244,7 +245,76 @@ const DEFAULT_SKILLS = [
   { id: 'yumin-r2', hero: '俞岷', title: 'R 二段', bases: '100,200,300', formula: 'base + ap * 0.7', maxLevel: 3 },
   { id: 'yumin-r2-hp', hero: '俞岷', title: 'R 二段 + 10%目标血', bases: '100,200,300', formula: 'base + ap * 0.7 + targetHp * 0.1', maxLevel: 3 }
 ];
-const GENERATED_SKILLS = ER_GAME_DATA.skills
+
+function finiteDamageValue(value) {
+  if (value === '' || value === null || value === undefined) return null;
+  const next = Number(value);
+  return Number.isFinite(next) ? next : null;
+}
+
+function damageRowBases(row) {
+  return [1, 2, 3, 4, 5, 6]
+    .map((level) => finiteDamageValue(row[`lv${level}`]))
+    .filter((value) => value !== null);
+}
+
+function damageRowCoefValues(row) {
+  return [1, 2, 3, 4, 5, 6]
+    .map((level) => finiteDamageValue(row[`coefLv${level}`]))
+    .filter((value) => value !== null);
+}
+
+function damageRowScalingVariable(row) {
+  const text = String(row.coefficientText || '');
+  const hasAttackScaling = /攻击力/.test(text);
+  const hasSkillAmpScaling = /技能增幅|Skill Amp/i.test(text);
+  if (hasAttackScaling && !hasSkillAmpScaling) return 'attack';
+  return 'ap';
+}
+
+function damageRowFormula(row) {
+  const coefValues = damageRowCoefValues(row);
+  if (!coefValues.length || coefValues.every((value) => value === 0)) return 'base';
+
+  const variable = damageRowScalingVariable(row);
+  const uniqueValues = Array.from(new Set(coefValues));
+  if (uniqueValues.length === 1) return `base + ${variable} * ${uniqueValues[0]}`;
+
+  return `base + ${variable} * ${JSON.stringify(coefValues)}[level - 1]`;
+}
+
+function generatedSkillTitle(row) {
+  const parts = [row.slot, row.skillName, row.damagePart]
+    .map((part) => String(part || '').trim())
+    .filter(Boolean);
+  return Array.from(new Set(parts)).join(' ');
+}
+
+const DAMAGE_TABLE_SKILLS = (ER_SKILL_DAMAGE_TABLE.damageRows || [])
+  .map((row, index) => {
+    const bases = damageRowBases(row);
+    if (!bases.length) return null;
+    return {
+      id: row.standardId || `${row.heroKey || row.heroName}-${row.skillGroup}-${row.baseKey || index}`,
+      hero: row.heroName,
+      title: generatedSkillTitle(row),
+      bases: bases.join(','),
+      formula: damageRowFormula(row),
+      maxLevel: bases.length,
+      source: 'er-skill-damage-table',
+      description: row.description,
+      coefficientText: row.coefficientText,
+      group: row.skillGroup,
+      skillId: row.skillId,
+      dataKey: row.baseKey,
+      coefKey: row.coefKey,
+      updatedAt: ER_SKILL_DAMAGE_TABLE.generatedAt || '',
+      sourceIndex: index
+    };
+  })
+  .filter(Boolean);
+
+const LEGACY_GENERATED_SKILLS = ER_GAME_DATA.skills
   .filter((skill) => !MANUAL_HEROES.includes(skill.hero))
   .map((skill, index) => ({
     id: skill.id,
@@ -262,6 +332,12 @@ const GENERATED_SKILLS = ER_GAME_DATA.skills
     updatedAt: skill.updatedAt || skill.updateDate || skill.updatedDate || skill.patch || '',
     sourceIndex: index
   }));
+
+const DAMAGE_TABLE_SKILL_KEYS = new Set(DAMAGE_TABLE_SKILLS.map((skill) => `${skill.hero}-${skill.group}-${skill.dataKey}`));
+const GENERATED_SKILLS = [
+  ...DAMAGE_TABLE_SKILLS,
+  ...LEGACY_GENERATED_SKILLS.filter((skill) => !DAMAGE_TABLE_SKILL_KEYS.has(`${skill.hero}-${skill.group}-${skill.dataKey}`))
+];
 const INITIAL_SKILLS = dedupeSkillsByLatest([...DEFAULT_SKILLS, ...GENERATED_SKILLS]);
 const DEFAULT_COMBOS = [
   { id: 'yumin-q3', hero: '俞岷', title: 'Q 三跳全中', note: '工作簿 Q*3', hits: { 'yumin-q': 3 } },
