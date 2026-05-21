@@ -71,6 +71,26 @@ button {
   background: rgba(12, 10, 16, 0.62);
 }
 
+.appSignature {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  width: fit-content;
+  padding: 6px 9px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  color: #a9a0a0;
+  font-size: 12px;
+  line-height: 1;
+}
+
+.appSignature b {
+  color: #ffd56b;
+  font-size: 11px;
+  letter-spacing: 0;
+}
+
 .heroAvatarPicker {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));

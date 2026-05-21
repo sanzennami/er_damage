@@ -5,6 +5,8 @@ import ITEM_UNIQUE_EFFECTS from './data/itemUniqueEffects.json';
 import DAK_LOADOUT_ASSETS from './data/dakLoadoutAssets.json';
 import MASTERY_STATS from './data/masteryStats.json';
 
+const APP_VERSION = 'v0.1.001';
+
 const CHARACTER_IMAGE_URLS = import.meta.glob('../assets/characters/*.png', {
   eager: true,
   import: 'default',
@@ -1621,6 +1623,10 @@ export default function App() {
                 ))}
               </div>
             ) : null}
+            <div className="appSignature">
+              <span>by @白谷池千</span>
+              <b>{APP_VERSION}</b>
+            </div>
           </div>
         </div>
         <div className="heroPanel heroIdentity">
