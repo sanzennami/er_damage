@@ -211,7 +211,7 @@ function StatCard({ label, value, hint }) {
   );
 }
 
-export default function Home() {
+export default function App() {
   const [gear, setGear] = useState(DEFAULT_GEAR);
   const [mastery, setMastery] = useState(20);
   const [talentAp, setTalentAp] = useState(52);

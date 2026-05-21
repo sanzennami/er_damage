@@ -2,18 +2,16 @@
 
 ## Project Summary
 
-This repository is a Next.js implementation of the Excel workbook `伤害计算器改版.xlsx`. The app is a polished, responsive damage calculator for the character "修女". It lets users choose gear, edit mastery/talent/target values, and instantly see final AP, defense modifiers, skill damage, and effect damage.
+This repository is a React + Vite implementation of the Excel workbook `伤害计算器改版.xlsx`. The app is a polished, responsive damage calculator for the character "修女". It lets users choose gear, edit mastery/talent/target values, and instantly see final AP, defense modifiers, skill damage, and effect damage.
 
-The original workbook is kept in the repository as source reference. The production UI and formulas are implemented directly in React in `pages/index.js`.
+The original workbook is kept in the repository as source reference. The production UI and formulas are implemented directly in React in `src/App.jsx`.
 
 ## Tech Stack
 
-- Next.js `12.3.4`
+- Vite
 - React `18.2.0`
 - Plain CSS in `styles/globals.css`
 - No TypeScript and no UI component library
-
-Next.js 12 is used because the current workspace has Node `14.21.3`. If Node is upgraded to 18+, upgrading Next.js is reasonable but should be tested carefully.
 
 ## Commands
 
@@ -33,8 +31,9 @@ http://localhost:3000
 
 ## Important Files
 
-- `pages/index.js`: all calculator data, state, formulas, and markup
-- `pages/_app.js`: imports global styles
+- `src/App.jsx`: all calculator data, state, formulas, and markup
+- `src/main.jsx`: React entry point and global style import
+- `index.html`: Vite HTML shell
 - `styles/globals.css`: complete visual design and responsive layout
 - `package.json`: scripts and dependencies
 - `伤害计算器改版.xlsx`: original Excel workbook reference
@@ -108,7 +107,7 @@ Some workbook comments mention unfinished or approximate talent/equipment effect
 
 - Keep changes minimal and formula-focused. Avoid adding new libraries unless there is a clear benefit.
 - If updating formulas, compare against the workbook cells and add comments only where the formula is not self-evident.
-- If adding new equipment, update the `EQUIPMENT` array in `pages/index.js` and ensure numeric fields default to `0` when absent.
+- If adding new equipment, update the `EQUIPMENT` array in `src/App.jsx` and ensure numeric fields default to `0` when absent.
 - If adding new characters, do not overload the current page with unrelated formulas. Consider separating character-specific formulas into a small data structure or separate component only when needed.
 - Run `npm run build` before committing.
 
@@ -116,4 +115,4 @@ Some workbook comments mention unfinished or approximate talent/equipment effect
 
 - Remote: `https://github.com/sanzennami/er_damage.git`
 - The initial app commit is `ba977b9 Build damage calculator app`
-- `node_modules/` and `.next/` are intentionally ignored
+- `node_modules/`, `dist/`, `.vite/`, and `.next/` are intentionally ignored
