@@ -37,6 +37,7 @@ button {
 }
 
 .heroPicker {
+  position: relative;
   display: grid;
   grid-template-columns: minmax(220px, 340px) 1fr;
   gap: 12px;
@@ -65,10 +66,19 @@ button {
 }
 
 .globalSettingsMenu {
+  position: absolute;
+  z-index: 8;
+  top: 55px;
+  right: 0;
+  width: max-content;
+  min-width: min(280px, 100%);
+  max-width: min(360px, calc(100vw - 32px));
   padding: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 8px;
-  background: rgba(12, 10, 16, 0.62);
+  border: 1px solid rgba(255, 213, 107, 0.28);
+  border-radius: 14px;
+  background: rgba(23, 19, 29, 0.96);
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.34);
+  backdrop-filter: blur(18px);
 }
 
 .appSignature {
@@ -1615,5 +1625,12 @@ td:last-child input {
 
   .heroPickerTop {
     grid-template-columns: 1fr;
+  }
+
+  .globalSettingsMenu {
+    top: 112px;
+    right: auto;
+    left: 0;
+    width: min(100%, 360px);
   }
 }
