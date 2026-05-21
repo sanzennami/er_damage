@@ -514,6 +514,17 @@ function weaponTypeLabelForRaw(rawType) {
   return WEAPON_TYPE_OPTIONS.find((type) => weaponTypeFromFilter(type) === rawType) || '全部类型';
 }
 
+function weaponTypeOfficialName(rawType) {
+  if (!rawType) return '未设置';
+  const label = WEAPON_TYPE_OPTIONS.find((type) => weaponTypeFromFilter(type) === rawType);
+  return label ? label.split('/')[0].trim() : rawType;
+}
+
+function weaponTypeOfficialList(rawTypes) {
+  const names = (rawTypes || []).map(weaponTypeOfficialName).filter(Boolean);
+  return names.length ? names.join('、') : '未设置武器';
+}
+
 function masteryStatFor(characterCode, weaponRawType) {
   return MASTERY_STATS.find((item) => item.characterCode === characterCode && item.type === weaponRawType) || null;
 }
@@ -1368,7 +1379,7 @@ export default function App() {
                     )}
                     <span>
                       <strong>{name}</strong>
-                      <small>{character?.englishName || '手动配置'}{character?.weapons?.length ? ` / ${character.weapons.join(', ')}` : ''}</small>
+                      <small>{character?.englishName || '手动配置'}{character?.weapons?.length ? ` / ${weaponTypeOfficialList(character.weapons)}` : ''}</small>
                     </span>
                   </button>
                 ))}
@@ -1382,7 +1393,7 @@ export default function App() {
           ) : null}
           <span>当前英雄</span>
           <strong>{selectedHero}</strong>
-          <small>{selectedCharacter ? `${selectedCharacter.englishName} / ${selectedCharacter.weapons.join(', ') || '未设置武器'}` : '手动配置英雄'}</small>
+          <small>{selectedCharacter ? selectedCharacter.englishName : '手动配置英雄'}</small>
         </div>
       </section>
 
@@ -1593,21 +1604,20 @@ export default function App() {
                 <strong>{selectedCharacter.storyName || selectedCharacter.name}</strong>
                 <span>{selectedCharacter.englishName} / {selectedCharacter.archetypes.join(', ') || '未分类'}</span>
                 <small>{selectedCharacter.playTip}</small>
+                <small className="characterWeapons">熟练武器：{weaponTypeOfficialList(selectedCharacter.weapons)}</small>
               </div>
             </div>
             <div className="miniStats">
               <StatCard label="基础血量" value={selectedCharacter.base.hp} hint={`成长 +${round(selectedCharacter.growth?.maxHp || 0, 2)} / 级`} />
               <StatCard label="基础攻击" value={selectedCharacter.base.attackPower} hint={`成长 +${round(selectedCharacter.growth?.attackPower || 0, 2)} / 级`} />
               <StatCard label="基础防御" value={selectedCharacter.base.defense} hint={`成长 +${round(selectedCharacter.growth?.defense || 0, 2)} / 级`} />
-              <StatCard label="熟练武器" value={selectedCharacter.weapons.length} hint={selectedCharacter.weapons.join(', ')} />
-              <StatCard label="当前熟练" value={selectedWeaponRaw || '-'} hint={selectedMasterySummary.join(' / ') || '暂无熟练成长'} />
+              <StatCard label="当前熟练" value={weaponTypeOfficialName(selectedWeaponRaw)} hint={selectedMasterySummary.join(' / ') || '暂无熟练成长'} />
             </div>
           </div>
           <div className="officialSkillStrip">
             {selectedOfficialSkillGroups.map((skill) => (
               <div key={skill.group}>
                 <strong>{skill.slot} {skill.name}</strong>
-                <span>{skill.coefficientText || skill.description || '官方数据已导入，暂无可计算公式'}</span>
               </div>
             ))}
           </div>

@@ -702,11 +702,15 @@ input:focus {
 }
 
 .characterCard span,
-.characterCard small,
-.officialSkillStrip span {
+.characterCard small {
   color: #a9a0a0;
   font-size: 12px;
   line-height: 1.45;
+}
+
+.characterWeapons {
+  margin-top: 4px;
+  color: #ffd56b !important;
 }
 
 .miniStats {
@@ -732,19 +736,12 @@ input:focus {
 }
 
 .officialSkillStrip div {
-  min-height: 92px;
+  min-height: 48px;
   padding: 12px;
   overflow: hidden;
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 8px;
   background: rgba(12, 10, 16, 0.38);
-}
-
-.officialSkillStrip span {
-  display: -webkit-box;
-  overflow: hidden;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
 }
 
 .talentGrid {
