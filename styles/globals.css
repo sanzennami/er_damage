@@ -428,6 +428,31 @@ main {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
+.finalDamageModBlock {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 16px;
+  padding: 16px 18px;
+  border: 1px solid rgba(255, 213, 107, 0.22);
+  border-radius: 8px;
+  background: rgba(255, 213, 107, 0.08);
+}
+
+.finalDamageModBlock span {
+  color: #f7ead4;
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.finalDamageModBlock strong {
+  color: #ffd56b;
+  font-size: 30px;
+  letter-spacing: 0;
+  line-height: 1;
+}
+
 .buildControlLayout {
   display: grid;
   grid-template-columns: minmax(0, 1fr);

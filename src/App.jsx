@@ -7,7 +7,7 @@ import DAK_LOADOUT_ASSETS from './data/dakLoadoutAssets.json';
 import DAK_ITEM_SKILL_ICONS from './data/dakItemSkillIcons.json';
 import MASTERY_STATS from './data/masteryStats.json';
 
-const APP_VERSION = 'v0.1.032';
+const APP_VERSION = 'v0.1.033';
 
 const CHARACTER_IMAGE_URLS = import.meta.glob('../assets/characters/*.png', {
   eager: true,
@@ -2123,7 +2123,6 @@ export default function App() {
               <p className="eyebrow">Target</p>
               <h2><LabelWithHelp note={help('section.target')}>目标与增减伤</LabelWithHelp></h2>
             </div>
-            <span className="pill">修正 {round(result.finalMod, 3)}</span>
           </div>
           <label className="selectBlock full">
             <LabelWithHelp note={help('field.targetHp')}>预设目标</LabelWithHelp>
@@ -2139,6 +2138,10 @@ export default function App() {
             <Field label="自身血量" value={selfHp} onChange={setSelfHp} note={help('field.selfHp')} />
             <Field label="手动技伤加成" value={damageBonus} onChange={setDamageBonus} suffix="小数" step={0.01} note={help('field.damageBonus')} />
             <Field label="技能减免" value={skillReduction} onChange={setSkillReduction} suffix="小数" step={0.01} note={help('field.skillReduction')} />
+          </div>
+          <div className="finalDamageModBlock">
+            <span>最终伤害修正值</span>
+            <strong>{round(result.finalMod, 3)}</strong>
           </div>
         </div>
 
