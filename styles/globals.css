@@ -38,6 +38,7 @@ button {
 
 .heroPicker {
   position: relative;
+  z-index: 40;
   display: grid;
   grid-template-columns: minmax(220px, 340px) 1fr;
   gap: 12px;
@@ -67,7 +68,7 @@ button {
 
 .globalSettingsMenu {
   position: absolute;
-  z-index: 8;
+  z-index: 120;
   top: 55px;
   right: 0;
   width: max-content;

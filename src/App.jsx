@@ -5,7 +5,7 @@ import ITEM_UNIQUE_EFFECTS from './data/itemUniqueEffects.json';
 import DAK_LOADOUT_ASSETS from './data/dakLoadoutAssets.json';
 import MASTERY_STATS from './data/masteryStats.json';
 
-const APP_VERSION = 'v0.1.015';
+const APP_VERSION = 'v0.1.016';
 
 const CHARACTER_IMAGE_URLS = import.meta.glob('../assets/characters/*.png', {
   eager: true,
@@ -994,6 +994,7 @@ export default function App() {
   const [effectsCollapsed, setEffectsCollapsed] = useState(false);
   const [skillTargetCounts, setSkillTargetCounts] = useState({});
   const [useHeroAvatarPicker, setUseHeroAvatarPicker] = useState(() => Boolean(loadAppSettings().useHeroAvatarPicker));
+  const [editMode, setEditMode] = useState(() => Boolean(loadAppSettings().editMode));
   const [heroAvatarQuery, setHeroAvatarQuery] = useState('');
   const [showLowerTierEquipment, setShowLowerTierEquipment] = useState(false);
   const [visibleStatKeys, setVisibleStatKeys] = useState(DEFAULT_VISIBLE_STAT_KEYS);
@@ -1007,8 +1008,8 @@ export default function App() {
   }, [equipment, skills, talents, combos]);
 
   useEffect(() => {
-    window.localStorage.setItem(APP_SETTINGS_KEY, JSON.stringify({ useHeroAvatarPicker }));
-  }, [useHeroAvatarPicker]);
+    window.localStorage.setItem(APP_SETTINGS_KEY, JSON.stringify({ useHeroAvatarPicker, editMode }));
+  }, [useHeroAvatarPicker, editMode]);
 
   useEffect(() => {
     if (HELP_NOTES_EDITABLE) {
@@ -1691,7 +1692,7 @@ export default function App() {
               <div className="globalSettingsMenu">
                 <div className="panelSubhead">
                   <strong>全局设置</strong>
-                  <span>英雄选择</span>
+                  <span>显示与编辑</span>
                 </div>
                 <label className="toggle">
                   <input
@@ -1700,6 +1701,14 @@ export default function App() {
                     onChange={(event) => setUseHeroAvatarPicker(event.target.checked)}
                   />
                   <span>使用头像列表选择实验体</span>
+                </label>
+                <label className="toggle">
+                  <input
+                    type="checkbox"
+                    checked={editMode}
+                    onChange={(event) => setEditMode(event.target.checked)}
+                  />
+                  <span>编辑模式</span>
                 </label>
               </div>
             ) : null}
@@ -2111,6 +2120,7 @@ export default function App() {
         <p className="note">最终伤害 = 技能基础值 * 100 / (100 + 目标防御 * (1 - 防御降低) * (1 - 防穿%) - 防穿数值) * (1 + 技伤加成 - 目标减伤 - 技能减免)。</p>
       </details>
 
+      {editMode ? (
       <section className="panel configPanel">
         <div className="panelHead">
           <div>
@@ -2271,6 +2281,7 @@ export default function App() {
           </table>
         </div>
       </section>
+      ) : null}
     </main>
   );
 }
