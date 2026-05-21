@@ -5,7 +5,7 @@ import ITEM_UNIQUE_EFFECTS from './data/itemUniqueEffects.json';
 import DAK_LOADOUT_ASSETS from './data/dakLoadoutAssets.json';
 import MASTERY_STATS from './data/masteryStats.json';
 
-const APP_VERSION = 'v0.1.003';
+const APP_VERSION = 'v0.1.004';
 
 const CHARACTER_IMAGE_URLS = import.meta.glob('../assets/characters/*.png', {
   eager: true,
@@ -1828,39 +1828,41 @@ export default function App() {
       </section>
 
       {selectedCharacter ? (
-        <section className="panel sourcePanel">
-          <div className="panelHead">
+        <details className="panel sourcePanel sourceDetails">
+          <summary className="panelHead sourceSummary">
             <div>
               <p className="eyebrow">ER GameData</p>
               <h2>{selectedCharacter.name} 官方数据</h2>
             </div>
             <span className="pill">{ER_GAME_DATA.counts.characters} 名角色 / {ER_GAME_DATA.counts.calculableSkills} 条可计算技能</span>
-          </div>
-          <div className="sourceGrid">
-            <div className="characterCard">
-              <img src={characterImageSrc(selectedCharacter)} alt={selectedCharacter.name} onError={(event) => { event.currentTarget.style.display = 'none'; }} />
-              <div>
-                <strong>{selectedCharacter.storyName || selectedCharacter.name}</strong>
-                <span>{selectedCharacter.englishName} / {selectedCharacter.archetypes.join(', ') || '未分类'}</span>
-                <small>{selectedCharacter.playTip}</small>
-                <small className="characterWeapons">熟练武器：{weaponTypeOfficialList(selectedCharacter.weapons)}</small>
+          </summary>
+          <div className="sourceBody">
+            <div className="sourceGrid">
+              <div className="characterCard">
+                <img src={characterImageSrc(selectedCharacter)} alt={selectedCharacter.name} onError={(event) => { event.currentTarget.style.display = 'none'; }} />
+                <div>
+                  <strong>{selectedCharacter.storyName || selectedCharacter.name}</strong>
+                  <span>{selectedCharacter.englishName} / {selectedCharacter.archetypes.join(', ') || '未分类'}</span>
+                  <small>{selectedCharacter.playTip}</small>
+                  <small className="characterWeapons">熟练武器：{weaponTypeOfficialList(selectedCharacter.weapons)}</small>
+                </div>
+              </div>
+              <div className="miniStats">
+                <StatCard label="基础血量" value={selectedCharacter.base.hp} hint={`成长 +${round(selectedCharacter.growth?.maxHp || 0, 2)} / 级`} />
+                <StatCard label="基础攻击" value={selectedCharacter.base.attackPower} hint={`成长 +${round(selectedCharacter.growth?.attackPower || 0, 2)} / 级`} />
+                <StatCard label="基础防御" value={selectedCharacter.base.defense} hint={`成长 +${round(selectedCharacter.growth?.defense || 0, 2)} / 级`} />
+                <StatCard label="当前熟练" value={weaponTypeOfficialName(selectedWeaponRaw)} hint={selectedMasterySummary.join(' / ') || '暂无熟练成长'} />
               </div>
             </div>
-            <div className="miniStats">
-              <StatCard label="基础血量" value={selectedCharacter.base.hp} hint={`成长 +${round(selectedCharacter.growth?.maxHp || 0, 2)} / 级`} />
-              <StatCard label="基础攻击" value={selectedCharacter.base.attackPower} hint={`成长 +${round(selectedCharacter.growth?.attackPower || 0, 2)} / 级`} />
-              <StatCard label="基础防御" value={selectedCharacter.base.defense} hint={`成长 +${round(selectedCharacter.growth?.defense || 0, 2)} / 级`} />
-              <StatCard label="当前熟练" value={weaponTypeOfficialName(selectedWeaponRaw)} hint={selectedMasterySummary.join(' / ') || '暂无熟练成长'} />
+            <div className="officialSkillStrip">
+              {selectedOfficialSkillGroups.map((skill) => (
+                <div key={skill.group}>
+                  <strong>{skill.slot} {skill.name}</strong>
+                </div>
+              ))}
             </div>
           </div>
-          <div className="officialSkillStrip">
-            {selectedOfficialSkillGroups.map((skill) => (
-              <div key={skill.group}>
-                <strong>{skill.slot} {skill.name}</strong>
-              </div>
-            ))}
-          </div>
-        </section>
+        </details>
       ) : null}
 
       <section className="panel talentPanel">

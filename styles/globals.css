@@ -690,6 +690,43 @@ input:focus {
   margin-bottom: 20px;
 }
 
+.sourceDetails {
+  padding: 0;
+}
+
+.sourceSummary {
+  min-height: 74px;
+  margin: 0;
+  padding: 22px;
+  cursor: pointer;
+  list-style: none;
+}
+
+.sourceSummary::-webkit-details-marker {
+  display: none;
+}
+
+.sourceSummary::after {
+  content: '展开';
+  min-width: 48px;
+  padding: 8px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #f7ead4;
+  font-size: 13px;
+  font-weight: 800;
+  text-align: center;
+}
+
+.sourceDetails[open] > .sourceSummary::after {
+  content: '折叠';
+}
+
+.sourceBody {
+  padding: 0 22px 22px;
+}
+
 .sourceGrid {
   display: grid;
   grid-template-columns: minmax(260px, 360px) 1fr;
