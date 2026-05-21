@@ -5,7 +5,7 @@ import ITEM_UNIQUE_EFFECTS from './data/itemUniqueEffects.json';
 import DAK_LOADOUT_ASSETS from './data/dakLoadoutAssets.json';
 import MASTERY_STATS from './data/masteryStats.json';
 
-const APP_VERSION = 'v0.1.005';
+const APP_VERSION = 'v0.1.006';
 
 const CHARACTER_IMAGE_URLS = import.meta.glob('../assets/characters/*.png', {
   eager: true,
@@ -256,17 +256,18 @@ const DEFAULT_COMBOS = [
 
 const SLOTS = ['武器', '衣服', '头部', '手部', '鞋子'];
 function defaultItemName(slot, preferred) {
-  return INITIAL_EQUIPMENT.find((item) => item.type === slot && item.name === preferred)?.name
+  const preferredNames = Array.isArray(preferred) ? preferred : [preferred];
+  return preferredNames.map((name) => INITIAL_EQUIPMENT.find((item) => item.type === slot && item.name === name)?.name).find(Boolean)
     || INITIAL_EQUIPMENT.find((item) => item.type === slot && item.isCompletedItem)?.name
     || INITIAL_EQUIPMENT.find((item) => item.type === slot)?.name
     || '';
 }
 const DEFAULT_GEAR = {
-  武器: defaultItemName('武器', '阿戈斯之眼'),
-  衣服: defaultItemName('衣服', '私人订制'),
-  头部: defaultItemName('头部', '先知头巾'),
-  手部: defaultItemName('手部', '翡翠石板'),
-  鞋子: defaultItemName('鞋子', '精灵之靴')
+  武器: defaultItemName('武器', '女帝'),
+  衣服: defaultItemName('衣服', ['私人订制', '私人定制']),
+  头部: defaultItemName('头部', '幽灵面具'),
+  手部: defaultItemName('手部', '龙鳞'),
+  鞋子: defaultItemName('鞋子', '锋利长靴')
 };
 const WEAPON_TYPE_OPTIONS = [
   '全部类型',
@@ -1120,6 +1121,13 @@ export default function App() {
 
     const nextFilter = weaponTypeLabelForRaw(nextRawType);
     setWeaponTypeFilter(nextFilter);
+
+    const currentWeapon = byName(equipment, gear['武器']);
+    if (
+      currentWeapon
+      && weaponTypeRaw(currentWeapon) === nextRawType
+      && shouldShowInBuilder(currentWeapon, showLowerTierEquipment)
+    ) return;
 
     const nextWeapon = equipment.find((item) => (
       item.type === '武器'
