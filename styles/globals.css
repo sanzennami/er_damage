@@ -1055,6 +1055,59 @@ input:focus {
   margin-top: 20px;
 }
 
+.comboGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+}
+
+.comboCard {
+  min-height: 96px;
+}
+
+.comboHitEditor {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  min-width: 360px;
+}
+
+.comboHitChip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 6px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.comboHitChip.active {
+  border-color: rgba(255, 196, 117, 0.68);
+  background: rgba(214, 137, 62, 0.16);
+}
+
+.comboHitChip span {
+  max-width: 92px;
+  overflow: hidden;
+  color: #f4eadc;
+  font-size: 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.comboHitChip button {
+  min-width: 24px;
+  padding: 4px 0;
+  border-radius: 6px;
+}
+
+.comboHitChip b {
+  min-width: 18px;
+  color: #ffd56b;
+  text-align: center;
+}
+
 .compact {
   max-width: 520px;
   margin-top: 16px;

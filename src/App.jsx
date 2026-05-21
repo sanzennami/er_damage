@@ -246,6 +246,11 @@ const GENERATED_SKILLS = ER_GAME_DATA.skills
     sourceIndex: index
   }));
 const INITIAL_SKILLS = dedupeSkillsByLatest([...DEFAULT_SKILLS, ...GENERATED_SKILLS]);
+const DEFAULT_COMBOS = [
+  { id: 'yumin-q3', hero: '俞岷', title: 'Q 三跳全中', note: '工作簿 Q*3', hits: { 'yumin-q': 3 } },
+  { id: 'yumin-eq4', hero: '俞岷', title: 'EQ 四跳全中', note: '工作簿 EQ*4', hits: { 'yumin-eq': 4 } },
+  { id: 'yumin-eqqw', hero: '俞岷', title: 'EQQW 全中', note: 'Q3 + EQ4 + E + W', hits: { 'yumin-q': 3, 'yumin-eq': 4, 'yumin-e': 1, 'yumin-w': 1 } }
+];
 
 const SLOTS = ['武器', '衣服', '头部', '手部', '鞋子'];
 function defaultItemName(slot, preferred) {
@@ -320,6 +325,23 @@ function mergeSkills(savedSkills) {
     ...savedSkills,
     ...INITIAL_SKILLS.filter((skill) => !existingIds.has(skill.id))
   ]);
+}
+
+function normalizeCombo(combo) {
+  const hits = Object.fromEntries(Object.entries(combo?.hits || {})
+    .map(([skillId, count]) => [skillId, Math.max(0, getNumber(count))])
+    .filter(([, count]) => count > 0));
+  return {
+    id: combo?.id || `combo-${Date.now()}`,
+    hero: combo?.hero || '俞岷',
+    title: combo?.title || combo?.name || '新连段',
+    note: combo?.note || '',
+    hits
+  };
+}
+
+function mergeCombos(savedCombos) {
+  return Array.isArray(savedCombos) ? savedCombos.map(normalizeCombo) : clone(DEFAULT_COMBOS);
 }
 
 function skillVersionTime(skill) {
@@ -447,10 +469,11 @@ function loadConfig() {
     return {
       equipment: mergeEquipment(saved?.equipment),
       skills: mergeSkills(saved?.skills),
-      talents: Array.isArray(saved?.talents) ? saved.talents : clone(DEFAULT_TALENTS)
+      talents: Array.isArray(saved?.talents) ? saved.talents : clone(DEFAULT_TALENTS),
+      combos: mergeCombos(saved?.combos)
     };
   } catch {
-    return { equipment: clone(INITIAL_EQUIPMENT), skills: clone(INITIAL_SKILLS), talents: clone(DEFAULT_TALENTS) };
+    return { equipment: clone(INITIAL_EQUIPMENT), skills: clone(INITIAL_SKILLS), talents: clone(DEFAULT_TALENTS), combos: clone(DEFAULT_COMBOS) };
   }
 }
 
@@ -681,7 +704,8 @@ function calc({
   blazingFull,
   masterTriggered,
   ideaTriggered,
-  selectedHero
+  selectedHero,
+  combos = []
 }) {
   const selected = SLOTS.map((slot) => byName(equipment, gear[slot])).filter(Boolean);
   const equipmentStats = aggregateEquipmentStats(selected);
@@ -719,7 +743,6 @@ function calc({
   const hpDiffRatio = Math.min(0.4, Math.max(0.1, (target.hp - selfHp) / selfHp));
   const burstBonus = Math.min(0.1, Math.max(0, (target.hp - selfHp) / selfHp) * 0.25);
   const curse = 50 + ap * 0.15;
-  const corrosionTick = target.hp * (0.9 + 0.002 * ap) / 100;
   const scarBase = 10 + 20 + target.hp * 0.03;
   const tearBase = 50 + target.hp * 0.7 * 0.08;
   const activeTraitEffectIds = new Set(traitBonuses.effectIds || []);
@@ -738,19 +761,22 @@ function calc({
   }
   const effectSubtotalRaw = effects.reduce((sum, effect) => sum + effect.raw, 0);
   const effectSubtotal = effects.reduce((sum, effect) => sum + effect.value, 0);
-  const yuminSkills = skillTable
-    .filter((skill) => skill.hero === '俞岷')
+  const comboSkills = skillTable
+    .filter((skill) => skill.hero === selectedHero)
     .map((skill) => calculateSkill(skill, skillLevels[skill.id], context));
-  const yuminDamage = Object.fromEntries(yuminSkills.map((skill) => [skill.id, skill.damage]));
-  const yuminQ3 = getNumber(yuminDamage['yumin-q']) * 3;
-  const yuminEq4 = getNumber(yuminDamage['yumin-eq']) * 4;
-  const yuminEqqw = yuminQ3 + yuminEq4 + getNumber(yuminDamage['yumin-e']) + getNumber(yuminDamage['yumin-w']);
-  const yuminCombos = [
-    { title: 'Q 三跳全中', value: yuminQ3, note: '工作簿 Q*3' },
-    { title: 'EQ 四跳全中', value: yuminEq4, note: '工作簿 EQ*4' },
-    { title: 'EQQW 全中', value: yuminEqqw, note: 'Q3 + EQ4 + E + W' },
-    { title: 'EQQW + 装备 DOT', value: yuminEqqw + ghostFire + corrosionTick * finalMod * 3, note: '鬼火 + 腐化3跳' }
-  ];
+  const comboDamage = Object.fromEntries(comboSkills.map((skill) => [skill.id, skill.damage]));
+  const comboRows = combos
+    .filter((combo) => combo.hero === selectedHero)
+    .map((combo) => {
+      const hitEntries = Object.entries(combo.hits || {}).filter(([, count]) => getNumber(count) > 0);
+      const value = hitEntries.reduce((sum, [skillId, count]) => sum + getNumber(comboDamage[skillId]) * getNumber(count), 0);
+      const hitNote = hitEntries.map(([skillId, count]) => {
+        const skill = comboSkills.find((item) => item.id === skillId);
+        return `${skill?.title || skillId} x${getNumber(count)}`;
+      }).join(' + ');
+      return { ...combo, value, note: combo.note || hitNote };
+    })
+    .filter((combo) => Object.values(combo.hits || {}).some((count) => getNumber(count) > 0));
   const extraHeroGroups = [];
 
   return {
@@ -792,8 +818,7 @@ function calc({
     effectSubtotal,
     ghostFire,
     repelF,
-    yuminSkills,
-    yuminCombos,
+    comboRows,
     extraHeroGroups
   };
 }
@@ -908,7 +933,7 @@ function groupSkillRows(skills) {
 }
 
 export default function App() {
-  const [{ equipment, skills, talents }, setConfig] = useState(loadConfig);
+  const [{ equipment, skills, talents, combos }, setConfig] = useState(loadConfig);
   const [gear, setGear] = useState(DEFAULT_GEAR);
   const [weaponTypeFilter, setWeaponTypeFilter] = useState('全部类型');
   const [selectedHero, setSelectedHero] = useState('俞岷');
@@ -938,8 +963,8 @@ export default function App() {
   const [helpNotesSaveStatus, setHelpNotesSaveStatus] = useState('idle');
 
   useEffect(() => {
-    window.localStorage.setItem(STORAGE_KEY, JSON.stringify({ equipment, skills, talents }));
-  }, [equipment, skills, talents]);
+    window.localStorage.setItem(STORAGE_KEY, JSON.stringify({ equipment, skills, talents, combos }));
+  }, [equipment, skills, talents, combos]);
 
   useEffect(() => {
     window.localStorage.setItem(APP_SETTINGS_KEY, JSON.stringify({ useHeroAvatarPicker }));
@@ -1033,9 +1058,10 @@ export default function App() {
       blazingFull,
       masterTriggered,
       ideaTriggered,
-      selectedHero
+      selectedHero,
+      combos
     }),
-    [equipment, skills, skillLevels, gear, mastery, selectedMasteryStat, attack, talentAp, traitBonuses, selectedTraits, target, selfHp, damageBonus, skillReduction, r2Stacks, burstFollowUp, vampireFull, blazingFull, masterTriggered, ideaTriggered, selectedHero]
+    [equipment, skills, skillLevels, gear, mastery, selectedMasteryStat, attack, talentAp, traitBonuses, selectedTraits, target, selfHp, damageBonus, skillReduction, r2Stacks, burstFollowUp, vampireFull, blazingFull, masterTriggered, ideaTriggered, selectedHero, combos]
   );
   const heroWeaponOptions = WEAPON_TYPE_OPTIONS.filter((type) => {
     if (type === '全部类型') return true;
@@ -1210,6 +1236,32 @@ export default function App() {
     }));
   }
 
+  function updateComboRow(index, key, value) {
+    setConfig((current) => ({
+      ...current,
+      combos: current.combos.map((combo, rowIndex) => (
+        rowIndex === index ? { ...combo, [key]: value } : combo
+      ))
+    }));
+  }
+
+  function updateComboHit(index, skillId, delta) {
+    setConfig((current) => ({
+      ...current,
+      combos: current.combos.map((combo, rowIndex) => {
+        if (rowIndex !== index) return combo;
+        const hits = { ...(combo.hits || {}) };
+        const next = Math.max(0, getNumber(hits[skillId]) + delta);
+        if (next) {
+          hits[skillId] = next;
+        } else {
+          delete hits[skillId];
+        }
+        return { ...combo, hits };
+      })
+    }));
+  }
+
   function addEquipment() {
     setConfig({
       equipment: [...equipment, {
@@ -1230,7 +1282,8 @@ export default function App() {
         effect: ''
       }],
       skills,
-      talents
+      talents,
+      combos
     });
   }
 
@@ -1246,7 +1299,8 @@ export default function App() {
         formula: 'base + ap * 0',
         maxLevel: 5
       }],
-      talents
+      talents,
+      combos
     });
     setSkillLevels((current) => ({ ...current, [id]: 5 }));
   }
@@ -1264,12 +1318,28 @@ export default function App() {
         penPct: 0,
         dmgAmp: 0,
         note: ''
+      }],
+      combos
+    });
+  }
+
+  function addCombo() {
+    setConfig({
+      equipment,
+      skills,
+      talents,
+      combos: [...combos, {
+        id: `combo-${Date.now()}`,
+        hero: selectedHero,
+        title: '新连段',
+        note: '',
+        hits: {}
       }]
     });
   }
 
   function resetConfig() {
-    setConfig({ equipment: clone(INITIAL_EQUIPMENT), skills: clone(INITIAL_SKILLS), talents: clone(DEFAULT_TALENTS) });
+    setConfig({ equipment: clone(INITIAL_EQUIPMENT), skills: clone(INITIAL_SKILLS), talents: clone(DEFAULT_TALENTS), combos: clone(DEFAULT_COMBOS) });
     setSkillLevels(Object.fromEntries(INITIAL_SKILLS.map((skill) => [skill.id, skill.maxLevel])));
     setTalentAp(0);
     setTraitSelection(normalizeTraitSelection(DEFAULT_TRAIT_SELECTION));
@@ -1327,6 +1397,27 @@ export default function App() {
             </button>
           ))}
         </div>
+      </div>
+    );
+  }
+
+  function renderComboSkillPicker(combo, comboIndex) {
+    const heroSkills = skills.filter((skill) => skill.hero === combo.hero);
+    if (!heroSkills.length) return <span className="sheetDash">请先配置该英雄技能</span>;
+
+    return (
+      <div className="comboHitEditor">
+        {heroSkills.map((skill) => {
+          const count = getNumber(combo.hits?.[skill.id]);
+          return (
+            <div className={`comboHitChip ${count ? 'active' : ''}`} key={`${combo.id}-${skill.id}`}>
+              <span>{skill.title}</span>
+              <button type="button" onClick={() => updateComboHit(comboIndex, skill.id, -1)}>-</button>
+              <b>{count}</b>
+              <button type="button" onClick={() => updateComboHit(comboIndex, skill.id, 1)}>+</button>
+            </div>
+          );
+        })}
       </div>
     );
   }
@@ -1761,19 +1852,18 @@ export default function App() {
         </div>
       </section>
 
-      {selectedHero === '俞岷' ? (
+      {result.comboRows.length ? (
       <section className="panel formulaPanel">
         <div className="panelHead">
           <div>
-            <p className="eyebrow">Yumin</p>
-            <h2>俞岷连段</h2>
+            <p className="eyebrow">Combos</p>
+            <h2>{selectedHero} 连段</h2>
           </div>
           <span className="pill">共用修正 {round(result.finalMod, 3)}</span>
         </div>
-        <div className="grid twoColumns">
-          <div className="damageList">
-            {result.yuminCombos.map((combo) => (
-              <div className={`damageRow ${combo.title === 'EQQW 全中' ? 'highlight' : ''}`} key={combo.title}>
+        <div className="comboGrid">
+            {result.comboRows.map((combo) => (
+              <div className="damageRow comboCard" key={combo.id}>
                 <div>
                   <strong>{combo.title}</strong>
                   <span>{combo.note}</span>
@@ -1781,7 +1871,6 @@ export default function App() {
                 <DamageValue raw={combo.value / result.finalMod} final={combo.value} />
               </div>
             ))}
-          </div>
         </div>
       </section>
       ) : null}
@@ -1849,6 +1938,7 @@ export default function App() {
             <button type="button" onClick={addEquipment}>新增装备</button>
             <button type="button" onClick={addSkill}>新增技能</button>
             <button type="button" onClick={addTalent}>新增潜能</button>
+            <button type="button" onClick={addCombo}>新增连段</button>
             <button type="button" className="quietButton" onClick={resetConfig}>恢复默认</button>
           </div>
         </div>
@@ -1935,6 +2025,29 @@ export default function App() {
                   <td><TextCell value={skill.bases} onChange={(value) => updateSkillRow(index, 'bases', value)} /></td>
                   <td><TextCell type="number" value={skill.maxLevel} onChange={(value) => updateSkillRow(index, 'maxLevel', value)} /></td>
                   <td><TextCell value={skill.formula} onChange={(value) => updateSkillRow(index, 'formula', value)} /></td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <div className="sheetWrap">
+          <table>
+            <caption>连段</caption>
+            <thead>
+              <tr>
+                <HeaderCell note={help('combo.hero')}>英雄</HeaderCell>
+                <HeaderCell note={help('combo.title')}>连段名</HeaderCell>
+                <HeaderCell note={help('combo.hits')}>技能命中数</HeaderCell>
+                <HeaderCell note={help('combo.note')}>说明</HeaderCell>
+              </tr>
+            </thead>
+            <tbody>
+              {combos.map((combo, index) => (
+                <tr key={combo.id}>
+                  <td><TextCell value={combo.hero} onChange={(value) => updateComboRow(index, 'hero', value)} /></td>
+                  <td><TextCell value={combo.title} onChange={(value) => updateComboRow(index, 'title', value)} /></td>
+                  <td>{renderComboSkillPicker(combo, index)}</td>
+                  <td><TextCell value={combo.note} onChange={(value) => updateComboRow(index, 'note', value)} /></td>
                 </tr>
               ))}
             </tbody>
