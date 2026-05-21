@@ -5,7 +5,7 @@ import ITEM_UNIQUE_EFFECTS from './data/itemUniqueEffects.json';
 import DAK_LOADOUT_ASSETS from './data/dakLoadoutAssets.json';
 import MASTERY_STATS from './data/masteryStats.json';
 
-const APP_VERSION = 'v0.1.007';
+const APP_VERSION = 'v0.1.008';
 
 const CHARACTER_IMAGE_URLS = import.meta.glob('../assets/characters/*.png', {
   eager: true,
@@ -721,7 +721,7 @@ function calc({
   const pen = statValue(equipmentStats, 'penetrationDefense') + statValue(equipmentStats, 'uniquePenetrationDefense') + talentPen || selected.reduce((sum, item) => sum + getNumber(item.pen), 0) + talentPen;
   const penPct = statValue(equipmentStats, 'penetrationDefenseRatio') + statValue(equipmentStats, 'uniquePenetrationDefenseRatio') + talentPenPct || selected.reduce((sum, item) => sum + getNumber(item.penPct), 0) + talentPenPct;
   const equipDefense = (statValue(equipmentStats, 'defense') || selected.reduce((sum, item) => sum + getNumber(item.defense), 0)) + getNumber(traitBonuses.defense);
-  const normalApPct = statValue(equipmentStats, 'skillAmpRatio') + selected.reduce((sum, item) => sum + (item.uniqueApPct ? 0 : getNumber(item.apPct)), 0);
+  const normalApPct = 0;
   const uniqueApPct = Math.max(statValue(equipmentStats, 'uniqueSkillAmpRatio'), ...selected.filter((item) => item.uniqueApPct).map((item) => getNumber(item.apPct)));
   const equipDamageBonus = selected.reduce((sum, item) => sum + getNumber(item.dmgAmp), 0);
   const masteryApPct = mastery * masteryOptionValue(masteryStat, 'SkillAmpRatio');
@@ -2053,7 +2053,7 @@ export default function App() {
           <StatCard label="熟练度法强%" value={pct(result.masteryApPct)} hint={selectedMasterySummary.join(' / ') || '当前武器无技能增幅熟练度'} note={help('stat.masteryApPct')} />
           <StatCard label="独有法强%" value={pct(result.uniqueApPct)} hint="重复独有取最高" note={help('stat.uniqueApPct')} />
           <StatCard label="合计法强" value={round(result.totalBaseAp, 1)} hint={`装备 ${result.equipAp} + 潜能 ${round(talentAp + result.talentBonusAp, 1)} + 叠层 ${result.stackAp}`} note={help('stat.equipAp')} />
-          <StatCard label="合计法强增幅%" value={pct(result.totalApPct)} hint={`普通 ${pct(result.normalApPct)} + 独有 ${pct(result.uniqueApPct)} + 熟练 ${pct(result.masteryApPct)}`} note={help('stat.masteryApPct')} />
+          <StatCard label="合计法强增幅%" value={pct(result.totalApPct)} hint={[result.uniqueApPct ? `独有 ${pct(result.uniqueApPct)}` : '', result.masteryApPct ? `熟练 ${pct(result.masteryApPct)}` : ''].filter(Boolean).join(' + ') || '无额外法强增幅'} note={help('stat.masteryApPct')} />
           <StatCard label="最终法强" value={result.ap} hint={`${round(result.totalBaseAp, 1)} * (1 + ${pct(result.totalApPct)})`} note={help('stat.equipAp')} />
         </div>
         <p className="note">最终伤害 = 技能基础值 * 100 / (100 + 目标防御 * (1 - 防御降低) * (1 - 防穿%) - 防穿数值) * (1 + 技伤加成 - 目标减伤 - 技能减免)。</p>
