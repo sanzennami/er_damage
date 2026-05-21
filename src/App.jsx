@@ -7,7 +7,7 @@ import DAK_LOADOUT_ASSETS from './data/dakLoadoutAssets.json';
 import DAK_ITEM_SKILL_ICONS from './data/dakItemSkillIcons.json';
 import MASTERY_STATS from './data/masteryStats.json';
 
-const APP_VERSION = 'v0.1.034';
+const APP_VERSION = 'v0.1.035';
 
 const CHARACTER_IMAGE_URLS = import.meta.glob('../assets/characters/*.png', {
   eager: true,
@@ -1192,6 +1192,7 @@ export default function App() {
   const [useHeroAvatarPicker, setUseHeroAvatarPicker] = useState(() => Boolean(loadAppSettings().useHeroAvatarPicker));
   const [editMode, setEditMode] = useState(() => Boolean(loadAppSettings().editMode));
   const [showUnsupportedHeroes, setShowUnsupportedHeroes] = useState(() => Boolean(loadAppSettings().showUnsupportedHeroes));
+  const [uiTheme, setUiTheme] = useState(() => loadAppSettings().uiTheme || 'night');
   const [heroAvatarQuery, setHeroAvatarQuery] = useState('');
   const [showLowerTierEquipment, setShowLowerTierEquipment] = useState(false);
   const [visibleStatKeys, setVisibleStatKeys] = useState(DEFAULT_VISIBLE_STAT_KEYS);
@@ -1205,8 +1206,12 @@ export default function App() {
   }, [equipment, skills, talents, combos]);
 
   useEffect(() => {
-    window.localStorage.setItem(APP_SETTINGS_KEY, JSON.stringify({ useHeroAvatarPicker, editMode, showUnsupportedHeroes }));
-  }, [useHeroAvatarPicker, editMode, showUnsupportedHeroes]);
+    window.localStorage.setItem(APP_SETTINGS_KEY, JSON.stringify({ useHeroAvatarPicker, editMode, showUnsupportedHeroes, uiTheme }));
+  }, [useHeroAvatarPicker, editMode, showUnsupportedHeroes, uiTheme]);
+
+  useEffect(() => {
+    document.body.dataset.theme = uiTheme;
+  }, [uiTheme]);
 
   useEffect(() => {
     if (HELP_NOTES_EDITABLE) {
@@ -1971,6 +1976,14 @@ export default function App() {
                         onChange={(event) => setShowUnsupportedHeroes(event.target.checked)}
                       />
                       <span>显示暂不支持技能伤害计算的英雄</span>
+                    </label>
+                    <label className="toggle">
+                      <input
+                        type="checkbox"
+                        checked={uiTheme === 'day'}
+                        onChange={(event) => setUiTheme(event.target.checked ? 'day' : 'night')}
+                      />
+                      <span>日间配色</span>
                     </label>
                     <label className="toggle">
                       <input
