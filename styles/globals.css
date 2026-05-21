@@ -184,6 +184,13 @@ main {
   min-width: 0;
 }
 
+.heroTitleLine {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px 16px;
+}
+
 .hero h1 {
   margin: 8px 0 14px;
   max-width: 760px;
