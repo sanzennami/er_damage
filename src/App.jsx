@@ -5,7 +5,7 @@ import ITEM_UNIQUE_EFFECTS from './data/itemUniqueEffects.json';
 import DAK_LOADOUT_ASSETS from './data/dakLoadoutAssets.json';
 import MASTERY_STATS from './data/masteryStats.json';
 
-const APP_VERSION = 'v0.1.009';
+const APP_VERSION = 'v0.1.010';
 
 const CHARACTER_IMAGE_URLS = import.meta.glob('../assets/characters/*.png', {
   eager: true,
@@ -197,6 +197,21 @@ const DEFAULT_EQUIPMENT = [
 const INITIAL_EQUIPMENT = ER_GAME_DATA.equipment?.length ? ER_GAME_DATA.equipment : DEFAULT_EQUIPMENT;
 const ITEM_STAT_DEFINITIONS = ER_GAME_DATA.itemStatDefinitions || [];
 const ITEM_STAT_BY_KEY = Object.fromEntries(ITEM_STAT_DEFINITIONS.map((stat) => [stat.key, stat]));
+const LEVEL_SCALING_STAT_TARGETS = {
+  attackPowerByLv: 'attackPower',
+  defenseByLv: 'defense',
+  skillAmpByLevel: 'skillAmp',
+  skillAmpRatioByLevel: 'skillAmpRatio',
+  adaptiveForceByLevel: 'adaptiveForce',
+  maxHpByLv: 'maxHp',
+  attackSpeedRatioByLv: 'attackSpeedRatio',
+  increaseBasicAttackDamageByLv: 'increaseBasicAttackDamage',
+  increaseBasicAttackDamageRatioByLv: 'increaseBasicAttackDamageRatio',
+  preventBasicAttackDamagedRatioByLv: 'preventBasicAttackDamagedRatio',
+  preventBasicAttackDamagedByLv: 'preventBasicAttackDamaged',
+  preventSkillDamagedRatioByLv: 'preventSkillDamagedRatio',
+  preventSkillDamagedByLv: 'preventSkillDamaged'
+};
 const DEFAULT_VISIBLE_STAT_KEYS = [
   'skillAmp',
   'adaptiveForce',
@@ -439,7 +454,8 @@ function uniqueEffectsForItem(item) {
   return [...new Set([...mappedEffects, ...fallbackEffects].map(normalizeUniqueEffect).filter(Boolean))];
 }
 
-function aggregateEquipmentStats(selected) {
+function aggregateEquipmentStats(selected, masteryLevel = 0) {
+  const level = Math.max(0, getNumber(masteryLevel));
   return selected.reduce((totals, item) => {
     const sourceStats = {
       ...(item.stats || {}),
@@ -453,6 +469,11 @@ function aggregateEquipmentStats(selected) {
       penetrationDefenseRatio: statValue(item.stats, 'penetrationDefenseRatio') || getNumber(item.penPct),
       skillAmpRatio: statValue(item.stats, 'skillAmpRatio') || getNumber(item.apPct)
     };
+    Object.entries(LEVEL_SCALING_STAT_TARGETS).forEach(([levelKey, targetKey]) => {
+      const scaledValue = statValue(item.stats, levelKey) * level;
+      if (!scaledValue) return;
+      sourceStats[targetKey] = getNumber(sourceStats[targetKey]) + scaledValue;
+    });
     Object.entries(sourceStats).forEach(([key, value]) => {
       const next = getNumber(value);
       if (!next) return;
@@ -709,7 +730,7 @@ function calc({
   combos = []
 }) {
   const selected = SLOTS.map((slot) => byName(equipment, gear[slot])).filter(Boolean);
-  const equipmentStats = aggregateEquipmentStats(selected);
+  const equipmentStats = aggregateEquipmentStats(selected, mastery);
   const talentBonusAp = getNumber(traitBonuses.ap);
   const talentPen = getNumber(traitBonuses.pen);
   const talentPenPct = getNumber(traitBonuses.penPct);
