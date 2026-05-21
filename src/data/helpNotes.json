@@ -14,7 +14,6 @@
   "equipment.sightRange": "装备提供的视野。",
   "equipment.type": "装备部位，决定该装备出现在哪个部位下拉列表。",
   "equipment.weaponType": "武器分类，仅武器部位使用。",
-  "field.attack": "角色攻击力。技能公式中可以通过 attack 变量引用。",
   "field.damageBonus": "手动技伤加成，使用小数填写。例如 0.15 表示 +15% 技能伤害。",
   "field.mastery": "角色武器熟练度等级。切换英雄或武器类型后，会使用该英雄当前武器的每级熟练度成长。",
   "field.selfHp": "自身当前血量，用于血量差相关追伤计算。",

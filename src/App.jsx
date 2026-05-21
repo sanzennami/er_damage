@@ -5,7 +5,7 @@ import ITEM_UNIQUE_EFFECTS from './data/itemUniqueEffects.json';
 import DAK_LOADOUT_ASSETS from './data/dakLoadoutAssets.json';
 import MASTERY_STATS from './data/masteryStats.json';
 
-const APP_VERSION = 'v0.1.001';
+const APP_VERSION = 'v0.1.002';
 
 const CHARACTER_IMAGE_URLS = import.meta.glob('../assets/characters/*.png', {
   eager: true,
@@ -704,8 +704,6 @@ function calc({
   burstFollowUp,
   vampireFull,
   blazingFull,
-  masterTriggered,
-  ideaTriggered,
   selectedHero,
   combos = []
 }) {
@@ -729,12 +727,10 @@ function calc({
   const masteryAttackPower = mastery * masteryOptionValue(masteryStat, 'AttackPower');
   const totalApPct = normalApPct + uniqueApPct + masteryApPct;
   const apRaw = (equipAp + talentAp + talentBonusAp + stackAp) * (1 + totalApPct);
-  const masterAp = masterTriggered ? mastery + 14 : 0;
-  const ap = Math.floor(apRaw) + masterAp;
+  const ap = Math.floor(apRaw);
   const finalDefense = target.defense * (1 - target.defenseReduction) * (1 - penPct) - pen;
   const defenseMod = 100 / (100 + finalDefense);
-  const ideaDamageBonus = ideaTriggered ? 0.15 : 0;
-  const totalDamageBonus = damageBonus + equipDamageBonus + ideaDamageBonus + talentDamageBonus;
+  const totalDamageBonus = damageBonus + equipDamageBonus + talentDamageBonus;
   const damageMod = 1 + totalDamageBonus - target.reduction - skillReduction;
   const finalMod = defenseMod * damageMod;
   const stackCount = Math.min(4, Math.max(0, r2Stacks));
@@ -801,14 +797,12 @@ function calc({
     masteryApPct,
     masteryStat,
     totalApPct,
-    masterAp,
     ap,
     apRaw,
     finalDefense,
     defenseMod,
     equipDamageBonus,
     talentDamageBonus,
-    ideaDamageBonus,
     totalDamageBonus,
     damageMod,
     finalMod,
@@ -949,13 +943,17 @@ function groupSkillRows(skills) {
   }, {}));
 }
 
+function characterAttackAtLevel(character, level = 20) {
+  if (!character) return 0;
+  return Math.floor(getNumber(character.base?.attackPower) + getNumber(character.growth?.attackPower) * Math.max(0, level - 1));
+}
+
 export default function App() {
   const [{ equipment, skills, talents, combos }, setConfig] = useState(loadConfig);
   const [gear, setGear] = useState(DEFAULT_GEAR);
   const [weaponTypeFilter, setWeaponTypeFilter] = useState('全部类型');
   const [selectedHero, setSelectedHero] = useState('俞岷');
   const [mastery, setMastery] = useState(20);
-  const [attack, setAttack] = useState(155);
   const [talentAp, setTalentAp] = useState(0);
   const [traitSelection, setTraitSelection] = useState(() => normalizeTraitSelection(DEFAULT_TRAIT_SELECTION));
   const [targetIndex, setTargetIndex] = useState(0);
@@ -967,8 +965,6 @@ export default function App() {
   const [burstFollowUp, setBurstFollowUp] = useState(true);
   const [vampireFull, setVampireFull] = useState(false);
   const [blazingFull, setBlazingFull] = useState(false);
-  const [masterTriggered, setMasterTriggered] = useState(false);
-  const [ideaTriggered, setIdeaTriggered] = useState(false);
   const [showBuildSettings, setShowBuildSettings] = useState(false);
   const [showGlobalSettings, setShowGlobalSettings] = useState(false);
   const [effectsCollapsed, setEffectsCollapsed] = useState(false);
@@ -1054,6 +1050,7 @@ export default function App() {
     : weaponTypeRaw(byName(equipment, gear['武器']));
   const selectedMasteryStat = masteryStatFor(selectedCharacter?.code, selectedWeaponRaw);
   const selectedMasterySummary = masterySummary(selectedMasteryStat);
+  const attack = characterAttackAtLevel(selectedCharacter);
 
   const result = useMemo(
     () => calc({
@@ -1075,12 +1072,10 @@ export default function App() {
       burstFollowUp,
       vampireFull,
       blazingFull,
-      masterTriggered,
-      ideaTriggered,
       selectedHero,
       combos
     }),
-    [equipment, skills, skillLevels, gear, mastery, selectedMasteryStat, attack, talentAp, traitBonuses, selectedTraits, target, selfHp, damageBonus, skillReduction, r2Stacks, burstFollowUp, vampireFull, blazingFull, masterTriggered, ideaTriggered, selectedHero, combos]
+    [equipment, skills, skillLevels, gear, mastery, selectedMasteryStat, attack, talentAp, traitBonuses, selectedTraits, target, selfHp, damageBonus, skillReduction, r2Stacks, burstFollowUp, vampireFull, blazingFull, selectedHero, combos]
   );
   const heroWeaponOptions = WEAPON_TYPE_OPTIONS.filter((type) => {
     if (type === '全部类型') return true;
@@ -1825,7 +1820,7 @@ export default function App() {
       <section className="stats">
         <StatCard label="最终防御" value={round(result.finalDefense, 1)} hint={`防御修正 ${pct(result.defenseMod)}`} note={help('stat.finalDefense')} />
         <StatCard label="防穿" value={`${result.pen} / ${pct(result.penPct)}`} hint="数值 / 百分比" note={help('stat.pen')} />
-        <StatCard label="技伤加成" value={pct(result.totalDamageBonus)} hint={`装备 ${pct(result.equipDamageBonus)} / 开关 ${pct(result.ideaDamageBonus)}`} note={help('stat.damageBonus')} />
+        <StatCard label="技伤加成" value={pct(result.totalDamageBonus)} hint={`装备 ${pct(result.equipDamageBonus)} / 潜能 ${pct(result.talentDamageBonus)}`} note={help('stat.damageBonus')} />
         <StatCard label="增减伤合算" value={pct(result.damageMod - 1)} hint={`最终倍率 ${round(result.damageMod, 3)}`} note={help('stat.damageMod')} />
         <StatCard label="血量差比" value={pct(result.hpDiffRatio)} hint={`爆发力追伤 ${pct(result.burstBonus)}`} note={help('stat.hpDiffRatio')} />
       </section>
@@ -2038,19 +2033,6 @@ export default function App() {
           <StatCard label="潜能法强" value={talentAp + result.talentBonusAp} hint="手动输入 + 潜能选择" note={help('stat.potentialAp')} />
           <StatCard label="熟练度法强%" value={pct(result.masteryApPct)} hint={selectedMasterySummary.join(' / ') || '当前武器无技能增幅熟练度'} note={help('stat.masteryApPct')} />
           <StatCard label="独有法强%" value={pct(result.uniqueApPct)} hint="重复独有取最高" note={help('stat.uniqueApPct')} />
-        </div>
-        <div className="formGrid compact">
-          <Field label="攻击力" value={attack} onChange={setAttack} note={help('field.attack')} />
-        </div>
-        <div className="toggles">
-          <label className="toggle">
-            <input type="checkbox" checked={masterTriggered} onChange={(event) => setMasterTriggered(event.target.checked)} />
-            <span>大师触发，法强 + 熟练度 + 14</span>
-          </label>
-          <label className="toggle">
-            <input type="checkbox" checked={ideaTriggered} onChange={(event) => setIdeaTriggered(event.target.checked)} />
-            <span>意念触发，技伤 +15%</span>
-          </label>
         </div>
         <p className="note">最终伤害 = 技能基础值 * 100 / (100 + 目标防御 * (1 - 防御降低) * (1 - 防穿%) - 防穿数值) * (1 + 技伤加成 - 目标减伤 - 技能减免)。</p>
       </section>
