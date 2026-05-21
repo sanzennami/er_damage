@@ -1001,7 +1001,6 @@ export default function App() {
             </div>
             <div className="buttonRow">
               <button type="button" className="quietButton" onClick={() => setShowStatSettings((current) => !current)}>显示设置</button>
-              <span className="pill">CD {result.cd}</span>
             </div>
           </div>
           <div className="buildControlLayout">
