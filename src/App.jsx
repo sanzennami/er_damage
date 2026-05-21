@@ -5,7 +5,7 @@ import ITEM_UNIQUE_EFFECTS from './data/itemUniqueEffects.json';
 import DAK_LOADOUT_ASSETS from './data/dakLoadoutAssets.json';
 import MASTERY_STATS from './data/masteryStats.json';
 
-const APP_VERSION = 'v0.1.011';
+const APP_VERSION = 'v0.1.012';
 
 const CHARACTER_IMAGE_URLS = import.meta.glob('../assets/characters/*.png', {
   eager: true,
@@ -1600,6 +1600,32 @@ export default function App() {
     );
   }
 
+  function renderHeroAvatarPicker(className = '') {
+    if (!useHeroAvatarPicker) return null;
+    return (
+      <div className={`heroAvatarPicker ${className}`.trim()} aria-label="实验体头像选择">
+        {heroPickerOptions.map(({ name, character }) => (
+          <button
+            type="button"
+            className={`heroAvatarOption ${name === selectedHero ? 'active' : ''}`}
+            onClick={() => setSelectedHero(name)}
+            key={name}
+          >
+            {character ? (
+              <img src={characterImageSrc(character)} alt="" onError={(event) => { event.currentTarget.style.display = 'none'; }} />
+            ) : (
+              <span className="heroAvatarFallback">{name.slice(0, 1)}</span>
+            )}
+            <span>
+              <strong>{name}</strong>
+              <small>{character?.englishName || '手动配置'}{character?.weapons?.length ? ` / ${weaponTypeOfficialList(character.weapons)}` : ''}</small>
+            </span>
+          </button>
+        ))}
+      </div>
+    );
+  }
+
   return (
     <main>
       <section className="hero">
@@ -1658,34 +1684,14 @@ export default function App() {
                 </label>
               </div>
             ) : null}
-            {useHeroAvatarPicker ? (
-              <div className="heroAvatarPicker" aria-label="实验体头像选择">
-                {heroPickerOptions.map(({ name, character }) => (
-                  <button
-                    type="button"
-                    className={`heroAvatarOption ${name === selectedHero ? 'active' : ''}`}
-                    onClick={() => setSelectedHero(name)}
-                    key={name}
-                  >
-                    {character ? (
-                      <img src={characterImageSrc(character)} alt="" onError={(event) => { event.currentTarget.style.display = 'none'; }} />
-                    ) : (
-                      <span className="heroAvatarFallback">{name.slice(0, 1)}</span>
-                    )}
-                    <span>
-                      <strong>{name}</strong>
-                      <small>{character?.englishName || '手动配置'}{character?.weapons?.length ? ` / ${weaponTypeOfficialList(character.weapons)}` : ''}</small>
-                    </span>
-                  </button>
-                ))}
-              </div>
-            ) : null}
+            {useHeroAvatarPicker ? <div className="heroAvatarPickerPlaceholder" aria-hidden="true" /> : null}
           </div>
         </div>
       </section>
 
       <section className="grid twoColumns buildTargetGrid">
         <div className="buildArea">
+          {renderHeroAvatarPicker('floatingHeroAvatarPicker')}
           <details className="equipmentEffectRail desktopEquipmentEffectRail" open>
             <summary className="equipmentEffectSummary">
               <strong>独有效果</strong>

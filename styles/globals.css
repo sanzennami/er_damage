@@ -100,6 +100,20 @@ button {
   padding-right: 4px;
 }
 
+.heroAvatarPickerPlaceholder {
+  min-height: 308px;
+}
+
+.floatingHeroAvatarPicker {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  grid-template-columns: 1fr;
+  width: 176px;
+  max-height: min(460px, calc(100vh - 32px));
+}
+
 .heroAvatarOption {
   display: grid;
   grid-template-columns: 42px minmax(0, 1fr);
@@ -167,6 +181,7 @@ button {
 }
 
 main {
+  position: relative;
   width: min(1180px, calc(100% - 32px));
   margin: 0 auto;
   padding: 36px 0 56px;
@@ -292,6 +307,7 @@ main {
 }
 
 .buildArea {
+  position: relative;
   display: grid;
   grid-template-columns: minmax(132px, 176px) minmax(0, 1fr);
   gap: 14px;
@@ -639,6 +655,7 @@ input:focus {
 
 .equipmentEffectRail {
   position: sticky;
+  z-index: 3;
   top: 16px;
   max-height: calc(100vh - 32px);
   overflow: hidden;
@@ -1532,6 +1549,17 @@ td:last-child input {
   .mobileEquipmentEffectRail .equipmentEffectEmpty {
     flex: 0 0 min(220px, 78vw);
     scroll-snap-align: start;
+  }
+
+  .heroAvatarPickerPlaceholder {
+    display: none;
+  }
+
+  .floatingHeroAvatarPicker {
+    position: static;
+    width: 100%;
+    max-height: 360px;
+    margin-bottom: 12px;
   }
 
   .attributePanel {
