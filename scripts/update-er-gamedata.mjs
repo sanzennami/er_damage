@@ -9,6 +9,7 @@ const rootDir = path.resolve(__dirname, '..');
 const cacheDir = path.join(rootDir, '.er-gamedata-cache');
 const outDir = path.join(rootDir, 'src', 'data');
 const outFile = path.join(outDir, 'erGameData.json');
+const masteryOutFile = path.join(outDir, 'masteryStats.json');
 const repoUrl = 'https://github.com/pypy-vrc/er-gamedata.git';
 
 const SKILL_SLOT_LABELS = new Map([
@@ -383,10 +384,11 @@ async function ensureRepo() {
 async function main() {
   if (!await ensureRepo()) return;
 
-  const [characters, levelStats, masteries, attributes, skillGroups, skillExtensions, itemWeapons, itemArmors, zh, en] = await Promise.all([
+  const [characters, levelStats, masteries, masteryStats, attributes, skillGroups, skillExtensions, itemWeapons, itemArmors, zh, en] = await Promise.all([
     readJson('data/Character.json'),
     readJson('data/CharacterLevelUpStat.json'),
     readJson('data/CharacterMastery.json'),
+    readJson('data/MasteryStat.json'),
     readJson('data/CharacterAttributes.json'),
     readJson('data/SkillGroup.json'),
     readJson('data/SkillExtension.json'),
@@ -497,8 +499,18 @@ async function main() {
 
   await mkdir(outDir, { recursive: true });
   await writeFile(outFile, `${JSON.stringify(payload, null, 2)}\n`, 'utf8');
+  await writeFile(masteryOutFile, `${JSON.stringify(masteryStats.map((row) => ({
+    characterCode: row.characterCode,
+    type: row.type,
+    options: [
+      { stat: row.firstOption, value: row.firstOptionSection1Value },
+      { stat: row.secondOption, value: row.secondOptionSection1Value },
+      { stat: row.thirdOption, value: row.thirdOptionSection1Value }
+    ].filter((item) => item.stat && item.stat !== 'None' && item.value)
+  })), null, 2)}\n`, 'utf8');
 
   console.log(`Wrote ${path.relative(rootDir, outFile)}`);
+  console.log(`Wrote ${path.relative(rootDir, masteryOutFile)}`);
   console.log(`Characters: ${payload.counts.characters}, equipment: ${payload.counts.equipment}, skill groups: ${payload.counts.rawSkillGroups}, calculable skills: ${payload.counts.calculableSkills}`);
 }
 

@@ -1,0 +1,1690 @@
+[
+  {
+    "characterCode": 7,
+    "type": "Glove",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.039
+      },
+      {
+        "stat": "IncreaseBasicAttackDamageRatio",
+        "value": 0.022
+      }
+    ]
+  },
+  {
+    "characterCode": 10,
+    "type": "Glove",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.038
+      },
+      {
+        "stat": "IncreaseBasicAttackDamageRatio",
+        "value": 0.019
+      }
+    ]
+  },
+  {
+    "characterCode": 29,
+    "type": "Glove",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.041
+      },
+      {
+        "stat": "SkillAmpRatio",
+        "value": 0.043
+      }
+    ]
+  },
+  {
+    "characterCode": 33,
+    "type": "Glove",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.039
+      },
+      {
+        "stat": "SkillAmpRatio",
+        "value": 0.046
+      }
+    ]
+  },
+  {
+    "characterCode": 35,
+    "type": "Glove",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.043
+      },
+      {
+        "stat": "IncreaseBasicAttackDamageRatio",
+        "value": 0.022
+      }
+    ]
+  },
+  {
+    "characterCode": 68,
+    "type": "Glove",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.023
+      },
+      {
+        "stat": "SkillAmpRatio",
+        "value": 0.04
+      }
+    ]
+  },
+  {
+    "characterCode": 86,
+    "type": "Glove",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.036
+      },
+      {
+        "stat": "IncreaseBasicAttackDamageRatio",
+        "value": 0.017
+      }
+    ]
+  },
+  {
+    "characterCode": 7,
+    "type": "Tonfa",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.026
+      },
+      {
+        "stat": "SkillAmpRatio",
+        "value": 0.045
+      }
+    ]
+  },
+  {
+    "characterCode": 27,
+    "type": "Tonfa",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.026
+      },
+      {
+        "stat": "IncreaseBasicAttackDamageRatio",
+        "value": 0.009
+      }
+    ]
+  },
+  {
+    "characterCode": 35,
+    "type": "Tonfa",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.036
+      },
+      {
+        "stat": "SkillAmpRatio",
+        "value": 0.046
+      }
+    ]
+  },
+  {
+    "characterCode": 59,
+    "type": "Tonfa",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.03
+      },
+      {
+        "stat": "IncreaseBasicAttackDamageRatio",
+        "value": 0.015
+      }
+    ]
+  },
+  {
+    "characterCode": 29,
+    "type": "Tonfa",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.035
+      },
+      {
+        "stat": "SkillAmpRatio",
+        "value": 0.048
+      }
+    ]
+  },
+  {
+    "characterCode": 4,
+    "type": "Hammer",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.008
+      },
+      {
+        "stat": "SkillAmpRatio",
+        "value": 0.045
+      }
+    ]
+  },
+  {
+    "characterCode": 28,
+    "type": "Hammer",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.03
+      },
+      {
+        "stat": "SkillAmpRatio",
+        "value": 0.044
+      }
+    ]
+  },
+  {
+    "characterCode": 30,
+    "type": "Hammer",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.04
+      },
+      {
+        "stat": "IncreaseBasicAttackDamageRatio",
+        "value": 0.032
+      }
+    ]
+  },
+  {
+    "characterCode": 53,
+    "type": "Hammer",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.04
+      },
+      {
+        "stat": "IncreaseBasicAttackDamageRatio",
+        "value": 0.029
+      }
+    ]
+  },
+  {
+    "characterCode": 85,
+    "type": "Hammer",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.035
+      },
+      {
+        "stat": "SkillAmpRatio",
+        "value": 0.045
+      }
+    ]
+  },
+  {
+    "characterCode": 1,
+    "type": "Axe",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.03
+      },
+      {
+        "stat": "IncreaseBasicAttackDamageRatio",
+        "value": 0.019
+      }
+    ]
+  },
+  {
+    "characterCode": 53,
+    "type": "Axe",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.03
+      },
+      {
+        "stat": "IncreaseBasicAttackDamageRatio",
+        "value": 0.019
+      }
+    ]
+  },
+  {
+    "characterCode": 55,
+    "type": "Axe",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.037
+      },
+      {
+        "stat": "SkillAmpRatio",
+        "value": 0.044
+      }
+    ]
+  },
+  {
+    "characterCode": 67,
+    "type": "Axe",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.039
+      },
+      {
+        "stat": "SkillAmpRatio",
+        "value": 0.044
+      }
+    ]
+  },
+  {
+    "characterCode": 71,
+    "type": "Axe",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.03
+      },
+      {
+        "stat": "IncreaseBasicAttackDamageRatio",
+        "value": 0.01
+      }
+    ]
+  },
+  {
+    "characterCode": 4,
+    "type": "Bat",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.045
+      },
+      {
+        "stat": "IncreaseBasicAttackDamageRatio",
+        "value": 0.042
+      }
+    ]
+  },
+  {
+    "characterCode": 22,
+    "type": "Bat",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.034
+      },
+      {
+        "stat": "IncreaseBasicAttackDamageRatio",
+        "value": 0.02
+      }
+    ]
+  },
+  {
+    "characterCode": 26,
+    "type": "Pistol",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.03
+      },
+      {
+        "stat": "SkillAmpRatio",
+        "value": 0.044
+      }
+    ]
+  },
+  {
+    "characterCode": 48,
+    "type": "Bat",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.03
+      },
+      {
+        "stat": "SkillAmpRatio",
+        "value": 0.043
+      }
+    ]
+  },
+  {
+    "characterCode": 24,
+    "type": "Bat",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.04
+      },
+      {
+        "stat": "SkillAmpRatio",
+        "value": 0.046
+      }
+    ]
+  },
+  {
+    "characterCode": 28,
+    "type": "Bat",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.03
+      },
+      {
+        "stat": "SkillAmpRatio",
+        "value": 0.042
+      }
+    ]
+  },
+  {
+    "characterCode": 74,
+    "type": "Bat",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.038
+      },
+      {
+        "stat": "IncreaseBasicAttackDamageRatio",
+        "value": 0.018
+      }
+    ]
+  },
+  {
+    "characterCode": 76,
+    "type": "Bat",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.03
+      },
+      {
+        "stat": "SkillAmpRatio",
+        "value": 0.044
+      }
+    ]
+  },
+  {
+    "characterCode": 88,
+    "type": "Bat",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.035
+      },
+      {
+        "stat": "IncreaseBasicAttackDamageRatio",
+        "value": 0.015
+      }
+    ]
+  },
+  {
+    "characterCode": 20,
+    "type": "Whip",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.028
+      },
+      {
+        "stat": "SkillAmpRatio",
+        "value": 0.044
+      }
+    ]
+  },
+  {
+    "characterCode": 45,
+    "type": "Whip",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.04
+      },
+      {
+        "stat": "SkillAmpRatio",
+        "value": 0.044
+      }
+    ]
+  },
+  {
+    "characterCode": 47,
+    "type": "Whip",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.033
+      },
+      {
+        "stat": "SkillAmpRatio",
+        "value": 0.04
+      }
+    ]
+  },
+  {
+    "characterCode": 1,
+    "type": "OneHandSword",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.041
+      },
+      {
+        "stat": "IncreaseBasicAttackDamageRatio",
+        "value": 0.03
+      }
+    ]
+  },
+  {
+    "characterCode": 13,
+    "type": "OneHandSword",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.05
+      },
+      {
+        "stat": "SkillAmpRatio",
+        "value": 0.049
+      }
+    ]
+  },
+  {
+    "characterCode": 18,
+    "type": "OneHandSword",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.027
+      },
+      {
+        "stat": "SkillAmpRatio",
+        "value": 0.045
+      }
+    ]
+  },
+  {
+    "characterCode": 23,
+    "type": "OneHandSword",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.027
+      },
+      {
+        "stat": "SkillAmpRatio",
+        "value": 0.043
+      }
+    ]
+  },
+  {
+    "characterCode": 37,
+    "type": "OneHandSword",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.027
+      },
+      {
+        "stat": "IncreaseBasicAttackDamageRatio",
+        "value": 0.022
+      }
+    ]
+  },
+  {
+    "characterCode": 1,
+    "type": "TwoHandSword",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.036
+      },
+      {
+        "stat": "IncreaseBasicAttackDamageRatio",
+        "value": 0.025
+      }
+    ]
+  },
+  {
+    "characterCode": 3,
+    "type": "TwoHandSword",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.037
+      },
+      {
+        "stat": "SkillAmpRatio",
+        "value": 0.048
+      }
+    ]
+  },
+  {
+    "characterCode": 11,
+    "type": "TwoHandSword",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.031
+      },
+      {
+        "stat": "IncreaseBasicAttackDamageRatio",
+        "value": 0.022
+      }
+    ]
+  },
+  {
+    "characterCode": 27,
+    "type": "TwoHandSword",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.033
+      },
+      {
+        "stat": "IncreaseBasicAttackDamageRatio",
+        "value": 0.011
+      }
+    ]
+  },
+  {
+    "characterCode": 46,
+    "type": "TwoHandSword",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.04
+      },
+      {
+        "stat": "IncreaseBasicAttackDamageRatio",
+        "value": 0.021
+      }
+    ]
+  },
+  {
+    "characterCode": 65,
+    "type": "TwoHandSword",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.03
+      },
+      {
+        "stat": "IncreaseBasicAttackDamageRatio",
+        "value": 0.021
+      }
+    ]
+  },
+  {
+    "characterCode": 78,
+    "type": "TwoHandSword",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.05
+      }
+    ]
+  },
+  {
+    "characterCode": 1,
+    "type": "DualSword",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.04
+      },
+      {
+        "stat": "IncreaseBasicAttackDamageRatio",
+        "value": 0.018
+      }
+    ]
+  },
+  {
+    "characterCode": 11,
+    "type": "DualSword",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.034
+      },
+      {
+        "stat": "IncreaseBasicAttackDamageRatio",
+        "value": 0.018
+      }
+    ]
+  },
+  {
+    "characterCode": 39,
+    "type": "DualSword",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.03
+      },
+      {
+        "stat": "IncreaseBasicAttackDamageRatio",
+        "value": 0.023
+      }
+    ]
+  },
+  {
+    "characterCode": 23,
+    "type": "DualSword",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.03
+      },
+      {
+        "stat": "SkillAmpRatio",
+        "value": 0.048
+      }
+    ]
+  },
+  {
+    "characterCode": 84,
+    "type": "DualSword",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.035
+      },
+      {
+        "stat": "IncreaseBasicAttackDamageRatio",
+        "value": 0.016
+      }
+    ]
+  },
+  {
+    "characterCode": 3,
+    "type": "Spear",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.034
+      },
+      {
+        "stat": "SkillAmpRatio",
+        "value": 0.05
+      }
+    ]
+  },
+  {
+    "characterCode": 13,
+    "type": "Spear",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.04
+      },
+      {
+        "stat": "SkillAmpRatio",
+        "value": 0.044
+      }
+    ]
+  },
+  {
+    "characterCode": 49,
+    "type": "Spear",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.035
+      },
+      {
+        "stat": "IncreaseBasicAttackDamageRatio",
+        "value": 0.016
+      }
+    ]
+  },
+  {
+    "characterCode": 80,
+    "type": "Spear",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.04
+      },
+      {
+        "stat": "IncreaseBasicAttackDamageRatio",
+        "value": 0.018
+      }
+    ]
+  },
+  {
+    "characterCode": 5,
+    "type": "HighAngleFire",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.03
+      },
+      {
+        "stat": "SkillAmpRatio",
+        "value": 0.045
+      }
+    ]
+  },
+  {
+    "characterCode": 15,
+    "type": "HighAngleFire",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.035
+      },
+      {
+        "stat": "SkillAmpRatio",
+        "value": 0.046
+      }
+    ]
+  },
+  {
+    "characterCode": 17,
+    "type": "HighAngleFire",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.015
+      },
+      {
+        "stat": "SkillAmpRatio",
+        "value": 0.039
+      }
+    ]
+  },
+  {
+    "characterCode": 32,
+    "type": "HighAngleFire",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.035
+      },
+      {
+        "stat": "IncreaseBasicAttackDamageRatio",
+        "value": 0.014
+      }
+    ]
+  },
+  {
+    "characterCode": 36,
+    "type": "HighAngleFire",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.02
+      },
+      {
+        "stat": "SkillAmpRatio",
+        "value": 0.04
+      }
+    ]
+  },
+  {
+    "characterCode": 43,
+    "type": "HighAngleFire",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.035
+      },
+      {
+        "stat": "SkillAmpRatio",
+        "value": 0.043
+      }
+    ]
+  },
+  {
+    "characterCode": 61,
+    "type": "HighAngleFire",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.022
+      },
+      {
+        "stat": "SkillAmpRatio",
+        "value": 0.048
+      }
+    ]
+  },
+  {
+    "characterCode": 5,
+    "type": "DirectFire",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.02
+      },
+      {
+        "stat": "SkillAmpRatio",
+        "value": 0.04
+      }
+    ]
+  },
+  {
+    "characterCode": 12,
+    "type": "DirectFire",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.04
+      },
+      {
+        "stat": "SkillAmpRatio",
+        "value": 0.048
+      }
+    ]
+  },
+  {
+    "characterCode": 15,
+    "type": "DirectFire",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.032
+      },
+      {
+        "stat": "SkillAmpRatio",
+        "value": 0.039
+      }
+    ]
+  },
+  {
+    "characterCode": 19,
+    "type": "DirectFire",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.025
+      },
+      {
+        "stat": "SkillAmpRatio",
+        "value": 0.046
+      }
+    ]
+  },
+  {
+    "characterCode": 27,
+    "type": "DirectFire",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.02
+      },
+      {
+        "stat": "IncreaseBasicAttackDamageRatio",
+        "value": 0.012
+      }
+    ]
+  },
+  {
+    "characterCode": 40,
+    "type": "DirectFire",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.031
+      },
+      {
+        "stat": "IncreaseBasicAttackDamageRatio",
+        "value": 0.016
+      }
+    ]
+  },
+  {
+    "characterCode": 60,
+    "type": "DirectFire",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.029
+      },
+      {
+        "stat": "SkillAmpRatio",
+        "value": 0.045
+      }
+    ]
+  },
+  {
+    "characterCode": 70,
+    "type": "DirectFire",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.037
+      },
+      {
+        "stat": "IncreaseBasicAttackDamageRatio",
+        "value": 0.01
+      }
+    ]
+  },
+  {
+    "characterCode": 83,
+    "type": "DirectFire",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.029
+      },
+      {
+        "stat": "SkillAmpRatio",
+        "value": 0.042
+      }
+    ]
+  },
+  {
+    "characterCode": 6,
+    "type": "Bow",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.04
+      },
+      {
+        "stat": "SkillAmpRatio",
+        "value": 0.046
+      }
+    ]
+  },
+  {
+    "characterCode": 12,
+    "type": "Bow",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.032
+      },
+      {
+        "stat": "SkillAmpRatio",
+        "value": 0.048
+      }
+    ]
+  },
+  {
+    "characterCode": 31,
+    "type": "Bow",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.03
+      },
+      {
+        "stat": "IncreaseBasicAttackDamageRatio",
+        "value": 0.012
+      }
+    ]
+  },
+  {
+    "characterCode": 6,
+    "type": "CrossBow",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.028
+      },
+      {
+        "stat": "IncreaseBasicAttackDamageRatio",
+        "value": 0.014
+      }
+    ]
+  },
+  {
+    "characterCode": 54,
+    "type": "CrossBow",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.022
+      },
+      {
+        "stat": "SkillAmpRatio",
+        "value": 0.041
+      }
+    ]
+  },
+  {
+    "characterCode": 79,
+    "type": "CrossBow",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.022
+      },
+      {
+        "stat": "SkillAmpRatio",
+        "value": 0.045
+      }
+    ]
+  },
+  {
+    "characterCode": 2,
+    "type": "Pistol",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.035
+      },
+      {
+        "stat": "SkillAmpRatio",
+        "value": 0.043
+      }
+    ]
+  },
+  {
+    "characterCode": 9,
+    "type": "Pistol",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.045
+      },
+      {
+        "stat": "SkillAmpRatio",
+        "value": 0.045
+      }
+    ]
+  },
+  {
+    "characterCode": 16,
+    "type": "Pistol",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.025
+      },
+      {
+        "stat": "SkillAmpRatio",
+        "value": 0.042
+      }
+    ]
+  },
+  {
+    "characterCode": 21,
+    "type": "Pistol",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.04
+      },
+      {
+        "stat": "IncreaseBasicAttackDamageRatio",
+        "value": 0.015
+      }
+    ]
+  },
+  {
+    "characterCode": 27,
+    "type": "Pistol",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.03
+      },
+      {
+        "stat": "IncreaseBasicAttackDamageRatio",
+        "value": 0.01
+      }
+    ]
+  },
+  {
+    "characterCode": 38,
+    "type": "Pistol",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.033
+      },
+      {
+        "stat": "SkillAmpRatio",
+        "value": 0.045
+      }
+    ]
+  },
+  {
+    "characterCode": 69,
+    "type": "Pistol",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.035
+      },
+      {
+        "stat": "SkillAmpRatio",
+        "value": 0.042
+      }
+    ]
+  },
+  {
+    "characterCode": 81,
+    "type": "Pistol",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.035
+      },
+      {
+        "stat": "SkillAmpRatio",
+        "value": 0.046
+      }
+    ]
+  },
+  {
+    "characterCode": 89,
+    "type": "Pistol",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.035
+      },
+      {
+        "stat": "SkillAmpRatio",
+        "value": 0.046
+      }
+    ]
+  },
+  {
+    "characterCode": 2,
+    "type": "AssaultRifle",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.035
+      },
+      {
+        "stat": "IncreaseBasicAttackDamageRatio",
+        "value": 0.014
+      }
+    ]
+  },
+  {
+    "characterCode": 9,
+    "type": "AssaultRifle",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.033
+      },
+      {
+        "stat": "IncreaseBasicAttackDamageRatio",
+        "value": 0.013
+      }
+    ]
+  },
+  {
+    "characterCode": 58,
+    "type": "AssaultRifle",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.03
+      },
+      {
+        "stat": "SkillAmpRatio",
+        "value": 0.047
+      }
+    ]
+  },
+  {
+    "characterCode": 2,
+    "type": "SniperRifle",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.03
+      },
+      {
+        "stat": "SkillAmpRatio",
+        "value": 0.048
+      }
+    ]
+  },
+  {
+    "characterCode": 25,
+    "type": "SniperRifle",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.028
+      },
+      {
+        "stat": "IncreaseBasicAttackDamageRatio",
+        "value": 0.02
+      }
+    ]
+  },
+  {
+    "characterCode": 62,
+    "type": "SniperRifle",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.035
+      },
+      {
+        "stat": "SkillAmpRatio",
+        "value": 0.041
+      }
+    ]
+  },
+  {
+    "characterCode": 72,
+    "type": "SniperRifle",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.036
+      },
+      {
+        "stat": "IncreaseBasicAttackDamageRatio",
+        "value": 0.019
+      }
+    ]
+  },
+  {
+    "characterCode": 10,
+    "type": "Nunchaku",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.05
+      },
+      {
+        "stat": "IncreaseBasicAttackDamageRatio",
+        "value": 0.024
+      }
+    ]
+  },
+  {
+    "characterCode": 3,
+    "type": "Rapier",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.03
+      },
+      {
+        "stat": "SkillAmpRatio",
+        "value": 0.042
+      }
+    ]
+  },
+  {
+    "characterCode": 14,
+    "type": "Rapier",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.032
+      },
+      {
+        "stat": "SkillAmpRatio",
+        "value": 0.041
+      }
+    ]
+  },
+  {
+    "characterCode": 24,
+    "type": "Rapier",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.035
+      },
+      {
+        "stat": "SkillAmpRatio",
+        "value": 0.046
+      }
+    ]
+  },
+  {
+    "characterCode": 50,
+    "type": "Rapier",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.025
+      },
+      {
+        "stat": "SkillAmpRatio",
+        "value": 0.045
+      }
+    ]
+  },
+  {
+    "characterCode": 39,
+    "type": "Rapier",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.026
+      },
+      {
+        "stat": "IncreaseBasicAttackDamageRatio",
+        "value": 0.014
+      }
+    ]
+  },
+  {
+    "characterCode": 82,
+    "type": "Rapier",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.034
+      },
+      {
+        "stat": "IncreaseBasicAttackDamageRatio",
+        "value": 0.016
+      }
+    ]
+  },
+  {
+    "characterCode": 8,
+    "type": "Guitar",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.035
+      },
+      {
+        "stat": "IncreaseBasicAttackDamageRatio",
+        "value": 0.013
+      }
+    ]
+  },
+  {
+    "characterCode": 51,
+    "type": "Guitar",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.02
+      },
+      {
+        "stat": "SkillAmpRatio",
+        "value": 0.043
+      }
+    ]
+  },
+  {
+    "characterCode": 75,
+    "type": "Guitar",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.02
+      },
+      {
+        "stat": "SkillAmpRatio",
+        "value": 0.045
+      }
+    ]
+  },
+  {
+    "characterCode": 34,
+    "type": "Camera",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.02
+      },
+      {
+        "stat": "SkillAmpRatio",
+        "value": 0.044
+      }
+    ]
+  },
+  {
+    "characterCode": 41,
+    "type": "Arcana",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.025
+      },
+      {
+        "stat": "SkillAmpRatio",
+        "value": 0.044
+      }
+    ]
+  },
+  {
+    "characterCode": 42,
+    "type": "Arcana",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.025
+      },
+      {
+        "stat": "SkillAmpRatio",
+        "value": 0.045
+      }
+    ]
+  },
+  {
+    "characterCode": 52,
+    "type": "Arcana",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.025
+      },
+      {
+        "stat": "SkillAmpRatio",
+        "value": 0.044
+      }
+    ]
+  },
+  {
+    "characterCode": 19,
+    "type": "Arcana",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.025
+      },
+      {
+        "stat": "SkillAmpRatio",
+        "value": 0.044
+      }
+    ]
+  },
+  {
+    "characterCode": 64,
+    "type": "Arcana",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.025
+      },
+      {
+        "stat": "SkillAmpRatio",
+        "value": 0.046
+      }
+    ]
+  },
+  {
+    "characterCode": 66,
+    "type": "Arcana",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.025
+      },
+      {
+        "stat": "SkillAmpRatio",
+        "value": 0.047
+      }
+    ]
+  },
+  {
+    "characterCode": 73,
+    "type": "Arcana",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.025
+      },
+      {
+        "stat": "SkillAmpRatio",
+        "value": 0.044
+      }
+    ]
+  },
+  {
+    "characterCode": 77,
+    "type": "Arcana",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.025
+      },
+      {
+        "stat": "SkillAmpRatio",
+        "value": 0.04
+      }
+    ]
+  },
+  {
+    "characterCode": 87,
+    "type": "Arcana",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.03
+      },
+      {
+        "stat": "SkillAmpRatio",
+        "value": 0.04
+      }
+    ]
+  },
+  {
+    "characterCode": 44,
+    "type": "VFArm",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.03
+      },
+      {
+        "stat": "IncreaseBasicAttackDamageRatio",
+        "value": 0.01
+      }
+    ]
+  },
+  {
+    "characterCode": 56,
+    "type": "Nunchaku",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.025
+      },
+      {
+        "stat": "SkillAmpRatio",
+        "value": 0.046
+      }
+    ]
+  },
+  {
+    "characterCode": 57,
+    "type": "Camera",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.025
+      },
+      {
+        "stat": "IncreaseBasicAttackDamageRatio",
+        "value": 0.012
+      }
+    ]
+  },
+  {
+    "characterCode": 63,
+    "type": "OneHandSword",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.031
+      },
+      {
+        "stat": "AttackPower",
+        "value": 1
+      }
+    ]
+  },
+  {
+    "characterCode": 0,
+    "type": "Hunt",
+    "options": [
+      {
+        "stat": "AmplifierToMonsterRatio",
+        "value": 0.02
+      }
+    ]
+  },
+  {
+    "characterCode": 0,
+    "type": "Craft",
+    "options": [
+      {
+        "stat": "HpRegenRatioOutOfCombat",
+        "value": 0.1
+      }
+    ]
+  },
+  {
+    "characterCode": 0,
+    "type": "Search",
+    "options": [
+      {
+        "stat": "SightRange",
+        "value": 0.01
+      }
+    ]
+  },
+  {
+    "characterCode": 0,
+    "type": "Move",
+    "options": [
+      {
+        "stat": "MoveSpeed",
+        "value": 0.005
+      }
+    ]
+  },
+  {
+    "characterCode": 0,
+    "type": "Defense",
+    "options": [
+      {
+        "stat": "PreventBasicAttackDamagedRatio",
+        "value": 0.01
+      },
+      {
+        "stat": "PreventSkillDamagedRatio",
+        "value": 0.008
+      }
+    ]
+  }
+]

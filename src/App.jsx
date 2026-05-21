@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import ER_GAME_DATA from './data/erGameData.json';
 import DAK_LOADOUT_ASSETS from './data/dakLoadoutAssets.json';
+import MASTERY_STATS from './data/masteryStats.json';
 
 const CHARACTER_IMAGE_URLS = import.meta.glob('../assets/characters/*.png', {
   eager: true,
@@ -42,6 +43,18 @@ const QUALITY_RANK = {
   红: 5
 };
 const QUALITY_OPTIONS = ['普通', '高级', '稀有', '英雄', '传说', '神话'];
+const MASTERY_STAT_LABELS = {
+  AttackPower: '攻击力',
+  AttackSpeedRatio: '攻击速度',
+  SkillAmpRatio: '技能增幅',
+  IncreaseBasicAttackDamageRatio: '普攻增幅',
+  PreventBasicAttackDamagedRatio: '承受普攻伤害减少',
+  PreventSkillDamagedRatio: '承受技能伤害减少',
+  AmplifierToMonsterRatio: '野怪伤害',
+  MoveSpeed: '移动速度',
+  SightRange: '视野',
+  HpRegenRatioOutOfCombat: '非战斗体力再生'
+};
 const WEAPON_TYPES = [
   '未设置',
   '拳套 / Glove',
@@ -86,7 +99,7 @@ const TRAIT_EFFECTS = {
 };
 const DEFAULT_HELP_NOTES = {
   'solution.help': '本地开发环境下，帮助说明可以在悬浮面板里直接编辑，并保存到当前浏览器 localStorage。发布到 GitHub 的正式构建会自动锁定为只读，防止线上用户改动说明。',
-  'field.mastery': '角色武器熟练度等级。当前公式按每级 4.1% 法强加成计算。',
+  'field.mastery': '角色武器熟练度等级。切换英雄或武器类型后，会使用该英雄当前武器的每级熟练度成长。',
   'field.talentAp': '手动补充的潜能法强，适合录入暂未结构化进潜能表的额外数值。',
   'field.targetHp': '目标当前血量。部分技能或特效会按目标血量追加伤害。',
   'field.targetDefense': '目标防御值，会进入最终防御修正计算。',
@@ -490,6 +503,32 @@ function weaponTypeRaw(item) {
   return String(item?.weaponType || '').split('/').pop()?.trim() || '';
 }
 
+function weaponTypeFromFilter(type) {
+  if (!type || type === '全部类型') return '';
+  return String(type).split('/').pop()?.trim() || '';
+}
+
+function weaponTypeLabelForRaw(rawType) {
+  if (!rawType) return '全部类型';
+  return WEAPON_TYPE_OPTIONS.find((type) => weaponTypeFromFilter(type) === rawType) || '全部类型';
+}
+
+function masteryStatFor(characterCode, weaponRawType) {
+  return MASTERY_STATS.find((item) => item.characterCode === characterCode && item.type === weaponRawType) || null;
+}
+
+function masteryOptionValue(masteryStat, stat) {
+  return getNumber(masteryStat?.options?.find((option) => option.stat === stat)?.value);
+}
+
+function masterySummary(masteryStat) {
+  return (masteryStat?.options || []).map((option) => {
+    const label = MASTERY_STAT_LABELS[option.stat] || option.stat;
+    const value = String(option.stat).includes('Ratio') ? pct(option.value) : `+${round(option.value, 3)}`;
+    return `${label} ${value}/级`;
+  });
+}
+
 function traitsBySlot(group, type) {
   return ACTIVE_TRAITS.filter((trait) => trait.group === group && trait.type === type);
 }
@@ -619,6 +658,7 @@ function calc({
   skillLevels,
   gear,
   mastery,
+  masteryStat,
   attack,
   talentAp,
   traitBonuses = {},
@@ -651,7 +691,8 @@ function calc({
   const normalApPct = statValue(equipmentStats, 'skillAmpRatio') + selected.reduce((sum, item) => sum + (item.uniqueApPct ? 0 : getNumber(item.apPct)), 0);
   const uniqueApPct = Math.max(statValue(equipmentStats, 'uniqueSkillAmpRatio'), ...selected.filter((item) => item.uniqueApPct).map((item) => getNumber(item.apPct)));
   const equipDamageBonus = selected.reduce((sum, item) => sum + getNumber(item.dmgAmp), 0);
-  const masteryApPct = mastery * 0.041;
+  const masteryApPct = mastery * masteryOptionValue(masteryStat, 'SkillAmpRatio');
+  const masteryAttackPower = mastery * masteryOptionValue(masteryStat, 'AttackPower');
   const totalApPct = normalApPct + uniqueApPct + masteryApPct;
   const apRaw = (equipAp + talentAp + talentBonusAp + stackAp) * (1 + totalApPct);
   const masterAp = masterTriggered ? mastery + 14 : 0;
@@ -663,7 +704,7 @@ function calc({
   const damageMod = 1 + totalDamageBonus - target.reduction - skillReduction;
   const finalMod = defenseMod * damageMod;
   const stackCount = Math.min(4, Math.max(0, r2Stacks));
-  const context = { ap, attack: attack + equipAttackPower, targetHp: target.hp, stacks: stackCount, finalMod };
+  const context = { ap, attack: attack + equipAttackPower + masteryAttackPower, targetHp: target.hp, stacks: stackCount, finalMod };
   const heroSkills = skillTable
     .filter((skill) => skill.hero === selectedHero)
     .map((skill) => calculateSkill(skill, skillLevels[skill.id], context));
@@ -702,21 +743,14 @@ function calc({
     { title: 'EQQW 全中', value: yuminEqqw, note: 'Q3 + EQ4 + E + W' },
     { title: 'EQQW + 装备 DOT', value: yuminEqqw + ghostFire + corrosionTick * finalMod * 3, note: '鬼火 + 腐化3跳' }
   ];
-  const extraHeroGroups = Object.values(
-    skillTable
-      .filter((skill) => !MANUAL_HEROES.includes(skill.hero))
-      .reduce((groups, skill) => {
-        const hero = skill.hero || '未命名英雄';
-        groups[hero] = [...(groups[hero] || []), calculateSkill(skill, skillLevels[skill.id], context)];
-        return groups;
-      }, {})
-  );
+  const extraHeroGroups = [];
 
   return {
     selected,
     equipmentStats,
     equipAp,
     equipAttackPower,
+    masteryAttackPower,
     talentAp,
     talentBonusAp,
     stackAp,
@@ -729,6 +763,7 @@ function calc({
     normalApPct,
     uniqueApPct,
     masteryApPct,
+    masteryStat,
     totalApPct,
     masterAp,
     ap,
@@ -919,6 +954,14 @@ export default function App() {
     () => traitBonusesFor(selectedTraits, estimatedBurstBonus),
     [selectedTraits, estimatedBurstBonus]
   );
+  const selectedCharacter = ER_GAME_DATA.characters.find((character) => character.name === selectedHero);
+  const selectedOfficialSkillGroups = ER_GAME_DATA.rawSkillGroups.filter((skill) => skill.hero === selectedHero);
+  const allowedWeaponTypes = new Set(selectedCharacter?.weapons || []);
+  const selectedWeaponRaw = weaponTypeFilter !== '全部类型'
+    ? weaponTypeFromFilter(weaponTypeFilter)
+    : weaponTypeRaw(byName(equipment, gear['武器']));
+  const selectedMasteryStat = masteryStatFor(selectedCharacter?.code, selectedWeaponRaw);
+  const selectedMasterySummary = masterySummary(selectedMasteryStat);
 
   const result = useMemo(
     () => calc({
@@ -927,6 +970,7 @@ export default function App() {
       skillLevels,
       gear,
       mastery,
+      masteryStat: selectedMasteryStat,
       attack,
       talentAp,
       traitBonuses,
@@ -943,14 +987,11 @@ export default function App() {
       ideaTriggered,
       selectedHero
     }),
-    [equipment, skills, skillLevels, gear, mastery, attack, talentAp, traitBonuses, selectedTraits, target, selfHp, damageBonus, skillReduction, r2Stacks, burstFollowUp, vampireFull, blazingFull, masterTriggered, ideaTriggered, selectedHero]
+    [equipment, skills, skillLevels, gear, mastery, selectedMasteryStat, attack, talentAp, traitBonuses, selectedTraits, target, selfHp, damageBonus, skillReduction, r2Stacks, burstFollowUp, vampireFull, blazingFull, masterTriggered, ideaTriggered, selectedHero]
   );
-  const selectedCharacter = ER_GAME_DATA.characters.find((character) => character.name === selectedHero);
-  const selectedOfficialSkillGroups = ER_GAME_DATA.rawSkillGroups.filter((skill) => skill.hero === selectedHero);
-  const allowedWeaponTypes = new Set(selectedCharacter?.weapons || []);
   const heroWeaponOptions = WEAPON_TYPE_OPTIONS.filter((type) => {
     if (type === '全部类型') return true;
-    const rawType = String(type).split('/').pop()?.trim();
+    const rawType = weaponTypeFromFilter(type);
     return !allowedWeaponTypes.size || allowedWeaponTypes.has(rawType);
   });
   const builderEquipment = equipment.filter((item) => shouldShowInBuilder(item, showLowerTierEquipment));
@@ -979,8 +1020,23 @@ export default function App() {
   ));
 
   useEffect(() => {
+    const nextRawType = selectedCharacter?.weapons?.[0];
+    if (!nextRawType) return;
+
+    const nextFilter = weaponTypeLabelForRaw(nextRawType);
+    setWeaponTypeFilter(nextFilter);
+
+    const nextWeapon = equipment.find((item) => (
+      item.type === '武器'
+      && weaponTypeRaw(item) === nextRawType
+      && shouldShowInBuilder(item, showLowerTierEquipment)
+    )) || equipment.find((item) => item.type === '武器' && weaponTypeRaw(item) === nextRawType);
+    if (nextWeapon) updateGear('武器', nextWeapon.name);
+  }, [selectedHero]);
+
+  useEffect(() => {
     if (weaponTypeFilter !== '全部类型' && !heroWeaponOptions.includes(weaponTypeFilter)) {
-      setWeaponTypeFilter('全部类型');
+      setWeaponTypeFilter(weaponTypeLabelForRaw(selectedCharacter?.weapons?.[0]));
       return;
     }
 
@@ -989,6 +1045,7 @@ export default function App() {
       currentWeapon
       && shouldShowInBuilder(currentWeapon, showLowerTierEquipment)
       && (!allowedWeaponTypes.size || allowedWeaponTypes.has(weaponTypeRaw(currentWeapon)))
+      && (weaponTypeFilter === '全部类型' || currentWeapon.weaponType === weaponTypeFilter)
     ) return;
 
     const nextWeapon = weaponChoices[0] || equipment.find((item) => item.type === '武器');
@@ -1343,7 +1400,7 @@ export default function App() {
             </div>
             <div>
               <span>攻击力</span>
-              <strong>{attack + result.equipAttackPower}</strong>
+              <strong>{attack + result.equipAttackPower + result.masteryAttackPower}</strong>
             </div>
             <div>
               <span>防穿</span>
@@ -1444,6 +1501,7 @@ export default function App() {
               <StatCard label="基础攻击" value={selectedCharacter.base.attackPower} hint={`成长 +${round(selectedCharacter.growth?.attackPower || 0, 2)} / 级`} />
               <StatCard label="基础防御" value={selectedCharacter.base.defense} hint={`成长 +${round(selectedCharacter.growth?.defense || 0, 2)} / 级`} />
               <StatCard label="熟练武器" value={selectedCharacter.weapons.length} hint={selectedCharacter.weapons.join(', ')} />
+              <StatCard label="当前熟练" value={selectedWeaponRaw || '-'} hint={selectedMasterySummary.join(' / ') || '暂无熟练成长'} />
             </div>
           </div>
           <div className="officialSkillStrip">
@@ -1636,7 +1694,7 @@ export default function App() {
         <div className="formulaGrid">
           <StatCard label="装备法强" value={result.equipAp} hint="5件装备求和" note={help('stat.equipAp')} />
           <StatCard label="潜能法强" value={talentAp + result.talentBonusAp} hint="手动输入 + 潜能选择" note={help('stat.potentialAp')} />
-          <StatCard label="熟练度法强%" value={pct(result.masteryApPct)} hint="每级4.1%" note={help('stat.masteryApPct')} />
+          <StatCard label="熟练度法强%" value={pct(result.masteryApPct)} hint={selectedMasterySummary.join(' / ') || '当前武器无技能增幅熟练度'} note={help('stat.masteryApPct')} />
           <StatCard label="独有法强%" value={pct(result.uniqueApPct)} hint="重复独有取最高" note={help('stat.uniqueApPct')} />
         </div>
         <div className="formGrid compact">
