@@ -5,7 +5,7 @@ import ITEM_UNIQUE_EFFECTS from './data/itemUniqueEffects.json';
 import DAK_LOADOUT_ASSETS from './data/dakLoadoutAssets.json';
 import MASTERY_STATS from './data/masteryStats.json';
 
-const APP_VERSION = 'v0.1.019';
+const APP_VERSION = 'v0.1.020';
 
 const CHARACTER_IMAGE_URLS = import.meta.glob('../assets/characters/*.png', {
   eager: true,
@@ -1804,37 +1804,6 @@ export default function App() {
               ))}
             </div>
           </div>
-          <div className="currentStatsBlock">
-            <div className="panelSubhead">
-              <strong>当前属性汇总</strong>
-              <span>{visibleEquipmentStats.length + 4} 项显示</span>
-            </div>
-            <div className="attributePanel">
-              <div>
-                <span>当前法强</span>
-                <strong>{result.ap}</strong>
-                <small>装备 {result.equipAp} + 手动 {talentAp} + 潜能 {result.talentBonusAp} + 叠层 {result.stackAp}，加成 {pct(result.totalApPct)}</small>
-              </div>
-              <div>
-                <span>攻击力</span>
-                <strong>{attack + result.equipAttackPower + result.masteryAttackPower}</strong>
-              </div>
-              <div>
-                <span>防穿</span>
-                <strong>{result.pen} / {pct(result.penPct)}</strong>
-              </div>
-              <div>
-                <span>技伤</span>
-                <strong>{pct(result.totalDamageBonus)}</strong>
-              </div>
-              {visibleEquipmentStats.map((stat) => (
-                <div key={stat.key}>
-                  <span>{stat.label}{stat.unique ? '（独有）' : ''}</span>
-                  <strong>{formatStatValue(stat.key, stat.value)}</strong>
-                </div>
-              ))}
-            </div>
-          </div>
           <div className="toggles compactToggles">
             <label className="toggle">
               <input type="checkbox" checked={vampireFull} onChange={(event) => setVampireFull(event.target.checked)} />
@@ -1874,6 +1843,38 @@ export default function App() {
             <Field label="自身血量" value={selfHp} onChange={setSelfHp} note={help('field.selfHp')} />
             <Field label="手动技伤加成" value={damageBonus} onChange={setDamageBonus} suffix="小数" step={0.01} note={help('field.damageBonus')} />
             <Field label="技能减免" value={skillReduction} onChange={setSkillReduction} suffix="小数" step={0.01} note={help('field.skillReduction')} />
+          </div>
+        </div>
+
+        <div className="currentStatsBlock buildTargetStatsBlock">
+          <div className="panelSubhead">
+            <strong>当前属性汇总</strong>
+            <span>{visibleEquipmentStats.length + 4} 项显示</span>
+          </div>
+          <div className="attributePanel">
+            <div>
+              <span>当前法强</span>
+              <strong>{result.ap}</strong>
+              <small>装备 {result.equipAp} + 手动 {talentAp} + 潜能 {result.talentBonusAp} + 叠层 {result.stackAp}，加成 {pct(result.totalApPct)}</small>
+            </div>
+            <div>
+              <span>攻击力</span>
+              <strong>{attack + result.equipAttackPower + result.masteryAttackPower}</strong>
+            </div>
+            <div>
+              <span>防穿</span>
+              <strong>{result.pen} / {pct(result.penPct)}</strong>
+            </div>
+            <div>
+              <span>技伤</span>
+              <strong>{pct(result.totalDamageBonus)}</strong>
+            </div>
+            {visibleEquipmentStats.map((stat) => (
+              <div key={stat.key}>
+                <span>{stat.label}{stat.unique ? '（独有）' : ''}</span>
+                <strong>{formatStatValue(stat.key, stat.value)}</strong>
+              </div>
+            ))}
           </div>
         </div>
       </section>
