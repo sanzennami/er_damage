@@ -2,7 +2,7 @@
 
 ## Project Summary
 
-This repository is a React + Vite implementation of the Excel workbook `伤害计算器改版.xlsx`. The app is a polished, responsive damage calculator for the character "修女". It lets users choose gear, edit mastery/talent/target values, and instantly see final AP, defense modifiers, skill damage, and effect damage.
+This repository is a React + Vite implementation of the Excel workbook `伤害计算器改版.xlsx`. The app is a polished, responsive ER damage calculator. It lets users choose gear, edit mastery/talent/target values, and instantly see final AP, defense modifiers, 修女 skill/effect damage, and 俞岷 level-5 skill/combo damage.
 
 The original workbook is kept in the repository as source reference. The production UI and formulas are implemented directly in React in `src/App.jsx`.
 
@@ -24,7 +24,7 @@ npm run build
 Local dev URL:
 
 ```text
-http://localhost:3000
+http://localhost:5173
 ```
 
 `npm run build` is the main verification command and has passed in this workspace.
@@ -49,6 +49,7 @@ http://localhost:3000
 - Defense modifier and final damage modifier calculation
 - 修女 skill damage for Q, Q extra, W, E, E extra, R, R2, and stacked R2
 - Effect damage for curse, corrosion, scar, wound tear, ghost fire, and repel bullet F
+- 俞岷 level-5 skill damage plus Q3, EQ4, and EQQW combo summaries
 - Responsive glassmorphism-style UI for desktop and mobile
 
 ## Core Formulas
@@ -68,7 +69,7 @@ mastery level * 0.041
 Final defense:
 
 ```text
-target defense * (1 - penetration %) - penetration value
+target defense * (1 - defense reduction %) * (1 - penetration %) - penetration value
 ```
 
 Defense modifier:

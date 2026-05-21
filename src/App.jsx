@@ -169,6 +169,35 @@ function calc({
   ];
   const ghostFire = 250 + ap * 0.2;
   const repelF = 5 * (10 + mastery) + target.hp * 0.006 + (burstFollowUp ? 3 * (10 + mastery) : 0);
+  const yuminBase = {
+    q: 110 + ap * 0.4,
+    eq: 130 + ap * 0.4,
+    w: 200 + ap * 0.7,
+    ew: 240 + ap * 0.75,
+    e: 200 + ap * 0.5,
+    r1: 150 + ap * 0.45,
+    r2: 300 + ap * 0.7,
+    r2Hp: 300 + ap * 0.7 + target.hp * 0.1
+  };
+  const yuminSkills = [
+    { key: 'YQ', title: 'Q 每跳', base: yuminBase.q, damage: yuminBase.q * finalMod },
+    { key: 'YEQ', title: 'EQ 每跳', base: yuminBase.eq, damage: yuminBase.eq * finalMod },
+    { key: 'YW', title: 'W', base: yuminBase.w, damage: yuminBase.w * finalMod },
+    { key: 'YEW', title: 'EW', base: yuminBase.ew, damage: yuminBase.ew * finalMod },
+    { key: 'YE', title: 'E', base: yuminBase.e, damage: yuminBase.e * finalMod },
+    { key: 'YR1', title: 'R 一段', base: yuminBase.r1, damage: yuminBase.r1 * finalMod },
+    { key: 'YR2', title: 'R 二段', base: yuminBase.r2, damage: yuminBase.r2 * finalMod },
+    { key: 'YR2HP', title: 'R 二段 + 10%目标血', base: yuminBase.r2Hp, damage: yuminBase.r2Hp * finalMod }
+  ];
+  const yuminQ3 = yuminBase.q * finalMod * 3;
+  const yuminEq4 = yuminBase.eq * finalMod * 4;
+  const yuminEqqw = yuminQ3 + yuminEq4 + yuminBase.e * finalMod + yuminBase.w * finalMod;
+  const yuminCombos = [
+    { title: 'Q 三跳全中', value: yuminQ3, note: '工作簿 Q*3' },
+    { title: 'EQ 四跳全中', value: yuminEq4, note: '工作簿 EQ*4' },
+    { title: 'EQQW 全中', value: yuminEqqw, note: 'Q3 + EQ4 + E + W' },
+    { title: 'EQQW + 装备 DOT', value: yuminEqqw + ghostFire + corrosionTick * finalMod * 3, note: '鬼火 + 腐化3跳' }
+  ];
 
   return {
     selected,
@@ -198,7 +227,9 @@ function calc({
     effects,
     effectSubtotal: curse + corrosionTick * finalMod * 3 + scarBase * finalMod + tearBase * finalMod,
     ghostFire,
-    repelF
+    repelF,
+    yuminSkills,
+    yuminCombos
   };
 }
 
@@ -281,8 +312,8 @@ export default function App() {
       <section className="hero">
         <div>
           <p className="eyebrow">Excel 改版复刻</p>
-          <h1>修女伤害计算器</h1>
-          <p className="intro">选择装备、填写目标数据，即时计算法强、防御修正、技能伤害和特效伤害。公式来自工作簿，所有最终伤害默认展示向下取整结果。</p>
+          <h1>ER 伤害计算器</h1>
+          <p className="intro">选择装备、填写目标数据，即时计算法强、防御修正、修女技能和特效伤害，并同步查看俞岷 5 级技能连段。公式来自工作簿，所有最终伤害默认展示向下取整结果。</p>
         </div>
         <div className="heroPanel">
           <span>最终法强</span>
@@ -419,6 +450,40 @@ export default function App() {
               </div>
               <b>{Math.floor(result.repelF)}</b>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="panel formulaPanel">
+        <div className="panelHead">
+          <div>
+            <p className="eyebrow">Yumin</p>
+            <h2>俞岷 5级技能与连段</h2>
+          </div>
+          <span className="pill">共用修正 {round(result.finalMod, 3)}</span>
+        </div>
+        <div className="grid twoColumns">
+          <div className="damageList">
+            {result.yuminSkills.map((skill) => (
+              <div className="damageRow" key={skill.key}>
+                <div>
+                  <strong>{skill.title}</strong>
+                  <span>基础 {round(skill.base, 1)}</span>
+                </div>
+                <b>{Math.floor(skill.damage)}</b>
+              </div>
+            ))}
+          </div>
+          <div className="damageList">
+            {result.yuminCombos.map((combo) => (
+              <div className={`damageRow ${combo.title === 'EQQW 全中' ? 'highlight' : ''}`} key={combo.title}>
+                <div>
+                  <strong>{combo.title}</strong>
+                  <span>{combo.note}</span>
+                </div>
+                <b>{Math.floor(combo.value)}</b>
+              </div>
+            ))}
           </div>
         </div>
       </section>
