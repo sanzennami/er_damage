@@ -906,6 +906,118 @@ input:focus {
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 }
 
+.damageLayout {
+  display: grid;
+  gap: 16px;
+}
+
+.skillDamagePanel {
+  overflow: hidden;
+}
+
+.skillMainGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(180px, 1fr));
+  gap: 12px;
+  align-items: stretch;
+}
+
+.skillMainColumn {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: 10px;
+  min-width: 0;
+  padding: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  background: rgba(12, 10, 16, 0.38);
+}
+
+.skillMainHead {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  min-height: 42px;
+}
+
+.skillMainHead > strong {
+  color: #ffd56b;
+  font-size: 22px;
+}
+
+.skillSubGrid {
+  display: grid;
+  gap: 10px;
+}
+
+.skillDamageLeaf {
+  display: grid;
+  gap: 10px;
+  padding: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.skillLeafHead,
+.targetStepper,
+.skillLeafValues {
+  display: flex;
+  align-items: center;
+}
+
+.skillLeafHead {
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.skillLeafHead strong {
+  color: #f4eadc;
+  font-size: 14px;
+}
+
+.targetStepper {
+  gap: 5px;
+  color: #b9ad9f;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.targetStepper button {
+  min-width: 24px;
+  padding: 4px 0;
+  border-radius: 6px;
+}
+
+.targetStepper b {
+  min-width: 18px;
+  color: #ffd56b;
+  text-align: center;
+}
+
+.skillLeafValues {
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.skillLeafValues > div {
+  flex: 1 1 112px;
+  min-width: 0;
+  padding: 8px;
+  border-radius: 8px;
+  background: rgba(0, 0, 0, 0.16);
+}
+
+.skillLeafValues span {
+  color: #a9a0a0;
+  font-size: 12px;
+}
+
+.skillTotalValue {
+  border: 1px solid rgba(255, 196, 87, 0.2);
+}
+
 .damageRow {
   display: flex;
   align-items: center;
@@ -1053,6 +1165,36 @@ input:focus {
 
 .formulaPanel {
   margin-top: 20px;
+}
+
+.effectsPanel {
+  padding: 0;
+}
+
+.effectsPanel.collapsed {
+  overflow: hidden;
+}
+
+.effectToggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 18px 22px;
+  border: 0;
+  border-radius: 8px;
+  background: transparent;
+  color: inherit;
+  text-align: left;
+}
+
+.effectToggle:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.effectGrid {
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  padding: 0 22px 22px;
 }
 
 .comboGrid {

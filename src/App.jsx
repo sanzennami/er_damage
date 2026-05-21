@@ -924,6 +924,21 @@ function DamageValue({ raw, final }) {
   );
 }
 
+const SKILL_MAIN_SLOTS = ['Q', 'W', 'E', 'R'];
+const MULTI_TARGET_MAX = 10;
+
+function skillMainSlot(skill) {
+  const title = String(skill?.title || '').toUpperCase().trim();
+  if (title.startsWith('EQ')) return 'Q';
+  if (title.startsWith('EW')) return 'W';
+  const match = title.match(/[QWER]/);
+  return match?.[0] || 'Q';
+}
+
+function skillTargetCount(counts, key) {
+  return Math.max(1, Math.min(MULTI_TARGET_MAX, getNumber(counts[key]) || 1));
+}
+
 function groupSkillRows(skills) {
   return Object.values(skills.reduce((groups, skill) => {
     const key = skill.title.replace(/\s*(一段|二段|三段|每跳|带叠层|\/额外|\+\s*10%目标血).*$/, '').trim() || skill.title;
@@ -954,6 +969,8 @@ export default function App() {
   const [ideaTriggered, setIdeaTriggered] = useState(false);
   const [showBuildSettings, setShowBuildSettings] = useState(false);
   const [showGlobalSettings, setShowGlobalSettings] = useState(false);
+  const [effectsCollapsed, setEffectsCollapsed] = useState(false);
+  const [skillTargetCounts, setSkillTargetCounts] = useState({});
   const [useHeroAvatarPicker, setUseHeroAvatarPicker] = useState(() => Boolean(loadAppSettings().useHeroAvatarPicker));
   const [showLowerTierEquipment, setShowLowerTierEquipment] = useState(false);
   const [visibleStatKeys, setVisibleStatKeys] = useState(DEFAULT_VISIBLE_STAT_KEYS);
@@ -1170,6 +1187,22 @@ export default function App() {
 
   function updateSkillLevel(id, level) {
     setSkillLevels((current) => ({ ...current, [id]: level }));
+  }
+
+  function updateSkillSlotLevel(slot, level) {
+    setSkillLevels((current) => ({
+      ...current,
+      ...Object.fromEntries(result.skills
+        .filter((skill) => skillMainSlot(skill) === slot)
+        .map((skill) => [skill.id, level]))
+    }));
+  }
+
+  function updateSkillTargetCount(key, value) {
+    setSkillTargetCounts((current) => ({
+      ...current,
+      [key]: Math.max(1, Math.min(MULTI_TARGET_MAX, getNumber(value) || 1))
+    }));
   }
 
   function pickTraitGroup(area, groupKey) {
@@ -1418,6 +1451,106 @@ export default function App() {
             </div>
           );
         })}
+      </div>
+    );
+  }
+
+  function renderTargetStepper(key) {
+    const count = skillTargetCount(skillTargetCounts, key);
+    return (
+      <div className="targetStepper">
+        <span>命中目标</span>
+        <button type="button" onClick={() => updateSkillTargetCount(key, count - 1)}>-</button>
+        <b>{count}</b>
+        <button type="button" onClick={() => updateSkillTargetCount(key, count + 1)}>+</button>
+      </div>
+    );
+  }
+
+  function renderSkillDamageLeaf(skill, label, options = {}) {
+    const targetKey = options.targetKey || skill.id;
+    const count = skillTargetCount(skillTargetCounts, targetKey);
+    const primaryRaw = getNumber(options.primaryRaw ?? skill.rawDamage);
+    const primaryFinal = getNumber(options.primaryFinal ?? skill.damage);
+    const secondaryRaw = getNumber(options.secondaryRaw ?? primaryRaw);
+    const secondaryFinal = getNumber(options.secondaryFinal ?? primaryFinal);
+    const totalRaw = primaryRaw + secondaryRaw * Math.max(0, count - 1);
+    const totalFinal = primaryFinal + secondaryFinal * Math.max(0, count - 1);
+
+    return (
+      <div className="skillDamageLeaf" key={targetKey}>
+        <div className="skillLeafHead">
+          <strong>{label}</strong>
+          {renderTargetStepper(targetKey)}
+        </div>
+        <div className="skillLeafValues">
+          {options.showBreakdown ? (
+            <>
+              <div>
+                <span>主要目标</span>
+                <DamageValue raw={primaryRaw} final={primaryFinal} />
+              </div>
+              <div>
+                <span>次要目标</span>
+                <DamageValue raw={secondaryRaw} final={secondaryFinal} />
+              </div>
+            </>
+          ) : null}
+          <div className="skillTotalValue">
+            <span>{count > 1 ? `${count} 目标总计` : '单目标'}</span>
+            <DamageValue raw={totalRaw} final={totalFinal} />
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  function renderSkillMainColumn(slot) {
+    const slotSkills = result.skills.filter((skill) => skillMainSlot(skill) === slot);
+    const levelValue = slotSkills[0] ? skillLevels[slotSkills[0].id] : 1;
+
+    return (
+      <div className="skillMainColumn" key={slot}>
+        <div className="skillMainHead">
+          <strong>{slot}</strong>
+          {slotSkills.length ? (
+            <div className="levelSelect">
+              <span>Lv.</span>
+              <select value={levelValue} onChange={(event) => updateSkillSlotLevel(slot, getNumber(event.target.value))}>
+                {Array.from({ length: slotSkills[0].maxLevel }, (_, index) => index + 1).map((level) => (
+                  <option value={level} key={level}>{level}</option>
+                ))}
+              </select>
+            </div>
+          ) : null}
+        </div>
+        {slotSkills.length ? (
+          <div className="skillSubGrid">
+            {slotSkills.map((skill) => {
+              if (selectedHero === '俞岷' && skill.id === 'yumin-q') {
+                return renderSkillDamageLeaf(skill, '普通Q（三段）', {
+                  targetKey: `${skill.id}-targets`,
+                  primaryRaw: skill.rawDamage * 3,
+                  primaryFinal: skill.damage * 3,
+                  secondaryRaw: skill.rawDamage * 3 * 0.5,
+                  secondaryFinal: skill.damage * 3 * 0.5,
+                  showBreakdown: true
+                });
+              }
+              if (selectedHero === '俞岷' && skill.id === 'yumin-eq') {
+                return renderSkillDamageLeaf(skill, '强化Q（四段）', {
+                  targetKey: `${skill.id}-targets`,
+                  primaryRaw: skill.rawDamage * 4,
+                  primaryFinal: skill.damage * 4
+                });
+              }
+              const label = skill.title.replace(/^[QWER]\s*/, '').replace(/^E([QW])\s*/, '强化$1 ') || skill.title;
+              return renderSkillDamageLeaf(skill, label, { targetKey: `${skill.id}-targets` });
+            })}
+          </div>
+        ) : (
+          <p className="note">暂无技能数据</p>
+        )}
       </div>
     );
   }
@@ -1765,8 +1898,8 @@ export default function App() {
         </div>
       </section>
 
-      <section className="grid twoColumns">
-        <div className="panel damagePanel">
+      <section className="damageLayout">
+        <div className="panel damagePanel skillDamagePanel">
           <div className="panelHead">
             <div>
               <p className="eyebrow">Skills</p>
@@ -1787,36 +1920,23 @@ export default function App() {
               </div>
             ) : null}
           </div>
-          <div className="skillGroups">
-            {groupSkillRows(result.skills).map((group) => (
-              <div className="skillGroup" key={group.map((skill) => skill.id).join('-')}>
-                {group.map((skill) => (
-                  <div className="damageRow skillRow compactDamageRow" key={skill.id}>
-                    <div>
-                      <strong>{skill.title}</strong>
-                      <span>Lv.{skill.level} 基础 {round(skill.base, 1)}</span>
-                    </div>
-                    <div className="damageTools">
-                      <LevelSelect skill={skill} value={skillLevels[skill.id]} onChange={updateSkillLevel} />
-                      <DamageValue raw={skill.rawDamage} final={skill.damage} />
-                    </div>
-                  </div>
-                ))}
-              </div>
-            ))}
+          <div className="skillMainGrid">
+            {SKILL_MAIN_SLOTS.map(renderSkillMainColumn)}
             {!result.skills.length ? (
               <p className="note">当前英雄暂无技能数据，可在后台配置表继续录入。</p>
             ) : null}
           </div>
         </div>
 
-        <div className="panel damagePanel">
-          <div className="panelHead">
+        <div className={`panel damagePanel effectsPanel ${effectsCollapsed ? 'collapsed' : ''}`}>
+          <button type="button" className="effectToggle" onClick={() => setEffectsCollapsed((current) => !current)}>
             <div>
               <p className="eyebrow">Effects</p>
               <h2>特效与附加</h2>
             </div>
-          </div>
+            <span className="pill">{effectsCollapsed ? '展开' : '收起'}</span>
+          </button>
+          {!effectsCollapsed ? (
           <div className="effectGrid">
             {result.effects.length ? result.effects.map((effect) => (
               <div className="damageRow compactDamageRow" key={effect.title}>
@@ -1849,6 +1969,7 @@ export default function App() {
               <DamageValue raw={result.repelF} final={result.repelF} />
             </div>
           </div>
+          ) : null}
         </div>
       </section>
 
