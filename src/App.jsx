@@ -6,7 +6,7 @@ import ITEM_UNIQUE_EFFECTS from './data/itemUniqueEffects.json';
 import DAK_LOADOUT_ASSETS from './data/dakLoadoutAssets.json';
 import MASTERY_STATS from './data/masteryStats.json';
 
-const APP_VERSION = 'v0.1.022';
+const APP_VERSION = 'v0.1.023';
 
 const CHARACTER_IMAGE_URLS = import.meta.glob('../assets/characters/*.png', {
   eager: true,
@@ -122,6 +122,8 @@ const ACTIVE_TRAITS = (DAK_LOADOUT_ASSETS.traits || [])
   .filter((trait) => trait.active && ['Core', 'Sub1', 'Sub2'].includes(trait.type))
   .sort((a, b) => (a.sortOrder || 0) - (b.sortOrder || 0));
 const TRAIT_BY_ID = Object.fromEntries(ACTIVE_TRAITS.map((trait) => [String(trait.id), trait]));
+const VAMPIRE_STACK_TRAIT_ID = '7000401';
+const BLAZING_SKILL_AMP_EFFECTS = new Set(['炽燃 - 增幅', '炽燃']);
 const DEFAULT_TRAIT_SELECTION = {
   group: 'Havoc',
   core: '',
@@ -531,7 +533,8 @@ function uniqueEffectsForItem(item) {
     .map(normalizeUniqueEffect)
     .filter(Boolean);
 
-  return [...new Set([...mappedEffects, ...fallbackEffects].map(normalizeUniqueEffect).filter(Boolean))];
+  const effects = mappedEffects.length ? mappedEffects : fallbackEffects;
+  return [...new Set(effects.map(normalizeUniqueEffect).filter(Boolean))];
 }
 
 function aggregateEquipmentStats(selected, masteryLevel = 0) {
@@ -1183,6 +1186,19 @@ export default function App() {
   const selectedMasteryStat = masteryStatFor(selectedCharacter?.code, selectedWeaponRaw);
   const selectedMasterySummary = masterySummary(selectedMasteryStat);
   const attack = characterAttackAtLevel(selectedCharacter);
+  const selectedGearItems = SLOTS.map((slot) => byName(equipment, gear[slot])).filter(Boolean);
+  const selectedEquipmentEffectsRaw = selectedGearItems.flatMap((item) => (
+    uniqueEffectsForItem(item).map((effect) => ({ slot: item.type, name: item.name, quality: item.quality, effect }))
+  ));
+  const hasVampireStackTrait = selectedTraits.some((trait) => String(trait.id) === VAMPIRE_STACK_TRAIT_ID || trait.name === '吸血鬼');
+  const hasBlazingSkillAmpEffect = selectedEquipmentEffectsRaw.some((item) => BLAZING_SKILL_AMP_EFFECTS.has(item.effect));
+  const effectiveVampireFull = hasVampireStackTrait && vampireFull;
+  const effectiveBlazingFull = hasBlazingSkillAmpEffect && blazingFull;
+
+  useEffect(() => {
+    if (!hasVampireStackTrait && vampireFull) setVampireFull(false);
+    if (!hasBlazingSkillAmpEffect && blazingFull) setBlazingFull(false);
+  }, [hasVampireStackTrait, hasBlazingSkillAmpEffect, vampireFull, blazingFull]);
 
   const result = useMemo(
     () => calc({
@@ -1202,12 +1218,12 @@ export default function App() {
       skillReduction,
       r2Stacks,
       burstFollowUp,
-      vampireFull,
-      blazingFull,
+      vampireFull: effectiveVampireFull,
+      blazingFull: effectiveBlazingFull,
       selectedHero,
       combos
     }),
-    [equipment, skills, skillLevels, gear, mastery, selectedMasteryStat, attack, talentAp, traitBonuses, selectedTraits, target, selfHp, damageBonus, skillReduction, r2Stacks, burstFollowUp, vampireFull, blazingFull, selectedHero, combos]
+    [equipment, skills, skillLevels, gear, mastery, selectedMasteryStat, attack, talentAp, traitBonuses, selectedTraits, target, selfHp, damageBonus, skillReduction, r2Stacks, burstFollowUp, effectiveVampireFull, effectiveBlazingFull, selectedHero, combos]
   );
   const heroWeaponOptions = WEAPON_TYPE_OPTIONS.filter((type) => {
     if (type === '全部类型') return true;
@@ -1239,9 +1255,6 @@ export default function App() {
     showApFormulaStats ? `最终法强 ${result.ap}` : '',
     heroUsesAttackScaling ? `最终攻击 ${round(finalAttack, 1)}` : ''
   ].filter(Boolean).join(' / ');
-  const selectedEquipmentEffectsRaw = result.selected.flatMap((item) => (
-    uniqueEffectsForItem(item).map((effect) => ({ slot: item.type, name: item.name, quality: item.quality, effect }))
-  ));
   const selectedEquipmentEffectCounts = selectedEquipmentEffectsRaw.reduce((counts, item) => {
     counts[item.effect] = (counts[item.effect] || 0) + 1;
     return counts;
@@ -1900,14 +1913,18 @@ export default function App() {
             </div>
           </div>
           <div className="toggles compactToggles">
-            <label className="toggle">
-              <input type="checkbox" checked={vampireFull} onChange={(event) => setVampireFull(event.target.checked)} />
-              <span>吸血鬼满层</span>
-            </label>
-            <label className="toggle">
-              <input type="checkbox" checked={blazingFull} onChange={(event) => setBlazingFull(event.target.checked)} />
-              <span>炽燃满层</span>
-            </label>
+            {hasVampireStackTrait ? (
+              <label className="toggle">
+                <input type="checkbox" checked={vampireFull} onChange={(event) => setVampireFull(event.target.checked)} />
+                <span>吸血鬼满层</span>
+              </label>
+            ) : null}
+            {hasBlazingSkillAmpEffect ? (
+              <label className="toggle">
+                <input type="checkbox" checked={blazingFull} onChange={(event) => setBlazingFull(event.target.checked)} />
+                <span>炽燃满层</span>
+              </label>
+            ) : null}
             <label className="toggle">
               <input type="checkbox" checked={burstFollowUp} onChange={(event) => setBurstFollowUp(event.target.checked)} />
               <span>斥力弹升级</span>
