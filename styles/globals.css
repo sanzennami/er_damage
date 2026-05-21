@@ -163,12 +163,12 @@ main {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
-.formulaGrid,
-.stats {
+.formulaGrid {
   grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
 .stats {
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
   margin: 20px 0;
 }
 
@@ -314,6 +314,13 @@ input:focus {
 
 .compact {
   max-width: 520px;
+  margin-top: 16px;
+}
+
+.toggles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 20px;
   margin-top: 16px;
 }
 

@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 
 const EQUIPMENT = [
   { type: '武器', name: '月水晶', ap: 88, cd: 10, effect: '诅咒', quality: '金' },
@@ -74,12 +74,12 @@ const DEFAULT_GEAR = {
 };
 
 const TARGETS = [
-  { name: '自定义木桩', hp: 1000, defense: 140, reduction: 0 },
-  { name: '6级全装T', hp: 2080, defense: 131, reduction: 0.16 },
-  { name: '15级魔女帽T', hp: 3110, defense: 156, reduction: 0.16 },
-  { name: '15级火衣头T', hp: 3160, defense: 166, reduction: 0.16 },
-  { name: '20级全装T', hp: 4110, defense: 187, reduction: 0.16 },
-  { name: '20级无惧感T', hp: 4110, defense: 212, reduction: 0.16 }
+  { name: '自定义木桩', hp: 1000, defense: 140, defenseReduction: 0, reduction: 0 },
+  { name: '6级全装T', hp: 2080, defense: 131, defenseReduction: 0, reduction: 0.16 },
+  { name: '15级魔女帽T', hp: 3110, defense: 156, defenseReduction: 0, reduction: 0.16 },
+  { name: '15级火衣头T', hp: 3160, defense: 166, defenseReduction: 0, reduction: 0.16 },
+  { name: '20级全装T', hp: 4110, defense: 187, defenseReduction: 0, reduction: 0.16 },
+  { name: '20级无惧感T', hp: 4110, defense: 212, defenseReduction: 0, reduction: 0.16 }
 ];
 
 function getNumber(value) {
@@ -100,7 +100,19 @@ function byName(name) {
   return EQUIPMENT.find((item) => item.name === name);
 }
 
-function calc({ gear, mastery, talentAp, target, selfHp, damageBonus, skillReduction, r2Stacks, burstFollowUp }) {
+function calc({
+  gear,
+  mastery,
+  talentAp,
+  target,
+  selfHp,
+  damageBonus,
+  skillReduction,
+  r2Stacks,
+  burstFollowUp,
+  masterTriggered,
+  ideaTriggered
+}) {
   const selected = SLOTS.map((slot) => byName(gear[slot])).filter(Boolean);
   const equipAp = selected.reduce((sum, item) => sum + getNumber(item.ap), 0);
   const cd = selected.reduce((sum, item) => sum + getNumber(item.cd), 0);
@@ -113,11 +125,15 @@ function calc({ gear, mastery, talentAp, target, selfHp, damageBonus, skillReduc
   const masteryApPct = mastery * 0.041;
   const totalApPct = normalApPct + uniqueApPct + masteryApPct;
   const apRaw = (equipAp + talentAp) * (1 + totalApPct);
-  const ap = Math.floor(apRaw);
-  const finalDefense = target.defense * (1 - penPct) - pen;
+  const masterAp = masterTriggered ? mastery + 14 : 0;
+  const ap = Math.floor(apRaw) + masterAp;
+  const finalDefense = target.defense * (1 - target.defenseReduction) * (1 - penPct) - pen;
   const defenseMod = 100 / (100 + finalDefense);
-  const damageMod = 1 + damageBonus + equipDamageBonus - target.reduction - skillReduction;
+  const ideaDamageBonus = ideaTriggered ? 0.15 : 0;
+  const totalDamageBonus = damageBonus + equipDamageBonus + ideaDamageBonus;
+  const damageMod = 1 + totalDamageBonus - target.reduction - skillReduction;
   const finalMod = defenseMod * damageMod;
+  const stackCount = Math.min(4, Math.max(0, r2Stacks));
   const skillBase = {
     q: 180 + ap * 0.65,
     q2: 50 + ap * 0.08,
@@ -126,7 +142,7 @@ function calc({ gear, mastery, talentAp, target, selfHp, damageBonus, skillReduc
     e2: 160 + ap * 0.7,
     r: 80 + ap * 0.25,
     r2: 150 + ap * 0.25,
-    r2Stacked: (150 + ap * 0.25) * (1 + r2Stacks * 0.2)
+    r2Stacked: (150 + ap * 0.25) * (1 + stackCount * 0.2)
   };
   const skills = [
     { key: 'Q', title: 'Q 一段', base: skillBase.q, damage: skillBase.q * finalMod },
@@ -136,7 +152,7 @@ function calc({ gear, mastery, talentAp, target, selfHp, damageBonus, skillReduc
     { key: 'E2', title: 'E 二段', base: skillBase.e2, damage: skillBase.e2 * finalMod },
     { key: 'R', title: 'R 一段', base: skillBase.r, damage: skillBase.r * finalMod },
     { key: 'R2', title: 'R2', base: skillBase.r2, damage: skillBase.r2 * finalMod },
-    { key: 'R2S', title: `R2 ${r2Stacks}层`, base: skillBase.r2Stacked, damage: skillBase.r2Stacked * finalMod }
+    { key: 'R2S', title: `R2 ${stackCount}层`, base: skillBase.r2Stacked, damage: skillBase.r2Stacked * finalMod }
   ];
   const hpDiffRatio = Math.min(0.4, Math.max(0.1, (target.hp - selfHp) / selfHp));
   const burstBonus = Math.min(0.1, Math.max(0, (target.hp - selfHp) / selfHp) * 0.25);
@@ -166,10 +182,14 @@ function calc({ gear, mastery, talentAp, target, selfHp, damageBonus, skillReduc
     uniqueApPct,
     masteryApPct,
     totalApPct,
+    masterAp,
     ap,
     apRaw,
     finalDefense,
     defenseMod,
+    equipDamageBonus,
+    ideaDamageBonus,
+    totalDamageBonus,
     damageMod,
     finalMod,
     hpDiffRatio,
@@ -222,9 +242,23 @@ export default function App() {
   const [skillReduction, setSkillReduction] = useState(0);
   const [r2Stacks, setR2Stacks] = useState(1);
   const [burstFollowUp, setBurstFollowUp] = useState(true);
+  const [masterTriggered, setMasterTriggered] = useState(false);
+  const [ideaTriggered, setIdeaTriggered] = useState(false);
   const result = useMemo(
-    () => calc({ gear, mastery, talentAp, target, selfHp, damageBonus, skillReduction, r2Stacks, burstFollowUp }),
-    [gear, mastery, talentAp, target, selfHp, damageBonus, skillReduction, r2Stacks, burstFollowUp]
+    () => calc({
+      gear,
+      mastery,
+      talentAp,
+      target,
+      selfHp,
+      damageBonus,
+      skillReduction,
+      r2Stacks,
+      burstFollowUp,
+      masterTriggered,
+      ideaTriggered
+    }),
+    [gear, mastery, talentAp, target, selfHp, damageBonus, skillReduction, r2Stacks, burstFollowUp, masterTriggered, ideaTriggered]
   );
 
   function updateGear(slot, name) {
@@ -253,7 +287,7 @@ export default function App() {
         <div className="heroPanel">
           <span>最终法强</span>
           <strong>{result.ap}</strong>
-          <small>装备 {result.equipAp} + 天赋 {talentAp}，法强加成 {pct(result.totalApPct)}</small>
+          <small>装备 {result.equipAp} + 天赋 {talentAp}，法强加成 {pct(result.totalApPct)}{result.masterAp ? `，大师 +${result.masterAp}` : ''}</small>
         </div>
       </section>
 
@@ -304,9 +338,10 @@ export default function App() {
           <div className="formGrid">
             <Field label="目标血量" value={target.hp} onChange={(value) => updateTarget('hp', value)} />
             <Field label="目标防御" value={target.defense} onChange={(value) => updateTarget('defense', value)} />
+            <Field label="目标防御降低" value={target.defenseReduction} onChange={(value) => updateTarget('defenseReduction', value)} suffix="小数" step={0.01} />
             <Field label="目标减伤" value={target.reduction} onChange={(value) => updateTarget('reduction', value)} suffix="小数" step={0.01} />
             <Field label="自身血量" value={selfHp} onChange={setSelfHp} />
-            <Field label="自身增伤" value={damageBonus} onChange={setDamageBonus} suffix="小数" step={0.01} />
+            <Field label="手动技伤加成" value={damageBonus} onChange={setDamageBonus} suffix="小数" step={0.01} />
             <Field label="技能减免" value={skillReduction} onChange={setSkillReduction} suffix="小数" step={0.01} />
           </div>
         </div>
@@ -315,6 +350,7 @@ export default function App() {
       <section className="stats">
         <StatCard label="最终防御" value={round(result.finalDefense, 1)} hint={`防御修正 ${pct(result.defenseMod)}`} />
         <StatCard label="防穿" value={`${result.pen} / ${pct(result.penPct)}`} hint="数值 / 百分比" />
+        <StatCard label="技伤加成" value={pct(result.totalDamageBonus)} hint={`装备 ${pct(result.equipDamageBonus)} / 开关 ${pct(result.ideaDamageBonus)}`} />
         <StatCard label="增减伤合算" value={pct(result.damageMod - 1)} hint={`最终倍率 ${round(result.damageMod, 3)}`} />
         <StatCard label="血量差比" value={pct(result.hpDiffRatio)} hint={`爆发力追伤 ${pct(result.burstBonus)}`} />
       </section>
@@ -402,7 +438,17 @@ export default function App() {
           <Field label="熟练度等级" value={mastery} onChange={setMastery} min={1} max={20} />
           <Field label="天赋法强" value={talentAp} onChange={setTalentAp} />
         </div>
-        <p className="note">最终伤害 = 技能基础值 * 100 / (100 + 目标防御 * (1 - 防穿%) - 防穿数值) * (1 + 自身增伤 - 目标减伤 - 技能减免)。</p>
+        <div className="toggles">
+          <label className="toggle">
+            <input type="checkbox" checked={masterTriggered} onChange={(event) => setMasterTriggered(event.target.checked)} />
+            <span>大师触发，法强 + 熟练度 + 14</span>
+          </label>
+          <label className="toggle">
+            <input type="checkbox" checked={ideaTriggered} onChange={(event) => setIdeaTriggered(event.target.checked)} />
+            <span>意念触发，技伤 +15%</span>
+          </label>
+        </div>
+        <p className="note">最终伤害 = 技能基础值 * 100 / (100 + 目标防御 * (1 - 防御降低) * (1 - 防穿%) - 防穿数值) * (1 + 技伤加成 - 目标减伤 - 技能减免)。</p>
       </section>
     </main>
   );
