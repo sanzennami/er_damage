@@ -7,7 +7,7 @@ import DAK_LOADOUT_ASSETS from './data/dakLoadoutAssets.json';
 import DAK_ITEM_SKILL_ICONS from './data/dakItemSkillIcons.json';
 import MASTERY_STATS from './data/masteryStats.json';
 
-const APP_VERSION = 'v0.1.031';
+const APP_VERSION = 'v0.1.032';
 
 const CHARACTER_IMAGE_URLS = import.meta.glob('../assets/characters/*.png', {
   eager: true,
@@ -101,7 +101,9 @@ const TRAIT_EFFECTS = {
   7300201: { extraEffect: 'ghostFire', summary: '启用鬼火真实伤害估算' },
   7310101: { dmgAmp: 0.03, summary: '凝力预估：技能伤害 +3%' },
   7310301: { dmgAmp: 0.05, summary: '超频预估：技能伤害 +5%' },
-  7211001: { ap: 6, summary: '狩猎的快感预估：技能增幅 +6' },
+  7210101: { dmgAmp: 0.05, summary: '荆棘丛：定身目标承受伤害 +5%，治疗效果 -20%' },
+  7211001: { summary: '狩猎的快感不计入技能伤害：野怪增伤、击杀回复与移速不提供法强或技伤' },
+  7211401: { dmgAmp: 0.04, summary: '压迫感：周围敌人承受伤害 +4%' },
   7110101: { defense: 8, summary: '无惧感预估：防御 +8' },
   7111001: { maxHp: 120, summary: '镇痛剂预估：体力上限 +120' }
 };
@@ -1676,7 +1678,7 @@ export default function App() {
     return (
       <div className="traitLane" key={slot.key}>
         <div className="traitLaneHead">
-          <strong>{slot.title}</strong>
+          <strong><LabelWithHelp note={help(`trait.${slot.key}`)}>{slot.title}</LabelWithHelp></strong>
           <span>{TRAIT_BY_ID[traitSelection[slot.key]]?.name || '未选择'}</span>
         </div>
         <div className="traitGrid">
@@ -2226,7 +2228,7 @@ export default function App() {
         <div className="panelHead">
           <div>
             <p className="eyebrow">Potential</p>
-            <h2>潜能选择</h2>
+            <h2><LabelWithHelp note={help('section.traits')}>潜能选择</LabelWithHelp></h2>
           </div>
           <div className="buttonRow">
             <button type="button" className="quietButton" onClick={clearTraitSelection}>
@@ -2238,7 +2240,7 @@ export default function App() {
         <div className="traitBuilder">
           <div className="traitColumn">
             <div className="traitSectionHead">
-              <strong>主系 {primaryGroup?.name}</strong>
+              <strong><LabelWithHelp note={help('trait.primaryGroup')}>主系 {primaryGroup?.name}</LabelWithHelp></strong>
               <span>{primaryGroup?.tooltip}</span>
             </div>
             {renderTraitGroupTabs('primary', traitSelection.group)}
@@ -2246,13 +2248,13 @@ export default function App() {
           </div>
           <div className="traitColumn">
             <div className="traitSectionHead">
-              <strong>副系 {secondaryGroup?.name}</strong>
+              <strong><LabelWithHelp note={help('trait.secondaryGroup')}>副系 {secondaryGroup?.name}</LabelWithHelp></strong>
               <span>{secondaryGroup?.tooltip}</span>
             </div>
             {renderTraitGroupTabs('secondary', traitSelection.secondaryGroup)}
             {traitSelectionSlots.slice(3).map(renderTraitLane)}
             <div className="traitSummary">
-              <span>潜能合计</span>
+              <LabelWithHelp note={help('trait.summary')}>潜能合计</LabelWithHelp>
               <strong>{traitSummaryItems.length ? traitSummaryItems.join(' / ') : '暂无数值修正'}</strong>
               <small>{result.traitBonuses.summaries.length ? result.traitBonuses.summaries.join('；') : '当前组合未配置额外可计算效果'}</small>
             </div>

@@ -466,6 +466,7 @@ main {
   position: relative;
   flex: 0 0 auto;
   align-items: center;
+  z-index: 2147483646;
 }
 
 .helpButton {
@@ -488,7 +489,7 @@ main {
   position: absolute;
   bottom: calc(100% + 8px);
   left: 0;
-  z-index: 20;
+  z-index: 2147483647;
   display: none;
   width: min(300px, calc(100vw - 44px));
   padding: 10px;
