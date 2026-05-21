@@ -1,6 +1,12 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import ER_GAME_DATA from './data/erGameData.json';
 
+const CHARACTER_IMAGE_URLS = import.meta.glob('../assets/characters/*.png', {
+  eager: true,
+  import: 'default',
+  query: '?url'
+});
+
 const QUALITY_COLORS = {
   红: '#ff8d8d',
   金: '#ffd56b',
@@ -365,6 +371,13 @@ function loadHelpNotes() {
   } catch {
     return DEFAULT_HELP_NOTES;
   }
+}
+
+function characterImageSrc(character) {
+  if (!character?.image) return '';
+  const imageName = character.image.split('/').pop();
+  const match = Object.entries(CHARACTER_IMAGE_URLS).find(([path]) => path.endsWith(`/${imageName}`));
+  return match?.[1] || character.image;
 }
 
 function byName(equipment, name) {
@@ -884,7 +897,7 @@ export default function App() {
               <LabelWithHelp note={help('select.hero')}>英雄</LabelWithHelp>
               <select value={selectedHero} onChange={(event) => setSelectedHero(event.target.value)}>
                 {HEROES.map((hero) => (
-                  <option value={hero} key={hero}>{hero === '奇娅拉' ? '修女（奇娅拉）' : hero}</option>
+                  <option value={hero} key={hero}>{hero}</option>
                 ))}
               </select>
             </label>
@@ -892,10 +905,10 @@ export default function App() {
         </div>
         <div className="heroPanel heroIdentity">
           {selectedCharacter ? (
-            <img src={selectedCharacter.image} alt={selectedCharacter.name} onError={(event) => { event.currentTarget.style.display = 'none'; }} />
+            <img src={characterImageSrc(selectedCharacter)} alt={selectedCharacter.name} onError={(event) => { event.currentTarget.style.display = 'none'; }} />
           ) : null}
           <span>当前英雄</span>
-          <strong>{selectedHero === '奇娅拉' ? '修女（奇娅拉）' : selectedHero}</strong>
+          <strong>{selectedHero}</strong>
           <small>{selectedCharacter ? `${selectedCharacter.englishName} / ${selectedCharacter.weapons.join(', ') || '未设置武器'}` : '手动配置英雄'}</small>
         </div>
       </section>
@@ -1057,7 +1070,7 @@ export default function App() {
           </div>
           <div className="sourceGrid">
             <div className="characterCard">
-              <img src={selectedCharacter.image} alt={selectedCharacter.name} onError={(event) => { event.currentTarget.style.display = 'none'; }} />
+              <img src={characterImageSrc(selectedCharacter)} alt={selectedCharacter.name} onError={(event) => { event.currentTarget.style.display = 'none'; }} />
               <div>
                 <strong>{selectedCharacter.storyName || selectedCharacter.name}</strong>
                 <span>{selectedCharacter.englishName} / {selectedCharacter.archetypes.join(', ') || '未分类'}</span>
@@ -1115,7 +1128,7 @@ export default function App() {
           <div className="panelHead">
             <div>
               <p className="eyebrow">Skills</p>
-              <h2>{selectedHero === '奇娅拉' ? '修女（奇娅拉）' : selectedHero} 技能伤害</h2>
+              <h2>{selectedHero} 技能伤害</h2>
             </div>
             {selectedHero === '奇娅拉' ? (
               <div className="stackBlocks" aria-label="R2层数">
