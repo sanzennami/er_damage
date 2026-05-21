@@ -7,7 +7,7 @@ import DAK_LOADOUT_ASSETS from './data/dakLoadoutAssets.json';
 import DAK_ITEM_SKILL_ICONS from './data/dakItemSkillIcons.json';
 import MASTERY_STATS from './data/masteryStats.json';
 
-const APP_VERSION = 'v0.1.028';
+const APP_VERSION = 'v0.1.029';
 
 const CHARACTER_IMAGE_URLS = import.meta.glob('../assets/characters/*.png', {
   eager: true,
@@ -1127,6 +1127,7 @@ const MULTI_TARGET_MAX = 10;
 
 function skillMainSlot(skill) {
   const title = String(skill?.title || '').toUpperCase().trim();
+  if (title.startsWith('P')) return 'P';
   if (title.startsWith('EQ')) return 'Q';
   if (title.startsWith('EW')) return 'W';
   const match = title.match(/[QWER]/);
@@ -1831,7 +1832,7 @@ export default function App() {
                 : selectedHero === '俞岷' && skill.id === 'yumin-ew'
                   ? '强化W'
                   : '';
-              const label = yuminLabel || skill.title.replace(/^[QWER]\s*/, '').replace(/^E([QW])\s*/, '强化$1 ') || skill.title;
+              const label = yuminLabel || skill.title.replace(/^[PQWER]\s*/, '').replace(/^E([QW])\s*/, '强化$1 ') || skill.title;
               const targetMax = selectedHero === '俞岷' && skill.id === 'yumin-e' ? 3 : MULTI_TARGET_MAX;
               return renderSkillDamageLeaf(skill, label, { targetKey: `${skill.id}-targets`, targetMax });
             })}
@@ -1839,6 +1840,16 @@ export default function App() {
         ) : (
           <p className="note">暂无技能数据</p>
         )}
+      </div>
+    );
+  }
+
+  function renderPassiveSkillRow() {
+    if (!result.skills.some((skill) => skillMainSlot(skill) === 'P')) return null;
+
+    return (
+      <div className="skillPassiveRow">
+        {renderSkillMainColumn('P')}
       </div>
     );
   }
@@ -2261,6 +2272,7 @@ export default function App() {
               <p className="note">当前英雄暂无技能数据，可在后台配置表继续录入。</p>
             ) : null}
           </div>
+          {renderPassiveSkillRow()}
         </div>
 
         <div className={`panel damagePanel effectsPanel ${effectsCollapsed ? 'collapsed' : ''}`}>

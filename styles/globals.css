@@ -1143,6 +1143,18 @@ input:focus {
   background: rgba(12, 10, 16, 0.38);
 }
 
+.skillPassiveRow {
+  margin-top: 12px;
+}
+
+.skillPassiveRow .skillMainColumn {
+  grid-template-rows: auto;
+}
+
+.skillPassiveRow .skillSubGrid {
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
 .skillMainHead {
   display: flex;
   align-items: center;
