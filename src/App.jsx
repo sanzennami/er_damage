@@ -1,7 +1,13 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import ER_GAME_DATA from './data/erGameData.json';
+import DAK_LOADOUT_ASSETS from './data/dakLoadoutAssets.json';
 
 const CHARACTER_IMAGE_URLS = import.meta.glob('../assets/characters/*.png', {
+  eager: true,
+  import: 'default',
+  query: '?url'
+});
+const LOADOUT_IMAGE_URLS = import.meta.glob('../assets/loadout/**/*.png', {
   eager: true,
   import: 'default',
   query: '?url'
@@ -50,6 +56,19 @@ const WEAPON_TYPES = [
 const STORAGE_KEY = 'er-damage-config-v1';
 const HELP_NOTES_KEY = 'er-damage-help-notes-v1';
 const HELP_NOTES_EDITABLE = import.meta.env.DEV;
+const TRAIT_EFFECTS = {
+  7000401: { ap: 18, summary: '满层时技能增幅 +18' },
+  7010501: { dynamicDamage: 'burst', summary: '按双方体力差增加造成伤害' },
+  7011101: { ap: 8, summary: '猎魂叠层预估：技能增幅 +8' },
+  7011501: { extraEffect: 'scar', summary: '启用伤痕额外伤害估算' },
+  7010701: { extraEffect: 'tear', summary: '启用伤口撕裂持续伤害估算' },
+  7300201: { extraEffect: 'ghostFire', summary: '启用鬼火真实伤害估算' },
+  7310101: { dmgAmp: 0.03, summary: '凝力预估：技能伤害 +3%' },
+  7310301: { dmgAmp: 0.05, summary: '超频预估：技能伤害 +5%' },
+  7211001: { ap: 6, summary: '狩猎的快感预估：技能增幅 +6' },
+  7110101: { defense: 8, summary: '无惧感预估：防御 +8' },
+  7111001: { maxHp: 120, summary: '镇痛剂预估：体力上限 +120' }
+};
 const DEFAULT_HELP_NOTES = {
   'solution.help': '本地开发环境下，帮助说明可以在悬浮面板里直接编辑，并保存到当前浏览器 localStorage。发布到 GitHub 的正式构建会自动锁定为只读，防止线上用户改动说明。',
   'field.mastery': '角色武器熟练度等级。当前公式按每级 4.1% 法强加成计算。',
@@ -120,6 +139,20 @@ const DEFAULT_TALENTS = [
   { id: 'main-pen', slot: '主天赋', name: '破防专精', ap: 0, pen: 8, penPct: 0.04, dmgAmp: 0, note: '示例：防穿天赋' },
   { id: 'sub-amp', slot: '副天赋', name: '战术充能', ap: 0, pen: 0, penPct: 0, dmgAmp: 0.05, note: '示例：技伤加成' }
 ];
+const ACTIVE_TRAIT_GROUPS = DAK_LOADOUT_ASSETS.traitGroups || [];
+const ACTIVE_TRAITS = (DAK_LOADOUT_ASSETS.traits || [])
+  .filter((trait) => trait.active && ['Core', 'Sub1', 'Sub2'].includes(trait.type))
+  .sort((a, b) => (a.sortOrder || 0) - (b.sortOrder || 0));
+const TRAIT_BY_ID = Object.fromEntries(ACTIVE_TRAITS.map((trait) => [String(trait.id), trait]));
+const DEFAULT_TRAIT_SELECTION = {
+  group: 'Havoc',
+  core: '7000401',
+  sub1: '7010501',
+  sub2: '7011101',
+  secondaryGroup: 'Chaos',
+  secondarySub1: '7010701',
+  secondarySub2: '7310101'
+};
 
 const DEFAULT_EQUIPMENT = [
   { type: '武器', weaponType: '未设置', name: '月水晶', ap: 88, cd: 10, effect: '诅咒', quality: '金' },
@@ -419,9 +452,84 @@ function characterImageSrc(character) {
   return match?.[1] || character.image;
 }
 
+function loadoutImageSrc(source) {
+  if (!source) return '';
+  const normalized = source.replace(/^\/assets\/loadout\//, '../assets/loadout/');
+  return LOADOUT_IMAGE_URLS[normalized] || source;
+}
+
 function weaponTypeRaw(item) {
   if (item?.weaponTypeRaw) return item.weaponTypeRaw;
   return String(item?.weaponType || '').split('/').pop()?.trim() || '';
+}
+
+function traitsBySlot(group, type) {
+  return ACTIVE_TRAITS.filter((trait) => trait.group === group && trait.type === type);
+}
+
+function firstTraitId(group, type) {
+  return String(traitsBySlot(group, type)[0]?.id || '');
+}
+
+function selectedTraitsFrom(selection) {
+  return [
+    selection.core,
+    selection.sub1,
+    selection.sub2,
+    selection.secondarySub1,
+    selection.secondarySub2
+  ].map((id) => TRAIT_BY_ID[String(id)]).filter(Boolean);
+}
+
+function traitBonusesFor(traits, burstBonus = 0) {
+  return traits.reduce((bonus, trait) => {
+    const effect = TRAIT_EFFECTS[trait.id] || {};
+    return {
+      ap: bonus.ap + getNumber(effect.ap),
+      pen: bonus.pen + getNumber(effect.pen),
+      penPct: bonus.penPct + getNumber(effect.penPct),
+      dmgAmp: bonus.dmgAmp + getNumber(effect.dmgAmp) + (effect.dynamicDamage === 'burst' ? burstBonus : 0),
+      defense: bonus.defense + getNumber(effect.defense),
+      maxHp: bonus.maxHp + getNumber(effect.maxHp),
+      effectIds: effect.extraEffect ? [...bonus.effectIds, effect.extraEffect] : bonus.effectIds,
+      summaries: effect.summary ? [...bonus.summaries, `${trait.name}: ${effect.summary}`] : bonus.summaries
+    };
+  }, { ap: 0, pen: 0, penPct: 0, dmgAmp: 0, defense: 0, maxHp: 0, effectIds: [], summaries: [] });
+}
+
+function normalizeTraitSelection(selection) {
+  const primaryGroup = selection.group || ACTIVE_TRAIT_GROUPS[0]?.key || '';
+  const secondaryGroup = selection.secondaryGroup || ACTIVE_TRAIT_GROUPS.find((group) => group.key !== primaryGroup)?.key || primaryGroup;
+  return {
+    group: primaryGroup,
+    core: traitsBySlot(primaryGroup, 'Core').some((trait) => String(trait.id) === String(selection.core))
+      ? String(selection.core)
+      : firstTraitId(primaryGroup, 'Core'),
+    sub1: traitsBySlot(primaryGroup, 'Sub1').some((trait) => String(trait.id) === String(selection.sub1))
+      ? String(selection.sub1)
+      : firstTraitId(primaryGroup, 'Sub1'),
+    sub2: traitsBySlot(primaryGroup, 'Sub2').some((trait) => String(trait.id) === String(selection.sub2))
+      ? String(selection.sub2)
+      : firstTraitId(primaryGroup, 'Sub2'),
+    secondaryGroup,
+    secondarySub1: traitsBySlot(secondaryGroup, 'Sub1').some((trait) => String(trait.id) === String(selection.secondarySub1))
+      ? String(selection.secondarySub1)
+      : firstTraitId(secondaryGroup, 'Sub1'),
+    secondarySub2: traitsBySlot(secondaryGroup, 'Sub2').some((trait) => String(trait.id) === String(selection.secondarySub2))
+      ? String(selection.secondarySub2)
+      : firstTraitId(secondaryGroup, 'Sub2')
+  };
+}
+
+function traitBonusSummaryItems(bonuses) {
+  return [
+    bonuses.ap ? `法强 +${round(bonuses.ap, 1)}` : '',
+    bonuses.pen ? `防穿 +${round(bonuses.pen, 1)}` : '',
+    bonuses.penPct ? `防穿 ${pct(bonuses.penPct)}` : '',
+    bonuses.dmgAmp ? `技伤 +${pct(bonuses.dmgAmp)}` : '',
+    bonuses.defense ? `防御 +${round(bonuses.defense, 1)}` : '',
+    bonuses.maxHp ? `生命 +${round(bonuses.maxHp, 1)}` : ''
+  ].filter(Boolean);
 }
 
 function byName(equipment, name) {
@@ -486,8 +594,8 @@ function calc({
   mastery,
   attack,
   talentAp,
-  selectedTalentIds,
-  talentTable,
+  traitBonuses = {},
+  selectedTraits = [],
   target,
   selfHp,
   damageBonus,
@@ -502,18 +610,17 @@ function calc({
 }) {
   const selected = SLOTS.map((slot) => byName(equipment, gear[slot])).filter(Boolean);
   const equipmentStats = aggregateEquipmentStats(selected);
-  const selectedTalents = talentTable.filter((talent) => Object.values(selectedTalentIds).includes(talent.id));
-  const talentBonusAp = selectedTalents.reduce((sum, item) => sum + getNumber(item.ap), 0);
-  const talentPen = selectedTalents.reduce((sum, item) => sum + getNumber(item.pen), 0);
-  const talentPenPct = selectedTalents.reduce((sum, item) => sum + getNumber(item.penPct), 0);
-  const talentDamageBonus = selectedTalents.reduce((sum, item) => sum + getNumber(item.dmgAmp), 0);
+  const talentBonusAp = getNumber(traitBonuses.ap);
+  const talentPen = getNumber(traitBonuses.pen);
+  const talentPenPct = getNumber(traitBonuses.penPct);
+  const talentDamageBonus = getNumber(traitBonuses.dmgAmp);
   const equipAp = statValue(equipmentStats, 'skillAmp') + statValue(equipmentStats, 'adaptiveForce') || selected.reduce((sum, item) => sum + getNumber(item.ap), 0);
   const equipAttackPower = statValue(equipmentStats, 'attackPower');
   const stackAp = (vampireFull ? 18 : 0) + (blazingFull ? 24 : 0);
   const cd = statValue(equipmentStats, 'cooldownReduction') || selected.reduce((sum, item) => sum + getNumber(item.cd), 0);
   const pen = statValue(equipmentStats, 'penetrationDefense') + statValue(equipmentStats, 'uniquePenetrationDefense') + talentPen || selected.reduce((sum, item) => sum + getNumber(item.pen), 0) + talentPen;
   const penPct = statValue(equipmentStats, 'penetrationDefenseRatio') + statValue(equipmentStats, 'uniquePenetrationDefenseRatio') + talentPenPct || selected.reduce((sum, item) => sum + getNumber(item.penPct), 0) + talentPenPct;
-  const equipDefense = statValue(equipmentStats, 'defense') || selected.reduce((sum, item) => sum + getNumber(item.defense), 0);
+  const equipDefense = (statValue(equipmentStats, 'defense') || selected.reduce((sum, item) => sum + getNumber(item.defense), 0)) + getNumber(traitBonuses.defense);
   const normalApPct = statValue(equipmentStats, 'skillAmpRatio') + selected.reduce((sum, item) => sum + (item.uniqueApPct ? 0 : getNumber(item.apPct)), 0);
   const uniqueApPct = Math.max(statValue(equipmentStats, 'uniqueSkillAmpRatio'), ...selected.filter((item) => item.uniqueApPct).map((item) => getNumber(item.apPct)));
   const equipDamageBonus = selected.reduce((sum, item) => sum + getNumber(item.dmgAmp), 0);
@@ -539,17 +646,22 @@ function calc({
   const corrosionTick = target.hp * (0.9 + 0.002 * ap) / 100;
   const scarBase = 10 + 20 + target.hp * 0.03;
   const tearBase = 50 + target.hp * 0.7 * 0.08;
+  const activeTraitEffectIds = new Set(traitBonuses.effectIds || []);
   const effects = [
-    { title: '诅咒(真伤)', raw: curse, value: curse, note: '4秒后触发' },
-    { title: '腐化(技) 每跳', raw: corrosionTick, value: corrosionTick * finalMod, note: '共3跳' },
-    { title: '腐化(技) 合计', raw: corrosionTick * 3, value: corrosionTick * finalMod * 3, note: '3跳' },
-    { title: '伤痕(技)', raw: scarBase, value: scarBase * finalMod, note: '10+20+目标血量*3%' },
-    { title: '伤口撕裂', raw: tearBase, value: tearBase * finalMod, note: '以触发时70%血计算' }
-  ];
+    activeTraitEffectIds.has('scar')
+      ? { title: '伤痕(技)', raw: scarBase, value: scarBase * finalMod, note: '10+20+目标血量*3%' }
+      : null,
+    activeTraitEffectIds.has('tear')
+      ? { title: '伤口撕裂', raw: tearBase, value: tearBase * finalMod, note: '以触发时70%血计算' }
+      : null
+  ].filter(Boolean);
   const ghostFire = 250 + ap * 0.2;
   const repelF = 5 * (10 + mastery) + target.hp * 0.006 + (burstFollowUp ? 3 * (10 + mastery) : 0);
-  const effectSubtotalRaw = curse + corrosionTick * 3 + scarBase + tearBase;
-  const effectSubtotal = curse + corrosionTick * finalMod * 3 + scarBase * finalMod + tearBase * finalMod;
+  if (activeTraitEffectIds.has('ghostFire')) {
+    effects.push({ title: '鬼火(真伤)', raw: ghostFire, value: ghostFire, note: '250 + 法强 * 20%' });
+  }
+  const effectSubtotalRaw = effects.reduce((sum, effect) => sum + effect.raw, 0);
+  const effectSubtotal = effects.reduce((sum, effect) => sum + effect.value, 0);
   const yuminSkills = skillTable
     .filter((skill) => skill.hero === '俞岷')
     .map((skill) => calculateSkill(skill, skillLevels[skill.id], context));
@@ -581,7 +693,8 @@ function calc({
     talentAp,
     talentBonusAp,
     stackAp,
-    selectedTalents,
+    selectedTalents: selectedTraits,
+    traitBonuses,
     cd,
     pen,
     penPct,
@@ -723,7 +836,7 @@ export default function App() {
   const [mastery, setMastery] = useState(20);
   const [attack, setAttack] = useState(155);
   const [talentAp, setTalentAp] = useState(52);
-  const [selectedTalentIds, setSelectedTalentIds] = useState({ 主天赋: 'main-custom', 副天赋: 'sub-custom' });
+  const [traitSelection, setTraitSelection] = useState(() => normalizeTraitSelection(DEFAULT_TRAIT_SELECTION));
   const [targetIndex, setTargetIndex] = useState(0);
   const [target, setTarget] = useState(TARGETS[0]);
   const [selfHp, setSelfHp] = useState(2514);
@@ -765,6 +878,20 @@ export default function App() {
     );
   }
 
+  useEffect(() => {
+    setTraitSelection((current) => {
+      const normalized = normalizeTraitSelection(current);
+      return JSON.stringify(normalized) === JSON.stringify(current) ? current : normalized;
+    });
+  }, []);
+
+  const selectedTraits = useMemo(() => selectedTraitsFrom(traitSelection), [traitSelection]);
+  const estimatedBurstBonus = Math.min(0.1, Math.max(0, (target.hp - selfHp) / selfHp) * 0.25);
+  const traitBonuses = useMemo(
+    () => traitBonusesFor(selectedTraits, estimatedBurstBonus),
+    [selectedTraits, estimatedBurstBonus]
+  );
+
   const result = useMemo(
     () => calc({
       equipment,
@@ -774,8 +901,8 @@ export default function App() {
       mastery,
       attack,
       talentAp,
-      selectedTalentIds,
-      talentTable: talents,
+      traitBonuses,
+      selectedTraits,
       target,
       selfHp,
       damageBonus,
@@ -788,7 +915,7 @@ export default function App() {
       ideaTriggered,
       selectedHero
     }),
-    [equipment, skills, talents, skillLevels, gear, mastery, attack, talentAp, selectedTalentIds, target, selfHp, damageBonus, skillReduction, r2Stacks, burstFollowUp, vampireFull, blazingFull, masterTriggered, ideaTriggered, selectedHero]
+    [equipment, skills, skillLevels, gear, mastery, attack, talentAp, traitBonuses, selectedTraits, target, selfHp, damageBonus, skillReduction, r2Stacks, burstFollowUp, vampireFull, blazingFull, masterTriggered, ideaTriggered, selectedHero]
   );
   const selectedCharacter = ER_GAME_DATA.characters.find((character) => character.name === selectedHero);
   const selectedOfficialSkillGroups = ER_GAME_DATA.rawSkillGroups.filter((skill) => skill.hero === selectedHero);
@@ -861,8 +988,17 @@ export default function App() {
     setSkillLevels((current) => ({ ...current, [id]: level }));
   }
 
-  function updateTalentPick(slot, id) {
-    setSelectedTalentIds((current) => ({ ...current, [slot]: id }));
+  function pickTraitGroup(area, groupKey) {
+    setTraitSelection((current) => {
+      if (area === 'primary') {
+        return normalizeTraitSelection({ ...current, group: groupKey, core: '', sub1: '', sub2: '' });
+      }
+      return normalizeTraitSelection({ ...current, secondaryGroup: groupKey, secondarySub1: '', secondarySub2: '' });
+    });
+  }
+
+  function pickTrait(slot, id) {
+    setTraitSelection((current) => normalizeTraitSelection({ ...current, [slot]: String(id) }));
   }
 
   function toggleVisibleStat(key) {
@@ -963,6 +1099,62 @@ export default function App() {
   function resetConfig() {
     setConfig({ equipment: clone(INITIAL_EQUIPMENT), skills: clone(INITIAL_SKILLS), talents: clone(DEFAULT_TALENTS) });
     setSkillLevels(Object.fromEntries(INITIAL_SKILLS.map((skill) => [skill.id, skill.maxLevel])));
+  }
+
+  const traitSummaryItems = traitBonusSummaryItems(result.traitBonuses);
+  const primaryGroup = ACTIVE_TRAIT_GROUPS.find((group) => group.key === traitSelection.group);
+  const secondaryGroup = ACTIVE_TRAIT_GROUPS.find((group) => group.key === traitSelection.secondaryGroup);
+  const traitSelectionSlots = [
+    { key: 'core', title: '核心潜能', group: traitSelection.group, type: 'Core' },
+    { key: 'sub1', title: '主系一栏', group: traitSelection.group, type: 'Sub1' },
+    { key: 'sub2', title: '主系二栏', group: traitSelection.group, type: 'Sub2' },
+    { key: 'secondarySub1', title: '副系一栏', group: traitSelection.secondaryGroup, type: 'Sub1' },
+    { key: 'secondarySub2', title: '副系二栏', group: traitSelection.secondaryGroup, type: 'Sub2' }
+  ];
+
+  function renderTraitGroupTabs(area, activeKey) {
+    return (
+      <div className="traitGroupTabs">
+        {ACTIVE_TRAIT_GROUPS.map((group) => (
+          <button
+            type="button"
+            className={`traitGroupButton ${activeKey === group.key ? 'active' : ''}`}
+            onClick={() => pickTraitGroup(area, group.key)}
+            title={group.tooltip || group.name}
+            key={`${area}-${group.key}`}
+          >
+            <img src={loadoutImageSrc(group.image)} alt="" />
+            <span>{group.name}</span>
+          </button>
+        ))}
+      </div>
+    );
+  }
+
+  function renderTraitLane(slot) {
+    const options = traitsBySlot(slot.group, slot.type);
+    return (
+      <div className="traitLane" key={slot.key}>
+        <div className="traitLaneHead">
+          <strong>{slot.title}</strong>
+          <span>{TRAIT_BY_ID[traitSelection[slot.key]]?.name || '未选择'}</span>
+        </div>
+        <div className="traitGrid">
+          {options.map((trait) => (
+            <button
+              type="button"
+              className={`traitButton ${String(trait.id) === String(traitSelection[slot.key]) ? 'active' : ''}`}
+              onClick={() => pickTrait(slot.key, trait.id)}
+              title={trait.tooltip || trait.name}
+              key={`${slot.key}-${trait.id}`}
+            >
+              <img className="traitIcon" src={loadoutImageSrc(trait.image)} alt="" />
+              <span>{trait.name}</span>
+            </button>
+          ))}
+        </div>
+      </div>
+    );
   }
 
   return (
@@ -1197,24 +1389,29 @@ export default function App() {
             <p className="eyebrow">Potential</p>
             <h2>潜能选择</h2>
           </div>
-          <span className="pill">后台可编辑</span>
+          <span className="pill">{selectedTraits.length} 项已选</span>
         </div>
-        <div className="talentGrid">
-          {['主天赋', '副天赋'].map((slot) => (
-            <label className="selectBlock talentPick" key={slot}>
-              <span>{slot}</span>
-              <select value={selectedTalentIds[slot]} onChange={(event) => updateTalentPick(slot, event.target.value)}>
-                {talents.filter((talent) => talent.slot === slot).map((talent) => (
-                  <option value={talent.id} key={talent.id}>{talent.name}</option>
-                ))}
-              </select>
-              <small>{talents.find((talent) => talent.id === selectedTalentIds[slot])?.note || '手动配置潜能效果'}</small>
-            </label>
-          ))}
-          <div className="talentResult">
-            <span>潜能合计</span>
-            <strong>法强 +{result.talentBonusAp}</strong>
-            <small>防穿 +{result.selectedTalents.reduce((sum, item) => sum + getNumber(item.pen), 0)} / {pct(result.selectedTalents.reduce((sum, item) => sum + getNumber(item.penPct), 0))}，技伤 +{pct(result.talentDamageBonus)}</small>
+        <div className="traitBuilder">
+          <div className="traitColumn">
+            <div className="traitSectionHead">
+              <strong>主系 {primaryGroup?.name}</strong>
+              <span>{primaryGroup?.tooltip}</span>
+            </div>
+            {renderTraitGroupTabs('primary', traitSelection.group)}
+            {traitSelectionSlots.slice(0, 3).map(renderTraitLane)}
+          </div>
+          <div className="traitColumn">
+            <div className="traitSectionHead">
+              <strong>副系 {secondaryGroup?.name}</strong>
+              <span>{secondaryGroup?.tooltip}</span>
+            </div>
+            {renderTraitGroupTabs('secondary', traitSelection.secondaryGroup)}
+            {traitSelectionSlots.slice(3).map(renderTraitLane)}
+            <div className="traitSummary">
+              <span>潜能合计</span>
+              <strong>{traitSummaryItems.length ? traitSummaryItems.join(' / ') : '暂无数值修正'}</strong>
+              <small>{result.traitBonuses.summaries.length ? result.traitBonuses.summaries.join('；') : '当前组合未配置额外可计算效果'}</small>
+            </div>
           </div>
         </div>
       </section>
@@ -1272,7 +1469,7 @@ export default function App() {
             </div>
           </div>
           <div className="effectGrid">
-            {result.effects.map((effect) => (
+            {result.effects.length ? result.effects.map((effect) => (
               <div className="damageRow compactDamageRow" key={effect.title}>
                 <div>
                   <strong>{effect.title}</strong>
@@ -1280,20 +1477,20 @@ export default function App() {
                 </div>
                 <DamageValue raw={effect.raw} final={effect.value} />
               </div>
-            ))}
+            )) : (
+              <div className="damageRow compactDamageRow">
+                <div>
+                  <strong>暂无潜能特效</strong>
+                  <span>选择伤痕、伤口撕裂或鬼火后显示</span>
+                </div>
+              </div>
+            )}
             <div className="damageRow compactDamageRow highlight">
               <div>
                 <strong>特效小计</strong>
-                <span>诅咒+腐化3跳+伤痕+撕裂</span>
+                <span>当前潜能附加效果</span>
               </div>
               <DamageValue raw={result.effectSubtotalRaw} final={result.effectSubtotal} />
-            </div>
-            <div className="damageRow compactDamageRow">
-              <div>
-                <strong>鬼火(真伤)</strong>
-                <span>250 + 法强 * 20%</span>
-              </div>
-              <DamageValue raw={result.ghostFire} final={result.ghostFire} />
             </div>
             <div className="damageRow compactDamageRow">
               <div>

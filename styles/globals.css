@@ -637,6 +637,137 @@ input:focus {
   min-height: 34px;
 }
 
+.traitBuilder {
+  display: grid;
+  grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr);
+  gap: 18px;
+}
+
+.traitColumn {
+  display: grid;
+  align-content: start;
+  gap: 14px;
+}
+
+.traitSectionHead,
+.traitLaneHead {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.traitSectionHead strong,
+.traitLaneHead strong {
+  color: #fff2d5;
+}
+
+.traitSectionHead span,
+.traitLaneHead span {
+  overflow: hidden;
+  color: #a9a0a0;
+  font-size: 12px;
+  line-height: 1.45;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.traitGroupTabs {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.traitGroupButton,
+.traitButton {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(12, 10, 16, 0.42);
+  color: #eee4dc;
+}
+
+.traitGroupButton {
+  justify-content: center;
+  gap: 7px;
+  min-height: 44px;
+  padding: 8px;
+  border-radius: 8px;
+}
+
+.traitGroupButton img {
+  width: 24px;
+  height: 24px;
+  flex: 0 0 auto;
+  object-fit: contain;
+}
+
+.traitGroupButton span,
+.traitButton span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.traitGroupButton.active,
+.traitButton.active {
+  border-color: rgba(255, 196, 117, 0.82);
+  background: rgba(214, 137, 62, 0.24);
+  color: #fff4da;
+  box-shadow: 0 0 0 1px rgba(255, 196, 117, 0.18);
+}
+
+.traitLane {
+  display: grid;
+  gap: 8px;
+}
+
+.traitGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(112px, 1fr));
+  gap: 8px;
+}
+
+.traitButton {
+  gap: 8px;
+  min-height: 48px;
+  padding: 7px 8px;
+  border-radius: 8px;
+  text-align: left;
+}
+
+.traitIcon {
+  width: 30px;
+  height: 30px;
+  flex: 0 0 auto;
+  object-fit: contain;
+}
+
+.traitSummary {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-height: 96px;
+  padding: 12px;
+  border: 1px solid rgba(255, 196, 117, 0.22);
+  border-radius: 8px;
+  background: rgba(42, 28, 18, 0.42);
+}
+
+.traitSummary span,
+.traitSummary small {
+  color: #a9a0a0;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.traitSummary strong {
+  color: #fff2d5;
+  font-size: 18px;
+  line-height: 1.35;
+}
+
 .damageList {
   display: grid;
   gap: 10px;
@@ -859,6 +990,7 @@ td:last-child input {
   .formulaGrid,
   .stats,
   .talentGrid,
+  .traitBuilder,
   .heroPicker,
   .sourceGrid,
   .miniStats {
@@ -888,6 +1020,8 @@ td:last-child input {
   .formGrid,
   .buildControlLayout,
   .attributePanel,
+  .traitGroupTabs,
+  .traitGrid,
   .skillGroup,
   .effectGrid {
     grid-template-columns: 1fr;
