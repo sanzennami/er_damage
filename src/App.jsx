@@ -5,7 +5,7 @@ import ITEM_UNIQUE_EFFECTS from './data/itemUniqueEffects.json';
 import DAK_LOADOUT_ASSETS from './data/dakLoadoutAssets.json';
 import MASTERY_STATS from './data/masteryStats.json';
 
-const APP_VERSION = 'v0.1.018';
+const APP_VERSION = 'v0.1.019';
 
 const CHARACTER_IMAGE_URLS = import.meta.glob('../assets/characters/*.png', {
   eager: true,
@@ -693,6 +693,10 @@ function evaluateFormula(formula, context) {
   }
 }
 
+function formulaUsesVariable(formula, variableName) {
+  return new RegExp(`\\b${variableName}\\b`).test(String(formula || ''));
+}
+
 function calculateSkill(skill, level, context) {
   const nextLevel = clampLevel(skill, level);
   const base = skillBaseAtLevel(skill, nextLevel);
@@ -1135,6 +1139,14 @@ export default function App() {
   const activeEquipmentStats = ITEM_STAT_DEFINITIONS
     .map((stat) => ({ ...stat, value: statValue(result.equipmentStats, stat.key) }))
     .filter((stat) => stat.value !== 0);
+  const heroUsesApScaling = result.skills.some((skill) => formulaUsesVariable(skill.formula, 'ap'));
+  const heroUsesAttackScaling = result.skills.some((skill) => formulaUsesVariable(skill.formula, 'attack'));
+  const showApFormulaStats = heroUsesApScaling || (!heroUsesApScaling && !heroUsesAttackScaling);
+  const finalAttack = attack + result.equipAttackPower + result.masteryAttackPower;
+  const formulaSummaryStats = [
+    showApFormulaStats ? `最终法强 ${result.ap}` : '',
+    heroUsesAttackScaling ? `最终攻击 ${round(finalAttack, 1)}` : ''
+  ].filter(Boolean).join(' / ');
   const selectedEquipmentEffectsRaw = result.selected.flatMap((item) => (
     uniqueEffectsForItem(item).map((effect) => ({ slot: item.type, name: item.name, quality: item.quality, effect }))
   ));
@@ -2083,16 +2095,28 @@ export default function App() {
             <p className="eyebrow">Formula</p>
             <h2>计算过程</h2>
           </div>
-          <span className="pill">最终法强 {result.ap}</span>
+          <span className="pill">{formulaSummaryStats}</span>
         </summary>
         <div className="formulaGrid">
-          <StatCard label="装备法强" value={result.equipAp} hint="5件装备求和" note={help('stat.equipAp')} />
-          <StatCard label="潜能法强" value={talentAp + result.talentBonusAp} hint="手动输入 + 潜能选择" note={help('stat.potentialAp')} />
-          <StatCard label="熟练度法强%" value={pct(result.masteryApPct)} hint={selectedMasterySummary.join(' / ') || '当前武器无技能增幅熟练度'} note={help('stat.masteryApPct')} />
-          <StatCard label="独有法强%" value={pct(result.uniqueApPct)} hint="重复独有取最高" note={help('stat.uniqueApPct')} />
-          <StatCard label="合计法强" value={round(result.totalBaseAp, 1)} hint={`装备 ${result.equipAp} + 潜能 ${round(talentAp + result.talentBonusAp, 1)} + 叠层 ${result.stackAp}`} note={help('stat.equipAp')} />
-          <StatCard label="合计法强增幅%" value={pct(result.totalApPct)} hint={[result.uniqueApPct ? `独有 ${pct(result.uniqueApPct)}` : '', result.masteryApPct ? `熟练 ${pct(result.masteryApPct)}` : ''].filter(Boolean).join(' + ') || '无额外法强增幅'} note={help('stat.masteryApPct')} />
-          <StatCard label="最终法强" value={result.ap} hint={`${round(result.totalBaseAp, 1)} * (1 + ${pct(result.totalApPct)})`} note={help('stat.equipAp')} />
+          {showApFormulaStats ? (
+            <>
+              <StatCard label="装备法强" value={result.equipAp} hint="5件装备求和" note={help('stat.equipAp')} />
+              <StatCard label="潜能法强" value={talentAp + result.talentBonusAp} hint="手动输入 + 潜能选择" note={help('stat.potentialAp')} />
+              <StatCard label="熟练度法强%" value={pct(result.masteryApPct)} hint={selectedMasterySummary.join(' / ') || '当前武器无技能增幅熟练度'} note={help('stat.masteryApPct')} />
+              <StatCard label="独有法强%" value={pct(result.uniqueApPct)} hint="重复独有取最高" note={help('stat.uniqueApPct')} />
+              <StatCard label="合计法强" value={round(result.totalBaseAp, 1)} hint={`装备 ${result.equipAp} + 潜能 ${round(talentAp + result.talentBonusAp, 1)} + 叠层 ${result.stackAp}`} note={help('stat.equipAp')} />
+              <StatCard label="合计法强增幅%" value={pct(result.totalApPct)} hint={[result.uniqueApPct ? `独有 ${pct(result.uniqueApPct)}` : '', result.masteryApPct ? `熟练 ${pct(result.masteryApPct)}` : ''].filter(Boolean).join(' + ') || '无额外法强增幅'} note={help('stat.masteryApPct')} />
+              <StatCard label="最终法强" value={result.ap} hint={`${round(result.totalBaseAp, 1)} * (1 + ${pct(result.totalApPct)})`} note={help('stat.equipAp')} />
+            </>
+          ) : null}
+          {heroUsesAttackScaling ? (
+            <>
+              <StatCard label="基础攻击" value={attack} hint={`角色等级成长后攻击力`} note={help('equipment.attackPower')} />
+              <StatCard label="装备攻击" value={result.equipAttackPower} hint="当前装备攻击力合计" note={help('equipment.attackPower')} />
+              <StatCard label="熟练度攻击" value={round(result.masteryAttackPower, 1)} hint={selectedMasterySummary.join(' / ') || '当前武器无攻击力熟练度'} note={help('field.mastery')} />
+              <StatCard label="最终攻击" value={round(finalAttack, 1)} hint={`${round(attack, 1)} + ${round(result.equipAttackPower, 1)} + ${round(result.masteryAttackPower, 1)}`} note={help('equipment.attackPower')} />
+            </>
+          ) : null}
         </div>
         <p className="note">最终伤害 = 技能基础值 * 100 / (100 + 目标防御 * (1 - 防御降低) * (1 - 防穿%) - 防穿数值) * (1 + 技伤加成 - 目标减伤 - 技能减免)。</p>
       </details>
