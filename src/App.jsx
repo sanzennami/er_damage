@@ -7,7 +7,7 @@ import DAK_LOADOUT_ASSETS from './data/dakLoadoutAssets.json';
 import DAK_ITEM_SKILL_ICONS from './data/dakItemSkillIcons.json';
 import MASTERY_STATS from './data/masteryStats.json';
 
-const APP_VERSION = 'v0.1.027';
+const APP_VERSION = 'v0.1.028';
 
 const CHARACTER_IMAGE_URLS = import.meta.glob('../assets/characters/*.png', {
   eager: true,
@@ -374,6 +374,11 @@ const GENERATED_SKILLS = [
   ...LEGACY_GENERATED_SKILLS.filter((skill) => !DAMAGE_TABLE_SKILL_KEYS.has(`${skill.hero}-${skill.group}-${skill.dataKey}`))
 ];
 const INITIAL_SKILLS = dedupeSkillsByLatest([...DEFAULT_SKILLS, ...GENERATED_SKILLS]);
+const HEROES_WITH_SKILL_DAMAGE = new Set(
+  INITIAL_SKILLS
+    .filter((skill) => basesFor(skill).length)
+    .map((skill) => skill.hero)
+);
 const DEFAULT_COMBOS = [
   { id: 'yumin-q3', hero: '俞岷', title: 'Q 三跳全中', note: '工作簿 Q*3', hits: { 'yumin-q': 3 } },
   { id: 'yumin-eq4', hero: '俞岷', title: 'EQ 四跳全中', note: '工作簿 EQ*4', hits: { 'yumin-eq': 4 } },
@@ -1169,6 +1174,7 @@ export default function App() {
   const [skillTargetCounts, setSkillTargetCounts] = useState({});
   const [useHeroAvatarPicker, setUseHeroAvatarPicker] = useState(() => Boolean(loadAppSettings().useHeroAvatarPicker));
   const [editMode, setEditMode] = useState(() => Boolean(loadAppSettings().editMode));
+  const [showUnsupportedHeroes, setShowUnsupportedHeroes] = useState(() => Boolean(loadAppSettings().showUnsupportedHeroes));
   const [heroAvatarQuery, setHeroAvatarQuery] = useState('');
   const [showLowerTierEquipment, setShowLowerTierEquipment] = useState(false);
   const [visibleStatKeys, setVisibleStatKeys] = useState(DEFAULT_VISIBLE_STAT_KEYS);
@@ -1182,8 +1188,8 @@ export default function App() {
   }, [equipment, skills, talents, combos]);
 
   useEffect(() => {
-    window.localStorage.setItem(APP_SETTINGS_KEY, JSON.stringify({ useHeroAvatarPicker, editMode }));
-  }, [useHeroAvatarPicker, editMode]);
+    window.localStorage.setItem(APP_SETTINGS_KEY, JSON.stringify({ useHeroAvatarPicker, editMode, showUnsupportedHeroes }));
+  }, [useHeroAvatarPicker, editMode, showUnsupportedHeroes]);
 
   useEffect(() => {
     if (HELP_NOTES_EDITABLE) {
@@ -1239,9 +1245,12 @@ export default function App() {
     () => traitBonusesFor(selectedTraits, estimatedBurstBonus),
     [selectedTraits, estimatedBurstBonus]
   );
+  const visibleHeroNames = showUnsupportedHeroes
+    ? HEROES
+    : HEROES.filter((hero) => HEROES_WITH_SKILL_DAMAGE.has(hero));
   const selectedCharacter = ER_GAME_DATA.characters.find((character) => character.name === selectedHero);
   const selectedOfficialSkillGroups = ER_GAME_DATA.rawSkillGroups.filter((skill) => skill.hero === selectedHero);
-  const heroPickerOptions = HEROES.map((hero) => ({
+  const heroPickerOptions = visibleHeroNames.map((hero) => ({
     name: hero,
     character: ER_GAME_DATA.characters.find((character) => character.name === hero)
   }));
@@ -1254,6 +1263,10 @@ export default function App() {
       ...(character?.weapons || []).map((weapon) => weaponTypeOfficialName(weapon))
     ].filter(Boolean).some((value) => String(value).toLowerCase().includes(query));
   });
+  useEffect(() => {
+    if (visibleHeroNames.includes(selectedHero)) return;
+    setSelectedHero(visibleHeroNames[0] || '俞岷');
+  }, [selectedHero, showUnsupportedHeroes]);
   const allowedWeaponTypes = new Set(selectedCharacter?.weapons || []);
   const selectedWeaponRaw = weaponTypeFilter !== '全部类型'
     ? weaponTypeFromFilter(weaponTypeFilter)
@@ -1894,7 +1907,7 @@ export default function App() {
                   value={selectedHero}
                   onChange={(event) => setSelectedHero(event.target.value)}
                 >
-                  {HEROES.map((hero) => (
+                  {visibleHeroNames.map((hero) => (
                     <option value={hero} key={hero}>{hero}</option>
                   ))}
                 </select>
@@ -1920,6 +1933,14 @@ export default function App() {
                     onChange={(event) => setUseHeroAvatarPicker(event.target.checked)}
                   />
                   <span>使用头像列表选择实验体</span>
+                </label>
+                <label className="toggle">
+                  <input
+                    type="checkbox"
+                    checked={showUnsupportedHeroes}
+                    onChange={(event) => setShowUnsupportedHeroes(event.target.checked)}
+                  />
+                  <span>显示暂不支持技能伤害计算的英雄</span>
                 </label>
                 <label className="toggle">
                   <input
