@@ -44,19 +44,15 @@ button {
   margin-top: 22px;
 }
 
-.heroSwitch {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
+.compactHeroPicker {
+  grid-template-columns: minmax(220px, 340px);
 }
 
-.heroSwitch button,
 .stackBlocks button {
   background: rgba(255, 255, 255, 0.08);
   color: #d9cfc3;
 }
 
-.heroSwitch button.active,
 .stackBlocks button.active {
   border-color: rgba(255, 213, 107, 0.75);
   background: rgba(255, 213, 107, 0.2);

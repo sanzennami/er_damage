@@ -879,7 +879,7 @@ export default function App() {
         <div>
           <h1>永恒轮回伤害计算器</h1>
           <p className="intro">选择英雄、装备和潜能后即时计算法强、防穿、防御修正、原始伤害与最终伤害。</p>
-          <div className="heroPicker">
+          <div className="heroPicker compactHeroPicker">
             <label className="selectBlock">
               <LabelWithHelp note={help('select.hero')}>英雄</LabelWithHelp>
               <select value={selectedHero} onChange={(event) => setSelectedHero(event.target.value)}>
@@ -888,18 +888,6 @@ export default function App() {
                 ))}
               </select>
             </label>
-            <div className="heroSwitch" role="group" aria-label="常用英雄">
-              {MANUAL_HEROES.map((hero) => (
-              <button
-                type="button"
-                className={selectedHero === hero ? 'active' : ''}
-                onClick={() => setSelectedHero(hero)}
-                key={hero}
-              >
-                {hero === '奇娅拉' ? '修女（奇娅拉）' : hero}
-              </button>
-              ))}
-            </div>
           </div>
         </div>
         <div className="heroPanel heroIdentity">
