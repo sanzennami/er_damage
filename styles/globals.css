@@ -66,11 +66,16 @@ button {
   white-space: nowrap;
 }
 
+.globalSettingsAnchor {
+  position: relative;
+  width: max-content;
+}
+
 .globalSettingsMenu {
   position: absolute;
   z-index: 120;
-  top: 55px;
-  right: 0;
+  top: 0;
+  left: calc(100% + 8px);
   width: max-content;
   min-width: min(280px, 100%);
   max-width: min(360px, calc(100vw - 32px));
@@ -1575,6 +1580,39 @@ input:focus {
   background: rgba(12, 10, 16, 0.4);
 }
 
+.editSheetWrap {
+  overflow: visible;
+}
+
+.editSheetWrap[open] {
+  overflow-x: auto;
+}
+
+.configSheetSummary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px;
+  color: #fff2d5;
+  cursor: pointer;
+  list-style: none;
+}
+
+.configSheetSummary::-webkit-details-marker {
+  display: none;
+}
+
+.configSheetSummary span {
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.configSheetSummary b {
+  color: #ffd56b;
+  font-size: 12px;
+}
+
 table {
   width: 100%;
   min-width: 980px;
@@ -1729,8 +1767,7 @@ td:last-child input {
   }
 
   .globalSettingsMenu {
-    top: 112px;
-    right: auto;
+    top: calc(100% + 8px);
     left: 0;
     width: min(100%, 360px);
   }

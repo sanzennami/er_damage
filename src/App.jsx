@@ -7,7 +7,7 @@ import DAK_LOADOUT_ASSETS from './data/dakLoadoutAssets.json';
 import DAK_ITEM_SKILL_ICONS from './data/dakItemSkillIcons.json';
 import MASTERY_STATS from './data/masteryStats.json';
 
-const APP_VERSION = 'v0.1.030';
+const APP_VERSION = 'v0.1.031';
 
 const CHARACTER_IMAGE_URLS = import.meta.glob('../assets/characters/*.png', {
   eager: true,
@@ -1109,6 +1109,20 @@ function LevelSelect({ skill, value, onChange }) {
   );
 }
 
+function LazyEditSheet({ title, children }) {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <details className="sheetWrap editSheetWrap" open={open} onToggle={(event) => setOpen(event.currentTarget.open)}>
+      <summary className="configSheetSummary">
+        <span>{title}</span>
+        <b>{open ? '收起' : '展开'}</b>
+      </summary>
+      {open ? children : null}
+    </details>
+  );
+}
+
 function TextCell({ value, onChange, type = 'text', step }) {
   return <input type={type} step={step} value={value ?? ''} onChange={(event) => onChange(event.target.value)} />;
 }
@@ -1923,46 +1937,48 @@ export default function App() {
                   ))}
                 </select>
               </label>
-              <button
-                type="button"
-                className={`quietButton ${showGlobalSettings ? 'active' : ''}`}
-                onClick={() => setShowGlobalSettings((current) => !current)}
-              >
-                全局设置
-              </button>
-            </div>
-            {showGlobalSettings ? (
-              <div className="globalSettingsMenu">
-                <div className="panelSubhead">
-                  <strong>全局设置</strong>
-                  <span>显示与编辑</span>
+              <div className="globalSettingsAnchor">
+                <button
+                  type="button"
+                  className={`quietButton ${showGlobalSettings ? 'active' : ''}`}
+                  onClick={() => setShowGlobalSettings((current) => !current)}
+                >
+                  全局设置
+                </button>
+                {showGlobalSettings ? (
+                  <div className="globalSettingsMenu">
+                    <div className="panelSubhead">
+                      <strong>全局设置</strong>
+                      <span>显示与编辑</span>
+                    </div>
+                    <label className="toggle">
+                      <input
+                        type="checkbox"
+                        checked={useHeroAvatarPicker}
+                        onChange={(event) => setUseHeroAvatarPicker(event.target.checked)}
+                      />
+                      <span>使用头像列表选择实验体</span>
+                    </label>
+                    <label className="toggle">
+                      <input
+                        type="checkbox"
+                        checked={showUnsupportedHeroes}
+                        onChange={(event) => setShowUnsupportedHeroes(event.target.checked)}
+                      />
+                      <span>显示暂不支持技能伤害计算的英雄</span>
+                    </label>
+                    <label className="toggle">
+                      <input
+                        type="checkbox"
+                        checked={editMode}
+                        onChange={(event) => setEditMode(event.target.checked)}
+                      />
+                      <span>编辑模式</span>
+                    </label>
+                  </div>
+                ) : null}
                 </div>
-                <label className="toggle">
-                  <input
-                    type="checkbox"
-                    checked={useHeroAvatarPicker}
-                    onChange={(event) => setUseHeroAvatarPicker(event.target.checked)}
-                  />
-                  <span>使用头像列表选择实验体</span>
-                </label>
-                <label className="toggle">
-                  <input
-                    type="checkbox"
-                    checked={showUnsupportedHeroes}
-                    onChange={(event) => setShowUnsupportedHeroes(event.target.checked)}
-                  />
-                  <span>显示暂不支持技能伤害计算的英雄</span>
-                </label>
-                <label className="toggle">
-                  <input
-                    type="checkbox"
-                    checked={editMode}
-                    onChange={(event) => setEditMode(event.target.checked)}
-                  />
-                  <span>编辑模式</span>
-                </label>
-              </div>
-            ) : null}
+            </div>
           </div>
         </div>
       </section>
@@ -2419,7 +2435,7 @@ export default function App() {
           编辑后会保存在当前浏览器。技能公式可使用 `base`、`ap`、`attack`、`targetHp`、`stacks`、`level`，等级基础值用英文逗号分隔。数据源预留为 pypy-vrc/er-gamedata，仍保留手动输入覆盖。
           <LabelWithHelp note={help('solution.help')}>帮助说明发布方案</LabelWithHelp>
         </p>
-        <div className="sheetWrap">
+        <LazyEditSheet title={<LabelWithHelp note={help('table.equipment')}>装备</LabelWithHelp>}>
           <table>
             <caption><LabelWithHelp note={help('table.equipment')}>装备</LabelWithHelp></caption>
             <thead>
@@ -2477,8 +2493,8 @@ export default function App() {
               ))}
             </tbody>
           </table>
-        </div>
-        <div className="sheetWrap">
+        </LazyEditSheet>
+        <LazyEditSheet title={<LabelWithHelp note={help('table.skills')}>技能</LabelWithHelp>}>
           <table>
             <caption><LabelWithHelp note={help('table.skills')}>技能</LabelWithHelp></caption>
             <thead>
@@ -2502,8 +2518,8 @@ export default function App() {
               ))}
             </tbody>
           </table>
-        </div>
-        <div className="sheetWrap">
+        </LazyEditSheet>
+        <LazyEditSheet title="连段">
           <table>
             <caption>连段</caption>
             <thead>
@@ -2525,7 +2541,7 @@ export default function App() {
               ))}
             </tbody>
           </table>
-        </div>
+        </LazyEditSheet>
       </section>
       ) : null}
     </main>
