@@ -324,6 +324,40 @@ function convertEquipmentItem(item, l10n) {
   };
 }
 
+function skillVersionTime(skill) {
+  const value = skill?.updatedAt || skill?.updateDate || skill?.updatedDate || skill?.patch || skill?.version || '';
+  const parsed = Date.parse(value);
+  if (Number.isFinite(parsed)) return parsed;
+  const numeric = String(value).match(/\d+(?:\.\d+)*/)?.[0];
+  return numeric ? Number(numeric.replace(/\./g, '').padEnd(8, '0')) : 0;
+}
+
+function skillDedupeKey(skill) {
+  return [
+    skill.hero || '',
+    skill.group || '',
+    skill.skillId || '',
+    skill.dataKey || '',
+    skill.title || ''
+  ].join('|');
+}
+
+function dedupeSkillsByLatest(skills) {
+  const latest = new Map();
+  skills.forEach((skill, index) => {
+    const key = skillDedupeKey(skill);
+    const current = latest.get(key);
+    const nextTime = skillVersionTime(skill);
+    const currentTime = current ? skillVersionTime(current.skill) : -1;
+    if (!current || nextTime > currentTime || (nextTime === currentTime && index > current.index)) {
+      latest.set(key, { skill, index });
+    }
+  });
+  return Array.from(latest.values())
+    .sort((a, b) => a.index - b.index)
+    .map(({ skill }) => skill);
+}
+
 async function ensureRepo() {
   if (!existsSync(cacheDir)) {
     try {
@@ -438,6 +472,7 @@ async function main() {
     }));
   }
 
+  const dedupedSkills = dedupeSkillsByLatest(skills);
   const itemStatDefinitions = statDefinitions(zh);
   const equipment = [...itemWeapons, ...itemArmors]
     .filter((item) => item.showInItemBook !== false && item.modeType === 0)
@@ -450,12 +485,12 @@ async function main() {
     counts: {
       characters: characterRows.length,
       rawSkillGroups: rawSkillGroups.length,
-      calculableSkills: skills.length,
+      calculableSkills: dedupedSkills.length,
       equipment: equipment.length
     },
     characters: characterRows,
     rawSkillGroups,
-    skills,
+    skills: dedupedSkills,
     itemStatDefinitions,
     equipment
   };

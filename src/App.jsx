@@ -221,7 +221,7 @@ const DEFAULT_SKILLS = [
 ];
 const GENERATED_SKILLS = ER_GAME_DATA.skills
   .filter((skill) => !MANUAL_HEROES.includes(skill.hero))
-  .map((skill) => ({
+  .map((skill, index) => ({
     id: skill.id,
     hero: skill.hero,
     title: skill.title,
@@ -230,9 +230,14 @@ const GENERATED_SKILLS = ER_GAME_DATA.skills
     maxLevel: skill.maxLevel,
     source: skill.source,
     description: skill.description,
-    coefficientText: skill.coefficientText
+    coefficientText: skill.coefficientText,
+    group: skill.group,
+    skillId: skill.skillId,
+    dataKey: skill.dataKey,
+    updatedAt: skill.updatedAt || skill.updateDate || skill.updatedDate || skill.patch || '',
+    sourceIndex: index
   }));
-const INITIAL_SKILLS = [...DEFAULT_SKILLS, ...GENERATED_SKILLS];
+const INITIAL_SKILLS = dedupeSkillsByLatest([...DEFAULT_SKILLS, ...GENERATED_SKILLS]);
 
 const SLOTS = ['武器', '衣服', '头部', '手部', '鞋子'];
 function defaultItemName(slot, preferred) {
@@ -303,10 +308,44 @@ function mergeSkills(savedSkills) {
   if (!Array.isArray(savedSkills)) return clone(INITIAL_SKILLS);
 
   const existingIds = new Set(savedSkills.map((skill) => skill.id));
-  return [
+  return dedupeSkillsByLatest([
     ...savedSkills,
     ...INITIAL_SKILLS.filter((skill) => !existingIds.has(skill.id))
-  ];
+  ]);
+}
+
+function skillVersionTime(skill) {
+  const value = skill?.updatedAt || skill?.updateDate || skill?.updatedDate || skill?.patch || skill?.version || '';
+  const parsed = Date.parse(value);
+  if (Number.isFinite(parsed)) return parsed;
+  const numeric = String(value).match(/\d+(?:\.\d+)*/)?.[0];
+  return numeric ? Number(numeric.replace(/\./g, '').padEnd(8, '0')) : 0;
+}
+
+function skillDedupeKey(skill) {
+  return [
+    skill.hero || '',
+    skill.group || '',
+    skill.skillId || '',
+    skill.dataKey || '',
+    skill.title || ''
+  ].join('|');
+}
+
+function dedupeSkillsByLatest(skills) {
+  const latest = new Map();
+  skills.forEach((skill, index) => {
+    const key = skillDedupeKey(skill);
+    const current = latest.get(key);
+    const nextTime = skillVersionTime(skill);
+    const currentTime = current ? skillVersionTime(current.skill) : -1;
+    if (!current || nextTime > currentTime || (nextTime === currentTime && index > current.index)) {
+      latest.set(key, { skill, index });
+    }
+  });
+  return Array.from(latest.values())
+    .sort((a, b) => a.index - b.index)
+    .map(({ skill }) => skill);
 }
 
 function statValue(stats, key) {
@@ -378,6 +417,11 @@ function characterImageSrc(character) {
   const imageName = character.image.split('/').pop();
   const match = Object.entries(CHARACTER_IMAGE_URLS).find(([path]) => path.endsWith(`/${imageName}`));
   return match?.[1] || character.image;
+}
+
+function weaponTypeRaw(item) {
+  if (item?.weaponTypeRaw) return item.weaponTypeRaw;
+  return String(item?.weaponType || '').split('/').pop()?.trim() || '';
 }
 
 function byName(equipment, name) {
@@ -748,12 +792,43 @@ export default function App() {
   );
   const selectedCharacter = ER_GAME_DATA.characters.find((character) => character.name === selectedHero);
   const selectedOfficialSkillGroups = ER_GAME_DATA.rawSkillGroups.filter((skill) => skill.hero === selectedHero);
+  const allowedWeaponTypes = new Set(selectedCharacter?.weapons || []);
+  const heroWeaponOptions = WEAPON_TYPE_OPTIONS.filter((type) => {
+    if (type === '全部类型') return true;
+    const rawType = String(type).split('/').pop()?.trim();
+    return !allowedWeaponTypes.size || allowedWeaponTypes.has(rawType);
+  });
+  const weaponChoices = equipment.filter((item) => (
+    item.type === '武器'
+    && (!allowedWeaponTypes.size || allowedWeaponTypes.has(weaponTypeRaw(item)))
+    && (weaponTypeFilter === '全部类型' || item.weaponType === weaponTypeFilter)
+  ));
   const visibleEquipmentStats = visibleStatKeys
     .map((key) => ({ ...ITEM_STAT_BY_KEY[key], key, value: statValue(result.equipmentStats, key) }))
     .filter((stat) => stat.label && stat.value !== 0);
   const activeEquipmentStats = ITEM_STAT_DEFINITIONS
     .map((stat) => ({ ...stat, value: statValue(result.equipmentStats, stat.key) }))
     .filter((stat) => stat.value !== 0);
+  const selectedEquipmentEffects = result.selected.flatMap((item) => (
+    String(item.effect || '')
+      .split(',')
+      .map((effect) => effect.trim())
+      .filter(Boolean)
+      .map((effect) => ({ slot: item.type, name: item.name, quality: item.quality, effect }))
+  ));
+
+  useEffect(() => {
+    if (weaponTypeFilter !== '全部类型' && !heroWeaponOptions.includes(weaponTypeFilter)) {
+      setWeaponTypeFilter('全部类型');
+      return;
+    }
+
+    const currentWeapon = byName(equipment, gear['武器']);
+    if (currentWeapon && (!allowedWeaponTypes.size || allowedWeaponTypes.has(weaponTypeRaw(currentWeapon)))) return;
+
+    const nextWeapon = weaponChoices[0] || equipment.find((item) => item.type === '武器');
+    if (nextWeapon) updateGear('武器', nextWeapon.name);
+  }, [selectedHero, equipment, gear['武器'], weaponTypeFilter]);
 
   function updateGear(slot, name) {
     setGear((current) => ({ ...current, [slot]: name }));
@@ -763,7 +838,11 @@ export default function App() {
     setWeaponTypeFilter(type);
     if (type === '全部类型') return;
 
-    const match = equipment.find((item) => item.type === '武器' && item.weaponType === type);
+    const match = equipment.find((item) => (
+      item.type === '武器'
+      && item.weaponType === type
+      && (!allowedWeaponTypes.size || allowedWeaponTypes.has(weaponTypeRaw(item)))
+    ));
     if (match) updateGear('武器', match.name);
   }
 
@@ -913,8 +992,8 @@ export default function App() {
         </div>
       </section>
 
-      <section className="grid twoColumns">
-        <div className="panel">
+      <section className="grid twoColumns buildTargetGrid">
+        <div className="panel buildPanel">
           <div className="panelHead">
             <div>
               <p className="eyebrow">Build</p>
@@ -925,43 +1004,61 @@ export default function App() {
               <span className="pill">CD {result.cd}</span>
             </div>
           </div>
-          <div className="gearGrid">
-            <label className="selectBlock">
-              <LabelWithHelp note={help('select.weaponType')}>武器类型</LabelWithHelp>
-              <select value={weaponTypeFilter} onChange={(event) => updateWeaponType(event.target.value)}>
-                <option value="全部类型">全部类型</option>
-                {WEAPON_TYPE_OPTIONS.filter((type) => type !== '全部类型').map((type) => <option value={type} key={type}>{type}</option>)}
-              </select>
-            </label>
-            {SLOTS.map((slot) => (
-              <label className="selectBlock" key={slot}>
-                <LabelWithHelp note={help('equipment.type')}>{slot}</LabelWithHelp>
-                <select
-                  className="qualitySelect"
-                  value={gear[slot]}
-                  style={{ color: QUALITY_COLORS[byName(equipment, gear[slot])?.quality] }}
-                  onChange={(event) => updateGear(slot, event.target.value)}
-                >
-                  {equipment.filter((item) => (
-                    item.type === slot
-                    && (slot !== '武器' || weaponTypeFilter === '全部类型' || item.weaponType === weaponTypeFilter)
-                  )).map((item) => (
-                    <option value={item.name} key={`${item.type}-${item.name}`} style={{ color: QUALITY_COLORS[item.quality] }}>
-                      {slot === '武器' ? `${item.name} / ${item.weaponType || '未设置'}` : item.name}
-                    </option>
-                  ))}
-                </select>
-              </label>
-            ))}
-            <Field label="熟练度等级" value={mastery} onChange={setMastery} min={1} max={20} note={help('field.mastery')} />
-            <Field label="手动潜能法强" value={talentAp} onChange={setTalentAp} note={help('field.talentAp')} />
-          </div>
-          <div className="chips">
-            {result.selected.map((item) => (
-              <span className={`chip ${item.quality === '红' ? 'red' : item.quality === '金' ? 'gold' : 'purple'}`} key={item.name}>
-                {item.name}{item.effect ? ` / ${item.effect}` : ''}
-              </span>
-            ))}
+          <div className="buildControlLayout">
+            <div>
+              <div className="gearGrid">
+                <label className="selectBlock">
+                  <LabelWithHelp note={help('select.weaponType')}>武器类型</LabelWithHelp>
+                  <select value={weaponTypeFilter} onChange={(event) => updateWeaponType(event.target.value)}>
+                    <option value="全部类型">全部类型</option>
+                    {heroWeaponOptions.filter((type) => type !== '全部类型').map((type) => <option value={type} key={type}>{type}</option>)}
+                  </select>
+                </label>
+                {SLOTS.map((slot) => (
+                  <label className="selectBlock" key={slot}>
+                    <LabelWithHelp note={help('equipment.type')}>{slot}</LabelWithHelp>
+                    <select
+                      className="qualitySelect"
+                      value={gear[slot]}
+                      style={{ color: QUALITY_COLORS[byName(equipment, gear[slot])?.quality] }}
+                      onChange={(event) => updateGear(slot, event.target.value)}
+                    >
+                      {(slot === '武器' ? weaponChoices : equipment.filter((item) => item.type === slot)).map((item) => (
+                        <option value={item.name} key={`${item.type}-${item.name}`} style={{ color: QUALITY_COLORS[item.quality] }}>
+                          {slot === '武器' ? `${item.name} / ${item.weaponType || '未设置'}` : item.name}
+                        </option>
+                      ))}
+                    </select>
+                  </label>
+                ))}
+                <Field label="熟练度等级" value={mastery} onChange={setMastery} min={1} max={20} note={help('field.mastery')} />
+                <Field label="手动潜能法强" value={talentAp} onChange={setTalentAp} note={help('field.talentAp')} />
+              </div>
+              <div className="chips">
+                {result.selected.map((item) => (
+                  <span className={`chip ${item.quality === '红' ? 'red' : item.quality === '金' ? 'gold' : 'purple'}`} key={item.name}>
+                    {item.name}{item.effect ? ` / ${item.effect}` : ''}
+                  </span>
+                ))}
+              </div>
+            </div>
+            <aside className="equipmentEffectMenu" aria-label="当前装备特效">
+              <div className="panelSubhead">
+                <strong>当前装备特效</strong>
+                <span>{selectedEquipmentEffects.length} 条</span>
+              </div>
+              <div className="equipmentEffectList">
+                {selectedEquipmentEffects.length ? selectedEquipmentEffects.map((item, index) => (
+                  <div className="equipmentEffectItem" key={`${item.slot}-${item.name}-${item.effect}-${index}`}>
+                    <span>{item.slot}</span>
+                    <strong style={{ color: QUALITY_COLORS[item.quality] }}>{item.effect}</strong>
+                    <small>{item.name}</small>
+                  </div>
+                )) : (
+                  <div className="equipmentEffectEmpty">当前装备没有特效</div>
+                )}
+              </div>
+            </aside>
           </div>
           {showStatSettings ? (
             <div className="statSettings">
