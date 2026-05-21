@@ -6,7 +6,7 @@ import ITEM_UNIQUE_EFFECTS from './data/itemUniqueEffects.json';
 import DAK_LOADOUT_ASSETS from './data/dakLoadoutAssets.json';
 import MASTERY_STATS from './data/masteryStats.json';
 
-const APP_VERSION = 'v0.1.021';
+const APP_VERSION = 'v0.1.022';
 
 const CHARACTER_IMAGE_URLS = import.meta.glob('../assets/characters/*.png', {
   eager: true,
@@ -386,6 +386,10 @@ function pct(value) {
 function round(value, digits = 1) {
   const base = 10 ** digits;
   return Math.round(value * base) / base;
+}
+
+function damageFloor(value) {
+  return Math.floor(getNumber(value));
 }
 
 function clone(value) {
@@ -777,13 +781,23 @@ function calculateSkill(skill, level, context) {
   const nextLevel = clampLevel(skill, level);
   const base = skillBaseAtLevel(skill, nextLevel);
   const formulaContext = { ...context, base, level: nextLevel };
-  const rawDamage = evaluateFormula(skill.formula, formulaContext);
+  const rawDamage = damageFloor(evaluateFormula(skill.formula, formulaContext));
+  const damage = damageFloor(rawDamage * context.finalMod);
   return {
     ...skill,
     level: nextLevel,
     base,
     rawDamage,
-    damage: rawDamage * context.finalMod
+    damage
+  };
+}
+
+function scaledSkillDamage(skill, finalMod, { scale = 1, hits = 1 } = {}) {
+  const singleRaw = damageFloor(getNumber(skill.rawDamage) * scale);
+  const singleFinal = damageFloor(singleRaw * finalMod);
+  return {
+    raw: singleRaw * hits,
+    final: singleFinal * hits
   };
 }
 
@@ -849,16 +863,16 @@ function calc({
   const activeTraitEffectIds = new Set(traitBonuses.effectIds || []);
   const effects = [
     activeTraitEffectIds.has('scar')
-      ? { title: '伤痕(技)', raw: scarBase, value: scarBase * finalMod, note: '10+20+目标血量*3%' }
+      ? { title: '伤痕(技)', raw: damageFloor(scarBase), value: damageFloor(damageFloor(scarBase) * finalMod), note: '10+20+目标血量*3%' }
       : null,
     activeTraitEffectIds.has('tear')
-      ? { title: '伤口撕裂', raw: tearBase, value: tearBase * finalMod, note: '以触发时70%血计算' }
+      ? { title: '伤口撕裂', raw: damageFloor(tearBase), value: damageFloor(damageFloor(tearBase) * finalMod), note: '以触发时70%血计算' }
       : null
   ].filter(Boolean);
   const ghostFire = 250 + ap * 0.2;
   const repelF = 5 * (10 + mastery) + target.hp * 0.006 + (burstFollowUp ? 3 * (10 + mastery) : 0);
   if (activeTraitEffectIds.has('ghostFire')) {
-    effects.push({ title: '鬼火(真伤)', raw: ghostFire, value: ghostFire, note: '250 + 法强 * 20%' });
+    effects.push({ title: '鬼火(真伤)', raw: damageFloor(ghostFire), value: damageFloor(ghostFire), note: '250 + 法强 * 20%' });
   }
   const effectSubtotalRaw = effects.reduce((sum, effect) => sum + effect.raw, 0);
   const effectSubtotal = effects.reduce((sum, effect) => sum + effect.value, 0);
@@ -866,16 +880,18 @@ function calc({
     .filter((skill) => skill.hero === selectedHero)
     .map((skill) => calculateSkill(skill, skillLevels[skill.id], context));
   const comboDamage = Object.fromEntries(comboSkills.map((skill) => [skill.id, skill.damage]));
+  const comboRawDamage = Object.fromEntries(comboSkills.map((skill) => [skill.id, skill.rawDamage]));
   const comboRows = combos
     .filter((combo) => combo.hero === selectedHero)
     .map((combo) => {
       const hitEntries = Object.entries(combo.hits || {}).filter(([, count]) => getNumber(count) > 0);
       const value = hitEntries.reduce((sum, [skillId, count]) => sum + getNumber(comboDamage[skillId]) * getNumber(count), 0);
+      const rawValue = hitEntries.reduce((sum, [skillId, count]) => sum + getNumber(comboRawDamage[skillId]) * getNumber(count), 0);
       const hitNote = hitEntries.map(([skillId, count]) => {
         const skill = comboSkills.find((item) => item.id === skillId);
         return `${skill?.title || skillId} x${getNumber(count)}`;
       }).join(' + ');
-      return { ...combo, value, note: combo.note || hitNote };
+      return { ...combo, rawValue, value, note: combo.note || hitNote };
     })
     .filter((combo) => Object.values(combo.hits || {}).some((count) => getNumber(count) > 0));
   const extraHeroGroups = [];
@@ -917,7 +933,7 @@ function calc({
     effectSubtotalRaw,
     effectSubtotal,
     ghostFire,
-    repelF,
+    repelF: damageFloor(repelF),
     comboRows,
     extraHeroGroups
   };
@@ -1643,20 +1659,23 @@ export default function App() {
           <div className="skillSubGrid">
             {slotSkills.map((skill) => {
               if (selectedHero === '俞岷' && skill.id === 'yumin-q') {
+                const primary = scaledSkillDamage(skill, result.finalMod, { hits: 3 });
+                const secondary = scaledSkillDamage(skill, result.finalMod, { scale: 0.5, hits: 3 });
                 return renderSkillDamageLeaf(skill, '普通Q（三段）', {
                   targetKey: `${skill.id}-targets`,
-                  primaryRaw: skill.rawDamage * 3,
-                  primaryFinal: skill.damage * 3,
-                  secondaryRaw: skill.rawDamage * 3 * 0.5,
-                  secondaryFinal: skill.damage * 3 * 0.5,
+                  primaryRaw: primary.raw,
+                  primaryFinal: primary.final,
+                  secondaryRaw: secondary.raw,
+                  secondaryFinal: secondary.final,
                   showBreakdown: true
                 });
               }
               if (selectedHero === '俞岷' && skill.id === 'yumin-eq') {
+                const primary = scaledSkillDamage(skill, result.finalMod, { hits: 4 });
                 return renderSkillDamageLeaf(skill, '强化Q（四段）', {
                   targetKey: `${skill.id}-targets`,
-                  primaryRaw: skill.rawDamage * 4,
-                  primaryFinal: skill.damage * 4
+                  primaryRaw: primary.raw,
+                  primaryFinal: primary.final
                 });
               }
               const label = skill.title.replace(/^[QWER]\s*/, '').replace(/^E([QW])\s*/, '强化$1 ') || skill.title;
@@ -2133,7 +2152,7 @@ export default function App() {
                   <strong>{combo.title}</strong>
                   <span>{combo.note}</span>
                 </div>
-                <DamageValue raw={combo.value / result.finalMod} final={combo.value} />
+                <DamageValue raw={combo.rawValue} final={combo.value} />
               </div>
             ))}
         </div>
