@@ -310,6 +310,7 @@ main {
 .helpPopover textarea {
   width: 100%;
   min-height: 96px;
+  padding: 8px;
   resize: vertical;
   border: 1px solid rgba(255, 255, 255, 0.12);
   border-radius: 6px;
@@ -319,10 +320,27 @@ main {
   font: inherit;
 }
 
+.helpSaveButton {
+  width: auto;
+  margin-top: 8px;
+  padding: 7px 10px;
+  border-radius: 6px;
+  font-size: 12px;
+}
+
+.helpSaveButton:disabled {
+  cursor: not-allowed;
+  opacity: 0.58;
+}
+
 .helpPopover small {
   display: block;
   margin-top: 6px;
   color: #a9a0a0;
+}
+
+.helpPopover .helpSaveError {
+  color: #ff9f9f;
 }
 
 .helpNote:hover .helpPopover,

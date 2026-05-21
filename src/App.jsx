@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import ER_GAME_DATA from './data/erGameData.json';
+import DEFAULT_HELP_NOTES from './data/helpNotes.json';
 import ITEM_UNIQUE_EFFECTS from './data/itemUniqueEffects.json';
 import DAK_LOADOUT_ASSETS from './data/dakLoadoutAssets.json';
 import MASTERY_STATS from './data/masteryStats.json';
@@ -84,7 +85,8 @@ const WEAPON_TYPES = [
 ];
 const STORAGE_KEY = 'er-damage-config-v1';
 const HELP_NOTES_KEY = 'er-damage-help-notes-v1';
-const HELP_NOTES_EDITABLE = import.meta.env.DEV;
+const HELP_NOTES_EDITABLE = typeof window !== 'undefined' && ['localhost', '127.0.0.1', '::1'].includes(window.location.hostname);
+const HELP_NOTES_SAVE_ENDPOINT = '/api/help-notes';
 const TRAIT_EFFECTS = {
   7000401: { ap: 18, summary: '满层时技能增幅 +18' },
   7010501: { dynamicDamage: 'burst', summary: '按双方体力差增加造成伤害' },
@@ -97,63 +99,6 @@ const TRAIT_EFFECTS = {
   7211001: { ap: 6, summary: '狩猎的快感预估：技能增幅 +6' },
   7110101: { defense: 8, summary: '无惧感预估：防御 +8' },
   7111001: { maxHp: 120, summary: '镇痛剂预估：体力上限 +120' }
-};
-const DEFAULT_HELP_NOTES = {
-  'solution.help': '本地开发环境下，帮助说明可以在悬浮面板里直接编辑，并保存到当前浏览器 localStorage。发布到 GitHub 的正式构建会自动锁定为只读，防止线上用户改动说明。',
-  'field.mastery': '角色武器熟练度等级。切换英雄或武器类型后，会使用该英雄当前武器的每级熟练度成长。',
-  'field.talentAp': '手动补充的潜能法强，适合录入暂未结构化进潜能表的额外数值。',
-  'field.targetHp': '目标当前血量。部分技能或特效会按目标血量追加伤害。',
-  'field.targetDefense': '目标防御值，会进入最终防御修正计算。',
-  'field.targetDefenseReduction': '目标防御降低，使用小数填写。例如 0.2 表示降低 20%。',
-  'field.targetReduction': '目标减伤，使用小数填写。例如 0.16 表示目标受到 16% 减伤。',
-  'field.selfHp': '自身当前血量，用于血量差相关追伤计算。',
-  'field.damageBonus': '手动技伤加成，使用小数填写。例如 0.15 表示 +15% 技能伤害。',
-  'field.skillReduction': '技能减免，使用小数填写。会从最终增伤倍率中扣除。',
-  'field.attack': '角色攻击力。技能公式中可以通过 attack 变量引用。',
-  'select.hero': '切换当前计算角色。手动录入角色和官方数据导入角色会一起显示。',
-  'select.weaponType': '筛选武器类型，只影响武器下拉列表，不改变其他部位装备。',
-  'section.gear': '选择装备并查看汇总属性。装备数据可在下方配置表中本地编辑。',
-  'section.target': '配置目标木桩、防御、减伤和自身血量等伤害计算前提。',
-  'section.config': '配置表会保存到当前浏览器。发布版本仍可看说明，但帮助说明编辑会被锁定。',
-  'stat.finalDefense': '最终防御 = 目标防御 * 防御降低修正 * 百分比防穿修正 - 固定防穿。',
-  'stat.pen': '固定防穿 / 百分比防穿。两者都会影响最终防御。',
-  'stat.damageBonus': '当前总技能伤害加成，包含装备、潜能、开关和手动输入。',
-  'stat.damageMod': '增伤、减伤、技能减免合并后的最终倍率偏移。',
-  'stat.hpDiffRatio': '自身与目标血量差相关的比例，用于爆发力追伤。',
-  'stat.equipAp': '当前 5 件装备提供的法强或适应之力汇总。',
-  'stat.potentialAp': '手动潜能法强加上当前选择潜能提供的法强。',
-  'stat.masteryApPct': '熟练度提供的法强百分比。',
-  'stat.uniqueApPct': '独有法强百分比重复时取最高值。',
-  'table.equipment': '装备配置表。这里的数值参与上方装备选择和属性汇总。',
-  'table.skills': '技能配置表。公式可使用 base、ap、attack、targetHp、stacks、level。',
-  'table.talents': '潜能配置表。说明列会显示在潜能选择卡片中。',
-  'equipment.type': '装备部位，决定该装备出现在哪个部位下拉列表。',
-  'equipment.weaponType': '武器分类，仅武器部位使用。',
-  'equipment.name': '装备显示名称，也是选择装备时的匹配字段。',
-  'equipment.quality': '装备品质，用于列表颜色显示。',
-  'equipment.attackPower': '装备提供的攻击力。',
-  'equipment.ap': '装备提供的法强。',
-  'equipment.cd': '冷却缩减数值。',
-  'equipment.defense': '装备提供的防御。',
-  'equipment.maxHp': '装备提供的生命值。',
-  'equipment.sightRange': '装备提供的视野。',
-  'equipment.pen': '固定防御穿透。',
-  'equipment.penPct': '百分比防御穿透，使用小数填写。',
-  'equipment.apPct': '法强百分比，使用小数填写。',
-  'equipment.dmgAmp': '技能伤害增幅，使用小数填写。',
-  'equipment.effect': '装备特效备注，当前用于显示和部分特效计算。',
-  'skill.hero': '技能所属英雄名称，需要和英雄选择中的名称一致。',
-  'skill.title': '技能显示名称。',
-  'skill.bases': '各等级基础值，用英文逗号分隔。',
-  'skill.maxLevel': '技能最大等级。',
-  'skill.formula': '伤害公式，可引用 base、ap、attack、targetHp、stacks、level。',
-  'talent.slot': '潜能位置，决定出现在主天赋或副天赋选择里。',
-  'talent.name': '潜能显示名称。',
-  'talent.ap': '潜能提供的法强。',
-  'talent.pen': '潜能提供的固定防穿。',
-  'talent.penPct': '潜能提供的百分比防穿，使用小数填写。',
-  'talent.dmgAmp': '潜能提供的技能伤害增幅，使用小数填写。',
-  'talent.note': '潜能说明，会显示在潜能选择区域。'
 };
 const MANUAL_HEROES = ['俞岷', '奇娅拉'];
 const HEROES = [
@@ -505,6 +450,19 @@ function loadHelpNotes() {
   }
 }
 
+async function persistHelpNotes(notes) {
+  const response = await fetch(HELP_NOTES_SAVE_ENDPOINT, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ notes })
+  });
+
+  if (!response.ok) {
+    const error = await response.text();
+    throw new Error(error || '保存失败');
+  }
+}
+
 function characterImageSrc(character) {
   if (!character?.image) return '';
   const imageName = character.image.split('/').pop();
@@ -810,7 +768,7 @@ function calc({
   };
 }
 
-function HelpNote({ note, editable, onChange }) {
+function HelpNote({ note, editable, onChange, onSave, saveStatus, dirty }) {
   if (!note) return null;
 
   return (
@@ -818,15 +776,24 @@ function HelpNote({ note, editable, onChange }) {
       <button type="button" className="helpButton" aria-label="查看说明">?</button>
       <span className="helpPopover" role="tooltip">
         {editable ? (
-          <textarea
-            value={note}
-            onChange={(event) => onChange(event.target.value)}
-            aria-label="编辑帮助说明"
-          />
+          <>
+            <textarea
+              value={note}
+              onChange={(event) => onChange(event.target.value)}
+              aria-label="编辑帮助说明"
+            />
+            <button type="button" className="helpSaveButton" onClick={onSave} disabled={!dirty || saveStatus === 'saving'}>
+              {saveStatus === 'saving' ? '保存中' : '保存到本地'}
+            </button>
+            <small>{saveStatus === 'saved' ? '已写入 src/data/helpNotes.json，下次提交会一起 push。' : '本地可编辑，点击保存写入项目文件。'}</small>
+            {saveStatus === 'error' ? <small className="helpSaveError">保存失败，请确认正在使用本地 Vite 服务。</small> : null}
+          </>
         ) : (
-          <span>{note}</span>
+          <>
+            <span>{note}</span>
+            <small>发布版本只读。</small>
+          </>
         )}
-        <small>{editable ? '本地可编辑，自动保存。' : '发布版本只读。'}</small>
       </span>
     </span>
   );
@@ -935,6 +902,8 @@ export default function App() {
   const [visibleStatKeys, setVisibleStatKeys] = useState(DEFAULT_VISIBLE_STAT_KEYS);
   const [skillLevels, setSkillLevels] = useState(() => Object.fromEntries(INITIAL_SKILLS.map((skill) => [skill.id, skill.maxLevel])));
   const [helpNotes, setHelpNotes] = useState(loadHelpNotes);
+  const [helpNotesDirty, setHelpNotesDirty] = useState(false);
+  const [helpNotesSaveStatus, setHelpNotesSaveStatus] = useState('idle');
 
   useEffect(() => {
     window.localStorage.setItem(STORAGE_KEY, JSON.stringify({ equipment, skills, talents }));
@@ -949,6 +918,22 @@ export default function App() {
   function updateHelpNote(key, value) {
     if (!HELP_NOTES_EDITABLE) return;
     setHelpNotes((current) => ({ ...current, [key]: value }));
+    setHelpNotesDirty(true);
+    setHelpNotesSaveStatus('idle');
+  }
+
+  async function saveHelpNotes() {
+    if (!HELP_NOTES_EDITABLE) return;
+
+    setHelpNotesSaveStatus('saving');
+    try {
+      await persistHelpNotes(helpNotes);
+      window.localStorage.removeItem(HELP_NOTES_KEY);
+      setHelpNotesDirty(false);
+      setHelpNotesSaveStatus('saved');
+    } catch {
+      setHelpNotesSaveStatus('error');
+    }
   }
 
   function help(key) {
@@ -957,6 +942,9 @@ export default function App() {
         note={helpNotes[key] || DEFAULT_HELP_NOTES[key]}
         editable={HELP_NOTES_EDITABLE}
         onChange={(value) => updateHelpNote(key, value)}
+        onSave={saveHelpNotes}
+        saveStatus={helpNotesSaveStatus}
+        dirty={helpNotesDirty}
       />
     );
   }
