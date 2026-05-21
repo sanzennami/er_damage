@@ -7,6 +7,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const rootDir = path.resolve(__dirname, '..');
 const cacheDir = path.join(rootDir, '.er-gamedata-cache');
 const outDir = path.join(rootDir, 'docs', 'skill-damage');
+const skillTablesPath = path.join(rootDir, 'docs', 'skill-tables', 'er-skill-tables.json');
 const dataDir = path.join(rootDir, 'src', 'data');
 
 const repoUrl = 'https://github.com/pypy-vrc/er-gamedata';
@@ -109,6 +110,10 @@ async function readJson(relativePath) {
   return JSON.parse(await readFile(path.join(cacheDir, relativePath), 'utf8'));
 }
 
+async function readProjectJson(filePath) {
+  return JSON.parse(await readFile(filePath, 'utf8'));
+}
+
 async function fetchDakJson(endpoint) {
   const response = await fetch(`${dakApiBase}/${endpoint}?hl=zh-CN`, {
     headers: {
@@ -202,9 +207,13 @@ function mainSkillGroups(skillGroups, charactersByCode) {
 }
 
 function extensionForGroup(group, extensionsByName) {
+  const skillIdBase = String(group.skillId || '').replace(/_\d+$/, '');
+  const passiveSkillIdBase = String(group.passiveSkillId || '').replace(/_\d+$/, '');
   return (
     extensionsByName.get(group.skillId) ||
     extensionsByName.get(group.passiveSkillId) ||
+    extensionsByName.get(skillIdBase) ||
+    extensionsByName.get(passiveSkillIdBase) ||
     extensionsByName.get(`${group.character.id}Skill`) ||
     null
   );
@@ -275,8 +284,12 @@ async function main() {
   if (!existsSync(cacheDir)) {
     throw new Error(`Missing er-gamedata cache at ${cacheDir}`);
   }
+  if (!existsSync(skillTablesPath)) {
+    throw new Error(`Missing skill table index at ${skillTablesPath}`);
+  }
 
-  const [characters, skillGroups, skillRows, skillExtensions, zh, en] = await Promise.all([
+  const [skillTables, characters, skillGroups, skillRows, skillExtensions, zh, en] = await Promise.all([
+    readProjectJson(skillTablesPath),
     readJson('data/Character.json'),
     readJson('data/SkillGroup.json'),
     readJson('data/Skill.json'),
@@ -302,17 +315,19 @@ async function main() {
   const groups = mainSkillGroups(skillGroups, charactersByCode)
     .filter((group) => group.group % 1000 >= 100 && group.group % 1000 < 600)
     .sort((a, b) => a.group - b.group);
+  const indexedGroupByCode = new Map((skillTables.normalizedSkillGroups || []).map((group) => [Number(group.group), group]));
 
   const damageRows = [];
   const skillIndexRows = [];
 
   for (const group of groups) {
+    const indexedGroup = indexedGroupByCode.get(group.group);
     const {
       skillName,
       coefficientText: coefText,
       description: descText,
       textSource
-    } = latestSkillTextForGroup(group, dakSkillById, zh);
+    } = indexedGroup || latestSkillTextForGroup(group, dakSkillById, zh);
     const extension = extensionForGroup(group, extensionsByName);
     const extensionData = extension ? JSON.parse(extension.data) : null;
     const maxLevel = maxLevelForSkill(skillRows, group);

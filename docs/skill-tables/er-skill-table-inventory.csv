@@ -1,0 +1,18 @@
+file,role,rows,keyFields,sourceUpdatedAt,sourceCommit,githubUrl
+BotSkillBuild.json,bot skill build order,20,characterCode,2026-05-21T12:00:17+09:00,257e632e3f15e255f5209b4fa4a3be12a7069e9d,https://github.com/pypy-vrc/er-gamedata/tree/master/data/BotSkillBuild.json
+CharacterSkillVideos.json,skill demo video resources,315,code,2026-05-21T12:00:17+09:00,257e632e3f15e255f5209b4fa4a3be12a7069e9d,https://github.com/pypy-vrc/er-gamedata/tree/master/data/CharacterSkillVideos.json
+DyingConditionSkill.json,dying condition skill slot set,5,code,2026-05-21T12:00:17+09:00,257e632e3f15e255f5209b4fa4a3be12a7069e9d,https://github.com/pypy-vrc/er-gamedata/tree/master/data/DyingConditionSkill.json
+GadgetSkill.json,gadget skill quick slot config,6,code|mode,2026-05-21T12:00:17+09:00,257e632e3f15e255f5209b4fa4a3be12a7069e9d,https://github.com/pypy-vrc/er-gamedata/tree/master/data/GadgetSkill.json
+ItemSkill.json,item skill definitions,198,itemSkillCode,2026-05-21T12:00:17+09:00,257e632e3f15e255f5209b4fa4a3be12a7069e9d,https://github.com/pypy-vrc/er-gamedata/tree/master/data/ItemSkill.json
+ItemSkillGroup.json,item skill groups,78,itemSkillGroup,2026-05-21T12:00:17+09:00,257e632e3f15e255f5209b4fa4a3be12a7069e9d,https://github.com/pypy-vrc/er-gamedata/tree/master/data/ItemSkillGroup.json
+ItemSkillLinker.json,item to skill links,347,itemCode,2026-05-21T12:00:17+09:00,257e632e3f15e255f5209b4fa4a3be12a7069e9d,https://github.com/pypy-vrc/er-gamedata/tree/master/data/ItemSkillLinker.json
+Skill.json,runtime skill level values,3325,code,2026-05-21T12:00:17+09:00,257e632e3f15e255f5209b4fa4a3be12a7069e9d,https://github.com/pypy-vrc/er-gamedata/tree/master/data/Skill.json
+SkillEvolution.json,skill evolution definitions,18,code,2026-05-21T12:00:17+09:00,257e632e3f15e255f5209b4fa4a3be12a7069e9d,https://github.com/pypy-vrc/er-gamedata/tree/master/data/SkillEvolution.json
+SkillEvolutionGroup.json,skill evolution groups,9,group,2026-05-21T12:00:17+09:00,257e632e3f15e255f5209b4fa4a3be12a7069e9d,https://github.com/pypy-vrc/er-gamedata/tree/master/data/SkillEvolutionGroup.json
+SkillEvolutionPoint.json,skill evolution point rules,18,code,2026-05-21T12:00:17+09:00,257e632e3f15e255f5209b4fa4a3be12a7069e9d,https://github.com/pypy-vrc/er-gamedata/tree/master/data/SkillEvolutionPoint.json
+SkillExtension.json,extra structured skill parameters,111,key,2026-05-21T12:00:17+09:00,257e632e3f15e255f5209b4fa4a3be12a7069e9d,https://github.com/pypy-vrc/er-gamedata/tree/master/data/SkillExtension.json
+SkillGroup.json,skill group/cast definitions,1125,group,2026-05-21T12:00:17+09:00,257e632e3f15e255f5209b4fa4a3be12a7069e9d,https://github.com/pypy-vrc/er-gamedata/tree/master/data/SkillGroup.json
+SkillTargetMask.json,skill target masks,111,code,2026-05-21T12:00:17+09:00,257e632e3f15e255f5209b4fa4a3be12a7069e9d,https://github.com/pypy-vrc/er-gamedata/tree/master/data/SkillTargetMask.json
+Skill_Indicator.json,indicator skill level values,2767,code,2026-05-21T12:00:17+09:00,257e632e3f15e255f5209b4fa4a3be12a7069e9d,https://github.com/pypy-vrc/er-gamedata/tree/master/data/Skill_Indicator.json
+TacticalSkillSet.json,tactical skill upgrade sets,78,code,2026-05-21T12:00:17+09:00,257e632e3f15e255f5209b4fa4a3be12a7069e9d,https://github.com/pypy-vrc/er-gamedata/tree/master/data/TacticalSkillSet.json
+TacticalSkillSetGroup.json,tactical skill set groups,43,group,2026-05-21T12:00:17+09:00,257e632e3f15e255f5209b4fa4a3be12a7069e9d,https://github.com/pypy-vrc/er-gamedata/tree/master/data/TacticalSkillSetGroup.json

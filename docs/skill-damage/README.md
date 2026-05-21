@@ -2,7 +2,7 @@
 
 数据来源：https://github.com/pypy-vrc/er-gamedata
 
-伤害结构来源为 `.er-gamedata-cache/data/Character.json`、`SkillGroup.json`、`Skill.json`、`SkillExtension.json`。英雄技能名称与描述优先使用 DAK.GG 当前接口 `https://er.dakgg.io/api/v1/data/skills?hl=zh-CN`，该接口与路线模拟器页面使用的文本保持同步；DAK.GG 没有的技能变体再回退到 `l10n/ChineseSimplified.txt`。生成时间：2026-05-21T21:35:50.818Z
+伤害结构来源为 `.er-gamedata-cache/data/Character.json`、`SkillGroup.json`、`Skill.json`、`SkillExtension.json`。英雄技能名称与描述优先使用 DAK.GG 当前接口 `https://er.dakgg.io/api/v1/data/skills?hl=zh-CN`，该接口与路线模拟器页面使用的文本保持同步；DAK.GG 没有的技能变体再回退到 `l10n/ChineseSimplified.txt`。生成时间：2026-05-21T23:05:42.052Z
 
 ## 文件
 
@@ -26,17 +26,17 @@
 | --- | --- |
 | 英雄数 | 89 |
 | 英雄技能组/变体数 | 620 |
-| 结构化伤害行数 | 168 |
-| 有结构化伤害的技能组数 | 42 |
-| 无结构化伤害的技能组数 | 578 |
+| 结构化伤害行数 | 185 |
+| 有结构化伤害的技能组数 | 52 |
+| 无结构化伤害的技能组数 | 568 |
 
 ## 覆盖状态
 
 | 状态 | 数量 |
 | --- | --- |
-| extension_without_damage_fields | 23 |
-| structured | 42 |
-| no_structured_extension_in_er-gamedata | 555 |
+| extension_without_damage_fields | 22 |
+| structured | 52 |
+| no_structured_extension_in_er-gamedata | 546 |
 
 说明：`pypy-vrc/er-gamedata` 当前只有部分技能在 `SkillExtension.json` 中提供可展开的伤害数值。对于只有 `Skill/Group/Coef` 文本模板、但没有结构化参数来源的技能，本导出不会猜测伤害数值，会在覆盖索引中标记为 `no_structured_extension_in_er-gamedata`。
 
@@ -47,13 +47,20 @@
 | 001-jackie-q-1001200-damage-by-level | 杰琪 | Q | 连斩 | 基础伤害 | DamageByLevel | SkillApCoef | 20 | 40 | 60 | 80 | 100 | base + (SkillApCoef) * skillAmp |
 | 001-jackie-q-1001200-damage-by-level-2 | 杰琪 | Q | 连斩 | 基础伤害 2 | DamageByLevel_2 | SkillApCoef_2 | 30 | 50 | 70 | 90 | 110 | base + (SkillApCoef_2) * skillAmp |
 | 001-jackie-q-1001200-dfs-damage-by-level | 杰琪 | Q | 连斩 | 持续伤害 | DFS_DamageByLevel | DFS_DamageApCoefByLevel | 80 | 110 | 140 | 170 | 200 | base + (DFS_DamageApCoefByLevel) * skillAmp |
+| 001-jackie-q-1001210-damage-by-level | 杰琪 | Q | 连斩 | 基础伤害 | DamageByLevel | SkillApCoef | 20 | 40 | 60 | 80 | 100 | base + (SkillApCoef) * skillAmp |
+| 001-jackie-q-1001210-damage-by-level-2 | 杰琪 | Q | 连斩 | 基础伤害 2 | DamageByLevel_2 | SkillApCoef_2 | 30 | 50 | 70 | 90 | 110 | base + (SkillApCoef_2) * skillAmp |
+| 001-jackie-q-1001210-dfs-damage-by-level | 杰琪 | Q | 连斩 | 持续伤害 | DFS_DamageByLevel | DFS_DamageApCoefByLevel | 80 | 110 | 140 | 170 | 200 | base + (DFS_DamageApCoefByLevel) * skillAmp |
 | 001-jackie-e-1001400-damage-by-level | 杰琪 | E | 袭击 | 基础伤害 | DamageByLevel | SkillApCoefByLevel | 10 | 80 | 150 | 220 | 290 | base + (SkillApCoefByLevel) * skillAmp |
 | 001-jackie-r-1001500-dfs-damage-by-level | 杰琪 | R | 电锯杀人狂 | 持续伤害 | DFS_DamageByLevel | DFS_DamageApCoefByLevel | 10 | 15 | 20 |  |  | base + (DFS_DamageApCoefByLevel) * skillAmp |
 | 001-jackie-r-1001500-finish-damage-by-level | 杰琪 | R | 电锯杀人狂 | 终结伤害 | FinishDamageByLevel | FinishSkillApCoef | 300 | 500 | 800 |  |  | base + (FinishSkillApCoef) * skillAmp |
+| 001-jackie-r-1001510-dfs-damage-by-level | 杰琪 | R | 屠杀 | 持续伤害 | DFS_DamageByLevel | DFS_DamageApCoefByLevel | 10 | 15 | 20 |  |  | base + (DFS_DamageApCoefByLevel) * skillAmp |
+| 001-jackie-r-1001510-finish-damage-by-level | 杰琪 | R | 屠杀 | 终结伤害 | FinishDamageByLevel | FinishSkillApCoef | 300 | 500 | 800 |  |  | base + (FinishSkillApCoef) * skillAmp |
 | 002-aya-q-1002200-damage-by-level | 阿雅 | Q | 二连射 | 基础伤害 | DamageByLevel | SkillApCoef | 20 | 60 | 100 | 140 | 180 | base + (SkillApCoef) * skillAmp |
 | 002-aya-w-1002300-damage-by-level | 阿雅 | W | 稳定射击 | 基础伤害 | DamageByLevel | SkillApCoef | 20 | 40 | 60 | 80 | 100 | base + (SkillApCoef) * skillAmp |
 | 002-aya-r-1002500-damage-by-level | 阿雅 | R | 空弹 | 基础伤害 | DamageByLevel | SkillApCoef | 200 | 350 | 500 |  |  | base + (SkillApCoef) * skillAmp |
 | 003-fiora-q-1003200-damage-by-level | 菲欧娜 | Q | 长刺 | 基础伤害 | DamageByLevel | SkillApCoef | 75 | 150 | 225 | 300 | 375 | base + (SkillApCoef) * skillAmp |
+| 003-fiora-e-1003400-damage-by-level | 菲欧娜 | E | 前进&后退 | 基础伤害 | DamageByLevel | SkillApCoef | 100 | 150 | 200 | 250 | 300 | base + (SkillApCoef) * skillAmp |
+| 003-fiora-e-1003410-damage-by-level | 菲欧娜 | E | 前进&后退 | 基础伤害 | DamageByLevel | SkillApCoef | 100 | 150 | 200 | 250 | 300 | base + (SkillApCoef) * skillAmp |
 | 004-magnus-q-1004200-damage-by-level | 马格努斯 | Q | 破碎弹 | 基础伤害 | DamageByLevel | SkillApCoef | 80 | 140 | 200 | 260 | 320 | base + (SkillApCoef) * skillAmp |
 | 004-magnus-w-1004300-damage-by-level | 马格努斯 | W | 17对1 | 基础伤害 | DamageByLevel | SkillApCoef | 20 | 30 | 35 | 45 | 50 | base + (SkillApCoef) * skillAmp |
 | 004-magnus-e-1004400-damage-by-level | 马格努斯 | E | 猛击 | 基础伤害 | DamageByLevel | SkillApCoef | 80 | 135 | 190 | 245 | 300 | base + (SkillApCoef) * skillAmp |
@@ -67,11 +74,21 @@
 | 005-zahir-r-1005500-damage-by-level-2 | 扎希尔 | R | 跋尔伽婆 | 基础伤害 2 | DamageByLevel_2 | SkillApCoef_2 | 50 | 85 | 120 |  |  | base + (SkillApCoef_2) * skillAmp |
 | 006-nadine-q-1006200-max-damage-by-level | 娜町 | Q | 黄牛之眼 | 最高伤害 | MaxDamageByLevel | MaxSkillApCoef | 120 | 190 | 260 | 330 | 400 | base + (MaxSkillApCoef) * skillAmp |
 | 006-nadine-q-1006200-min-damage-by-level | 娜町 | Q | 黄牛之眼 | 最低伤害 | MinDamageByLevel | MinSkillApCoef | 60 | 95 | 130 | 165 | 200 | base + (MinSkillApCoef) * skillAmp |
+| 006-nadine-w-1006300-damage-by-level | 娜町 | W | 松鼠陷阱 | 基础伤害 | DamageByLevel | SkillApCoef | 100 | 170 | 240 | 310 | 380 | base + (SkillApCoef) * skillAmp |
+| 006-nadine-w-1006300-damage-by-level-2 | 娜町 | W | 松鼠陷阱 | 基础伤害 2 | DamageByLevel_2 |  | 100 | 140 | 180 | 220 | 260 | base |
+| 006-nadine-w-1006310-damage-by-level | 娜町 | W | 松鼠陷阱 | 基础伤害 | DamageByLevel | SkillApCoef | 100 | 170 | 240 | 310 | 380 | base + (SkillApCoef) * skillAmp |
+| 006-nadine-w-1006310-damage-by-level-2 | 娜町 | W | 松鼠陷阱 | 基础伤害 2 | DamageByLevel_2 |  | 100 | 140 | 180 | 220 | 260 | base |
 | 006-nadine-r-1006500-damage-by-level | 娜町 | R | 狼之猛袭 | 基础伤害 | DamageByLevel |  | 50 | 100 | 150 |  |  | base |
 | 007-hyunwoo-q-1007200-damage-by-level | 玄佑 | Q | 踩踏 | 基础伤害 | DamageByLevel | SkillApCoef | 100 | 150 | 200 | 250 | 300 | base + (SkillApCoef) * skillAmp |
 | 007-hyunwoo-e-1007400-damage-by-level | 玄佑 | E | 先发制人 | 基础伤害 | DamageByLevel |  | 100 | 150 | 200 | 250 | 300 | base |
 | 007-hyunwoo-r-1007500-max-damage-by-level | 玄佑 | R | 核冲击 | 最高伤害 | MaxDamageByLevel | MaxSkillApCoef | 600 | 900 | 1200 |  |  | base + (MaxSkillApCoef) * skillAmp |
 | 007-hyunwoo-r-1007500-min-damage-by-level | 玄佑 | R | 核冲击 | 最低伤害 | MinDamageByLevel | MinSkillApCoef | 150 | 225 | 300 |  |  | base + (MinSkillApCoef) * skillAmp |
+| 008-hart-q-1008200-max-skill-damage | 哈特 | Q | 延音 | 最高技能伤害 | MaxSkillDamage | MaxSkillApCoef | 210 | 270 | 330 | 390 | 450 | base + (MaxSkillApCoef) * skillAmp |
+| 008-hart-q-1008200-min-skill-damage | 哈特 | Q | 延音 | 最低技能伤害 | MinSkillDamage | MinSkillApCoef | 70 | 90 | 110 | 130 | 150 | base + (MinSkillApCoef) * skillAmp |
+| 008-hart-q-1008210-max-skill-damage | 哈特 | Q | 延音 | 最高技能伤害 | MaxSkillDamage | MaxSkillApCoef | 210 | 270 | 330 | 390 | 450 | base + (MaxSkillApCoef) * skillAmp |
+| 008-hart-q-1008210-min-skill-damage | 哈特 | Q | 延音 | 最低技能伤害 | MinSkillDamage | MinSkillApCoef | 70 | 90 | 110 | 130 | 150 | base + (MinSkillApCoef) * skillAmp |
+| 008-hart-e-1008400-damage-by-level | 哈特 | E | 震音 | 基础伤害 | DamageByLevel | SkillApCoef | 20 | 30 | 40 | 50 | 60 | base + (SkillApCoef) * skillAmp |
+| 008-hart-e-1008410-damage-by-level | 哈特 | E | 震音 | 基础伤害 | DamageByLevel | SkillApCoef | 20 | 30 | 40 | 50 | 60 | base + (SkillApCoef) * skillAmp |
 | 009-isol-q-1009200-additional-damage-per-hit | 埃索 | Q | 军事用炸药 | 每次命中追加伤害 | AdditionalDamagePerHit | AdditionalSkillApCoefPerHit | 10 | 16 | 22 | 28 | 34 | base + (AdditionalSkillApCoefPerHit) * skillAmp |
 | 009-isol-q-1009200-base-damage | 埃索 | Q | 军事用炸药 | 基础伤害 | BaseDamage | BaseSkillApCoef | 50 | 75 | 100 | 125 | 150 | base + (BaseSkillApCoef) * skillAmp |
 | 009-isol-w-1009300-damage | 埃索 | W | 叛军突击 | 伤害 | Damage | SkillApCoef | 20 | 40 | 60 | 80 | 100 | base + (SkillApCoef) * skillAmp |
@@ -219,13 +236,13 @@
 
 | heroCode | 英雄 | 英文名 | 技能组数 | 缺少结构化伤害数 |
 | --- | --- | --- | --- | --- |
-| 1 | 杰琪 | Jackie | 8 | 5 |
+| 1 | 杰琪 | Jackie | 8 | 3 |
 | 2 | 阿雅 | Aya | 5 | 2 |
-| 3 | 菲欧娜 | Fiora | 8 | 7 |
+| 3 | 菲欧娜 | Fiora | 8 | 5 |
 | 4 | 马格努斯 | Magnus | 5 | 1 |
-| 6 | 娜町 | Nadine | 7 | 5 |
+| 6 | 娜町 | Nadine | 7 | 3 |
 | 7 | 玄佑 | Hyunwoo | 5 | 2 |
-| 8 | 哈特 | Hart | 7 | 7 |
+| 8 | 哈特 | Hart | 7 | 3 |
 | 9 | 埃索 | Isol | 6 | 3 |
 | 11 | 雪 | Yuki | 6 | 2 |
 | 13 | 修凯 | Xiukai | 7 | 7 |
