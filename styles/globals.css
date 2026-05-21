@@ -713,6 +713,33 @@ input:focus {
   margin-top: 12px;
 }
 
+.collapsibleStats {
+  min-height: 0;
+}
+
+.collapsibleStats:not([open]) {
+  gap: 0;
+}
+
+.collapsibleStats > summary {
+  cursor: pointer;
+  list-style: none;
+}
+
+.collapsibleStats > summary::-webkit-details-marker {
+  display: none;
+}
+
+.collapsibleStats > summary::after {
+  content: '展开';
+  color: #ffd56b;
+  font-size: 12px;
+}
+
+.collapsibleStats[open] > summary::after {
+  content: '收起';
+}
+
 .buildTargetStatsBlock {
   grid-column: 1 / -1;
   margin-top: 0;

@@ -7,7 +7,7 @@ import DAK_LOADOUT_ASSETS from './data/dakLoadoutAssets.json';
 import DAK_ITEM_SKILL_ICONS from './data/dakItemSkillIcons.json';
 import MASTERY_STATS from './data/masteryStats.json';
 
-const APP_VERSION = 'v0.1.029';
+const APP_VERSION = 'v0.1.030';
 
 const CHARACTER_IMAGE_URLS = import.meta.glob('../assets/characters/*.png', {
   eager: true,
@@ -2061,17 +2061,17 @@ export default function App() {
             </summary>
             {renderEquipmentEffects()}
           </details>
-          <div className="equippedStats">
-            <div className="panelSubhead">
+          <details className="equippedStats collapsibleStats">
+            <summary className="panelSubhead">
               <strong>当前装备属性</strong>
               <span>{activeEquipmentStats.length} 条非零属性</span>
-            </div>
+            </summary>
             <div className="statPills">
               {activeEquipmentStats.map((stat) => (
                 <span className="statPill" key={stat.key}>{displayItemStatLabel(stat)} {formatStatValue(stat.key, stat.value)}</span>
               ))}
             </div>
-          </div>
+          </details>
           <div className="toggles compactToggles">
             {hasVampireStackTrait ? (
               <label className="toggle">
@@ -2124,11 +2124,11 @@ export default function App() {
           </div>
         </div>
 
-        <div className="currentStatsBlock buildTargetStatsBlock">
-          <div className="panelSubhead">
+        <details className="currentStatsBlock buildTargetStatsBlock collapsibleStats">
+          <summary className="panelSubhead">
             <strong>当前属性汇总</strong>
             <span>{visibleEquipmentStats.length + 4} 项显示</span>
-          </div>
+          </summary>
           <div className="attributePanel">
             <div>
               <span>当前法强</span>
@@ -2154,7 +2154,7 @@ export default function App() {
               </div>
             ))}
           </div>
-        </div>
+        </details>
       </section>
 
       <section className="stats">
