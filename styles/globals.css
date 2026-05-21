@@ -284,6 +284,13 @@ main {
   grid-template-columns: minmax(0, 1.18fr) minmax(360px, 0.92fr);
 }
 
+.buildArea {
+  display: grid;
+  grid-template-columns: minmax(132px, 176px) minmax(0, 1fr);
+  gap: 14px;
+  align-items: start;
+}
+
 .panel {
   padding: 22px;
   border-radius: 28px;
@@ -333,7 +340,7 @@ main {
 
 .buildControlLayout {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(168px, 0.46fr);
+  grid-template-columns: minmax(0, 1fr);
   gap: 14px;
   align-items: start;
 }
@@ -616,18 +623,56 @@ input:focus {
   margin-top: 12px;
 }
 
-.equipmentEffectMenu {
-  min-height: 100%;
+.equipmentEffectRail {
   padding: 12px;
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 8px;
   background: rgba(12, 10, 16, 0.38);
 }
 
+.equipmentEffectRail {
+  position: sticky;
+  top: 16px;
+  max-height: calc(100vh - 32px);
+  overflow: hidden;
+}
+
+.equipmentEffectSummary {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  color: #f7ead4;
+  cursor: pointer;
+  list-style: none;
+}
+
+.equipmentEffectSummary::-webkit-details-marker {
+  display: none;
+}
+
+.equipmentEffectSummary::after {
+  content: "收起";
+  color: #a9a0a0;
+  font-size: 12px;
+}
+
+.equipmentEffectRail:not([open]) .equipmentEffectSummary::after {
+  content: "展开";
+}
+
+.equipmentEffectSummary span {
+  color: #a9a0a0;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
 .equipmentEffectList {
   display: grid;
   gap: 8px;
   margin-top: 10px;
+  max-height: calc(100vh - 96px);
+  overflow-y: auto;
+  padding-right: 2px;
 }
 
 .equipmentEffectItem {
@@ -669,6 +714,10 @@ input:focus {
 
 .equipmentEffectEmpty {
   padding: 9px;
+}
+
+.mobileEquipmentEffectRail {
+  display: none;
 }
 
 .statPills {
@@ -1439,6 +1488,7 @@ td:last-child input {
   .hero,
   .twoColumns,
   .buildTargetGrid,
+  .buildArea,
   .buildControlLayout,
   .formulaGrid,
   .stats,
@@ -1448,6 +1498,33 @@ td:last-child input {
   .sourceGrid,
   .miniStats {
     grid-template-columns: 1fr;
+  }
+
+  .desktopEquipmentEffectRail {
+    display: none;
+  }
+
+  .mobileEquipmentEffectRail {
+    display: block;
+    position: static;
+    max-height: none;
+    margin-top: 12px;
+  }
+
+  .mobileEquipmentEffectRail .equipmentEffectList {
+    display: flex;
+    gap: 8px;
+    max-height: none;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 0 0 4px;
+    scroll-snap-type: x proximity;
+  }
+
+  .mobileEquipmentEffectRail .equipmentEffectItem,
+  .mobileEquipmentEffectRail .equipmentEffectEmpty {
+    flex: 0 0 min(220px, 78vw);
+    scroll-snap-align: start;
   }
 
   .attributePanel {

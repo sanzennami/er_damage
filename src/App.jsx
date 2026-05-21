@@ -5,7 +5,7 @@ import ITEM_UNIQUE_EFFECTS from './data/itemUniqueEffects.json';
 import DAK_LOADOUT_ASSETS from './data/dakLoadoutAssets.json';
 import MASTERY_STATS from './data/masteryStats.json';
 
-const APP_VERSION = 'v0.1.008';
+const APP_VERSION = 'v0.1.009';
 
 const CHARACTER_IMAGE_URLS = import.meta.glob('../assets/characters/*.png', {
   eager: true,
@@ -1114,6 +1114,22 @@ export default function App() {
     ...item,
     duplicateCount: selectedEquipmentEffectCounts[item.effect] || 0
   }));
+  const renderEquipmentEffects = () => (
+    <div className="equipmentEffectList">
+      {selectedEquipmentEffects.length ? selectedEquipmentEffects.map((item, index) => (
+        <div className="equipmentEffectItem" key={`${item.slot}-${item.name}-${item.effect}-${index}`}>
+          <span>{item.slot}</span>
+          <strong style={{ color: qualityColor(item.quality) }}>
+            {item.effect}
+            {item.duplicateCount > 1 ? <em className="equipmentEffectDuplicate">重复 x{item.duplicateCount}</em> : null}
+          </strong>
+          <small>{item.name}</small>
+        </div>
+      )) : (
+        <div className="equipmentEffectEmpty">当前装备没有独有效果</div>
+      )}
+    </div>
+  );
 
   useEffect(() => {
     const nextRawType = selectedCharacter?.weapons?.[0];
@@ -1646,7 +1662,15 @@ export default function App() {
       </section>
 
       <section className="grid twoColumns buildTargetGrid">
-        <div className="panel buildPanel">
+        <div className="buildArea">
+          <details className="equipmentEffectRail desktopEquipmentEffectRail" open>
+            <summary className="equipmentEffectSummary">
+              <strong>独有效果</strong>
+              <span>{selectedEquipmentEffects.length} 条</span>
+            </summary>
+            {renderEquipmentEffects()}
+          </details>
+          <div className="panel buildPanel">
           <div className="panelHead">
             <div>
               <p className="eyebrow">Build</p>
@@ -1729,26 +1753,6 @@ export default function App() {
                 ))}
               </div>
             </div>
-            <aside className="equipmentEffectMenu" aria-label="当前独有效果">
-              <div className="panelSubhead">
-                <strong>独有效果</strong>
-                <span>{selectedEquipmentEffects.length} 条</span>
-              </div>
-              <div className="equipmentEffectList">
-                {selectedEquipmentEffects.length ? selectedEquipmentEffects.map((item, index) => (
-                  <div className="equipmentEffectItem" key={`${item.slot}-${item.name}-${item.effect}-${index}`}>
-                    <span>{item.slot}</span>
-                    <strong style={{ color: qualityColor(item.quality) }}>
-                      {item.effect}
-                      {item.duplicateCount > 1 ? <em className="equipmentEffectDuplicate">重复 x{item.duplicateCount}</em> : null}
-                    </strong>
-                    <small>{item.name}</small>
-                  </div>
-                )) : (
-                  <div className="equipmentEffectEmpty">当前装备没有独有效果</div>
-                )}
-              </div>
-            </aside>
           </div>
           <div className="attributePanel">
             <div>
@@ -1775,6 +1779,13 @@ export default function App() {
               </div>
             ))}
           </div>
+          <details className="equipmentEffectRail mobileEquipmentEffectRail">
+            <summary className="equipmentEffectSummary">
+              <strong>独有效果</strong>
+              <span>{selectedEquipmentEffects.length} 条</span>
+            </summary>
+            {renderEquipmentEffects()}
+          </details>
           <div className="equippedStats">
             <div className="panelSubhead">
               <strong>当前装备属性</strong>
@@ -1799,6 +1810,7 @@ export default function App() {
               <input type="checkbox" checked={burstFollowUp} onChange={(event) => setBurstFollowUp(event.target.checked)} />
               <span>斥力弹升级</span>
             </label>
+          </div>
           </div>
         </div>
 
