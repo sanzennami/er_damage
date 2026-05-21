@@ -108,17 +108,26 @@ button {
 }
 
 .heroAvatarPicker {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  display: flex;
+  flex-direction: column;
   max-height: min(620px, calc(100vh - 140px));
   gap: 8px;
-  overflow: auto;
+  overflow: hidden;
   padding: 8px;
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 14px;
   background: rgba(18, 16, 23, 0.94);
+  scrollbar-color: rgba(255, 213, 107, 0.46) rgba(255, 255, 255, 0.06);
+  scrollbar-width: thin;
   box-shadow: 0 18px 48px rgba(0, 0, 0, 0.32);
   backdrop-filter: blur(16px);
+}
+
+.heroAvatarPicker h3 {
+  margin: 0;
+  color: #f6f2e8;
+  font-size: 13px;
+  letter-spacing: 0;
 }
 
 .floatingHeroAvatarPicker {
@@ -126,8 +135,41 @@ button {
   z-index: 1;
   top: 0;
   left: 0;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
   width: 176px;
+}
+
+.heroAvatarList {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  min-height: 0;
+  overflow: auto;
+  padding-right: 2px;
+  scrollbar-color: rgba(255, 213, 107, 0.46) rgba(255, 255, 255, 0.06);
+  scrollbar-width: thin;
+}
+
+.heroAvatarList::-webkit-scrollbar {
+  width: 8px;
+}
+
+.heroAvatarList::-webkit-scrollbar-track {
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.heroAvatarList::-webkit-scrollbar-thumb {
+  border: 2px solid rgba(18, 16, 23, 0.94);
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(255, 213, 107, 0.76), rgba(116, 166, 255, 0.42));
+}
+
+.heroAvatarList::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, rgba(255, 225, 143, 0.92), rgba(130, 184, 255, 0.58));
+}
+
+.floatingHeroAvatarPicker .heroAvatarList {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
 .heroAvatarOption {
@@ -169,14 +211,10 @@ button {
   font-weight: 800;
 }
 
-.heroAvatarSearch,
-.heroAvatarEmpty {
-  grid-column: 1 / -1;
-}
-
 .heroAvatarSearch {
   display: grid;
   gap: 6px;
+  flex: 0 0 auto;
 }
 
 .heroAvatarSearch span {
@@ -220,6 +258,7 @@ button {
 }
 
 .heroAvatarEmpty {
+  grid-column: 1 / -1;
   margin: 0;
   padding: 12px 0 2px;
   color: #a9a0a0;
@@ -1768,6 +1807,10 @@ td:last-child input {
   .traitGrid,
   .skillGroup,
   .effectGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .heroAvatarList {
     grid-template-columns: 1fr;
   }
 

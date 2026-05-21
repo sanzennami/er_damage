@@ -7,7 +7,7 @@ import DAK_LOADOUT_ASSETS from './data/dakLoadoutAssets.json';
 import DAK_ITEM_SKILL_ICONS from './data/dakItemSkillIcons.json';
 import MASTERY_STATS from './data/masteryStats.json';
 
-const APP_VERSION = 'v0.1.033';
+const APP_VERSION = 'v0.1.034';
 
 const CHARACTER_IMAGE_URLS = import.meta.glob('../assets/characters/*.png', {
   eager: true,
@@ -1873,7 +1873,8 @@ export default function App() {
   function renderHeroAvatarPicker(className = '') {
     if (!useHeroAvatarPicker) return null;
     return (
-      <div className={`heroAvatarPicker ${className}`.trim()} aria-label="实验体头像选择">
+      <div className={`heroAvatarPicker ${className}`.trim()} aria-label="选择实验体">
+        <h3>选择实验体</h3>
         <label className="heroAvatarSearch">
           <span>搜索实验体</span>
           <input
@@ -1883,25 +1884,27 @@ export default function App() {
             placeholder="搜索实验体"
           />
         </label>
-        {filteredHeroPickerOptions.map(({ name, character }) => (
-          <button
-            type="button"
-            className={`heroAvatarOption ${name === selectedHero ? 'active' : ''}`}
-            onClick={() => setSelectedHero(name)}
-            key={name}
-          >
-            {character ? (
-              <img src={characterImageSrc(character)} alt="" onError={(event) => { event.currentTarget.style.display = 'none'; }} />
-            ) : (
-              <span className="heroAvatarFallback">{name.slice(0, 1)}</span>
-            )}
-            <span>
-              <strong>{name}</strong>
-              <small>{character?.englishName || '手动配置'}</small>
-            </span>
-          </button>
-        ))}
-        {!filteredHeroPickerOptions.length ? <p className="heroAvatarEmpty">未找到实验体</p> : null}
+        <div className="heroAvatarList">
+          {filteredHeroPickerOptions.map(({ name, character }) => (
+            <button
+              type="button"
+              className={`heroAvatarOption ${name === selectedHero ? 'active' : ''}`}
+              onClick={() => setSelectedHero(name)}
+              key={name}
+            >
+              {character ? (
+                <img src={characterImageSrc(character)} alt="" onError={(event) => { event.currentTarget.style.display = 'none'; }} />
+              ) : (
+                <span className="heroAvatarFallback">{name.slice(0, 1)}</span>
+              )}
+              <span>
+                <strong>{name}</strong>
+                <small>{character?.englishName || '手动配置'}</small>
+              </span>
+            </button>
+          ))}
+          {!filteredHeroPickerOptions.length ? <p className="heroAvatarEmpty">未找到实验体</p> : null}
+        </div>
       </div>
     );
   }
@@ -1913,9 +1916,9 @@ export default function App() {
           {selectedCharacter ? (
             <img src={characterImageSrc(selectedCharacter)} alt={selectedCharacter.name} onError={(event) => { event.currentTarget.style.display = 'none'; }} />
           ) : null}
-          <span>当前英雄</span>
+          <span>当前实验体</span>
           <strong>{selectedHero}</strong>
-          <small>{selectedCharacter ? selectedCharacter.englishName : '手动配置英雄'}</small>
+          <small>{selectedCharacter ? selectedCharacter.englishName : '手动配置实验体'}</small>
         </div>
         <div className="heroIntroBlock">
           <div className="heroTitleLine">
@@ -1929,7 +1932,7 @@ export default function App() {
           <div className={`heroPicker compactHeroPicker ${useHeroAvatarPicker ? 'avatarHeroPickerMode' : ''}`}>
             <div className="heroPickerTop">
               <label className="selectBlock">
-                <LabelWithHelp note={help('select.hero')}>英雄</LabelWithHelp>
+                <LabelWithHelp note={help('select.hero')}>实验体</LabelWithHelp>
                 <select
                   value={selectedHero}
                   onChange={(event) => setSelectedHero(event.target.value)}
