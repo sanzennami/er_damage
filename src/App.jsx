@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import ER_GAME_DATA from './data/erGameData.json';
+import ITEM_UNIQUE_EFFECTS from './data/itemUniqueEffects.json';
 import DAK_LOADOUT_ASSETS from './data/dakLoadoutAssets.json';
 import MASTERY_STATS from './data/masteryStats.json';
 
@@ -432,6 +433,25 @@ function qualityRank(quality) {
 
 function shouldShowInBuilder(item, showLowerTierEquipment) {
   return showLowerTierEquipment || qualityRank(item?.quality) >= qualityRank('英雄');
+}
+
+function normalizeUniqueEffect(effect) {
+  const text = String(effect || '').trim();
+  if (!text) return '';
+  if (text === '减疗' || text === '减少治愈' || text === '减少治疗') return '减少治疗（20%）';
+  return text;
+}
+
+function uniqueEffectsForItem(item) {
+  const mappedEffects = ITEM_UNIQUE_EFFECTS.effectsByCode?.[String(item?.code)]
+    || ITEM_UNIQUE_EFFECTS.effectsByName?.[item?.name]
+    || [];
+  const fallbackEffects = String(item?.effect || '')
+    .split(',')
+    .map(normalizeUniqueEffect)
+    .filter(Boolean);
+
+  return [...new Set([...mappedEffects, ...fallbackEffects].map(normalizeUniqueEffect).filter(Boolean))];
 }
 
 function aggregateEquipmentStats(selected) {
@@ -1011,13 +1031,17 @@ export default function App() {
   const activeEquipmentStats = ITEM_STAT_DEFINITIONS
     .map((stat) => ({ ...stat, value: statValue(result.equipmentStats, stat.key) }))
     .filter((stat) => stat.value !== 0);
-  const selectedEquipmentEffects = result.selected.flatMap((item) => (
-    String(item.effect || '')
-      .split(',')
-      .map((effect) => effect.trim())
-      .filter(Boolean)
-      .map((effect) => ({ slot: item.type, name: item.name, quality: item.quality, effect }))
+  const selectedEquipmentEffectsRaw = result.selected.flatMap((item) => (
+    uniqueEffectsForItem(item).map((effect) => ({ slot: item.type, name: item.name, quality: item.quality, effect }))
   ));
+  const selectedEquipmentEffectCounts = selectedEquipmentEffectsRaw.reduce((counts, item) => {
+    counts[item.effect] = (counts[item.effect] || 0) + 1;
+    return counts;
+  }, {});
+  const selectedEquipmentEffects = selectedEquipmentEffectsRaw.map((item) => ({
+    ...item,
+    duplicateCount: selectedEquipmentEffectCounts[item.effect] || 0
+  }));
 
   useEffect(() => {
     const nextRawType = selectedCharacter?.weapons?.[0];
@@ -1369,25 +1393,28 @@ export default function App() {
               <div className="chips">
                 {result.selected.map((item) => (
                   <span className="chip" style={{ color: qualityColor(item.quality) }} key={item.name}>
-                    {item.name}{item.effect ? ` / ${item.effect}` : ''}
+                    {item.name}{uniqueEffectsForItem(item).length ? ` / ${uniqueEffectsForItem(item).join(',')}` : ''}
                   </span>
                 ))}
               </div>
             </div>
-            <aside className="equipmentEffectMenu" aria-label="当前装备特效">
+            <aside className="equipmentEffectMenu" aria-label="当前独有效果">
               <div className="panelSubhead">
-                <strong>当前装备特效</strong>
+                <strong>独有效果</strong>
                 <span>{selectedEquipmentEffects.length} 条</span>
               </div>
               <div className="equipmentEffectList">
                 {selectedEquipmentEffects.length ? selectedEquipmentEffects.map((item, index) => (
                   <div className="equipmentEffectItem" key={`${item.slot}-${item.name}-${item.effect}-${index}`}>
                     <span>{item.slot}</span>
-                    <strong style={{ color: qualityColor(item.quality) }}>{item.effect}</strong>
+                    <strong style={{ color: qualityColor(item.quality) }}>
+                      {item.effect}
+                      {item.duplicateCount > 1 ? <em className="equipmentEffectDuplicate">重复 x{item.duplicateCount}</em> : null}
+                    </strong>
                     <small>{item.name}</small>
                   </div>
                 )) : (
-                  <div className="equipmentEffectEmpty">当前装备没有特效</div>
+                  <div className="equipmentEffectEmpty">当前装备没有独有效果</div>
                 )}
               </div>
             </aside>
