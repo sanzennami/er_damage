@@ -1187,6 +1187,49 @@ input:focus {
   margin-top: 20px;
 }
 
+.formulaDetails {
+  padding: 0;
+}
+
+.formulaSummary {
+  min-height: 74px;
+  margin: 0;
+  padding: 22px;
+  cursor: pointer;
+  list-style: none;
+}
+
+.formulaSummary::-webkit-details-marker {
+  display: none;
+}
+
+.formulaSummary::after {
+  content: '展开';
+  min-width: 48px;
+  padding: 8px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #f7ead4;
+  font-size: 13px;
+  font-weight: 800;
+  text-align: center;
+}
+
+.formulaDetails[open] > .formulaSummary::after {
+  content: '折叠';
+}
+
+.formulaDetails > .formulaGrid,
+.formulaDetails > .note {
+  margin-right: 22px;
+  margin-left: 22px;
+}
+
+.formulaDetails > .note {
+  margin-bottom: 22px;
+}
+
 .effectsPanel {
   padding: 0;
 }

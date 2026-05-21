@@ -5,7 +5,7 @@ import ITEM_UNIQUE_EFFECTS from './data/itemUniqueEffects.json';
 import DAK_LOADOUT_ASSETS from './data/dakLoadoutAssets.json';
 import MASTERY_STATS from './data/masteryStats.json';
 
-const APP_VERSION = 'v0.1.002';
+const APP_VERSION = 'v0.1.003';
 
 const CHARACTER_IMAGE_URLS = import.meta.glob('../assets/characters/*.png', {
   eager: true,
@@ -726,7 +726,8 @@ function calc({
   const masteryApPct = mastery * masteryOptionValue(masteryStat, 'SkillAmpRatio');
   const masteryAttackPower = mastery * masteryOptionValue(masteryStat, 'AttackPower');
   const totalApPct = normalApPct + uniqueApPct + masteryApPct;
-  const apRaw = (equipAp + talentAp + talentBonusAp + stackAp) * (1 + totalApPct);
+  const totalBaseAp = equipAp + talentAp + talentBonusAp + stackAp;
+  const apRaw = totalBaseAp * (1 + totalApPct);
   const ap = Math.floor(apRaw);
   const finalDefense = target.defense * (1 - target.defenseReduction) * (1 - penPct) - pen;
   const defenseMod = 100 / (100 + finalDefense);
@@ -797,6 +798,7 @@ function calc({
     masteryApPct,
     masteryStat,
     totalApPct,
+    totalBaseAp,
     ap,
     apRaw,
     finalDefense,
@@ -2023,19 +2025,25 @@ export default function App() {
         </section>
       ))}
 
-      <section className="panel formulaPanel">
-        <div>
-          <p className="eyebrow">Formula</p>
-          <h2>计算过程</h2>
-        </div>
+      <details className="panel formulaPanel formulaDetails" open>
+        <summary className="panelHead formulaSummary">
+          <div>
+            <p className="eyebrow">Formula</p>
+            <h2>计算过程</h2>
+          </div>
+          <span className="pill">最终法强 {result.ap}</span>
+        </summary>
         <div className="formulaGrid">
           <StatCard label="装备法强" value={result.equipAp} hint="5件装备求和" note={help('stat.equipAp')} />
           <StatCard label="潜能法强" value={talentAp + result.talentBonusAp} hint="手动输入 + 潜能选择" note={help('stat.potentialAp')} />
           <StatCard label="熟练度法强%" value={pct(result.masteryApPct)} hint={selectedMasterySummary.join(' / ') || '当前武器无技能增幅熟练度'} note={help('stat.masteryApPct')} />
           <StatCard label="独有法强%" value={pct(result.uniqueApPct)} hint="重复独有取最高" note={help('stat.uniqueApPct')} />
+          <StatCard label="合计法强" value={round(result.totalBaseAp, 1)} hint={`装备 ${result.equipAp} + 潜能 ${round(talentAp + result.talentBonusAp, 1)} + 叠层 ${result.stackAp}`} note={help('stat.equipAp')} />
+          <StatCard label="合计法强增幅%" value={pct(result.totalApPct)} hint={`普通 ${pct(result.normalApPct)} + 独有 ${pct(result.uniqueApPct)} + 熟练 ${pct(result.masteryApPct)}`} note={help('stat.masteryApPct')} />
+          <StatCard label="最终法强" value={result.ap} hint={`${round(result.totalBaseAp, 1)} * (1 + ${pct(result.totalApPct)})`} note={help('stat.equipAp')} />
         </div>
         <p className="note">最终伤害 = 技能基础值 * 100 / (100 + 目标防御 * (1 - 防御降低) * (1 - 防穿%) - 防穿数值) * (1 + 技伤加成 - 目标减伤 - 技能减免)。</p>
-      </section>
+      </details>
 
       <section className="panel configPanel">
         <div className="panelHead">
