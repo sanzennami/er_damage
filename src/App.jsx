@@ -5,7 +5,7 @@ import ITEM_UNIQUE_EFFECTS from './data/itemUniqueEffects.json';
 import DAK_LOADOUT_ASSETS from './data/dakLoadoutAssets.json';
 import MASTERY_STATS from './data/masteryStats.json';
 
-const APP_VERSION = 'v0.1.006';
+const APP_VERSION = 'v0.1.007';
 
 const CHARACTER_IMAGE_URLS = import.meta.glob('../assets/characters/*.png', {
   eager: true,
@@ -1566,7 +1566,15 @@ export default function App() {
   return (
     <main>
       <section className="hero">
-        <div>
+        <div className="heroPanel heroIdentity">
+          {selectedCharacter ? (
+            <img src={characterImageSrc(selectedCharacter)} alt={selectedCharacter.name} onError={(event) => { event.currentTarget.style.display = 'none'; }} />
+          ) : null}
+          <span>当前英雄</span>
+          <strong>{selectedHero}</strong>
+          <small>{selectedCharacter ? selectedCharacter.englishName : '手动配置英雄'}</small>
+        </div>
+        <div className="heroIntroBlock">
           <h1>永恒轮回伤害计算器</h1>
           <p className="intro">选择英雄、装备和潜能后即时计算法强、防穿、防御修正、原始伤害与最终伤害。</p>
           <div className={`heroPicker compactHeroPicker ${useHeroAvatarPicker ? 'avatarHeroPickerMode' : ''}`}>
@@ -1634,14 +1642,6 @@ export default function App() {
               <b>{APP_VERSION}</b>
             </div>
           </div>
-        </div>
-        <div className="heroPanel heroIdentity">
-          {selectedCharacter ? (
-            <img src={characterImageSrc(selectedCharacter)} alt={selectedCharacter.name} onError={(event) => { event.currentTarget.style.display = 'none'; }} />
-          ) : null}
-          <span>当前英雄</span>
-          <strong>{selectedHero}</strong>
-          <small>{selectedCharacter ? selectedCharacter.englishName : '手动配置英雄'}</small>
         </div>
       </section>
 
