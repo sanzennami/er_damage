@@ -48,6 +48,93 @@ button {
   grid-template-columns: minmax(220px, 340px);
 }
 
+.avatarHeroPickerMode {
+  grid-template-columns: minmax(280px, 520px);
+}
+
+.heroPickerTop {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: end;
+}
+
+.heroPickerTop .quietButton {
+  min-height: 47px;
+  white-space: nowrap;
+}
+
+.globalSettingsMenu {
+  padding: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  background: rgba(12, 10, 16, 0.62);
+}
+
+.heroAvatarPicker {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  max-height: 460px;
+  gap: 8px;
+  overflow: auto;
+  padding-right: 4px;
+}
+
+.heroAvatarOption {
+  display: grid;
+  grid-template-columns: 42px minmax(0, 1fr);
+  gap: 10px;
+  align-items: center;
+  min-height: 58px;
+  padding: 8px;
+  border-color: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.06);
+  color: #f6f2e8;
+  text-align: left;
+}
+
+.heroAvatarOption.active {
+  border-color: rgba(255, 213, 107, 0.82);
+  background: rgba(255, 213, 107, 0.16);
+}
+
+.heroAvatarOption img,
+.heroAvatarFallback {
+  width: 42px;
+  height: 42px;
+  border-radius: 7px;
+}
+
+.heroAvatarOption img {
+  object-fit: cover;
+}
+
+.heroAvatarFallback {
+  display: grid;
+  place-items: center;
+  background: rgba(255, 255, 255, 0.1);
+  color: #ffd56b;
+  font-weight: 800;
+}
+
+.heroAvatarOption strong,
+.heroAvatarOption small {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.heroAvatarOption strong {
+  color: #fff2d5;
+}
+
+.heroAvatarOption small {
+  margin-top: 2px;
+  color: #a9a0a0;
+  font-size: 11px;
+}
+
 .stackBlocks button {
   background: rgba(255, 255, 255, 0.08);
   color: #d9cfc3;
@@ -1070,6 +1157,10 @@ td:last-child input {
   .attributePanel {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
+
+  .heroAvatarPicker {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 620px) {
@@ -1112,5 +1203,9 @@ td:last-child input {
   .damageTools {
     align-items: flex-start;
     flex-direction: column;
+  }
+
+  .heroPickerTop {
+    grid-template-columns: 1fr;
   }
 }

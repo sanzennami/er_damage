@@ -84,6 +84,7 @@ const WEAPON_TYPES = [
   'VF义体 / VF Prosthetic'
 ];
 const STORAGE_KEY = 'er-damage-config-v1';
+const APP_SETTINGS_KEY = 'er-damage-global-settings-v1';
 const HELP_NOTES_KEY = 'er-damage-help-notes-v1';
 const HELP_NOTES_EDITABLE = typeof window !== 'undefined' && ['localhost', '127.0.0.1', '::1'].includes(window.location.hostname);
 const HELP_NOTES_SAVE_ENDPOINT = '/api/help-notes';
@@ -376,6 +377,20 @@ function qualityRank(quality) {
   return QUALITY_RANK[quality] ?? 0;
 }
 
+function compareEquipmentForSelect(left, right) {
+  const qualityDelta = qualityRank(left?.quality) - qualityRank(right?.quality);
+  if (qualityDelta !== 0) return qualityDelta;
+
+  const typeDelta = String(left?.weaponType || '').localeCompare(String(right?.weaponType || ''), 'zh-Hans-CN');
+  if (typeDelta !== 0) return typeDelta;
+
+  return String(left?.name || '').localeCompare(String(right?.name || ''), 'zh-Hans-CN');
+}
+
+function sortEquipmentForSelect(items) {
+  return [...items].sort(compareEquipmentForSelect);
+}
+
 function shouldShowInBuilder(item, showLowerTierEquipment) {
   return showLowerTierEquipment || qualityRank(item?.quality) >= qualityRank('英雄');
 }
@@ -436,6 +451,14 @@ function loadConfig() {
     };
   } catch {
     return { equipment: clone(INITIAL_EQUIPMENT), skills: clone(INITIAL_SKILLS), talents: clone(DEFAULT_TALENTS) };
+  }
+}
+
+function loadAppSettings() {
+  try {
+    return JSON.parse(window.localStorage.getItem(APP_SETTINGS_KEY)) || {};
+  } catch {
+    return {};
   }
 }
 
@@ -898,6 +921,8 @@ export default function App() {
   const [masterTriggered, setMasterTriggered] = useState(false);
   const [ideaTriggered, setIdeaTriggered] = useState(false);
   const [showBuildSettings, setShowBuildSettings] = useState(false);
+  const [showGlobalSettings, setShowGlobalSettings] = useState(false);
+  const [useHeroAvatarPicker, setUseHeroAvatarPicker] = useState(() => Boolean(loadAppSettings().useHeroAvatarPicker));
   const [showLowerTierEquipment, setShowLowerTierEquipment] = useState(false);
   const [visibleStatKeys, setVisibleStatKeys] = useState(DEFAULT_VISIBLE_STAT_KEYS);
   const [skillLevels, setSkillLevels] = useState(() => Object.fromEntries(INITIAL_SKILLS.map((skill) => [skill.id, skill.maxLevel])));
@@ -908,6 +933,10 @@ export default function App() {
   useEffect(() => {
     window.localStorage.setItem(STORAGE_KEY, JSON.stringify({ equipment, skills, talents }));
   }, [equipment, skills, talents]);
+
+  useEffect(() => {
+    window.localStorage.setItem(APP_SETTINGS_KEY, JSON.stringify({ useHeroAvatarPicker }));
+  }, [useHeroAvatarPicker]);
 
   useEffect(() => {
     if (HELP_NOTES_EDITABLE) {
@@ -964,6 +993,10 @@ export default function App() {
   );
   const selectedCharacter = ER_GAME_DATA.characters.find((character) => character.name === selectedHero);
   const selectedOfficialSkillGroups = ER_GAME_DATA.rawSkillGroups.filter((skill) => skill.hero === selectedHero);
+  const heroPickerOptions = HEROES.map((hero) => ({
+    name: hero,
+    character: ER_GAME_DATA.characters.find((character) => character.name === hero)
+  }));
   const allowedWeaponTypes = new Set(selectedCharacter?.weapons || []);
   const selectedWeaponRaw = weaponTypeFilter !== '全部类型'
     ? weaponTypeFromFilter(weaponTypeFilter)
@@ -1002,13 +1035,13 @@ export default function App() {
     const rawType = weaponTypeFromFilter(type);
     return !allowedWeaponTypes.size || allowedWeaponTypes.has(rawType);
   });
-  const builderEquipment = equipment.filter((item) => shouldShowInBuilder(item, showLowerTierEquipment));
-  const weaponChoices = equipment.filter((item) => (
+  const builderEquipment = sortEquipmentForSelect(equipment.filter((item) => shouldShowInBuilder(item, showLowerTierEquipment)));
+  const weaponChoices = sortEquipmentForSelect(equipment.filter((item) => (
     item.type === '武器'
     && shouldShowInBuilder(item, showLowerTierEquipment)
     && (!allowedWeaponTypes.size || allowedWeaponTypes.has(weaponTypeRaw(item)))
     && (weaponTypeFilter === '全部类型' || item.weaponType === weaponTypeFilter)
-  ));
+  )));
   const builderChoicesBySlot = Object.fromEntries(SLOTS.map((slot) => [
     slot,
     slot === '武器' ? weaponChoices : builderEquipment.filter((item) => item.type === slot)
@@ -1281,15 +1314,66 @@ export default function App() {
         <div>
           <h1>永恒轮回伤害计算器</h1>
           <p className="intro">选择英雄、装备和潜能后即时计算法强、防穿、防御修正、原始伤害与最终伤害。</p>
-          <div className="heroPicker compactHeroPicker">
-            <label className="selectBlock">
-              <LabelWithHelp note={help('select.hero')}>英雄</LabelWithHelp>
-              <select value={selectedHero} onChange={(event) => setSelectedHero(event.target.value)}>
-                {HEROES.map((hero) => (
-                  <option value={hero} key={hero}>{hero}</option>
+          <div className={`heroPicker compactHeroPicker ${useHeroAvatarPicker ? 'avatarHeroPickerMode' : ''}`}>
+            <div className="heroPickerTop">
+              <label className="selectBlock">
+                <LabelWithHelp note={help('select.hero')}>英雄</LabelWithHelp>
+                <select
+                  value={selectedHero}
+                  onChange={(event) => setSelectedHero(event.target.value)}
+                  disabled={useHeroAvatarPicker}
+                >
+                  {HEROES.map((hero) => (
+                    <option value={hero} key={hero}>{hero}</option>
+                  ))}
+                </select>
+              </label>
+              <button
+                type="button"
+                className={`quietButton ${showGlobalSettings ? 'active' : ''}`}
+                onClick={() => setShowGlobalSettings((current) => !current)}
+              >
+                全局设置
+              </button>
+            </div>
+            {showGlobalSettings ? (
+              <div className="globalSettingsMenu">
+                <div className="panelSubhead">
+                  <strong>全局设置</strong>
+                  <span>英雄选择</span>
+                </div>
+                <label className="toggle">
+                  <input
+                    type="checkbox"
+                    checked={useHeroAvatarPicker}
+                    onChange={(event) => setUseHeroAvatarPicker(event.target.checked)}
+                  />
+                  <span>使用头像列表选择实验体</span>
+                </label>
+              </div>
+            ) : null}
+            {useHeroAvatarPicker ? (
+              <div className="heroAvatarPicker" aria-label="实验体头像选择">
+                {heroPickerOptions.map(({ name, character }) => (
+                  <button
+                    type="button"
+                    className={`heroAvatarOption ${name === selectedHero ? 'active' : ''}`}
+                    onClick={() => setSelectedHero(name)}
+                    key={name}
+                  >
+                    {character ? (
+                      <img src={characterImageSrc(character)} alt="" onError={(event) => { event.currentTarget.style.display = 'none'; }} />
+                    ) : (
+                      <span className="heroAvatarFallback">{name.slice(0, 1)}</span>
+                    )}
+                    <span>
+                      <strong>{name}</strong>
+                      <small>{character?.englishName || '手动配置'}{character?.weapons?.length ? ` / ${character.weapons.join(', ')}` : ''}</small>
+                    </span>
+                  </button>
                 ))}
-              </select>
-            </label>
+              </div>
+            ) : null}
           </div>
         </div>
         <div className="heroPanel heroIdentity">
