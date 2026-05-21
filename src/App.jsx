@@ -5,7 +5,7 @@ import ITEM_UNIQUE_EFFECTS from './data/itemUniqueEffects.json';
 import DAK_LOADOUT_ASSETS from './data/dakLoadoutAssets.json';
 import MASTERY_STATS from './data/masteryStats.json';
 
-const APP_VERSION = 'v0.1.013';
+const APP_VERSION = 'v0.1.014';
 
 const CHARACTER_IMAGE_URLS = import.meta.glob('../assets/characters/*.png', {
   eager: true,
@@ -994,6 +994,7 @@ export default function App() {
   const [effectsCollapsed, setEffectsCollapsed] = useState(false);
   const [skillTargetCounts, setSkillTargetCounts] = useState({});
   const [useHeroAvatarPicker, setUseHeroAvatarPicker] = useState(() => Boolean(loadAppSettings().useHeroAvatarPicker));
+  const [heroAvatarQuery, setHeroAvatarQuery] = useState('');
   const [showLowerTierEquipment, setShowLowerTierEquipment] = useState(false);
   const [visibleStatKeys, setVisibleStatKeys] = useState(DEFAULT_VISIBLE_STAT_KEYS);
   const [skillLevels, setSkillLevels] = useState(() => Object.fromEntries(INITIAL_SKILLS.map((skill) => [skill.id, skill.maxLevel])));
@@ -1069,6 +1070,15 @@ export default function App() {
     name: hero,
     character: ER_GAME_DATA.characters.find((character) => character.name === hero)
   }));
+  const filteredHeroPickerOptions = heroPickerOptions.filter(({ name, character }) => {
+    const query = heroAvatarQuery.trim().toLowerCase();
+    if (!query) return true;
+    return [
+      name,
+      character?.englishName,
+      ...(character?.weapons || []).map((weapon) => weaponTypeOfficialName(weapon))
+    ].filter(Boolean).some((value) => String(value).toLowerCase().includes(query));
+  });
   const allowedWeaponTypes = new Set(selectedCharacter?.weapons || []);
   const selectedWeaponRaw = weaponTypeFilter !== '全部类型'
     ? weaponTypeFromFilter(weaponTypeFilter)
@@ -1604,7 +1614,16 @@ export default function App() {
     if (!useHeroAvatarPicker) return null;
     return (
       <div className={`heroAvatarPicker ${className}`.trim()} aria-label="实验体头像选择">
-        {heroPickerOptions.map(({ name, character }) => (
+        <label className="heroAvatarSearch">
+          <span>搜索实验体</span>
+          <input
+            type="search"
+            value={heroAvatarQuery}
+            onChange={(event) => setHeroAvatarQuery(event.target.value)}
+            placeholder="搜索实验体"
+          />
+        </label>
+        {filteredHeroPickerOptions.map(({ name, character }) => (
           <button
             type="button"
             className={`heroAvatarOption ${name === selectedHero ? 'active' : ''}`}
@@ -1618,10 +1637,11 @@ export default function App() {
             )}
             <span>
               <strong>{name}</strong>
-              <small>{character?.englishName || '手动配置'}{character?.weapons?.length ? ` / ${weaponTypeOfficialList(character.weapons)}` : ''}</small>
+              <small>{character?.englishName || '手动配置'}</small>
             </span>
           </button>
         ))}
+        {!filteredHeroPickerOptions.length ? <p className="heroAvatarEmpty">未找到实验体</p> : null}
       </div>
     );
   }
@@ -1653,7 +1673,6 @@ export default function App() {
                 <select
                   value={selectedHero}
                   onChange={(event) => setSelectedHero(event.target.value)}
-                  disabled={useHeroAvatarPicker}
                 >
                   {HEROES.map((hero) => (
                     <option value={hero} key={hero}>{hero}</option>
@@ -1684,7 +1703,6 @@ export default function App() {
                 </label>
               </div>
             ) : null}
-            {useHeroAvatarPicker ? <div className="heroAvatarPickerPlaceholder" aria-hidden="true" /> : null}
           </div>
         </div>
       </section>
