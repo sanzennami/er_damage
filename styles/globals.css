@@ -636,12 +636,13 @@ input:focus {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 10px;
-  margin-top: 16px;
+  margin-top: 10px;
 }
 
 .attributePanel div,
 .talentResult,
-.equippedStats {
+.equippedStats,
+.currentStatsBlock {
   display: flex;
   flex-direction: column;
   gap: 5px;
@@ -704,6 +705,10 @@ input:focus {
 }
 
 .equippedStats {
+  margin-top: 12px;
+}
+
+.currentStatsBlock {
   margin-top: 12px;
 }
 

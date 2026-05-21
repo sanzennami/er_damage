@@ -5,7 +5,7 @@ import ITEM_UNIQUE_EFFECTS from './data/itemUniqueEffects.json';
 import DAK_LOADOUT_ASSETS from './data/dakLoadoutAssets.json';
 import MASTERY_STATS from './data/masteryStats.json';
 
-const APP_VERSION = 'v0.1.016';
+const APP_VERSION = 'v0.1.017';
 
 const CHARACTER_IMAGE_URLS = import.meta.glob('../assets/characters/*.png', {
   eager: true,
@@ -1803,31 +1803,6 @@ export default function App() {
               </div>
             </div>
           </div>
-          <div className="attributePanel">
-            <div>
-              <span>当前法强</span>
-              <strong>{result.ap}</strong>
-              <small>装备 {result.equipAp} + 手动 {talentAp} + 潜能 {result.talentBonusAp} + 叠层 {result.stackAp}，加成 {pct(result.totalApPct)}</small>
-            </div>
-            <div>
-              <span>攻击力</span>
-              <strong>{attack + result.equipAttackPower + result.masteryAttackPower}</strong>
-            </div>
-            <div>
-              <span>防穿</span>
-              <strong>{result.pen} / {pct(result.penPct)}</strong>
-            </div>
-            <div>
-              <span>技伤</span>
-              <strong>{pct(result.totalDamageBonus)}</strong>
-            </div>
-            {visibleEquipmentStats.map((stat) => (
-              <div key={stat.key}>
-                <span>{stat.label}{stat.unique ? '（独有）' : ''}</span>
-                <strong>{formatStatValue(stat.key, stat.value)}</strong>
-              </div>
-            ))}
-          </div>
           <details className="equipmentEffectRail mobileEquipmentEffectRail">
             <summary className="equipmentEffectSummary">
               <strong>独有效果</strong>
@@ -1843,6 +1818,37 @@ export default function App() {
             <div className="statPills">
               {activeEquipmentStats.map((stat) => (
                 <span className="statPill" key={stat.key}>{stat.label}{stat.unique ? '（独有）' : ''} {formatStatValue(stat.key, stat.value)}</span>
+              ))}
+            </div>
+          </div>
+          <div className="currentStatsBlock">
+            <div className="panelSubhead">
+              <strong>当前属性汇总</strong>
+              <span>{visibleEquipmentStats.length + 4} 项显示</span>
+            </div>
+            <div className="attributePanel">
+              <div>
+                <span>当前法强</span>
+                <strong>{result.ap}</strong>
+                <small>装备 {result.equipAp} + 手动 {talentAp} + 潜能 {result.talentBonusAp} + 叠层 {result.stackAp}，加成 {pct(result.totalApPct)}</small>
+              </div>
+              <div>
+                <span>攻击力</span>
+                <strong>{attack + result.equipAttackPower + result.masteryAttackPower}</strong>
+              </div>
+              <div>
+                <span>防穿</span>
+                <strong>{result.pen} / {pct(result.penPct)}</strong>
+              </div>
+              <div>
+                <span>技伤</span>
+                <strong>{pct(result.totalDamageBonus)}</strong>
+              </div>
+              {visibleEquipmentStats.map((stat) => (
+                <div key={stat.key}>
+                  <span>{stat.label}{stat.unique ? '（独有）' : ''}</span>
+                  <strong>{formatStatValue(stat.key, stat.value)}</strong>
+                </div>
               ))}
             </div>
           </div>
