@@ -6,7 +6,7 @@ import ITEM_UNIQUE_EFFECTS from './data/itemUniqueEffects.json';
 import DAK_LOADOUT_ASSETS from './data/dakLoadoutAssets.json';
 import MASTERY_STATS from './data/masteryStats.json';
 
-const APP_VERSION = 'v0.1.024';
+const APP_VERSION = 'v0.1.025';
 
 const CHARACTER_IMAGE_URLS = import.meta.glob('../assets/characters/*.png', {
   eager: true,
@@ -215,6 +215,36 @@ const LEVEL_SCALING_STAT_TARGETS = {
   preventSkillDamagedRatioByLv: 'preventSkillDamagedRatio',
   preventSkillDamagedByLv: 'preventSkillDamaged'
 };
+const LEVEL_SCALING_STAT_KEYS = new Set(Object.keys(LEVEL_SCALING_STAT_TARGETS));
+const EQUIPMENT_STAT_SOURCE_KEYS = new Set(INITIAL_EQUIPMENT.flatMap((item) => [
+  ...Object.keys(item.stats || {}),
+  item.attackPower ? 'attackPower' : '',
+  item.ap ? 'skillAmp' : '',
+  item.cd ? 'cooldownReduction' : '',
+  item.defense ? 'defense' : '',
+  item.maxHp ? 'maxHp' : '',
+  item.sightRange ? 'sightRange' : '',
+  item.pen ? 'penetrationDefense' : '',
+  item.penPct ? 'penetrationDefenseRatio' : '',
+  item.apPct ? 'skillAmpRatio' : ''
+].filter(Boolean)));
+const EQUIPMENT_STAT_DERIVED_KEYS = new Set(
+  Object.entries(LEVEL_SCALING_STAT_TARGETS)
+    .filter(([levelKey]) => EQUIPMENT_STAT_SOURCE_KEYS.has(levelKey))
+    .map(([, targetKey]) => targetKey)
+);
+const DISPLAYABLE_ITEM_STAT_DEFINITIONS = ITEM_STAT_DEFINITIONS.filter((stat, index, stats) => (
+  stat?.key
+  && !LEVEL_SCALING_STAT_KEYS.has(stat.key)
+  && (EQUIPMENT_STAT_SOURCE_KEYS.has(stat.key) || EQUIPMENT_STAT_DERIVED_KEYS.has(stat.key))
+  && stats.findIndex((item) => item.key === stat.key) === index
+));
+const DISPLAYABLE_ITEM_STAT_KEYS = new Set(DISPLAYABLE_ITEM_STAT_DEFINITIONS.map((stat) => stat.key));
+const DISPLAYABLE_STAT_LABEL_COUNTS = DISPLAYABLE_ITEM_STAT_DEFINITIONS.reduce((counts, stat) => {
+  const key = normalizedStatLabel(stat.label || stat.key);
+  counts[key] = (counts[key] || 0) + 1;
+  return counts;
+}, {});
 const DEFAULT_VISIBLE_STAT_KEYS = [
   'skillAmp',
   'adaptiveForce',
@@ -227,7 +257,7 @@ const DEFAULT_VISIBLE_STAT_KEYS = [
   'attackSpeedRatio',
   'moveSpeed',
   'sightRange'
-];
+].filter((key) => DISPLAYABLE_ITEM_STAT_KEYS.has(key));
 
 const DEFAULT_SKILLS = [
   { id: 'nun-q', hero: '奇娅拉', title: 'Q 一段', bases: '180,180,180,180,180', formula: 'base + ap * 0.65', maxLevel: 5 },
@@ -489,6 +519,18 @@ function formatStatValue(key, value) {
     return `${round(percentValue, Math.abs(percentValue) < 10 ? 1 : 0)}%`;
   }
   return String(round(value, Math.abs(value) < 10 ? 2 : 1));
+}
+
+function normalizedStatLabel(label) {
+  return String(label || '').replace(/^\(独有\)\s*/, '');
+}
+
+function displayItemStatLabel(stat) {
+  const label = normalizedStatLabel(stat?.label || stat?.key || '');
+  const suffix = DISPLAYABLE_STAT_LABEL_COUNTS[label] > 1
+    ? `（${stat?.format === 'percent' ? '百分比' : '数值'}）`
+    : '';
+  return `${label}${suffix}${stat?.unique ? '（独有）' : ''}`;
 }
 
 function qualityColor(quality) {
@@ -1242,9 +1284,10 @@ export default function App() {
     slot === '武器' ? weaponChoices : builderEquipment.filter((item) => item.type === slot)
   ]));
   const visibleEquipmentStats = visibleStatKeys
+    .filter((key) => DISPLAYABLE_ITEM_STAT_KEYS.has(key))
     .map((key) => ({ ...ITEM_STAT_BY_KEY[key], key, value: statValue(result.equipmentStats, key) }))
     .filter((stat) => stat.label && stat.value !== 0);
-  const activeEquipmentStats = ITEM_STAT_DEFINITIONS
+  const activeEquipmentStats = DISPLAYABLE_ITEM_STAT_DEFINITIONS
     .map((stat) => ({ ...stat, value: statValue(result.equipmentStats, stat.key) }))
     .filter((stat) => stat.value !== 0);
   const heroUsesApScaling = result.skills.some((skill) => formulaUsesVariable(skill.formula, 'ap'));
@@ -1406,6 +1449,7 @@ export default function App() {
   }
 
   function toggleVisibleStat(key) {
+    if (!DISPLAYABLE_ITEM_STAT_KEYS.has(key)) return;
     setVisibleStatKeys((current) => (
       current.includes(key) ? current.filter((item) => item !== key) : [...current, key]
     ));
@@ -1883,10 +1927,10 @@ export default function App() {
                 ))}
               </div>
               <div className="statSettings">
-                {ITEM_STAT_DEFINITIONS.map((stat) => (
+                {DISPLAYABLE_ITEM_STAT_DEFINITIONS.map((stat) => (
                   <label className="toggle" key={stat.key}>
                     <input type="checkbox" checked={visibleStatKeys.includes(stat.key)} onChange={() => toggleVisibleStat(stat.key)} />
-                    <span>{stat.label}{stat.unique ? '（独有）' : ''}</span>
+                    <span>{displayItemStatLabel(stat)}</span>
                   </label>
                 ))}
               </div>
@@ -1945,7 +1989,7 @@ export default function App() {
             </div>
             <div className="statPills">
               {activeEquipmentStats.map((stat) => (
-                <span className="statPill" key={stat.key}>{stat.label}{stat.unique ? '（独有）' : ''} {formatStatValue(stat.key, stat.value)}</span>
+                <span className="statPill" key={stat.key}>{displayItemStatLabel(stat)} {formatStatValue(stat.key, stat.value)}</span>
               ))}
             </div>
           </div>
@@ -2020,7 +2064,7 @@ export default function App() {
             </div>
             {visibleEquipmentStats.map((stat) => (
               <div key={stat.key}>
-                <span>{stat.label}{stat.unique ? '（独有）' : ''}</span>
+                <span>{displayItemStatLabel(stat)}</span>
                 <strong>{formatStatValue(stat.key, stat.value)}</strong>
               </div>
             ))}
