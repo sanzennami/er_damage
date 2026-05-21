@@ -14,19 +14,34 @@ const LOADOUT_IMAGE_URLS = import.meta.glob('../assets/loadout/**/*.png', {
 });
 
 const QUALITY_COLORS = {
-  红: '#ff8d8d',
-  金: '#ffd56b',
-  紫: '#ccb6ff',
-  蓝: '#81caff',
-  绿: '#8de1ad',
-  白: '#f6f2e8',
   普通: '#f6f2e8',
   高级: '#8de1ad',
   稀有: '#81caff',
   英雄: '#ccb6ff',
   传说: '#ffd56b',
-  神话: '#ff8d8d'
+  神话: '#ff6b6b',
+  白: '#f6f2e8',
+  绿: '#8de1ad',
+  蓝: '#81caff',
+  紫: '#ccb6ff',
+  金: '#ffd56b',
+  红: '#ff6b6b'
 };
+const QUALITY_RANK = {
+  普通: 0,
+  白: 0,
+  高级: 1,
+  绿: 1,
+  稀有: 2,
+  蓝: 2,
+  英雄: 3,
+  紫: 3,
+  传说: 4,
+  金: 4,
+  神话: 5,
+  红: 5
+};
+const QUALITY_OPTIONS = ['普通', '高级', '稀有', '英雄', '传说', '神话'];
 const WEAPON_TYPES = [
   '未设置',
   '拳套 / Glove',
@@ -392,6 +407,18 @@ function formatStatValue(key, value) {
     return `${round(percentValue, Math.abs(percentValue) < 10 ? 1 : 0)}%`;
   }
   return String(round(value, Math.abs(value) < 10 ? 2 : 1));
+}
+
+function qualityColor(quality) {
+  return QUALITY_COLORS[quality] || QUALITY_COLORS.普通;
+}
+
+function qualityRank(quality) {
+  return QUALITY_RANK[quality] ?? 0;
+}
+
+function shouldShowInBuilder(item, showLowerTierEquipment) {
+  return showLowerTierEquipment || qualityRank(item?.quality) >= qualityRank('英雄');
 }
 
 function aggregateEquipmentStats(selected) {
@@ -848,7 +875,8 @@ export default function App() {
   const [blazingFull, setBlazingFull] = useState(false);
   const [masterTriggered, setMasterTriggered] = useState(false);
   const [ideaTriggered, setIdeaTriggered] = useState(false);
-  const [showStatSettings, setShowStatSettings] = useState(false);
+  const [showBuildSettings, setShowBuildSettings] = useState(false);
+  const [showLowerTierEquipment, setShowLowerTierEquipment] = useState(false);
   const [visibleStatKeys, setVisibleStatKeys] = useState(DEFAULT_VISIBLE_STAT_KEYS);
   const [skillLevels, setSkillLevels] = useState(() => Object.fromEntries(INITIAL_SKILLS.map((skill) => [skill.id, skill.maxLevel])));
   const [helpNotes, setHelpNotes] = useState(loadHelpNotes);
@@ -925,11 +953,17 @@ export default function App() {
     const rawType = String(type).split('/').pop()?.trim();
     return !allowedWeaponTypes.size || allowedWeaponTypes.has(rawType);
   });
+  const builderEquipment = equipment.filter((item) => shouldShowInBuilder(item, showLowerTierEquipment));
   const weaponChoices = equipment.filter((item) => (
     item.type === '武器'
+    && shouldShowInBuilder(item, showLowerTierEquipment)
     && (!allowedWeaponTypes.size || allowedWeaponTypes.has(weaponTypeRaw(item)))
     && (weaponTypeFilter === '全部类型' || item.weaponType === weaponTypeFilter)
   ));
+  const builderChoicesBySlot = Object.fromEntries(SLOTS.map((slot) => [
+    slot,
+    slot === '武器' ? weaponChoices : builderEquipment.filter((item) => item.type === slot)
+  ]));
   const visibleEquipmentStats = visibleStatKeys
     .map((key) => ({ ...ITEM_STAT_BY_KEY[key], key, value: statValue(result.equipmentStats, key) }))
     .filter((stat) => stat.label && stat.value !== 0);
@@ -951,11 +985,25 @@ export default function App() {
     }
 
     const currentWeapon = byName(equipment, gear['武器']);
-    if (currentWeapon && (!allowedWeaponTypes.size || allowedWeaponTypes.has(weaponTypeRaw(currentWeapon)))) return;
+    if (
+      currentWeapon
+      && shouldShowInBuilder(currentWeapon, showLowerTierEquipment)
+      && (!allowedWeaponTypes.size || allowedWeaponTypes.has(weaponTypeRaw(currentWeapon)))
+    ) return;
 
     const nextWeapon = weaponChoices[0] || equipment.find((item) => item.type === '武器');
     if (nextWeapon) updateGear('武器', nextWeapon.name);
-  }, [selectedHero, equipment, gear['武器'], weaponTypeFilter]);
+  }, [selectedHero, equipment, gear['武器'], weaponTypeFilter, showLowerTierEquipment]);
+
+  useEffect(() => {
+    SLOTS.filter((slot) => slot !== '武器').forEach((slot) => {
+      const currentItem = byName(equipment, gear[slot]);
+      if (currentItem && shouldShowInBuilder(currentItem, showLowerTierEquipment)) return;
+
+      const nextItem = builderChoicesBySlot[slot]?.[0] || equipment.find((item) => item.type === slot);
+      if (nextItem) updateGear(slot, nextItem.name);
+    });
+  }, [equipment, gear, showLowerTierEquipment]);
 
   function updateGear(slot, name) {
     setGear((current) => ({ ...current, [slot]: name }));
@@ -967,6 +1015,7 @@ export default function App() {
 
     const match = equipment.find((item) => (
       item.type === '武器'
+      && shouldShowInBuilder(item, showLowerTierEquipment)
       && item.weaponType === type
       && (!allowedWeaponTypes.size || allowedWeaponTypes.has(weaponTypeRaw(item)))
     ));
@@ -1192,9 +1241,44 @@ export default function App() {
               <h2><LabelWithHelp note={help('section.gear')}>装备选择</LabelWithHelp></h2>
             </div>
             <div className="buttonRow">
-              <button type="button" className="quietButton" onClick={() => setShowStatSettings((current) => !current)}>显示设置</button>
+              <button
+                type="button"
+                className={`quietButton ${showBuildSettings ? 'active' : ''}`}
+                onClick={() => setShowBuildSettings((current) => !current)}
+              >
+                设置
+              </button>
             </div>
           </div>
+          {showBuildSettings ? (
+            <div className="buildSettingsMenu">
+              <div className="panelSubhead">
+                <strong>显示设置</strong>
+                <span>配装器</span>
+              </div>
+              <label className="toggle">
+                <input
+                  type="checkbox"
+                  checked={showLowerTierEquipment}
+                  onChange={(event) => setShowLowerTierEquipment(event.target.checked)}
+                />
+                <span>显示紫色以下品级装备</span>
+              </label>
+              <div className="qualityLegend" aria-label="装备品级颜色">
+                {QUALITY_OPTIONS.map((quality) => (
+                  <span key={quality} style={{ color: qualityColor(quality) }}>{quality}</span>
+                ))}
+              </div>
+              <div className="statSettings">
+                {ITEM_STAT_DEFINITIONS.map((stat) => (
+                  <label className="toggle" key={stat.key}>
+                    <input type="checkbox" checked={visibleStatKeys.includes(stat.key)} onChange={() => toggleVisibleStat(stat.key)} />
+                    <span>{stat.label}{stat.unique ? '（独有）' : ''}</span>
+                  </label>
+                ))}
+              </div>
+            </div>
+          ) : null}
           <div className="buildControlLayout">
             <div>
               <div className="gearGrid">
@@ -1211,11 +1295,11 @@ export default function App() {
                     <select
                       className="qualitySelect"
                       value={gear[slot]}
-                      style={{ color: QUALITY_COLORS[byName(equipment, gear[slot])?.quality] }}
+                      style={{ color: qualityColor(byName(equipment, gear[slot])?.quality) }}
                       onChange={(event) => updateGear(slot, event.target.value)}
                     >
-                      {(slot === '武器' ? weaponChoices : equipment.filter((item) => item.type === slot)).map((item) => (
-                        <option value={item.name} key={`${item.type}-${item.name}`} style={{ color: QUALITY_COLORS[item.quality] }}>
+                      {builderChoicesBySlot[slot].map((item) => (
+                        <option value={item.name} key={`${item.type}-${item.name}`} style={{ color: qualityColor(item.quality) }}>
                           {slot === '武器' ? `${item.name} / ${item.weaponType || '未设置'}` : item.name}
                         </option>
                       ))}
@@ -1227,7 +1311,7 @@ export default function App() {
               </div>
               <div className="chips">
                 {result.selected.map((item) => (
-                  <span className={`chip ${item.quality === '红' ? 'red' : item.quality === '金' ? 'gold' : 'purple'}`} key={item.name}>
+                  <span className="chip" style={{ color: qualityColor(item.quality) }} key={item.name}>
                     {item.name}{item.effect ? ` / ${item.effect}` : ''}
                   </span>
                 ))}
@@ -1242,7 +1326,7 @@ export default function App() {
                 {selectedEquipmentEffects.length ? selectedEquipmentEffects.map((item, index) => (
                   <div className="equipmentEffectItem" key={`${item.slot}-${item.name}-${item.effect}-${index}`}>
                     <span>{item.slot}</span>
-                    <strong style={{ color: QUALITY_COLORS[item.quality] }}>{item.effect}</strong>
+                    <strong style={{ color: qualityColor(item.quality) }}>{item.effect}</strong>
                     <small>{item.name}</small>
                   </div>
                 )) : (
@@ -1251,16 +1335,6 @@ export default function App() {
               </div>
             </aside>
           </div>
-          {showStatSettings ? (
-            <div className="statSettings">
-              {ITEM_STAT_DEFINITIONS.map((stat) => (
-                <label className="toggle" key={stat.key}>
-                  <input type="checkbox" checked={visibleStatKeys.includes(stat.key)} onChange={() => toggleVisibleStat(stat.key)} />
-                  <span>{stat.label}{stat.unique ? '（独有）' : ''}</span>
-                </label>
-              ))}
-            </div>
-          ) : null}
           <div className="attributePanel">
             <div>
               <span>当前法强</span>
@@ -1638,7 +1712,7 @@ export default function App() {
                   <td><TextCell value={item.name} onChange={(value) => updateEquipmentRow(index, 'name', value)} /></td>
                   <td>
                     <select value={item.quality || '金'} onChange={(event) => updateEquipmentRow(index, 'quality', event.target.value)}>
-                      {Object.keys(QUALITY_COLORS).map((quality) => <option value={quality} key={quality}>{quality}</option>)}
+                      {QUALITY_OPTIONS.map((quality) => <option value={quality} key={quality}>{quality}</option>)}
                     </select>
                   </td>
                   <td><TextCell type="number" value={item.attackPower} onChange={(value) => updateEquipmentRow(index, 'attackPower', value)} /></td>

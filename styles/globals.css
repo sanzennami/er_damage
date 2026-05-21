@@ -882,6 +882,43 @@ input:focus {
   background: rgba(255, 255, 255, 0.08);
 }
 
+.quietButton.active {
+  border-color: rgba(255, 196, 117, 0.68);
+  background: rgba(214, 137, 62, 0.22);
+  color: #fff4da;
+}
+
+.buildSettingsMenu {
+  display: grid;
+  gap: 12px;
+  margin-bottom: 16px;
+  padding: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  background: rgba(12, 10, 16, 0.46);
+}
+
+.buildSettingsMenu .statSettings {
+  margin-top: 0;
+}
+
+.qualityLegend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.qualityLegend span {
+  min-width: 44px;
+  padding: 6px 9px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  font-size: 12px;
+  font-weight: 700;
+  text-align: center;
+}
+
 .toggle {
   display: flex;
   gap: 8px;
