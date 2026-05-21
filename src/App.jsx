@@ -5,7 +5,7 @@ import ITEM_UNIQUE_EFFECTS from './data/itemUniqueEffects.json';
 import DAK_LOADOUT_ASSETS from './data/dakLoadoutAssets.json';
 import MASTERY_STATS from './data/masteryStats.json';
 
-const APP_VERSION = 'v0.1.017';
+const APP_VERSION = 'v0.1.018';
 
 const CHARACTER_IMAGE_URLS = import.meta.glob('../assets/characters/*.png', {
   eager: true,
@@ -1294,17 +1294,6 @@ export default function App() {
     ));
   }
 
-  function updateTalentRow(index, key, value) {
-    setConfig((current) => ({
-      ...current,
-      talents: current.talents.map((talent, rowIndex) => {
-        if (rowIndex !== index) return talent;
-        const numericKeys = ['ap', 'pen', 'penPct', 'dmgAmp'];
-        return { ...talent, [key]: numericKeys.includes(key) ? getNumber(value) : value };
-      })
-    }));
-  }
-
   function updateEquipmentRow(index, key, value) {
     setConfig((current) => ({
       ...current,
@@ -1392,24 +1381,6 @@ export default function App() {
       combos
     });
     setSkillLevels((current) => ({ ...current, [id]: 5 }));
-  }
-
-  function addTalent() {
-    setConfig({
-      equipment,
-      skills,
-      talents: [...talents, {
-        id: `talent-${Date.now()}`,
-        slot: '主天赋',
-        name: '新潜能',
-        ap: 0,
-        pen: 0,
-        penPct: 0,
-        dmgAmp: 0,
-        note: ''
-      }],
-      combos
-    });
   }
 
   function addCombo() {
@@ -2136,7 +2107,6 @@ export default function App() {
           <div className="buttonRow">
             <button type="button" onClick={addEquipment}>新增装备</button>
             <button type="button" onClick={addSkill}>新增技能</button>
-            <button type="button" onClick={addTalent}>新增潜能</button>
             <button type="button" onClick={addCombo}>新增连段</button>
             <button type="button" className="quietButton" onClick={resetConfig}>恢复默认</button>
           </div>
@@ -2247,40 +2217,6 @@ export default function App() {
                   <td><TextCell value={combo.title} onChange={(value) => updateComboRow(index, 'title', value)} /></td>
                   <td>{renderComboSkillPicker(combo, index)}</td>
                   <td><TextCell value={combo.note} onChange={(value) => updateComboRow(index, 'note', value)} /></td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-        <div className="sheetWrap">
-          <table>
-            <caption><LabelWithHelp note={help('table.talents')}>潜能</LabelWithHelp></caption>
-            <thead>
-              <tr>
-                <HeaderCell note={help('talent.slot')}>位置</HeaderCell>
-                <HeaderCell note={help('talent.name')}>名称</HeaderCell>
-                <HeaderCell note={help('talent.ap')}>法强</HeaderCell>
-                <HeaderCell note={help('talent.pen')}>防穿</HeaderCell>
-                <HeaderCell note={help('talent.penPct')}>防穿%</HeaderCell>
-                <HeaderCell note={help('talent.dmgAmp')}>技伤</HeaderCell>
-                <HeaderCell note={help('talent.note')}>说明</HeaderCell>
-              </tr>
-            </thead>
-            <tbody>
-              {talents.map((talent, index) => (
-                <tr key={talent.id}>
-                  <td>
-                    <select value={talent.slot} onChange={(event) => updateTalentRow(index, 'slot', event.target.value)}>
-                      <option value="主天赋">主天赋</option>
-                      <option value="副天赋">副天赋</option>
-                    </select>
-                  </td>
-                  <td><TextCell value={talent.name} onChange={(value) => updateTalentRow(index, 'name', value)} /></td>
-                  <td><TextCell type="number" value={talent.ap} onChange={(value) => updateTalentRow(index, 'ap', value)} /></td>
-                  <td><TextCell type="number" value={talent.pen} onChange={(value) => updateTalentRow(index, 'pen', value)} /></td>
-                  <td><TextCell type="number" step="0.01" value={talent.penPct} onChange={(value) => updateTalentRow(index, 'penPct', value)} /></td>
-                  <td><TextCell type="number" step="0.01" value={talent.dmgAmp} onChange={(value) => updateTalentRow(index, 'dmgAmp', value)} /></td>
-                  <td><TextCell value={talent.note} onChange={(value) => updateTalentRow(index, 'note', value)} /></td>
                 </tr>
               ))}
             </tbody>
