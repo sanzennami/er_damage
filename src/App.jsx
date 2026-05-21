@@ -4,9 +4,10 @@ import ER_SKILL_DAMAGE_TABLE from './data/erSkillDamageTable.json';
 import DEFAULT_HELP_NOTES from './data/helpNotes.json';
 import ITEM_UNIQUE_EFFECTS from './data/itemUniqueEffects.json';
 import DAK_LOADOUT_ASSETS from './data/dakLoadoutAssets.json';
+import DAK_ITEM_SKILL_ICONS from './data/dakItemSkillIcons.json';
 import MASTERY_STATS from './data/masteryStats.json';
 
-const APP_VERSION = 'v0.1.026';
+const APP_VERSION = 'v0.1.027';
 
 const CHARACTER_IMAGE_URLS = import.meta.glob('../assets/characters/*.png', {
   eager: true,
@@ -124,6 +125,8 @@ const ACTIVE_TRAITS = (DAK_LOADOUT_ASSETS.traits || [])
 const TRAIT_BY_ID = Object.fromEntries(ACTIVE_TRAITS.map((trait) => [String(trait.id), trait]));
 const VAMPIRE_STACK_TRAIT_ID = '7000401';
 const BLAZING_SKILL_AMP_EFFECTS = new Set(['炽燃 - 增幅', '炽燃']);
+const MAGIC_SEED_EFFECT = '魔力种子';
+const DAK_ITEM_TOOLTIP_BY_CODE = new Map((DAK_ITEM_SKILL_ICONS.equipment || []).map((item) => [String(item.id), item.tooltip || '']));
 const DEFAULT_TRAIT_SELECTION = {
   group: 'Havoc',
   core: '',
@@ -409,6 +412,32 @@ const TARGETS = [
 function getNumber(value) {
   const next = Number(value);
   return Number.isFinite(next) ? next : 0;
+}
+
+function stripMarkup(value) {
+  return String(value || '')
+    .replace(/<[^>]+>/g, '')
+    .replace(/\\n/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+}
+
+function escapeRegExp(value) {
+  return String(value || '').replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+function itemTooltip(item) {
+  return DAK_ITEM_TOOLTIP_BY_CODE.get(String(item?.code)) || '';
+}
+
+function effectTooltipForItem(item, effect) {
+  const tooltip = itemTooltip(item);
+  if (!tooltip) return '';
+
+  const effectPattern = new RegExp(`<b>\\s*${escapeRegExp(effect)}\\s*</b>([\\s\\S]*?)(?=<b>|$)`, 'i');
+  const match = tooltip.match(effectPattern);
+  const effectText = stripMarkup(match?.[1] || '');
+  return effectText || stripMarkup(tooltip);
 }
 
 function pct(value) {
@@ -865,6 +894,7 @@ function calc({
   burstFollowUp,
   vampireFull,
   blazingFull,
+  magicSeedFull,
   selectedHero,
   combos = []
 }) {
@@ -876,8 +906,9 @@ function calc({
   const talentDamageBonus = getNumber(traitBonuses.dmgAmp);
   const equipAp = statValue(equipmentStats, 'skillAmp') + statValue(equipmentStats, 'adaptiveForce') || selected.reduce((sum, item) => sum + getNumber(item.ap), 0);
   const equipAttackPower = statValue(equipmentStats, 'attackPower');
-  const stackAp = (vampireFull ? 18 : 0) + (blazingFull ? 24 : 0);
-  const cd = statValue(equipmentStats, 'cooldownReduction') || selected.reduce((sum, item) => sum + getNumber(item.cd), 0);
+  const stackAp = (vampireFull ? 18 : 0) + (blazingFull ? 24 : 0) + (magicSeedFull ? 20 : 0);
+  const stackCd = magicSeedFull ? 20 : 0;
+  const cd = (statValue(equipmentStats, 'cooldownReduction') || selected.reduce((sum, item) => sum + getNumber(item.cd), 0)) + stackCd;
   const pen = statValue(equipmentStats, 'penetrationDefense') + statValue(equipmentStats, 'uniquePenetrationDefense') + talentPen || selected.reduce((sum, item) => sum + getNumber(item.pen), 0) + talentPen;
   const penPct = statValue(equipmentStats, 'penetrationDefenseRatio') + statValue(equipmentStats, 'uniquePenetrationDefenseRatio') + talentPenPct || selected.reduce((sum, item) => sum + getNumber(item.penPct), 0) + talentPenPct;
   const equipDefense = (statValue(equipmentStats, 'defense') || selected.reduce((sum, item) => sum + getNumber(item.defense), 0)) + getNumber(traitBonuses.defense);
@@ -950,6 +981,7 @@ function calc({
     talentAp,
     talentBonusAp,
     stackAp,
+    stackCd,
     selectedTalents: selectedTraits,
     traitBonuses,
     cd,
@@ -1130,6 +1162,7 @@ export default function App() {
   const [burstFollowUp, setBurstFollowUp] = useState(true);
   const [vampireFull, setVampireFull] = useState(false);
   const [blazingFull, setBlazingFull] = useState(false);
+  const [magicSeedFull, setMagicSeedFull] = useState(false);
   const [showBuildSettings, setShowBuildSettings] = useState(false);
   const [showGlobalSettings, setShowGlobalSettings] = useState(false);
   const [effectsCollapsed, setEffectsCollapsed] = useState(false);
@@ -1230,17 +1263,27 @@ export default function App() {
   const attack = characterAttackAtLevel(selectedCharacter);
   const selectedGearItems = SLOTS.map((slot) => byName(equipment, gear[slot])).filter(Boolean);
   const selectedEquipmentEffectsRaw = selectedGearItems.flatMap((item) => (
-    uniqueEffectsForItem(item).map((effect) => ({ slot: item.type, name: item.name, quality: item.quality, effect }))
+    uniqueEffectsForItem(item).map((effect) => ({
+      slot: item.type,
+      name: item.name,
+      code: item.code,
+      quality: item.quality,
+      effect,
+      tooltip: effectTooltipForItem(item, effect)
+    }))
   ));
   const hasVampireStackTrait = selectedTraits.some((trait) => String(trait.id) === VAMPIRE_STACK_TRAIT_ID || trait.name === '吸血鬼');
   const hasBlazingSkillAmpEffect = selectedEquipmentEffectsRaw.some((item) => BLAZING_SKILL_AMP_EFFECTS.has(item.effect));
+  const hasMagicSeedEffect = selectedEquipmentEffectsRaw.some((item) => item.effect === MAGIC_SEED_EFFECT);
   const effectiveVampireFull = hasVampireStackTrait && vampireFull;
   const effectiveBlazingFull = hasBlazingSkillAmpEffect && blazingFull;
+  const effectiveMagicSeedFull = hasMagicSeedEffect && magicSeedFull;
 
   useEffect(() => {
     if (!hasVampireStackTrait && vampireFull) setVampireFull(false);
     if (!hasBlazingSkillAmpEffect && blazingFull) setBlazingFull(false);
-  }, [hasVampireStackTrait, hasBlazingSkillAmpEffect, vampireFull, blazingFull]);
+    if (!hasMagicSeedEffect && magicSeedFull) setMagicSeedFull(false);
+  }, [hasVampireStackTrait, hasBlazingSkillAmpEffect, hasMagicSeedEffect, vampireFull, blazingFull, magicSeedFull]);
 
   const result = useMemo(
     () => calc({
@@ -1262,10 +1305,11 @@ export default function App() {
       burstFollowUp,
       vampireFull: effectiveVampireFull,
       blazingFull: effectiveBlazingFull,
+      magicSeedFull: effectiveMagicSeedFull,
       selectedHero,
       combos
     }),
-    [equipment, skills, skillLevels, gear, mastery, selectedMasteryStat, attack, talentAp, traitBonuses, selectedTraits, target, selfHp, damageBonus, skillReduction, r2Stacks, burstFollowUp, effectiveVampireFull, effectiveBlazingFull, selectedHero, combos]
+    [equipment, skills, skillLevels, gear, mastery, selectedMasteryStat, attack, talentAp, traitBonuses, selectedTraits, target, selfHp, damageBonus, skillReduction, r2Stacks, burstFollowUp, effectiveVampireFull, effectiveBlazingFull, effectiveMagicSeedFull, selectedHero, combos]
   );
   const heroWeaponOptions = WEAPON_TYPE_OPTIONS.filter((type) => {
     if (type === '全部类型') return true;
@@ -1283,12 +1327,15 @@ export default function App() {
     slot,
     slot === '武器' ? weaponChoices : builderEquipment.filter((item) => item.type === slot)
   ]));
+  const displayEquipmentStatValue = (key) => (
+    statValue(result.equipmentStats, key) + (key === 'cooldownReduction' ? result.stackCd : 0)
+  );
   const visibleEquipmentStats = visibleStatKeys
     .filter((key) => DISPLAYABLE_ITEM_STAT_KEYS.has(key))
-    .map((key) => ({ ...ITEM_STAT_BY_KEY[key], key, value: statValue(result.equipmentStats, key) }))
+    .map((key) => ({ ...ITEM_STAT_BY_KEY[key], key, value: displayEquipmentStatValue(key) }))
     .filter((stat) => stat.label && stat.value !== 0);
   const activeEquipmentStats = DISPLAYABLE_ITEM_STAT_DEFINITIONS
-    .map((stat) => ({ ...stat, value: statValue(result.equipmentStats, stat.key) }))
+    .map((stat) => ({ ...stat, value: displayEquipmentStatValue(stat.key) }))
     .filter((stat) => stat.value !== 0);
   const heroUsesApScaling = result.skills.some((skill) => formulaUsesVariable(skill.formula, 'ap'));
   const heroUsesAttackScaling = result.skills.some((skill) => formulaUsesVariable(skill.formula, 'attack'));
@@ -1309,9 +1356,9 @@ export default function App() {
   const renderEquipmentEffects = () => (
     <div className="equipmentEffectList">
       {selectedEquipmentEffects.length ? selectedEquipmentEffects.map((item, index) => (
-        <div className="equipmentEffectItem" key={`${item.slot}-${item.name}-${item.effect}-${index}`}>
+        <div className="equipmentEffectItem" key={`${item.slot}-${item.name}-${item.effect}-${index}`} title={item.tooltip}>
           <span>{item.slot}</span>
-          <strong style={{ color: qualityColor(item.quality) }}>
+          <strong style={{ color: qualityColor(item.quality) }} title={item.tooltip}>
             {item.effect}
             {item.duplicateCount > 1 ? <em className="equipmentEffectDuplicate">重复 x{item.duplicateCount}</em> : null}
           </strong>
@@ -1968,7 +2015,7 @@ export default function App() {
               </div>
               <div className="chips">
                 {result.selected.map((item) => (
-                  <span className="chip" style={{ color: qualityColor(item.quality) }} key={item.name}>
+                  <span className="chip" style={{ color: qualityColor(item.quality) }} title={stripMarkup(itemTooltip(item))} key={item.name}>
                     {item.name}{uniqueEffectsForItem(item).length ? ` / ${uniqueEffectsForItem(item).join(',')}` : ''}
                   </span>
                 ))}
@@ -2004,6 +2051,12 @@ export default function App() {
               <label className="toggle">
                 <input type="checkbox" checked={blazingFull} onChange={(event) => setBlazingFull(event.target.checked)} />
                 <span>炽燃满层</span>
+              </label>
+            ) : null}
+            {hasMagicSeedEffect ? (
+              <label className="toggle" title="魔力种子满层：技能增幅 +20，冷却缩减 +20。">
+                <input type="checkbox" checked={magicSeedFull} onChange={(event) => setMagicSeedFull(event.target.checked)} />
+                <span>魔力种子满层</span>
               </label>
             ) : null}
             <label className="toggle">
