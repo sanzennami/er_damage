@@ -17,16 +17,50 @@ body::before {
   z-index: -2;
   content: '';
   background:
-    radial-gradient(circle at 18% 15%, rgba(245, 78, 78, 0.26), transparent 30%),
-    radial-gradient(circle at 82% 8%, rgba(255, 196, 87, 0.2), transparent 28%),
-    radial-gradient(circle at 50% 100%, rgba(113, 72, 255, 0.25), transparent 35%),
-    linear-gradient(145deg, #120f18, #1c1727 45%, #100d14);
+    linear-gradient(135deg, rgba(35, 24, 31, 0.94), rgba(16, 22, 28, 0.96)),
+    repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.03) 0 1px, transparent 1px 96px);
 }
 
 button,
 input,
 select {
   font: inherit;
+}
+
+button {
+  border: 1px solid rgba(255, 196, 87, 0.34);
+  border-radius: 8px;
+  background: rgba(255, 196, 87, 0.16);
+  color: #fff2d5;
+  cursor: pointer;
+  padding: 10px 12px;
+}
+
+.heroPicker {
+  display: grid;
+  grid-template-columns: minmax(220px, 340px) 1fr;
+  gap: 12px;
+  align-items: end;
+  margin-top: 22px;
+}
+
+.heroSwitch {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.heroSwitch button,
+.stackBlocks button {
+  background: rgba(255, 255, 255, 0.08);
+  color: #d9cfc3;
+}
+
+.heroSwitch button.active,
+.stackBlocks button.active {
+  border-color: rgba(255, 213, 107, 0.75);
+  background: rgba(255, 213, 107, 0.2);
+  color: #fff2d5;
 }
 
 main {
@@ -37,7 +71,7 @@ main {
 
 .hero {
   display: grid;
-  grid-template-columns: 1fr 330px;
+  grid-template-columns: minmax(0, 1fr) 280px;
   gap: 24px;
   align-items: stretch;
   margin-bottom: 24px;
@@ -45,9 +79,11 @@ main {
 
 .hero h1 {
   margin: 8px 0 14px;
-  font-size: clamp(42px, 7vw, 82px);
-  line-height: 0.95;
-  letter-spacing: -0.07em;
+  max-width: 760px;
+  font-size: clamp(40px, 5vw, 64px);
+  line-height: 1.05;
+  letter-spacing: 0;
+  overflow-wrap: anywhere;
 }
 
 .intro {
@@ -88,8 +124,29 @@ main {
 .heroPanel strong {
   margin: 6px 0;
   color: #ffd56b;
-  font-size: 76px;
+  font-size: 64px;
   line-height: 1;
+}
+
+.heroIdentity {
+  align-items: center;
+  text-align: center;
+}
+
+.heroIdentity img {
+  width: 92px;
+  height: 92px;
+  margin-bottom: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.heroIdentity strong {
+  max-width: 100%;
+  color: #fff2d5;
+  font-size: 30px;
+  overflow-wrap: anywhere;
 }
 
 .heroPanel small,
@@ -132,7 +189,7 @@ main {
 .panel h2 {
   margin: 4px 0 0;
   font-size: 26px;
-  letter-spacing: -0.03em;
+  letter-spacing: 0;
 }
 
 .pill,
@@ -177,6 +234,93 @@ main {
   display: flex;
   flex-direction: column;
   gap: 8px;
+}
+
+.labelWithHelp {
+  display: inline-flex;
+  position: relative;
+  gap: 6px;
+  align-items: center;
+  max-width: 100%;
+  overflow: visible;
+  vertical-align: middle;
+}
+
+.helpNote {
+  display: inline-flex;
+  position: relative;
+  flex: 0 0 auto;
+  align-items: center;
+}
+
+.helpButton {
+  display: inline-grid;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  min-width: 18px;
+  padding: 0;
+  border-color: rgba(255, 213, 107, 0.5);
+  border-radius: 50%;
+  background: rgba(255, 213, 107, 0.13);
+  color: #ffe2a0;
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1;
+}
+
+.helpPopover {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 0;
+  z-index: 20;
+  display: none;
+  width: min(300px, calc(100vw - 44px));
+  padding: 10px;
+  border: 1px solid rgba(255, 213, 107, 0.28);
+  border-radius: 8px;
+  background: rgba(18, 15, 24, 0.98);
+  box-shadow: 0 18px 48px rgba(0, 0, 0, 0.34);
+  color: #f6f2e8;
+  font-size: 12px;
+  line-height: 1.55;
+  white-space: normal;
+}
+
+.helpPopover::after {
+  position: absolute;
+  top: 100%;
+  left: 10px;
+  width: 10px;
+  height: 10px;
+  border-right: 1px solid rgba(255, 213, 107, 0.28);
+  border-bottom: 1px solid rgba(255, 213, 107, 0.28);
+  background: rgba(18, 15, 24, 0.98);
+  content: '';
+  transform: translateY(-5px) rotate(45deg);
+}
+
+.helpPopover textarea {
+  width: 100%;
+  min-height: 96px;
+  resize: vertical;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 6px;
+  outline: none;
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff5e7;
+  font: inherit;
+}
+
+.helpPopover small {
+  display: block;
+  margin-top: 6px;
+  color: #a9a0a0;
+}
+
+.helpNote:hover .helpPopover,
+.helpNote:focus-within .helpPopover {
+  display: block;
 }
 
 .selectBlock.full {
@@ -258,12 +402,213 @@ input:focus {
 .statCard strong {
   color: #fff2d5;
   font-size: 30px;
-  letter-spacing: -0.04em;
+  letter-spacing: 0;
+}
+
+.attributePanel {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.attributePanel div,
+.talentResult,
+.equippedStats {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  min-height: 76px;
+  padding: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  background: rgba(12, 10, 16, 0.38);
+}
+
+.attributePanel span,
+.talentPick small,
+.talentResult span,
+.talentResult small,
+.damageValue small {
+  color: #a9a0a0;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.attributePanel small {
+  color: #a9a0a0;
+  font-size: 11px;
+  line-height: 1.45;
+}
+
+.attributePanel strong,
+.talentResult strong {
+  color: #fff2d5;
+  font-size: 20px;
+}
+
+.compactToggles {
+  margin-top: 14px;
+}
+
+.statSettings {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 8px 12px;
+  max-height: 220px;
+  overflow: auto;
+  margin-top: 16px;
+  padding: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  background: rgba(12, 10, 16, 0.38);
+}
+
+.panelSubhead {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  color: #f7ead4;
+}
+
+.panelSubhead span {
+  color: #a9a0a0;
+  font-size: 12px;
+}
+
+.equippedStats {
+  margin-top: 12px;
+}
+
+.statPills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7px;
+}
+
+.statPill {
+  padding: 6px 8px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.06);
+  color: #d9cfc3;
+  font-size: 12px;
+}
+
+.talentPanel {
+  margin-bottom: 20px;
+}
+
+.sourcePanel {
+  margin-bottom: 20px;
+}
+
+.sourceGrid {
+  display: grid;
+  grid-template-columns: minmax(260px, 360px) 1fr;
+  gap: 14px;
+}
+
+.characterCard {
+  display: grid;
+  grid-template-columns: 74px 1fr;
+  gap: 14px;
+  align-items: center;
+  padding: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  background: rgba(12, 10, 16, 0.38);
+}
+
+.characterCard img {
+  width: 74px;
+  height: 74px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.characterCard div,
+.officialSkillStrip div {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.characterCard span,
+.characterCard small,
+.officialSkillStrip span {
+  color: #a9a0a0;
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+.miniStats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.miniStats .statCard {
+  min-height: 96px;
+  border-radius: 8px;
+}
+
+.miniStats .statCard strong {
+  font-size: 24px;
+}
+
+.officialSkillStrip {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.officialSkillStrip div {
+  min-height: 92px;
+  padding: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  background: rgba(12, 10, 16, 0.38);
+}
+
+.officialSkillStrip span {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+}
+
+.talentGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.talentPick small {
+  min-height: 34px;
 }
 
 .damageList {
   display: grid;
   gap: 10px;
+}
+
+.skillGroups {
+  display: grid;
+  gap: 12px;
+}
+
+.skillGroup,
+.effectGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 10px;
+}
+
+.configSkillList {
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 }
 
 .damageRow {
@@ -288,9 +633,75 @@ input:focus {
   font-size: 28px;
 }
 
+.compactDamageRow {
+  align-items: stretch;
+  min-height: 118px;
+  padding: 12px;
+}
+
+.compactDamageRow strong {
+  font-size: 15px;
+}
+
+.compactDamageRow b {
+  font-size: 24px;
+}
+
+.damageValue {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 2px;
+}
+
 .damageRow.highlight {
   border-color: rgba(255, 196, 87, 0.36);
   background: rgba(255, 196, 87, 0.12);
+}
+
+.damageTools,
+.levelSelect,
+.buttonRow {
+  display: flex;
+  align-items: center;
+}
+
+.damageTools {
+  flex-direction: row !important;
+  gap: 12px !important;
+}
+
+.stackBlocks {
+  display: grid;
+  grid-template-columns: repeat(5, 38px);
+  gap: 6px;
+}
+
+.stackBlocks button {
+  min-width: 38px;
+  padding: 8px 0;
+}
+
+.levelSelect {
+  flex-direction: row;
+  gap: 6px;
+  color: #b9ad9f;
+}
+
+.levelSelect select {
+  min-width: 62px;
+  padding: 8px 10px;
+}
+
+.buttonRow {
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.quietButton {
+  border-color: rgba(255, 255, 255, 0.12);
+  background: rgba(255, 255, 255, 0.08);
 }
 
 .toggle {
@@ -329,12 +740,84 @@ input:focus {
   line-height: 1.7;
 }
 
+.qualitySelect option {
+  background: #17121d;
+}
+
+.configPanel {
+  margin-top: 20px;
+}
+
+.sheetWrap {
+  overflow-x: auto;
+  margin-top: 18px;
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 8px;
+  background: rgba(12, 10, 16, 0.4);
+}
+
+table {
+  width: 100%;
+  min-width: 980px;
+  border-collapse: collapse;
+}
+
+caption {
+  padding: 14px 14px 10px;
+  color: #fff2d5;
+  font-size: 16px;
+  font-weight: 800;
+  text-align: left;
+}
+
+th,
+td {
+  padding: 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-right: 1px solid rgba(255, 255, 255, 0.06);
+  text-align: left;
+  vertical-align: middle;
+}
+
+th {
+  color: #d9cfc3;
+  background: rgba(255, 255, 255, 0.06);
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+td input,
+td select {
+  min-width: 84px;
+  border-radius: 6px;
+  padding: 9px 10px;
+}
+
+td:nth-child(3) input,
+td:last-child input {
+  min-width: 160px;
+}
+
+.sheetDash {
+  display: block;
+  color: #8c837b;
+  text-align: center;
+}
+
 @media (max-width: 920px) {
   .hero,
   .twoColumns,
   .formulaGrid,
-  .stats {
+  .stats,
+  .talentGrid,
+  .heroPicker,
+  .sourceGrid,
+  .miniStats {
     grid-template-columns: 1fr;
+  }
+
+  .attributePanel {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
@@ -353,7 +836,10 @@ input:focus {
   }
 
   .gearGrid,
-  .formGrid {
+  .formGrid,
+  .attributePanel,
+  .skillGroup,
+  .effectGrid {
     grid-template-columns: 1fr;
   }
 
@@ -364,6 +850,12 @@ input:focus {
   }
 
   .panelHead {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .skillRow,
+  .damageTools {
     align-items: flex-start;
     flex-direction: column;
   }

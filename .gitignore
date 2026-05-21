@@ -3,6 +3,7 @@ node_modules/
 out/
 dist/
 .vite/
+.er-gamedata-cache/
 .env*.local
 npm-debug.log*
 yarn-debug.log*

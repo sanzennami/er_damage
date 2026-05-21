@@ -44,12 +44,15 @@ http://localhost:5173
 - Gear table extracted from the workbook's equipment sheet
 - Final AP calculation with equipment AP, talent AP, mastery AP percentage, normal AP percentage, and unique AP percentage
 - Unique AP percentage handling: duplicate unique AP bonuses use the highest value, matching the Excel logic
+- Quality-colored equipment selectors and weapon-type metadata/filtering for larger weapon tables
 - Cooldown, penetration value, penetration percentage, and equipment damage amp summaries
 - Target presets from the workbook plus editable custom target values
 - Defense modifier and final damage modifier calculation
 - 修女 skill damage for Q, Q extra, W, E, E extra, R, R2, and stacked R2
 - Effect damage for curse, corrosion, scar, wound tear, ghost fire, and repel bullet F
 - 俞岷 level-5 skill damage plus Q3, EQ4, and EQQW combo summaries
+- Per-skill level selectors backed by configurable base values and formula expressions
+- Browser-persisted table editor for equipment rows, weapon types, and hero skill formulas
 - Responsive glassmorphism-style UI for desktop and mobile
 
 ## Core Formulas
