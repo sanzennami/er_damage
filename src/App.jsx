@@ -121,12 +121,12 @@ const ACTIVE_TRAITS = (DAK_LOADOUT_ASSETS.traits || [])
 const TRAIT_BY_ID = Object.fromEntries(ACTIVE_TRAITS.map((trait) => [String(trait.id), trait]));
 const DEFAULT_TRAIT_SELECTION = {
   group: 'Havoc',
-  core: '7000401',
-  sub1: '7010501',
-  sub2: '7011101',
+  core: '',
+  sub1: '',
+  sub2: '',
   secondaryGroup: 'Chaos',
-  secondarySub1: '7010701',
-  secondarySub2: '7310101'
+  secondarySub1: '',
+  secondarySub2: ''
 };
 
 const DEFAULT_EQUIPMENT = [
@@ -545,10 +545,6 @@ function traitsBySlot(group, type) {
   return ACTIVE_TRAITS.filter((trait) => trait.group === group && trait.type === type);
 }
 
-function firstTraitId(group, type) {
-  return String(traitsBySlot(group, type)[0]?.id || '');
-}
-
 function selectedTraitsFrom(selection) {
   return [
     selection.core,
@@ -582,20 +578,20 @@ function normalizeTraitSelection(selection) {
     group: primaryGroup,
     core: traitsBySlot(primaryGroup, 'Core').some((trait) => String(trait.id) === String(selection.core))
       ? String(selection.core)
-      : firstTraitId(primaryGroup, 'Core'),
+      : '',
     sub1: traitsBySlot(primaryGroup, 'Sub1').some((trait) => String(trait.id) === String(selection.sub1))
       ? String(selection.sub1)
-      : firstTraitId(primaryGroup, 'Sub1'),
+      : '',
     sub2: traitsBySlot(primaryGroup, 'Sub2').some((trait) => String(trait.id) === String(selection.sub2))
       ? String(selection.sub2)
-      : firstTraitId(primaryGroup, 'Sub2'),
+      : '',
     secondaryGroup,
     secondarySub1: traitsBySlot(secondaryGroup, 'Sub1').some((trait) => String(trait.id) === String(selection.secondarySub1))
       ? String(selection.secondarySub1)
-      : firstTraitId(secondaryGroup, 'Sub1'),
+      : '',
     secondarySub2: traitsBySlot(secondaryGroup, 'Sub2').some((trait) => String(trait.id) === String(selection.secondarySub2))
       ? String(selection.secondarySub2)
-      : firstTraitId(secondaryGroup, 'Sub2')
+      : ''
   };
 }
 
@@ -918,7 +914,7 @@ export default function App() {
   const [selectedHero, setSelectedHero] = useState('俞岷');
   const [mastery, setMastery] = useState(20);
   const [attack, setAttack] = useState(155);
-  const [talentAp, setTalentAp] = useState(52);
+  const [talentAp, setTalentAp] = useState(0);
   const [traitSelection, setTraitSelection] = useState(() => normalizeTraitSelection(DEFAULT_TRAIT_SELECTION));
   const [targetIndex, setTargetIndex] = useState(0);
   const [target, setTarget] = useState(TARGETS[0]);
@@ -1160,7 +1156,21 @@ export default function App() {
   }
 
   function pickTrait(slot, id) {
-    setTraitSelection((current) => normalizeTraitSelection({ ...current, [slot]: String(id) }));
+    setTraitSelection((current) => {
+      const nextId = String(current[slot]) === String(id) ? '' : String(id);
+      return normalizeTraitSelection({ ...current, [slot]: nextId });
+    });
+  }
+
+  function clearTraitSelection() {
+    setTraitSelection((current) => normalizeTraitSelection({
+      ...current,
+      core: '',
+      sub1: '',
+      sub2: '',
+      secondarySub1: '',
+      secondarySub2: ''
+    }));
   }
 
   function toggleVisibleStat(key) {
@@ -1261,6 +1271,8 @@ export default function App() {
   function resetConfig() {
     setConfig({ equipment: clone(INITIAL_EQUIPMENT), skills: clone(INITIAL_SKILLS), talents: clone(DEFAULT_TALENTS) });
     setSkillLevels(Object.fromEntries(INITIAL_SKILLS.map((skill) => [skill.id, skill.maxLevel])));
+    setTalentAp(0);
+    setTraitSelection(normalizeTraitSelection(DEFAULT_TRAIT_SELECTION));
   }
 
   const traitSummaryItems = traitBonusSummaryItems(result.traitBonuses);
@@ -1630,7 +1642,12 @@ export default function App() {
             <p className="eyebrow">Potential</p>
             <h2>潜能选择</h2>
           </div>
-          <span className="pill">{selectedTraits.length} 项已选</span>
+          <div className="buttonRow">
+            <button type="button" className="quietButton" onClick={clearTraitSelection}>
+              清空潜能
+            </button>
+            <span className="pill">{selectedTraits.length} 项已选</span>
+          </div>
         </div>
         <div className="traitBuilder">
           <div className="traitColumn">
