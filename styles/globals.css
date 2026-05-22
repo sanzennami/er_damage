@@ -170,10 +170,6 @@ main {
 }
 
 .hero {
-  display: grid;
-  grid-template-columns: 280px minmax(0, 1fr);
-  gap: 24px;
-  align-items: stretch;
   margin-bottom: 24px;
 }
 
@@ -720,30 +716,6 @@ main {
   line-height: 1;
   letter-spacing: -0.01em;
   text-shadow: 0 0 20px var(--cyan-glow);
-}
-
-.heroIdentity {
-  align-items: center;
-  text-align: center;
-}
-
-.heroIdentity img {
-  width: 88px;
-  height: 88px;
-  margin-bottom: 12px;
-  border: 1px solid var(--border-cyan);
-  object-fit: cover;
-  box-shadow: 0 0 16px var(--cyan-glow);
-}
-
-.heroIdentity strong {
-  max-width: 100%;
-  font-family: var(--font-display);
-  font-weight: 800;
-  font-size: 24px;
-  letter-spacing: 0.06em;
-  color: var(--fg-1);
-  overflow-wrap: anywhere;
 }
 
 .heroPanel small,
@@ -2744,21 +2716,61 @@ td:last-child input {
    ============================================================================ */
 
 .heroIdentity {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 11px;
+  width: auto;
+  min-height: 0;
+  padding: 8px 16px 8px 8px;
   cursor: pointer;
   font: inherit;
   text-transform: none;
   letter-spacing: normal;
-  width: 100%;
   transition: border-color var(--dur-base) var(--ease-out);
 }
 
 .heroIdentity:hover {
   border-color: var(--border-cyan);
-  background: var(--panel-1);
 }
 
 .heroIdentity:hover img {
-  box-shadow: 0 0 24px var(--cyan-glow);
+  box-shadow: 0 0 20px var(--cyan-glow);
+}
+
+.heroIdentity img {
+  width: 52px;
+  height: 52px;
+  margin: 0;
+  border: 1px solid var(--border-cyan);
+  object-fit: cover;
+  box-shadow: 0 0 12px var(--cyan-glow);
+  flex: 0 0 auto;
+}
+
+.heroIdentityMeta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  min-width: 0;
+}
+
+.heroIdentity strong {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 20px;
+  letter-spacing: 0.04em;
+  line-height: 1.1;
+  color: var(--fg-1);
+  overflow-wrap: anywhere;
+}
+
+.heroIdentity small {
+  color: var(--fg-3);
+  font-size: 11px;
+  line-height: 1;
 }
 
 /* ============================================================================

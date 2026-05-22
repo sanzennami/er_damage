@@ -2742,21 +2742,22 @@ export default function App() {
   return (
     <main>
       <section className="hero">
-        <button
-          type="button"
-          className="heroPanel heroIdentity"
-          onClick={() => { setHeroAvatarQuery(''); setHeroModalOpen(true); }}
-          aria-label="切换实验体"
-        >
-          {selectedCharacter ? (
-            <img src={characterImageSrc(selectedCharacter)} alt={selectedCharacter.name} onError={(event) => { event.currentTarget.style.display = 'none'; }} />
-          ) : null}
-          <span>当前实验体 · 点击切换</span>
-          <strong>{selectedHero}</strong>
-          <small>{selectedCharacter ? selectedCharacter.englishName : '手动配置实验体'}</small>
-        </button>
         <div className="heroIntroBlock">
           <div className="heroTitleLine">
+            <button
+              type="button"
+              className="heroPanel heroIdentity"
+              onClick={() => { setHeroAvatarQuery(''); setHeroModalOpen(true); }}
+              aria-label="切换实验体"
+            >
+              {selectedCharacter ? (
+                <img src={characterImageSrc(selectedCharacter)} alt={selectedCharacter.name} onError={(event) => { event.currentTarget.style.display = 'none'; }} />
+              ) : null}
+              <span className="heroIdentityMeta">
+                <strong>{selectedHero}</strong>
+                <small>{selectedCharacter ? selectedCharacter.englishName : '手动配置'}</small>
+              </span>
+            </button>
             <h1>永恒轮回伤害计算器</h1>
             <div className="appSignature">
               <span>by @白谷池千</span>
