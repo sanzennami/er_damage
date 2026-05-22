@@ -197,16 +197,16 @@ main {
 
 .heroTitleLine {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   flex-wrap: wrap;
-  gap: 12px 16px;
+  gap: 8px 16px;
 }
 
 .hero h1 {
-  margin: 8px 0 14px;
+  margin: 0;
   max-width: 760px;
   font-family: var(--font-display);
-  font-size: clamp(40px, 5vw, 64px);
+  font-size: clamp(36px, 4.2vw, 54px);
   font-weight: 800;
   letter-spacing: 0.04em;
   line-height: 1;
@@ -216,7 +216,7 @@ main {
 
 .intro {
   max-width: 720px;
-  margin: 0;
+  margin: 14px 0 0;
   color: var(--fg-2);
   font-size: 16px;
   line-height: 1.7;
@@ -347,6 +347,7 @@ main {
   align-items: center;
   gap: 8px;
   width: fit-content;
+  margin-bottom: 5px;
   padding: 5px 8px;
   border: 1px solid var(--border-hairline);
   background: rgba(0, 0, 0, 0.35);
@@ -3222,11 +3223,7 @@ body[data-theme='day'] .pickerItemFallback {
   }
 
   .hero h1 {
-    font-size: 40px;
-  }
-
-  .heroPanel strong {
-    font-size: 48px;
+    font-size: 34px;
   }
 
   .gearGrid,
@@ -3248,8 +3245,7 @@ body[data-theme='day'] .pickerItemFallback {
     grid-template-columns: 1fr;
   }
 
-  .panel,
-  .heroPanel {
+  .panel {
     padding: 14px 16px;
   }
 
