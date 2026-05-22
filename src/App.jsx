@@ -11,7 +11,7 @@ import DAK_LOADOUT_ASSETS from './data/dakLoadoutAssets.json';
 import DAK_ITEM_SKILL_ICONS from './data/dakItemSkillIcons.json';
 import MASTERY_STATS from './data/masteryStats.json';
 
-const APP_VERSION = 'v0.1.043';
+const APP_VERSION = 'v0.1.044';
 
 const CHARACTER_IMAGE_URLS = import.meta.glob('../assets/characters/*.png', {
   eager: true,
@@ -495,7 +495,7 @@ function round(value, digits = 1) {
 }
 
 function damageFloor(value) {
-  return Math.floor(getNumber(value));
+  return Math.floor(getNumber(value) + 1e-9);
 }
 
 function clone(value) {
@@ -1044,7 +1044,7 @@ function calc({
   const totalApPct = normalApPct + uniqueApPct + masteryApPct;
   const totalBaseAp = equipAp + talentAp + talentBonusAp + stackAp;
   const apRaw = totalBaseAp * (1 + totalApPct);
-  const ap = Math.floor(apRaw);
+  const ap = damageFloor(apRaw);
   const finalDefense = target.defense * (1 - target.defenseReduction) * (1 - penPct) - pen;
   const defenseMod = 100 / (100 + finalDefense);
   const totalDamageBonus = damageBonus + equipDamageBonus + talentDamageBonus;
@@ -1510,23 +1510,86 @@ function TextCell({ value, onChange, type = 'text', step }) {
 function DamageValue({ raw, final }) {
   return (
     <div className="damageValue">
-      <b>{Math.floor(final)}</b>
-      <small>原始 {Math.floor(raw)}</small>
+      <b>{damageFloor(final)}</b>
+      <small>原始 {damageFloor(raw)}</small>
     </div>
   );
 }
 
+function hasChineseText(value) {
+  return /[\u3400-\u9fff]/.test(String(value || ''));
+}
+
+function heroZhName(skill) {
+  if (skill?.hero) return skill.hero;
+  const heroKey = String(skill?.heroKey || '').toLowerCase();
+  const character = ER_GAME_DATA.characters?.find((item) => String(item.englishName || item.id || '').toLowerCase() === heroKey);
+  return character?.name || skill?.heroKey || '';
+}
+
+function formatSourceDate(value) {
+  const date = value ? new Date(value) : null;
+  return date && !Number.isNaN(date.getTime()) ? date.toISOString().slice(0, 10) : '';
+}
+
+function translateFormulaSourceText(value) {
+  return String(value || '')
+    .replace(/\bSkill Amplification\b/gi, '技能增幅')
+    .replace(/\bAttack Power\b/gi, '攻击力')
+    .replace(/\bDefense\b/gi, '防御力')
+    .replace(/\bMax HP\b/gi, '最大体力')
+    .replace(/\bCurrent HP\b/gi, '当前体力')
+    .replace(/\bTarget Max HP\b/gi, '目标最大体力')
+    .replace(/\bTarget Current HP\b/gi, '目标当前体力');
+}
+
+function sourceTitleZh(skill) {
+  const title = String(skill?.sourceTitle || '').trim();
+  if (!title || hasChineseText(title)) return '';
+  const wikiMatch = title.match(/^(.+?)\s+-\s+Official Eternal Return Wiki$/i);
+  if (wikiMatch) {
+    const heroName = heroZhName(skill) || wikiMatch[1];
+    return `${heroName} - 永恒轮回官方 Wiki（英文原文：${wikiMatch[1]}）`;
+  }
+  const patchMatch = title.match(/^(?:\[Edited\]\s*)?PATCH NOTES\s+([^\s]+)\s+-\s+(.+)$/i);
+  if (patchMatch) {
+    const dateLabel = formatSourceDate(skill?.sourceDate || skill?.updatedAt);
+    return `更新公告 ${patchMatch[1]}${dateLabel ? ` - ${dateLabel}` : ` - ${patchMatch[2]}`}`;
+  }
+  return translateFormulaSourceText(title);
+}
+
+function sourceNoteZh(skill) {
+  const note = String(skill?.sourceNote || '').trim();
+  if (!note || hasChineseText(note)) return '';
+  const officialMatch = note.match(/^Applied official patch current value:\s*(.+)$/i);
+  if (officialMatch) return `采用官方更新公告当前数值：${translateFormulaSourceText(officialMatch[1])}`;
+  if (/^Wiki current snapshot value; no newer same-slot official patch candidate was found\.$/i.test(note)) {
+    return '采用 Wiki 当前快照数值；未找到同技能栏位的更新官方公告候选。';
+  }
+  const wikiCandidateMatch = note.match(/^Wiki snapshot value; newer same-slot patch candidate exists:\s*(.+)$/i);
+  if (wikiCandidateMatch) {
+    return `采用 Wiki 快照数值；存在较新的同技能栏位公告候选：${translateFormulaSourceText(wikiCandidateMatch[1])}`;
+  }
+  return translateFormulaSourceText(note);
+}
+
 function skillSourceMeta(skill) {
-  if (!skill?.sourceLabel && !skill?.sourceVersion && !skill?.sourceDate) return null;
-  const date = skill.sourceDate ? new Date(skill.sourceDate) : null;
+  if (!skill?.sourceLabel && !skill?.sourceVersion && !skill?.sourceDate && !skill?.updatedAt && !skill?.sourceTitle) return null;
+  const date = (skill.sourceDate || skill.updatedAt) ? new Date(skill.sourceDate || skill.updatedAt) : null;
   const dateLabel = date && !Number.isNaN(date.getTime()) ? date.toISOString().slice(0, 10) : '';
-  const label = skill.sourceLabel || [skill.sourceVersion, dateLabel].filter(Boolean).join(' / ');
+  const sourceName = skill.sourceVersion || (String(skill.source || '').includes('wiki') ? 'Wiki' : skill.source || '');
+  const label = skill.sourceLabel || [sourceName, dateLabel].filter(Boolean).join(' / ');
   if (!label) return null;
+  const titleZh = sourceTitleZh(skill);
+  const noteZh = sourceNoteZh(skill);
   return {
     label,
     title: [
       skill.sourceTitle,
+      titleZh ? `中文对照：${titleZh}` : '',
       skill.sourceNote,
+      noteZh ? `中文对照：${noteZh}` : '',
       skill.sourceUrl
     ].filter(Boolean).join('\n')
   };
@@ -1558,7 +1621,7 @@ function groupSkillRows(skills) {
 
 function characterAttackAtLevel(character, level = 20) {
   if (!character) return 0;
-  return Math.floor(getNumber(character.base?.attackPower) + getNumber(character.growth?.attackPower) * Math.max(0, level - 1));
+  return damageFloor(getNumber(character.base?.attackPower) + getNumber(character.growth?.attackPower) * Math.max(0, level - 1));
 }
 
 export default function App() {
