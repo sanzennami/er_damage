@@ -6,6 +6,7 @@ import { defineConfig } from 'vite';
 
 const rootDir = path.dirname(fileURLToPath(import.meta.url));
 const helpNotesPath = path.join(rootDir, 'src', 'data', 'helpNotes.json');
+const announcementPath = path.join(rootDir, 'src', 'data', 'announcement.json');
 
 function readRequestBody(request) {
   return new Promise((resolve, reject) => {
@@ -53,6 +54,37 @@ function helpNotesEditorPlugin() {
         sendJson(response, 200, { ok: true });
       } catch (error) {
         sendJson(response, 500, { error: error instanceof Error ? error.message : 'Failed to save help notes.' });
+      }
+    });
+
+    server.middlewares.use('/api/announcement', async (request, response, next) => {
+      if (request.method !== 'POST') {
+        next();
+        return;
+      }
+
+      try {
+        const body = await readRequestBody(request);
+        const payload = JSON.parse(body || '{}');
+        const announcement = payload.announcement;
+
+        if (!announcement || Array.isArray(announcement) || typeof announcement !== 'object') {
+          sendJson(response, 400, { error: 'Invalid announcement payload.' });
+          return;
+        }
+
+        const normalized = {
+          title: typeof announcement.title === 'string' ? announcement.title : '',
+          body: typeof announcement.body === 'string' ? announcement.body : '',
+          history: typeof announcement.history === 'string' ? announcement.history : '',
+          updatedAt: typeof announcement.updatedAt === 'string' ? announcement.updatedAt : '',
+          showBadge: typeof announcement.showBadge === 'boolean' ? announcement.showBadge : false
+        };
+
+        await fs.writeFile(announcementPath, `${JSON.stringify(normalized, null, 2)}\n`, 'utf8');
+        sendJson(response, 200, { ok: true });
+      } catch (error) {
+        sendJson(response, 500, { error: error instanceof Error ? error.message : 'Failed to save announcement.' });
       }
     });
   }

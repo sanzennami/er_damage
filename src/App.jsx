@@ -5,12 +5,13 @@ import ER_SKILL_DAMAGE_TABLE from './data/erSkillDamageTable.json';
 import SKILL_DAMAGE_AUGMENTS from './data/skillDamageAugments.json';
 import EXTERNAL_SKILL_DAMAGE_FALLBACK from './data/externalSkillDamageFallback.json';
 import DEFAULT_HELP_NOTES from './data/helpNotes.json';
+import DEFAULT_ANNOUNCEMENT from './data/announcement.json';
 import ITEM_UNIQUE_EFFECTS from './data/itemUniqueEffects.json';
 import DAK_LOADOUT_ASSETS from './data/dakLoadoutAssets.json';
 import DAK_ITEM_SKILL_ICONS from './data/dakItemSkillIcons.json';
 import MASTERY_STATS from './data/masteryStats.json';
 
-const APP_VERSION = 'v0.1.042';
+const APP_VERSION = 'v0.1.043';
 
 const CHARACTER_IMAGE_URLS = import.meta.glob('../assets/characters/*.png', {
   eager: true,
@@ -109,6 +110,8 @@ const APP_SETTINGS_KEY = 'er-damage-global-settings-v1';
 const HELP_NOTES_KEY = 'er-damage-help-notes-v1';
 const HELP_NOTES_EDITABLE = typeof window !== 'undefined' && ['localhost', '127.0.0.1', '::1'].includes(window.location.hostname);
 const HELP_NOTES_SAVE_ENDPOINT = '/api/help-notes';
+const ANNOUNCEMENT_KEY = 'er-damage-announcement-v1';
+const ANNOUNCEMENT_SAVE_ENDPOINT = '/api/announcement';
 const TRAIT_EFFECTS = {
   7000401: { ap: 18, summary: '满层时技能增幅 +18' },
   7010501: { dynamicDamage: 'burst', summary: '按双方体力差增加造成伤害' },
@@ -717,11 +720,45 @@ function loadHelpNotes() {
   }
 }
 
+function normalizeAnnouncement(value) {
+  return {
+    title: typeof value?.title === 'string' ? value.title : DEFAULT_ANNOUNCEMENT.title,
+    body: typeof value?.body === 'string' ? value.body : DEFAULT_ANNOUNCEMENT.body,
+    history: typeof value?.history === 'string' ? value.history : DEFAULT_ANNOUNCEMENT.history || '',
+    updatedAt: typeof value?.updatedAt === 'string' ? value.updatedAt : DEFAULT_ANNOUNCEMENT.updatedAt,
+    showBadge: typeof value?.showBadge === 'boolean' ? value.showBadge : Boolean(DEFAULT_ANNOUNCEMENT.showBadge)
+  };
+}
+
+function loadAnnouncement() {
+  if (!HELP_NOTES_EDITABLE) return normalizeAnnouncement(DEFAULT_ANNOUNCEMENT);
+
+  try {
+    const saved = JSON.parse(window.localStorage.getItem(ANNOUNCEMENT_KEY));
+    return normalizeAnnouncement({ ...DEFAULT_ANNOUNCEMENT, ...(saved || {}) });
+  } catch {
+    return normalizeAnnouncement(DEFAULT_ANNOUNCEMENT);
+  }
+}
+
 async function persistHelpNotes(notes) {
   const response = await fetch(HELP_NOTES_SAVE_ENDPOINT, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ notes })
+  });
+
+  if (!response.ok) {
+    const error = await response.text();
+    throw new Error(error || '保存失败');
+  }
+}
+
+async function persistAnnouncement(announcement) {
+  const response = await fetch(ANNOUNCEMENT_SAVE_ENDPOINT, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ announcement })
   });
 
   if (!response.ok) {
@@ -1314,6 +1351,87 @@ function SkillDescriptionContent({ title, level, formula, description, source })
   );
 }
 
+function AnnouncementDialog({
+  announcement,
+  editable,
+  dirty,
+  saveStatus,
+  onChange,
+  onClose,
+  onSave
+}) {
+  return createPortal(
+    <div className="announcementOverlay" role="presentation" onMouseDown={onClose}>
+      <section
+        className="announcementDialog"
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="announcement-title"
+        onMouseDown={(event) => event.stopPropagation()}
+      >
+        <div className="announcementHead">
+          <div>
+            <p className="eyebrow">Notice</p>
+            <h2 id="announcement-title">{editable ? '编辑公告' : announcement.title || '公告'}</h2>
+          </div>
+          <button type="button" className="quietButton" onClick={onClose} aria-label="关闭公告">关闭</button>
+        </div>
+        {editable ? (
+          <div className="announcementEditor">
+            <label className="field">
+              <span>公告标题</span>
+              <input
+                type="text"
+                value={announcement.title}
+                onChange={(event) => onChange({ title: event.target.value })}
+              />
+            </label>
+            <label className="field">
+              <span>公告内容</span>
+              <textarea
+                value={announcement.body}
+                onChange={(event) => onChange({ body: event.target.value })}
+              />
+            </label>
+            <label className="field">
+              <span>历史公告</span>
+              <textarea
+                className="announcementHistoryInput"
+                value={announcement.history}
+                onChange={(event) => onChange({ history: event.target.value })}
+              />
+            </label>
+            <div className="announcementActions">
+              <button type="button" className="helpSaveButton" onClick={onSave} disabled={!dirty || saveStatus === 'saving'}>
+                {saveStatus === 'saving' ? '保存中' : '保存到本地'}
+              </button>
+              <small>
+                {saveStatus === 'saved'
+                  ? '已写入 src/data/announcement.json，下次提交会一起 push。'
+                  : '保存会更新公告日期，并在发布版本的公告按钮上显示感叹号。'}
+              </small>
+              {saveStatus === 'error' ? <small className="helpSaveError">保存失败，请确认正在使用本地 Vite 服务。</small> : null}
+            </div>
+          </div>
+        ) : (
+          <div className="announcementContent">
+            <strong>{announcement.title || '公告'}</strong>
+            <p>{announcement.body || '暂无公告。'}</p>
+            {announcement.updatedAt ? <small>更新：{announcement.updatedAt}</small> : null}
+            {announcement.history ? (
+              <div className="announcementHistory">
+                <h3>历史公告</h3>
+                <p>{announcement.history}</p>
+              </div>
+            ) : null}
+          </div>
+        )}
+      </section>
+    </div>,
+    document.body
+  );
+}
+
 function LabelWithHelp({ children, note }) {
   return (
     <span className="labelWithHelp">
@@ -1478,6 +1596,10 @@ export default function App() {
   const [helpNotes, setHelpNotes] = useState(loadHelpNotes);
   const [helpNotesDirty, setHelpNotesDirty] = useState(false);
   const [helpNotesSaveStatus, setHelpNotesSaveStatus] = useState('idle');
+  const [announcement, setAnnouncement] = useState(loadAnnouncement);
+  const [showAnnouncement, setShowAnnouncement] = useState(false);
+  const [announcementDirty, setAnnouncementDirty] = useState(false);
+  const [announcementSaveStatus, setAnnouncementSaveStatus] = useState('idle');
 
   useEffect(() => {
     window.localStorage.setItem(STORAGE_KEY, JSON.stringify({ equipment, skills, talents, combos }));
@@ -1501,6 +1623,12 @@ export default function App() {
     }
   }, [helpNotes]);
 
+  useEffect(() => {
+    if (HELP_NOTES_EDITABLE) {
+      window.localStorage.setItem(ANNOUNCEMENT_KEY, JSON.stringify(announcement));
+    }
+  }, [announcement]);
+
   function updateHelpNote(key, value) {
     if (!HELP_NOTES_EDITABLE) return;
     setHelpNotes((current) => ({ ...current, [key]: value }));
@@ -1519,6 +1647,33 @@ export default function App() {
       setHelpNotesSaveStatus('saved');
     } catch {
       setHelpNotesSaveStatus('error');
+    }
+  }
+
+  function updateAnnouncement(patch) {
+    if (!HELP_NOTES_EDITABLE) return;
+    setAnnouncement((current) => normalizeAnnouncement({ ...current, ...patch }));
+    setAnnouncementDirty(true);
+    setAnnouncementSaveStatus('idle');
+  }
+
+  async function saveAnnouncement() {
+    if (!HELP_NOTES_EDITABLE) return;
+
+    const nextAnnouncement = normalizeAnnouncement({
+      ...announcement,
+      updatedAt: new Date().toISOString().slice(0, 10),
+      showBadge: true
+    });
+    setAnnouncementSaveStatus('saving');
+    try {
+      await persistAnnouncement(nextAnnouncement);
+      setAnnouncement(nextAnnouncement);
+      window.localStorage.removeItem(ANNOUNCEMENT_KEY);
+      setAnnouncementDirty(false);
+      setAnnouncementSaveStatus('saved');
+    } catch {
+      setAnnouncementSaveStatus('error');
     }
   }
 
@@ -2343,10 +2498,32 @@ export default function App() {
                   </div>
                 ) : null}
                 </div>
+              <div className="announcementAnchor">
+                <button
+                  type="button"
+                  className={`quietButton announcementButton ${announcement.showBadge ? 'hasUpdate' : ''}`}
+                  onClick={() => setShowAnnouncement(true)}
+                >
+                  公告
+                  {announcement.showBadge ? <span aria-label="公告有更新">!</span> : null}
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </section>
+
+      {showAnnouncement ? (
+        <AnnouncementDialog
+          announcement={announcement}
+          editable={HELP_NOTES_EDITABLE}
+          dirty={announcementDirty}
+          saveStatus={announcementSaveStatus}
+          onChange={updateAnnouncement}
+          onClose={() => setShowAnnouncement(false)}
+          onSave={saveAnnouncement}
+        />
+      ) : null}
 
       <section className="grid twoColumns buildTargetGrid">
         <div className={`buildArea ${useHeroAvatarPicker ? 'hasHeroAvatarRail' : ''}`}>
