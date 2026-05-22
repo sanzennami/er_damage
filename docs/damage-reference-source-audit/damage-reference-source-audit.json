@@ -1,0 +1,2129 @@
+{
+  "generatedAt": "2026-05-21T23:33:03.111Z",
+  "sourceOrder": [
+    {
+      "file": "#MatchingQueueTier의 시즌 안정화.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "Achievement.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "Achievements.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "ActionCost_Light.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "ActionCost.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "ArcheTypeIdealStatValue.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "ArchiveCharacterContentOpen.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "ArchiveEpisode.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "ArchiveScenario.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "Area.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "AreaAttributes_V2.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "AreaAttributes.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "AreaSound.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "AssetTrade.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "AttackTypeTable.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "Attendance.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "AttendRewardList.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "AutoExchangeToken.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "BattlefieldArea.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "BattlePassMission.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "BattlePassReward.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "BattlePassRewardItem.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "BattleZoneReward.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "Blueprint.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "Booster.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "BotAiModel.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "BotCraft.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "BotMastery.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "BotNickName.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "BotSkillBuild.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "BulletCapacity_Light.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "BulletCapacity.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "Character_Light.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "Character.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "CharacterAttributes.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "CharacterAttributes의 사본.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "CharacterExp.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "CharacterLevelUpStat.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "CharacterMastery.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "CharacterMastery의 사본.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "CharacterModeModifier_Light.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "CharacterModeModifier.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "CharacterSkillVideos.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "CharacterSkin.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "CharacterState.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "CharacterStateGroup.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "CharacterVoice.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "CharacterVoiceRandomCount.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "CobaltRecommendItem.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "CobaltWall.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "Collectible.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "Collection.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "CollectionList.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "ContentOpen_S9MID.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "ContentOpen.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "ControlTypeUse.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "CountryGroup.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "CreditShop.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "CriticalChance.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "CrowdControlData.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "DeployingPoint.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "DiceConsumableSheet.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "DiceItemSheet.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "DropGroup_Light.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "DropGroup.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "DropGroup의 사본.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "DyingConditionSkill.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "EffectAndSound.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "EliteMonsterSpawn.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "Emblem.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "Emotion.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "EntryCostRP.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "EventPassMission.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "EventRewardUser.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "Evidence.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "FeverTimeData.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "FeverTimeReward.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "FootStep.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "GadgetObject.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "GadgetSkill.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "GainExp.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "GainScore.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "GameBattleStar.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "GameConstant.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "GameGuidePage.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "GameRankExp.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "GameResultReward.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "GameTip_V2.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "GameTip.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "GameTipCategory.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "Goods.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "GoodsGroup.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "hash.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "HealPack.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "HookLineProjectile.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "HowToFindItem.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "HyperSynthesisDevice.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "InfusionProduct.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "InGameOperator.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "InputAutoComplete.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "Installation.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "InstallationMovable.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "ItemAcquireInfo.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "ItemArmor.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "ItemConsumable_Light.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "ItemConsumable.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "ItemConversionTable.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "ItemMisc_Light.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "ItemMisc.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "ItemSearchOption.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "ItemSearchOptionV2.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "ItemSkill.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "ItemSkillGroup.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "ItemSkillLinker.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "ItemSpawn.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "ItemSpawnTutorial.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "ItemSpecial_Light.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "ItemSpecial.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "ItemWeapon.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "KeyText.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "Level.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "LimitedDropGroup.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "LoadingTip.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "LowestRankAdjust.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "MasteryExp.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "MasteryLevel.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "MasteryStat.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "MatchingQueueTier.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "Mission.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "ModRestrictedArea.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "Monster_Light.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "Monster.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "MonsterDropGroup.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "MonsterGroup.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "MonsterLevelUpStat_Light.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "MonsterLevelUpStat.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "MonsterSpawnLevel_Light.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "MonsterSpawnLevel.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "MonsterVFShard_Light.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "MutantMonsterSpawn.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "NaviCollectAndHunt.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "NearByArea.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "Noise.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "NoviceSupport.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "NoviceSupportMission.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "ObjectSkin.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "PersonalShop.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "PersonalShopConstant.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "PersonalShopGroup.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "Phase.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "PraiseHonorLevel.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "PraiseHonorPoint.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "PreMadeTeamTierRestrict.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "ProductAsset.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "ProductCharacter.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "ProductInstant.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "ProjectileDeflectorSetting.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "ProjectileSetting_Light.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "ProjectileSetting.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "ProjectileSkinSetting.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "RandomBox.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "RandomBoxGroup.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "RandomBoxItem.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "RandomBoxItems.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "RandomBoxSelector.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "RandomEquipment.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "RankAndKillRP.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "RecommendedArea.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "RecommendedItemList.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "RecommendedList.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "RefineItemStat.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "ReplicaPoint.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "Research.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "RestrictedArea_V2.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "RestrictedArea.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "Reward.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "RewardItem.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "RewindProjectile.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "Season.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "SeasonOutPlayers.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "SecurityConsolEvent.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "ServerRegion.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "ShopProduct.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "ShopProductItem.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "ShopProductItem의 사본.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "ShopProductSeq.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "ShopProductSubscription.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "ShopPromotion.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "Skill_Indicator.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "Skill.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "SkillEvolution.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "SkillEvolutionGroup.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "SkillEvolutionPoint.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "SkillGroup.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "SkillTargetMask.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "SoundGroup.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "SpecialOffer.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "SquadRumblePointReward.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "StartItem.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "StateTypeData.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "Subscription.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "SubscriptionAffect.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "SummonObject_Light.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "SummonObject.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "SummonObjectGroup.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "SummonObjectStat_Light.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "SummonObjectStat.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "SupportPack.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "TacticalSkillSet.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "TacticalSkillSetGroup.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "TimeOfDay.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "TokenExchange.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "TokenExchangeItem.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "TouringObjectData.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "TournamentSp.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "Trait.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "TransferConsole.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "Turbine.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "TutorialConstant.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "TutorialGoalSetting.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "TutorialInfo.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "TutorialItemSetting.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "TutorialReward.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "VFCredit_S5.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "VFCredit.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "WeaponAnimatorLayers.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "WeaponMount.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "WeaponRoute.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "WeaponTypeInfo.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "Weather.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": false
+    },
+    {
+      "file": "SkillExtension.json",
+      "commitDate": "2026-05-21T12:00:17+09:00",
+      "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+      "isSkillExtension": true
+    }
+  ],
+  "references": [
+    {
+      "extensionName": "AyaActive1Data",
+      "found": true,
+      "group": 1002200,
+      "skillId": "AyaActive1",
+      "signatures": [
+        {
+          "key": "DamageByLevel",
+          "values": [
+            20,
+            60,
+            100,
+            140,
+            180
+          ],
+          "uniqueValues": [
+            20,
+            60,
+            100,
+            140,
+            180
+          ]
+        }
+      ],
+      "orderedMatches": [
+        {
+          "file": "CharacterSkillVideos.json",
+          "commitDate": "2026-05-21T12:00:17+09:00",
+          "relatedRows": 1,
+          "relatedSequenceHits": [],
+          "relatedDamageNamedRows": []
+        },
+        {
+          "file": "CharacterState.json",
+          "commitDate": "2026-05-21T12:00:17+09:00",
+          "relatedRows": 6,
+          "relatedSequenceHits": [],
+          "relatedDamageNamedRows": [
+            1002201,
+            1002202,
+            1002203,
+            1002204,
+            1002205,
+            11002201
+          ]
+        },
+        {
+          "file": "CharacterStateGroup.json",
+          "commitDate": "2026-05-21T12:00:17+09:00",
+          "relatedRows": 2,
+          "relatedSequenceHits": [],
+          "relatedDamageNamedRows": [
+            1002200,
+            11002200
+          ]
+        },
+        {
+          "file": "CharacterVoiceRandomCount.json",
+          "commitDate": "2026-05-21T12:00:17+09:00",
+          "relatedRows": 1,
+          "relatedSequenceHits": [],
+          "relatedDamageNamedRows": []
+        },
+        {
+          "file": "EffectAndSound.json",
+          "commitDate": "2026-05-21T12:00:17+09:00",
+          "relatedRows": 2,
+          "relatedSequenceHits": [],
+          "relatedDamageNamedRows": []
+        },
+        {
+          "file": "ProjectileSetting_Light.json",
+          "commitDate": "2026-05-21T12:00:17+09:00",
+          "relatedRows": 2,
+          "relatedSequenceHits": [],
+          "relatedDamageNamedRows": [
+            2,
+            22
+          ]
+        },
+        {
+          "file": "ProjectileSetting.json",
+          "commitDate": "2026-05-21T12:00:17+09:00",
+          "relatedRows": 2,
+          "relatedSequenceHits": [],
+          "relatedDamageNamedRows": [
+            2,
+            22
+          ]
+        },
+        {
+          "file": "Skill_Indicator.json",
+          "commitDate": "2026-05-21T12:00:17+09:00",
+          "relatedRows": 5,
+          "relatedSequenceHits": [],
+          "relatedDamageNamedRows": []
+        },
+        {
+          "file": "Skill.json",
+          "commitDate": "2026-05-21T12:00:17+09:00",
+          "relatedRows": 5,
+          "relatedSequenceHits": [],
+          "relatedDamageNamedRows": []
+        },
+        {
+          "file": "SkillGroup.json",
+          "commitDate": "2026-05-21T12:00:17+09:00",
+          "relatedRows": 1,
+          "relatedSequenceHits": [],
+          "relatedDamageNamedRows": []
+        }
+      ],
+      "globalSequenceMatches": []
+    },
+    {
+      "extensionName": "FioraActive1Data",
+      "found": true,
+      "group": 1003200,
+      "skillId": "FioraActive1",
+      "signatures": [
+        {
+          "key": "DamageByLevel",
+          "values": [
+            75,
+            150,
+            225,
+            300,
+            375
+          ],
+          "uniqueValues": [
+            75,
+            150,
+            225,
+            300,
+            375
+          ]
+        }
+      ],
+      "orderedMatches": [
+        {
+          "file": "CharacterSkillVideos.json",
+          "commitDate": "2026-05-21T12:00:17+09:00",
+          "relatedRows": 1,
+          "relatedSequenceHits": [],
+          "relatedDamageNamedRows": []
+        },
+        {
+          "file": "CharacterState.json",
+          "commitDate": "2026-05-21T12:00:17+09:00",
+          "relatedRows": 5,
+          "relatedSequenceHits": [],
+          "relatedDamageNamedRows": [
+            1003201,
+            1003202,
+            1003203,
+            1003204,
+            1003205
+          ]
+        },
+        {
+          "file": "CharacterStateGroup.json",
+          "commitDate": "2026-05-21T12:00:17+09:00",
+          "relatedRows": 2,
+          "relatedSequenceHits": [],
+          "relatedDamageNamedRows": [
+            1003110,
+            1003200
+          ]
+        },
+        {
+          "file": "CharacterVoiceRandomCount.json",
+          "commitDate": "2026-05-21T12:00:17+09:00",
+          "relatedRows": 1,
+          "relatedSequenceHits": [],
+          "relatedDamageNamedRows": []
+        },
+        {
+          "file": "EffectAndSound.json",
+          "commitDate": "2026-05-21T12:00:17+09:00",
+          "relatedRows": 3,
+          "relatedSequenceHits": [],
+          "relatedDamageNamedRows": []
+        },
+        {
+          "file": "Skill_Indicator.json",
+          "commitDate": "2026-05-21T12:00:17+09:00",
+          "relatedRows": 5,
+          "relatedSequenceHits": [],
+          "relatedDamageNamedRows": []
+        },
+        {
+          "file": "Skill.json",
+          "commitDate": "2026-05-21T12:00:17+09:00",
+          "relatedRows": 5,
+          "relatedSequenceHits": [],
+          "relatedDamageNamedRows": []
+        },
+        {
+          "file": "SkillGroup.json",
+          "commitDate": "2026-05-21T12:00:17+09:00",
+          "relatedRows": 1,
+          "relatedSequenceHits": [],
+          "relatedDamageNamedRows": []
+        }
+      ],
+      "globalSequenceMatches": []
+    },
+    {
+      "extensionName": "JackieActive1Data",
+      "found": true,
+      "group": 1001200,
+      "skillId": "JackieActive1",
+      "signatures": [
+        {
+          "key": "DamageByLevel",
+          "values": [
+            20,
+            40,
+            60,
+            80,
+            100
+          ],
+          "uniqueValues": [
+            20,
+            40,
+            60,
+            80,
+            100
+          ]
+        },
+        {
+          "key": "DamageByLevel_2",
+          "values": [
+            30,
+            50,
+            70,
+            90,
+            110
+          ],
+          "uniqueValues": [
+            30,
+            50,
+            70,
+            90,
+            110
+          ]
+        },
+        {
+          "key": "DFS_DamageByLevel",
+          "values": [
+            80,
+            110,
+            140,
+            170,
+            200
+          ],
+          "uniqueValues": [
+            80,
+            110,
+            140,
+            170,
+            200
+          ]
+        }
+      ],
+      "orderedMatches": [
+        {
+          "file": "BattlePassReward.json",
+          "commitDate": "2026-05-21T12:00:17+09:00",
+          "relatedRows": 6,
+          "relatedSequenceHits": [],
+          "relatedDamageNamedRows": []
+        },
+        {
+          "file": "BattlePassRewardItem.json",
+          "commitDate": "2026-05-21T12:00:17+09:00",
+          "relatedRows": 6,
+          "relatedSequenceHits": [],
+          "relatedDamageNamedRows": []
+        },
+        {
+          "file": "CharacterSkillVideos.json",
+          "commitDate": "2026-05-21T12:00:17+09:00",
+          "relatedRows": 1,
+          "relatedSequenceHits": [],
+          "relatedDamageNamedRows": []
+        },
+        {
+          "file": "CharacterState.json",
+          "commitDate": "2026-05-21T12:00:17+09:00",
+          "relatedRows": 1,
+          "relatedSequenceHits": [],
+          "relatedDamageNamedRows": [
+            1001201
+          ]
+        },
+        {
+          "file": "CharacterStateGroup.json",
+          "commitDate": "2026-05-21T12:00:17+09:00",
+          "relatedRows": 2,
+          "relatedSequenceHits": [],
+          "relatedDamageNamedRows": [
+            1001130,
+            1001200
+          ]
+        },
+        {
+          "file": "CharacterVoiceRandomCount.json",
+          "commitDate": "2026-05-21T12:00:17+09:00",
+          "relatedRows": 1,
+          "relatedSequenceHits": [],
+          "relatedDamageNamedRows": []
+        },
+        {
+          "file": "EffectAndSound.json",
+          "commitDate": "2026-05-21T12:00:17+09:00",
+          "relatedRows": 4,
+          "relatedSequenceHits": [],
+          "relatedDamageNamedRows": []
+        },
+        {
+          "file": "Skill_Indicator.json",
+          "commitDate": "2026-05-21T12:00:17+09:00",
+          "relatedRows": 5,
+          "relatedSequenceHits": [],
+          "relatedDamageNamedRows": []
+        },
+        {
+          "file": "Skill.json",
+          "commitDate": "2026-05-21T12:00:17+09:00",
+          "relatedRows": 5,
+          "relatedSequenceHits": [],
+          "relatedDamageNamedRows": []
+        },
+        {
+          "file": "SkillGroup.json",
+          "commitDate": "2026-05-21T12:00:17+09:00",
+          "relatedRows": 2,
+          "relatedSequenceHits": [],
+          "relatedDamageNamedRows": []
+        }
+      ],
+      "globalSequenceMatches": []
+    },
+    {
+      "extensionName": "HyunwooActive1Data",
+      "found": true,
+      "group": 1007200,
+      "skillId": "HyunwooActive1",
+      "signatures": [
+        {
+          "key": "DamageByLevel",
+          "values": [
+            100,
+            150,
+            200,
+            250,
+            300
+          ],
+          "uniqueValues": [
+            100,
+            150,
+            200,
+            250,
+            300
+          ]
+        }
+      ],
+      "orderedMatches": [
+        {
+          "file": "CharacterSkillVideos.json",
+          "commitDate": "2026-05-21T12:00:17+09:00",
+          "relatedRows": 1,
+          "relatedSequenceHits": [],
+          "relatedDamageNamedRows": []
+        },
+        {
+          "file": "CharacterState.json",
+          "commitDate": "2026-05-21T12:00:17+09:00",
+          "relatedRows": 1,
+          "relatedSequenceHits": [],
+          "relatedDamageNamedRows": [
+            1007201
+          ]
+        },
+        {
+          "file": "CharacterStateGroup.json",
+          "commitDate": "2026-05-21T12:00:17+09:00",
+          "relatedRows": 2,
+          "relatedSequenceHits": [],
+          "relatedDamageNamedRows": [
+            1007200,
+            1007210
+          ]
+        },
+        {
+          "file": "CharacterVoiceRandomCount.json",
+          "commitDate": "2026-05-21T12:00:17+09:00",
+          "relatedRows": 1,
+          "relatedSequenceHits": [],
+          "relatedDamageNamedRows": []
+        },
+        {
+          "file": "EffectAndSound.json",
+          "commitDate": "2026-05-21T12:00:17+09:00",
+          "relatedRows": 1,
+          "relatedSequenceHits": [],
+          "relatedDamageNamedRows": []
+        },
+        {
+          "file": "Skill_Indicator.json",
+          "commitDate": "2026-05-21T12:00:17+09:00",
+          "relatedRows": 5,
+          "relatedSequenceHits": [],
+          "relatedDamageNamedRows": []
+        },
+        {
+          "file": "Skill.json",
+          "commitDate": "2026-05-21T12:00:17+09:00",
+          "relatedRows": 5,
+          "relatedSequenceHits": [],
+          "relatedDamageNamedRows": []
+        },
+        {
+          "file": "SkillGroup.json",
+          "commitDate": "2026-05-21T12:00:17+09:00",
+          "relatedRows": 1,
+          "relatedSequenceHits": [],
+          "relatedDamageNamedRows": []
+        }
+      ],
+      "globalSequenceMatches": []
+    },
+    {
+      "extensionName": "YukiActive3Data",
+      "found": true,
+      "group": 1011400,
+      "skillId": "YukiActive3",
+      "signatures": [
+        {
+          "key": "SkillDamage",
+          "values": [
+            70,
+            130,
+            190,
+            250,
+            310
+          ],
+          "uniqueValues": [
+            70,
+            130,
+            190,
+            250,
+            310
+          ]
+        }
+      ],
+      "orderedMatches": [
+        {
+          "file": "CharacterSkillVideos.json",
+          "commitDate": "2026-05-21T12:00:17+09:00",
+          "relatedRows": 1,
+          "relatedSequenceHits": [],
+          "relatedDamageNamedRows": []
+        },
+        {
+          "file": "CharacterState.json",
+          "commitDate": "2026-05-21T12:00:17+09:00",
+          "relatedRows": 1,
+          "relatedSequenceHits": [],
+          "relatedDamageNamedRows": [
+            1011401
+          ]
+        },
+        {
+          "file": "CharacterStateGroup.json",
+          "commitDate": "2026-05-21T12:00:17+09:00",
+          "relatedRows": 1,
+          "relatedSequenceHits": [],
+          "relatedDamageNamedRows": [
+            1011400
+          ]
+        },
+        {
+          "file": "CharacterVoiceRandomCount.json",
+          "commitDate": "2026-05-21T12:00:17+09:00",
+          "relatedRows": 2,
+          "relatedSequenceHits": [],
+          "relatedDamageNamedRows": []
+        },
+        {
+          "file": "EffectAndSound.json",
+          "commitDate": "2026-05-21T12:00:17+09:00",
+          "relatedRows": 2,
+          "relatedSequenceHits": [],
+          "relatedDamageNamedRows": []
+        },
+        {
+          "file": "Skill_Indicator.json",
+          "commitDate": "2026-05-21T12:00:17+09:00",
+          "relatedRows": 5,
+          "relatedSequenceHits": [],
+          "relatedDamageNamedRows": []
+        },
+        {
+          "file": "Skill.json",
+          "commitDate": "2026-05-21T12:00:17+09:00",
+          "relatedRows": 5,
+          "relatedSequenceHits": [],
+          "relatedDamageNamedRows": []
+        },
+        {
+          "file": "SkillGroup.json",
+          "commitDate": "2026-05-21T12:00:17+09:00",
+          "relatedRows": 1,
+          "relatedSequenceHits": [],
+          "relatedDamageNamedRows": []
+        }
+      ],
+      "globalSequenceMatches": []
+    },
+    {
+      "extensionName": "NadineActive2Data",
+      "found": true,
+      "group": "",
+      "skillId": "",
+      "signatures": [
+        {
+          "key": "DamageByLevel",
+          "values": [
+            100,
+            170,
+            240,
+            310,
+            380
+          ],
+          "uniqueValues": [
+            100,
+            170,
+            240,
+            310,
+            380
+          ]
+        },
+        {
+          "key": "DamageByLevel_2",
+          "values": [
+            100,
+            140,
+            180,
+            220,
+            260
+          ],
+          "uniqueValues": [
+            100,
+            140,
+            180,
+            220,
+            260
+          ]
+        }
+      ],
+      "orderedMatches": [],
+      "globalSequenceMatches": []
+    }
+  ],
+  "targets": [
+    {
+      "group": 1079200,
+      "skillId": "JustynaActive1_1",
+      "checkedExactValues": [
+        50,
+        70,
+        0.4,
+        0.7,
+        40
+      ],
+      "orderedMatches": [
+        {
+          "file": "CharacterVoiceRandomCount.json",
+          "commitDate": "2026-05-21T12:00:17+09:00",
+          "relatedRows": 1,
+          "exactValueHits": [],
+          "relatedDamageNamedRows": []
+        },
+        {
+          "file": "EffectAndSound.json",
+          "commitDate": "2026-05-21T12:00:17+09:00",
+          "relatedRows": 2,
+          "exactValueHits": [],
+          "relatedDamageNamedRows": []
+        },
+        {
+          "file": "Skill.json",
+          "commitDate": "2026-05-21T12:00:17+09:00",
+          "relatedRows": 5,
+          "exactValueHits": [
+            {
+              "rowKey": 1079201,
+              "hits": [
+                {
+                  "key": "cost",
+                  "value": 50
+                }
+              ]
+            },
+            {
+              "rowKey": 1079202,
+              "hits": [
+                {
+                  "key": "cost",
+                  "value": 50
+                }
+              ]
+            },
+            {
+              "rowKey": 1079203,
+              "hits": [
+                {
+                  "key": "cost",
+                  "value": 50
+                }
+              ]
+            },
+            {
+              "rowKey": 1079204,
+              "hits": [
+                {
+                  "key": "cost",
+                  "value": 50
+                }
+              ]
+            },
+            {
+              "rowKey": 1079205,
+              "hits": [
+                {
+                  "key": "cost",
+                  "value": 50
+                }
+              ]
+            }
+          ],
+          "relatedDamageNamedRows": []
+        },
+        {
+          "file": "SkillGroup.json",
+          "commitDate": "2026-05-21T12:00:17+09:00",
+          "relatedRows": 2,
+          "exactValueHits": [
+            {
+              "rowKey": 1079200,
+              "hits": [
+                {
+                  "key": "castingTime1",
+                  "value": 0.4
+                }
+              ]
+            },
+            {
+              "rowKey": 1079210,
+              "hits": [
+                {
+                  "key": "castingTime1",
+                  "value": 0.7
+                },
+                {
+                  "key": "sequenceCooldown",
+                  "value": 0.4
+                }
+              ]
+            }
+          ],
+          "relatedDamageNamedRows": []
+        }
+      ]
+    },
+    {
+      "group": 1047200,
+      "skillId": "LauraActive1_1",
+      "checkedExactValues": [],
+      "orderedMatches": [
+        {
+          "file": "CharacterSkillVideos.json",
+          "commitDate": "2026-05-21T12:00:17+09:00",
+          "relatedRows": 1,
+          "exactValueHits": [],
+          "relatedDamageNamedRows": []
+        },
+        {
+          "file": "CharacterStateGroup.json",
+          "commitDate": "2026-05-21T12:00:17+09:00",
+          "relatedRows": 2,
+          "exactValueHits": [],
+          "relatedDamageNamedRows": [
+            1047210,
+            1047500
+          ]
+        },
+        {
+          "file": "CharacterVoiceRandomCount.json",
+          "commitDate": "2026-05-21T12:00:17+09:00",
+          "relatedRows": 1,
+          "exactValueHits": [],
+          "relatedDamageNamedRows": []
+        },
+        {
+          "file": "EffectAndSound.json",
+          "commitDate": "2026-05-21T12:00:17+09:00",
+          "relatedRows": 5,
+          "exactValueHits": [],
+          "relatedDamageNamedRows": []
+        },
+        {
+          "file": "Skill_Indicator.json",
+          "commitDate": "2026-05-21T12:00:17+09:00",
+          "relatedRows": 5,
+          "exactValueHits": [],
+          "relatedDamageNamedRows": []
+        },
+        {
+          "file": "Skill.json",
+          "commitDate": "2026-05-21T12:00:17+09:00",
+          "relatedRows": 5,
+          "exactValueHits": [],
+          "relatedDamageNamedRows": []
+        },
+        {
+          "file": "SkillGroup.json",
+          "commitDate": "2026-05-21T12:00:17+09:00",
+          "relatedRows": 2,
+          "exactValueHits": [],
+          "relatedDamageNamedRows": []
+        }
+      ]
+    }
+  ]
+}

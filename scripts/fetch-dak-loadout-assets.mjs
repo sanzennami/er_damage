@@ -75,6 +75,19 @@ async function downloadFile(url, filePath) {
   return buffer.length;
 }
 
+async function tryDownloadFile(url, filePath) {
+  try {
+    const byteSize = await downloadFile(url, filePath);
+    return { ok: true, byteSize };
+  } catch (error) {
+    return {
+      ok: false,
+      byteSize: 0,
+      error: error instanceof Error ? error.message : String(error)
+    };
+  }
+}
+
 function markdownTable(rows, headers) {
   const line = (cells) => `| ${cells.join(' | ')} |`;
   return [
@@ -107,7 +120,7 @@ async function main() {
   for (const group of traitPayload.traitSkillGroups) {
     const fileName = `group-${normalizePart(group.key)}.png`;
     const localPath = relativeAssetPath('trait-groups', fileName);
-    const byteSize = await downloadFile(group.imageUrl, path.join(traitGroupDir, fileName));
+    const download = await tryDownloadFile(group.imageUrl, path.join(traitGroupDir, fileName));
 
     traitGroups.push({
       key: group.key,
@@ -115,7 +128,9 @@ async function main() {
       tooltip: cleanText(group.tooltip),
       image: localPath,
       imageUrl: group.imageUrl,
-      byteSize
+      imageAvailable: download.ok,
+      byteSize: download.byteSize,
+      imageDownloadError: download.error || null
     });
   }
 
@@ -126,7 +141,7 @@ async function main() {
     const type = trait.type || 'None';
     const fileName = `trait-${trait.id}-${normalizePart(groupKey)}-${normalizePart(type)}.png`;
     const localPath = relativeAssetPath('traits', fileName);
-    const byteSize = await downloadFile(trait.imageUrl, path.join(traitDir, fileName));
+    const download = await tryDownloadFile(trait.imageUrl, path.join(traitDir, fileName));
 
     traits.push({
       id: trait.id,
@@ -140,7 +155,9 @@ async function main() {
       sortOrder: trait.traitSortOrder ?? null,
       image: localPath,
       imageUrl: trait.imageUrl,
-      byteSize
+      imageAvailable: download.ok,
+      byteSize: download.byteSize,
+      imageDownloadError: download.error || null
     });
   }
 
@@ -148,15 +165,17 @@ async function main() {
   for (const skill of tacticalPayload.tacticalSkills) {
     const fileName = `tactical-${skill.id}.png`;
     const localPath = relativeAssetPath('tactical-skills', fileName);
-    const byteSize = await downloadFile(skill.imageUrl, path.join(tacticalDir, fileName));
+    const download = await tryDownloadFile(skill.imageUrl, path.join(tacticalDir, fileName));
 
     tacticalSkills.push({
       id: skill.id,
-      name: cleanText(skill.name),
+      name: cleanText(skill.name) || `未命名战术技能 ${skill.id}`,
       tooltip: cleanText(skill.tooltip),
       image: localPath,
       imageUrl: skill.imageUrl,
-      byteSize
+      imageAvailable: download.ok,
+      byteSize: download.byteSize,
+      imageDownloadError: download.error || null
     });
   }
 
@@ -174,7 +193,8 @@ async function main() {
       traitGroups: traitGroups.length,
       traits: traits.length,
       activeTraits: traits.filter((trait) => trait.active).length,
-      tacticalSkills: tacticalSkills.length
+      tacticalSkills: tacticalSkills.length,
+      missingImages: [...traitGroups, ...traits, ...tacticalSkills].filter((item) => !item.imageAvailable).length
     },
     traitGroups,
     traits,
@@ -221,8 +241,17 @@ async function main() {
     String(skill.id),
     skill.name,
     skill.tooltip,
-    skill.image
+    skill.imageAvailable ? skill.image : `缺失：${skill.imageUrl}`
   ]);
+
+  const missingImages = [...traitGroups, ...traits, ...tacticalSkills]
+    .filter((item) => !item.imageAvailable)
+    .map((item) => [
+      String(item.id || item.key),
+      item.name,
+      item.imageUrl,
+      item.imageDownloadError
+    ]);
 
   const doc = `# DAK.GG 潜能与战术技能素材
 
@@ -255,6 +284,10 @@ ${markdownTable(inactiveTraits, ['id', '潜能名', '分组', '类型', '图片'
 ## 战术技能
 
 ${markdownTable(tacticalRows, ['id', '名称', '说明', '图片'])}
+
+## 缺失图片
+
+${missingImages.length ? markdownTable(missingImages, ['id/key', '名称', '原始 URL', '错误']) : '无。'}
 `;
 
   await writeFile(path.join(docsDir, 'dak-loadout-assets.md'), doc, 'utf8');
