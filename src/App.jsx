@@ -2888,24 +2888,28 @@ export default function App() {
                 <small>{selectedCharacter ? selectedCharacter.englishName : '手动配置'}</small>
               </span>
             </button>
-            <h1>永恒轮回伤害计算器</h1>
-            <div className="appSignature">
-              <span>by @白谷池千</span>
-              <button
-                type="button"
-                className={`versionButton ${editMode ? 'editable' : ''}`}
-                onClick={() => {
-                  if (!editMode) return;
-                  setShowGlobalSettings(true);
-                  setShowHeroDebugSettings((current) => !current);
-                }}
-                aria-label="版本号"
-              >
-                {APP_VERSION}
-              </button>
+            <div className="heroHeadingGroup">
+              <div className="heroTitleRow">
+                <h1>永恒轮回伤害计算器</h1>
+                <div className="appSignature">
+                  <span>by @白谷池千</span>
+                  <button
+                    type="button"
+                    className={`versionButton ${editMode ? 'editable' : ''}`}
+                    onClick={() => {
+                      if (!editMode) return;
+                      setShowGlobalSettings(true);
+                      setShowHeroDebugSettings((current) => !current);
+                    }}
+                    aria-label="版本号"
+                  >
+                    {APP_VERSION}
+                  </button>
+                </div>
+              </div>
+              <p className="intro">选择英雄、装备和潜能后即时计算法强、防穿、防御修正、原始伤害与最终伤害。</p>
             </div>
           </div>
-          <p className="intro">选择英雄、装备和潜能后即时计算法强、防穿、防御修正、原始伤害与最终伤害。</p>
         </div>
       </section>
 
