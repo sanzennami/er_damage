@@ -1,4 +1,5 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import ER_GAME_DATA from './data/erGameData.json';
 import ER_SKILL_DAMAGE_TABLE from './data/erSkillDamageTable.json';
 import SKILL_DAMAGE_AUGMENTS from './data/skillDamageAugments.json';
@@ -9,7 +10,7 @@ import DAK_LOADOUT_ASSETS from './data/dakLoadoutAssets.json';
 import DAK_ITEM_SKILL_ICONS from './data/dakItemSkillIcons.json';
 import MASTERY_STATS from './data/masteryStats.json';
 
-const APP_VERSION = 'v0.1.038';
+const APP_VERSION = 'v0.1.039';
 
 const CHARACTER_IMAGE_URLS = import.meta.glob('../assets/characters/*.png', {
   eager: true,
@@ -1044,32 +1045,114 @@ function calc({
 }
 
 function HelpNote({ note, editable, onChange, onSave, saveStatus, dirty }) {
+  const buttonRef = useRef(null);
+  const popoverRef = useRef(null);
+  const closeTimerRef = useRef(null);
+  const [open, setOpen] = useState(false);
+  const [position, setPosition] = useState({ top: 0, left: 0, placement: 'top' });
+
+  const clearCloseTimer = () => {
+    if (closeTimerRef.current) window.clearTimeout(closeTimerRef.current);
+    closeTimerRef.current = null;
+  };
+
+  const updatePosition = () => {
+    const button = buttonRef.current;
+    if (!button) return;
+    const rect = button.getBoundingClientRect();
+    const width = Math.min(320, window.innerWidth - 24);
+    const left = Math.max(12, Math.min(rect.left, window.innerWidth - width - 12));
+    const placeBelow = rect.top < 190;
+    setPosition({
+      top: placeBelow ? rect.bottom + 10 : rect.top - 10,
+      left,
+      placement: placeBelow ? 'bottom' : 'top'
+    });
+  };
+
+  const showPopover = () => {
+    clearCloseTimer();
+    updatePosition();
+    setOpen(true);
+  };
+
+  const scheduleClose = () => {
+    clearCloseTimer();
+    closeTimerRef.current = window.setTimeout(() => setOpen(false), 120);
+  };
+
+  useEffect(() => {
+    if (!open) return undefined;
+    const sync = () => updatePosition();
+    window.addEventListener('scroll', sync, true);
+    window.addEventListener('resize', sync);
+    return () => {
+      window.removeEventListener('scroll', sync, true);
+      window.removeEventListener('resize', sync);
+    };
+  }, [open]);
+
+  useEffect(() => () => clearCloseTimer(), []);
+
   if (!note) return null;
 
   return (
     <span className="helpNote">
-      <button type="button" className="helpButton" aria-label="查看说明">?</button>
-      <span className="helpPopover" role="tooltip">
-        {editable ? (
-          <>
-            <textarea
-              value={note}
-              onChange={(event) => onChange(event.target.value)}
-              aria-label="编辑帮助说明"
-            />
-            <button type="button" className="helpSaveButton" onClick={onSave} disabled={!dirty || saveStatus === 'saving'}>
-              {saveStatus === 'saving' ? '保存中' : '保存到本地'}
-            </button>
-            <small>{saveStatus === 'saved' ? '已写入 src/data/helpNotes.json，下次提交会一起 push。' : '本地可编辑，点击保存写入项目文件。'}</small>
-            {saveStatus === 'error' ? <small className="helpSaveError">保存失败，请确认正在使用本地 Vite 服务。</small> : null}
-          </>
-        ) : (
-          <>
-            <span>{note}</span>
-            <small>发布版本只读。</small>
-          </>
-        )}
-      </span>
+      <button
+        type="button"
+        className="helpButton"
+        aria-label="查看说明"
+        aria-expanded={open}
+        ref={buttonRef}
+        onPointerEnter={showPopover}
+        onPointerLeave={scheduleClose}
+        onMouseEnter={showPopover}
+        onMouseLeave={scheduleClose}
+        onFocus={showPopover}
+        onBlur={scheduleClose}
+        onClick={showPopover}
+      >
+        ?
+      </button>
+      {open ? createPortal(
+        <span
+          className={`helpPopover helpPortalPopover ${position.placement === 'bottom' ? 'below' : 'above'}`}
+          role="tooltip"
+          ref={popoverRef}
+          style={{
+            top: position.top,
+            left: position.left,
+            transform: position.placement === 'top' ? 'translateY(-100%)' : 'none'
+          }}
+          onPointerEnter={showPopover}
+          onPointerLeave={scheduleClose}
+          onMouseEnter={showPopover}
+          onMouseLeave={scheduleClose}
+          onFocus={showPopover}
+          onBlur={scheduleClose}
+        >
+          {editable ? (
+            <>
+              <textarea
+                value={note}
+                onChange={(event) => onChange(event.target.value)}
+                aria-label="编辑帮助说明"
+              />
+              <button type="button" className="helpSaveButton" onClick={onSave} disabled={!dirty || saveStatus === 'saving'}>
+                {saveStatus === 'saving' ? '保存中' : '保存到本地'}
+              </button>
+              <small>{saveStatus === 'saved' ? '已写入 src/data/helpNotes.json，下次提交会一起 push。' : '本地可编辑，点击保存写入项目文件。'}</small>
+              {saveStatus === 'error' ? <small className="helpSaveError">保存失败，请确认正在使用本地 Vite 服务。</small> : null}
+            </>
+          ) : (
+            <>
+              <span>{note}</span>
+              <small>发布版本只读。</small>
+            </>
+          )}
+        </span>,
+        document.body
+      ) : null}
     </span>
   );
 }

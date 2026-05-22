@@ -539,7 +539,6 @@ main {
   position: relative;
   flex: 0 0 auto;
   align-items: center;
-  z-index: 2147483646;
 }
 
 .helpButton {
@@ -559,12 +558,10 @@ main {
 }
 
 .helpPopover {
-  position: absolute;
-  bottom: calc(100% + 8px);
-  left: 0;
+  position: fixed;
   z-index: 2147483647;
-  display: none;
-  width: min(300px, calc(100vw - 44px));
+  display: block;
+  width: min(320px, calc(100vw - 24px));
   padding: 10px;
   border: 1px solid rgba(255, 213, 107, 0.28);
   border-radius: 8px;
@@ -576,17 +573,33 @@ main {
   white-space: normal;
 }
 
+.helpPortalPopover {
+  pointer-events: auto;
+  isolation: isolate;
+}
+
 .helpPopover::after {
   position: absolute;
-  top: 100%;
   left: 10px;
   width: 10px;
   height: 10px;
-  border-right: 1px solid rgba(255, 213, 107, 0.28);
-  border-bottom: 1px solid rgba(255, 213, 107, 0.28);
   background: rgba(18, 15, 24, 0.98);
   content: '';
+  transform: rotate(45deg);
+}
+
+.helpPopover.above::after {
+  top: 100%;
+  border-right: 1px solid rgba(255, 213, 107, 0.28);
+  border-bottom: 1px solid rgba(255, 213, 107, 0.28);
   transform: translateY(-5px) rotate(45deg);
+}
+
+.helpPopover.below::after {
+  bottom: 100%;
+  border-top: 1px solid rgba(255, 213, 107, 0.28);
+  border-left: 1px solid rgba(255, 213, 107, 0.28);
+  transform: translateY(5px) rotate(45deg);
 }
 
 .helpPopover textarea {
@@ -623,11 +636,6 @@ main {
 
 .helpPopover .helpSaveError {
   color: #ff9f9f;
-}
-
-.helpNote:hover .helpPopover,
-.helpNote:focus-within .helpPopover {
-  display: block;
 }
 
 .selectBlock.full {
