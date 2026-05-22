@@ -1429,6 +1429,15 @@ input:focus {
   overflow: hidden;
 }
 
+.skillDamagePanel > summary {
+  cursor: pointer;
+  list-style: none;
+}
+
+.skillDamagePanel > summary::-webkit-details-marker {
+  display: none;
+}
+
 .skillMainGrid {
   display: grid;
   grid-template-columns: repeat(4, minmax(180px, 1fr));

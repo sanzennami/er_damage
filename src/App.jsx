@@ -12,7 +12,7 @@ import DAK_LOADOUT_ASSETS from './data/dakLoadoutAssets.json';
 import DAK_ITEM_SKILL_ICONS from './data/dakItemSkillIcons.json';
 import MASTERY_STATS from './data/masteryStats.json';
 
-const APP_VERSION = 'v0.1.056';
+const APP_VERSION = 'v0.1.057';
 
 const EXPORTED_LOCAL_CONFIG_MODULES = import.meta.glob('./data/localConfig.export.json', {
   eager: true,
@@ -992,6 +992,24 @@ function byName(equipment, name) {
   return equipment.find((item) => item.name === name);
 }
 
+function calculatedTraitBonusSummaryItems(result) {
+  const bonuses = result?.traitBonuses || {};
+  const items = [
+    result?.talentBonusAp ? `法强 +${round(result.talentBonusAp, 1)}` : '',
+    result?.talentBonusAttackPower ? `攻击力 +${round(result.talentBonusAttackPower, 1)}` : '',
+    result?.vampireStackAp ? `吸血鬼满层法强 +${round(result.vampireStackAp, 1)}` : '',
+    result?.vampireStackAttackPower ? `吸血鬼满层攻击 +${round(result.vampireStackAttackPower, 1)}` : '',
+    bonuses.pen ? `防穿 +${round(bonuses.pen, 1)}` : '',
+    bonuses.penPct ? `防穿 ${pct(bonuses.penPct)}` : '',
+    bonuses.cd ? `冷却缩减 +${round(bonuses.cd, 1)}` : '',
+    result?.potentialDamageBonus ? `技伤 +${pct(result.potentialDamageBonus)}` : '',
+    result?.talentBonusDefense ? `防御 +${round(result.talentBonusDefense, 1)}` : '',
+    bonuses.maxHp ? `生命 +${round(bonuses.maxHp, 1)}` : ''
+  ].filter(Boolean);
+
+  return items.length ? items : traitBonusSummaryItems(bonuses);
+}
+
 function basesFor(skill) {
   return String(skill.bases || '')
     .split(',')
@@ -1208,8 +1226,10 @@ function calc({
   const selectedHeroSkillRows = skillTable.filter((skill) => skill.hero === selectedHero);
   const offensePath = primaryOffensePath({ skills: selectedHeroSkillRows, masteryStat });
   const usesAttackPath = offensePath === 'attack';
-  const stackAp = (usesAttackPath ? 0 : (vampireFull ? 30 + mastery : 0)) + (blazingFull ? 24 : 0) + (magicSeedFull ? 20 : 0);
-  const stackAttackPower = usesAttackPath && vampireFull ? 15 + mastery * 0.5 : 0;
+  const vampireStackAp = usesAttackPath ? 0 : (vampireFull ? 30 + mastery : 0);
+  const vampireStackAttackPower = usesAttackPath && vampireFull ? 15 + mastery * 0.5 : 0;
+  const stackAp = vampireStackAp + (blazingFull ? 24 : 0) + (magicSeedFull ? 20 : 0);
+  const stackAttackPower = vampireStackAttackPower;
   const stackCd = magicSeedFull ? 20 : 0;
   const cd = (statValue(equipmentStats, 'cooldownReduction') || selected.reduce((sum, item) => sum + getNumber(item.cd), 0)) + stackCd + getNumber(traitBonuses.cd);
   const concentrationAp = activeTraitEffectIds.has('concentration') && !usesAttackPath ? 32 : 0;
@@ -1229,7 +1249,8 @@ function calc({
   const pen = statValue(equipmentStats, 'penetrationDefense') + statValue(equipmentStats, 'uniquePenetrationDefense') + talentPen || selected.reduce((sum, item) => sum + getNumber(item.pen), 0) + talentPen;
   const penPct = statValue(equipmentStats, 'penetrationDefenseRatio') + statValue(equipmentStats, 'uniquePenetrationDefenseRatio') + talentPenPct || selected.reduce((sum, item) => sum + getNumber(item.penPct), 0) + talentPenPct;
   const dynamicTraitDefense = activeTraitEffectIds.has('diamondShard') ? 20 + mastery * 5 : 0;
-  const equipDefense = (statValue(equipmentStats, 'defense') || selected.reduce((sum, item) => sum + getNumber(item.defense), 0)) + getNumber(traitBonuses.defense) + dynamicTraitDefense;
+  const talentBonusDefense = getNumber(traitBonuses.defense) + dynamicTraitDefense;
+  const equipDefense = (statValue(equipmentStats, 'defense') || selected.reduce((sum, item) => sum + getNumber(item.defense), 0)) + talentBonusDefense;
   const extraHp = statValue(equipmentStats, 'maxHp') + getNumber(traitBonuses.maxHp);
   const normalApPct = 0;
   const uniqueApPct = Math.max(statValue(equipmentStats, 'uniqueSkillAmpRatio'), ...selected.filter((item) => item.uniqueApPct).map((item) => getNumber(item.apPct)));
@@ -1246,7 +1267,8 @@ function calc({
   const finalDefense = target.defense * (1 - target.defenseReduction) * (1 - penPct) - pen;
   const defenseMod = 100 / (100 + finalDefense);
   const enhancementDeviceDamageBonus = activeTraitEffectIds.has('enhancementDevice') ? 0.08 + mastery * 0.005 : 0;
-  const totalDamageBonus = damageBonus + equipDamageBonus + talentDamageBonus + enhancementDeviceDamageBonus;
+  const potentialDamageBonus = talentDamageBonus + enhancementDeviceDamageBonus;
+  const totalDamageBonus = damageBonus + equipDamageBonus + potentialDamageBonus;
   const targetMasteryLevel = Math.max(1, Math.min(20, getNumber(targetMastery) || 1));
   const targetMasterySkillReduction = targetMasteryLevel <= 1 ? 0 : targetMasteryLevel * 0.008;
   const targetMasteryBasicReduction = targetMasteryLevel <= 1 ? 0 : targetMasteryLevel * 0.01;
@@ -1340,6 +1362,10 @@ function calc({
     talentAp,
     talentBonusAp,
     talentBonusAttackPower,
+    talentBonusDefense,
+    potentialDamageBonus,
+    vampireStackAp,
+    vampireStackAttackPower,
     stackAp,
     stackAttackPower,
     stackCd,
@@ -2440,7 +2466,7 @@ export default function App() {
     setTraitSelection(normalizeTraitSelection(DEFAULT_TRAIT_SELECTION));
   }
 
-  const traitSummaryItems = traitBonusSummaryItems(result.traitBonuses);
+  const traitSummaryItems = calculatedTraitBonusSummaryItems(result);
   const primaryGroup = ACTIVE_TRAIT_GROUPS.find((group) => group.key === traitSelection.group);
   const secondaryGroup = ACTIVE_TRAIT_GROUPS.find((group) => group.key === traitSelection.secondaryGroup);
   const traitSelectionSlots = [
@@ -3190,8 +3216,8 @@ export default function App() {
       </section>
 
       <section className="damageLayout">
-        <div className="panel damagePanel skillDamagePanel">
-          <div className="panelHead">
+        <details className="panel damagePanel skillDamagePanel" open>
+          <summary className="effectToggle">
             <div>
               <p className="eyebrow">Skills</p>
               <h2>{selectedHero} 技能伤害</h2>
@@ -3210,7 +3236,7 @@ export default function App() {
                 ))}
               </div>
             ) : null}
-          </div>
+          </summary>
           <div className="skillMainGrid">
             {SKILL_MAIN_SLOTS.map(renderSkillMainColumn)}
             {!result.skills.length ? (
@@ -3218,7 +3244,7 @@ export default function App() {
             ) : null}
           </div>
           {renderPassiveSkillRow()}
-        </div>
+        </details>
 
         <div className={`panel damagePanel effectsPanel ${effectsCollapsed ? 'collapsed' : ''}`}>
           <button type="button" className="effectToggle" onClick={() => setEffectsCollapsed((current) => !current)}>
