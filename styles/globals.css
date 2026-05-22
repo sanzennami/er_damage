@@ -2314,6 +2314,7 @@ body[data-theme='day'] .versionButton {
 body[data-theme='day'] .appSignature,
 body[data-theme='day'] .pill,
 body[data-theme='day'] .chip,
+body[data-theme='day'] .statPill,
 body[data-theme='day'] .qualityLegend span {
   border-color: rgba(26, 100, 160, 0.18);
   background: rgba(26, 100, 160, 0.07);
