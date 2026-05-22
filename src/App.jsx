@@ -12,7 +12,7 @@ import DAK_LOADOUT_ASSETS from './data/dakLoadoutAssets.json';
 import DAK_ITEM_SKILL_ICONS from './data/dakItemSkillIcons.json';
 import MASTERY_STATS from './data/masteryStats.json';
 
-const APP_VERSION = 'v0.1.050';
+const APP_VERSION = 'v0.1.051';
 
 const CHARACTER_IMAGE_URLS = import.meta.glob('../assets/characters/*.png', {
   eager: true,
@@ -118,7 +118,7 @@ const ANNOUNCEMENT_SAVE_ENDPOINT = '/api/announcement';
 const TRAIT_EFFECTS = {
   7000201: { extraEffect: 'absoluteForce', summary: '绝对武力：三次命中后追加真实伤害，并降低目标防御。' },
   7000401: { summary: '吸血鬼：满层后按等级提供攻击力或技能增幅，技能增幅路径为 14 + 等级。' },
-  7000501: { extraEffect: 'thunder', summary: '霹雳：技能命中实验体时造成 30+等级*2+技能增幅*26% 的技能伤害。' },
+  7000501: { extraEffect: 'thunder', summary: '霹雳：技能命中实验体时造成 30+等级*2+额外攻击力45%或技能增幅26% 的技能伤害。' },
   7010501: { dynamicDamage: 'burst', summary: '按双方体力差增加造成伤害' },
   7011101: { ap: 20, summary: '猎魂・熊按 80 层预估：攻击力 +10 或技能增幅 +20，本计算器采用技能增幅路径。' },
   7011201: { maxHp: 180, summary: '猎魂・野猪按 80 层预估：体力上限 +180。' },
@@ -128,8 +128,8 @@ const TRAIT_EFFECTS = {
   7011501: { extraEffect: 'scar', summary: '启用伤痕额外伤害估算' },
   7010701: { extraEffect: 'tear', summary: '伤口撕裂：2 秒内造成 10 + 等级*2 + 目标当前体力*8% 的技能伤害。' },
   7300101: { extraEffect: 'stardust', summary: '星尘蓄势：3 层后下一次普攻对实验体或召唤物造成 30+等级*2 的额外真实伤害。' },
-  7300201: { extraEffect: 'ghostFire', summary: '鬼火：3 秒内造成足量伤害后，5 秒内造成 50+等级*10+技能增幅*20% 的真实伤害。' },
-  7300301: { extraEffect: 'vortex', summary: '涡流：结束时造成等级*5+技能增幅*40% 的技能伤害。' },
+  7300201: { extraEffect: 'ghostFire', summary: '鬼火：3 秒内造成足量伤害后，5 秒内造成 50+等级*10+额外攻击力70%或技能增幅20% 的真实伤害。' },
+  7300301: { extraEffect: 'vortex', summary: '涡流：结束时造成等级*5+额外攻击力80%或技能增幅40% 的技能伤害。' },
   7310101: { ap: 32, summary: '凝力按当前适性最大值预估：攻击力 0~16 或技能增幅 0~32，本计算器采用技能增幅路径。' },
   7310201: { summary: '循环系统：技能命中时恢复 10 + 等级 + 体力上限*0.3%，同一技能每秒只适用一次；不影响伤害。' },
   7310301: { cd: 5, extraEffect: 'overclock', summary: '超频：冷却缩减 +5；冷却缩减超过 40 时攻击力 +5 或技能增幅 +10，本计算器采用技能增幅路径。' },
@@ -520,6 +520,18 @@ function round(value, digits = 1) {
 
 function damageFloor(value) {
   return Math.floor(getNumber(value) + 1e-9);
+}
+
+function adaptiveOffenseFormula({ base = 0, extraAttack = 0, attackRatio = 0, ap = 0, apRatio = 0 }) {
+  const attackPart = getNumber(extraAttack) * getNumber(attackRatio);
+  const apPart = getNumber(ap) * getNumber(apRatio);
+  const useAttack = attackPart > apPart;
+  return {
+    value: getNumber(base) + (useAttack ? attackPart : apPart),
+    route: useAttack ? '额外攻击力' : '技能增幅',
+    routeValue: useAttack ? extraAttack : ap,
+    ratio: useAttack ? attackRatio : apRatio
+  };
 }
 
 function clone(value) {
@@ -970,12 +982,13 @@ function evaluateFormula(formula, context) {
       'base',
       'ap',
       'attack',
+      'extraAttack',
       'targetHp',
       'stacks',
       'level',
       `"use strict"; return (${expression});`
     );
-    return getNumber(calculate(context.base, context.ap, context.attack, context.targetHp, context.stacks, context.level));
+    return getNumber(calculate(context.base, context.ap, context.attack, context.extraAttack, context.targetHp, context.stacks, context.level));
   } catch {
     return 0;
   }
@@ -1160,6 +1173,7 @@ function calc({
   ), 0);
   const masteryApPct = mastery * masteryOptionValue(masteryStat, 'SkillAmpRatio');
   const masteryAttackPower = mastery * masteryOptionValue(masteryStat, 'AttackPower');
+  const extraAttackPower = equipAttackPower + masteryAttackPower;
   const totalApPct = normalApPct + uniqueApPct + masteryApPct;
   const totalBaseAp = equipAp + talentAp + talentBonusAp + stackAp;
   const apRaw = totalBaseAp * (1 + totalApPct);
@@ -1174,7 +1188,7 @@ function calc({
   const damageMod = 1 + totalDamageBonus - target.reduction - totalSkillReduction;
   const finalMod = defenseMod * damageMod;
   const stackCount = Math.min(4, Math.max(0, r2Stacks));
-  const context = { ap, attack: attack + equipAttackPower + masteryAttackPower, targetHp: target.hp, stacks: stackCount, finalMod };
+  const context = { ap, attack: attack + equipAttackPower + masteryAttackPower, extraAttack: extraAttackPower, targetHp: target.hp, stacks: stackCount, finalMod };
   const heroSkills = skillTable
     .filter((skill) => skill.hero === selectedHero)
     .map((skill) => calculateSkill(skill, skillLevels[skill.id], context));
@@ -1183,8 +1197,8 @@ function calc({
   const curse = 50 + ap * 0.15;
   const scarBase = 10 + mastery + target.hp * 0.03;
   const tearBase = 10 + mastery * 2 + target.hp * 0.08;
-  const thunderBase = 30 + mastery * 2 + ap * 0.26;
-  const vortexBase = mastery * 5 + ap * 0.4;
+  const thunderFormula = adaptiveOffenseFormula({ base: 30 + mastery * 2, extraAttack: extraAttackPower, attackRatio: 0.45, ap, apRatio: 0.26 });
+  const vortexFormula = adaptiveOffenseFormula({ base: mastery * 5, extraAttack: extraAttackPower, attackRatio: 0.8, ap, apRatio: 0.4 });
   const diamondShardBase = mastery * 10;
   const penanceBase = mastery * 15;
   const effects = [
@@ -1195,10 +1209,10 @@ function calc({
       ? { title: '星尘蓄势(真伤)', raw: damageFloor(30 + mastery * 2), value: damageFloor(30 + mastery * 2), note: '对实验体/召唤物：30+等级*2；野生动物为两倍。' }
       : null,
     activeTraitEffectIds.has('thunder')
-      ? { title: '霹雳(技)', raw: damageFloor(thunderBase), value: damageFloor(damageFloor(thunderBase) * finalMod), note: '30+等级*2+技能增幅*26%；5m外+20%未默认计入。' }
+      ? { title: '霹雳(技)', raw: damageFloor(thunderFormula.value), value: damageFloor(damageFloor(thunderFormula.value) * finalMod), note: `30+等级*2+额外攻击力45%或技能增幅26%；当前按${thunderFormula.route}计算；5m外+20%未默认计入。` }
       : null,
     activeTraitEffectIds.has('vortex')
-      ? { title: '涡流(技)', raw: damageFloor(vortexBase), value: damageFloor(damageFloor(vortexBase) * finalMod), note: '等级*5+技能增幅*40%。' }
+      ? { title: '涡流(技)', raw: damageFloor(vortexFormula.value), value: damageFloor(damageFloor(vortexFormula.value) * finalMod), note: `等级*5+额外攻击力80%或技能增幅40%；当前按${vortexFormula.route}计算。` }
       : null,
     activeTraitEffectIds.has('diamondShard')
       ? { title: '金刚碎片(技)', raw: damageFloor(diamondShardBase), value: damageFloor(damageFloor(diamondShardBase) * finalMod), note: '等级*10；防御力增益已计入当前防御。' }
@@ -1213,9 +1227,9 @@ function calc({
       ? { title: '伤口撕裂', raw: damageFloor(tearBase), value: damageFloor(damageFloor(tearBase) * finalMod), note: '10+等级*2+目标当前体力*8%' }
       : null
   ].filter(Boolean);
-  const ghostFire = 50 + mastery * 10 + ap * 0.2;
+  const ghostFire = adaptiveOffenseFormula({ base: 50 + mastery * 10, extraAttack: extraAttackPower, attackRatio: 0.7, ap, apRatio: 0.2 });
   if (activeTraitEffectIds.has('ghostFire')) {
-    effects.push({ title: '鬼火(真伤)', raw: damageFloor(ghostFire), value: damageFloor(ghostFire), note: '50+等级*10+技能增幅*20%' });
+    effects.push({ title: '鬼火(真伤)', raw: damageFloor(ghostFire.value), value: damageFloor(ghostFire.value), note: `50+等级*10+额外攻击力70%或技能增幅20%；当前按${ghostFire.route}计算。` });
   }
   const tacticalEffect = calculateTacticalSkillEffect({
     name: tacticalSkill,
