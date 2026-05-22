@@ -2789,6 +2789,85 @@ export default function App() {
 
   return (
     <main>
+      <header className="titleBar">
+        <span className="titleBarBrand">
+          <span className="titleBarMark" aria-hidden="true" />
+          永恒轮回 · 伤害计算器
+        </span>
+        <div className="titleBarActions">
+          <div className="globalSettingsAnchor">
+            <button
+              type="button"
+              className={`quietButton ${showGlobalSettings ? 'active' : ''}`}
+              onClick={() => setShowGlobalSettings((current) => !current)}
+            >
+              全局设置
+            </button>
+            {showGlobalSettings ? (
+              <div className="globalSettingsMenu">
+                <div className="panelSubhead">
+                  <strong>全局设置</strong>
+                  <span>显示与编辑</span>
+                </div>
+                <label className="toggle">
+                  <input
+                    type="checkbox"
+                    checked={useHeroAvatarPicker}
+                    onChange={(event) => setUseHeroAvatarPicker(event.target.checked)}
+                  />
+                  <span>使用头像列表选择实验体</span>
+                </label>
+                {editMode && showHeroDebugSettings ? (
+                  <>
+                    <label className="toggle">
+                      <input
+                        type="checkbox"
+                        checked={showUnsupportedHeroes}
+                        onChange={(event) => setShowUnsupportedHeroes(event.target.checked)}
+                      />
+                      <span>显示暂不支持技能伤害计算的英雄</span>
+                    </label>
+                    <label className="toggle">
+                      <input
+                        type="checkbox"
+                        checked={showDamageTestHeroes}
+                        onChange={(event) => setShowDamageTestHeroes(event.target.checked)}
+                      />
+                      <span>显示技能伤害统计测试英雄</span>
+                    </label>
+                  </>
+                ) : null}
+                <label className="toggle">
+                  <input
+                    type="checkbox"
+                    checked={uiTheme === 'day'}
+                    onChange={(event) => setUiTheme(event.target.checked ? 'day' : 'night')}
+                  />
+                  <span>日间配色</span>
+                </label>
+                <label className="toggle">
+                  <input
+                    type="checkbox"
+                    checked={editMode}
+                    onChange={(event) => setEditMode(event.target.checked)}
+                  />
+                  <span>编辑模式</span>
+                </label>
+              </div>
+            ) : null}
+          </div>
+          <div className="announcementAnchor">
+            <button
+              type="button"
+              className={`quietButton announcementButton ${announcement.showBadge ? 'hasUpdate' : ''}`}
+              onClick={() => setShowAnnouncement(true)}
+            >
+              公告
+              {announcement.showBadge ? <span aria-label="公告有更新">!</span> : null}
+            </button>
+          </div>
+        </div>
+      </header>
       <section className="hero">
         <div className="heroIntroBlock">
           <div className="heroTitleLine">
@@ -2824,92 +2903,6 @@ export default function App() {
             </div>
           </div>
           <p className="intro">选择英雄、装备和潜能后即时计算法强、防穿、防御修正、原始伤害与最终伤害。</p>
-          <div className={`heroPicker compactHeroPicker ${useHeroAvatarPicker ? 'avatarHeroPickerMode' : ''}`}>
-            <div className="heroPickerTop">
-              <label className="selectBlock">
-                <LabelWithHelp note={help('select.hero')}>实验体</LabelWithHelp>
-                <button
-                  type="button"
-                  className="heroSelectButton"
-                  onClick={() => { setHeroAvatarQuery(''); setHeroModalOpen(true); }}
-                >
-                  <span>{selectedHero}</span>
-                  <span className="heroSelectChevron">▾</span>
-                </button>
-              </label>
-              <div className="globalSettingsAnchor">
-                <button
-                  type="button"
-                  className={`quietButton ${showGlobalSettings ? 'active' : ''}`}
-                  onClick={() => setShowGlobalSettings((current) => !current)}
-                >
-                  全局设置
-                </button>
-                {showGlobalSettings ? (
-                  <div className="globalSettingsMenu">
-                    <div className="panelSubhead">
-                      <strong>全局设置</strong>
-                      <span>显示与编辑</span>
-                    </div>
-                    <label className="toggle">
-                      <input
-                        type="checkbox"
-                        checked={useHeroAvatarPicker}
-                        onChange={(event) => setUseHeroAvatarPicker(event.target.checked)}
-                      />
-                      <span>使用头像列表选择实验体</span>
-                    </label>
-                    {editMode && showHeroDebugSettings ? (
-                      <>
-                        <label className="toggle">
-                          <input
-                            type="checkbox"
-                            checked={showUnsupportedHeroes}
-                            onChange={(event) => setShowUnsupportedHeroes(event.target.checked)}
-                          />
-                          <span>显示暂不支持技能伤害计算的英雄</span>
-                        </label>
-                        <label className="toggle">
-                          <input
-                            type="checkbox"
-                            checked={showDamageTestHeroes}
-                            onChange={(event) => setShowDamageTestHeroes(event.target.checked)}
-                          />
-                          <span>显示技能伤害统计测试英雄</span>
-                        </label>
-                      </>
-                    ) : null}
-                    <label className="toggle">
-                      <input
-                        type="checkbox"
-                        checked={uiTheme === 'day'}
-                        onChange={(event) => setUiTheme(event.target.checked ? 'day' : 'night')}
-                      />
-                      <span>日间配色</span>
-                    </label>
-                    <label className="toggle">
-                      <input
-                        type="checkbox"
-                        checked={editMode}
-                        onChange={(event) => setEditMode(event.target.checked)}
-                      />
-                      <span>编辑模式</span>
-                    </label>
-                  </div>
-                ) : null}
-                </div>
-              <div className="announcementAnchor">
-                <button
-                  type="button"
-                  className={`quietButton announcementButton ${announcement.showBadge ? 'hasUpdate' : ''}`}
-                  onClick={() => setShowAnnouncement(true)}
-                >
-                  公告
-                  {announcement.showBadge ? <span aria-label="公告有更新">!</span> : null}
-                </button>
-              </div>
-            </div>
-          </div>
         </div>
       </section>
 
