@@ -12,7 +12,7 @@ import DAK_LOADOUT_ASSETS from './data/dakLoadoutAssets.json';
 import DAK_ITEM_SKILL_ICONS from './data/dakItemSkillIcons.json';
 import MASTERY_STATS from './data/masteryStats.json';
 
-const APP_VERSION = 'v0.1.047';
+const APP_VERSION = 'v0.1.048';
 
 const CHARACTER_IMAGE_URLS = import.meta.glob('../assets/characters/*.png', {
   eager: true,
@@ -119,13 +119,19 @@ const TRAIT_EFFECTS = {
   7000201: { extraEffect: 'absoluteForce', summary: '绝对武力：三次命中后追加真实伤害，并降低目标防御。' },
   7000401: { summary: '吸血鬼：满层后按等级提供攻击力或技能增幅，技能增幅路径为 14 + 等级。' },
   7010501: { dynamicDamage: 'burst', summary: '按双方体力差增加造成伤害' },
-  7011101: { ap: 8, summary: '猎魂叠层预估：技能增幅 +8' },
+  7011101: { ap: 20, summary: '猎魂・熊按 80 层预估：攻击力 +10 或技能增幅 +20，本计算器采用技能增幅路径。' },
+  7011201: { maxHp: 180, summary: '猎魂・野猪按 80 层预估：体力上限 +180。' },
+  7011301: { summary: '猎魂・狼按 80 层为攻击速度 +24%，当前不计入技能伤害。' },
+  7011401: { summary: '猎魂・野狗按 80 层为吸血-所有伤害 +7%，当前不计入技能伤害。' },
   7011001: { dmgAmp: 0.08, summary: '弱肉强食：目标当前体力低于 40% 时造成伤害 +8%。' },
   7011501: { extraEffect: 'scar', summary: '启用伤痕额外伤害估算' },
-  7010701: { extraEffect: 'tear', summary: '启用伤口撕裂持续伤害估算' },
+  7010701: { extraEffect: 'tear', summary: '伤口撕裂：2 秒内造成 10 + 等级*2 + 目标当前体力*8% 的技能伤害。' },
   7300201: { extraEffect: 'ghostFire', summary: '启用鬼火真实伤害估算' },
   7310101: { dmgAmp: 0.03, summary: '凝力预估：技能伤害 +3%' },
+  7310201: { summary: '循环系统：技能命中时恢复 10 + 等级 + 体力上限*0.3%，同一技能每秒只适用一次；不影响伤害。' },
   7310301: { dmgAmp: 0.05, summary: '超频预估：技能伤害 +5%' },
+  7310401: { penPct: 0.06, summary: '制动力：对敌人实验体造成伤害后 4 秒内防御穿透 +6%，当前按已触发计入。' },
+  7310601: { extraEffect: 'rapidShot', summary: '急速射击：技能后普攻命中时，5 秒内攻击力 +2+等级*0.5 或技能增幅 +4+等级，并提升攻击速度 15%；当前按技能增幅路径计入。' },
   7210101: { dmgAmp: 0.05, summary: '荆棘丛：定身目标承受伤害 +5%，治疗效果 -20%' },
   7211001: { summary: '狩猎的快感不计入技能伤害：野怪增伤、击杀回复与移速不提供法强或技伤' },
   7211401: { dmgAmp: 0.04, summary: '压迫感：周围敌人承受伤害 +4%' },
@@ -1120,7 +1126,9 @@ function calc({
 }) {
   const selected = SLOTS.map((slot) => byName(equipment, gear[slot])).filter(Boolean);
   const equipmentStats = aggregateEquipmentStats(selected, mastery);
-  const talentBonusAp = getNumber(traitBonuses.ap);
+  const activeTraitEffectIds = new Set(traitBonuses.effectIds || []);
+  const rapidShotAp = activeTraitEffectIds.has('rapidShot') ? 4 + mastery : 0;
+  const talentBonusAp = getNumber(traitBonuses.ap) + rapidShotAp;
   const talentPen = getNumber(traitBonuses.pen);
   const talentPenPct = getNumber(traitBonuses.penPct);
   const talentDamageBonus = getNumber(traitBonuses.dmgAmp);
@@ -1162,8 +1170,7 @@ function calc({
   const burstBonus = Math.min(0.1, Math.max(0, (target.hp - selfHp) / selfHp) * 0.25);
   const curse = 50 + ap * 0.15;
   const scarBase = 10 + mastery + target.hp * 0.03;
-  const tearBase = 50 + target.hp * 0.7 * 0.08;
-  const activeTraitEffectIds = new Set(traitBonuses.effectIds || []);
+  const tearBase = 10 + mastery * 2 + target.hp * 0.08;
   const effects = [
     activeTraitEffectIds.has('absoluteForce')
       ? { title: '绝对武力(真伤)', raw: damageFloor(20 + mastery * 5), value: damageFloor(20 + mastery * 5), note: '20+实验体等级*5；防御降低 15% 需手动在目标栏设置。' }
@@ -1172,7 +1179,7 @@ function calc({
       ? { title: '伤痕(技)', raw: damageFloor(scarBase), value: damageFloor(damageFloor(scarBase) * finalMod), note: '10+等级+目标血量*3%' }
       : null,
     activeTraitEffectIds.has('tear')
-      ? { title: '伤口撕裂', raw: damageFloor(tearBase), value: damageFloor(damageFloor(tearBase) * finalMod), note: '以触发时70%血计算' }
+      ? { title: '伤口撕裂', raw: damageFloor(tearBase), value: damageFloor(damageFloor(tearBase) * finalMod), note: '10+等级*2+目标当前体力*8%' }
       : null
   ].filter(Boolean);
   const ghostFire = 250 + ap * 0.2;
