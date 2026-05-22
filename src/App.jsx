@@ -12,7 +12,7 @@ import DAK_LOADOUT_ASSETS from './data/dakLoadoutAssets.json';
 import DAK_ITEM_SKILL_ICONS from './data/dakItemSkillIcons.json';
 import MASTERY_STATS from './data/masteryStats.json';
 
-const APP_VERSION = 'v0.1.048';
+const APP_VERSION = 'v0.1.049';
 
 const CHARACTER_IMAGE_URLS = import.meta.glob('../assets/characters/*.png', {
   eager: true,
@@ -127,10 +127,11 @@ const TRAIT_EFFECTS = {
   7011501: { extraEffect: 'scar', summary: '启用伤痕额外伤害估算' },
   7010701: { extraEffect: 'tear', summary: '伤口撕裂：2 秒内造成 10 + 等级*2 + 目标当前体力*8% 的技能伤害。' },
   7300201: { extraEffect: 'ghostFire', summary: '启用鬼火真实伤害估算' },
-  7310101: { dmgAmp: 0.03, summary: '凝力预估：技能伤害 +3%' },
+  7310101: { ap: 32, summary: '凝力按当前适性最大值预估：攻击力 0~16 或技能增幅 0~32，本计算器采用技能增幅路径。' },
   7310201: { summary: '循环系统：技能命中时恢复 10 + 等级 + 体力上限*0.3%，同一技能每秒只适用一次；不影响伤害。' },
-  7310301: { dmgAmp: 0.05, summary: '超频预估：技能伤害 +5%' },
+  7310301: { cd: 5, extraEffect: 'overclock', summary: '超频：冷却缩减 +5；冷却缩减超过 40 时攻击力 +5 或技能增幅 +10，本计算器采用技能增幅路径。' },
   7310401: { penPct: 0.06, summary: '制动力：对敌人实验体造成伤害后 4 秒内防御穿透 +6%，当前按已触发计入。' },
+  7310501: { extraEffect: 'rCharger', summary: 'R_echarger：终极技能冷却缩减 +15；使用终极技能后 5 秒内攻击力 +5+等级*0.5 或技能增幅 +10+等级。' },
   7310601: { extraEffect: 'rapidShot', summary: '急速射击：技能后普攻命中时，5 秒内攻击力 +2+等级*0.5 或技能增幅 +4+等级，并提升攻击速度 15%；当前按技能增幅路径计入。' },
   7210101: { dmgAmp: 0.05, summary: '荆棘丛：定身目标承受伤害 +5%，治疗效果 -20%' },
   7211001: { summary: '狩猎的快感不计入技能伤害：野怪增伤、击杀回复与移速不提供法强或技伤' },
@@ -888,13 +889,14 @@ function traitBonusesFor(traits, burstBonus = 0) {
       ap: bonus.ap + getNumber(effect.ap),
       pen: bonus.pen + getNumber(effect.pen),
       penPct: bonus.penPct + getNumber(effect.penPct),
+      cd: bonus.cd + getNumber(effect.cd),
       dmgAmp: bonus.dmgAmp + getNumber(effect.dmgAmp) + (effect.dynamicDamage === 'burst' ? burstBonus : 0),
       defense: bonus.defense + getNumber(effect.defense),
       maxHp: bonus.maxHp + getNumber(effect.maxHp),
       effectIds: effect.extraEffect ? [...bonus.effectIds, effect.extraEffect] : bonus.effectIds,
       summaries: effect.summary ? [...bonus.summaries, `${trait.name}: ${effect.summary}`] : bonus.summaries
     };
-  }, { ap: 0, pen: 0, penPct: 0, dmgAmp: 0, defense: 0, maxHp: 0, effectIds: [], summaries: [] });
+  }, { ap: 0, pen: 0, penPct: 0, cd: 0, dmgAmp: 0, defense: 0, maxHp: 0, effectIds: [], summaries: [] });
 }
 
 function normalizeTraitSelection(selection) {
@@ -926,6 +928,7 @@ function traitBonusSummaryItems(bonuses) {
     bonuses.ap ? `法强 +${round(bonuses.ap, 1)}` : '',
     bonuses.pen ? `防穿 +${round(bonuses.pen, 1)}` : '',
     bonuses.penPct ? `防穿 ${pct(bonuses.penPct)}` : '',
+    bonuses.cd ? `冷却缩减 +${round(bonuses.cd, 1)}` : '',
     bonuses.dmgAmp ? `技伤 +${pct(bonuses.dmgAmp)}` : '',
     bonuses.defense ? `防御 +${round(bonuses.defense, 1)}` : '',
     bonuses.maxHp ? `生命 +${round(bonuses.maxHp, 1)}` : ''
@@ -1127,8 +1130,6 @@ function calc({
   const selected = SLOTS.map((slot) => byName(equipment, gear[slot])).filter(Boolean);
   const equipmentStats = aggregateEquipmentStats(selected, mastery);
   const activeTraitEffectIds = new Set(traitBonuses.effectIds || []);
-  const rapidShotAp = activeTraitEffectIds.has('rapidShot') ? 4 + mastery : 0;
-  const talentBonusAp = getNumber(traitBonuses.ap) + rapidShotAp;
   const talentPen = getNumber(traitBonuses.pen);
   const talentPenPct = getNumber(traitBonuses.penPct);
   const talentDamageBonus = getNumber(traitBonuses.dmgAmp);
@@ -1136,7 +1137,11 @@ function calc({
   const equipAttackPower = statValue(equipmentStats, 'attackPower');
   const stackAp = (vampireFull ? 14 + mastery : 0) + (blazingFull ? 24 : 0) + (magicSeedFull ? 20 : 0);
   const stackCd = magicSeedFull ? 20 : 0;
-  const cd = (statValue(equipmentStats, 'cooldownReduction') || selected.reduce((sum, item) => sum + getNumber(item.cd), 0)) + stackCd;
+  const cd = (statValue(equipmentStats, 'cooldownReduction') || selected.reduce((sum, item) => sum + getNumber(item.cd), 0)) + stackCd + getNumber(traitBonuses.cd);
+  const rapidShotAp = activeTraitEffectIds.has('rapidShot') ? 4 + mastery : 0;
+  const rChargerAp = activeTraitEffectIds.has('rCharger') ? 10 + mastery : 0;
+  const overclockAp = activeTraitEffectIds.has('overclock') && cd >= 40 ? 10 : 0;
+  const talentBonusAp = getNumber(traitBonuses.ap) + rapidShotAp + rChargerAp + overclockAp;
   const pen = statValue(equipmentStats, 'penetrationDefense') + statValue(equipmentStats, 'uniquePenetrationDefense') + talentPen || selected.reduce((sum, item) => sum + getNumber(item.pen), 0) + talentPen;
   const penPct = statValue(equipmentStats, 'penetrationDefenseRatio') + statValue(equipmentStats, 'uniquePenetrationDefenseRatio') + talentPenPct || selected.reduce((sum, item) => sum + getNumber(item.penPct), 0) + talentPenPct;
   const equipDefense = (statValue(equipmentStats, 'defense') || selected.reduce((sum, item) => sum + getNumber(item.defense), 0)) + getNumber(traitBonuses.defense);
