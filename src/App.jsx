@@ -12,7 +12,7 @@ import DAK_LOADOUT_ASSETS from './data/dakLoadoutAssets.json';
 import DAK_ITEM_SKILL_ICONS from './data/dakItemSkillIcons.json';
 import MASTERY_STATS from './data/masteryStats.json';
 
-const APP_VERSION = 'v0.1.049';
+const APP_VERSION = 'v0.1.050';
 
 const CHARACTER_IMAGE_URLS = import.meta.glob('../assets/characters/*.png', {
   eager: true,
@@ -118,6 +118,7 @@ const ANNOUNCEMENT_SAVE_ENDPOINT = '/api/announcement';
 const TRAIT_EFFECTS = {
   7000201: { extraEffect: 'absoluteForce', summary: '绝对武力：三次命中后追加真实伤害，并降低目标防御。' },
   7000401: { summary: '吸血鬼：满层后按等级提供攻击力或技能增幅，技能增幅路径为 14 + 等级。' },
+  7000501: { extraEffect: 'thunder', summary: '霹雳：技能命中实验体时造成 30+等级*2+技能增幅*26% 的技能伤害。' },
   7010501: { dynamicDamage: 'burst', summary: '按双方体力差增加造成伤害' },
   7011101: { ap: 20, summary: '猎魂・熊按 80 层预估：攻击力 +10 或技能增幅 +20，本计算器采用技能增幅路径。' },
   7011201: { maxHp: 180, summary: '猎魂・野猪按 80 层预估：体力上限 +180。' },
@@ -126,7 +127,9 @@ const TRAIT_EFFECTS = {
   7011001: { dmgAmp: 0.08, summary: '弱肉强食：目标当前体力低于 40% 时造成伤害 +8%。' },
   7011501: { extraEffect: 'scar', summary: '启用伤痕额外伤害估算' },
   7010701: { extraEffect: 'tear', summary: '伤口撕裂：2 秒内造成 10 + 等级*2 + 目标当前体力*8% 的技能伤害。' },
-  7300201: { extraEffect: 'ghostFire', summary: '启用鬼火真实伤害估算' },
+  7300101: { extraEffect: 'stardust', summary: '星尘蓄势：3 层后下一次普攻对实验体或召唤物造成 30+等级*2 的额外真实伤害。' },
+  7300201: { extraEffect: 'ghostFire', summary: '鬼火：3 秒内造成足量伤害后，5 秒内造成 50+等级*10+技能增幅*20% 的真实伤害。' },
+  7300301: { extraEffect: 'vortex', summary: '涡流：结束时造成等级*5+技能增幅*40% 的技能伤害。' },
   7310101: { ap: 32, summary: '凝力按当前适性最大值预估：攻击力 0~16 或技能增幅 0~32，本计算器采用技能增幅路径。' },
   7310201: { summary: '循环系统：技能命中时恢复 10 + 等级 + 体力上限*0.3%，同一技能每秒只适用一次；不影响伤害。' },
   7310301: { cd: 5, extraEffect: 'overclock', summary: '超频：冷却缩减 +5；冷却缩减超过 40 时攻击力 +5 或技能增幅 +10，本计算器采用技能增幅路径。' },
@@ -136,6 +139,9 @@ const TRAIT_EFFECTS = {
   7210101: { dmgAmp: 0.05, summary: '荆棘丛：定身目标承受伤害 +5%，治疗效果 -20%' },
   7211001: { summary: '狩猎的快感不计入技能伤害：野怪增伤、击杀回复与移速不提供法强或技伤' },
   7211401: { dmgAmp: 0.04, summary: '压迫感：周围敌人承受伤害 +4%' },
+  7100101: { extraEffect: 'diamondShard', summary: '金刚碎片：定身成功后防御力 +20+等级*5，结束时造成等级*10 的技能伤害。' },
+  7100401: { summary: '天使护翼：获得体力上限 18% 的护盾，护盾破裂时解除负面效果并增加移动速度；不直接计入伤害。' },
+  7100501: { extraEffect: 'penance', summary: '惩戒：满层普攻消耗叠层时按等级*15 造成技能伤害，并附带减速。' },
   7110101: { defense: 8, summary: '无惧感预估：防御 +8' },
   7111001: { maxHp: 120, summary: '镇痛剂预估：体力上限 +120' }
 };
@@ -1144,7 +1150,8 @@ function calc({
   const talentBonusAp = getNumber(traitBonuses.ap) + rapidShotAp + rChargerAp + overclockAp;
   const pen = statValue(equipmentStats, 'penetrationDefense') + statValue(equipmentStats, 'uniquePenetrationDefense') + talentPen || selected.reduce((sum, item) => sum + getNumber(item.pen), 0) + talentPen;
   const penPct = statValue(equipmentStats, 'penetrationDefenseRatio') + statValue(equipmentStats, 'uniquePenetrationDefenseRatio') + talentPenPct || selected.reduce((sum, item) => sum + getNumber(item.penPct), 0) + talentPenPct;
-  const equipDefense = (statValue(equipmentStats, 'defense') || selected.reduce((sum, item) => sum + getNumber(item.defense), 0)) + getNumber(traitBonuses.defense);
+  const dynamicTraitDefense = activeTraitEffectIds.has('diamondShard') ? 20 + mastery * 5 : 0;
+  const equipDefense = (statValue(equipmentStats, 'defense') || selected.reduce((sum, item) => sum + getNumber(item.defense), 0)) + getNumber(traitBonuses.defense) + dynamicTraitDefense;
   const extraHp = statValue(equipmentStats, 'maxHp') + getNumber(traitBonuses.maxHp);
   const normalApPct = 0;
   const uniqueApPct = Math.max(statValue(equipmentStats, 'uniqueSkillAmpRatio'), ...selected.filter((item) => item.uniqueApPct).map((item) => getNumber(item.apPct)));
@@ -1176,9 +1183,28 @@ function calc({
   const curse = 50 + ap * 0.15;
   const scarBase = 10 + mastery + target.hp * 0.03;
   const tearBase = 10 + mastery * 2 + target.hp * 0.08;
+  const thunderBase = 30 + mastery * 2 + ap * 0.26;
+  const vortexBase = mastery * 5 + ap * 0.4;
+  const diamondShardBase = mastery * 10;
+  const penanceBase = mastery * 15;
   const effects = [
     activeTraitEffectIds.has('absoluteForce')
       ? { title: '绝对武力(真伤)', raw: damageFloor(20 + mastery * 5), value: damageFloor(20 + mastery * 5), note: '20+实验体等级*5；防御降低 15% 需手动在目标栏设置。' }
+      : null,
+    activeTraitEffectIds.has('stardust')
+      ? { title: '星尘蓄势(真伤)', raw: damageFloor(30 + mastery * 2), value: damageFloor(30 + mastery * 2), note: '对实验体/召唤物：30+等级*2；野生动物为两倍。' }
+      : null,
+    activeTraitEffectIds.has('thunder')
+      ? { title: '霹雳(技)', raw: damageFloor(thunderBase), value: damageFloor(damageFloor(thunderBase) * finalMod), note: '30+等级*2+技能增幅*26%；5m外+20%未默认计入。' }
+      : null,
+    activeTraitEffectIds.has('vortex')
+      ? { title: '涡流(技)', raw: damageFloor(vortexBase), value: damageFloor(damageFloor(vortexBase) * finalMod), note: '等级*5+技能增幅*40%。' }
+      : null,
+    activeTraitEffectIds.has('diamondShard')
+      ? { title: '金刚碎片(技)', raw: damageFloor(diamondShardBase), value: damageFloor(damageFloor(diamondShardBase) * finalMod), note: '等级*10；防御力增益已计入当前防御。' }
+      : null,
+    activeTraitEffectIds.has('penance')
+      ? { title: '惩戒(技)', raw: damageFloor(penanceBase), value: damageFloor(damageFloor(penanceBase) * finalMod), note: '满层普攻触发：等级*15。' }
       : null,
     activeTraitEffectIds.has('scar')
       ? { title: '伤痕(技)', raw: damageFloor(scarBase), value: damageFloor(damageFloor(scarBase) * finalMod), note: '10+等级+目标血量*3%' }
@@ -1187,9 +1213,9 @@ function calc({
       ? { title: '伤口撕裂', raw: damageFloor(tearBase), value: damageFloor(damageFloor(tearBase) * finalMod), note: '10+等级*2+目标当前体力*8%' }
       : null
   ].filter(Boolean);
-  const ghostFire = 250 + ap * 0.2;
+  const ghostFire = 50 + mastery * 10 + ap * 0.2;
   if (activeTraitEffectIds.has('ghostFire')) {
-    effects.push({ title: '鬼火(真伤)', raw: damageFloor(ghostFire), value: damageFloor(ghostFire), note: '250 + 法强 * 20%' });
+    effects.push({ title: '鬼火(真伤)', raw: damageFloor(ghostFire), value: damageFloor(ghostFire), note: '50+等级*10+技能增幅*20%' });
   }
   const tacticalEffect = calculateTacticalSkillEffect({
     name: tacticalSkill,
