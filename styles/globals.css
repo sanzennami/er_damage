@@ -2829,29 +2829,15 @@ td:last-child input {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
-  padding: 14px 8px;
-  min-height: 138px;
+  gap: 5px;
+  padding: 9px 6px;
   border: 1px solid var(--border-hairline);
   background: rgba(0, 0, 0, 0.4);
   cursor: pointer;
   font-family: var(--font-ui);
   letter-spacing: normal;
   text-transform: none;
-  position: relative;
   transition: border-color var(--dur-base) var(--ease-out), background var(--dur-base) var(--ease-out);
-}
-
-.gearCard::before {
-  content: "";
-  position: absolute;
-  top: -1px;
-  left: -1px;
-  width: 8px;
-  height: 8px;
-  border-top: 1.5px solid var(--border-cyan);
-  border-left: 1.5px solid var(--border-cyan);
-  pointer-events: none;
 }
 
 .gearCard:hover {
@@ -2861,16 +2847,16 @@ td:last-child input {
 
 .gearCardSlot {
   font-family: var(--font-display);
-  font-size: 10px;
+  font-size: 9px;
   font-weight: 700;
-  letter-spacing: 0.16em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--fg-3);
 }
 
 .gearCardIcon {
-  width: 54px;
-  height: 54px;
+  width: 42px;
+  height: 42px;
   display: grid;
   place-items: center;
   border: 1px solid var(--border-hairline);
@@ -2887,16 +2873,16 @@ td:last-child input {
 .gearCardIconFallback {
   font-family: var(--font-display);
   font-weight: 800;
-  font-size: 20px;
+  font-size: 16px;
   color: var(--cyan);
 }
 
 .gearCardName {
   font-family: var(--font-display);
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 700;
   text-align: center;
-  line-height: 1.25;
+  line-height: 1.2;
   overflow-wrap: anywhere;
 }
 
@@ -3103,10 +3089,6 @@ body[data-theme='day'] .pickerItem {
   border-color: rgba(26, 100, 160, 0.18);
   background: #f2f8ff;
   color: #1a2230;
-}
-
-body[data-theme='day'] .gearCard::before {
-  border-color: rgba(14, 130, 160, 0.6);
 }
 
 body[data-theme='day'] .gearCard:hover,
