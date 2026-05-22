@@ -1725,6 +1725,41 @@ function LabelWithHelp({ children, note }) {
   );
 }
 
+function SunIcon() {
+  return (
+    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <circle cx="12" cy="12" r="4.2" />
+      <path d="M12 2v2.6M12 19.4V22M3.5 3.5l1.9 1.9M18.6 18.6l1.9 1.9M2 12h2.6M19.4 12H22M3.5 20.5l1.9-1.9M18.6 5.4l1.9-1.9" />
+    </svg>
+  );
+}
+
+function MoonIcon() {
+  return (
+    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z" />
+    </svg>
+  );
+}
+
+function GearIcon() {
+  return (
+    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <circle cx="12" cy="12" r="3" />
+      <path d="M19.4 13.6a1.6 1.6 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.6 1.6 0 0 0-2.7 1.1V21a2 2 0 1 1-4 0v-.1a1.6 1.6 0 0 0-2.7-1.1l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.6 1.6 0 0 0-1.1-2.7H3a2 2 0 1 1 0-4h.1a1.6 1.6 0 0 0 1.1-2.7l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.6 1.6 0 0 0 1.8.3 1.6 1.6 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.6 1.6 0 0 0 2.7 1.1l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.6 1.6 0 0 0-.3 1.8 1.6 1.6 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.6 1.6 0 0 0-1.5 1z" />
+    </svg>
+  );
+}
+
+function BellIcon() {
+  return (
+    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      <path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9" />
+      <path d="M13.7 21a2 2 0 0 1-3.4 0" />
+    </svg>
+  );
+}
+
 function HeaderCell({ children, note }) {
   return <th><LabelWithHelp note={note}>{children}</LabelWithHelp></th>;
 }
@@ -2798,19 +2833,22 @@ export default function App() {
         <div className="titleBarActions">
           <button
             type="button"
-            className="quietButton themeToggle"
+            className="quietButton iconButton"
             onClick={() => setUiTheme(uiTheme === 'day' ? 'night' : 'day')}
-            aria-label="切换日夜配色"
+            aria-label={uiTheme === 'day' ? '切换到夜间配色' : '切换到日间配色'}
+            title={uiTheme === 'day' ? '切换到夜间配色' : '切换到日间配色'}
           >
-            {uiTheme === 'day' ? '☾ 夜间' : '☀ 日间'}
+            {uiTheme === 'day' ? <MoonIcon /> : <SunIcon />}
           </button>
           <div className="globalSettingsAnchor">
             <button
               type="button"
-              className={`quietButton ${showGlobalSettings ? 'active' : ''}`}
+              className={`quietButton iconButton ${showGlobalSettings ? 'active' : ''}`}
               onClick={() => setShowGlobalSettings((current) => !current)}
+              aria-label="全局设置"
+              title="全局设置"
             >
-              全局设置
+              <GearIcon />
             </button>
             {showGlobalSettings ? (
               <div className="globalSettingsMenu">
@@ -2860,10 +2898,12 @@ export default function App() {
           <div className="announcementAnchor">
             <button
               type="button"
-              className={`quietButton announcementButton ${announcement.showBadge ? 'hasUpdate' : ''}`}
+              className={`quietButton iconButton announcementButton ${announcement.showBadge ? 'hasUpdate' : ''}`}
               onClick={() => setShowAnnouncement(true)}
+              aria-label="公告"
+              title="公告"
             >
-              公告
+              <BellIcon />
               {announcement.showBadge ? <span aria-label="公告有更新">!</span> : null}
             </button>
           </div>
