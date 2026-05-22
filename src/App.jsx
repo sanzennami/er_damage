@@ -9,7 +9,7 @@ import DAK_LOADOUT_ASSETS from './data/dakLoadoutAssets.json';
 import DAK_ITEM_SKILL_ICONS from './data/dakItemSkillIcons.json';
 import MASTERY_STATS from './data/masteryStats.json';
 
-const APP_VERSION = 'v0.1.037';
+const APP_VERSION = 'v0.1.038';
 
 const CHARACTER_IMAGE_URLS = import.meta.glob('../assets/characters/*.png', {
   eager: true,
@@ -1223,11 +1223,13 @@ export default function App() {
   const [magicSeedFull, setMagicSeedFull] = useState(false);
   const [showBuildSettings, setShowBuildSettings] = useState(false);
   const [showGlobalSettings, setShowGlobalSettings] = useState(false);
+  const [showHeroDebugSettings, setShowHeroDebugSettings] = useState(false);
   const [effectsCollapsed, setEffectsCollapsed] = useState(false);
   const [skillTargetCounts, setSkillTargetCounts] = useState({});
   const [useHeroAvatarPicker, setUseHeroAvatarPicker] = useState(() => Boolean(loadAppSettings().useHeroAvatarPicker));
-  const [editMode, setEditMode] = useState(() => Boolean(loadAppSettings().editMode));
-  const [showUnsupportedHeroes, setShowUnsupportedHeroes] = useState(() => Boolean(loadAppSettings().showUnsupportedHeroes));
+  const [editMode, setEditMode] = useState(false);
+  const [showUnsupportedHeroes, setShowUnsupportedHeroes] = useState(false);
+  const [showDamageTestHeroes, setShowDamageTestHeroes] = useState(false);
   const [uiTheme, setUiTheme] = useState(() => loadAppSettings().uiTheme || 'night');
   const [heroAvatarQuery, setHeroAvatarQuery] = useState('');
   const [showLowerTierEquipment, setShowLowerTierEquipment] = useState(false);
@@ -1242,8 +1244,12 @@ export default function App() {
   }, [equipment, skills, talents, combos]);
 
   useEffect(() => {
-    window.localStorage.setItem(APP_SETTINGS_KEY, JSON.stringify({ useHeroAvatarPicker, editMode, showUnsupportedHeroes, uiTheme }));
-  }, [useHeroAvatarPicker, editMode, showUnsupportedHeroes, uiTheme]);
+    window.localStorage.setItem(APP_SETTINGS_KEY, JSON.stringify({ useHeroAvatarPicker, editMode, showUnsupportedHeroes, showDamageTestHeroes, uiTheme }));
+  }, [useHeroAvatarPicker, editMode, showUnsupportedHeroes, showDamageTestHeroes, uiTheme]);
+
+  useEffect(() => {
+    if (!editMode) setShowHeroDebugSettings(false);
+  }, [editMode]);
 
   useEffect(() => {
     document.body.dataset.theme = uiTheme;
@@ -1303,9 +1309,10 @@ export default function App() {
     () => traitBonusesFor(selectedTraits, estimatedBurstBonus),
     [selectedTraits, estimatedBurstBonus]
   );
-  const visibleHeroNames = showUnsupportedHeroes
-    ? HEROES
-    : HEROES.filter((hero) => HEROES_WITH_SKILL_DAMAGE.has(hero));
+  const canShowExtendedHeroes = editMode && showDamageTestHeroes;
+  const visibleHeroNames = canShowExtendedHeroes
+    ? (showUnsupportedHeroes ? HEROES : HEROES.filter((hero) => HEROES_WITH_SKILL_DAMAGE.has(hero)))
+    : HEROES.filter((hero) => MANUAL_HEROES.includes(hero));
   const selectedCharacter = ER_GAME_DATA.characters.find((character) => character.name === selectedHero);
   const selectedOfficialSkillGroups = ER_GAME_DATA.rawSkillGroups.filter((skill) => skill.hero === selectedHero);
   const heroPickerOptions = visibleHeroNames.map((hero) => ({
@@ -1324,7 +1331,7 @@ export default function App() {
   useEffect(() => {
     if (visibleHeroNames.includes(selectedHero)) return;
     setSelectedHero(visibleHeroNames[0] || '俞岷');
-  }, [selectedHero, showUnsupportedHeroes]);
+  }, [selectedHero, showUnsupportedHeroes, showDamageTestHeroes, editMode]);
   const allowedWeaponTypes = new Set(selectedCharacter?.weapons || []);
   const selectedWeaponRaw = weaponTypeFilter !== '全部类型'
     ? weaponTypeFromFilter(weaponTypeFilter)
@@ -1970,7 +1977,18 @@ export default function App() {
             <h1>永恒轮回伤害计算器</h1>
             <div className="appSignature">
               <span>by @白谷池千</span>
-              <b>{APP_VERSION}</b>
+              <button
+                type="button"
+                className={`versionButton ${editMode ? 'editable' : ''}`}
+                onClick={() => {
+                  if (!editMode) return;
+                  setShowGlobalSettings(true);
+                  setShowHeroDebugSettings((current) => !current);
+                }}
+                aria-label="版本号"
+              >
+                {APP_VERSION}
+              </button>
             </div>
           </div>
           <p className="intro">选择英雄、装备和潜能后即时计算法强、防穿、防御修正、原始伤害与最终伤害。</p>
@@ -2009,14 +2027,26 @@ export default function App() {
                       />
                       <span>使用头像列表选择实验体</span>
                     </label>
-                    <label className="toggle">
-                      <input
-                        type="checkbox"
-                        checked={showUnsupportedHeroes}
-                        onChange={(event) => setShowUnsupportedHeroes(event.target.checked)}
-                      />
-                      <span>显示暂不支持技能伤害计算的英雄</span>
-                    </label>
+                    {editMode && showHeroDebugSettings ? (
+                      <>
+                        <label className="toggle">
+                          <input
+                            type="checkbox"
+                            checked={showUnsupportedHeroes}
+                            onChange={(event) => setShowUnsupportedHeroes(event.target.checked)}
+                          />
+                          <span>显示暂不支持技能伤害计算的英雄</span>
+                        </label>
+                        <label className="toggle">
+                          <input
+                            type="checkbox"
+                            checked={showDamageTestHeroes}
+                            onChange={(event) => setShowDamageTestHeroes(event.target.checked)}
+                          />
+                          <span>显示技能伤害统计测试英雄</span>
+                        </label>
+                      </>
+                    ) : null}
                     <label className="toggle">
                       <input
                         type="checkbox"
