@@ -1528,10 +1528,7 @@ function HelpNote({ note, editable, onChange, onSave, saveStatus, dirty }) {
               {saveStatus === 'error' ? <small className="helpSaveError">保存失败，请确认正在使用本地 Vite 服务。</small> : null}
             </>
           ) : (
-            <>
-              <span>{note}</span>
-              <small>发布版本只读。</small>
-            </>
+            <span>{note}</span>
           )}
         </span>,
         document.body
