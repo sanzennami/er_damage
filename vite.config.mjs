@@ -100,6 +100,11 @@ function helpNotesEditorPlugin() {
     });
 
     server.middlewares.use('/api/config', async (request, response, next) => {
+      if (request.url && request.url !== '/') {
+        next();
+        return;
+      }
+
       if (request.method !== 'POST') {
         next();
         return;
@@ -162,5 +167,6 @@ function helpNotesEditorPlugin() {
 }
 
 export default defineConfig({
+  base: './',
   plugins: [react(), helpNotesEditorPlugin()]
 });

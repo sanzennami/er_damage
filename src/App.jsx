@@ -12,7 +12,7 @@ import DAK_LOADOUT_ASSETS from './data/dakLoadoutAssets.json';
 import DAK_ITEM_SKILL_ICONS from './data/dakItemSkillIcons.json';
 import MASTERY_STATS from './data/masteryStats.json';
 
-const APP_VERSION = 'v0.1.054';
+const APP_VERSION = 'v0.1.058';
 
 const EXPORTED_LOCAL_CONFIG_MODULES = import.meta.glob('./data/localConfig.export.json', {
   eager: true,
@@ -129,10 +129,10 @@ const ANNOUNCEMENT_KEY = 'er-damage-announcement-v1';
 const ANNOUNCEMENT_SAVE_ENDPOINT = '/api/announcement';
 const TRAIT_EFFECTS = {
   7000201: { extraEffect: 'absoluteForce', summary: '绝对武力：三次命中后追加真实伤害，并降低目标防御。' },
-  7000401: { summary: '吸血鬼：满层后按等级提供攻击力或技能增幅，技能增幅路径为 14 + 等级。' },
+  7000401: { summary: '吸血鬼：满层后按实验体主路径提供攻击力或技能增幅；技能增幅满层为 30 + 等级。' },
   7000501: { extraEffect: 'thunder', summary: '霹雳：技能命中实验体时造成 30+等级*2+额外攻击力45%或技能增幅26% 的技能伤害。' },
   7010501: { dynamicDamage: 'burst', summary: '按双方体力差增加造成伤害' },
-  7011101: { ap: 20, summary: '猎魂・熊按 80 层预估：攻击力 +10 或技能增幅 +20，本计算器采用技能增幅路径。' },
+  7011101: { extraEffect: 'huntBear', summary: '猎魂・熊按 80 层预估：攻击力 +10 或技能增幅 +20，按实验体主路径计入。' },
   7011201: { maxHp: 180, summary: '猎魂・野猪按 80 层预估：体力上限 +180。' },
   7011301: { summary: '猎魂・狼按 80 层为攻击速度 +24%，当前不计入技能伤害。' },
   7011401: { summary: '猎魂・野狗按 80 层为吸血-所有伤害 +7%，当前不计入技能伤害。' },
@@ -142,12 +142,12 @@ const TRAIT_EFFECTS = {
   7300101: { extraEffect: 'stardust', summary: '星尘蓄势：3 层后下一次普攻对实验体或召唤物造成 30+等级*2 的额外真实伤害。' },
   7300201: { extraEffect: 'ghostFire', summary: '鬼火：3 秒内造成足量伤害后，5 秒内造成 50+等级*10+额外攻击力70%或技能增幅20% 的真实伤害。' },
   7300301: { extraEffect: 'vortex', summary: '涡流：结束时造成等级*5+额外攻击力80%或技能增幅40% 的技能伤害。' },
-  7310101: { ap: 32, summary: '凝力按当前适性最大值预估：攻击力 0~16 或技能增幅 0~32，本计算器采用技能增幅路径。' },
+  7310101: { extraEffect: 'concentration', summary: '凝力按当前适性最大值预估：攻击力 0~16 或技能增幅 0~32，按实验体主路径计入。' },
   7310201: { summary: '循环系统：技能命中时恢复 10 + 等级 + 体力上限*0.3%，同一技能每秒只适用一次；不影响伤害。' },
-  7310301: { cd: 5, extraEffect: 'overclock', summary: '超频：冷却缩减 +5；冷却缩减超过 40 时攻击力 +5 或技能增幅 +10，本计算器采用技能增幅路径。' },
+  7310301: { cd: 5, extraEffect: 'overclock', summary: '超频：冷却缩减 +5；冷却缩减超过 40 时攻击力 +5 或技能增幅 +10，按实验体主路径计入。' },
   7310401: { penPct: 0.06, summary: '制动力：对敌人实验体造成伤害后 4 秒内防御穿透 +6%，当前按已触发计入。' },
   7310501: { extraEffect: 'rCharger', summary: 'R_echarger：终极技能冷却缩减 +15；使用终极技能后 5 秒内攻击力 +5+等级*0.5 或技能增幅 +10+等级。' },
-  7310601: { extraEffect: 'rapidShot', summary: '急速射击：技能后普攻命中时，5 秒内攻击力 +2+等级*0.5 或技能增幅 +4+等级，并提升攻击速度 15%；当前按技能增幅路径计入。' },
+  7310601: { extraEffect: 'rapidShot', summary: '急速射击：技能后普攻命中时，5 秒内攻击力 +2+等级*0.5 或技能增幅 +4+等级，并提升攻击速度 15%；按实验体主路径计入。' },
   7200101: { extraEffect: 'hyperRegen', summary: '超再生：自身技能或潜能生成的护盾和体力恢复量持续增加 10%；获得护盾或体力恢复效果的目标，5 秒内攻击力 +5+等级*0.5 或技能增幅 +10+等级*1。' },
   7200201: { extraEffect: 'enhancementDevice', summary: '强化装置：使用终极技能时出现强化装置，4.5 秒内给 4m 范围内自身和队友移动速度 +10+等级*0.6%，技能伤害量 +8+等级*0.5%。' },
   7200301: { summary: '治愈装置：自身或 4m 内队友体力低于 40% 承受伤害时出现治愈装置，每秒恢复 3+等级*0.3% 已失体力；重复时治疗效果为 50%。' },
@@ -492,11 +492,11 @@ const WEAPON_TYPE_OPTIONS = [
 
 const TARGETS = [
   { name: '自定义木桩', hp: 1000, defense: 140, defenseReduction: 0, reduction: 0 },
-  { name: '6级全装T', hp: 2080, defense: 131, defenseReduction: 0, reduction: 0, targetMastery: 1 },
-  { name: '15级魔女帽T', hp: 3110, defense: 156, defenseReduction: 0, reduction: 0, targetMastery: 1 },
-  { name: '15级火衣头T', hp: 3160, defense: 166, defenseReduction: 0, reduction: 0, targetMastery: 1 },
-  { name: '20级全装T', hp: 4110, defense: 187, defenseReduction: 0, reduction: 0, targetMastery: 1 },
-  { name: '20级无惧感T', hp: 4110, defense: 212, defenseReduction: 0, reduction: 0, targetMastery: 1 }
+  { name: '6级 T 血量2080 防御131', hp: 2080, defense: 131, defenseReduction: 0, reduction: 0, targetMastery: 1 },
+  { name: '15级 T 血量3110 防御156', hp: 3110, defense: 156, defenseReduction: 0, reduction: 0, targetMastery: 1 },
+  { name: '15级 T 血量3160 防御166', hp: 3160, defense: 166, defenseReduction: 0, reduction: 0, targetMastery: 1 },
+  { name: '20级 T 血量4110 防御187', hp: 4110, defense: 187, defenseReduction: 0, reduction: 0, targetMastery: 1 },
+  { name: '20级 T 血量4110 防御212', hp: 4110, defense: 212, defenseReduction: 0, reduction: 0, targetMastery: 1 }
 ];
 const TARGET_MASTERY_LEVELS = Array.from({ length: 20 }, (_, index) => index + 1);
 
@@ -1010,6 +1010,24 @@ function byName(equipment, name) {
   return equipment.find((item) => item.name === name);
 }
 
+function calculatedTraitBonusSummaryItems(result) {
+  const bonuses = result?.traitBonuses || {};
+  const items = [
+    result?.talentBonusAp ? `法强 +${round(result.talentBonusAp, 1)}` : '',
+    result?.talentBonusAttackPower ? `攻击力 +${round(result.talentBonusAttackPower, 1)}` : '',
+    result?.vampireStackAp ? `吸血鬼满层法强 +${round(result.vampireStackAp, 1)}` : '',
+    result?.vampireStackAttackPower ? `吸血鬼满层攻击 +${round(result.vampireStackAttackPower, 1)}` : '',
+    bonuses.pen ? `防穿 +${round(bonuses.pen, 1)}` : '',
+    bonuses.penPct ? `防穿 ${pct(bonuses.penPct)}` : '',
+    bonuses.cd ? `冷却缩减 +${round(bonuses.cd, 1)}` : '',
+    result?.potentialDamageBonus ? `技伤 +${pct(result.potentialDamageBonus)}` : '',
+    result?.talentBonusDefense ? `防御 +${round(result.talentBonusDefense, 1)}` : '',
+    bonuses.maxHp ? `生命 +${round(bonuses.maxHp, 1)}` : ''
+  ].filter(Boolean);
+
+  return items.length ? items : traitBonusSummaryItems(bonuses);
+}
+
 function basesFor(skill) {
   return String(skill.bases || '')
     .split(',')
@@ -1049,6 +1067,22 @@ function evaluateFormula(formula, context) {
 
 function formulaUsesVariable(formula, variableName) {
   return new RegExp(`\\b${variableName}\\b`).test(String(formula || ''));
+}
+
+function primaryOffensePath({ skills = [], masteryStat = null } = {}) {
+  const hasAttackPowerMastery = masteryOptionValue(masteryStat, 'AttackPower') > 0;
+  const hasBasicAttackMastery = masteryOptionValue(masteryStat, 'IncreaseBasicAttackDamageRatio') > 0;
+  const hasSkillAmpMastery = masteryOptionValue(masteryStat, 'SkillAmpRatio') > 0;
+  const hasAttackMastery = hasAttackPowerMastery || hasBasicAttackMastery;
+  if (hasAttackMastery && !hasSkillAmpMastery) return 'attack';
+  if (hasSkillAmpMastery && !hasAttackMastery) return 'ap';
+
+  const usesAttack = skills.some((skill) => formulaUsesVariable(skill.formula, 'attack'));
+  const usesAp = skills.some((skill) => formulaUsesVariable(skill.formula, 'ap'));
+  if (usesAttack && !usesAp) return 'attack';
+  if (usesAp && !usesAttack) return 'ap';
+
+  return 'ap';
 }
 
 function calculateSkill(skill, level, context) {
@@ -1207,24 +1241,34 @@ function calc({
   const talentDamageBonus = getNumber(traitBonuses.dmgAmp);
   const equipAp = statValue(equipmentStats, 'skillAmp') + statValue(equipmentStats, 'adaptiveForce') || selected.reduce((sum, item) => sum + getNumber(item.ap), 0);
   const equipAttackPower = statValue(equipmentStats, 'attackPower');
-  const stackAp = (vampireFull ? 14 + mastery : 0) + (blazingFull ? 24 : 0) + (magicSeedFull ? 20 : 0);
+  const selectedHeroSkillRows = skillTable.filter((skill) => skill.hero === selectedHero);
+  const offensePath = primaryOffensePath({ skills: selectedHeroSkillRows, masteryStat });
+  const usesAttackPath = offensePath === 'attack';
+  const vampireStackAp = usesAttackPath ? 0 : (vampireFull ? 30 + mastery : 0);
+  const vampireStackAttackPower = usesAttackPath && vampireFull ? 15 + mastery * 0.5 : 0;
+  const stackAp = vampireStackAp + (blazingFull ? 24 : 0) + (magicSeedFull ? 20 : 0);
+  const stackAttackPower = vampireStackAttackPower;
   const stackCd = magicSeedFull ? 20 : 0;
   const cd = (statValue(equipmentStats, 'cooldownReduction') || selected.reduce((sum, item) => sum + getNumber(item.cd), 0)) + stackCd + getNumber(traitBonuses.cd);
-  const rapidShotAp = activeTraitEffectIds.has('rapidShot') ? 4 + mastery : 0;
-  const rChargerAp = activeTraitEffectIds.has('rCharger') ? 10 + mastery : 0;
-  const overclockAp = activeTraitEffectIds.has('overclock') && cd >= 40 ? 10 : 0;
-  const selectedHeroSkillRows = skillTable.filter((skill) => skill.hero === selectedHero);
-  const heroUsesApScaling = selectedHeroSkillRows.some((skill) => formulaUsesVariable(skill.formula, 'ap'));
-  const heroUsesAttackScaling = selectedHeroSkillRows.some((skill) => formulaUsesVariable(skill.formula, 'attack'));
-  const hyperRegenUsesAttack = activeTraitEffectIds.has('hyperRegen') && heroUsesAttackScaling && !heroUsesApScaling;
-  const hyperRegenAp = activeTraitEffectIds.has('hyperRegen') && !hyperRegenUsesAttack ? 10 + mastery : 0;
-  const hyperRegenAttackPower = hyperRegenUsesAttack ? 5 + mastery * 0.5 : 0;
-  const talentBonusAp = getNumber(traitBonuses.ap) + rapidShotAp + rChargerAp + overclockAp + hyperRegenAp;
-  const talentBonusAttackPower = hyperRegenAttackPower;
+  const concentrationAp = activeTraitEffectIds.has('concentration') && !usesAttackPath ? 32 : 0;
+  const concentrationAttackPower = activeTraitEffectIds.has('concentration') && usesAttackPath ? 16 : 0;
+  const huntBearAp = activeTraitEffectIds.has('huntBear') && !usesAttackPath ? 20 : 0;
+  const huntBearAttackPower = activeTraitEffectIds.has('huntBear') && usesAttackPath ? 10 : 0;
+  const rapidShotAp = activeTraitEffectIds.has('rapidShot') && !usesAttackPath ? 4 + mastery : 0;
+  const rapidShotAttackPower = activeTraitEffectIds.has('rapidShot') && usesAttackPath ? 2 + mastery * 0.5 : 0;
+  const rChargerAp = activeTraitEffectIds.has('rCharger') && !usesAttackPath ? 10 + mastery : 0;
+  const rChargerAttackPower = activeTraitEffectIds.has('rCharger') && usesAttackPath ? 5 + mastery * 0.5 : 0;
+  const overclockAp = activeTraitEffectIds.has('overclock') && cd >= 40 && !usesAttackPath ? 10 : 0;
+  const overclockAttackPower = activeTraitEffectIds.has('overclock') && cd >= 40 && usesAttackPath ? 5 : 0;
+  const hyperRegenAp = activeTraitEffectIds.has('hyperRegen') && !usesAttackPath ? 10 + mastery : 0;
+  const hyperRegenAttackPower = activeTraitEffectIds.has('hyperRegen') && usesAttackPath ? 5 + mastery * 0.5 : 0;
+  const talentBonusAp = getNumber(traitBonuses.ap) + concentrationAp + huntBearAp + rapidShotAp + rChargerAp + overclockAp + hyperRegenAp;
+  const talentBonusAttackPower = concentrationAttackPower + huntBearAttackPower + rapidShotAttackPower + rChargerAttackPower + overclockAttackPower + hyperRegenAttackPower;
   const pen = statValue(equipmentStats, 'penetrationDefense') + statValue(equipmentStats, 'uniquePenetrationDefense') + talentPen || selected.reduce((sum, item) => sum + getNumber(item.pen), 0) + talentPen;
   const penPct = statValue(equipmentStats, 'penetrationDefenseRatio') + statValue(equipmentStats, 'uniquePenetrationDefenseRatio') + talentPenPct || selected.reduce((sum, item) => sum + getNumber(item.penPct), 0) + talentPenPct;
   const dynamicTraitDefense = activeTraitEffectIds.has('diamondShard') ? 20 + mastery * 5 : 0;
-  const equipDefense = (statValue(equipmentStats, 'defense') || selected.reduce((sum, item) => sum + getNumber(item.defense), 0)) + getNumber(traitBonuses.defense) + dynamicTraitDefense;
+  const talentBonusDefense = getNumber(traitBonuses.defense) + dynamicTraitDefense;
+  const equipDefense = (statValue(equipmentStats, 'defense') || selected.reduce((sum, item) => sum + getNumber(item.defense), 0)) + talentBonusDefense;
   const extraHp = statValue(equipmentStats, 'maxHp') + getNumber(traitBonuses.maxHp);
   const normalApPct = 0;
   const uniqueApPct = Math.max(statValue(equipmentStats, 'uniqueSkillAmpRatio'), ...selected.filter((item) => item.uniqueApPct).map((item) => getNumber(item.apPct)));
@@ -1233,7 +1277,7 @@ function calc({
   ), 0);
   const masteryApPct = mastery * masteryOptionValue(masteryStat, 'SkillAmpRatio');
   const masteryAttackPower = mastery * masteryOptionValue(masteryStat, 'AttackPower');
-  const extraAttackPower = equipAttackPower + masteryAttackPower + talentBonusAttackPower;
+  const extraAttackPower = equipAttackPower + masteryAttackPower + talentBonusAttackPower + stackAttackPower;
   const totalApPct = normalApPct + uniqueApPct + masteryApPct;
   const totalBaseAp = equipAp + talentAp + talentBonusAp + stackAp;
   const apRaw = totalBaseAp * (1 + totalApPct);
@@ -1241,7 +1285,8 @@ function calc({
   const finalDefense = target.defense * (1 - target.defenseReduction) * (1 - penPct) - pen;
   const defenseMod = 100 / (100 + finalDefense);
   const enhancementDeviceDamageBonus = activeTraitEffectIds.has('enhancementDevice') ? 0.08 + mastery * 0.005 : 0;
-  const totalDamageBonus = damageBonus + equipDamageBonus + talentDamageBonus + enhancementDeviceDamageBonus;
+  const potentialDamageBonus = talentDamageBonus + enhancementDeviceDamageBonus;
+  const totalDamageBonus = damageBonus + equipDamageBonus + potentialDamageBonus;
   const targetMasteryLevel = Math.max(1, Math.min(20, getNumber(targetMastery) || 1));
   const targetMasterySkillReduction = targetMasteryLevel <= 1 ? 0 : targetMasteryLevel * 0.008;
   const targetMasteryBasicReduction = targetMasteryLevel <= 1 ? 0 : targetMasteryLevel * 0.01;
@@ -1249,7 +1294,7 @@ function calc({
   const damageMod = 1 + totalDamageBonus - target.reduction - totalSkillReduction;
   const finalMod = defenseMod * damageMod;
   const stackCount = Math.min(4, Math.max(0, r2Stacks));
-  const context = { ap, attack: attack + equipAttackPower + masteryAttackPower + talentBonusAttackPower, extraAttack: extraAttackPower, targetHp: target.hp, stacks: stackCount, finalMod };
+  const context = { ap, attack: attack + equipAttackPower + masteryAttackPower + talentBonusAttackPower + stackAttackPower, extraAttack: extraAttackPower, targetHp: target.hp, stacks: stackCount, finalMod };
   const heroSkills = selectedHeroSkillRows
     .map((skill) => calculateSkill(skill, skillLevels[skill.id], context));
   const hpDiffRatio = Math.min(0.4, Math.max(0.1, (target.hp - selfHp) / selfHp));
@@ -1335,7 +1380,12 @@ function calc({
     talentAp,
     talentBonusAp,
     talentBonusAttackPower,
+    talentBonusDefense,
+    potentialDamageBonus,
+    vampireStackAp,
+    vampireStackAttackPower,
     stackAp,
+    stackAttackPower,
     stackCd,
     selectedTalents: selectedTraits,
     traitBonuses,
@@ -1348,6 +1398,7 @@ function calc({
     uniqueApPct,
     masteryApPct,
     masteryStat,
+    offensePath,
     totalApPct,
     totalBaseAp,
     ap,
@@ -2162,7 +2213,7 @@ export default function App() {
   const heroUsesApScaling = result.skills.some((skill) => formulaUsesVariable(skill.formula, 'ap'));
   const heroUsesAttackScaling = result.skills.some((skill) => formulaUsesVariable(skill.formula, 'attack'));
   const showApFormulaStats = heroUsesApScaling || (!heroUsesApScaling && !heroUsesAttackScaling);
-  const finalAttack = attack + result.equipAttackPower + result.masteryAttackPower + result.talentBonusAttackPower;
+  const finalAttack = attack + result.equipAttackPower + result.masteryAttackPower + result.talentBonusAttackPower + result.stackAttackPower;
   const formulaSummaryStats = [
     showApFormulaStats ? `最终法强 ${result.ap}` : '',
     heroUsesAttackScaling ? `最终攻击 ${round(finalAttack, 1)}` : ''
@@ -2436,7 +2487,7 @@ export default function App() {
     setTraitSelection(normalizeTraitSelection(DEFAULT_TRAIT_SELECTION));
   }
 
-  const traitSummaryItems = traitBonusSummaryItems(result.traitBonuses);
+  const traitSummaryItems = calculatedTraitBonusSummaryItems(result);
   const primaryGroup = ACTIVE_TRAIT_GROUPS.find((group) => group.key === traitSelection.group);
   const secondaryGroup = ACTIVE_TRAIT_GROUPS.find((group) => group.key === traitSelection.secondaryGroup);
   const traitSelectionSlots = [
@@ -3173,7 +3224,7 @@ export default function App() {
             </div>
             <div>
               <span>攻击力</span>
-              <strong>{attack + result.equipAttackPower + result.masteryAttackPower}</strong>
+              <strong>{round(finalAttack, 1)}</strong>
             </div>
             <div>
               <span>防穿</span>
@@ -3293,8 +3344,8 @@ export default function App() {
       </section>
 
       <section className="damageLayout">
-        <div className="panel damagePanel skillDamagePanel">
-          <div className="panelHead">
+        <details className="panel damagePanel skillDamagePanel" open>
+          <summary className="effectToggle">
             <div>
               <p className="eyebrow">Skills</p>
               <h2>{selectedHero} 技能伤害</h2>
@@ -3313,7 +3364,7 @@ export default function App() {
                 ))}
               </div>
             ) : null}
-          </div>
+          </summary>
           <div className="skillMainGrid">
             {SKILL_MAIN_SLOTS.map(renderSkillMainColumn)}
             {!result.skills.length ? (
@@ -3321,7 +3372,7 @@ export default function App() {
             ) : null}
           </div>
           {renderPassiveSkillRow()}
-        </div>
+        </details>
 
         <div className={`panel damagePanel effectsPanel ${effectsCollapsed ? 'collapsed' : ''}`}>
           <button type="button" className="effectToggle" onClick={() => setEffectsCollapsed((current) => !current)}>
@@ -3435,7 +3486,7 @@ export default function App() {
               <StatCard label="基础攻击" value={attack} hint={`角色等级成长后攻击力`} note={help('equipment.attackPower')} />
               <StatCard label="装备攻击" value={result.equipAttackPower} hint="当前装备攻击力合计" note={help('equipment.attackPower')} />
               <StatCard label="熟练度攻击" value={round(result.masteryAttackPower, 1)} hint={selectedMasterySummary.join(' / ') || '当前武器无攻击力熟练度'} note={help('field.mastery')} />
-              <StatCard label="最终攻击" value={round(finalAttack, 1)} hint={`${round(attack, 1)} + ${round(result.equipAttackPower, 1)} + ${round(result.masteryAttackPower, 1)} + ${round(result.talentBonusAttackPower, 1)}`} note={help('equipment.attackPower')} />
+              <StatCard label="最终攻击" value={round(finalAttack, 1)} hint={`${round(attack, 1)} + ${round(result.equipAttackPower, 1)} + ${round(result.masteryAttackPower, 1)} + ${round(result.talentBonusAttackPower, 1)} + ${round(result.stackAttackPower, 1)}`} note={help('equipment.attackPower')} />
             </>
           ) : null}
         </div>
@@ -3453,7 +3504,7 @@ export default function App() {
             <button type="button" onClick={addEquipment}>新增装备</button>
             <button type="button" onClick={addSkill}>新增技能</button>
             <button type="button" onClick={addCombo}>新增连段</button>
-            <button type="button" className="helpSaveButton" onClick={saveConfig} disabled={!configDirty || configSaveStatus === 'saving'}>
+            <button type="button" className="helpSaveButton" onClick={saveConfig} disabled={configSaveStatus === 'saving'}>
               {configSaveStatus === 'saving' ? '保存中' : '保存配置到本地'}
             </button>
             <button type="button" className="helpSaveButton" onClick={exportCurrentConfig} disabled={configSaveStatus === 'exporting'}>
