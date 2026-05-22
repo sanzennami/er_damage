@@ -11,7 +11,7 @@ import DAK_LOADOUT_ASSETS from './data/dakLoadoutAssets.json';
 import DAK_ITEM_SKILL_ICONS from './data/dakItemSkillIcons.json';
 import MASTERY_STATS from './data/masteryStats.json';
 
-const APP_VERSION = 'v0.1.045';
+const APP_VERSION = 'v0.1.046';
 
 const CHARACTER_IMAGE_URLS = import.meta.glob('../assets/characters/*.png', {
   eager: true,
@@ -67,6 +67,7 @@ const QUALITY_RANK = {
   红: 5
 };
 const QUALITY_OPTIONS = ['普通', '高级', '稀有', '英雄', '传说', '神话'];
+const TACTICAL_SKILL_OPTIONS = ['震裂', '违规者', '斥力弹', '阔步者', '实刃', '等离子冲击', '其他'];
 const MASTERY_STAT_LABELS = {
   AttackPower: '攻击力',
   AttackSpeedRatio: '攻击速度',
@@ -419,6 +420,10 @@ const HEROES_WITH_SKILL_DAMAGE = new Set(
     .filter((skill) => basesFor(skill).length)
     .map((skill) => skill.hero)
 );
+const OFFICIAL_DATA_COUNTS = {
+  characters: ER_GAME_DATA.characters?.length || ER_GAME_DATA.counts?.characters || 0,
+  calculableSkills: INITIAL_SKILLS.filter((skill) => basesFor(skill).length).length
+};
 const DEFAULT_COMBOS = [
   { id: 'yumin-q3', hero: '俞岷', title: 'Q 三跳全中', note: '工作簿 Q*3', hits: { 'yumin-q': 3 } },
   { id: 'yumin-eq4', hero: '俞岷', title: 'EQ 四跳全中', note: '工作簿 EQ*4', hits: { 'yumin-eq': 4 } },
@@ -956,6 +961,60 @@ function scaledSkillDamage(skill, finalMod, { scale = 1, hits = 1 } = {}) {
   };
 }
 
+function tacticalDamageResult(title, rawValue, finalMod, note, damageType = 'skill') {
+  const raw = damageFloor(rawValue);
+  return {
+    title,
+    raw,
+    value: damageType === 'true' ? raw : damageFloor(raw * finalMod),
+    note: `${note}${damageType === 'true' ? '，真实伤害' : '，技能伤害'}`
+  };
+}
+
+function calculateTacticalSkillEffect({ name, upgraded, level, extraHp, targetHp, finalMod }) {
+  const heroLevel = Math.max(1, Math.min(20, getNumber(level) || 1));
+  const bonusHp = Math.max(0, getNumber(extraHp));
+  const targetMaxHp = Math.max(0, getNumber(targetHp));
+  const isUpgraded = Boolean(upgraded);
+
+  switch (name) {
+    case '震裂': {
+      const initial = (isUpgraded ? 100 : 50) + heroLevel * 10 + bonusHp * 0.1;
+      const tick = 10 + heroLevel * 2 + bonusHp * 0.025;
+      const ticks = isUpgraded ? 12 : 0;
+      const raw = initial + tick * ticks;
+      const note = isUpgraded
+        ? `100 + 等级*10 + 额外体力10%；持续6秒共${ticks}跳，每跳10 + 等级*2 + 额外体力2.5%`
+        : '50 + 等级*10 + 额外体力10%';
+      return tacticalDamageResult('震裂F', raw, finalMod, note);
+    }
+    case '违规者': {
+      const raw = (isUpgraded ? heroLevel * 8 + targetMaxHp * 0.09 : heroLevel * 5 + targetMaxHp * 0.07);
+      return tacticalDamageResult('违规者F', raw, finalMod, isUpgraded ? '等级*8 + 目标体力上限9%' : '等级*5 + 目标体力上限7%', 'true');
+    }
+    case '斥力弹': {
+      const missiles = isUpgraded ? 8 : 5;
+      const perMissile = 10 + heroLevel + targetMaxHp * 0.006;
+      return tacticalDamageResult('斥力弹F', perMissile * missiles, finalMod, `${missiles}枚导弹，每枚10 + 等级*1 + 目标体力上限0.6%`, 'true');
+    }
+    case '阔步者': {
+      const raw = isUpgraded ? 150 + heroLevel * 10 : 100 + heroLevel * 5;
+      return tacticalDamageResult('阔步者F', raw, finalMod, isUpgraded ? '150 + 等级*10' : '100 + 等级*5');
+    }
+    case '实刃': {
+      const base = 140 + heroLevel * 20;
+      const extra = isUpgraded ? 50 + heroLevel * 10 : 0;
+      return tacticalDamageResult('实刃F', base + extra, finalMod, isUpgraded ? '140 + 等级*20；升级额外50 + 等级*10' : '140 + 等级*20');
+    }
+    case '等离子冲击': {
+      const raw = isUpgraded ? 150 + heroLevel * 10 : 120 + heroLevel * 5;
+      return tacticalDamageResult('等离子冲击F', raw, finalMod, isUpgraded ? '150 + 等级*10；命中后5秒内防御力降低10%' : '120 + 等级*5');
+    }
+    default:
+      return null;
+  }
+}
+
 function coefficientAtLevel(formula, variableName, level) {
   const source = String(formula || '');
   const arrayAfterVariable = source.match(new RegExp(`${variableName}\\s*\\*\\s*(\\[[^\\]]+\\])\\s*\\[\\s*level\\s*-\\s*1\\s*\\]`));
@@ -1017,7 +1076,8 @@ function calc({
   damageBonus,
   skillReduction,
   r2Stacks,
-  burstFollowUp,
+  tacticalSkill,
+  tacticalUpgraded,
   vampireFull,
   blazingFull,
   magicSeedFull,
@@ -1038,6 +1098,7 @@ function calc({
   const pen = statValue(equipmentStats, 'penetrationDefense') + statValue(equipmentStats, 'uniquePenetrationDefense') + talentPen || selected.reduce((sum, item) => sum + getNumber(item.pen), 0) + talentPen;
   const penPct = statValue(equipmentStats, 'penetrationDefenseRatio') + statValue(equipmentStats, 'uniquePenetrationDefenseRatio') + talentPenPct || selected.reduce((sum, item) => sum + getNumber(item.penPct), 0) + talentPenPct;
   const equipDefense = (statValue(equipmentStats, 'defense') || selected.reduce((sum, item) => sum + getNumber(item.defense), 0)) + getNumber(traitBonuses.defense);
+  const extraHp = statValue(equipmentStats, 'maxHp') + getNumber(traitBonuses.maxHp);
   const normalApPct = 0;
   const uniqueApPct = Math.max(statValue(equipmentStats, 'uniqueSkillAmpRatio'), ...selected.filter((item) => item.uniqueApPct).map((item) => getNumber(item.apPct)));
   const equipDamageBonus = selected.reduce((sum, item) => sum + getNumber(item.dmgAmp), 0);
@@ -1076,10 +1137,18 @@ function calc({
       : null
   ].filter(Boolean);
   const ghostFire = 250 + ap * 0.2;
-  const repelF = 5 * (10 + mastery) + target.hp * 0.006 + (burstFollowUp ? 3 * (10 + mastery) : 0);
   if (activeTraitEffectIds.has('ghostFire')) {
     effects.push({ title: '鬼火(真伤)', raw: damageFloor(ghostFire), value: damageFloor(ghostFire), note: '250 + 法强 * 20%' });
   }
+  const tacticalEffect = calculateTacticalSkillEffect({
+    name: tacticalSkill,
+    upgraded: tacticalUpgraded,
+    level: mastery,
+    extraHp,
+    targetHp: target.hp,
+    finalMod
+  });
+  if (tacticalEffect) effects.push(tacticalEffect);
   const effectSubtotalRaw = effects.reduce((sum, effect) => sum + effect.raw, 0);
   const effectSubtotal = effects.reduce((sum, effect) => sum + effect.value, 0);
   const comboSkills = skillTable
@@ -1118,6 +1187,7 @@ function calc({
     pen,
     penPct,
     equipDefense,
+    extraHp,
     normalApPct,
     uniqueApPct,
     masteryApPct,
@@ -1144,7 +1214,7 @@ function calc({
     effectSubtotalRaw,
     effectSubtotal,
     ghostFire,
-    repelF: damageFloor(repelF),
+    tacticalEffect,
     comboRows,
     extraHeroGroups
   };
@@ -1649,7 +1719,8 @@ export default function App() {
   const [damageBonus, setDamageBonus] = useState(0);
   const [skillReduction, setSkillReduction] = useState(0);
   const [r2Stacks, setR2Stacks] = useState(1);
-  const [burstFollowUp, setBurstFollowUp] = useState(true);
+  const [tacticalSkill, setTacticalSkill] = useState('斥力弹');
+  const [tacticalUpgraded, setTacticalUpgraded] = useState(true);
   const [vampireFull, setVampireFull] = useState(false);
   const [blazingFull, setBlazingFull] = useState(false);
   const [magicSeedFull, setMagicSeedFull] = useState(false);
@@ -1854,14 +1925,15 @@ export default function App() {
       damageBonus,
       skillReduction,
       r2Stacks,
-      burstFollowUp,
+      tacticalSkill,
+      tacticalUpgraded,
       vampireFull: effectiveVampireFull,
       blazingFull: effectiveBlazingFull,
       magicSeedFull: effectiveMagicSeedFull,
       selectedHero,
       combos
     }),
-    [equipment, skills, skillLevels, gear, mastery, selectedMasteryStat, attack, talentAp, traitBonuses, selectedTraits, target, targetMastery, selfHp, damageBonus, skillReduction, r2Stacks, burstFollowUp, effectiveVampireFull, effectiveBlazingFull, effectiveMagicSeedFull, selectedHero, combos]
+    [equipment, skills, skillLevels, gear, mastery, selectedMasteryStat, attack, talentAp, traitBonuses, selectedTraits, target, targetMastery, selfHp, damageBonus, skillReduction, r2Stacks, tacticalSkill, tacticalUpgraded, effectiveVampireFull, effectiveBlazingFull, effectiveMagicSeedFull, selectedHero, combos]
   );
   const heroWeaponOptions = WEAPON_TYPE_OPTIONS.filter((type) => {
     if (type === '全部类型') return true;
@@ -2676,6 +2748,12 @@ export default function App() {
                     </select>
                   </label>
                 ))}
+                <label className="selectBlock">
+                  <LabelWithHelp note={help('select.tacticalSkill')}>战术技能选择</LabelWithHelp>
+                  <select value={tacticalSkill} onChange={(event) => setTacticalSkill(event.target.value)}>
+                    {TACTICAL_SKILL_OPTIONS.map((name) => <option value={name} key={name}>{name}</option>)}
+                  </select>
+                </label>
                 <Field label="熟练度等级" value={mastery} onChange={setMastery} min={1} max={20} note={help('field.mastery')} />
                 <Field label="手动潜能法强" value={talentAp} onChange={setTalentAp} note={help('field.talentAp')} />
               </div>
@@ -2726,8 +2804,8 @@ export default function App() {
               </label>
             ) : null}
             <label className="toggle">
-              <input type="checkbox" checked={burstFollowUp} onChange={(event) => setBurstFollowUp(event.target.checked)} />
-              <span>斥力弹升级</span>
+              <input type="checkbox" checked={tacticalUpgraded} onChange={(event) => setTacticalUpgraded(event.target.checked)} />
+              <span>战术技能升级</span>
             </label>
           </div>
           </div>
@@ -2823,7 +2901,7 @@ export default function App() {
               <p className="eyebrow">ER GameData</p>
               <h2>{selectedCharacter.name} 官方数据</h2>
             </div>
-            <span className="pill">{ER_GAME_DATA.counts.characters} 名角色 / {ER_GAME_DATA.counts.calculableSkills} 条可计算技能</span>
+            <span className="pill">{OFFICIAL_DATA_COUNTS.characters} 名角色 / {OFFICIAL_DATA_COUNTS.calculableSkills} 条可计算技能</span>
           </summary>
           <div className="sourceBody">
             <div className="sourceGrid">
@@ -2955,24 +3033,17 @@ export default function App() {
             )) : (
               <div className="damageRow compactDamageRow">
                 <div>
-                  <strong>暂无潜能特效</strong>
-                  <span>选择伤痕、伤口撕裂或鬼火后显示</span>
+                  <strong>暂无附加伤害</strong>
+                  <span>选择可造成伤害的潜能或战术技能后显示</span>
                 </div>
               </div>
             )}
             <div className="damageRow compactDamageRow highlight">
               <div>
                 <strong>特效小计</strong>
-                <span>当前潜能附加效果</span>
+                <span>当前潜能与战术技能附加效果</span>
               </div>
               <DamageValue raw={result.effectSubtotalRaw} final={result.effectSubtotal} />
-            </div>
-            <div className="damageRow compactDamageRow">
-              <div>
-                <strong>斥力弹F</strong>
-                <span>5段 + 勾选后升级段数</span>
-              </div>
-              <DamageValue raw={result.repelF} final={result.repelF} />
             </div>
           </div>
           ) : null}
