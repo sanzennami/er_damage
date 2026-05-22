@@ -30,6 +30,11 @@ const LOADOUT_IMAGE_URLS = import.meta.glob('../assets/loadout/**/*.png', {
   import: 'default',
   query: '?url'
 });
+const EQUIPMENT_ICON_URLS = import.meta.glob('../assets/game-icons/equipment/**/*.png', {
+  eager: true,
+  import: 'default',
+  query: '?url'
+});
 
 const QUALITY_COLORS = {
   普通: '#f6f2e8',
@@ -877,6 +882,19 @@ function loadoutImageSrc(source) {
   if (!source) return '';
   const normalized = source.replace(/^\/assets\/loadout\//, '../assets/loadout/');
   return LOADOUT_IMAGE_URLS[normalized] || source;
+}
+
+const EQUIPMENT_ICON_BY_CODE = new Map(
+  (DAK_ITEM_SKILL_ICONS.equipment || [])
+    .filter((entry) => entry && entry.image)
+    .map((entry) => [entry.id, entry.image])
+);
+
+function equipmentIconSrc(item) {
+  const path = item && EQUIPMENT_ICON_BY_CODE.get(item.code);
+  if (!path) return '';
+  const normalized = path.replace(/^\/assets\//, '../assets/');
+  return EQUIPMENT_ICON_URLS[normalized] || '';
 }
 
 function weaponTypeRaw(item) {
@@ -1874,6 +1892,9 @@ export default function App() {
   const [showDamageTestHeroes, setShowDamageTestHeroes] = useState(false);
   const [uiTheme, setUiTheme] = useState(() => loadAppSettings().uiTheme || 'night');
   const [heroAvatarQuery, setHeroAvatarQuery] = useState('');
+  const [heroModalOpen, setHeroModalOpen] = useState(false);
+  const [itemPickerSlot, setItemPickerSlot] = useState(null);
+  const [itemPickerQuery, setItemPickerQuery] = useState('');
   const [showLowerTierEquipment, setShowLowerTierEquipment] = useState(false);
   const [visibleStatKeys, setVisibleStatKeys] = useState(DEFAULT_VISIBLE_STAT_KEYS);
   const [skillLevels, setSkillLevels] = useState(() => Object.fromEntries(INITIAL_SKILLS.map((skill) => [skill.id, skill.maxLevel])));
@@ -2721,14 +2742,19 @@ export default function App() {
   return (
     <main>
       <section className="hero">
-        <div className="heroPanel heroIdentity">
+        <button
+          type="button"
+          className="heroPanel heroIdentity"
+          onClick={() => { setHeroAvatarQuery(''); setHeroModalOpen(true); }}
+          aria-label="切换实验体"
+        >
           {selectedCharacter ? (
             <img src={characterImageSrc(selectedCharacter)} alt={selectedCharacter.name} onError={(event) => { event.currentTarget.style.display = 'none'; }} />
           ) : null}
-          <span>当前实验体</span>
+          <span>当前实验体 · 点击切换</span>
           <strong>{selectedHero}</strong>
           <small>{selectedCharacter ? selectedCharacter.englishName : '手动配置实验体'}</small>
-        </div>
+        </button>
         <div className="heroIntroBlock">
           <div className="heroTitleLine">
             <h1>永恒轮回伤害计算器</h1>
@@ -2753,14 +2779,14 @@ export default function App() {
             <div className="heroPickerTop">
               <label className="selectBlock">
                 <LabelWithHelp note={help('select.hero')}>实验体</LabelWithHelp>
-                <select
-                  value={selectedHero}
-                  onChange={(event) => setSelectedHero(event.target.value)}
+                <button
+                  type="button"
+                  className="heroSelectButton"
+                  onClick={() => { setHeroAvatarQuery(''); setHeroModalOpen(true); }}
                 >
-                  {visibleHeroNames.map((hero) => (
-                    <option value={hero} key={hero}>{hero}</option>
-                  ))}
-                </select>
+                  <span>{selectedHero}</span>
+                  <span className="heroSelectChevron">▾</span>
+                </button>
               </label>
               <div className="globalSettingsAnchor">
                 <button
@@ -2850,6 +2876,97 @@ export default function App() {
         />
       ) : null}
 
+      {heroModalOpen ? (
+        <div className="pickerShroud" onClick={() => setHeroModalOpen(false)}>
+          <div className="pickerModal" onClick={(event) => event.stopPropagation()}>
+            <div className="pickerHead">
+              <span className="pickerTitle">选择实验体</span>
+              <input
+                type="search"
+                className="pickerSearch"
+                value={heroAvatarQuery}
+                onChange={(event) => setHeroAvatarQuery(event.target.value)}
+                placeholder="搜索实验体"
+                autoFocus
+              />
+              <button type="button" className="pickerClose" onClick={() => setHeroModalOpen(false)} aria-label="关闭">×</button>
+            </div>
+            <div className="pickerBody">
+              <div className="pickerGrid">
+                {filteredHeroPickerOptions.map(({ name, character }) => (
+                  <button
+                    type="button"
+                    className={`pickerItem ${name === selectedHero ? 'active' : ''}`}
+                    key={name}
+                    onClick={() => { setSelectedHero(name); setHeroModalOpen(false); }}
+                  >
+                    {character ? (
+                      <img src={characterImageSrc(character)} alt="" onError={(event) => { event.currentTarget.style.display = 'none'; }} />
+                    ) : (
+                      <span className="pickerItemFallback">{name.slice(0, 1)}</span>
+                    )}
+                    <span className="pickerItemName">{name}</span>
+                  </button>
+                ))}
+                {!filteredHeroPickerOptions.length ? <p className="pickerEmpty">未找到实验体</p> : null}
+              </div>
+            </div>
+          </div>
+        </div>
+      ) : null}
+
+      {itemPickerSlot ? (() => {
+        const query = itemPickerQuery.trim().toLowerCase();
+        const choices = (builderChoicesBySlot[itemPickerSlot] || []).filter((item) => {
+          if (!query) return true;
+          return `${item.name} ${item.weaponType || ''} ${item.quality || ''}`.toLowerCase().includes(query);
+        });
+        return (
+          <div className="pickerShroud" onClick={() => setItemPickerSlot(null)}>
+            <div className="pickerModal" onClick={(event) => event.stopPropagation()}>
+              <div className="pickerHead">
+                <span className="pickerTitle">{itemPickerSlot}</span>
+                <input
+                  type="search"
+                  className="pickerSearch"
+                  value={itemPickerQuery}
+                  onChange={(event) => setItemPickerQuery(event.target.value)}
+                  placeholder="搜索装备"
+                  autoFocus
+                />
+                <button type="button" className="pickerClose" onClick={() => setItemPickerSlot(null)} aria-label="关闭">×</button>
+              </div>
+              <div className="pickerBody">
+                <div className="pickerGrid">
+                  {choices.map((item) => {
+                    const iconSrc = equipmentIconSrc(item);
+                    return (
+                      <button
+                        type="button"
+                        className={`pickerItem ${item.name === gear[itemPickerSlot] ? 'active' : ''}`}
+                        key={`${item.type}-${item.name}`}
+                        title={stripMarkup(itemTooltip(item))}
+                        onClick={() => { updateGear(itemPickerSlot, item.name); setItemPickerSlot(null); }}
+                      >
+                        {iconSrc ? (
+                          <img src={iconSrc} alt="" onError={(event) => { event.currentTarget.style.display = 'none'; }} />
+                        ) : (
+                          <span className="pickerItemFallback">{item.name.slice(0, 1)}</span>
+                        )}
+                        <span className="pickerItemName" style={{ color: qualityColor(item.quality, uiTheme) }}>
+                          {itemPickerSlot === '武器' ? `${item.name} / ${item.weaponType || '未设置'}` : item.name}
+                        </span>
+                      </button>
+                    );
+                  })}
+                  {!choices.length ? <p className="pickerEmpty">未找到装备</p> : null}
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      })() : null}
+
       <section className="grid twoColumns buildTargetGrid">
         <div className={`buildArea ${useHeroAvatarPicker ? 'hasHeroAvatarRail' : ''}`}>
           {renderHeroAvatarPicker('floatingHeroAvatarPicker')}
@@ -2900,7 +3017,34 @@ export default function App() {
           ) : null}
           <div className="buildControlLayout">
             <div>
-              <div className="gearGrid">
+              <div className="gearCardGrid">
+                {SLOTS.map((slot) => {
+                  const equippedItem = byName(equipment, gear[slot]);
+                  const iconSrc = equipmentIconSrc(equippedItem);
+                  return (
+                    <button
+                      type="button"
+                      className="gearCard"
+                      key={slot}
+                      onClick={() => { setItemPickerQuery(''); setItemPickerSlot(slot); }}
+                      title={equippedItem ? stripMarkup(itemTooltip(equippedItem)) : slot}
+                    >
+                      <span className="gearCardSlot">{slot}</span>
+                      <span className="gearCardIcon">
+                        {iconSrc ? (
+                          <img src={iconSrc} alt="" onError={(event) => { event.currentTarget.style.display = 'none'; }} />
+                        ) : (
+                          <span className="gearCardIconFallback">{gear[slot]?.slice(0, 1) || slot.slice(0, 1)}</span>
+                        )}
+                      </span>
+                      <span className="gearCardName" style={{ color: qualityColor(equippedItem?.quality, uiTheme) }}>
+                        {gear[slot]}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+              <div className="formGrid gearMetaGrid">
                 <label className="selectBlock">
                   <LabelWithHelp note={help('select.weaponType')}>武器类型</LabelWithHelp>
                   <select value={weaponTypeFilter} onChange={(event) => updateWeaponType(event.target.value)}>
@@ -2908,23 +3052,6 @@ export default function App() {
                     {heroWeaponOptions.filter((type) => type !== '全部类型').map((type) => <option value={type} key={type}>{type}</option>)}
                   </select>
                 </label>
-                {SLOTS.map((slot) => (
-                  <label className="selectBlock" key={slot}>
-                    <LabelWithHelp note={help('equipment.type')}>{slot}</LabelWithHelp>
-                    <select
-                      className="qualitySelect"
-                      value={gear[slot]}
-                      style={{ color: qualityColor(byName(equipment, gear[slot])?.quality, uiTheme) }}
-                      onChange={(event) => updateGear(slot, event.target.value)}
-                    >
-                      {builderChoicesBySlot[slot].map((item) => (
-                        <option value={item.name} key={`${item.type}-${item.name}`} style={{ color: qualityColor(item.quality, uiTheme) }}>
-                          {slot === '武器' ? `${item.name} / ${item.weaponType || '未设置'}` : item.name}
-                        </option>
-                      ))}
-                    </select>
-                  </label>
-                ))}
                 <label className="selectBlock">
                   <LabelWithHelp note={help('select.tacticalSkill')}>战术技能选择</LabelWithHelp>
                   <select value={tacticalSkill} onChange={(event) => setTacticalSkill(event.target.value)}>

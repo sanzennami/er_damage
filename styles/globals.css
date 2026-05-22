@@ -2740,6 +2740,387 @@ td:last-child input {
 }
 
 /* ============================================================================
+   HERO IDENTITY (clickable trigger)
+   ============================================================================ */
+
+.heroIdentity {
+  cursor: pointer;
+  font: inherit;
+  text-transform: none;
+  letter-spacing: normal;
+  width: 100%;
+  transition: border-color var(--dur-base) var(--ease-out);
+}
+
+.heroIdentity:hover {
+  border-color: var(--border-cyan);
+  background: var(--panel-1);
+}
+
+.heroIdentity:hover img {
+  box-shadow: 0 0 24px var(--cyan-glow);
+}
+
+/* ============================================================================
+   HERO SELECT BUTTON (replaces dropdown)
+   ============================================================================ */
+
+.heroSelectButton {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--border-hairline);
+  background: var(--surface-input);
+  color: var(--fg-1);
+  font-family: var(--font-mono);
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: normal;
+  text-transform: none;
+}
+
+.heroSelectButton:hover {
+  border-color: var(--border-cyan);
+  background: var(--surface-input);
+  color: var(--cyan);
+}
+
+.heroSelectChevron {
+  color: var(--cyan);
+  font-size: 11px;
+  flex: 0 0 auto;
+}
+
+/* ============================================================================
+   GEAR CARD GRID
+   ============================================================================ */
+
+.gearCardGrid {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.gearCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 8px;
+  min-height: 138px;
+  border: 1px solid var(--border-hairline);
+  background: rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+  font-family: var(--font-ui);
+  letter-spacing: normal;
+  text-transform: none;
+  position: relative;
+  transition: border-color var(--dur-base) var(--ease-out), background var(--dur-base) var(--ease-out);
+}
+
+.gearCard::before {
+  content: "";
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  width: 8px;
+  height: 8px;
+  border-top: 1.5px solid var(--border-cyan);
+  border-left: 1.5px solid var(--border-cyan);
+  pointer-events: none;
+}
+
+.gearCard:hover {
+  border-color: var(--border-cyan);
+  background: rgba(33, 232, 255, 0.06);
+}
+
+.gearCardSlot {
+  font-family: var(--font-display);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--fg-3);
+}
+
+.gearCardIcon {
+  width: 54px;
+  height: 54px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--border-hairline);
+  background: rgba(0, 0, 0, 0.5);
+  flex: 0 0 auto;
+}
+
+.gearCardIcon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.gearCardIconFallback {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 20px;
+  color: var(--cyan);
+}
+
+.gearCardName {
+  font-family: var(--font-display);
+  font-size: 12px;
+  font-weight: 700;
+  text-align: center;
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+}
+
+.gearMetaGrid {
+  margin-top: 12px;
+}
+
+/* ============================================================================
+   PICKER MODAL (hero / equipment selection)
+   ============================================================================ */
+
+.pickerShroud {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483000;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: var(--overlay-scrim);
+  backdrop-filter: blur(8px);
+}
+
+.pickerModal {
+  width: min(720px, 94vw);
+  max-height: 84vh;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--border-strong);
+  background: var(--panel-3);
+  box-shadow: var(--shadow-pop);
+  position: relative;
+}
+
+.pickerModal::before,
+.pickerModal::after {
+  content: "";
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border-color: var(--cyan);
+  border-style: solid;
+  border-width: 0;
+  pointer-events: none;
+}
+
+.pickerModal::before {
+  top: -1px;
+  left: -1px;
+  border-top-width: 2px;
+  border-left-width: 2px;
+}
+
+.pickerModal::after {
+  bottom: -1px;
+  right: -1px;
+  border-bottom-width: 2px;
+  border-right-width: 2px;
+}
+
+.pickerHead {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--divider-cyan);
+}
+
+.pickerTitle {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cyan);
+  text-shadow: 0 0 8px var(--cyan-glow);
+}
+
+.pickerTitle::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  background: var(--cyan);
+  transform: rotate(45deg);
+  flex: 0 0 auto;
+}
+
+.pickerSearch {
+  width: 220px;
+  min-width: 0;
+  padding: 7px 10px;
+}
+
+.pickerClose {
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  display: grid;
+  place-items: center;
+  font-size: 16px;
+  flex: 0 0 auto;
+}
+
+.pickerBody {
+  padding: 14px 16px;
+  overflow: auto;
+}
+
+.pickerGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(112px, 1fr));
+  gap: 8px;
+}
+
+.pickerItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+  padding: 12px 6px;
+  min-height: 104px;
+  border: 1px solid var(--border-hairline);
+  background: rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+  font-family: var(--font-ui);
+  letter-spacing: normal;
+  text-transform: none;
+  position: relative;
+  transition: transform var(--dur-fast) var(--ease-out), border-color var(--dur-base) var(--ease-out), background var(--dur-base) var(--ease-out);
+}
+
+.pickerItem:hover {
+  transform: translateY(-2px);
+  border-color: var(--border-strong);
+  background: rgba(33, 232, 255, 0.06);
+}
+
+.pickerItem.active {
+  border-color: var(--border-cyan);
+  background: var(--cyan-soft);
+  box-shadow: 0 0 10px var(--cyan-glow);
+}
+
+.pickerItem img,
+.pickerItemFallback {
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+  flex: 0 0 auto;
+}
+
+.pickerItemFallback {
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--border-cyan);
+  background: var(--cyan-soft);
+  color: var(--cyan);
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 18px;
+}
+
+.pickerItemName {
+  font-family: var(--font-display);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-align: center;
+  line-height: 1.2;
+  color: var(--fg-1);
+  overflow-wrap: anywhere;
+}
+
+.pickerEmpty {
+  grid-column: 1 / -1;
+  margin: 0;
+  padding: 18px 0;
+  text-align: center;
+  color: var(--fg-3);
+  font-size: 12px;
+}
+
+body[data-theme='day'] .heroSelectButton {
+  border-color: rgba(26, 100, 160, 0.28);
+  background: #ffffff;
+  color: #1a2230;
+}
+
+body[data-theme='day'] .heroSelectButton:hover {
+  border-color: rgba(14, 130, 160, 0.65);
+  color: #0a6a82;
+}
+
+body[data-theme='day'] .heroSelectChevron {
+  color: #0a6a82;
+}
+
+body[data-theme='day'] .gearCard,
+body[data-theme='day'] .pickerItem {
+  border-color: rgba(26, 100, 160, 0.18);
+  background: #f2f8ff;
+  color: #1a2230;
+}
+
+body[data-theme='day'] .gearCard::before {
+  border-color: rgba(14, 130, 160, 0.6);
+}
+
+body[data-theme='day'] .gearCard:hover,
+body[data-theme='day'] .pickerItem:hover {
+  border-color: rgba(14, 130, 160, 0.55);
+  background: rgba(14, 130, 160, 0.07);
+}
+
+body[data-theme='day'] .gearCardIcon {
+  border-color: rgba(26, 100, 160, 0.18);
+  background: #ffffff;
+}
+
+body[data-theme='day'] .gearCardIconFallback,
+body[data-theme='day'] .gearCardSlot {
+  color: #0a6a82;
+}
+
+body[data-theme='day'] .pickerModal {
+  border-color: rgba(26, 100, 160, 0.22);
+  background: rgba(255, 255, 255, 0.98);
+}
+
+body[data-theme='day'] .pickerItem.active {
+  border-color: rgba(14, 130, 160, 0.65);
+  background: rgba(14, 130, 160, 0.12);
+  box-shadow: 0 0 8px rgba(14, 130, 160, 0.25);
+}
+
+body[data-theme='day'] .pickerItemName,
+body[data-theme='day'] .pickerItemFallback {
+  color: #1a2230;
+}
+
+/* ============================================================================
    SCROLLBAR
    ============================================================================ */
 
@@ -2852,6 +3233,10 @@ td:last-child input {
   .skillGroup,
   .effectGrid {
     grid-template-columns: 1fr;
+  }
+
+  .gearCardGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
   .heroAvatarList {
