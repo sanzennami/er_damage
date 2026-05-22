@@ -11,7 +11,7 @@ import DAK_LOADOUT_ASSETS from './data/dakLoadoutAssets.json';
 import DAK_ITEM_SKILL_ICONS from './data/dakItemSkillIcons.json';
 import MASTERY_STATS from './data/masteryStats.json';
 
-const APP_VERSION = 'v0.1.044';
+const APP_VERSION = 'v0.1.045';
 
 const CHARACTER_IMAGE_URLS = import.meta.glob('../assets/characters/*.png', {
   eager: true,
@@ -447,12 +447,13 @@ const WEAPON_TYPE_OPTIONS = [
 
 const TARGETS = [
   { name: '自定义木桩', hp: 1000, defense: 140, defenseReduction: 0, reduction: 0 },
-  { name: '6级全装T', hp: 2080, defense: 131, defenseReduction: 0, reduction: 0.16 },
-  { name: '15级魔女帽T', hp: 3110, defense: 156, defenseReduction: 0, reduction: 0.16 },
-  { name: '15级火衣头T', hp: 3160, defense: 166, defenseReduction: 0, reduction: 0.16 },
-  { name: '20级全装T', hp: 4110, defense: 187, defenseReduction: 0, reduction: 0.16 },
-  { name: '20级无惧感T', hp: 4110, defense: 212, defenseReduction: 0, reduction: 0.16 }
+  { name: '6级全装T', hp: 2080, defense: 131, defenseReduction: 0, reduction: 0, targetMastery: 1 },
+  { name: '15级魔女帽T', hp: 3110, defense: 156, defenseReduction: 0, reduction: 0, targetMastery: 1 },
+  { name: '15级火衣头T', hp: 3160, defense: 166, defenseReduction: 0, reduction: 0, targetMastery: 1 },
+  { name: '20级全装T', hp: 4110, defense: 187, defenseReduction: 0, reduction: 0, targetMastery: 1 },
+  { name: '20级无惧感T', hp: 4110, defense: 212, defenseReduction: 0, reduction: 0, targetMastery: 1 }
 ];
+const TARGET_MASTERY_LEVELS = Array.from({ length: 20 }, (_, index) => index + 1);
 
 function getNumber(value) {
   const next = Number(value);
@@ -1011,6 +1012,7 @@ function calc({
   traitBonuses = {},
   selectedTraits = [],
   target,
+  targetMastery,
   selfHp,
   damageBonus,
   skillReduction,
@@ -1048,7 +1050,11 @@ function calc({
   const finalDefense = target.defense * (1 - target.defenseReduction) * (1 - penPct) - pen;
   const defenseMod = 100 / (100 + finalDefense);
   const totalDamageBonus = damageBonus + equipDamageBonus + talentDamageBonus;
-  const damageMod = 1 + totalDamageBonus - target.reduction - skillReduction;
+  const targetMasteryLevel = Math.max(1, Math.min(20, getNumber(targetMastery) || 1));
+  const targetMasterySkillReduction = targetMasteryLevel <= 1 ? 0 : targetMasteryLevel * 0.008;
+  const targetMasteryBasicReduction = targetMasteryLevel <= 1 ? 0 : targetMasteryLevel * 0.01;
+  const totalSkillReduction = skillReduction + targetMasterySkillReduction;
+  const damageMod = 1 + totalDamageBonus - target.reduction - totalSkillReduction;
   const finalMod = defenseMod * damageMod;
   const stackCount = Math.min(4, Math.max(0, r2Stacks));
   const context = { ap, attack: attack + equipAttackPower + masteryAttackPower, targetHp: target.hp, stacks: stackCount, finalMod };
@@ -1125,6 +1131,10 @@ function calc({
     equipDamageBonus,
     talentDamageBonus,
     totalDamageBonus,
+    targetMasteryLevel,
+    targetMasterySkillReduction,
+    targetMasteryBasicReduction,
+    totalSkillReduction,
     damageMod,
     finalMod,
     hpDiffRatio,
@@ -1634,6 +1644,7 @@ export default function App() {
   const [traitSelection, setTraitSelection] = useState(() => normalizeTraitSelection(DEFAULT_TRAIT_SELECTION));
   const [targetIndex, setTargetIndex] = useState(0);
   const [target, setTarget] = useState(TARGETS[0]);
+  const [targetMastery, setTargetMastery] = useState(1);
   const [selfHp, setSelfHp] = useState(2514);
   const [damageBonus, setDamageBonus] = useState(0);
   const [skillReduction, setSkillReduction] = useState(0);
@@ -1838,6 +1849,7 @@ export default function App() {
       traitBonuses,
       selectedTraits,
       target,
+      targetMastery,
       selfHp,
       damageBonus,
       skillReduction,
@@ -1849,7 +1861,7 @@ export default function App() {
       selectedHero,
       combos
     }),
-    [equipment, skills, skillLevels, gear, mastery, selectedMasteryStat, attack, talentAp, traitBonuses, selectedTraits, target, selfHp, damageBonus, skillReduction, r2Stacks, burstFollowUp, effectiveVampireFull, effectiveBlazingFull, effectiveMagicSeedFull, selectedHero, combos]
+    [equipment, skills, skillLevels, gear, mastery, selectedMasteryStat, attack, talentAp, traitBonuses, selectedTraits, target, targetMastery, selfHp, damageBonus, skillReduction, r2Stacks, burstFollowUp, effectiveVampireFull, effectiveBlazingFull, effectiveMagicSeedFull, selectedHero, combos]
   );
   const heroWeaponOptions = WEAPON_TYPE_OPTIONS.filter((type) => {
     if (type === '全部类型') return true;
@@ -1981,6 +1993,7 @@ export default function App() {
     const next = TARGETS[index];
     setTargetIndex(index);
     setTarget(next);
+    setTargetMastery(next.targetMastery || 1);
   }
 
   function updateTarget(key, value) {
@@ -2737,10 +2750,20 @@ export default function App() {
             <Field label="目标血量" value={target.hp} onChange={(value) => updateTarget('hp', value)} note={help('field.targetHp')} />
             <Field label="目标防御" value={target.defense} onChange={(value) => updateTarget('defense', value)} note={help('field.targetDefense')} />
             <Field label="目标防御降低" value={target.defenseReduction} onChange={(value) => updateTarget('defenseReduction', value)} suffix="小数" step={0.01} note={help('field.targetDefenseReduction')} />
-            <Field label="目标减伤" value={target.reduction} onChange={(value) => updateTarget('reduction', value)} suffix="小数" step={0.01} note={help('field.targetReduction')} />
+            <label className="field">
+              <LabelWithHelp note={help('field.targetMastery')}>目标熟练度等级</LabelWithHelp>
+              <select value={targetMastery} onChange={(event) => setTargetMastery(Number(event.target.value))}>
+                {TARGET_MASTERY_LEVELS.map((level) => (
+                  <option value={level} key={level}>
+                    {level}级{level <= 1 ? '（木桩默认，无额外减伤）' : `（技能减伤 ${pct(level * 0.008)} / 平A减伤 ${pct(level * 0.01)}）`}
+                  </option>
+                ))}
+              </select>
+            </label>
+            <Field label="目标通用减伤" value={target.reduction} onChange={(value) => updateTarget('reduction', value)} suffix="小数" step={0.01} note={help('field.targetReduction')} />
             <Field label="自身血量" value={selfHp} onChange={setSelfHp} note={help('field.selfHp')} />
-            <Field label="手动技伤加成" value={damageBonus} onChange={setDamageBonus} suffix="小数" step={0.01} note={help('field.damageBonus')} />
-            <Field label="技能减免" value={skillReduction} onChange={setSkillReduction} suffix="小数" step={0.01} note={help('field.skillReduction')} />
+            <Field label="手动伤害提升百分比" value={damageBonus} onChange={setDamageBonus} suffix="小数" step={0.01} note={help('field.damageBonus')} />
+            <Field label="手动技能伤害减免" value={skillReduction} onChange={setSkillReduction} suffix="小数" step={0.01} note={help('field.skillReduction')} />
           </div>
           <div className="finalDamageModBlock">
             <span>最终伤害修正值</span>
@@ -2768,7 +2791,7 @@ export default function App() {
               <strong>{result.pen} / {pct(result.penPct)}</strong>
             </div>
             <div>
-              <span>技伤</span>
+              <span>伤害提升</span>
               <strong>{pct(result.totalDamageBonus)}</strong>
             </div>
             {visibleEquipmentStats.map((stat) => (
@@ -2785,7 +2808,8 @@ export default function App() {
         <StatCard label="最终法强" value={result.ap} hint={`${round(result.totalBaseAp, 1)} * (1 + ${pct(result.totalApPct)})`} note={help('stat.equipAp')} />
         <StatCard label="最终防御" value={round(result.finalDefense, 1)} hint={`防御修正 ${pct(result.defenseMod)}`} note={help('stat.finalDefense')} />
         <StatCard label="防穿" value={`${result.pen} / ${pct(result.penPct)}`} hint="数值 / 百分比" note={help('stat.pen')} />
-        <StatCard label="技伤加成" value={pct(result.totalDamageBonus)} hint={`装备 ${pct(result.equipDamageBonus)} / 潜能 ${pct(result.talentDamageBonus)}`} note={help('stat.damageBonus')} />
+        <StatCard label="伤害提升" value={pct(result.totalDamageBonus)} hint={`装备 ${pct(result.equipDamageBonus)} / 潜能 ${pct(result.talentDamageBonus)} / 手动 ${pct(damageBonus)}`} note={help('stat.damageBonus')} />
+        <StatCard label="技能减伤" value={pct(result.totalSkillReduction)} hint={`目标熟练 ${pct(result.targetMasterySkillReduction)} / 手动 ${pct(skillReduction)}，平A熟练减伤 ${pct(result.targetMasteryBasicReduction)}`} note={help('field.targetMastery')} />
         <StatCard label="增减伤合算" value={pct(result.damageMod - 1)} hint={`最终倍率 ${round(result.damageMod, 3)}`} note={help('stat.damageMod')} />
         {hasBurstTrait ? (
           <StatCard label="血量差比" value={pct(result.hpDiffRatio)} hint={`爆发力追伤 ${pct(result.burstBonus)}`} note={help('stat.hpDiffRatio')} />
@@ -3033,7 +3057,7 @@ export default function App() {
             </>
           ) : null}
         </div>
-        <p className="note">最终伤害 = 技能基础值 * 100 / (100 + 目标防御 * (1 - 防御降低) * (1 - 防穿%) - 防穿数值) * (1 + 技伤加成 - 目标减伤 - 技能减免)。</p>
+        <p className="note">最终技能伤害 = 技能基础值 * 100 / (100 + 目标防御 * (1 - 防御降低) * (1 - 防穿%) - 防穿数值) * (1 + 伤害提升百分比 - 目标通用减伤 - 手动技能伤害减免 - 目标熟练度技能减伤)。目标熟练度 1 级按训练场木桩默认处理，不追加额外减伤。</p>
       </details>
 
       {editMode ? (
