@@ -2788,13 +2788,22 @@ export default function App() {
   }
 
   return (
-    <main>
-      <header className="titleBar">
+    <>
+    <header className="titleBar">
+      <div className="titleBarInner">
         <span className="titleBarBrand">
           <span className="titleBarMark" aria-hidden="true" />
           永恒轮回 · 伤害计算器
         </span>
         <div className="titleBarActions">
+          <button
+            type="button"
+            className="quietButton themeToggle"
+            onClick={() => setUiTheme(uiTheme === 'day' ? 'night' : 'day')}
+            aria-label="切换日夜配色"
+          >
+            {uiTheme === 'day' ? '☾ 夜间' : '☀ 日间'}
+          </button>
           <div className="globalSettingsAnchor">
             <button
               type="button"
@@ -2840,14 +2849,6 @@ export default function App() {
                 <label className="toggle">
                   <input
                     type="checkbox"
-                    checked={uiTheme === 'day'}
-                    onChange={(event) => setUiTheme(event.target.checked ? 'day' : 'night')}
-                  />
-                  <span>日间配色</span>
-                </label>
-                <label className="toggle">
-                  <input
-                    type="checkbox"
                     checked={editMode}
                     onChange={(event) => setEditMode(event.target.checked)}
                   />
@@ -2867,7 +2868,9 @@ export default function App() {
             </button>
           </div>
         </div>
-      </header>
+      </div>
+    </header>
+    <main>
       <section className="hero">
         <div className="heroIntroBlock">
           <div className="heroTitleLine">
@@ -3620,5 +3623,6 @@ export default function App() {
       </section>
       ) : null}
     </main>
+    </>
   );
 }
