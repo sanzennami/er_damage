@@ -1718,10 +1718,11 @@ input[type="range"] {
 }
 
 .traitGroupButton {
-  justify-content: center;
-  gap: 7px;
+  justify-content: flex-start;
+  gap: 8px;
   min-height: 40px;
   padding: 7px 8px;
+  text-align: left;
 }
 
 .traitGroupButton img {
@@ -3292,8 +3293,6 @@ body[data-theme='day'] .pickerItemFallback {
   .formGrid,
   .buildControlLayout,
   .attributePanel,
-  .traitGroupTabs,
-  .traitGrid,
   .skillGroup,
   .effectGrid {
     grid-template-columns: 1fr;
@@ -3301,6 +3300,11 @@ body[data-theme='day'] .pickerItemFallback {
 
   .gearCardGrid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .traitGroupTabs,
+  .traitGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .heroAvatarList {
