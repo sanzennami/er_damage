@@ -167,5 +167,6 @@ function helpNotesEditorPlugin() {
 }
 
 export default defineConfig({
+  base: './',
   plugins: [react(), helpNotesEditorPlugin()]
 });
