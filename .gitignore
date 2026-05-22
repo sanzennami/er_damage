@@ -4,6 +4,7 @@ out/
 dist/
 .vite/
 .er-gamedata-cache/
+.er-gamedata-tmp/
 .env*.local
 npm-debug.log*
 yarn-debug.log*
