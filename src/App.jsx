@@ -12,7 +12,13 @@ import DAK_LOADOUT_ASSETS from './data/dakLoadoutAssets.json';
 import DAK_ITEM_SKILL_ICONS from './data/dakItemSkillIcons.json';
 import MASTERY_STATS from './data/masteryStats.json';
 
-const APP_VERSION = 'v0.1.053';
+const APP_VERSION = 'v0.1.054';
+
+const EXPORTED_LOCAL_CONFIG_MODULES = import.meta.glob('./data/localConfig.export.json', {
+  eager: true,
+  import: 'default'
+});
+const EXPORTED_LOCAL_CONFIG = Object.values(EXPORTED_LOCAL_CONFIG_MODULES)[0] || null;
 
 const CHARACTER_IMAGE_URLS = import.meta.glob('../assets/characters/*.png', {
   eager: true,
@@ -113,6 +119,7 @@ const HELP_NOTES_KEY = 'er-damage-help-notes-v1';
 const HELP_NOTES_EDITABLE = typeof window !== 'undefined' && ['localhost', '127.0.0.1', '::1'].includes(window.location.hostname);
 const HELP_NOTES_SAVE_ENDPOINT = '/api/help-notes';
 const CONFIG_SAVE_ENDPOINT = '/api/config';
+const CONFIG_EXPORT_ENDPOINT = '/api/config/export';
 const ANNOUNCEMENT_KEY = 'er-damage-announcement-v1';
 const ANNOUNCEMENT_SAVE_ENDPOINT = '/api/announcement';
 const TRAIT_EFFECTS = {
@@ -749,16 +756,19 @@ function aggregateEquipmentStats(selected, masteryLevel = 0) {
 
 function loadConfig() {
   try {
-    const fileConfig = DEFAULT_LOCAL_CONFIG || {};
+    const defaultFileConfig = DEFAULT_LOCAL_CONFIG || {};
+    if (EXPORTED_LOCAL_CONFIG) {
+      return normalizeConfigPayload(EXPORTED_LOCAL_CONFIG);
+    }
     const saved = JSON.parse(window.localStorage.getItem(STORAGE_KEY));
     return normalizeConfigPayload({
-      equipment: saved?.equipment || fileConfig.equipment,
-      skills: saved?.skills || fileConfig.skills,
-      talents: saved?.talents || fileConfig.talents,
-      combos: saved?.combos || fileConfig.combos
+      equipment: saved?.equipment || defaultFileConfig.equipment,
+      skills: saved?.skills || defaultFileConfig.skills,
+      talents: saved?.talents || defaultFileConfig.talents,
+      combos: saved?.combos || defaultFileConfig.combos
     });
   } catch {
-    return normalizeConfigPayload(DEFAULT_LOCAL_CONFIG || {});
+    return normalizeConfigPayload(EXPORTED_LOCAL_CONFIG || DEFAULT_LOCAL_CONFIG || {});
   }
 }
 
@@ -826,6 +836,21 @@ async function persistConfig(config) {
   if (!response.ok || !result?.ok) {
     throw new Error(result?.error || '保存失败');
   }
+}
+
+async function exportConfig(config) {
+  const response = await fetch(CONFIG_EXPORT_ENDPOINT, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ config })
+  });
+  const result = await response.json().catch(() => null);
+
+  if (!response.ok || !result?.ok) {
+    throw new Error(result?.error || '导出失败');
+  }
+
+  return result;
 }
 
 async function persistAnnouncement(announcement) {
@@ -1953,6 +1978,18 @@ export default function App() {
       window.localStorage.removeItem(STORAGE_KEY);
       setConfigDirty(false);
       setConfigSaveStatus('saved');
+    } catch {
+      setConfigSaveStatus('error');
+    }
+  }
+
+  async function exportCurrentConfig() {
+    if (!HELP_NOTES_EDITABLE) return;
+
+    setConfigSaveStatus('exporting');
+    try {
+      await exportConfig({ equipment, skills, talents, combos });
+      setConfigSaveStatus('exported');
     } catch {
       setConfigSaveStatus('error');
     }
@@ -3291,13 +3328,17 @@ export default function App() {
             <button type="button" className="helpSaveButton" onClick={saveConfig} disabled={!configDirty || configSaveStatus === 'saving'}>
               {configSaveStatus === 'saving' ? '保存中' : '保存配置到本地'}
             </button>
+            <button type="button" className="helpSaveButton" onClick={exportCurrentConfig} disabled={configSaveStatus === 'exporting'}>
+              {configSaveStatus === 'exporting' ? '导出中' : '导出构建配置 JSON'}
+            </button>
             <button type="button" className="quietButton" onClick={resetConfig}>恢复默认</button>
           </div>
         </div>
         <p className="note">
-          编辑时会先暂存在当前浏览器；点击“保存配置到本地”后会写入 src/data/localConfig.json，下次提交与 push 会一起带上。技能公式可使用 `base`、`ap`、`attack`、`targetHp`、`stacks`、`level`，等级基础值用英文逗号分隔。数据源预留为 pypy-vrc/er-gamedata，仍保留手动输入覆盖。
+          编辑时会先暂存在当前浏览器；点击“保存配置到本地”后会写入 src/data/localConfig.json。点击“导出构建配置 JSON”会写入 src/data/localConfig.export.json；构建时如果该文件存在，会优先使用它。技能公式可使用 `base`、`ap`、`attack`、`targetHp`、`stacks`、`level`，等级基础值用英文逗号分隔。
           <LabelWithHelp note={help('solution.help')}>帮助说明发布方案</LabelWithHelp>
           {configSaveStatus === 'saved' ? <small className="configSaveStatus">已写入项目文件。</small> : null}
+          {configSaveStatus === 'exported' ? <small className="configSaveStatus">已导出 src/data/localConfig.export.json，下一次构建会优先使用。</small> : null}
           {configSaveStatus === 'error' ? <small className="configSaveStatus error">保存失败，请确认正在使用本地 Vite 服务。</small> : null}
         </p>
         <LazyEditSheet title={<LabelWithHelp note={help('table.equipment')}>装备</LabelWithHelp>}>
