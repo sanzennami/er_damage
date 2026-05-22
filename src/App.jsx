@@ -1,13 +1,14 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import ER_GAME_DATA from './data/erGameData.json';
 import ER_SKILL_DAMAGE_TABLE from './data/erSkillDamageTable.json';
+import SKILL_DAMAGE_AUGMENTS from './data/skillDamageAugments.json';
 import DEFAULT_HELP_NOTES from './data/helpNotes.json';
 import ITEM_UNIQUE_EFFECTS from './data/itemUniqueEffects.json';
 import DAK_LOADOUT_ASSETS from './data/dakLoadoutAssets.json';
 import DAK_ITEM_SKILL_ICONS from './data/dakItemSkillIcons.json';
 import MASTERY_STATS from './data/masteryStats.json';
 
-const APP_VERSION = 'v0.1.035';
+const APP_VERSION = 'v0.1.036';
 
 const CHARACTER_IMAGE_URLS = import.meta.glob('../assets/characters/*.png', {
   eager: true,
@@ -351,6 +352,14 @@ const DAMAGE_TABLE_SKILLS = (ER_SKILL_DAMAGE_TABLE.damageRows || [])
   })
   .filter(Boolean);
 
+const AUGMENTED_DAMAGE_SKILLS = (SKILL_DAMAGE_AUGMENTS.skills || [])
+  .filter((skill) => !MANUAL_HEROES.includes(skill.hero))
+  .map((skill, index) => ({
+    ...skill,
+    sourceIndex: skill.sourceIndex ?? index,
+    updatedAt: skill.updatedAt || SKILL_DAMAGE_AUGMENTS.generatedAt || ''
+  }));
+
 const LEGACY_GENERATED_SKILLS = ER_GAME_DATA.skills
   .filter((skill) => !MANUAL_HEROES.includes(skill.hero))
   .map((skill, index) => ({
@@ -373,6 +382,7 @@ const LEGACY_GENERATED_SKILLS = ER_GAME_DATA.skills
 const DAMAGE_TABLE_SKILL_KEYS = new Set(DAMAGE_TABLE_SKILLS.map((skill) => `${skill.hero}-${skill.group}-${skill.dataKey}`));
 const GENERATED_SKILLS = [
   ...DAMAGE_TABLE_SKILLS,
+  ...AUGMENTED_DAMAGE_SKILLS,
   ...LEGACY_GENERATED_SKILLS.filter((skill) => !DAMAGE_TABLE_SKILL_KEYS.has(`${skill.hero}-${skill.group}-${skill.dataKey}`))
 ];
 const INITIAL_SKILLS = dedupeSkillsByLatest([...DEFAULT_SKILLS, ...GENERATED_SKILLS]);
