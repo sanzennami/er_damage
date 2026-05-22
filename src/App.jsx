@@ -10,7 +10,7 @@ import DAK_LOADOUT_ASSETS from './data/dakLoadoutAssets.json';
 import DAK_ITEM_SKILL_ICONS from './data/dakItemSkillIcons.json';
 import MASTERY_STATS from './data/masteryStats.json';
 
-const APP_VERSION = 'v0.1.041';
+const APP_VERSION = 'v0.1.042';
 
 const CHARACTER_IMAGE_URLS = import.meta.glob('../assets/characters/*.png', {
   eager: true,
@@ -36,6 +36,20 @@ const QUALITY_COLORS = {
   紫: '#ccb6ff',
   金: '#ffd56b',
   红: '#ff6b6b'
+};
+const DAY_QUALITY_COLORS = {
+  普通: '#4c5565',
+  高级: '#247a45',
+  稀有: '#1e66a8',
+  英雄: '#7352b8',
+  传说: '#9a5f00',
+  神话: '#b83a3a',
+  白: '#4c5565',
+  绿: '#247a45',
+  蓝: '#1e66a8',
+  紫: '#7352b8',
+  金: '#9a5f00',
+  红: '#b83a3a'
 };
 const QUALITY_RANK = {
   普通: 0,
@@ -590,8 +604,9 @@ function displayItemStatLabel(stat) {
   return `${label}${suffix}${stat?.unique ? '（独有）' : ''}`;
 }
 
-function qualityColor(quality) {
-  return QUALITY_COLORS[quality] || QUALITY_COLORS.普通;
+function qualityColor(quality, theme = 'night') {
+  const palette = theme === 'day' ? DAY_QUALITY_COLORS : QUALITY_COLORS;
+  return palette[quality] || palette.普通;
 }
 
 function qualityRank(quality) {
@@ -1665,7 +1680,7 @@ export default function App() {
       {selectedEquipmentEffects.length ? selectedEquipmentEffects.map((item, index) => (
         <div className="equipmentEffectItem" key={`${item.slot}-${item.name}-${item.effect}-${index}`} title={item.tooltip}>
           <span>{item.slot}</span>
-          <strong style={{ color: qualityColor(item.quality) }} title={item.tooltip}>
+          <strong style={{ color: qualityColor(item.quality, uiTheme) }} title={item.tooltip}>
             {item.effect}
             {item.duplicateCount > 1 ? <em className="equipmentEffectDuplicate">重复 x{item.duplicateCount}</em> : null}
           </strong>
@@ -2368,7 +2383,7 @@ export default function App() {
               </label>
               <div className="qualityLegend" aria-label="装备品级颜色">
                 {QUALITY_OPTIONS.map((quality) => (
-                  <span key={quality} style={{ color: qualityColor(quality) }}>{quality}</span>
+                  <span key={quality} style={{ color: qualityColor(quality, uiTheme) }}>{quality}</span>
                 ))}
               </div>
               <div className="statSettings">
@@ -2397,11 +2412,11 @@ export default function App() {
                     <select
                       className="qualitySelect"
                       value={gear[slot]}
-                      style={{ color: qualityColor(byName(equipment, gear[slot])?.quality) }}
+                      style={{ color: qualityColor(byName(equipment, gear[slot])?.quality, uiTheme) }}
                       onChange={(event) => updateGear(slot, event.target.value)}
                     >
                       {builderChoicesBySlot[slot].map((item) => (
-                        <option value={item.name} key={`${item.type}-${item.name}`} style={{ color: qualityColor(item.quality) }}>
+                        <option value={item.name} key={`${item.type}-${item.name}`} style={{ color: qualityColor(item.quality, uiTheme) }}>
                           {slot === '武器' ? `${item.name} / ${item.weaponType || '未设置'}` : item.name}
                         </option>
                       ))}
@@ -2413,7 +2428,7 @@ export default function App() {
               </div>
               <div className="chips">
                 {result.selected.map((item) => (
-                  <span className="chip" style={{ color: qualityColor(item.quality) }} title={stripMarkup(itemTooltip(item))} key={item.name}>
+                  <span className="chip" style={{ color: qualityColor(item.quality, uiTheme) }} title={stripMarkup(itemTooltip(item))} key={item.name}>
                     {item.name}{uniqueEffectsForItem(item).length ? ` / ${uniqueEffectsForItem(item).join(',')}` : ''}
                   </span>
                 ))}

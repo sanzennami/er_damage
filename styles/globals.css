@@ -1702,9 +1702,21 @@ body[data-theme='day'] select,
 body[data-theme='day'] input,
 body[data-theme='day'] .heroAvatarSearch input,
 body[data-theme='day'] .helpPopover textarea {
-  border-color: rgba(45, 98, 166, 0.16);
-  background: rgba(255, 255, 255, 0.82);
-  color: #20222a;
+  border-color: rgba(45, 98, 166, 0.28);
+  background: #ffffff;
+  color: #1c2430;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.72), 0 1px 2px rgba(45, 70, 104, 0.08);
+}
+
+body[data-theme='day'] select {
+  background-color: #ffffff;
+  background-image: linear-gradient(180deg, #ffffff, #f1f6fc);
+}
+
+body[data-theme='day'] select option,
+body[data-theme='day'] .qualitySelect option {
+  background: #ffffff;
+  color: #1c2430;
 }
 
 body[data-theme='day'] select:focus,
@@ -1743,6 +1755,114 @@ body[data-theme='day'] .finalDamageModBlock strong {
 
 body[data-theme='day'] .toggle input {
   accent-color: #316fbe;
+}
+
+body[data-theme='day'] .characterCard,
+body[data-theme='day'] .officialSkillStrip div,
+body[data-theme='day'] .equippedStats,
+body[data-theme='day'] .currentStatsBlock,
+body[data-theme='day'] .skillMainColumn,
+body[data-theme='day'] .traitButton,
+body[data-theme='day'] .traitGroupButton,
+body[data-theme='day'] .comboHitChip {
+  border-color: rgba(45, 98, 166, 0.16);
+  background: #f7fafe;
+  color: #1f2633;
+}
+
+body[data-theme='day'] .skillMainColumn {
+  background: linear-gradient(180deg, #ffffff, #f0f6fd);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.84);
+}
+
+body[data-theme='day'] .skillDamageLeaf {
+  border-color: rgba(45, 98, 166, 0.16);
+  background: #ffffff;
+  box-shadow: 0 8px 24px rgba(47, 72, 104, 0.08);
+}
+
+body[data-theme='day'] .skillLeafValues > div,
+body[data-theme='day'] .damageRow,
+body[data-theme='day'] .compactDamageRow,
+body[data-theme='day'] .traitSummary,
+body[data-theme='day'] .finalDamageModBlock {
+  border-color: rgba(45, 98, 166, 0.12);
+  background: #eef5fc;
+  color: #1f2633;
+}
+
+body[data-theme='day'] .skillTotalValue {
+  border-color: rgba(201, 141, 35, 0.3);
+  background: #fff7e5;
+}
+
+body[data-theme='day'] .skillMainHead > strong,
+body[data-theme='day'] .skillSlotHover > strong,
+body[data-theme='day'] .skillSourceMeta,
+body[data-theme='day'] .targetStepper b,
+body[data-theme='day'] .damageRow b,
+body[data-theme='day'] .compactDamageRow b,
+body[data-theme='day'] .traitSummary strong,
+body[data-theme='day'] .configSheetSummary b {
+  color: #9a5f00;
+}
+
+body[data-theme='day'] .skillLeafHead strong,
+body[data-theme='day'] .skillDescriptionEntry b,
+body[data-theme='day'] .skillFormulaText,
+body[data-theme='day'] .characterCard strong,
+body[data-theme='day'] .traitSectionHead strong,
+body[data-theme='day'] .traitLaneHead strong,
+body[data-theme='day'] caption,
+body[data-theme='day'] .configSheetSummary {
+  color: #1e2430;
+}
+
+body[data-theme='day'] .skillLeafValues span,
+body[data-theme='day'] .targetStepper,
+body[data-theme='day'] .characterCard span,
+body[data-theme='day'] .characterCard small,
+body[data-theme='day'] .traitSummary span,
+body[data-theme='day'] .traitSummary small,
+body[data-theme='day'] .traitSectionHead span,
+body[data-theme='day'] .traitLaneHead span,
+body[data-theme='day'] .sheetDash {
+  color: #576274;
+}
+
+body[data-theme='day'] .skillSourceMeta {
+  border-color: rgba(201, 141, 35, 0.32);
+  background: rgba(255, 196, 87, 0.22);
+}
+
+body[data-theme='day'] .traitGroupButton.active,
+body[data-theme='day'] .traitButton.active,
+body[data-theme='day'] .comboHitChip.active,
+body[data-theme='day'] .stackBlocks button.active {
+  border-color: rgba(201, 141, 35, 0.62);
+  background: #fff2cf;
+  color: #5d3c00;
+}
+
+body[data-theme='day'] .sheetWrap {
+  border-color: rgba(45, 98, 166, 0.16);
+  background: #ffffff;
+  box-shadow: 0 14px 36px rgba(47, 72, 104, 0.1);
+}
+
+body[data-theme='day'] th,
+body[data-theme='day'] td {
+  border-top-color: rgba(45, 98, 166, 0.12);
+  border-right-color: rgba(45, 98, 166, 0.08);
+}
+
+body[data-theme='day'] th {
+  background: #e8f0fa;
+  color: #26344a;
+}
+
+body[data-theme='day'] tr:nth-child(even) td {
+  background: #f8fbff;
 }
 
 .formulaPanel {
