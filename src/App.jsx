@@ -2,13 +2,14 @@ import React, { useEffect, useMemo, useState } from 'react';
 import ER_GAME_DATA from './data/erGameData.json';
 import ER_SKILL_DAMAGE_TABLE from './data/erSkillDamageTable.json';
 import SKILL_DAMAGE_AUGMENTS from './data/skillDamageAugments.json';
+import EXTERNAL_SKILL_DAMAGE_FALLBACK from './data/externalSkillDamageFallback.json';
 import DEFAULT_HELP_NOTES from './data/helpNotes.json';
 import ITEM_UNIQUE_EFFECTS from './data/itemUniqueEffects.json';
 import DAK_LOADOUT_ASSETS from './data/dakLoadoutAssets.json';
 import DAK_ITEM_SKILL_ICONS from './data/dakItemSkillIcons.json';
 import MASTERY_STATS from './data/masteryStats.json';
 
-const APP_VERSION = 'v0.1.036';
+const APP_VERSION = 'v0.1.037';
 
 const CHARACTER_IMAGE_URLS = import.meta.glob('../assets/characters/*.png', {
   eager: true,
@@ -360,6 +361,14 @@ const AUGMENTED_DAMAGE_SKILLS = (SKILL_DAMAGE_AUGMENTS.skills || [])
     updatedAt: skill.updatedAt || SKILL_DAMAGE_AUGMENTS.generatedAt || ''
   }));
 
+const EXTERNAL_FALLBACK_DAMAGE_SKILLS = (EXTERNAL_SKILL_DAMAGE_FALLBACK.skills || [])
+  .filter((skill) => !MANUAL_HEROES.includes(skill.hero))
+  .map((skill, index) => ({
+    ...skill,
+    sourceIndex: skill.sourceIndex ?? index,
+    updatedAt: skill.updatedAt || skill.sourceDate || EXTERNAL_SKILL_DAMAGE_FALLBACK.generatedAt || ''
+  }));
+
 const LEGACY_GENERATED_SKILLS = ER_GAME_DATA.skills
   .filter((skill) => !MANUAL_HEROES.includes(skill.hero))
   .map((skill, index) => ({
@@ -383,6 +392,7 @@ const DAMAGE_TABLE_SKILL_KEYS = new Set(DAMAGE_TABLE_SKILLS.map((skill) => `${sk
 const GENERATED_SKILLS = [
   ...DAMAGE_TABLE_SKILLS,
   ...AUGMENTED_DAMAGE_SKILLS,
+  ...EXTERNAL_FALLBACK_DAMAGE_SKILLS,
   ...LEGACY_GENERATED_SKILLS.filter((skill) => !DAMAGE_TABLE_SKILL_KEYS.has(`${skill.hero}-${skill.group}-${skill.dataKey}`))
 ];
 const INITIAL_SKILLS = dedupeSkillsByLatest([...DEFAULT_SKILLS, ...GENERATED_SKILLS]);
@@ -1148,6 +1158,22 @@ function DamageValue({ raw, final }) {
   );
 }
 
+function skillSourceMeta(skill) {
+  if (!skill?.sourceLabel && !skill?.sourceVersion && !skill?.sourceDate) return null;
+  const date = skill.sourceDate ? new Date(skill.sourceDate) : null;
+  const dateLabel = date && !Number.isNaN(date.getTime()) ? date.toISOString().slice(0, 10) : '';
+  const label = skill.sourceLabel || [skill.sourceVersion, dateLabel].filter(Boolean).join(' / ');
+  if (!label) return null;
+  return {
+    label,
+    title: [
+      skill.sourceTitle,
+      skill.sourceNote,
+      skill.sourceUrl
+    ].filter(Boolean).join('\n')
+  };
+}
+
 const SKILL_MAIN_SLOTS = ['Q', 'W', 'E', 'R'];
 const MULTI_TARGET_MAX = 10;
 
@@ -1761,11 +1787,15 @@ export default function App() {
     const totalLabel = typeof options.totalLabel === 'function'
       ? options.totalLabel(count)
       : options.totalLabel || (count > 1 ? `${count} 目标总计` : '单目标');
+    const sourceMeta = skillSourceMeta(skill);
 
     return (
       <div className="skillDamageLeaf" key={targetKey}>
         <div className="skillLeafHead">
-          <strong>{label}</strong>
+          <div className="skillLeafTitle">
+            <strong>{label}</strong>
+            {sourceMeta ? <span className="skillSourceMeta" title={sourceMeta.title}>{sourceMeta.label}</span> : null}
+          </div>
           {renderTargetStepper(targetKey, maxTargets)}
         </div>
         <div className="skillLeafValues">
