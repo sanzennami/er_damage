@@ -12,7 +12,7 @@ import DAK_LOADOUT_ASSETS from './data/dakLoadoutAssets.json';
 import DAK_ITEM_SKILL_ICONS from './data/dakItemSkillIcons.json';
 import MASTERY_STATS from './data/masteryStats.json';
 
-const APP_VERSION = 'v0.1.051';
+const APP_VERSION = 'v0.1.052';
 
 const CHARACTER_IMAGE_URLS = import.meta.glob('../assets/characters/*.png', {
   eager: true,
@@ -142,8 +142,13 @@ const TRAIT_EFFECTS = {
   7100101: { extraEffect: 'diamondShard', summary: '金刚碎片：定身成功后防御力 +20+等级*5，结束时造成等级*10 的技能伤害。' },
   7100401: { summary: '天使护翼：获得体力上限 18% 的护盾，护盾破裂时解除负面效果并增加移动速度；不直接计入伤害。' },
   7100501: { extraEffect: 'penance', summary: '惩戒：满层普攻消耗叠层时按等级*15 造成技能伤害，并附带减速。' },
-  7110101: { defense: 8, summary: '无惧感预估：防御 +8' },
-  7111001: { maxHp: 120, summary: '镇痛剂预估：体力上限 +120' }
+  7110101: { summary: '无惧感：使用技能或潜能获得护盾或体力恢复效果时，4 秒内防御力增加 5+等级*1。' },
+  7110201: { summary: '特工队：周围 3.5m 内没有队友时，承受伤害减少 4%。' },
+  7110401: { summary: '钢化：负面效果抵御增加 12+等级*0.4%。' },
+  7110701: { summary: '不屈：使用终极技能时获得 等级*15 的护盾，持续 3 秒。' },
+  7111001: { summary: '镇痛剂：随着体力降低增加防御力，体力低于 40% 以下时防御力逐渐达到最大值 12%。' },
+  7111101: { summary: '警戒心：体力低于 75% 时受到敌方实验体伤害，1.5 秒内所受伤害减少 5+等级*0.5%。' },
+  7111201: { summary: '淬火：进入第二天白天时防御力增加 3，此后每 80 秒防御力增加 1。' }
 };
 const MANUAL_HEROES = ['俞岷', '奇娅拉'];
 const HEROES = [
