@@ -12,7 +12,7 @@ import DAK_LOADOUT_ASSETS from './data/dakLoadoutAssets.json';
 import DAK_ITEM_SKILL_ICONS from './data/dakItemSkillIcons.json';
 import MASTERY_STATS from './data/masteryStats.json';
 
-const APP_VERSION = 'v0.1.057';
+const APP_VERSION = 'v0.1.058';
 
 const EXPORTED_LOCAL_CONFIG_MODULES = import.meta.glob('./data/localConfig.export.json', {
   eager: true,
@@ -487,11 +487,11 @@ const WEAPON_TYPE_OPTIONS = [
 
 const TARGETS = [
   { name: '自定义木桩', hp: 1000, defense: 140, defenseReduction: 0, reduction: 0 },
-  { name: '6级全装T', hp: 2080, defense: 131, defenseReduction: 0, reduction: 0, targetMastery: 1 },
-  { name: '15级魔女帽T', hp: 3110, defense: 156, defenseReduction: 0, reduction: 0, targetMastery: 1 },
-  { name: '15级火衣头T', hp: 3160, defense: 166, defenseReduction: 0, reduction: 0, targetMastery: 1 },
-  { name: '20级全装T', hp: 4110, defense: 187, defenseReduction: 0, reduction: 0, targetMastery: 1 },
-  { name: '20级无惧感T', hp: 4110, defense: 212, defenseReduction: 0, reduction: 0, targetMastery: 1 }
+  { name: '6级 T 血量2080 防御131', hp: 2080, defense: 131, defenseReduction: 0, reduction: 0, targetMastery: 1 },
+  { name: '15级 T 血量3110 防御156', hp: 3110, defense: 156, defenseReduction: 0, reduction: 0, targetMastery: 1 },
+  { name: '15级 T 血量3160 防御166', hp: 3160, defense: 166, defenseReduction: 0, reduction: 0, targetMastery: 1 },
+  { name: '20级 T 血量4110 防御187', hp: 4110, defense: 187, defenseReduction: 0, reduction: 0, targetMastery: 1 },
+  { name: '20级 T 血量4110 防御212', hp: 4110, defense: 212, defenseReduction: 0, reduction: 0, targetMastery: 1 }
 ];
 const TARGET_MASTERY_LEVELS = Array.from({ length: 20 }, (_, index) => index + 1);
 
