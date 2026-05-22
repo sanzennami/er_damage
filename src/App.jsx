@@ -10,7 +10,7 @@ import DAK_LOADOUT_ASSETS from './data/dakLoadoutAssets.json';
 import DAK_ITEM_SKILL_ICONS from './data/dakItemSkillIcons.json';
 import MASTERY_STATS from './data/masteryStats.json';
 
-const APP_VERSION = 'v0.1.040';
+const APP_VERSION = 'v0.1.041';
 
 const CHARACTER_IMAGE_URLS = import.meta.glob('../assets/characters/*.png', {
   eager: true,
@@ -1138,7 +1138,7 @@ function HelpNote({ note, editable, onChange, onSave, saveStatus, dirty }) {
 
   useEffect(() => () => clearCloseTimer(), []);
 
-  if (!note) return null;
+  if (!editable && !note) return null;
 
   return (
     <span className="helpNote">
@@ -1508,9 +1508,13 @@ export default function App() {
   }
 
   function help(key) {
+    const note = Object.prototype.hasOwnProperty.call(helpNotes, key)
+      ? helpNotes[key]
+      : DEFAULT_HELP_NOTES[key];
+
     return (
       <HelpNote
-        note={helpNotes[key] || DEFAULT_HELP_NOTES[key]}
+        note={note}
         editable={HELP_NOTES_EDITABLE}
         onChange={(value) => updateHelpNote(key, value)}
         onSave={saveHelpNotes}
