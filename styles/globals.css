@@ -116,11 +116,6 @@ button {
   cursor: default;
 }
 
-.versionButton.editable {
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-
 .heroAvatarPicker {
   display: flex;
   flex-direction: column;
