@@ -12,7 +12,7 @@ import DAK_LOADOUT_ASSETS from './data/dakLoadoutAssets.json';
 import DAK_ITEM_SKILL_ICONS from './data/dakItemSkillIcons.json';
 import MASTERY_STATS from './data/masteryStats.json';
 
-const APP_VERSION = 'v0.1.055';
+const APP_VERSION = 'v0.1.056';
 
 const EXPORTED_LOCAL_CONFIG_MODULES = import.meta.glob('./data/localConfig.export.json', {
   eager: true,
@@ -1034,14 +1034,17 @@ function formulaUsesVariable(formula, variableName) {
 }
 
 function primaryOffensePath({ skills = [], masteryStat = null } = {}) {
+  const hasAttackPowerMastery = masteryOptionValue(masteryStat, 'AttackPower') > 0;
+  const hasBasicAttackMastery = masteryOptionValue(masteryStat, 'IncreaseBasicAttackDamageRatio') > 0;
+  const hasSkillAmpMastery = masteryOptionValue(masteryStat, 'SkillAmpRatio') > 0;
+  const hasAttackMastery = hasAttackPowerMastery || hasBasicAttackMastery;
+  if (hasAttackMastery && !hasSkillAmpMastery) return 'attack';
+  if (hasSkillAmpMastery && !hasAttackMastery) return 'ap';
+
   const usesAttack = skills.some((skill) => formulaUsesVariable(skill.formula, 'attack'));
   const usesAp = skills.some((skill) => formulaUsesVariable(skill.formula, 'ap'));
   if (usesAttack && !usesAp) return 'attack';
   if (usesAp && !usesAttack) return 'ap';
-
-  const hasSkillAmpMastery = masteryOptionValue(masteryStat, 'SkillAmpRatio') > 0;
-  const hasBasicAttackMastery = masteryOptionValue(masteryStat, 'IncreaseBasicAttackDamageRatio') > 0;
-  if (hasBasicAttackMastery && !hasSkillAmpMastery) return 'attack';
 
   return 'ap';
 }
