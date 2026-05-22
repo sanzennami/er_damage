@@ -578,6 +578,60 @@ main {
   isolation: isolate;
 }
 
+.hovercardAnchor {
+  display: inline-flex;
+  min-width: 0;
+  cursor: help;
+}
+
+.hovercardAnchor:focus-visible {
+  outline: 1px solid rgba(255, 213, 107, 0.72);
+  outline-offset: 3px;
+}
+
+.skillDescriptionPopover {
+  width: min(380px, calc(100vw - 24px));
+}
+
+.skillDescriptionContent {
+  display: grid;
+  gap: 8px;
+  color: #f2e7da;
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.skillDescriptionContent > strong {
+  color: #ffd56b;
+  font-size: 14px;
+}
+
+.skillDescriptionContent span {
+  white-space: pre-wrap;
+}
+
+.skillDescriptionEntry {
+  display: grid;
+  gap: 4px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.skillDescriptionEntry:first-of-type {
+  padding-top: 0;
+  border-top: 0;
+}
+
+.skillDescriptionEntry b,
+.skillFormulaText {
+  color: #fff2d5;
+}
+
+.skillFormulaText {
+  font-family: Consolas, 'SFMono-Regular', monospace;
+  font-size: 12px;
+}
+
 .helpPopover::after {
   position: absolute;
   left: 10px;
@@ -1066,6 +1120,17 @@ input:focus {
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 8px;
   background: rgba(12, 10, 16, 0.38);
+}
+
+.officialSkillCard .officialSkillHover {
+  width: 100%;
+  min-height: 24px;
+  align-items: center;
+}
+
+.skillSlotHover,
+.skillNameHover {
+  align-items: center;
 }
 
 .talentGrid {

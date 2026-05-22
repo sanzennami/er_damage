@@ -10,7 +10,7 @@ import DAK_LOADOUT_ASSETS from './data/dakLoadoutAssets.json';
 import DAK_ITEM_SKILL_ICONS from './data/dakItemSkillIcons.json';
 import MASTERY_STATS from './data/masteryStats.json';
 
-const APP_VERSION = 'v0.1.039';
+const APP_VERSION = 'v0.1.040';
 
 const CHARACTER_IMAGE_URLS = import.meta.glob('../assets/characters/*.png', {
   eager: true,
@@ -903,6 +903,50 @@ function scaledSkillDamage(skill, finalMod, { scale = 1, hits = 1 } = {}) {
   };
 }
 
+function coefficientAtLevel(formula, variableName, level) {
+  const source = String(formula || '');
+  const arrayAfterVariable = source.match(new RegExp(`${variableName}\\s*\\*\\s*(\\[[^\\]]+\\])\\s*\\[\\s*level\\s*-\\s*1\\s*\\]`));
+  const arrayBeforeVariable = source.match(new RegExp(`(\\[[^\\]]+\\])\\s*\\[\\s*level\\s*-\\s*1\\s*\\]\\s*\\*\\s*${variableName}`));
+  const arrayMatch = arrayAfterVariable || arrayBeforeVariable;
+  if (arrayMatch) {
+    try {
+      const values = JSON.parse(arrayMatch[1]);
+      return finiteDamageValue(values[Math.max(0, getNumber(level) - 1)]);
+    } catch {
+      return null;
+    }
+  }
+
+  const afterVariable = source.match(new RegExp(`${variableName}\\s*\\*\\s*(-?\\d+(?:\\.\\d+)?)`));
+  if (afterVariable) return finiteDamageValue(afterVariable[1]);
+
+  const beforeVariable = source.match(new RegExp(`(-?\\d+(?:\\.\\d+)?)\\s*\\*\\s*${variableName}`));
+  if (beforeVariable) return finiteDamageValue(beforeVariable[1]);
+
+  return null;
+}
+
+function skillFormulaDescription(skill, level) {
+  const nextLevel = clampLevel(skill, level);
+  const base = skillBaseAtLevel(skill, nextLevel);
+  const pieces = [`${round(base, 1)}`];
+  [
+    ['ap', '技能增幅'],
+    ['attack', '攻击力'],
+    ['targetHp', '目标体力'],
+    ['stacks', '叠层']
+  ].forEach(([variable, label]) => {
+    const coefficient = coefficientAtLevel(skill.formula, variable, nextLevel);
+    if (coefficient === null) return;
+    pieces.push(`${label}${pct(coefficient)}`);
+  });
+  const compactFormula = pieces.join(' + ');
+  const rawFormula = String(skill.formula || '').trim();
+  return rawFormula
+    ? `${compactFormula}\n原始公式：${rawFormula}`
+    : compactFormula;
+}
+
 function calc({
   equipment,
   skillTable,
@@ -1153,6 +1197,104 @@ function HelpNote({ note, editable, onChange, onSave, saveStatus, dirty }) {
         </span>,
         document.body
       ) : null}
+    </span>
+  );
+}
+
+function PortalHovercard({ children, content, className = '' }) {
+  const anchorRef = useRef(null);
+  const closeTimerRef = useRef(null);
+  const [open, setOpen] = useState(false);
+  const [position, setPosition] = useState({ top: 0, left: 0, placement: 'top' });
+
+  const clearCloseTimer = () => {
+    if (closeTimerRef.current) window.clearTimeout(closeTimerRef.current);
+    closeTimerRef.current = null;
+  };
+
+  const updatePosition = () => {
+    const anchor = anchorRef.current;
+    if (!anchor) return;
+    const rect = anchor.getBoundingClientRect();
+    const width = Math.min(380, window.innerWidth - 24);
+    const left = Math.max(12, Math.min(rect.left, window.innerWidth - width - 12));
+    const placeBelow = rect.top < 210;
+    setPosition({
+      top: placeBelow ? rect.bottom + 10 : rect.top - 10,
+      left,
+      placement: placeBelow ? 'bottom' : 'top'
+    });
+  };
+
+  const show = () => {
+    clearCloseTimer();
+    updatePosition();
+    setOpen(true);
+  };
+
+  const closeSoon = () => {
+    clearCloseTimer();
+    closeTimerRef.current = window.setTimeout(() => setOpen(false), 120);
+  };
+
+  useEffect(() => {
+    if (!open) return undefined;
+    const sync = () => updatePosition();
+    window.addEventListener('scroll', sync, true);
+    window.addEventListener('resize', sync);
+    return () => {
+      window.removeEventListener('scroll', sync, true);
+      window.removeEventListener('resize', sync);
+    };
+  }, [open]);
+
+  useEffect(() => () => clearCloseTimer(), []);
+
+  if (!content) return children;
+
+  return (
+    <span
+      className={`hovercardAnchor ${className}`.trim()}
+      ref={anchorRef}
+      tabIndex={0}
+      onPointerEnter={show}
+      onPointerLeave={closeSoon}
+      onMouseEnter={show}
+      onMouseLeave={closeSoon}
+      onFocus={show}
+      onBlur={closeSoon}
+      onClick={show}
+    >
+      {children}
+      {open ? createPortal(
+        <span
+          className={`helpPopover helpPortalPopover skillDescriptionPopover ${position.placement === 'bottom' ? 'below' : 'above'}`}
+          role="tooltip"
+          style={{
+            top: position.top,
+            left: position.left,
+            transform: position.placement === 'top' ? 'translateY(-100%)' : 'none'
+          }}
+          onPointerEnter={show}
+          onPointerLeave={closeSoon}
+          onMouseEnter={show}
+          onMouseLeave={closeSoon}
+        >
+          {content}
+        </span>,
+        document.body
+      ) : null}
+    </span>
+  );
+}
+
+function SkillDescriptionContent({ title, level, formula, description, source }) {
+  return (
+    <span className="skillDescriptionContent">
+      <strong>{title}{level ? ` Lv.${level}` : ''}</strong>
+      {formula ? <span className="skillFormulaText">{formula}</span> : null}
+      {description ? <span>{description}</span> : null}
+      {source ? <small>{source}</small> : null}
     </span>
   );
 }
@@ -1878,12 +2020,27 @@ export default function App() {
       ? options.totalLabel(count)
       : options.totalLabel || (count > 1 ? `${count} 目标总计` : '单目标');
     const sourceMeta = skillSourceMeta(skill);
+    const skillLevel = skill.level || skillLevels[skill.id] || 1;
+    const description = skill.coefficientText || skill.description || '';
 
     return (
       <div className="skillDamageLeaf" key={targetKey}>
         <div className="skillLeafHead">
           <div className="skillLeafTitle">
-            <strong>{label}</strong>
+            <PortalHovercard
+              className="skillNameHover"
+              content={(
+                <SkillDescriptionContent
+                  title={label}
+                  level={skillLevel}
+                  formula={skillFormulaDescription(skill, skillLevel)}
+                  description={description}
+                  source={sourceMeta?.title}
+                />
+              )}
+            >
+              <strong>{label}</strong>
+            </PortalHovercard>
             {sourceMeta ? <span className="skillSourceMeta" title={sourceMeta.title}>{sourceMeta.label}</span> : null}
           </div>
           {renderTargetStepper(targetKey, maxTargets)}
@@ -1932,11 +2089,29 @@ export default function App() {
   function renderSkillMainColumn(slot) {
     const slotSkills = result.skills.filter((skill) => skillMainSlot(skill) === slot);
     const levelValue = slotSkills[0] ? skillLevels[slotSkills[0].id] : 1;
+    const slotDescription = slotSkills.length ? (
+      <span className="skillDescriptionContent">
+        <strong>{slot} Lv.{levelValue}</strong>
+        {slotSkills.map((skill) => (
+          <span className="skillDescriptionEntry" key={`desc-${skill.id}`}>
+            <b>{skill.title}</b>
+            <span className="skillFormulaText">{skillFormulaDescription(skill, levelValue)}</span>
+            {skill.coefficientText || skill.description ? <span>{skill.coefficientText || skill.description}</span> : null}
+          </span>
+        ))}
+      </span>
+    ) : null;
 
     return (
       <div className="skillMainColumn" key={slot}>
         <div className="skillMainHead">
-          <strong>{slot}</strong>
+          {slotDescription ? (
+            <PortalHovercard className="skillSlotHover" content={slotDescription}>
+              <strong>{slot}</strong>
+            </PortalHovercard>
+          ) : (
+            <strong>{slot}</strong>
+          )}
           {slotSkills.length ? (
             <div className="levelSelect">
               <span>Lv.</span>
@@ -2387,8 +2562,19 @@ export default function App() {
             </div>
             <div className="officialSkillStrip">
               {selectedOfficialSkillGroups.map((skill) => (
-                <div key={skill.group}>
-                  <strong>{skill.slot} {skill.name}</strong>
+                <div className="officialSkillCard" key={skill.group}>
+                  <PortalHovercard
+                    className="officialSkillHover"
+                    content={(
+                      <SkillDescriptionContent
+                        title={`${skill.slot} ${skill.name}`}
+                        description={skill.coefficientText || skill.description}
+                        source={skill.extensionName}
+                      />
+                    )}
+                  >
+                    <strong>{skill.slot} {skill.name}</strong>
+                  </PortalHovercard>
                 </div>
               ))}
             </div>
