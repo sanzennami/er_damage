@@ -1831,6 +1831,7 @@ input[type="range"] {
 
 .skillDamagePanel {
   overflow: hidden;
+  padding: 0 0 20px;
 }
 
 .skillDamagePanel > summary {
@@ -1847,6 +1848,7 @@ input[type="range"] {
   grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
   gap: 10px;
   align-items: start;
+  padding: 8px 20px 0;
 }
 
 .skillMainColumn {
@@ -1861,6 +1863,7 @@ input[type="range"] {
 
 .skillPassiveRow {
   margin-top: 10px;
+  padding: 0 20px;
 }
 
 .skillPassiveRow .skillMainColumn {
@@ -2455,8 +2458,20 @@ body[data-theme='day'] .characterCard strong,
 body[data-theme='day'] .traitSectionHead strong,
 body[data-theme='day'] .traitLaneHead strong,
 body[data-theme='day'] caption,
-body[data-theme='day'] .configSheetSummary {
+body[data-theme='day'] .configSheetSummary,
+body[data-theme='day'] .skillDescriptionContent,
+body[data-theme='day'] .skillDescriptionContent span,
+body[data-theme='day'] .skillDescriptionContent small {
   color: #1a2230;
+}
+
+body[data-theme='day'] .skillDescriptionContent > strong {
+  color: #0a6a82;
+  text-shadow: none;
+}
+
+body[data-theme='day'] .skillDescriptionEntry {
+  border-top-color: rgba(26, 100, 160, 0.18);
 }
 
 body[data-theme='day'] .skillLeafValues span,
@@ -2592,7 +2607,7 @@ body[data-theme='day'] tr:nth-child(even) td {
 
 .effectGrid {
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  padding: 0 20px 20px;
+  padding: 8px 20px 20px;
 }
 
 /* ============================================================================
