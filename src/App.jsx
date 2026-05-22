@@ -6,12 +6,13 @@ import SKILL_DAMAGE_AUGMENTS from './data/skillDamageAugments.json';
 import EXTERNAL_SKILL_DAMAGE_FALLBACK from './data/externalSkillDamageFallback.json';
 import DEFAULT_HELP_NOTES from './data/helpNotes.json';
 import DEFAULT_ANNOUNCEMENT from './data/announcement.json';
+import DEFAULT_LOCAL_CONFIG from './data/localConfig.json';
 import ITEM_UNIQUE_EFFECTS from './data/itemUniqueEffects.json';
 import DAK_LOADOUT_ASSETS from './data/dakLoadoutAssets.json';
 import DAK_ITEM_SKILL_ICONS from './data/dakItemSkillIcons.json';
 import MASTERY_STATS from './data/masteryStats.json';
 
-const APP_VERSION = 'v0.1.046';
+const APP_VERSION = 'v0.1.047';
 
 const CHARACTER_IMAGE_URLS = import.meta.glob('../assets/characters/*.png', {
   eager: true,
@@ -111,12 +112,15 @@ const APP_SETTINGS_KEY = 'er-damage-global-settings-v1';
 const HELP_NOTES_KEY = 'er-damage-help-notes-v1';
 const HELP_NOTES_EDITABLE = typeof window !== 'undefined' && ['localhost', '127.0.0.1', '::1'].includes(window.location.hostname);
 const HELP_NOTES_SAVE_ENDPOINT = '/api/help-notes';
+const CONFIG_SAVE_ENDPOINT = '/api/config';
 const ANNOUNCEMENT_KEY = 'er-damage-announcement-v1';
 const ANNOUNCEMENT_SAVE_ENDPOINT = '/api/announcement';
 const TRAIT_EFFECTS = {
-  7000401: { ap: 18, summary: '满层时技能增幅 +18' },
+  7000201: { extraEffect: 'absoluteForce', summary: '绝对武力：三次命中后追加真实伤害，并降低目标防御。' },
+  7000401: { summary: '吸血鬼：满层后按等级提供攻击力或技能增幅，技能增幅路径为 14 + 等级。' },
   7010501: { dynamicDamage: 'burst', summary: '按双方体力差增加造成伤害' },
   7011101: { ap: 8, summary: '猎魂叠层预估：技能增幅 +8' },
+  7011001: { dmgAmp: 0.08, summary: '弱肉强食：目标当前体力低于 40% 时造成伤害 +8%。' },
   7011501: { extraEffect: 'scar', summary: '启用伤痕额外伤害估算' },
   7010701: { extraEffect: 'tear', summary: '启用伤口撕裂持续伤害估算' },
   7300201: { extraEffect: 'ghostFire', summary: '启用鬼火真实伤害估算' },
@@ -149,6 +153,7 @@ const TRAIT_BY_ID = Object.fromEntries(ACTIVE_TRAITS.map((trait) => [String(trai
 const VAMPIRE_STACK_TRAIT_ID = '7000401';
 const BLAZING_SKILL_AMP_EFFECTS = new Set(['炽燃 - 增幅', '炽燃']);
 const MAGIC_SEED_EFFECT = '魔力种子';
+const CONDITIONAL_DAMAGE_AMP_EFFECTS = new Set(['光辉']);
 const DAK_ITEM_TOOLTIP_BY_CODE = new Map((DAK_ITEM_SKILL_ICONS.equipment || []).map((item) => [String(item.id), item.tooltip || '']));
 const DEFAULT_TRAIT_SELECTION = {
   group: 'Havoc',
@@ -554,6 +559,15 @@ function mergeCombos(savedCombos) {
   return Array.isArray(savedCombos) ? savedCombos.map(normalizeCombo) : clone(DEFAULT_COMBOS);
 }
 
+function normalizeConfigPayload(config = {}) {
+  return {
+    equipment: mergeEquipment(config.equipment),
+    skills: mergeSkills(config.skills),
+    talents: Array.isArray(config.talents) ? config.talents : clone(DEFAULT_TALENTS),
+    combos: mergeCombos(config.combos)
+  };
+}
+
 function skillVersionTime(skill) {
   const value = skill?.updatedAt || skill?.updateDate || skill?.updatedDate || skill?.patch || skill?.version || '';
   const parsed = Date.parse(value);
@@ -660,6 +674,11 @@ function uniqueEffectsForItem(item) {
   return [...new Set(effects.map(normalizeUniqueEffect).filter(Boolean))];
 }
 
+function hasConditionalDamageAmp(item) {
+  return getNumber(item?.dmgAmp) > 0
+    && uniqueEffectsForItem(item).some((effect) => CONDITIONAL_DAMAGE_AMP_EFFECTS.has(effect));
+}
+
 function aggregateEquipmentStats(selected, masteryLevel = 0) {
   const level = Math.max(0, getNumber(masteryLevel));
   return selected.reduce((totals, item) => {
@@ -695,15 +714,16 @@ function aggregateEquipmentStats(selected, masteryLevel = 0) {
 
 function loadConfig() {
   try {
+    const fileConfig = DEFAULT_LOCAL_CONFIG || {};
     const saved = JSON.parse(window.localStorage.getItem(STORAGE_KEY));
-    return {
-      equipment: mergeEquipment(saved?.equipment),
-      skills: mergeSkills(saved?.skills),
-      talents: Array.isArray(saved?.talents) ? saved.talents : clone(DEFAULT_TALENTS),
-      combos: mergeCombos(saved?.combos)
-    };
+    return normalizeConfigPayload({
+      equipment: saved?.equipment || fileConfig.equipment,
+      skills: saved?.skills || fileConfig.skills,
+      talents: saved?.talents || fileConfig.talents,
+      combos: saved?.combos || fileConfig.combos
+    });
   } catch {
-    return { equipment: clone(INITIAL_EQUIPMENT), skills: clone(INITIAL_SKILLS), talents: clone(DEFAULT_TALENTS), combos: clone(DEFAULT_COMBOS) };
+    return normalizeConfigPayload(DEFAULT_LOCAL_CONFIG || {});
   }
 }
 
@@ -753,10 +773,23 @@ async function persistHelpNotes(notes) {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ notes })
   });
+  const result = await response.json().catch(() => null);
 
-  if (!response.ok) {
-    const error = await response.text();
-    throw new Error(error || '保存失败');
+  if (!response.ok || !result?.ok) {
+    throw new Error(result?.error || '保存失败');
+  }
+}
+
+async function persistConfig(config) {
+  const response = await fetch(CONFIG_SAVE_ENDPOINT, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ config })
+  });
+  const result = await response.json().catch(() => null);
+
+  if (!response.ok || !result?.ok) {
+    throw new Error(result?.error || '保存失败');
   }
 }
 
@@ -766,10 +799,10 @@ async function persistAnnouncement(announcement) {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ announcement })
   });
+  const result = await response.json().catch(() => null);
 
-  if (!response.ok) {
-    const error = await response.text();
-    throw new Error(error || '保存失败');
+  if (!response.ok || !result?.ok) {
+    throw new Error(result?.error || '保存失败');
   }
 }
 
@@ -1081,6 +1114,7 @@ function calc({
   vampireFull,
   blazingFull,
   magicSeedFull,
+  conditionalDamageAmpActive,
   selectedHero,
   combos = []
 }) {
@@ -1092,7 +1126,7 @@ function calc({
   const talentDamageBonus = getNumber(traitBonuses.dmgAmp);
   const equipAp = statValue(equipmentStats, 'skillAmp') + statValue(equipmentStats, 'adaptiveForce') || selected.reduce((sum, item) => sum + getNumber(item.ap), 0);
   const equipAttackPower = statValue(equipmentStats, 'attackPower');
-  const stackAp = (vampireFull ? 18 : 0) + (blazingFull ? 24 : 0) + (magicSeedFull ? 20 : 0);
+  const stackAp = (vampireFull ? 14 + mastery : 0) + (blazingFull ? 24 : 0) + (magicSeedFull ? 20 : 0);
   const stackCd = magicSeedFull ? 20 : 0;
   const cd = (statValue(equipmentStats, 'cooldownReduction') || selected.reduce((sum, item) => sum + getNumber(item.cd), 0)) + stackCd;
   const pen = statValue(equipmentStats, 'penetrationDefense') + statValue(equipmentStats, 'uniquePenetrationDefense') + talentPen || selected.reduce((sum, item) => sum + getNumber(item.pen), 0) + talentPen;
@@ -1101,7 +1135,9 @@ function calc({
   const extraHp = statValue(equipmentStats, 'maxHp') + getNumber(traitBonuses.maxHp);
   const normalApPct = 0;
   const uniqueApPct = Math.max(statValue(equipmentStats, 'uniqueSkillAmpRatio'), ...selected.filter((item) => item.uniqueApPct).map((item) => getNumber(item.apPct)));
-  const equipDamageBonus = selected.reduce((sum, item) => sum + getNumber(item.dmgAmp), 0);
+  const equipDamageBonus = selected.reduce((sum, item) => (
+    sum + (hasConditionalDamageAmp(item) && !conditionalDamageAmpActive ? 0 : getNumber(item.dmgAmp))
+  ), 0);
   const masteryApPct = mastery * masteryOptionValue(masteryStat, 'SkillAmpRatio');
   const masteryAttackPower = mastery * masteryOptionValue(masteryStat, 'AttackPower');
   const totalApPct = normalApPct + uniqueApPct + masteryApPct;
@@ -1125,12 +1161,15 @@ function calc({
   const hpDiffRatio = Math.min(0.4, Math.max(0.1, (target.hp - selfHp) / selfHp));
   const burstBonus = Math.min(0.1, Math.max(0, (target.hp - selfHp) / selfHp) * 0.25);
   const curse = 50 + ap * 0.15;
-  const scarBase = 10 + 20 + target.hp * 0.03;
+  const scarBase = 10 + mastery + target.hp * 0.03;
   const tearBase = 50 + target.hp * 0.7 * 0.08;
   const activeTraitEffectIds = new Set(traitBonuses.effectIds || []);
   const effects = [
+    activeTraitEffectIds.has('absoluteForce')
+      ? { title: '绝对武力(真伤)', raw: damageFloor(20 + mastery * 5), value: damageFloor(20 + mastery * 5), note: '20+实验体等级*5；防御降低 15% 需手动在目标栏设置。' }
+      : null,
     activeTraitEffectIds.has('scar')
-      ? { title: '伤痕(技)', raw: damageFloor(scarBase), value: damageFloor(damageFloor(scarBase) * finalMod), note: '10+20+目标血量*3%' }
+      ? { title: '伤痕(技)', raw: damageFloor(scarBase), value: damageFloor(damageFloor(scarBase) * finalMod), note: '10+等级+目标血量*3%' }
       : null,
     activeTraitEffectIds.has('tear')
       ? { title: '伤口撕裂', raw: damageFloor(tearBase), value: damageFloor(damageFloor(tearBase) * finalMod), note: '以触发时70%血计算' }
@@ -1724,6 +1763,7 @@ export default function App() {
   const [vampireFull, setVampireFull] = useState(false);
   const [blazingFull, setBlazingFull] = useState(false);
   const [magicSeedFull, setMagicSeedFull] = useState(false);
+  const [conditionalDamageAmpActive, setConditionalDamageAmpActive] = useState(false);
   const [showBuildSettings, setShowBuildSettings] = useState(false);
   const [showGlobalSettings, setShowGlobalSettings] = useState(false);
   const [showHeroDebugSettings, setShowHeroDebugSettings] = useState(false);
@@ -1745,6 +1785,8 @@ export default function App() {
   const [showAnnouncement, setShowAnnouncement] = useState(false);
   const [announcementDirty, setAnnouncementDirty] = useState(false);
   const [announcementSaveStatus, setAnnouncementSaveStatus] = useState('idle');
+  const [configDirty, setConfigDirty] = useState(false);
+  const [configSaveStatus, setConfigSaveStatus] = useState('idle');
 
   useEffect(() => {
     window.localStorage.setItem(STORAGE_KEY, JSON.stringify({ equipment, skills, talents, combos }));
@@ -1819,6 +1861,26 @@ export default function App() {
       setAnnouncementSaveStatus('saved');
     } catch {
       setAnnouncementSaveStatus('error');
+    }
+  }
+
+  function updateConfig(updater) {
+    setConfig((current) => (typeof updater === 'function' ? updater(current) : updater));
+    setConfigDirty(true);
+    setConfigSaveStatus('idle');
+  }
+
+  async function saveConfig() {
+    if (!HELP_NOTES_EDITABLE) return;
+
+    setConfigSaveStatus('saving');
+    try {
+      await persistConfig({ equipment, skills, talents, combos });
+      window.localStorage.removeItem(STORAGE_KEY);
+      setConfigDirty(false);
+      setConfigSaveStatus('saved');
+    } catch {
+      setConfigSaveStatus('error');
     }
   }
 
@@ -1897,15 +1959,18 @@ export default function App() {
   const hasVampireStackTrait = selectedTraits.some((trait) => String(trait.id) === VAMPIRE_STACK_TRAIT_ID || trait.name === '吸血鬼');
   const hasBlazingSkillAmpEffect = selectedEquipmentEffectsRaw.some((item) => BLAZING_SKILL_AMP_EFFECTS.has(item.effect));
   const hasMagicSeedEffect = selectedEquipmentEffectsRaw.some((item) => item.effect === MAGIC_SEED_EFFECT);
+  const hasConditionalDamageAmpEffect = selectedGearItems.some(hasConditionalDamageAmp);
   const effectiveVampireFull = hasVampireStackTrait && vampireFull;
   const effectiveBlazingFull = hasBlazingSkillAmpEffect && blazingFull;
   const effectiveMagicSeedFull = hasMagicSeedEffect && magicSeedFull;
+  const effectiveConditionalDamageAmpActive = hasConditionalDamageAmpEffect && conditionalDamageAmpActive;
 
   useEffect(() => {
     if (!hasVampireStackTrait && vampireFull) setVampireFull(false);
     if (!hasBlazingSkillAmpEffect && blazingFull) setBlazingFull(false);
     if (!hasMagicSeedEffect && magicSeedFull) setMagicSeedFull(false);
-  }, [hasVampireStackTrait, hasBlazingSkillAmpEffect, hasMagicSeedEffect, vampireFull, blazingFull, magicSeedFull]);
+    if (!hasConditionalDamageAmpEffect && conditionalDamageAmpActive) setConditionalDamageAmpActive(false);
+  }, [hasVampireStackTrait, hasBlazingSkillAmpEffect, hasMagicSeedEffect, hasConditionalDamageAmpEffect, vampireFull, blazingFull, magicSeedFull, conditionalDamageAmpActive]);
 
   const result = useMemo(
     () => calc({
@@ -1930,10 +1995,11 @@ export default function App() {
       vampireFull: effectiveVampireFull,
       blazingFull: effectiveBlazingFull,
       magicSeedFull: effectiveMagicSeedFull,
+      conditionalDamageAmpActive: effectiveConditionalDamageAmpActive,
       selectedHero,
       combos
     }),
-    [equipment, skills, skillLevels, gear, mastery, selectedMasteryStat, attack, talentAp, traitBonuses, selectedTraits, target, targetMastery, selfHp, damageBonus, skillReduction, r2Stacks, tacticalSkill, tacticalUpgraded, effectiveVampireFull, effectiveBlazingFull, effectiveMagicSeedFull, selectedHero, combos]
+    [equipment, skills, skillLevels, gear, mastery, selectedMasteryStat, attack, talentAp, traitBonuses, selectedTraits, target, targetMastery, selfHp, damageBonus, skillReduction, r2Stacks, tacticalSkill, tacticalUpgraded, effectiveVampireFull, effectiveBlazingFull, effectiveMagicSeedFull, effectiveConditionalDamageAmpActive, selectedHero, combos]
   );
   const heroWeaponOptions = WEAPON_TYPE_OPTIONS.filter((type) => {
     if (type === '全部类型') return true;
@@ -2128,7 +2194,7 @@ export default function App() {
   }
 
   function updateEquipmentRow(index, key, value) {
-    setConfig((current) => ({
+    updateConfig((current) => ({
       ...current,
       equipment: current.equipment.map((item, rowIndex) => {
         if (rowIndex !== index) return item;
@@ -2139,7 +2205,7 @@ export default function App() {
   }
 
   function updateSkillRow(index, key, value) {
-    setConfig((current) => ({
+    updateConfig((current) => ({
       ...current,
       skills: current.skills.map((skill, rowIndex) => (
         rowIndex === index ? { ...skill, [key]: key === 'maxLevel' ? getNumber(value) : value } : skill
@@ -2148,7 +2214,7 @@ export default function App() {
   }
 
   function updateComboRow(index, key, value) {
-    setConfig((current) => ({
+    updateConfig((current) => ({
       ...current,
       combos: current.combos.map((combo, rowIndex) => (
         rowIndex === index ? { ...combo, [key]: value } : combo
@@ -2157,7 +2223,7 @@ export default function App() {
   }
 
   function updateComboHit(index, skillId, delta) {
-    setConfig((current) => ({
+    updateConfig((current) => ({
       ...current,
       combos: current.combos.map((combo, rowIndex) => {
         if (rowIndex !== index) return combo;
@@ -2174,7 +2240,7 @@ export default function App() {
   }
 
   function addEquipment() {
-    setConfig({
+    updateConfig({
       equipment: [...equipment, {
         type: '武器',
         weaponType: '圣器 / Arcana',
@@ -2200,7 +2266,7 @@ export default function App() {
 
   function addSkill() {
     const id = `skill-${Date.now()}`;
-    setConfig({
+    updateConfig({
       equipment,
       skills: [...skills, {
         id,
@@ -2217,7 +2283,7 @@ export default function App() {
   }
 
   function addCombo() {
-    setConfig({
+    updateConfig({
       equipment,
       skills,
       talents,
@@ -2232,7 +2298,7 @@ export default function App() {
   }
 
   function resetConfig() {
-    setConfig({ equipment: clone(INITIAL_EQUIPMENT), skills: clone(INITIAL_SKILLS), talents: clone(DEFAULT_TALENTS), combos: clone(DEFAULT_COMBOS) });
+    updateConfig({ equipment: clone(INITIAL_EQUIPMENT), skills: clone(INITIAL_SKILLS), talents: clone(DEFAULT_TALENTS), combos: clone(DEFAULT_COMBOS) });
     setSkillLevels(Object.fromEntries(INITIAL_SKILLS.map((skill) => [skill.id, skill.maxLevel])));
     setTalentAp(0);
     setTraitSelection(normalizeTraitSelection(DEFAULT_TRAIT_SELECTION));
@@ -2803,6 +2869,12 @@ export default function App() {
                 <span>魔力种子满层</span>
               </label>
             ) : null}
+            {hasConditionalDamageAmpEffect ? (
+              <label className="toggle" title="暗影面纱等条件触发类装备增伤，勾选后才计入伤害提升。">
+                <input type="checkbox" checked={conditionalDamageAmpActive} onChange={(event) => setConditionalDamageAmpActive(event.target.checked)} />
+                <span>装备增伤触发</span>
+              </label>
+            ) : null}
             <label className="toggle">
               <input type="checkbox" checked={tacticalUpgraded} onChange={(event) => setTacticalUpgraded(event.target.checked)} />
               <span>战术技能升级</span>
@@ -3055,7 +3127,7 @@ export default function App() {
         <div className="panelHead">
           <div>
             <p className="eyebrow">Combos</p>
-            <h2>{selectedHero} 连段</h2>
+            <h2><LabelWithHelp note={help('section.combo')}>{selectedHero} 连段</LabelWithHelp></h2>
           </div>
           <span className="pill">共用修正 {round(result.finalMod, 3)}</span>
         </div>
@@ -3142,12 +3214,17 @@ export default function App() {
             <button type="button" onClick={addEquipment}>新增装备</button>
             <button type="button" onClick={addSkill}>新增技能</button>
             <button type="button" onClick={addCombo}>新增连段</button>
+            <button type="button" className="helpSaveButton" onClick={saveConfig} disabled={!configDirty || configSaveStatus === 'saving'}>
+              {configSaveStatus === 'saving' ? '保存中' : '保存配置到本地'}
+            </button>
             <button type="button" className="quietButton" onClick={resetConfig}>恢复默认</button>
           </div>
         </div>
         <p className="note">
-          编辑后会保存在当前浏览器。技能公式可使用 `base`、`ap`、`attack`、`targetHp`、`stacks`、`level`，等级基础值用英文逗号分隔。数据源预留为 pypy-vrc/er-gamedata，仍保留手动输入覆盖。
+          编辑时会先暂存在当前浏览器；点击“保存配置到本地”后会写入 src/data/localConfig.json，下次提交与 push 会一起带上。技能公式可使用 `base`、`ap`、`attack`、`targetHp`、`stacks`、`level`，等级基础值用英文逗号分隔。数据源预留为 pypy-vrc/er-gamedata，仍保留手动输入覆盖。
           <LabelWithHelp note={help('solution.help')}>帮助说明发布方案</LabelWithHelp>
+          {configSaveStatus === 'saved' ? <small className="configSaveStatus">已写入项目文件。</small> : null}
+          {configSaveStatus === 'error' ? <small className="configSaveStatus error">保存失败，请确认正在使用本地 Vite 服务。</small> : null}
         </p>
         <LazyEditSheet title={<LabelWithHelp note={help('table.equipment')}>装备</LabelWithHelp>}>
           <table>

@@ -7,6 +7,7 @@ import { defineConfig } from 'vite';
 const rootDir = path.dirname(fileURLToPath(import.meta.url));
 const helpNotesPath = path.join(rootDir, 'src', 'data', 'helpNotes.json');
 const announcementPath = path.join(rootDir, 'src', 'data', 'announcement.json');
+const localConfigPath = path.join(rootDir, 'src', 'data', 'localConfig.json');
 
 function readRequestBody(request) {
   return new Promise((resolve, reject) => {
@@ -85,6 +86,36 @@ function helpNotesEditorPlugin() {
         sendJson(response, 200, { ok: true });
       } catch (error) {
         sendJson(response, 500, { error: error instanceof Error ? error.message : 'Failed to save announcement.' });
+      }
+    });
+
+    server.middlewares.use('/api/config', async (request, response, next) => {
+      if (request.method !== 'POST') {
+        next();
+        return;
+      }
+
+      try {
+        const body = await readRequestBody(request);
+        const payload = JSON.parse(body || '{}');
+        const config = payload.config;
+
+        if (!config || Array.isArray(config) || typeof config !== 'object') {
+          sendJson(response, 400, { error: 'Invalid config payload.' });
+          return;
+        }
+
+        const normalized = {
+          equipment: Array.isArray(config.equipment) ? config.equipment : [],
+          skills: Array.isArray(config.skills) ? config.skills : [],
+          talents: Array.isArray(config.talents) ? config.talents : [],
+          combos: Array.isArray(config.combos) ? config.combos : []
+        };
+
+        await fs.writeFile(localConfigPath, `${JSON.stringify(normalized, null, 2)}\n`, 'utf8');
+        sendJson(response, 200, { ok: true });
+      } catch (error) {
+        sendJson(response, 500, { error: error instanceof Error ? error.message : 'Failed to save config.' });
       }
     });
   }

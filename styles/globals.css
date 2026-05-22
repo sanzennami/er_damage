@@ -2173,6 +2173,17 @@ body[data-theme='day'] tr:nth-child(even) td {
   margin-top: 20px;
 }
 
+.configSaveStatus {
+  display: block;
+  margin-top: 6px;
+  color: #8de1ad;
+  font-size: 12px;
+}
+
+.configSaveStatus.error {
+  color: #ff9f9f;
+}
+
 .sheetWrap {
   overflow-x: auto;
   margin-top: 18px;
