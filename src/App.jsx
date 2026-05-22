@@ -12,7 +12,7 @@ import DAK_LOADOUT_ASSETS from './data/dakLoadoutAssets.json';
 import DAK_ITEM_SKILL_ICONS from './data/dakItemSkillIcons.json';
 import MASTERY_STATS from './data/masteryStats.json';
 
-const APP_VERSION = 'v0.1.052';
+const APP_VERSION = 'v0.1.053';
 
 const CHARACTER_IMAGE_URLS = import.meta.glob('../assets/characters/*.png', {
   eager: true,
@@ -136,9 +136,14 @@ const TRAIT_EFFECTS = {
   7310401: { penPct: 0.06, summary: '制动力：对敌人实验体造成伤害后 4 秒内防御穿透 +6%，当前按已触发计入。' },
   7310501: { extraEffect: 'rCharger', summary: 'R_echarger：终极技能冷却缩减 +15；使用终极技能后 5 秒内攻击力 +5+等级*0.5 或技能增幅 +10+等级。' },
   7310601: { extraEffect: 'rapidShot', summary: '急速射击：技能后普攻命中时，5 秒内攻击力 +2+等级*0.5 或技能增幅 +4+等级，并提升攻击速度 15%；当前按技能增幅路径计入。' },
-  7210101: { dmgAmp: 0.05, summary: '荆棘丛：定身目标承受伤害 +5%，治疗效果 -20%' },
-  7211001: { summary: '狩猎的快感不计入技能伤害：野怪增伤、击杀回复与移速不提供法强或技伤' },
-  7211401: { dmgAmp: 0.04, summary: '压迫感：周围敌人承受伤害 +4%' },
+  7200101: { extraEffect: 'hyperRegen', summary: '超再生：自身技能或潜能生成的护盾和体力恢复量持续增加 10%；获得护盾或体力恢复效果的目标，5 秒内攻击力 +5+等级*0.5 或技能增幅 +10+等级*1。' },
+  7200201: { extraEffect: 'enhancementDevice', summary: '强化装置：使用终极技能时出现强化装置，4.5 秒内给 4m 范围内自身和队友移动速度 +10+等级*0.6%，技能伤害量 +8+等级*0.5%。' },
+  7200301: { summary: '治愈装置：自身或 4m 内队友体力低于 40% 承受伤害时出现治愈装置，每秒恢复 3+等级*0.3% 已失体力；重复时治疗效果为 50%。' },
+  7200501: { summary: '无私：独立技能造成伤害时，自身和周围 8m 队友获得 6 秒护盾；体力低于 30% 以下目标获得 1.5 倍护盾，上限 35%。' },
+  7210101: { dmgAmp: 0.05, summary: '荆棘丛：目标无法移动状态时，5 秒内治疗效果降低 20%，承受的所有伤害增加 5%。' },
+  7211001: { summary: '狩猎的快感：对野生动物造成伤害增加 20%；参与击杀野生动物时恢复体力并获得移动速度，随后逐渐下降。' },
+  7211301: { extraEffect: 'explosiveCactus', summary: '爆炸仙人掌：对敌人造成伤害时附着 3 秒仙人掌，队友普攻或独立技能触发时造成 10~150+敌人体力上限 5% 的技能伤害；未触发时自动爆炸造成减少 70% 的伤害。' },
+  7211401: { dmgAmp: 0.04, summary: '压迫感：自身 3m 内敌方实验体承受伤害增加 4%；叠加时每层效果减少 25%，上限 3 层。' },
   7100101: { extraEffect: 'diamondShard', summary: '金刚碎片：定身成功后防御力 +20+等级*5，结束时造成等级*10 的技能伤害。' },
   7100401: { summary: '天使护翼：获得体力上限 18% 的护盾，护盾破裂时解除负面效果并增加移动速度；不直接计入伤害。' },
   7100501: { extraEffect: 'penance', summary: '惩戒：满层普攻消耗叠层时按等级*15 造成技能伤害，并附带减速。' },
@@ -1165,7 +1170,14 @@ function calc({
   const rapidShotAp = activeTraitEffectIds.has('rapidShot') ? 4 + mastery : 0;
   const rChargerAp = activeTraitEffectIds.has('rCharger') ? 10 + mastery : 0;
   const overclockAp = activeTraitEffectIds.has('overclock') && cd >= 40 ? 10 : 0;
-  const talentBonusAp = getNumber(traitBonuses.ap) + rapidShotAp + rChargerAp + overclockAp;
+  const selectedHeroSkillRows = skillTable.filter((skill) => skill.hero === selectedHero);
+  const heroUsesApScaling = selectedHeroSkillRows.some((skill) => formulaUsesVariable(skill.formula, 'ap'));
+  const heroUsesAttackScaling = selectedHeroSkillRows.some((skill) => formulaUsesVariable(skill.formula, 'attack'));
+  const hyperRegenUsesAttack = activeTraitEffectIds.has('hyperRegen') && heroUsesAttackScaling && !heroUsesApScaling;
+  const hyperRegenAp = activeTraitEffectIds.has('hyperRegen') && !hyperRegenUsesAttack ? 10 + mastery : 0;
+  const hyperRegenAttackPower = hyperRegenUsesAttack ? 5 + mastery * 0.5 : 0;
+  const talentBonusAp = getNumber(traitBonuses.ap) + rapidShotAp + rChargerAp + overclockAp + hyperRegenAp;
+  const talentBonusAttackPower = hyperRegenAttackPower;
   const pen = statValue(equipmentStats, 'penetrationDefense') + statValue(equipmentStats, 'uniquePenetrationDefense') + talentPen || selected.reduce((sum, item) => sum + getNumber(item.pen), 0) + talentPen;
   const penPct = statValue(equipmentStats, 'penetrationDefenseRatio') + statValue(equipmentStats, 'uniquePenetrationDefenseRatio') + talentPenPct || selected.reduce((sum, item) => sum + getNumber(item.penPct), 0) + talentPenPct;
   const dynamicTraitDefense = activeTraitEffectIds.has('diamondShard') ? 20 + mastery * 5 : 0;
@@ -1178,14 +1190,15 @@ function calc({
   ), 0);
   const masteryApPct = mastery * masteryOptionValue(masteryStat, 'SkillAmpRatio');
   const masteryAttackPower = mastery * masteryOptionValue(masteryStat, 'AttackPower');
-  const extraAttackPower = equipAttackPower + masteryAttackPower;
+  const extraAttackPower = equipAttackPower + masteryAttackPower + talentBonusAttackPower;
   const totalApPct = normalApPct + uniqueApPct + masteryApPct;
   const totalBaseAp = equipAp + talentAp + talentBonusAp + stackAp;
   const apRaw = totalBaseAp * (1 + totalApPct);
   const ap = damageFloor(apRaw);
   const finalDefense = target.defense * (1 - target.defenseReduction) * (1 - penPct) - pen;
   const defenseMod = 100 / (100 + finalDefense);
-  const totalDamageBonus = damageBonus + equipDamageBonus + talentDamageBonus;
+  const enhancementDeviceDamageBonus = activeTraitEffectIds.has('enhancementDevice') ? 0.08 + mastery * 0.005 : 0;
+  const totalDamageBonus = damageBonus + equipDamageBonus + talentDamageBonus + enhancementDeviceDamageBonus;
   const targetMasteryLevel = Math.max(1, Math.min(20, getNumber(targetMastery) || 1));
   const targetMasterySkillReduction = targetMasteryLevel <= 1 ? 0 : targetMasteryLevel * 0.008;
   const targetMasteryBasicReduction = targetMasteryLevel <= 1 ? 0 : targetMasteryLevel * 0.01;
@@ -1193,9 +1206,8 @@ function calc({
   const damageMod = 1 + totalDamageBonus - target.reduction - totalSkillReduction;
   const finalMod = defenseMod * damageMod;
   const stackCount = Math.min(4, Math.max(0, r2Stacks));
-  const context = { ap, attack: attack + equipAttackPower + masteryAttackPower, extraAttack: extraAttackPower, targetHp: target.hp, stacks: stackCount, finalMod };
-  const heroSkills = skillTable
-    .filter((skill) => skill.hero === selectedHero)
+  const context = { ap, attack: attack + equipAttackPower + masteryAttackPower + talentBonusAttackPower, extraAttack: extraAttackPower, targetHp: target.hp, stacks: stackCount, finalMod };
+  const heroSkills = selectedHeroSkillRows
     .map((skill) => calculateSkill(skill, skillLevels[skill.id], context));
   const hpDiffRatio = Math.min(0.4, Math.max(0.1, (target.hp - selfHp) / selfHp));
   const burstBonus = Math.min(0.1, Math.max(0, (target.hp - selfHp) / selfHp) * 0.25);
@@ -1204,6 +1216,7 @@ function calc({
   const tearBase = 10 + mastery * 2 + target.hp * 0.08;
   const thunderFormula = adaptiveOffenseFormula({ base: 30 + mastery * 2, extraAttack: extraAttackPower, attackRatio: 0.45, ap, apRatio: 0.26 });
   const vortexFormula = adaptiveOffenseFormula({ base: mastery * 5, extraAttack: extraAttackPower, attackRatio: 0.8, ap, apRatio: 0.4 });
+  const cactusBase = 10 + Math.max(0, mastery - 1) * (140 / 19) + target.hp * 0.05;
   const diamondShardBase = mastery * 10;
   const penanceBase = mastery * 15;
   const effects = [
@@ -1230,6 +1243,9 @@ function calc({
       : null,
     activeTraitEffectIds.has('tear')
       ? { title: '伤口撕裂', raw: damageFloor(tearBase), value: damageFloor(damageFloor(tearBase) * finalMod), note: '10+等级*2+目标当前体力*8%' }
+      : null,
+    activeTraitEffectIds.has('explosiveCactus')
+      ? { title: '爆炸仙人掌(技)', raw: damageFloor(cactusBase), value: damageFloor(damageFloor(cactusBase) * finalMod), note: '队友普攻/独立技能触发：10~150+敌人体力上限5%；未触发自动爆炸为减少70%的伤害。' }
       : null
   ].filter(Boolean);
   const ghostFire = adaptiveOffenseFormula({ base: 50 + mastery * 10, extraAttack: extraAttackPower, attackRatio: 0.7, ap, apRatio: 0.2 });
@@ -1275,6 +1291,7 @@ function calc({
     masteryAttackPower,
     talentAp,
     talentBonusAp,
+    talentBonusAttackPower,
     stackAp,
     stackCd,
     selectedTalents: selectedTraits,
@@ -2087,7 +2104,7 @@ export default function App() {
   const heroUsesApScaling = result.skills.some((skill) => formulaUsesVariable(skill.formula, 'ap'));
   const heroUsesAttackScaling = result.skills.some((skill) => formulaUsesVariable(skill.formula, 'attack'));
   const showApFormulaStats = heroUsesApScaling || (!heroUsesApScaling && !heroUsesAttackScaling);
-  const finalAttack = attack + result.equipAttackPower + result.masteryAttackPower;
+  const finalAttack = attack + result.equipAttackPower + result.masteryAttackPower + result.talentBonusAttackPower;
   const formulaSummaryStats = [
     showApFormulaStats ? `最终法强 ${result.ap}` : '',
     heroUsesAttackScaling ? `最终攻击 ${round(finalAttack, 1)}` : ''
@@ -3253,7 +3270,7 @@ export default function App() {
               <StatCard label="基础攻击" value={attack} hint={`角色等级成长后攻击力`} note={help('equipment.attackPower')} />
               <StatCard label="装备攻击" value={result.equipAttackPower} hint="当前装备攻击力合计" note={help('equipment.attackPower')} />
               <StatCard label="熟练度攻击" value={round(result.masteryAttackPower, 1)} hint={selectedMasterySummary.join(' / ') || '当前武器无攻击力熟练度'} note={help('field.mastery')} />
-              <StatCard label="最终攻击" value={round(finalAttack, 1)} hint={`${round(attack, 1)} + ${round(result.equipAttackPower, 1)} + ${round(result.masteryAttackPower, 1)}`} note={help('equipment.attackPower')} />
+              <StatCard label="最终攻击" value={round(finalAttack, 1)} hint={`${round(attack, 1)} + ${round(result.equipAttackPower, 1)} + ${round(result.masteryAttackPower, 1)} + ${round(result.talentBonusAttackPower, 1)}`} note={help('equipment.attackPower')} />
             </>
           ) : null}
         </div>
