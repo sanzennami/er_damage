@@ -1,4 +1,6 @@
 {
+  "_comment": "装备唯一效果说明。按装备 code 和名称建立索引，用于在装备表里显示特殊效果。",
+  "_usage": "effectsByCode 优先，effectsByName 兜底；修改效果文案时保持 code 字符串键不变。",
   "source": "dakItemSkillIcons tooltip <b> tags",
   "generatedAt": "2026-05-21T20:29:50.892Z",
   "effectsByCode": {

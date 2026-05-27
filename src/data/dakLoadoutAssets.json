@@ -1,4 +1,6 @@
 {
+  "_comment": "DAK.GG 路线/特性/战术技能资源清单。通常由脚本生成，手改容易在下次抓取时被覆盖。",
+  "_usage": "traitGroups、traits、tacticalSkills 会被前端用于展示特性与战术技能图标。",
   "sourcePage": "https://dak.gg/er/routes/simulator/YuMin",
   "apiBase": "https://er.dakgg.io/api/v1/data",
   "locale": "zh-CN",

@@ -114,6 +114,7 @@ const WEAPON_TYPES = [
   'VF义体 / VF Prosthetic'
 ];
 const STORAGE_KEY = 'er-damage-config-v1';
+const WORKSPACE_STATE_KEY = 'er-damage-workspace-state-v1';
 const APP_SETTINGS_KEY = 'er-damage-global-settings-v1';
 const HELP_NOTES_KEY = 'er-damage-help-notes-v1';
 const HELP_NOTES_EDITABLE = typeof window !== 'undefined' && ['localhost', '127.0.0.1', '::1'].includes(window.location.hostname);
@@ -494,6 +495,31 @@ const TARGETS = [
   { name: '20级 T 血量4110 防御212', hp: 4110, defense: 212, defenseReduction: 0, reduction: 0, targetMastery: 1 }
 ];
 const TARGET_MASTERY_LEVELS = Array.from({ length: 20 }, (_, index) => index + 1);
+const COMPARISON_STAT_METRICS = [
+  { key: 'ap', label: '最终法强' },
+  { key: 'attackPower', label: '攻击力' },
+  { key: 'baseAttackPower', label: '基础攻击' },
+  { key: 'extraAttackPower', label: '额外攻击' },
+  { key: 'pen', label: '防穿数值' },
+  { key: 'penPct', label: '防穿%' },
+  { key: 'totalDamageBonus', label: '伤害提升%' },
+  { key: 'basicAttack', label: '每发平A预估' },
+  { key: 'finalMod', label: '最终伤害倍率' }
+];
+const DEFAULT_COMPARISON_METRICS = ['ap', 'basicAttack'];
+const DEFAULT_COMPARISON_SETTINGS = {
+  masteryStart: 1,
+  masteryEnd: 20,
+  masteryStep: 1,
+  target: TARGETS[0],
+  targetMastery: 1,
+  selfHp: 2514,
+  damageBonus: 0,
+  skillReduction: 0,
+  includeSkills: true,
+  groupRowsByMastery: false,
+  selectedMetrics: DEFAULT_COMPARISON_METRICS
+};
 
 function getNumber(value) {
   const next = Number(value);
@@ -778,6 +804,45 @@ function loadAppSettings() {
   } catch {
     return {};
   }
+}
+
+function loadWorkspaceState() {
+  try {
+    return JSON.parse(window.localStorage.getItem(WORKSPACE_STATE_KEY)) || {};
+  } catch {
+    return {};
+  }
+}
+
+function normalizeComparisonScenario(scenario, fallbackGear = DEFAULT_GEAR, index = 0) {
+  return {
+    id: scenario?.id || `scenario-${Date.now()}-${index}`,
+    name: String(scenario?.name || `方案 ${index + 1}`),
+    gear: { ...fallbackGear, ...(scenario?.gear || {}) },
+    effectToggles: {
+      vampireFull: Boolean(scenario?.effectToggles?.vampireFull),
+      blazingFull: Boolean(scenario?.effectToggles?.blazingFull),
+      magicSeedFull: Boolean(scenario?.effectToggles?.magicSeedFull),
+      conditionalDamageAmpActive: Boolean(scenario?.effectToggles?.conditionalDamageAmpActive)
+    }
+  };
+}
+
+function normalizeComparisonSettings(settings) {
+  return {
+    ...DEFAULT_COMPARISON_SETTINGS,
+    ...(settings || {}),
+    target: { ...TARGETS[0], ...(settings?.target || {}) },
+    masteryStart: Math.max(1, Math.min(20, getNumber(settings?.masteryStart) || DEFAULT_COMPARISON_SETTINGS.masteryStart)),
+    masteryEnd: Math.max(1, Math.min(20, getNumber(settings?.masteryEnd) || DEFAULT_COMPARISON_SETTINGS.masteryEnd)),
+    masteryStep: Math.max(1, Math.min(20, getNumber(settings?.masteryStep) || DEFAULT_COMPARISON_SETTINGS.masteryStep)),
+    targetMastery: Math.max(1, Math.min(20, getNumber(settings?.targetMastery) || DEFAULT_COMPARISON_SETTINGS.targetMastery)),
+    selectedMetrics: Array.isArray(settings?.selectedMetrics) && settings.selectedMetrics.length
+      ? settings.selectedMetrics
+      : DEFAULT_COMPARISON_METRICS,
+    includeSkills: settings?.includeSkills ?? DEFAULT_COMPARISON_SETTINGS.includeSkills,
+    groupRowsByMastery: settings?.groupRowsByMastery ?? DEFAULT_COMPARISON_SETTINGS.groupRowsByMastery
+  };
 }
 
 function loadHelpNotes() {
@@ -1082,6 +1147,38 @@ function calculateSkill(skill, level, context) {
   };
 }
 
+function calculateBasicAttackDamage({
+  attackPower,
+  target,
+  armorPenetration,
+  armorPenetrationRatio,
+  damageIncreaseRatio,
+  targetDamageReductionRatio,
+  criticalStrikeChance,
+  criticalStrikeDamage
+}) {
+  const finalDefense = target.defense * (1 - target.defenseReduction) * (1 - armorPenetrationRatio) - armorPenetration;
+  const defenseMod = 100 / (100 + finalDefense);
+  const damageMod = 1 + damageIncreaseRatio - targetDamageReductionRatio;
+  const normalRaw = attackPower * defenseMod * damageMod;
+  const normal = damageFloor(normalRaw);
+  const criticalMultiplier = 1.75 + criticalStrikeDamage;
+  const chance = Math.max(0, Math.min(1, criticalStrikeChance));
+
+  return {
+    finalDefense,
+    defenseMod,
+    damageMod,
+    normal,
+    critical: damageFloor(normal * criticalMultiplier),
+    criticalMultiplier,
+    criticalStrikeChance: chance,
+    criticalStrikeDamage,
+    damageIncreaseRatio,
+    targetDamageReductionRatio
+  };
+}
+
 function scaledSkillDamage(skill, finalMod, { scale = 1, hits = 1 } = {}) {
   const singleRaw = damageFloor(getNumber(skill.rawDamage) * scale);
   const singleFinal = damageFloor(singleRaw * finalMod);
@@ -1259,7 +1356,10 @@ function calc({
   ), 0);
   const masteryApPct = mastery * masteryOptionValue(masteryStat, 'SkillAmpRatio');
   const masteryAttackPower = mastery * masteryOptionValue(masteryStat, 'AttackPower');
-  const extraAttackPower = equipAttackPower + masteryAttackPower + talentBonusAttackPower + stackAttackPower;
+  const masteryBasicAttackDamageRatio = mastery * masteryOptionValue(masteryStat, 'IncreaseBasicAttackDamageRatio');
+  const baseAttackPower = attack + masteryAttackPower;
+  const extraAttackPower = equipAttackPower + talentBonusAttackPower + stackAttackPower;
+  const attackPower = baseAttackPower + extraAttackPower;
   const totalApPct = normalApPct + uniqueApPct + masteryApPct;
   const totalBaseAp = equipAp + talentAp + talentBonusAp + stackAp;
   const apRaw = totalBaseAp * (1 + totalApPct);
@@ -1276,7 +1376,21 @@ function calc({
   const damageMod = 1 + totalDamageBonus - target.reduction - totalSkillReduction;
   const finalMod = defenseMod * damageMod;
   const stackCount = Math.min(4, Math.max(0, r2Stacks));
-  const context = { ap, attack: attack + equipAttackPower + masteryAttackPower + talentBonusAttackPower + stackAttackPower, extraAttack: extraAttackPower, targetHp: target.hp, stacks: stackCount, finalMod };
+  const basicAttackDamageIncreaseRatio = totalDamageBonus
+    + statValue(equipmentStats, 'increaseBasicAttackDamageRatio')
+    + masteryBasicAttackDamageRatio;
+  const basicAttackTargetReductionRatio = target.reduction + targetMasteryBasicReduction;
+  const basicAttackDamage = calculateBasicAttackDamage({
+    attackPower,
+    target,
+    armorPenetration: pen,
+    armorPenetrationRatio: penPct,
+    damageIncreaseRatio: basicAttackDamageIncreaseRatio,
+    targetDamageReductionRatio: basicAttackTargetReductionRatio,
+    criticalStrikeChance: statValue(equipmentStats, 'criticalStrikeChance'),
+    criticalStrikeDamage: statValue(equipmentStats, 'criticalStrikeDamage')
+  });
+  const context = { ap, attack: attackPower, extraAttack: extraAttackPower, targetHp: target.hp, stacks: stackCount, finalMod };
   const heroSkills = selectedHeroSkillRows
     .map((skill) => calculateSkill(skill, skillLevels[skill.id], context));
   const hpDiffRatio = Math.min(0.4, Math.max(0.1, (target.hp - selfHp) / selfHp));
@@ -1359,6 +1473,10 @@ function calc({
     equipAp,
     equipAttackPower,
     masteryAttackPower,
+    masteryBasicAttackDamageRatio,
+    baseAttackPower,
+    extraAttackPower,
+    attackPower,
     talentAp,
     talentBonusAp,
     talentBonusAttackPower,
@@ -1396,6 +1514,7 @@ function calc({
     totalSkillReduction,
     damageMod,
     finalMod,
+    basicAttackDamage,
     hpDiffRatio,
     burstBonus,
     skills: heroSkills,
@@ -1743,6 +1862,209 @@ function StatCard({ label, value, hint, note }) {
   );
 }
 
+function ComparisonChart({ rows, metricKey, metricLabel, selectedMastery, onSelectMastery }) {
+  const [zoom, setZoom] = useState(1);
+  const [hoverMastery, setHoverMastery] = useState(null);
+  const chartViewportRef = useRef(null);
+  const values = rows
+    .map((row) => ({ ...row, value: getNumber(row.values[metricKey]) }))
+    .filter((row) => Number.isFinite(row.value));
+  const scenarios = Array.from(new Set(values.map((row) => row.scenarioName)));
+  const allMasteries = Array.from(new Set(values.map((row) => row.mastery))).sort((left, right) => left - right);
+  const rawMinX = Math.min(...values.map((row) => row.mastery), 1);
+  const rawMaxX = Math.max(...values.map((row) => row.mastery), 20);
+  const rawMinY = Math.min(...values.map((row) => row.value), 0);
+  const rawMaxY = Math.max(...values.map((row) => row.value), 1);
+  const width = 720;
+  const height = 260;
+  const padLeft = 58;
+  const padRight = 18;
+  const padTop = 30;
+  const padBottom = 40;
+  const colors = ['#ffd56b', '#81caff', '#8de1ad', '#ff8b8b', '#ccb6ff', '#f7a85c'];
+  const rawSpanX = rawMaxX - rawMinX || 1;
+  const rawSpanY = rawMaxY - rawMinY || 1;
+  const zoomedSpanX = rawSpanX / zoom;
+  const zoomedSpanY = rawSpanY / zoom;
+  const centerX = (rawMinX + rawMaxX) / 2;
+  const centerY = (rawMinY + rawMaxY) / 2;
+  const minX = centerX - zoomedSpanX / 2;
+  const maxX = centerX + zoomedSpanX / 2;
+  const minY = centerY - zoomedSpanY / 2;
+  const maxY = centerY + zoomedSpanY / 2;
+  const spanX = maxX - minX || 1;
+  const spanY = maxY - minY || 1;
+  const plotLeft = padLeft;
+  const plotRight = width - padRight;
+  const plotTop = padTop;
+  const plotBottom = height - padBottom;
+  const plotWidth = plotRight - plotLeft;
+  const plotHeight = plotBottom - plotTop;
+  const scenarioColor = (scenarioName) => colors[Math.max(0, scenarios.indexOf(scenarioName)) % colors.length];
+  const xFor = (value) => plotLeft + ((value - minX) / spanX) * plotWidth;
+  const yFor = (value) => plotBottom - ((value - minY) / spanY) * plotHeight;
+  const visibleValues = values.filter((row) => row.mastery >= minX && row.mastery <= maxX);
+  const hoveredRows = hoverMastery == null
+    ? []
+    : values.filter((row) => row.mastery === hoverMastery && row.value >= minY && row.value <= maxY);
+  const hoveredX = hoverMastery == null ? null : xFor(hoverMastery);
+  const selectedX = selectedMastery == null ? null : xFor(selectedMastery);
+  const xTicks = allMasteries.filter((level) => level >= Math.ceil(minX) && level <= Math.floor(maxX));
+  const yTicks = Array.from({ length: 5 }, (_, index) => minY + (spanY * index) / 4);
+  const formatAxisValue = (value) => round(value, Math.abs(value) < 10 ? 2 : 1);
+  const clipId = `comparison-clip-${metricKey.replace(/[^a-z0-9_-]/gi, '-')}`;
+
+  useEffect(() => {
+    const viewport = chartViewportRef.current;
+    if (!viewport) return undefined;
+
+    function handleWheel(event) {
+      if (!viewport.contains(event.target)) return;
+      if (!event.altKey) return;
+      event.preventDefault();
+      event.stopPropagation();
+      setZoom((currentZoom) => (
+        Math.max(1, Math.min(6, currentZoom * (event.deltaY < 0 ? 1.18 : 1 / 1.18)))
+      ));
+    }
+
+    document.addEventListener('wheel', handleWheel, { passive: false, capture: true });
+    return () => document.removeEventListener('wheel', handleWheel, true);
+  }, []);
+
+  function nearestMasteryForEvent(event) {
+    const rect = event.currentTarget.getBoundingClientRect();
+    const svgX = ((event.clientX - rect.left) / rect.width) * width;
+    const svgY = ((event.clientY - rect.top) / rect.height) * height;
+    if (svgX < plotLeft || svgX > plotRight || svgY < plotTop || svgY > plotBottom || !allMasteries.length) {
+      return null;
+    }
+    const masteryAtCursor = minX + ((svgX - plotLeft) / plotWidth) * spanX;
+    return allMasteries.reduce((best, level) => (
+      Math.abs(level - masteryAtCursor) < Math.abs(best - masteryAtCursor) ? level : best
+    ), allMasteries[0]);
+  }
+
+  function handleMouseMove(event) {
+    const nearest = nearestMasteryForEvent(event);
+    if (nearest == null) {
+      setHoverMastery(null);
+      return;
+    }
+    setHoverMastery(nearest);
+  }
+
+  function handleChartClick(event) {
+    const nearest = nearestMasteryForEvent(event);
+    if (nearest != null) onSelectMastery?.(nearest);
+  }
+
+  if (!values.length) {
+    return <div className="comparisonChartEmpty">选择至少一个可绘制指标后生成图表</div>;
+  }
+
+  return (
+    <div className="comparisonChart">
+      <div className="comparisonChartHead">
+        <strong>{metricLabel}</strong>
+        <span>随熟练度变化 · Alt+滚轮缩放 · {round(zoom, 2)}x</span>
+      </div>
+      <div className="comparisonChartViewport" ref={chartViewportRef}>
+      <svg
+        viewBox={`0 0 ${width} ${height}`}
+        role="img"
+        aria-label={`${metricLabel} 对比图`}
+        onMouseMove={handleMouseMove}
+        onClick={handleChartClick}
+        onMouseLeave={() => setHoverMastery(null)}
+        style={{ '--chart-zoom': zoom }}
+      >
+        <defs>
+          <clipPath id={clipId}>
+            <rect x={plotLeft} y={plotTop} width={plotWidth} height={plotHeight} />
+          </clipPath>
+        </defs>
+        {yTicks.map((tick) => (
+          <g className="comparisonChartTick" key={`y-${tick}`}>
+            <line x1={plotLeft} y1={yFor(tick)} x2={plotRight} y2={yFor(tick)} />
+            <text x={plotLeft - 8} y={yFor(tick) + 4} textAnchor="end">{formatAxisValue(tick)}</text>
+          </g>
+        ))}
+        {xTicks.map((tick) => (
+          <g className="comparisonChartTick" key={`x-${tick}`}>
+            <line x1={xFor(tick)} y1={plotTop} x2={xFor(tick)} y2={plotBottom} />
+            <text x={xFor(tick)} y={height - 12} textAnchor="middle">{tick}</text>
+          </g>
+        ))}
+        <line className="comparisonChartAxis" x1={plotLeft} y1={plotBottom} x2={plotRight} y2={plotBottom} />
+        <line className="comparisonChartAxis" x1={plotLeft} y1={plotTop} x2={plotLeft} y2={plotBottom} />
+        <text x={(plotLeft + plotRight) / 2} y={height - 2} textAnchor="middle">熟练度</text>
+        <text x={plotLeft - 44} y={plotTop - 12}>{metricLabel}</text>
+        {hoveredX != null && hoveredX >= plotLeft && hoveredX <= plotRight ? (
+          <line className="comparisonChartGuideX" x1={hoveredX} y1={plotTop} x2={hoveredX} y2={plotBottom} />
+        ) : null}
+        {selectedX != null && selectedX >= plotLeft && selectedX <= plotRight ? (
+          <line className="comparisonChartSelectedX" x1={selectedX} y1={plotTop} x2={selectedX} y2={plotBottom} />
+        ) : null}
+        {hoveredRows.map((row) => (
+          <g className="comparisonChartHoverGuide" key={`${row.id}-guide`}>
+            <line x1={plotLeft} y1={yFor(row.value)} x2={xFor(row.mastery)} y2={yFor(row.value)} />
+            <circle cx={xFor(row.mastery)} cy={yFor(row.value)} r="6" style={{ '--line-color': scenarioColor(row.scenarioName) }} />
+            <text x={plotLeft - 8} y={yFor(row.value) - 5} textAnchor="end">{formatAxisValue(row.value)}</text>
+          </g>
+        ))}
+        <g clipPath={`url(#${clipId})`}>
+        {scenarios.map((scenario, index) => {
+          const scenarioValues = visibleValues
+            .filter((row) => row.scenarioName === scenario)
+            .sort((left, right) => left.mastery - right.mastery);
+          const points = scenarioValues.map((row) => `${xFor(row.mastery)},${yFor(row.value)}`).join(' ');
+          return <polyline key={scenario} points={points} style={{ '--line-color': colors[index % colors.length] }} />;
+        })}
+        {scenarios.flatMap((scenario, index) => (
+          visibleValues
+            .filter((row) => row.scenarioName === scenario)
+            .map((row) => {
+              const label = `${row.scenarioName} / 熟练度 ${row.mastery} / ${metricLabel} ${round(row.value, Math.abs(row.value) < 10 ? 2 : 1)}`;
+              return (
+                <circle
+                  className="comparisonChartPoint"
+                  key={`${row.id}-${metricKey}`}
+                  cx={xFor(row.mastery)}
+                  cy={yFor(row.value)}
+                  r="5"
+                  tabIndex="0"
+                  aria-label={label}
+                  style={{ '--line-color': colors[index % colors.length] }}
+                >
+                  <title>{label}</title>
+                </circle>
+              );
+            })
+        ))}
+        </g>
+      </svg>
+      </div>
+      {hoveredRows.length ? (
+        <div className="comparisonChartHoverPanel">
+          <strong>熟练度 {hoverMastery}</strong>
+          {hoveredRows.map((row) => (
+            <span key={`${row.id}-hover`} style={{ '--legend-color': scenarioColor(row.scenarioName) }}>
+              {row.scenarioName}: {formatAxisValue(row.value)}
+            </span>
+          ))}
+          <em>点击选中此熟练度</em>
+        </div>
+      ) : null}
+      <div className="comparisonLegend">
+        {scenarios.map((scenario, index) => (
+          <span key={scenario} style={{ '--legend-color': colors[index % colors.length] }}>{scenario}</span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 function LevelSelect({ skill, value, onChange }) {
   const maxLevel = getNumber(skill.maxLevel) || basesFor(skill).length || 1;
 
@@ -1894,40 +2216,56 @@ function characterAttackAtLevel(character, level = 20) {
 }
 
 export default function App() {
+  const initialWorkspaceState = loadWorkspaceState();
+  const initialAppSettings = loadAppSettings();
   const [{ equipment, skills, talents, combos }, setConfig] = useState(loadConfig);
-  const [gear, setGear] = useState(DEFAULT_GEAR);
-  const [weaponTypeFilter, setWeaponTypeFilter] = useState('全部类型');
-  const [selectedHero, setSelectedHero] = useState('俞岷');
-  const [mastery, setMastery] = useState(20);
-  const [talentAp, setTalentAp] = useState(0);
-  const [traitSelection, setTraitSelection] = useState(() => normalizeTraitSelection(DEFAULT_TRAIT_SELECTION));
-  const [targetIndex, setTargetIndex] = useState(0);
-  const [target, setTarget] = useState(TARGETS[0]);
-  const [targetMastery, setTargetMastery] = useState(1);
-  const [selfHp, setSelfHp] = useState(2514);
-  const [damageBonus, setDamageBonus] = useState(0);
-  const [skillReduction, setSkillReduction] = useState(0);
-  const [r2Stacks, setR2Stacks] = useState(1);
-  const [tacticalSkill, setTacticalSkill] = useState('斥力弹');
-  const [tacticalUpgraded, setTacticalUpgraded] = useState(true);
-  const [vampireFull, setVampireFull] = useState(false);
-  const [blazingFull, setBlazingFull] = useState(false);
-  const [magicSeedFull, setMagicSeedFull] = useState(false);
-  const [conditionalDamageAmpActive, setConditionalDamageAmpActive] = useState(false);
+  const [activePage, setActivePage] = useState(initialWorkspaceState.activePage || 'calculator');
+  const [gear, setGear] = useState(() => ({ ...DEFAULT_GEAR, ...(initialWorkspaceState.gear || {}) }));
+  const [weaponTypeFilter, setWeaponTypeFilter] = useState(initialWorkspaceState.weaponTypeFilter || '全部类型');
+  const [selectedHero, setSelectedHero] = useState(initialWorkspaceState.selectedHero || '俞岷');
+  const [mastery, setMastery] = useState(getNumber(initialWorkspaceState.mastery) || 20);
+  const [talentAp, setTalentAp] = useState(getNumber(initialWorkspaceState.talentAp));
+  const [traitSelection, setTraitSelection] = useState(() => normalizeTraitSelection(initialWorkspaceState.traitSelection || DEFAULT_TRAIT_SELECTION));
+  const [targetIndex, setTargetIndex] = useState(Number.isInteger(initialWorkspaceState.targetIndex) ? initialWorkspaceState.targetIndex : 0);
+  const [target, setTarget] = useState(() => (initialWorkspaceState.target ? { ...TARGETS[0], ...initialWorkspaceState.target } : TARGETS[0]));
+  const [targetMastery, setTargetMastery] = useState(getNumber(initialWorkspaceState.targetMastery) || 1);
+  const [selfHp, setSelfHp] = useState(getNumber(initialWorkspaceState.selfHp) || 2514);
+  const [damageBonus, setDamageBonus] = useState(getNumber(initialWorkspaceState.damageBonus));
+  const [skillReduction, setSkillReduction] = useState(getNumber(initialWorkspaceState.skillReduction));
+  const [r2Stacks, setR2Stacks] = useState(getNumber(initialWorkspaceState.r2Stacks) || 1);
+  const [tacticalSkill, setTacticalSkill] = useState(initialWorkspaceState.tacticalSkill || '斥力弹');
+  const [tacticalUpgraded, setTacticalUpgraded] = useState(initialWorkspaceState.tacticalUpgraded ?? true);
+  const [vampireFull, setVampireFull] = useState(Boolean(initialWorkspaceState.vampireFull));
+  const [blazingFull, setBlazingFull] = useState(Boolean(initialWorkspaceState.blazingFull));
+  const [magicSeedFull, setMagicSeedFull] = useState(Boolean(initialWorkspaceState.magicSeedFull));
+  const [conditionalDamageAmpActive, setConditionalDamageAmpActive] = useState(Boolean(initialWorkspaceState.conditionalDamageAmpActive));
   const [showBuildSettings, setShowBuildSettings] = useState(false);
   const [showGlobalSettings, setShowGlobalSettings] = useState(false);
   const [showHeroDebugSettings, setShowHeroDebugSettings] = useState(false);
-  const [effectsCollapsed, setEffectsCollapsed] = useState(false);
-  const [skillTargetCounts, setSkillTargetCounts] = useState({});
-  const [useHeroAvatarPicker, setUseHeroAvatarPicker] = useState(() => Boolean(loadAppSettings().useHeroAvatarPicker));
-  const [editMode, setEditMode] = useState(false);
-  const [showUnsupportedHeroes, setShowUnsupportedHeroes] = useState(false);
-  const [showDamageTestHeroes, setShowDamageTestHeroes] = useState(false);
-  const [uiTheme, setUiTheme] = useState(() => loadAppSettings().uiTheme || 'night');
-  const [heroAvatarQuery, setHeroAvatarQuery] = useState('');
-  const [showLowerTierEquipment, setShowLowerTierEquipment] = useState(false);
-  const [visibleStatKeys, setVisibleStatKeys] = useState(DEFAULT_VISIBLE_STAT_KEYS);
-  const [skillLevels, setSkillLevels] = useState(() => Object.fromEntries(INITIAL_SKILLS.map((skill) => [skill.id, skill.maxLevel])));
+  const [effectsCollapsed, setEffectsCollapsed] = useState(Boolean(initialWorkspaceState.effectsCollapsed));
+  const [skillTargetCounts, setSkillTargetCounts] = useState(initialWorkspaceState.skillTargetCounts || {});
+  const [useHeroAvatarPicker, setUseHeroAvatarPicker] = useState(() => Boolean(initialAppSettings.useHeroAvatarPicker));
+  const [editMode, setEditMode] = useState(Boolean(initialAppSettings.editMode));
+  const [showUnsupportedHeroes, setShowUnsupportedHeroes] = useState(Boolean(initialAppSettings.showUnsupportedHeroes));
+  const [showDamageTestHeroes, setShowDamageTestHeroes] = useState(Boolean(initialAppSettings.showDamageTestHeroes));
+  const [uiTheme, setUiTheme] = useState(() => initialAppSettings.uiTheme || 'night');
+  const [heroAvatarQuery, setHeroAvatarQuery] = useState(initialWorkspaceState.heroAvatarQuery || '');
+  const [showLowerTierEquipment, setShowLowerTierEquipment] = useState(Boolean(initialWorkspaceState.showLowerTierEquipment));
+  const [visibleStatKeys, setVisibleStatKeys] = useState(initialWorkspaceState.visibleStatKeys || DEFAULT_VISIBLE_STAT_KEYS);
+  const [skillLevels, setSkillLevels] = useState(() => ({
+    ...Object.fromEntries(INITIAL_SKILLS.map((skill) => [skill.id, skill.maxLevel])),
+    ...(initialWorkspaceState.skillLevels || {})
+  }));
+  const [comparisonSettings, setComparisonSettings] = useState(() => normalizeComparisonSettings(initialWorkspaceState.comparisonSettings));
+  const [comparisonScenarios, setComparisonScenarios] = useState(() => {
+    const scenarios = Array.isArray(initialWorkspaceState.comparisonScenarios) ? initialWorkspaceState.comparisonScenarios : [];
+    if (scenarios.length) return scenarios.map((scenario, index) => normalizeComparisonScenario(scenario, DEFAULT_GEAR, index));
+    return [
+      normalizeComparisonScenario({ id: 'current', name: '当前方案', gear: initialWorkspaceState.gear || DEFAULT_GEAR }, DEFAULT_GEAR, 0),
+      normalizeComparisonScenario({ id: 'variant-1', name: '对比方案', gear: initialWorkspaceState.gear || DEFAULT_GEAR }, DEFAULT_GEAR, 1)
+    ];
+  });
+  const [selectedComparisonMastery, setSelectedComparisonMastery] = useState(() => getNumber(initialWorkspaceState.selectedComparisonMastery) || null);
   const [helpNotes, setHelpNotes] = useState(loadHelpNotes);
   const [helpNotesDirty, setHelpNotesDirty] = useState(false);
   const [helpNotesSaveStatus, setHelpNotesSaveStatus] = useState('idle');
@@ -1941,6 +2279,40 @@ export default function App() {
   useEffect(() => {
     window.localStorage.setItem(STORAGE_KEY, JSON.stringify({ equipment, skills, talents, combos }));
   }, [equipment, skills, talents, combos]);
+
+  useEffect(() => {
+    window.localStorage.setItem(WORKSPACE_STATE_KEY, JSON.stringify({
+      activePage,
+      gear,
+      weaponTypeFilter,
+      selectedHero,
+      mastery,
+      talentAp,
+      traitSelection,
+      targetIndex,
+      target,
+      targetMastery,
+      selfHp,
+      damageBonus,
+      skillReduction,
+      r2Stacks,
+      tacticalSkill,
+      tacticalUpgraded,
+      vampireFull,
+      blazingFull,
+      magicSeedFull,
+      conditionalDamageAmpActive,
+      effectsCollapsed,
+      skillTargetCounts,
+      heroAvatarQuery,
+      showLowerTierEquipment,
+      visibleStatKeys,
+      skillLevels,
+      comparisonSettings,
+      comparisonScenarios,
+      selectedComparisonMastery
+    }));
+  }, [activePage, gear, weaponTypeFilter, selectedHero, mastery, talentAp, traitSelection, targetIndex, target, targetMastery, selfHp, damageBonus, skillReduction, r2Stacks, tacticalSkill, tacticalUpgraded, vampireFull, blazingFull, magicSeedFull, conditionalDamageAmpActive, effectsCollapsed, skillTargetCounts, heroAvatarQuery, showLowerTierEquipment, visibleStatKeys, skillLevels, comparisonSettings, comparisonScenarios, selectedComparisonMastery]);
 
   useEffect(() => {
     window.localStorage.setItem(APP_SETTINGS_KEY, JSON.stringify({ useHeroAvatarPicker, editMode, showUnsupportedHeroes, showDamageTestHeroes, uiTheme }));
@@ -1979,7 +2351,6 @@ export default function App() {
     setHelpNotesSaveStatus('saving');
     try {
       await persistHelpNotes(helpNotes);
-      window.localStorage.removeItem(HELP_NOTES_KEY);
       setHelpNotesDirty(false);
       setHelpNotesSaveStatus('saved');
     } catch {
@@ -2006,7 +2377,6 @@ export default function App() {
     try {
       await persistAnnouncement(nextAnnouncement);
       setAnnouncement(nextAnnouncement);
-      window.localStorage.removeItem(ANNOUNCEMENT_KEY);
       setAnnouncementDirty(false);
       setAnnouncementSaveStatus('saved');
     } catch {
@@ -2026,7 +2396,6 @@ export default function App() {
     setConfigSaveStatus('saving');
     try {
       await persistConfig({ equipment, skills, talents, combos });
-      window.localStorage.removeItem(STORAGE_KEY);
       setConfigDirty(false);
       setConfigSaveStatus('saved');
     } catch {
@@ -2127,6 +2496,21 @@ export default function App() {
   const effectiveMagicSeedFull = hasMagicSeedEffect && magicSeedFull;
   const effectiveConditionalDamageAmpActive = hasConditionalDamageAmpEffect && conditionalDamageAmpActive;
 
+  function comparisonScenarioGearItems(scenario) {
+    return SLOTS.map((slot) => byName(equipment, scenario.gear[slot])).filter(Boolean);
+  }
+
+  function comparisonScenarioEffectAvailability(scenario) {
+    const scenarioGearItems = comparisonScenarioGearItems(scenario);
+    const scenarioEffects = scenarioGearItems.flatMap(uniqueEffectsForItem);
+    return {
+      vampireFull: selectedTraits.some((trait) => String(trait.id) === VAMPIRE_STACK_TRAIT_ID || trait.name === '吸血鬼'),
+      blazingFull: scenarioEffects.some((effect) => BLAZING_SKILL_AMP_EFFECTS.has(effect)),
+      magicSeedFull: scenarioEffects.includes(MAGIC_SEED_EFFECT),
+      conditionalDamageAmpActive: scenarioGearItems.some(hasConditionalDamageAmp)
+    };
+  }
+
   useEffect(() => {
     if (!hasVampireStackTrait && vampireFull) setVampireFull(false);
     if (!hasBlazingSkillAmpEffect && blazingFull) setBlazingFull(false);
@@ -2192,7 +2576,7 @@ export default function App() {
   const heroUsesApScaling = result.skills.some((skill) => formulaUsesVariable(skill.formula, 'ap'));
   const heroUsesAttackScaling = result.skills.some((skill) => formulaUsesVariable(skill.formula, 'attack'));
   const showApFormulaStats = heroUsesApScaling || (!heroUsesApScaling && !heroUsesAttackScaling);
-  const finalAttack = attack + result.equipAttackPower + result.masteryAttackPower + result.talentBonusAttackPower + result.stackAttackPower;
+  const finalAttack = result.attackPower;
   const formulaSummaryStats = [
     showApFormulaStats ? `最终法强 ${result.ap}` : '',
     heroUsesAttackScaling ? `最终攻击 ${round(finalAttack, 1)}` : ''
@@ -2205,6 +2589,125 @@ export default function App() {
     ...item,
     duplicateCount: selectedEquipmentEffectCounts[item.effect] || 0
   }));
+  const comparisonMasteryLevels = useMemo(() => {
+    const start = Math.min(comparisonSettings.masteryStart, comparisonSettings.masteryEnd);
+    const end = Math.max(comparisonSettings.masteryStart, comparisonSettings.masteryEnd);
+    const step = Math.max(1, comparisonSettings.masteryStep);
+    const levels = [];
+    for (let level = start; level <= end; level += step) levels.push(level);
+    if (!levels.includes(end)) levels.push(end);
+    return levels;
+  }, [comparisonSettings.masteryStart, comparisonSettings.masteryEnd, comparisonSettings.masteryStep]);
+  const selectedComparisonMasteryLevel = comparisonMasteryLevels.includes(selectedComparisonMastery)
+    ? selectedComparisonMastery
+    : comparisonMasteryLevels[0];
+  const comparisonSkillRows = useMemo(() => skills.filter((skill) => skill.hero === selectedHero), [skills, selectedHero]);
+  const comparisonMetricColumns = useMemo(() => {
+    const statColumns = COMPARISON_STAT_METRICS.filter((metric) => comparisonSettings.selectedMetrics.includes(metric.key));
+    const skillColumns = comparisonSettings.includeSkills
+      ? comparisonSkillRows.map((skill) => ({ key: `skill:${skill.id}`, label: skill.title }))
+      : [];
+    return [...statColumns, ...skillColumns];
+  }, [comparisonSettings.selectedMetrics, comparisonSettings.includeSkills, comparisonSkillRows]);
+  const comparisonRows = useMemo(() => (
+    comparisonScenarios.flatMap((scenario) => comparisonMasteryLevels.map((level) => {
+      const scenarioWeaponRaw = weaponTypeRaw(byName(equipment, scenario.gear.武器));
+      const scenarioMasteryStat = masteryStatFor(selectedCharacter?.code, scenarioWeaponRaw);
+      const scenarioSelfHp = Math.max(1, getNumber(comparisonSettings.selfHp));
+      const scenarioTraitBonuses = traitBonusesFor(selectedTraits, Math.min(0.1, Math.max(0, (comparisonSettings.target.hp - scenarioSelfHp) / scenarioSelfHp) * 0.25));
+      const effectAvailability = comparisonScenarioEffectAvailability(scenario);
+      const scenarioResult = calc({
+        equipment,
+        skillTable: skills,
+        skillLevels,
+        gear: scenario.gear,
+        mastery: level,
+        masteryStat: scenarioMasteryStat,
+        attack,
+        talentAp,
+        traitBonuses: scenarioTraitBonuses,
+        selectedTraits,
+        target: comparisonSettings.target,
+        targetMastery: comparisonSettings.targetMastery,
+        selfHp: comparisonSettings.selfHp,
+        damageBonus: comparisonSettings.damageBonus,
+        skillReduction: comparisonSettings.skillReduction,
+        r2Stacks,
+        tacticalSkill,
+        tacticalUpgraded,
+        vampireFull: effectAvailability.vampireFull && scenario.effectToggles.vampireFull,
+        blazingFull: effectAvailability.blazingFull && scenario.effectToggles.blazingFull,
+        magicSeedFull: effectAvailability.magicSeedFull && scenario.effectToggles.magicSeedFull,
+        conditionalDamageAmpActive: effectAvailability.conditionalDamageAmpActive && scenario.effectToggles.conditionalDamageAmpActive,
+        selectedHero,
+        combos
+      });
+      return {
+        id: `${scenario.id}-${level}`,
+        scenarioId: scenario.id,
+        scenarioName: scenario.name,
+        mastery: level,
+        values: {
+          ap: scenarioResult.ap,
+          attackPower: scenarioResult.attackPower,
+          baseAttackPower: scenarioResult.baseAttackPower,
+          extraAttackPower: scenarioResult.extraAttackPower,
+          pen: scenarioResult.pen,
+          penPct: scenarioResult.penPct,
+          totalDamageBonus: scenarioResult.totalDamageBonus,
+          basicAttack: scenarioResult.basicAttackDamage.normal,
+          finalMod: scenarioResult.finalMod,
+          ...Object.fromEntries(scenarioResult.skills.map((skill) => [`skill:${skill.id}`, skill.damage]))
+        }
+      };
+    }))
+  ), [comparisonScenarios, comparisonMasteryLevels, comparisonSettings, equipment, skills, skillLevels, selectedCharacter, selectedTraits, attack, talentAp, r2Stacks, tacticalSkill, tacticalUpgraded, selectedHero, combos]);
+  const displayedComparisonRows = useMemo(() => {
+    if (!comparisonSettings.groupRowsByMastery) return comparisonRows;
+    const scenarioOrder = new Map(comparisonScenarios.map((scenario, index) => [scenario.id, index]));
+    return [...comparisonRows].sort((left, right) => (
+      left.mastery - right.mastery
+      || (scenarioOrder.get(left.scenarioId) ?? 0) - (scenarioOrder.get(right.scenarioId) ?? 0)
+    ));
+  }, [comparisonRows, comparisonScenarios, comparisonSettings.groupRowsByMastery]);
+  const comparisonApDeltaRows = useMemo(() => {
+    const baselineScenario = comparisonScenarios[0];
+    if (!baselineScenario || comparisonScenarios.length < 2) return [];
+
+    const rowsByScenarioAndMastery = new Map(comparisonRows.map((row) => [`${row.scenarioId}:${row.mastery}`, row]));
+    return comparisonScenarios.slice(1).map((scenario) => {
+      const levelDeltas = comparisonMasteryLevels.map((level) => {
+        const baselineRow = rowsByScenarioAndMastery.get(`${baselineScenario.id}:${level}`);
+        const scenarioRow = rowsByScenarioAndMastery.get(`${scenario.id}:${level}`);
+        const baselineAp = getNumber(baselineRow?.values?.ap);
+        const scenarioAp = getNumber(scenarioRow?.values?.ap);
+        const delta = scenarioAp - baselineAp;
+        return {
+          level,
+          baselineAp,
+          scenarioAp,
+          delta,
+          valid: Number.isFinite(delta)
+        };
+      });
+      const validDeltas = levelDeltas.filter((item) => item.valid);
+      const selectedDelta = levelDeltas.find((item) => item.level === selectedComparisonMasteryLevel);
+      const averageDelta = validDeltas.length
+        ? validDeltas.reduce((total, item) => total + item.delta, 0) / validDeltas.length
+        : 0;
+      return {
+        scenarioId: scenario.id,
+        scenarioName: scenario.name,
+        baselineName: baselineScenario.name,
+        averageDelta,
+        minDelta: validDeltas.length ? Math.min(...validDeltas.map((item) => item.delta)) : 0,
+        maxDelta: validDeltas.length ? Math.max(...validDeltas.map((item) => item.delta)) : 0,
+        selectedDelta,
+        levelDeltas
+      };
+    });
+  }, [comparisonRows, comparisonScenarios, comparisonMasteryLevels, selectedComparisonMasteryLevel]);
+  const comparisonChartMetric = comparisonMetricColumns[0] || COMPARISON_STAT_METRICS[0];
   const renderEquipmentEffects = () => (
     <div className="equipmentEffectList">
       {selectedEquipmentEffects.length ? selectedEquipmentEffects.map((item, index) => (
@@ -2319,6 +2822,80 @@ export default function App() {
       ...current,
       [key]: Math.max(1, Math.min(maxTargets, getNumber(value) || 1))
     }));
+  }
+
+  function updateComparisonSetting(key, value) {
+    setComparisonSettings((current) => normalizeComparisonSettings({ ...current, [key]: value }));
+  }
+
+  function updateComparisonTarget(key, value) {
+    setComparisonSettings((current) => normalizeComparisonSettings({
+      ...current,
+      target: { ...current.target, name: '自定义对比目标', [key]: value }
+    }));
+  }
+
+  function toggleComparisonMetric(key) {
+    setComparisonSettings((current) => {
+      const selected = current.selectedMetrics.includes(key)
+        ? current.selectedMetrics.filter((item) => item !== key)
+        : [...current.selectedMetrics, key];
+      return normalizeComparisonSettings({ ...current, selectedMetrics: selected.length ? selected : [key] });
+    });
+  }
+
+  function updateComparisonScenario(id, patch) {
+    setComparisonScenarios((current) => current.map((scenario) => (
+      scenario.id === id ? normalizeComparisonScenario({ ...scenario, ...patch }, DEFAULT_GEAR) : scenario
+    )));
+  }
+
+  function updateComparisonScenarioGear(id, slot, itemName) {
+    const currentScenario = comparisonScenarios.find((scenario) => scenario.id === id);
+    updateComparisonScenario(id, {
+      gear: {
+        ...(currentScenario?.gear || DEFAULT_GEAR),
+        [slot]: itemName
+      }
+    });
+  }
+
+  function updateComparisonScenarioToggle(id, key, checked) {
+    const currentScenario = comparisonScenarios.find((scenario) => scenario.id === id);
+    updateComparisonScenario(id, {
+      effectToggles: {
+        ...(currentScenario?.effectToggles || {}),
+        [key]: checked
+      }
+    });
+  }
+
+  function addComparisonScenario() {
+    setComparisonScenarios((current) => [
+      ...current,
+      normalizeComparisonScenario({
+        id: `scenario-${Date.now()}`,
+        name: `方案 ${current.length + 1}`,
+        gear
+      }, gear, current.length)
+    ]);
+  }
+
+  function cloneCurrentToComparison() {
+    setComparisonScenarios((current) => [
+      ...current,
+      normalizeComparisonScenario({
+        id: `current-${Date.now()}`,
+        name: `当前方案 ${current.length + 1}`,
+        gear
+      }, gear, current.length)
+    ]);
+  }
+
+  function removeComparisonScenario(id) {
+    setComparisonScenarios((current) => (
+      current.length <= 1 ? current : current.filter((scenario) => scenario.id !== id)
+    ));
   }
 
   function pickTraitGroup(area, groupKey) {
@@ -2730,6 +3307,218 @@ export default function App() {
     );
   }
 
+  function formatComparisonValue(key, value) {
+    const numericValue = getNumber(value);
+    if (['penPct', 'totalDamageBonus', 'finalMod'].includes(key)) {
+      return key === 'finalMod' ? round(numericValue, 3) : pct(numericValue);
+    }
+    return round(numericValue, Math.abs(numericValue) < 10 ? 2 : 1);
+  }
+
+  function formatSignedComparisonDelta(value) {
+    if (!Number.isFinite(value)) return '-';
+    const next = round(value, Math.abs(value) < 10 ? 2 : 1);
+    return `${next > 0 ? '+' : ''}${next}`;
+  }
+
+  function comparisonChoicesForSlot(slot, scenario) {
+    return sortEquipmentForSelect(equipment.filter((item) => (
+      item.type === slot
+      && shouldShowInBuilder(item, showLowerTierEquipment)
+      && (
+        slot !== '武器'
+        || !allowedWeaponTypes.size
+        || allowedWeaponTypes.has(weaponTypeRaw(item))
+        || item.name === scenario.gear[slot]
+      )
+    )));
+  }
+
+  function renderComparisonPage() {
+    return (
+      <section className="comparisonPage">
+        <div className="panel comparisonControlPanel">
+          <div className="panelHead">
+            <div>
+              <p className="eyebrow">Comparison</p>
+              <h2>拉表对比</h2>
+            </div>
+            <div className="buttonRow">
+              <button type="button" onClick={cloneCurrentToComparison}>加入当前方案</button>
+              <button type="button" onClick={addComparisonScenario}>新增方案</button>
+            </div>
+          </div>
+          <div className="comparisonSettingsGrid">
+            <Field label="熟练起点" value={comparisonSettings.masteryStart} min={1} max={20} onChange={(value) => updateComparisonSetting('masteryStart', value)} />
+            <Field label="熟练终点" value={comparisonSettings.masteryEnd} min={1} max={20} onChange={(value) => updateComparisonSetting('masteryEnd', value)} />
+            <Field label="步长" value={comparisonSettings.masteryStep} min={1} max={20} onChange={(value) => updateComparisonSetting('masteryStep', value)} />
+            <Field label="目标血量" value={comparisonSettings.target.hp} onChange={(value) => updateComparisonTarget('hp', value)} />
+            <Field label="目标防御" value={comparisonSettings.target.defense} onChange={(value) => updateComparisonTarget('defense', value)} />
+            <Field label="目标防御降低" value={comparisonSettings.target.defenseReduction} step={0.01} suffix="小数" onChange={(value) => updateComparisonTarget('defenseReduction', value)} />
+            <label className="field">
+              <span>目标熟练度</span>
+              <select value={comparisonSettings.targetMastery} onChange={(event) => updateComparisonSetting('targetMastery', Number(event.target.value))}>
+                {TARGET_MASTERY_LEVELS.map((level) => <option value={level} key={level}>{level}级</option>)}
+              </select>
+            </label>
+            <Field label="目标通用减伤" value={comparisonSettings.target.reduction} step={0.01} suffix="小数" onChange={(value) => updateComparisonTarget('reduction', value)} />
+            <Field label="自身血量" value={comparisonSettings.selfHp} onChange={(value) => updateComparisonSetting('selfHp', value)} />
+            <Field label="手动伤害提升" value={comparisonSettings.damageBonus} step={0.01} suffix="小数" onChange={(value) => updateComparisonSetting('damageBonus', value)} />
+            <Field label="手动技能减免" value={comparisonSettings.skillReduction} step={0.01} suffix="小数" onChange={(value) => updateComparisonSetting('skillReduction', value)} />
+          </div>
+          <div className="comparisonMetricPicker">
+            {COMPARISON_STAT_METRICS.map((metric) => (
+              <label className="toggle" key={metric.key}>
+                <input type="checkbox" checked={comparisonSettings.selectedMetrics.includes(metric.key)} onChange={() => toggleComparisonMetric(metric.key)} />
+                <span>{metric.label}</span>
+              </label>
+            ))}
+            <label className="toggle">
+              <input type="checkbox" checked={comparisonSettings.includeSkills} onChange={(event) => updateComparisonSetting('includeSkills', event.target.checked)} />
+              <span>输出各技能最终伤害</span>
+            </label>
+          </div>
+        </div>
+
+        <div className="comparisonScenarioGrid">
+          {comparisonScenarios.map((scenario) => {
+            const effectAvailability = comparisonScenarioEffectAvailability(scenario);
+            const effectOptions = [
+              { key: 'vampireFull', label: '吸血鬼满层', enabled: effectAvailability.vampireFull },
+              { key: 'blazingFull', label: '炽燃满层', enabled: effectAvailability.blazingFull },
+              { key: 'magicSeedFull', label: '魔力种子满层', enabled: effectAvailability.magicSeedFull },
+              { key: 'conditionalDamageAmpActive', label: '装备特效触发', enabled: effectAvailability.conditionalDamageAmpActive }
+            ].filter((option) => option.enabled);
+            return (
+              <div className="panel comparisonScenario" key={scenario.id}>
+                <div className="comparisonScenarioHead">
+                  <input value={scenario.name} onChange={(event) => updateComparisonScenario(scenario.id, { name: event.target.value })} aria-label="方案名称" />
+                  <button type="button" className="quietButton" onClick={() => removeComparisonScenario(scenario.id)} disabled={comparisonScenarios.length <= 1}>删除</button>
+                </div>
+                <div className="comparisonGearGrid">
+                  {SLOTS.map((slot) => (
+                    <label className="selectBlock" key={`${scenario.id}-${slot}`}>
+                      <span>{slot}</span>
+                      <select value={scenario.gear[slot] || ''} onChange={(event) => updateComparisonScenarioGear(scenario.id, slot, event.target.value)}>
+                        {comparisonChoicesForSlot(slot, scenario).map((item) => <option value={item.name} key={`${slot}-${item.name}`}>{item.name}</option>)}
+                      </select>
+                    </label>
+                  ))}
+                </div>
+                {effectOptions.length ? (
+                  <div className="comparisonEffectToggles">
+                    {effectOptions.map((option) => (
+                      <label className="toggle" key={`${scenario.id}-${option.key}`}>
+                        <input type="checkbox" checked={Boolean(scenario.effectToggles[option.key])} onChange={(event) => updateComparisonScenarioToggle(scenario.id, option.key, event.target.checked)} />
+                        <span>{option.label}</span>
+                      </label>
+                    ))}
+                  </div>
+                ) : <div className="comparisonEffectEmpty">当前方案没有可切换特效</div>}
+              </div>
+            );
+          })}
+        </div>
+
+        <div className="panel comparisonResultPanel">
+          <div className="panelHead">
+            <div>
+              <p className="eyebrow">Output</p>
+              <h2>{selectedHero} 对比结果</h2>
+            </div>
+            <span className="pill">{comparisonRows.length} 行 / {comparisonMetricColumns.length} 列</span>
+          </div>
+          <ComparisonChart
+            rows={comparisonRows}
+            metricKey={comparisonChartMetric.key}
+            metricLabel={comparisonChartMetric.label}
+            selectedMastery={selectedComparisonMasteryLevel}
+            onSelectMastery={setSelectedComparisonMastery}
+          />
+          {comparisonApDeltaRows.length ? (
+            <div className="comparisonDeltaBlock">
+              <div className="comparisonDeltaHead">
+                <div>
+                  <strong>法强差值</strong>
+                  <span>以 {comparisonApDeltaRows[0].baselineName} 为基准 / 图表选中熟练 {selectedComparisonMasteryLevel}</span>
+                </div>
+              </div>
+              <div className="comparisonDeltaSummary">
+                {comparisonApDeltaRows.map((row) => (
+                  <div className="comparisonDeltaCard" key={`${row.scenarioId}-ap-delta-card`}>
+                    <span>{row.scenarioName}</span>
+                    <strong>{formatSignedComparisonDelta(row.selectedDelta?.delta)}</strong>
+                    <small>
+                      熟练 {selectedComparisonMasteryLevel} / {formatComparisonValue('ap', row.selectedDelta?.scenarioAp)} vs {formatComparisonValue('ap', row.selectedDelta?.baselineAp)}
+                    </small>
+                    <small>平均 {formatSignedComparisonDelta(row.averageDelta)} / 最低 {formatSignedComparisonDelta(row.minDelta)} / 最高 {formatSignedComparisonDelta(row.maxDelta)}</small>
+                  </div>
+                ))}
+              </div>
+              <div className="comparisonDeltaTableWrap">
+                <table className="comparisonDeltaTable">
+                  <thead>
+                    <tr>
+                      <th>方案</th>
+                      {comparisonMasteryLevels.map((level) => (
+                        <th className={level === selectedComparisonMasteryLevel ? 'selectedDeltaColumn' : ''} key={`ap-delta-level-${level}`}>熟练 {level}</th>
+                      ))}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {comparisonApDeltaRows.map((row) => (
+                      <tr key={`${row.scenarioId}-ap-delta-row`}>
+                        <td>{row.scenarioName}</td>
+                        {row.levelDeltas.map((item) => (
+                          <td
+                            key={`${row.scenarioId}-ap-delta-${item.level}`}
+                            className={[
+                              item.delta > 0 ? 'positiveDelta' : item.delta < 0 ? 'negativeDelta' : '',
+                              item.level === selectedComparisonMasteryLevel ? 'selectedDeltaColumn' : ''
+                            ].filter(Boolean).join(' ')}
+                            title={`${row.scenarioName} ${formatComparisonValue('ap', item.scenarioAp)} / ${row.baselineName} ${formatComparisonValue('ap', item.baselineAp)}`}
+                          >
+                            {item.valid ? formatSignedComparisonDelta(item.delta) : '-'}
+                          </td>
+                        ))}
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          ) : null}
+          <div className="comparisonTableTools">
+            <label className="toggle">
+              <input type="checkbox" checked={comparisonSettings.groupRowsByMastery} onChange={(event) => updateComparisonSetting('groupRowsByMastery', event.target.checked)} />
+              <span>同熟练度方案排在一起</span>
+            </label>
+          </div>
+          <div className="comparisonTableWrap">
+            <table className="comparisonTable">
+              <thead>
+                <tr>
+                  <th>方案</th>
+                  <th>熟练度</th>
+                  {comparisonMetricColumns.map((column) => <th key={column.key}>{column.label}</th>)}
+                </tr>
+              </thead>
+              <tbody>
+                {displayedComparisonRows.map((row) => (
+                  <tr key={row.id}>
+                    <td>{row.scenarioName}</td>
+                    <td>{row.mastery}</td>
+                    {comparisonMetricColumns.map((column) => <td key={`${row.id}-${column.key}`}>{formatComparisonValue(column.key, row.values[column.key])}</td>)}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   function renderHeroAvatarPicker(className = '') {
     if (!useHeroAvatarPicker) return null;
     return (
@@ -2796,6 +3585,14 @@ export default function App() {
                 aria-label="版本号"
               >
                 {APP_VERSION}
+              </button>
+            </div>
+            <div className="pageSwitch">
+              <button type="button" className={activePage === 'calculator' ? 'active' : ''} onClick={() => setActivePage('calculator')}>
+                计算器
+              </button>
+              <button type="button" className={activePage === 'compare' ? 'active' : ''} onClick={() => setActivePage('compare')}>
+                拉表对比
               </button>
             </div>
           </div>
@@ -2901,6 +3698,8 @@ export default function App() {
         />
       ) : null}
 
+      {activePage === 'compare' ? renderComparisonPage() : (
+      <>
       <section className="grid twoColumns buildTargetGrid">
         <div className={`buildArea ${useHeroAvatarPicker ? 'hasHeroAvatarRail' : ''}`}>
           {renderHeroAvatarPicker('floatingHeroAvatarPicker')}
@@ -3086,7 +3885,7 @@ export default function App() {
         <details className="currentStatsBlock buildTargetStatsBlock collapsibleStats">
           <summary className="panelSubhead">
             <strong>当前属性汇总</strong>
-            <span>{visibleEquipmentStats.length + 4} 项显示</span>
+            <span>{visibleEquipmentStats.length + 5} 项显示</span>
           </summary>
           <div className="attributePanel">
             <div>
@@ -3097,6 +3896,12 @@ export default function App() {
             <div>
               <span>攻击力</span>
               <strong>{round(finalAttack, 1)}</strong>
+              <small>基础 {round(result.baseAttackPower, 1)} + 额外 {round(result.extraAttackPower, 1)}</small>
+            </div>
+            <div>
+              <span>每发平A预估</span>
+              <strong>{result.basicAttackDamage.normal}</strong>
+              <small>暴击 {result.basicAttackDamage.critical} / 暴击倍率 {pct(result.basicAttackDamage.criticalMultiplier)}；暴击率 {pct(result.basicAttackDamage.criticalStrikeChance)}</small>
             </div>
             <div>
               <span>防穿</span>
@@ -3355,10 +4160,11 @@ export default function App() {
           ) : null}
           {heroUsesAttackScaling ? (
             <>
-              <StatCard label="基础攻击" value={attack} hint={`角色等级成长后攻击力`} note={help('equipment.attackPower')} />
+              <StatCard label="基础攻击" value={round(result.baseAttackPower, 1)} hint={`角色等级成长 ${round(attack, 1)} + 熟练度攻击 ${round(result.masteryAttackPower, 1)}`} note={help('equipment.attackPower')} />
               <StatCard label="装备攻击" value={result.equipAttackPower} hint="当前装备攻击力合计" note={help('equipment.attackPower')} />
               <StatCard label="熟练度攻击" value={round(result.masteryAttackPower, 1)} hint={selectedMasterySummary.join(' / ') || '当前武器无攻击力熟练度'} note={help('field.mastery')} />
-              <StatCard label="最终攻击" value={round(finalAttack, 1)} hint={`${round(attack, 1)} + ${round(result.equipAttackPower, 1)} + ${round(result.masteryAttackPower, 1)} + ${round(result.talentBonusAttackPower, 1)} + ${round(result.stackAttackPower, 1)}`} note={help('equipment.attackPower')} />
+              <StatCard label="额外攻击" value={round(result.extraAttackPower, 1)} hint={`装备 ${round(result.equipAttackPower, 1)} + 潜能 ${round(result.talentBonusAttackPower, 1)} + 叠层 ${round(result.stackAttackPower, 1)}`} note={help('equipment.attackPower')} />
+              <StatCard label="最终攻击" value={round(finalAttack, 1)} hint={`${round(result.baseAttackPower, 1)} + ${round(result.extraAttackPower, 1)}`} note={help('equipment.attackPower')} />
             </>
           ) : null}
         </div>
@@ -3501,6 +4307,8 @@ export default function App() {
         </LazyEditSheet>
       </section>
       ) : null}
+      </>
+      )}
     </main>
   );
 }

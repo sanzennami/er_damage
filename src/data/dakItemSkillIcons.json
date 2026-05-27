@@ -1,4 +1,6 @@
 {
+  "_comment": "DAK.GG 装备、物品、英雄技能、武器技能图标清单。通常由脚本生成，不建议手动改路径；若资源地址变动，重新运行抓取脚本更稳。",
+  "_usage": "前端通过 equipment/items/heroSkills/weaponSkills 查找图标资源。",
   "sourcePage": "https://dak.gg/er/routes/simulator/YuMin",
   "apiBase": "https://er.dakgg.io/api/v1/data",
   "locale": "zh-CN",

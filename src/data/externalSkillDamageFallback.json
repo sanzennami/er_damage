@@ -1,4 +1,6 @@
 {
+  "_comment": "外部来源技能伤害兜底表。用于补齐 er-gamedata 没有结构化伤害的英雄/技能。",
+  "_usage": "skills 数组内每项可配置 hero、title、bases、formula、maxLevel、group、skillId、dataKey；公式变量规则见 docs/config-json-guide.md。",
   "generatedAt": "2026-05-22T00:13:00.456Z",
   "source": "docs/external-skill-damage/README.md",
   "policy": "Supplement heroes that have no existing skill damage calculation rows. Prefer existing pypy-vrc/DAK-derived rows; use external wiki rows as fallback and apply official patch current values only when a single-part row can be matched safely.",

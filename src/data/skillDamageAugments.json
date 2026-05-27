@@ -1,4 +1,6 @@
 {
+  "_comment": "技能伤害补充/强化表。用于追加自动表没有覆盖的强化普攻、强化技能、额外伤害等条目。",
+  "_usage": "skills 内每项格式与 localConfig.json 的 skills 基本一致；同一英雄技能建议保持唯一 id，并写清 source/sourceNote。",
   "generatedAt": "2026-05-22T00:02:05.833Z",
   "source": "docs/external-skill-damage/external-skill-damage-wiki-current.json",
   "policy": "补充强化普攻、强化技能和额外伤害条目；不覆盖 pypy-vrc/er-gamedata 已有结构化伤害；俞岷保持手动规则。",

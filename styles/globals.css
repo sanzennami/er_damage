@@ -140,6 +140,29 @@ button {
   cursor: default;
 }
 
+.pageSwitch {
+  display: inline-flex;
+  gap: 4px;
+  padding: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.pageSwitch button {
+  min-height: 32px;
+  padding: 7px 10px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: #c9c0b3;
+}
+
+.pageSwitch button.active {
+  background: rgba(255, 213, 107, 0.18);
+  color: #ffd56b;
+}
+
 .announcementOverlay {
   position: fixed;
   inset: 0;
@@ -2121,6 +2144,351 @@ body[data-theme='day'] tr:nth-child(even) td {
   min-width: 360px;
 }
 
+.comparisonPage {
+  display: grid;
+  gap: 18px;
+}
+
+.comparisonControlPanel,
+.comparisonResultPanel,
+.comparisonScenario {
+  border-radius: 8px;
+}
+
+.comparisonSettingsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 12px;
+  margin-top: 14px;
+}
+
+.comparisonMetricPicker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.comparisonScenarioGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 14px;
+}
+
+.comparisonScenarioHead {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: center;
+}
+
+.comparisonScenarioHead input {
+  width: 100%;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 10px;
+  background: rgba(12, 10, 16, 0.62);
+  color: #fff5e7;
+}
+
+.comparisonGearGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.comparisonEffectToggles {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.comparisonEffectEmpty {
+  margin-top: 12px;
+  color: #a9a0a0;
+  font-size: 0.84rem;
+}
+
+.comparisonChart,
+.comparisonChartEmpty {
+  margin-top: 14px;
+  padding: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  background: rgba(12, 10, 16, 0.38);
+}
+
+.comparisonChartHead {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.comparisonChartHead span,
+.comparisonChartEmpty {
+  color: #a9a0a0;
+}
+
+.comparisonChartViewport {
+  max-height: 420px;
+  overflow: auto;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable both-edges;
+}
+
+.comparisonChart svg {
+  display: block;
+  width: max(100%, calc(100% * var(--chart-zoom, 1)));
+  min-width: 720px;
+  min-height: calc(260px * var(--chart-zoom, 1));
+  height: auto;
+  overflow: visible;
+  touch-action: none;
+}
+
+.comparisonChart line {
+  stroke: rgba(255, 255, 255, 0.22);
+  stroke-width: 1;
+}
+
+.comparisonChartAxis {
+  stroke: rgba(255, 255, 255, 0.42);
+  stroke-width: 1.25;
+}
+
+.comparisonChartTick line {
+  stroke: rgba(255, 255, 255, 0.08);
+  stroke-width: 1;
+}
+
+.comparisonChartGuideX {
+  stroke: rgba(255, 245, 231, 0.42);
+  stroke-dasharray: 5 5;
+  stroke-width: 1.2;
+}
+
+.comparisonChartSelectedX {
+  stroke: #ffd56b;
+  stroke-width: 2;
+}
+
+.comparisonChartHoverGuide line {
+  stroke: rgba(255, 245, 231, 0.44);
+  stroke-dasharray: 4 4;
+}
+
+.comparisonChartHoverGuide circle {
+  fill: var(--line-color);
+  stroke: #fff5e7;
+  stroke-width: 2;
+}
+
+.comparisonChart polyline {
+  fill: none;
+  stroke: var(--line-color);
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 3;
+}
+
+.comparisonChartPoint {
+  fill: rgba(23, 19, 29, 0.95);
+  stroke: var(--line-color);
+  stroke-width: 2;
+  cursor: crosshair;
+}
+
+.comparisonChartPoint:hover,
+.comparisonChartPoint:focus {
+  fill: var(--line-color);
+  outline: none;
+  stroke: #fff5e7;
+}
+
+.comparisonChart text {
+  fill: #a9a0a0;
+  font-size: 12px;
+}
+
+.comparisonChartHoverGuide text {
+  fill: #fff5e7;
+  font-size: 11px;
+  paint-order: stroke;
+  stroke: rgba(12, 10, 16, 0.88);
+  stroke-width: 3px;
+}
+
+.comparisonChartHoverPanel {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  align-items: center;
+  margin-top: 10px;
+  color: #d9cfc3;
+  font-size: 12px;
+}
+
+.comparisonChartHoverPanel strong {
+  color: #fff5e7;
+}
+
+.comparisonChartHoverPanel span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.comparisonChartHoverPanel span::before {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: var(--legend-color);
+  content: '';
+}
+
+.comparisonChartHoverPanel em {
+  color: #ffd56b;
+  font-style: normal;
+}
+
+.comparisonLegend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.comparisonLegend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #d9cfc3;
+  font-size: 12px;
+}
+
+.comparisonLegend span::before {
+  display: inline-block;
+  width: 18px;
+  height: 3px;
+  border-radius: 999px;
+  background: var(--legend-color);
+  content: '';
+}
+
+.comparisonDeltaBlock {
+  margin-top: 14px;
+  padding: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.comparisonDeltaHead {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.comparisonDeltaHead div,
+.comparisonDeltaCard {
+  display: grid;
+  gap: 4px;
+}
+
+.comparisonDeltaHead span,
+.comparisonDeltaCard span,
+.comparisonDeltaCard small {
+  color: #a9a0a0;
+}
+
+.comparisonDeltaSummary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.comparisonDeltaCard {
+  padding: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  background: rgba(12, 10, 16, 0.32);
+}
+
+.comparisonDeltaCard strong {
+  color: #ffd56b;
+  font-size: 1.25rem;
+}
+
+.comparisonDeltaTableWrap {
+  overflow: auto;
+  margin-top: 10px;
+}
+
+.comparisonDeltaTable {
+  min-width: 760px;
+  margin: 0;
+}
+
+.comparisonDeltaTable th,
+.comparisonDeltaTable td {
+  white-space: nowrap;
+}
+
+.comparisonDeltaTable td.positiveDelta {
+  color: #8de1ad;
+}
+
+.comparisonDeltaTable td.negativeDelta {
+  color: #ff9c9c;
+}
+
+.comparisonDeltaTable .selectedDeltaColumn {
+  background: rgba(255, 213, 107, 0.11);
+}
+
+.comparisonDeltaTable th.selectedDeltaColumn {
+  color: #ffd56b;
+}
+
+.comparisonTableTools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.comparisonTableWrap {
+  max-height: 520px;
+  overflow: auto;
+  margin-top: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+}
+
+.comparisonTable {
+  min-width: 760px;
+  margin: 0;
+}
+
+.comparisonTable th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.comparisonTable td:first-child,
+.comparisonTable th:first-child {
+  position: sticky;
+  left: 0;
+  z-index: 2;
+  background: rgba(23, 19, 29, 0.98);
+}
+
 .comboHitChip {
   display: inline-flex;
   align-items: center;
@@ -2294,7 +2662,9 @@ td:last-child input {
   .traitBuilder,
   .heroPicker,
   .sourceGrid,
-  .miniStats {
+  .miniStats,
+  .comparisonSettingsGrid,
+  .comparisonScenarioGrid {
     grid-template-columns: 1fr;
   }
 

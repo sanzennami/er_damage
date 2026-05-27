@@ -1,4 +1,6 @@
 {
+  "_comment": "结构化技能伤害表。damageRows 是从 SkillExtension 等来源展开出的每段技能伤害，计算器会转换为 base + 系数 * 属性 的公式。",
+  "_usage": "字段 lv1-lv5 是各等级基础伤害，coefLv1-coefLv5 是各等级系数；公式展示由代码从这些字段推导，通常由脚本生成。",
   "source": "https://github.com/pypy-vrc/er-gamedata",
   "textSource": {
     "preferred": "https://er.dakgg.io/api/v1/data/skills?hl=zh-CN",

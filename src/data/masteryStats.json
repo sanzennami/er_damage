@@ -1,5 +1,9 @@
 [
   {
+    "_comment": "熟练度成长属性表。此文件顶层是数组，因此用第一条说明对象作为注释头；计算器按 characterCode 和 type 查找，会忽略本说明条目。",
+    "_usage": "后续条目的 characterCode 是英雄编号，type 是武器类型，options 内 stat/value 表示每级熟练度提供的属性。"
+  },
+  {
     "characterCode": 7,
     "type": "Glove",
     "options": [

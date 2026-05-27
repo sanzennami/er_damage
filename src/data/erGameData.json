@@ -1,4 +1,6 @@
 {
+  "_comment": "从 er-gamedata 导出的计算器基础数据，包含角色、原始技能组、自动生成技能、装备属性等。此文件偏数据源，不建议直接维护单个英雄公式。",
+  "_usage": "若只想改某个英雄技能伤害，优先改 localConfig.json 的 skills，或在 skillDamageAugments.json / externalSkillDamageFallback.json 中补充。",
   "source": "https://github.com/pypy-vrc/er-gamedata.git",
   "generatedAt": "2026-05-21T18:54:23.871Z",
   "counts": {

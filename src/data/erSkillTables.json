@@ -1,4 +1,6 @@
 {
+  "_comment": "技能组、技能等级、技能扩展的标准化索引表。用于追踪技能来源和原始字段，不是日常手动配置入口。",
+  "_usage": "normalizedSkillGroups 记录技能组，normalizedSkillLevels 记录等级行，normalizedExtensions 记录 SkillExtension 中的原始参数。",
   "source": "https://github.com/pypy-vrc/er-gamedata/tree/master/data",
   "textSource": {
     "preferred": "https://er.dakgg.io/api/v1/data/skills?hl=zh-CN",
