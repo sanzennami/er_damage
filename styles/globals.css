@@ -1596,6 +1596,37 @@ input:focus {
   border: 1px solid rgba(255, 196, 87, 0.2);
 }
 
+.bounceDamageSteps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(92px, 1fr));
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.bounceDamageSteps > div {
+  display: grid;
+  gap: 4px;
+  padding: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.bounceDamageSteps > div.active {
+  border-color: rgba(255, 213, 107, 0.58);
+  background: rgba(255, 213, 107, 0.12);
+}
+
+.bounceDamageSteps span,
+.skillLeafNote {
+  color: #a9a0a0;
+  font-size: 0.8rem;
+}
+
+.skillLeafNote {
+  margin: 10px 0 0;
+}
+
 .damageRow {
   display: flex;
   align-items: center;

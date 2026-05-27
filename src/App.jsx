@@ -1188,6 +1188,43 @@ function scaledSkillDamage(skill, finalMod, { scale = 1, hits = 1 } = {}) {
   };
 }
 
+function formulaScalingTerm(formula) {
+  const match = String(formula || '').match(/base\s*\+\s*(ap|attack|extraAttack)\s*\*\s*([0-9.]+)/);
+  if (!match) return null;
+  return {
+    variable: match[1],
+    coefficient: getNumber(match[2])
+  };
+}
+
+function isIremHumanBouncyBall(skill) {
+  return skill?.hero === '爱琳'
+    && (skill.skillId === 'IremHumanActive1' || String(skill.id).includes('irem-q-1061200'));
+}
+
+function progressiveBounceDamage(skill, context, bounceCount, {
+  minBounces = 1,
+  maxBounces = 4,
+  minSkillAmpRatio = 0.55,
+  maxSkillAmpRatio = 0.9625,
+  maxBaseMultiplier = 1.75
+} = {}) {
+  const bounces = Math.max(minBounces, Math.min(maxBounces, getNumber(bounceCount) || minBounces));
+  const progress = maxBounces === minBounces ? 0 : (bounces - minBounces) / (maxBounces - minBounces);
+  const base = getNumber(skill.base);
+  const maxBase = damageFloor(base * maxBaseMultiplier);
+  const baseAtBounce = base + (maxBase - base) * progress;
+  const skillAmpRatio = minSkillAmpRatio + (maxSkillAmpRatio - minSkillAmpRatio) * progress;
+  const raw = damageFloor(baseAtBounce + getNumber(context.ap) * skillAmpRatio);
+  return {
+    bounces,
+    raw,
+    final: damageFloor(raw * context.finalMod),
+    skillAmpRatio,
+    base: baseAtBounce
+  };
+}
+
 function tacticalDamageResult(title, rawValue, finalMod, note, damageType = 'skill') {
   const raw = damageFloor(rawValue);
   return {
@@ -2824,6 +2861,13 @@ export default function App() {
     }));
   }
 
+  function updateSkillCount(key, value, { min = 0, max = MULTI_TARGET_MAX } = {}) {
+    setSkillTargetCounts((current) => ({
+      ...current,
+      [key]: Math.max(min, Math.min(max, getNumber(value)))
+    }));
+  }
+
   function updateComparisonSetting(key, value) {
     setComparisonSettings((current) => normalizeComparisonSettings({ ...current, [key]: value }));
   }
@@ -3132,6 +3176,18 @@ export default function App() {
     );
   }
 
+  function renderCountStepper(label, key, { min = 0, max = MULTI_TARGET_MAX } = {}) {
+    const count = Math.max(min, Math.min(max, getNumber(skillTargetCounts[key])));
+    return (
+      <div className="targetStepper">
+        <span>{label}</span>
+        <button type="button" onClick={() => updateSkillCount(key, count - 1, { min, max })}>-</button>
+        <b>{count}</b>
+        <button type="button" onClick={() => updateSkillCount(key, count + 1, { min, max })}>+</button>
+      </div>
+    );
+  }
+
   function renderSkillDamageLeaf(skill, label, options = {}) {
     const targetKey = options.targetKey || skill.id;
     const maxTargets = options.targetMax || MULTI_TARGET_MAX;
@@ -3213,6 +3269,62 @@ export default function App() {
     );
   }
 
+  function renderIremHumanBouncyBall(skill, label) {
+    const bounceKey = `${skill.id}-bounces`;
+    const bounceCount = Math.max(1, Math.min(4, getNumber(skillTargetCounts[bounceKey]) || 1));
+    const bounceContext = {
+      ap: result.ap,
+      attack: result.attackPower,
+      extraAttack: result.extraAttackPower,
+      finalMod: result.finalMod
+    };
+    const selectedBounce = progressiveBounceDamage(skill, bounceContext, bounceCount);
+    const bounceSteps = Array.from({ length: 4 }, (_, index) => progressiveBounceDamage(skill, bounceContext, index + 1));
+    const sourceMeta = skillSourceMeta(skill);
+    const skillLevel = skill.level || skillLevels[skill.id] || 1;
+    const description = skill.coefficientText || skill.description || '';
+
+    return (
+      <div className="skillDamageLeaf iremBounceLeaf" key={`${skill.id}-bounce`}>
+        <div className="skillLeafHead">
+          <div className="skillLeafTitle">
+            <PortalHovercard
+              className="skillNameHover"
+              content={(
+                <SkillDescriptionContent
+                  title={label}
+                  level={skillLevel}
+                  formula={skillFormulaDescription(skill, skillLevel)}
+                  description={description}
+                  source={sourceMeta?.title}
+                />
+              )}
+            >
+              <strong>{label}</strong>
+            </PortalHovercard>
+            {sourceMeta ? <span className="skillSourceMeta" title={sourceMeta.title}>{sourceMeta.label}</span> : null}
+          </div>
+          {renderCountStepper('弹跳次数', bounceKey, { min: 1, max: 4 })}
+        </div>
+        <div className="skillLeafValues">
+          <div className="skillTotalValue">
+            <span>第 {bounceCount} 次弹跳后命中</span>
+            <DamageValue raw={selectedBounce.raw} final={selectedBounce.final} />
+          </div>
+        </div>
+        <div className="bounceDamageSteps" aria-label="弹跳伤害列表">
+          {bounceSteps.map((step) => (
+            <div className={step.bounces === bounceCount ? 'active' : ''} key={`${skill.id}-bounce-${step.bounces}`}>
+              <span>{step.bounces} 跳 / 技增 {pct(step.skillAmpRatio)}</span>
+              <DamageValue raw={step.raw} final={step.final} />
+            </div>
+          ))}
+        </div>
+        <p className="skillLeafNote">球命中敌人时停止弹跳；这里按命中前已经发生的弹跳次数计算单次伤害，不做多段相加。</p>
+      </div>
+    );
+  }
+
   function renderSkillMainColumn(slot) {
     const slotSkills = result.skills.filter((skill) => skillMainSlot(skill) === slot);
     const levelValue = slotSkills[0] ? skillLevels[slotSkills[0].id] : 1;
@@ -3253,6 +3365,9 @@ export default function App() {
         {slotSkills.length ? (
           <div className="skillSubGrid">
             {slotSkills.map((skill) => {
+              if (isIremHumanBouncyBall(skill)) {
+                return renderIremHumanBouncyBall(skill, skill.title.replace(/^[PQWER]\s*/, '') || skill.title);
+              }
               if (selectedHero === '俞岷' && skill.id === 'yumin-q') {
                 const primarySingle = scaledSkillDamage(skill, result.finalMod);
                 const primary = scaledSkillDamage(skill, result.finalMod, { hits: 3 });
