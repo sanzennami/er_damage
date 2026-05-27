@@ -427,6 +427,7 @@ const EXTERNAL_FALLBACK_DAMAGE_SKILLS = (EXTERNAL_SKILL_DAMAGE_FALLBACK.skills |
 const LEGACY_GENERATED_SKILLS = ER_GAME_DATA.skills
   .filter((skill) => !MANUAL_HEROES.includes(skill.hero))
   .map((skill, index) => ({
+    ...skill,
     id: skill.id,
     hero: skill.hero,
     title: skill.title,
@@ -603,11 +604,33 @@ function mergeEquipment(savedEquipment) {
 function mergeSkills(savedSkills) {
   if (!Array.isArray(savedSkills)) return clone(INITIAL_SKILLS);
 
+  const metadataSkills = [
+    ...INITIAL_SKILLS,
+    ...(Array.isArray(DEFAULT_LOCAL_CONFIG?.skills) ? DEFAULT_LOCAL_CONFIG.skills : [])
+  ];
+  const initialById = new Map(metadataSkills.map((skill) => [skill.id, skill]));
+  const initialBySignature = new Map(metadataSkills
+    .map((skill) => [skillProgressiveSignature(skill), skill])
+    .filter(([key, skill]) => key && skill.progressiveDamage));
+  const mergedSaved = savedSkills.map((skill) => {
+    const initialSkill = initialById.get(skill.id) || initialBySignature.get(skillProgressiveSignature(skill));
+    if (!initialSkill) return skill;
+    return {
+      ...initialSkill,
+      ...skill,
+      progressiveDamage: skill.progressiveDamage || initialSkill.progressiveDamage
+    };
+  });
   const existingIds = new Set(savedSkills.map((skill) => skill.id));
   return dedupeSkillsByLatest([
-    ...savedSkills,
+    ...mergedSaved,
     ...INITIAL_SKILLS.filter((skill) => !existingIds.has(skill.id))
   ]);
+}
+
+function skillProgressiveSignature(skill) {
+  if (!skill?.skillId || !skill?.group || !skill?.dataKey) return '';
+  return `${skill.skillId}-${skill.group}-${skill.dataKey}`;
 }
 
 function normalizeCombo(combo) {
@@ -1188,40 +1211,54 @@ function scaledSkillDamage(skill, finalMod, { scale = 1, hits = 1 } = {}) {
   };
 }
 
-function formulaScalingTerm(formula) {
-  const match = String(formula || '').match(/base\s*\+\s*(ap|attack|extraAttack)\s*\*\s*([0-9.]+)/);
-  if (!match) return null;
+function progressiveDamageRule(skill) {
+  return skill?.progressiveDamage || null;
+}
+
+function progressiveDamageBounds(rule) {
+  const min = getNumber(rule?.min ?? 0);
+  const max = getNumber(rule?.max ?? min);
+  const defaultValue = getNumber(rule?.default ?? min);
   return {
-    variable: match[1],
-    coefficient: getNumber(match[2])
+    min,
+    max: Math.max(min, max),
+    defaultValue: Math.max(min, Math.min(Math.max(min, max), defaultValue))
   };
 }
 
-function isIremHumanBouncyBall(skill) {
-  return skill?.hero === '爱琳'
-    && (skill.skillId === 'IremHumanActive1' || String(skill.id).includes('irem-q-1061200'));
+function progressiveLinearValue(from, to, progress) {
+  return getNumber(from) + (getNumber(to) - getNumber(from)) * progress;
 }
 
-function progressiveBounceDamage(skill, context, bounceCount, {
-  minBounces = 1,
-  maxBounces = 4,
-  minSkillAmpRatio = 0.55,
-  maxSkillAmpRatio = 0.9625,
-  maxBaseMultiplier = 1.75
-} = {}) {
-  const bounces = Math.max(minBounces, Math.min(maxBounces, getNumber(bounceCount) || minBounces));
-  const progress = maxBounces === minBounces ? 0 : (bounces - minBounces) / (maxBounces - minBounces);
+function progressiveDamageValue(skill, context, stepValue) {
+  const rule = progressiveDamageRule(skill);
+  const { min, max, defaultValue } = progressiveDamageBounds(rule);
+  const step = Math.max(min, Math.min(max, getNumber(stepValue) || defaultValue));
+  const progress = max === min ? 0 : (step - min) / (max - min);
   const base = getNumber(skill.base);
-  const maxBase = damageFloor(base * maxBaseMultiplier);
-  const baseAtBounce = base + (maxBase - base) * progress;
-  const skillAmpRatio = minSkillAmpRatio + (maxSkillAmpRatio - minSkillAmpRatio) * progress;
-  const raw = damageFloor(baseAtBounce + getNumber(context.ap) * skillAmpRatio);
+  const baseRule = rule?.base || {};
+  const maxBase = damageFloor(base * getNumber(baseRule.toMultiplier ?? baseRule.maxMultiplier ?? 1));
+  const baseAtStep = progressiveLinearValue(
+    base * getNumber(baseRule.fromMultiplier ?? 1),
+    maxBase,
+    progress
+  );
+  const coefficientRule = rule?.coefficient || {};
+  const coefficient = progressiveLinearValue(
+    coefficientRule.from ?? coefficientRule.min ?? 0,
+    coefficientRule.to ?? coefficientRule.max ?? coefficientRule.from ?? coefficientRule.min ?? 0,
+    progress
+  );
+  const variable = coefficientRule.variable || 'ap';
+  const raw = damageFloor(baseAtStep + getNumber(context[variable]) * coefficient);
+
   return {
-    bounces,
+    step,
     raw,
     final: damageFloor(raw * context.finalMod),
-    skillAmpRatio,
-    base: baseAtBounce
+    coefficient,
+    variable,
+    base: baseAtStep
   };
 }
 
@@ -3269,23 +3306,31 @@ export default function App() {
     );
   }
 
-  function renderIremHumanBouncyBall(skill, label) {
-    const bounceKey = `${skill.id}-bounces`;
-    const bounceCount = Math.max(1, Math.min(4, getNumber(skillTargetCounts[bounceKey]) || 1));
-    const bounceContext = {
+  function renderProgressiveSkillDamage(skill, label) {
+    const rule = progressiveDamageRule(skill);
+    const { min, max, defaultValue } = progressiveDamageBounds(rule);
+    const ruleId = rule?.id || 'progressive';
+    const stepKey = `${skill.id}-${ruleId}`;
+    const stepValue = Math.max(min, Math.min(max, getNumber(skillTargetCounts[stepKey]) || defaultValue));
+    const stepContext = {
       ap: result.ap,
       attack: result.attackPower,
       extraAttack: result.extraAttackPower,
       finalMod: result.finalMod
     };
-    const selectedBounce = progressiveBounceDamage(skill, bounceContext, bounceCount);
-    const bounceSteps = Array.from({ length: 4 }, (_, index) => progressiveBounceDamage(skill, bounceContext, index + 1));
+    const selectedStep = progressiveDamageValue(skill, stepContext, stepValue);
+    const steps = Array.from({ length: max - min + 1 }, (_, index) => progressiveDamageValue(skill, stepContext, min + index));
     const sourceMeta = skillSourceMeta(skill);
     const skillLevel = skill.level || skillLevels[skill.id] || 1;
     const description = skill.coefficientText || skill.description || '';
+    const stepLabel = rule?.label || '递增次数';
+    const unit = rule?.unit || '';
+    const selectedLabel = rule?.selectedLabel
+      ? `${rule.selectedLabel}: ${stepValue}${unit ? ` ${unit}` : ''}`
+      : `第 ${stepValue}${unit ? ` ${unit}` : ''}`;
 
     return (
-      <div className="skillDamageLeaf iremBounceLeaf" key={`${skill.id}-bounce`}>
+      <div className="skillDamageLeaf progressiveDamageLeaf" key={`${skill.id}-${ruleId}`}>
         <div className="skillLeafHead">
           <div className="skillLeafTitle">
             <PortalHovercard
@@ -3304,23 +3349,23 @@ export default function App() {
             </PortalHovercard>
             {sourceMeta ? <span className="skillSourceMeta" title={sourceMeta.title}>{sourceMeta.label}</span> : null}
           </div>
-          {renderCountStepper('弹跳次数', bounceKey, { min: 1, max: 4 })}
+          {renderCountStepper(stepLabel, stepKey, { min, max })}
         </div>
         <div className="skillLeafValues">
           <div className="skillTotalValue">
-            <span>第 {bounceCount} 次弹跳后命中</span>
-            <DamageValue raw={selectedBounce.raw} final={selectedBounce.final} />
+            <span>{selectedLabel}</span>
+            <DamageValue raw={selectedStep.raw} final={selectedStep.final} />
           </div>
         </div>
-        <div className="bounceDamageSteps" aria-label="弹跳伤害列表">
-          {bounceSteps.map((step) => (
-            <div className={step.bounces === bounceCount ? 'active' : ''} key={`${skill.id}-bounce-${step.bounces}`}>
-              <span>{step.bounces} 跳 / 技增 {pct(step.skillAmpRatio)}</span>
+        <div className="progressiveDamageSteps" aria-label={`${stepLabel}伤害列表`}>
+          {steps.map((step) => (
+            <div className={step.step === stepValue ? 'active' : ''} key={`${skill.id}-${ruleId}-${step.step}`}>
+              <span>{step.step}{unit ? ` ${unit}` : ''} / {step.variable === 'ap' ? '技增' : step.variable} {pct(step.coefficient)}</span>
               <DamageValue raw={step.raw} final={step.final} />
             </div>
           ))}
         </div>
-        <p className="skillLeafNote">球命中敌人时停止弹跳；这里按命中前已经发生的弹跳次数计算单次伤害，不做多段相加。</p>
+        {rule?.note ? <p className="skillLeafNote">{rule.note}</p> : null}
       </div>
     );
   }
@@ -3365,8 +3410,8 @@ export default function App() {
         {slotSkills.length ? (
           <div className="skillSubGrid">
             {slotSkills.map((skill) => {
-              if (isIremHumanBouncyBall(skill)) {
-                return renderIremHumanBouncyBall(skill, skill.title.replace(/^[PQWER]\s*/, '') || skill.title);
+              if (progressiveDamageRule(skill)) {
+                return renderProgressiveSkillDamage(skill, skill.title.replace(/^[PQWER]\s*/, '') || skill.title);
               }
               if (selectedHero === '俞岷' && skill.id === 'yumin-q') {
                 const primarySingle = scaledSkillDamage(skill, result.finalMod);

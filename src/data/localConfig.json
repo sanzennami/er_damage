@@ -29818,6 +29818,26 @@
       "sourceUrl": "https://playeternalreturn.com/posts/news/3480?hl=en-US",
       "sourceTitle": "PATCH NOTES 10.6 - APRIL 2ND, 2026",
       "sourceNote": "Applied official patch current value: 40/80/120/160/200 (+Attack Power100%)",
+      "progressiveDamage": {
+        "id": "bounces",
+        "label": "弹跳次数",
+        "unit": "跳",
+        "min": 1,
+        "max": 4,
+        "default": 1,
+        "selectedLabel": "命中前弹跳次数",
+        "base": {
+          "fromMultiplier": 1,
+          "toMultiplier": 1.75,
+          "round": "floor"
+        },
+        "coefficient": {
+          "variable": "ap",
+          "from": 0.55,
+          "to": 0.9625
+        },
+        "note": "球命中敌人时停止弹跳；这里按命中前已经发生的弹跳次数计算单次伤害，不做多段相加。"
+      },
       "sourceIndex": 200
     },
     {

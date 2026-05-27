@@ -1596,14 +1596,14 @@ input:focus {
   border: 1px solid rgba(255, 196, 87, 0.2);
 }
 
-.bounceDamageSteps {
+.progressiveDamageSteps {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(92px, 1fr));
   gap: 8px;
   margin-top: 10px;
 }
 
-.bounceDamageSteps > div {
+.progressiveDamageSteps > div {
   display: grid;
   gap: 4px;
   padding: 8px;
@@ -1612,12 +1612,12 @@ input:focus {
   background: rgba(255, 255, 255, 0.04);
 }
 
-.bounceDamageSteps > div.active {
+.progressiveDamageSteps > div.active {
   border-color: rgba(255, 213, 107, 0.58);
   background: rgba(255, 213, 107, 0.12);
 }
 
-.bounceDamageSteps span,
+.progressiveDamageSteps span,
 .skillLeafNote {
   color: #a9a0a0;
   font-size: 0.8rem;
