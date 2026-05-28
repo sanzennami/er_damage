@@ -758,6 +758,65 @@ main {
   white-space: pre-wrap;
 }
 
+.equipmentChipHover {
+  border-radius: 999px;
+}
+
+.equipmentItemHoverContent {
+  display: grid;
+  gap: 10px;
+  color: #f2e7da;
+  font-size: 13px;
+  line-height: 1.45;
+}
+
+.equipmentItemHoverTitle,
+.equipmentItemHoverSection,
+.equipmentItemStatRow,
+.equipmentItemEffectRow {
+  display: grid;
+  gap: 4px;
+}
+
+.equipmentItemHoverTitle {
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.equipmentItemHoverTitle > strong,
+.equipmentItemHoverSection > b,
+.equipmentItemStatRow > strong,
+.equipmentItemEffectRow > strong {
+  color: #ffd56b;
+}
+
+.equipmentItemHoverTitle small,
+.equipmentItemHoverSection small,
+.equipmentItemStatRow span {
+  color: #b9ad9f;
+}
+
+.equipmentItemStatRow {
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: baseline;
+  padding: 5px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.equipmentItemStatRow small {
+  grid-column: 1 / -1;
+}
+
+.equipmentItemEffectRow {
+  padding: 7px 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.equipmentItemStatRow:last-child,
+.equipmentItemEffectRow:last-child {
+  border-bottom: 0;
+}
+
 .skillDescriptionEntry {
   display: grid;
   gap: 4px;

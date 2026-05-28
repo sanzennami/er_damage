@@ -20869,7 +20869,7 @@
       "id": "yumin-eq",
       "hero": "俞岷",
       "title": "EQ 每跳",
-      "bases": "50,70,90,110,130",
+      "bases": "40,60,80,100,120",
       "formula": "base + ap * 0.4",
       "maxLevel": 5
     },
@@ -29845,8 +29845,8 @@
       "hero": "爱琳",
       "heroKey": "Irem",
       "title": "Q 无敌喵喵拳",
-      "bases": "40,80,120,160,200",
-      "formula": "base + attack * 1",
+      "bases": "30,60,90,120,150",
+      "formula": "base + ap * 0.65",
       "maxLevel": 5,
       "source": "external-official-patch",
       "description": "Irem throws a bouncy ball, which becomes stronger with each bounce and deals 50(+55% Skill Amp) to a max of 87(+87% Skill Amp) skill damage to enemies in range",
@@ -33141,7 +33141,7 @@
       "id": "yumin-q3",
       "hero": "俞岷",
       "title": "Q 三跳全中",
-      "note": "工作簿 Q*3",
+      "note": "Q*3",
       "hits": {
         "yumin-q": 3
       }
@@ -33150,7 +33150,7 @@
       "id": "yumin-eq4",
       "hero": "俞岷",
       "title": "EQ 四跳全中",
-      "note": "工作簿 EQ*4",
+      "note": "EQ*4",
       "hits": {
         "yumin-eq": 4
       }

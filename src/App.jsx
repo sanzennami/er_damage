@@ -12,7 +12,7 @@ import DAK_LOADOUT_ASSETS from './data/dakLoadoutAssets.json';
 import DAK_ITEM_SKILL_ICONS from './data/dakItemSkillIcons.json';
 import MASTERY_STATS from './data/masteryStats.json';
 
-const APP_VERSION = 'v0.1.059';
+const APP_VERSION = 'v0.1.060';
 
 const EXPORTED_LOCAL_CONFIG_MODULES = import.meta.glob('./data/localConfig.export.json', {
   eager: true,
@@ -763,6 +763,56 @@ function uniqueEffectsForItem(item) {
 
   const effects = mappedEffects.length ? mappedEffects : fallbackEffects;
   return [...new Set(effects.map(normalizeUniqueEffect).filter(Boolean))];
+}
+
+function itemDirectStatValue(item, key) {
+  const stats = item?.stats || {};
+  const directValue = statValue(stats, key);
+  if (directValue) return directValue;
+
+  const aliases = {
+    attackPower: 'attackPower',
+    skillAmp: 'ap',
+    cooldownReduction: 'cd',
+    defense: 'defense',
+    maxHp: 'maxHp',
+    sightRange: 'sightRange',
+    penetrationDefense: 'pen',
+    penetrationDefenseRatio: 'penPct',
+    skillAmpRatio: 'apPct'
+  };
+
+  if (key === 'uniqueSkillAmpRatio' && item?.uniqueApPct) return getNumber(item.apPct);
+  return aliases[key] ? getNumber(item[aliases[key]]) : 0;
+}
+
+function itemDisplayStats(item, masteryLevel = 0) {
+  const rows = DISPLAYABLE_ITEM_STAT_DEFINITIONS
+    .map((stat) => {
+      const value = itemDirectStatValue(item, stat.key);
+      return value ? {
+        key: stat.key,
+        label: displayItemStatLabel(stat),
+        value: formatStatValue(stat.key, value)
+      } : null;
+    })
+    .filter(Boolean);
+
+  Object.entries(LEVEL_SCALING_STAT_TARGETS).forEach(([levelKey, targetKey]) => {
+    const perLevel = statValue(item?.stats, levelKey);
+    if (!perLevel) return;
+    const level = Math.max(0, getNumber(masteryLevel));
+    const stat = ITEM_STAT_BY_KEY[levelKey] || ITEM_STAT_BY_KEY[targetKey] || { key: levelKey, label: levelKey };
+    const targetStat = ITEM_STAT_BY_KEY[targetKey] || { key: targetKey, label: targetKey };
+    rows.push({
+      key: levelKey,
+      label: displayItemStatLabel(stat),
+      value: `${formatStatValue(targetKey, perLevel)} / 级`,
+      note: `${level}级合计 ${displayItemStatLabel(targetStat)} ${formatStatValue(targetKey, perLevel * level)}`
+    });
+  });
+
+  return rows;
 }
 
 function hasConditionalDamageAmp(item) {
@@ -1809,6 +1859,42 @@ function SkillDescriptionContent({ title, level, formula, description, source })
       {formula ? <span className="skillFormulaText">{formula}</span> : null}
       {description ? <span>{description}</span> : null}
       {source ? <small>{source}</small> : null}
+    </span>
+  );
+}
+
+function EquipmentItemHoverContent({ item, mastery, uiTheme }) {
+  const stats = itemDisplayStats(item, mastery);
+  const effects = uniqueEffectsForItem(item);
+  const fallbackTooltip = stripMarkup(itemTooltip(item));
+
+  return (
+    <span className="equipmentItemHoverContent">
+      <span className="equipmentItemHoverTitle">
+        <strong style={{ color: qualityColor(item.quality, uiTheme) }}>{item.name}</strong>
+        <small>{[item.type, item.weaponType, item.quality].filter(Boolean).join(' / ')}</small>
+      </span>
+      <span className="equipmentItemHoverSection">
+        <b>属性</b>
+        {stats.length ? stats.map((stat) => (
+          <span className="equipmentItemStatRow" key={stat.key}>
+            <span>{stat.label}</span>
+            <strong>{stat.value}</strong>
+            {stat.note ? <small>{stat.note}</small> : null}
+          </span>
+        )) : <small>无可计算属性</small>}
+      </span>
+      <span className="equipmentItemHoverSection">
+        <b>词条 / 独有效果</b>
+        {effects.length ? effects.map((effect) => (
+          <span className="equipmentItemEffectRow" key={effect}>
+            <strong>{effect}</strong>
+            <small>{effectTooltipForItem(item, effect) || '暂无详细说明'}</small>
+          </span>
+        )) : (
+          fallbackTooltip ? <small>{fallbackTooltip}</small> : <small>无独有效果</small>
+        )}
+      </span>
     </span>
   );
 }
@@ -3946,9 +4032,15 @@ export default function App() {
               </div>
               <div className="chips">
                 {result.selected.map((item) => (
-                  <span className="chip" style={{ color: qualityColor(item.quality, uiTheme) }} title={stripMarkup(itemTooltip(item))} key={item.name}>
-                    {item.name}{uniqueEffectsForItem(item).length ? ` / ${uniqueEffectsForItem(item).join(',')}` : ''}
-                  </span>
+                  <PortalHovercard
+                    content={<EquipmentItemHoverContent item={item} mastery={mastery} uiTheme={uiTheme} />}
+                    className="equipmentChipHover"
+                    key={`${item.type}-${item.name}`}
+                  >
+                    <span className="chip" style={{ color: qualityColor(item.quality, uiTheme) }}>
+                      {item.name}{uniqueEffectsForItem(item).length ? ` / ${uniqueEffectsForItem(item).join(',')}` : ''}
+                    </span>
+                  </PortalHovercard>
                 ))}
               </div>
             </div>
