@@ -5,6 +5,8 @@ dist/
 .vite/
 .er-gamedata-cache/
 .er-gamedata-tmp/
+captures/ingame/*
+!captures/ingame/README.md
 .env*.local
 npm-debug.log*
 yarn-debug.log*

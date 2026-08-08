@@ -44,7 +44,10 @@ param(
     [switch]$DryRun,
 
     # 跳过代理探测，直接连
-    [switch]$NoProxy
+    [switch]$NoProxy,
+
+    # 交互式询问提交信息（push.cmd 双击运行时用）
+    [switch]$PromptMessage
 )
 
 $ErrorActionPreference = 'Stop'
@@ -270,6 +273,19 @@ if ($hasChanges) {
     Write-Ok "工作区有 $changeCount 处改动"
 } else {
     Write-Ok '工作区干净'
+}
+
+if ($PromptMessage -and -not $NoCommit -and $hasChanges) {
+    # 双击运行时先把要提交的文件亮出来，避免 git add -A 扫进不想提交的东西
+    Write-Step '本次将提交以下改动'
+    $status | Where-Object { $_ } | ForEach-Object { Write-Host "    $_" -ForegroundColor Gray }
+    Write-Host ''
+    $answer = Read-Host '提交信息（直接回车用时间戳，输入 n 取消）'
+    if ($answer -eq 'n') {
+        Write-Warn '已取消，未做任何改动。'
+        exit 0
+    }
+    if (-not [string]::IsNullOrWhiteSpace($answer)) { $Message = $answer }
 }
 
 $resolved = Resolve-WorkingProxy

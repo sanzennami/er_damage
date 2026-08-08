@@ -7,6 +7,11 @@
     "build": "vite build .",
     "preview": "vite preview --host 0.0.0.0",
     "update:gamedata": "node scripts/update-er-gamedata.mjs",
+    "capture:list": "node scripts/ingame-capture.mjs list",
+    "capture:stub": "node scripts/ingame-capture.mjs stub",
+    "capture:build": "node scripts/ingame-capture.mjs build",
+    "capture:check": "node scripts/ingame-capture.mjs build --check",
+    "capture:status": "node scripts/ingame-capture.mjs status",
     "push": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/push.ps1"
   },
   "dependencies": {

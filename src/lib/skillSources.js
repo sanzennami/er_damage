@@ -10,6 +10,7 @@
 //
 //   100 special-skill-rule    人工特殊计算规则（specialSkillRules.json）
 //    90 manual                人工录入 / 手改（任何文件里 manual: true 的条目）
+//    85 in-game-client        客户端界面读数（inGameSkillCapture.json）
 //    80 官方公告              official-patch-note、external-official-patch
 //    40 官方 Wiki             external-wiki-current 等
 //    20 er-gamedata 解包      er-skill-damage-table、er-gamedata
@@ -20,6 +21,7 @@
 //
 //   src/data/specialSkillRules.json           人工规则（最后整体盖回，不参与比较）
 //   src/data/erSkillDamageTable.json          解包骨架；标了 manual 的行会升到 90
+//   src/data/inGameSkillCapture.json          客户端界面读数（scripts/ingame-capture.mjs 生成）
 //   src/data/skillDamageAugments.json         补充：强化普攻 / 强化技能 / 额外伤害
 //   src/data/externalSkillDamageFallback.json Wiki 结构 + 官方公告数值
 //   src/data/erGameData.json 的 skills        旧版解包表
@@ -28,6 +30,7 @@
 
 import ER_GAME_DATA from '../data/erGameData.json';
 import ER_SKILL_DAMAGE_TABLE from '../data/erSkillDamageTable.json';
+import IN_GAME_SKILL_CAPTURE from '../data/inGameSkillCapture.json';
 import SKILL_DAMAGE_AUGMENTS from '../data/skillDamageAugments.json';
 import EXTERNAL_SKILL_DAMAGE_FALLBACK from '../data/externalSkillDamageFallback.json';
 import DEFAULT_LOCAL_CONFIG from '../data/localConfig.json';
@@ -114,6 +117,17 @@ const DAMAGE_TABLE_SKILLS = (ER_SKILL_DAMAGE_TABLE.damageRows || [])
   })
   .filter(Boolean);
 
+// 客户端界面读数：只取 skills（等级填齐的），drafts 是等级没凑齐的草稿，不参与拼装。
+const IN_GAME_CAPTURE_SKILLS = (IN_GAME_SKILL_CAPTURE.skills || [])
+  .filter((skill) => !isManualHero(skill.hero))
+  .map((skill, index) => ({
+    ...skill,
+    source: skill.source || 'in-game-client',
+    sourceIndex: skill.sourceIndex ?? index,
+    sourceFile: 'inGameSkillCapture',
+    updatedAt: skill.updatedAt || skill.capturedAt || IN_GAME_SKILL_CAPTURE.generatedAt || ''
+  }));
+
 const AUGMENTED_DAMAGE_SKILLS = (SKILL_DAMAGE_AUGMENTS.skills || [])
   .filter((skill) => !isManualHero(skill.hero))
   .map((skill, index) => ({
@@ -148,6 +162,7 @@ const DAMAGE_TABLE_SKILL_KEYS = new Set(DAMAGE_TABLE_SKILLS.map((skill) => `${sk
 export const SKILL_SOURCE_CHAIN = [
   { key: 'specialSkillRules', label: '特殊计算规则', file: 'src/data/specialSkillRules.json', heroes: MANUAL_HEROES },
   { key: 'erSkillDamageTable', label: 'er-gamedata 解包骨架', file: 'src/data/erSkillDamageTable.json', count: DAMAGE_TABLE_SKILLS.length, manualCount: DAMAGE_TABLE_SKILLS.filter((skill) => skill.manual).length },
+  { key: 'inGameSkillCapture', label: '客户端界面读数', file: 'src/data/inGameSkillCapture.json', count: IN_GAME_CAPTURE_SKILLS.length },
   { key: 'skillDamageAugments', label: '技能补充表', file: 'src/data/skillDamageAugments.json', count: AUGMENTED_DAMAGE_SKILLS.length },
   { key: 'externalSkillDamageFallback', label: 'Wiki / 官方公告表', file: 'src/data/externalSkillDamageFallback.json', count: EXTERNAL_FALLBACK_DAMAGE_SKILLS.length },
   { key: 'erGameData', label: '旧版解包表', file: 'src/data/erGameData.json', count: LEGACY_GENERATED_SKILLS.length }
@@ -155,6 +170,7 @@ export const SKILL_SOURCE_CHAIN = [
 
 const GENERATED_SKILLS = [
   ...DAMAGE_TABLE_SKILLS,
+  ...IN_GAME_CAPTURE_SKILLS,
   ...AUGMENTED_DAMAGE_SKILLS,
   ...EXTERNAL_FALLBACK_DAMAGE_SKILLS,
   ...LEGACY_GENERATED_SKILLS.filter((skill) => !DAMAGE_TABLE_SKILL_KEYS.has(`${skill.hero}-${skill.group}-${skill.dataKey}`))
@@ -171,6 +187,9 @@ const GENERATED_SKILLS = [
 export const SKILL_SOURCE_AUTHORITY = {
   'special-skill-rule': 100,
   manual: 90,
+  // 客户端界面显示的是当前版本真实生效的数值；官方公告只写改动项，覆盖面不如客户端，
+  // 所以客户端读数压过公告，但仍低于人工校对过的条目。
+  'in-game-client': 85,
   'official-patch-note': 80,
   'external-official-patch': 80,
   'external-wiki-current': 40,
@@ -182,6 +201,7 @@ export const SKILL_SOURCE_AUTHORITY = {
 
 /** 同权威、同时间时的兜底排序：越靠前的来源文件越可信。 */
 const SOURCE_RANK = {
+  inGameSkillCapture: 5,
   erSkillDamageTable: 4,
   skillDamageAugments: 3,
   externalSkillDamageFallback: 2,

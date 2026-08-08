@@ -3,12 +3,110 @@
   "_usage": "不要手动改 id / bases / maxLevel / title —— 只填 levelValues 与 scaling，然后跑 `npm run capture:build` 由脚本生成。skills 是入库项（App 会读），drafts 是等级没填齐的草稿（App 忽略）。",
   "source": "in-game-client",
   "policy": "权威值 85：高于官方公告（公告只写改动项），低于人工规则与 manual 手改。见 src/lib/skillSources.js",
-  "generatedAt": "",
+  "generatedAt": "2026-08-08T16:59:57.268Z",
   "counts": {
-    "skills": 0,
-    "drafts": 0,
-    "heroes": 0
+    "skills": 2,
+    "drafts": 1,
+    "heroes": 1
   },
-  "skills": [],
-  "drafts": []
+  "skills": [
+    {
+      "id": "ingame-001-jackie-p-1001100-bleed-do-t",
+      "hero": "杰琪",
+      "heroKey": "Jackie",
+      "slot": "P",
+      "group": 1001100,
+      "skillId": "JackiePassive",
+      "dataKey": "BleedDoT",
+      "title": "P 鲜血盛宴 流血持续伤害",
+      "damagePart": "流血持续伤害",
+      "levelValues": {
+        "1": 10,
+        "2": 15,
+        "3": 20
+      },
+      "bases": "10,15,20",
+      "maxLevel": 3,
+      "formula": "base + attack * 0.05",
+      "scaling": {
+        "attack": 0.05
+      },
+      "scalingText": "(+攻击力5%)",
+      "source": "in-game-client",
+      "clientPatch": "11.9",
+      "capturedAt": "2026-08-09T00:00:00Z",
+      "updatedAt": "2026-08-09T00:00:00Z",
+      "screenshots": [
+        "杰琪-P-lv1.png"
+      ],
+      "sourceNote": "客户端「藏品 → 实验体 → 技能」界面读数",
+      "confidence": "high"
+    },
+    {
+      "id": "ingame-001-jackie-q-1001200-damage-by-level",
+      "hero": "杰琪",
+      "heroKey": "Jackie",
+      "slot": "Q",
+      "group": 1001200,
+      "skillId": "JackieActive1",
+      "dataKey": "DamageByLevel",
+      "title": "Q 连斩 基础伤害",
+      "damagePart": "基础伤害",
+      "levelValues": {
+        "1": 25,
+        "2": 45,
+        "3": 65,
+        "4": 85,
+        "5": 105
+      },
+      "bases": "25,45,65,85,105",
+      "maxLevel": 5,
+      "formula": "base + attack * [0.45,0.45,0.5,0.5,0.55][level - 1]",
+      "scaling": {
+        "attack": [
+          0.45,
+          0.45,
+          0.5,
+          0.5,
+          0.55
+        ]
+      },
+      "source": "in-game-client",
+      "clientPatch": "",
+      "capturedAt": "",
+      "updatedAt": "",
+      "screenshots": [],
+      "sourceNote": "客户端「藏品 → 实验体 → 技能」界面读数",
+      "confidence": "high"
+    }
+  ],
+  "drafts": [
+    {
+      "id": "ingame-001-jackie-w-1001300-damage",
+      "hero": "杰琪",
+      "heroKey": "Jackie",
+      "slot": "W",
+      "group": 1001300,
+      "skillId": "JackieActive2",
+      "dataKey": "Damage",
+      "title": "W 断筋",
+      "levelValues": {
+        "1": 30,
+        "3": 50
+      },
+      "bases": "",
+      "formula": "base + attack * 0.4",
+      "scaling": {
+        "attack": 0.4
+      },
+      "source": "in-game-client",
+      "clientPatch": "",
+      "capturedAt": "",
+      "updatedAt": "",
+      "screenshots": [],
+      "sourceNote": "客户端「藏品 → 实验体 → 技能」界面读数",
+      "confidence": "high",
+      "draftReason": "等级不连续，只认到 1 级（共写了 2 项）"
+    }
+  ]
 }

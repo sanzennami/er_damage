@@ -100,6 +100,7 @@ function locateSkill(indexRows, entry) {
 
 function kebab(value) {
   return String(value || '')
+    .replace(/([A-Z]+)([A-Z][a-z])/g, '$1-$2')
     .replace(/([a-z0-9])([A-Z])/g, '$1-$2')
     .replace(/[_\s]+/g, '-')
     .replace(/[^0-9A-Za-z一-龥-]/g, '')
@@ -314,6 +315,10 @@ async function commandBuild(context, capturePath, checkOnly) {
 
   for (const message of errors) console.error(`✗ ${message}`);
   for (const draft of drafts) console.warn(`… 草稿（不入库）${draft.hero} ${draft.title}：${draft.draftReason}`);
+  // capturedAt 影响同权威条目之间的取新，缺了不致命但会退化成“取靠后的一条”
+  for (const skill of skills.filter((item) => !item.capturedAt)) {
+    console.warn(`! ${skill.hero} ${skill.title} 没写 capturedAt，同权威撞车时无法比新旧`);
+  }
   console.log(`${checkOnly ? '校验' : '写入'}完成：入库 ${skills.length} 段，草稿 ${drafts.length} 段，错误 ${errors.length} 条`);
 
   if (!checkOnly && !errors.length) {
