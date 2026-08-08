@@ -12,6 +12,7 @@
 | 100 | `special-skill-rule` | 人工特殊计算规则（`specialSkillRules.json`） |
 | 90 | `manual` | **人工录入 / 手改**：任何文件里 `"manual": true` 的条目 |
 | 80 | `official-patch-note`、`external-official-patch` | 官方更新公告 |
+| 60 | `in-game-client` | 客户端界面读数（`inGameSkillCapture.json`）：每个实验体只导入一次的底稿 |
 | 40 | `external-wiki-current` 等 | 官方 Wiki |
 | 20 | `er-skill-damage-table` | er-gamedata 结构化解包 |
 | 10 | `er-gamedata` | er-gamedata 旧版解包（最不可信） |
@@ -25,11 +26,12 @@
 权威值 100 的人工规则**不参与比较**：拼装完成、以及每次合并 `localStorage` 保存的配置之后都会整体盖回，
 因此人工校对的公式不会被任何生成数据或旧缓存顶掉。
 
-### 五个文件都可以手改
+### 六个文件都可以手改
 
 | 文件 | 角色 |
 | --- | --- |
 | `specialSkillRules.json` | 人工规则，最高优先级 |
+| `inGameSkillCapture.json` | 客户端界面读数（由 `scripts/ingame-capture.mjs` 生成，见下） |
 | `erSkillDamageTable.json` | 解包骨架；标 `manual` 的行升到 90，且重新导出时不被覆盖 |
 | `skillDamageAugments.json` | 补充：强化普攻 / 强化技能 / 额外伤害 |
 | `externalSkillDamageFallback.json` | Wiki 结构 + 官方公告数值 |
@@ -49,6 +51,97 @@
 
 `scripts/export-er-skill-damage-table.mjs` 重新导出时会先读旧文件，把 `manual: true` 的行原样保留
 （解包数据里已不存在、但手工加过的行也保留），并在控制台列出保留了哪些行。
+
+## inGameSkillCapture.json —— 客户端界面读数
+
+数据来自客户端「藏品 → 实验体 → 技能」界面里显示的参数。**每个实验体只导入一次**，
+之后的版本更新一律靠抓官方公告覆盖 —— 所以权威值 **60**：压过 er-gamedata 解包（20）和
+官方 Wiki（40），但低于官方公告（80），公告永远能盖掉它。
+
+流程：截图放进 `captures/ingame/`（图片已 gitignore，命名规则见那边的 README）→ 读数填进本文件 →
+跑 `npm run capture:build` 规范化。
+
+一张技能截图能同时喂三份数据：
+
+| 界面位置 | 落到 | 是否覆盖 |
+| --- | --- | --- |
+| 技能说明里的数值 | `skills` / `drafts` | 覆盖（权威 60） |
+| 右侧「统计」栏 Lv1/Lv20 | `characterStats` | **先对账**，只在和 `erGameData` 打架时覆盖 |
+| 右侧「武器熟练度」栏 Lv1/Lv20 | `weaponMastery` | **先对账**，只在和 `masteryStats` 打架时覆盖 |
+
+**手写的只有这几个字段**，其余（`id` / `bases` / `maxLevel` / `title` / `skillId`）由脚本生成：
+
+```jsonc
+{
+  "hero": "杰琪",                        // 中文名 / 英文名 / id 都认
+  "slot": "Q",                           // 该槽位有多个技能组时必须改写 group
+  "group": 1001200,                      // 可选；写了就以它为准
+  "dataKey": "DamageByLevel",            // 伤害段标识：想覆盖解包表就照抄它的 baseKey
+  "damagePart": "基础伤害",
+  "levelValues": { "1": 25, "2": 45, "3": 65, "4": 85, "5": 105 },
+  "cooldownByLevel": { "1": 8, "2": 7, "3": 6, "4": 5, "5": 4 },   // 可选，见下
+  "costByLevel":     { "1": 50, "2": 60, "3": 70, "4": 80, "5": 90 },
+  "scaling": { "attack": 0.45 },         // 也可写 [0.45,0.45,0.5,0.5,0.55] 逐级系数
+  "scalingText": "(+攻击力45%)",
+  "clientPatch": "11.9",
+  "capturedAt": "2026-08-09T00:00:00Z",  // 缺了同权威撞车时无法比新旧
+  "screenshots": ["杰琪-Q-lv1.png"],
+  "confidence": "high"                   // 读不准写 needs-recheck
+}
+```
+
+- **`dataKey` 必须照抄现有条目**，否则去重键（`hero｜group｜skillId｜dataKey`）对不上，客户端读数不会
+  覆盖旧值，而是和它并列显示成两行打架的数值。`npm run capture:list -- 希瑟拉` 会把**所有来源**
+  （解包表 / Wiki / 公告）现有的 `dataKey`、数值、系数打出来，并标出哪些来源权威高于客户端读数、
+  录了也不会生效；
+- **等级没填齐**会被丢进 `drafts`，App 不读。判定不只看连不连续，还看技能自己有几级 ——
+  5 级技能只录了 1 级也是草稿，绝不会当成 `maxLevel: 1` 入库把完整数值顶掉；
+- `scaling` 之外要写 `targetHp` / `extraAttack` 这类项时，直接写完整 `formula` 覆盖；
+- 读数没问题、但现有伤害模型**表达不了这段机制**时（例如「每失去 1% 体力追加伤害」，模型里没有
+  「自身已失体力百分比」这个变量），照实存单位值 + `formula: "base"`，并把原文写进 `modelNote`、
+  单位写进 `unit`。宁可存一个诚实的单位值，也不要为了凑进模型编一个错公式；
+- **护盾 / 治疗量这类非伤害读数**放 `nonDamage` 数组，条目加 `"kind": "shield" | "heal" | "other"`。
+  计算器里没有护盾模型，放进 `skills` 会被当成伤害行显示出来 —— `nonDamage` 一样走校验、一样留证据，
+  但 `skillSources.js` 不读它。写在 `skills` 里但带了 `kind` 的条目，`build` 会自动挪过去；
+- `cooldownByLevel` / `costByLevel` 是**纯证据字段**：伤害模型里没有冷却和消耗这两项，目前没有任何
+  计算读它们，存下来是为了以后做冷却 / 资源 / DPS 时不用重新截一遍图。等级数必须和 `levelValues`
+  一致，否则报错（对不上说明读漏了一级）。
+
+### 成长数据：先对账，不一致才覆盖
+
+```jsonc
+{
+  "characterStats": [
+    { "hero": "希瑟拉",
+      "lv1":  { "hp": 920,  "attack": 33,  "defense": 50 },
+      "lv20": { "hp": 2231, "attack": 114, "defense": 95 } }
+  ],
+  "weaponMastery": [
+    { "hero": "希瑟拉", "weapon": "暗器",
+      "lv1":  { "attackSpeed": 3.2, "skillAmp": 3.9 },
+      "lv20": { "attackSpeed": 64,  "skillAmp": 78 } }
+  ]
+}
+```
+
+- 客户端 Lv20 是**向下取整**显示的（33 + 4.3×19 = 114.7 → 显示 114），所以反推的每级成长精度不如
+  解包原值。脚本先算「用仓库现有成长值能不能复现截图上的两个数字」：能 → `repoCheck: "match"`，
+  只留证据不覆盖；不能 → 生成 `override`，由 `src/lib/characterStats.js` 盖到解包值上，并在
+  `build` 输出里报冲突；
+- 熟练度栏显示的是**累计值**，Lv1 就是每级增量，Lv20 = 每级 × 20，脚本拿 Lv20 当校验位；
+- `weapon` 写中文名即可，中文名 → 内部枚举（`暗器 → DirectFire`）从装备表的 `weaponType` 标签自动推导，
+  官方改译名会自动跟上；认不出来时会把该实验体可用的武器列出来。
+
+### 子命令
+
+| 命令 | 作用 |
+| --- | --- |
+| `npm run capture:list -- 希瑟拉` | 打印技能骨架 + 所有来源的现有 `dataKey` / 数值 / 系数 |
+| `npm run capture:stub -- 希瑟拉` | 输出可直接粘贴的录入骨架（`dataKey` 已对齐现有条目） |
+| `npm run capture:build` | 规范化并写回（有错不写；可重复跑，幂等） |
+| `npm run capture:check` | 只校验 |
+| `npm run capture:stats` | 只看成长数据的对账结果 |
+| `npm run capture:status` | 录入进度 + 建议优先截图的实验体 |
 
 ## specialSkillRules.json —— 特殊计算规则
 

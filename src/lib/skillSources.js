@@ -10,8 +10,8 @@
 //
 //   100 special-skill-rule    人工特殊计算规则（specialSkillRules.json）
 //    90 manual                人工录入 / 手改（任何文件里 manual: true 的条目）
-//    85 in-game-client        客户端界面读数（inGameSkillCapture.json）
 //    80 官方公告              official-patch-note、external-official-patch
+//    60 in-game-client        客户端界面读数（inGameSkillCapture.json，一次性导入的底稿）
 //    40 官方 Wiki             external-wiki-current 等
 //    20 er-gamedata 解包      er-skill-damage-table、er-gamedata
 //
@@ -187,11 +187,11 @@ const GENERATED_SKILLS = [
 export const SKILL_SOURCE_AUTHORITY = {
   'special-skill-rule': 100,
   manual: 90,
-  // 客户端界面显示的是当前版本真实生效的数值；官方公告只写改动项，覆盖面不如客户端，
-  // 所以客户端读数压过公告，但仍低于人工校对过的条目。
-  'in-game-client': 85,
   'official-patch-note': 80,
   'external-official-patch': 80,
+  // 客户端界面读数：每个实验体只导入一次，作为解包骨架之上的底稿；
+  // 之后的版本更新一律靠官方公告覆盖，所以它必须低于公告。
+  'in-game-client': 60,
   'external-wiki-current': 40,
   'external-skill-damage-wiki-current': 40,
   // er-gamedata 解包：结构化表比旧版表可信（旧表把不少物理英雄的系数错记成技能增幅）

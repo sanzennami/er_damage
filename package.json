@@ -11,6 +11,7 @@
     "capture:stub": "node scripts/ingame-capture.mjs stub",
     "capture:build": "node scripts/ingame-capture.mjs build",
     "capture:check": "node scripts/ingame-capture.mjs build --check",
+    "capture:stats": "node scripts/ingame-capture.mjs stats",
     "capture:status": "node scripts/ingame-capture.mjs status",
     "push": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/push.ps1"
   },

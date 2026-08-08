@@ -7,7 +7,7 @@ import DEFAULT_LOCAL_CONFIG from './data/localConfig.json';
 import ITEM_UNIQUE_EFFECTS from './data/itemUniqueEffects.json';
 import DAK_LOADOUT_ASSETS from './data/dakLoadoutAssets.json';
 import DAK_ITEM_SKILL_ICONS from './data/dakItemSkillIcons.json';
-import MASTERY_STATS from './data/masteryStats.json';
+import { CHARACTERS, findCharacterByName, masteryStatFor } from './lib/characterStats.js';
 import {
   adaptiveOffenseFormula,
   basesFor,
@@ -116,32 +116,6 @@ const MASTERY_STAT_LABELS = {
   SightRange: '视野',
   HpRegenRatioOutOfCombat: '非战斗体力再生'
 };
-const WEAPON_TYPES = [
-  '未设置',
-  '拳套 / Glove',
-  '双节棍 / Nunchaku',
-  '拐棍 / Tonfa',
-  '棍棒 / Bat',
-  '锤 / Hammer',
-  '鞭子 / Whip',
-  '投掷 / Throw',
-  '暗器 / Shuriken',
-  '弓 / Bow',
-  '弩 / Crossbow',
-  '手枪 / Pistol',
-  '突击步枪 / Assault Rifle',
-  '狙击枪 / Sniper Rifle',
-  '斧 / Axe',
-  '短剑 / Dagger',
-  '双手剑 / Two-handed Sword',
-  '双剑 / Dual Swords',
-  '长枪 / Spear',
-  '刺剑 / Rapier',
-  '吉他 / Guitar',
-  '相机 / Camera',
-  '圣器 / Arcana',
-  'VF义体 / VF Prosthetic'
-];
 const STORAGE_KEY = 'er-damage-config-v1';
 const WORKSPACE_STATE_KEY = 'er-damage-workspace-state-v1';
 const APP_SETTINGS_KEY = 'er-damage-global-settings-v1';
@@ -194,7 +168,7 @@ const TRAIT_EFFECTS = {
 };
 const HEROES = [
   ...MANUAL_HEROES,
-  ...ER_GAME_DATA.characters.map((character) => character.name).filter((name) => !MANUAL_HEROES.includes(name))
+  ...CHARACTERS.map((character) => character.name).filter((name) => !MANUAL_HEROES.includes(name))
 ];
 
 const DEFAULT_TALENTS = [
@@ -807,10 +781,6 @@ function weaponTypeOfficialName(rawType) {
 function weaponTypeOfficialList(rawTypes) {
   const names = (rawTypes || []).map(weaponTypeOfficialName).filter(Boolean);
   return names.length ? names.join('、') : '未设置武器';
-}
-
-function masteryStatFor(characterCode, weaponRawType) {
-  return MASTERY_STATS.find((item) => item.characterCode === characterCode && item.type === weaponRawType) || null;
 }
 
 function masteryOptionValue(masteryStat, stat) {
@@ -1880,7 +1850,7 @@ function hasChineseText(value) {
 function heroZhName(skill) {
   if (skill?.hero) return skill.hero;
   const heroKey = String(skill?.heroKey || '').toLowerCase();
-  const character = ER_GAME_DATA.characters?.find((item) => String(item.englishName || item.id || '').toLowerCase() === heroKey);
+  const character = CHARACTERS.find((item) => String(item.englishName || item.id || '').toLowerCase() === heroKey);
   return character?.name || skill?.heroKey || '';
 }
 
@@ -2216,11 +2186,11 @@ export default function App() {
   const visibleHeroNames = canShowExtendedHeroes
     ? (showUnsupportedHeroes ? HEROES : HEROES.filter((hero) => HEROES_WITH_SKILL_DAMAGE.has(hero)))
     : HEROES.filter((hero) => MANUAL_HEROES.includes(hero));
-  const selectedCharacter = ER_GAME_DATA.characters.find((character) => character.name === selectedHero);
+  const selectedCharacter = findCharacterByName(selectedHero);
   const selectedOfficialSkillGroups = ER_GAME_DATA.rawSkillGroups.filter((skill) => skill.hero === selectedHero);
   const heroPickerOptions = visibleHeroNames.map((hero) => ({
     name: hero,
-    character: ER_GAME_DATA.characters.find((character) => character.name === hero)
+    character: findCharacterByName(hero)
   }));
   const filteredHeroPickerOptions = heroPickerOptions.filter(({ name, character }) => {
     const query = heroAvatarQuery.trim().toLowerCase();

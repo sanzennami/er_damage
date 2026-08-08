@@ -1531,7 +1531,9 @@ input:focus {
 
 .skillMainGrid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(180px, 1fr));
+  /* 用 minmax(0, 1fr) 而不是 minmax(180px, 1fr)：
+     列宽不再被内容顶开，长技能名和来源标签在列内换行 */
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 12px;
   align-items: stretch;
 }
@@ -1556,7 +1558,8 @@ input:focus {
 }
 
 .skillPassiveRow .skillSubGrid {
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  /* min(220px, 100%) 让容器比 220px 窄时列也能跟着收缩 */
+  grid-template-columns: repeat(auto-fit, minmax(min(220px, 100%), 1fr));
 }
 
 .skillMainHead {
@@ -1580,6 +1583,7 @@ input:focus {
 .skillDamageLeaf {
   display: grid;
   gap: 10px;
+  min-width: 0;
   padding: 10px;
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 8px;
@@ -1594,21 +1598,33 @@ input:focus {
 }
 
 .skillLeafHead {
+  align-items: flex-start;
   justify-content: space-between;
-  gap: 8px;
+  /* 技能名 + 来源标签放不下时，让目标步进器整体换到下一行，而不是把卡片撑宽 */
+  flex-wrap: wrap;
+  gap: 6px 8px;
 }
 
 .skillLeafTitle {
   display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 5px;
+  /* 技能名一行、来源标签另起一行，避免两者挤在同一行把卡片撑宽 */
+  flex-direction: column;
+  align-items: flex-start;
+  flex: 1 1 150px;
+  gap: 4px;
   min-width: 0;
 }
 
 .skillLeafHead strong {
+  min-width: 0;
   color: #f4eadc;
   font-size: 14px;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+.skillLeafHead .targetStepper {
+  margin-left: auto;
 }
 
 .skillSourceMeta {
@@ -1620,7 +1636,11 @@ input:focus {
   background: rgba(255, 213, 107, 0.08);
   font-size: 11px;
   line-height: 1.35;
+  /* 标签自身不断词（避免把 2026-08-09 拆成两半），放不下时省略号收尾；
+     它已经独占一行，不会再撑开卡片 */
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .targetStepper {
@@ -2767,6 +2787,10 @@ td:last-child input {
     grid-template-columns: 1fr;
   }
 
+  .skillMainGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
   .desktopEquipmentEffectRail {
     display: none;
   }
@@ -2831,6 +2855,7 @@ td:last-child input {
   .traitGroupTabs,
   .traitGrid,
   .skillGroup,
+  .skillMainGrid,
   .effectGrid {
     grid-template-columns: 1fr;
   }
