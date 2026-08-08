@@ -1,0 +1,67 @@
+{
+  "_comment": "数据迁移表：把浏览器 localStorage 里保存的过期字段改成当前的官方译名。只有当保存值与 from 完全一致时才替换，用户自己改过的内容不受影响。",
+  "_usage": "官方公告改了中文译名、或修正了此前自拟的翻译时，在 skillTitles 里追加一条 { id, from, to }。",
+  "generatedAt": "2026-08-06T13:07:50.977Z",
+  "skillTitles": [
+    {
+      "id": "patch-113-blair-1084200-double-bladed-sword-second-hit-damage",
+      "from": "Q 双重斩击 双刀二段伤害",
+      "to": "Q 双重横扫 双头剑1、2段伤害"
+    },
+    {
+      "id": "external-lyanh-w-1063300-phantom-ripper-damage-stat2",
+      "from": "W 血染之指 附身伤害",
+      "to": "W 血染之指（噬身）"
+    },
+    {
+      "id": "patch-116-martina-1057500-recording-edge-damage",
+      "from": "R 录像 录制中边缘伤害",
+      "to": "R 录像 - 报道中 录像期间（边缘）"
+    },
+    {
+      "id": "patch-116-martina-1057500-recording-center-damage",
+      "from": "R 录像 录制中中心伤害",
+      "to": "R 录像 - 报道中 录像期间（中心）"
+    },
+    {
+      "id": "patch-116-martina-1057500-recording-complete-edge-damage",
+      "from": "R 录像 录制完成边缘伤害",
+      "to": "R 录像 - 报道中 录像结束（边缘）"
+    },
+    {
+      "id": "patch-116-martina-1057500-recording-complete-center-damage",
+      "from": "R 录像 录制完成中心伤害",
+      "to": "R 录像 - 报道中 录像结束（中心）"
+    },
+    {
+      "id": "patch-117-silvia-1016300-on-bike-front-flip-damage",
+      "from": "W 前空翻（摩托）",
+      "to": "W 腾空飞跃（摩托车）"
+    },
+    {
+      "id": "patch-115-craver-1089300-sweep-kick-damage",
+      "from": "W 扫堂腿（每段）",
+      "to": "W 横扫千军（每段）"
+    },
+    {
+      "id": "patch-115-craver-1089300-backflip-damage",
+      "from": "W 后空翻",
+      "to": "W 腾空后跃"
+    },
+    {
+      "id": "patch-115-craver-1089400-quick-step-damage",
+      "from": "E 快步后撤",
+      "to": "E 迅步"
+    },
+    {
+      "id": "patch-115-craver-1089500-damage",
+      "from": "R 决斗时刻",
+      "to": "R 决战时刻！"
+    },
+    {
+      "id": "patch-115-craver-1089200-focus-shot-additional-damage",
+      "from": "Q 聚焦射击 追加伤害",
+      "to": "Q 聚焦射击 持续伤害"
+    }
+  ]
+}

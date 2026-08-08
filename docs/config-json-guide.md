@@ -4,7 +4,8 @@
 
 ## 常用修改入口
 
-- `src/data/localConfig.json`：主要人工配置入口。改装备、手动英雄技能、天赋、连段时优先改这里。
+- `src/data/specialSkillRules.json`：**特殊计算规则表，优先级最高**。已人工校对的英雄（俞岷、奇娅拉）和需要特殊结算/展示方式的技能都写在这里，生成表与浏览器缓存都不会覆盖它。字段说明见 `src/data/README.md`。
+- `src/data/localConfig.json`：主要人工配置入口。改装备、天赋、连段时优先改这里（已在特殊规则表里的英雄除外）。
 - `src/data/skillDamageAugments.json`：补充自动表没覆盖的强化普攻、强化技能、额外伤害等条目。
 - `src/data/externalSkillDamageFallback.json`：为缺少结构化技能伤害的英雄提供外部来源兜底。
 - `src/data/helpNotes.json`：页面帮助气泡说明文案。

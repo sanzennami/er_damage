@@ -758,6 +758,15 @@ main {
   white-space: pre-wrap;
 }
 
+/* 来源附注是用 \n 拼起来的多行文本（英文原文 / 中文对照 / 链接），需要保留换行 */
+.skillDescriptionContent small {
+  display: block;
+  white-space: pre-wrap;
+  line-height: 1.6;
+  opacity: 0.78;
+  word-break: break-word;
+}
+
 .equipmentChipHover {
   border-radius: 999px;
 }

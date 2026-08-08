@@ -591,10 +591,10 @@
     {
       "id": 7200101,
       "name": "超再生",
-      "tooltip": "自身技能或潜能生成的护盾和体力恢复量持续增加10%。因自身获得护盾或体力恢复效果的目标在5秒间攻击力增加5(+级别*0.5)或技能增幅增加10(+级别*1)。不适用于通过休息、再生、吸血及食物获得的恢复效果。",
+      "tooltip": "自身技能或潜能生成的护盾和体力恢复量持续增加5%。",
       "group": "Support",
       "groupName": "支援型",
-      "type": "Core",
+      "type": "Sub1",
       "typeName": "核心",
       "active": true,
       "sortOrder": 301,
@@ -767,10 +767,10 @@
     {
       "id": 7211301,
       "name": "爆炸仙人掌",
-      "tooltip": "对敌人造成伤害时，将为目标附着持续3秒的仙人掌。(冷却：10秒)除自己外的队友实验体或召唤物使用普攻或者独立技能对仙人掌附着的目标造成伤害时，仙人掌将爆炸并造成10~150(+敌人体力上限5%)的技能伤害。持续时间内未触发爆炸时，仙人掌将自动爆炸并造成减少了70%的伤害。对野生动物造成伤害量增加150%。",
+      "tooltip": "对敌人实验体造成伤害时，将为目标附着持续4秒的仙人掌。(对同一目标冷却：8秒)除自己外的队友实验体或召唤物使用普攻或者独立技能对仙人掌附着的目标造成伤害时，仙人掌将爆炸并造成8~160(+敌人体力上限4%)的技能伤害，并使队友移动速度增加15%、持续2秒。持续时间内未触发爆炸时，仙人掌将自动爆炸并造成减少了70%的伤害。对野生动物造成伤害量增加150%。",
       "group": "Support",
       "groupName": "支援型",
-      "type": "Sub1",
+      "type": "Core",
       "typeName": "辅助 1",
       "active": true,
       "sortOrder": 314,
@@ -2726,5 +2726,40 @@
       "byteSize": 0,
       "imageDownloadError": "Failed to download https://cdn.dak.gg/assets/er/game-assets/11.2.0/SkillIcon_1060000.png: 403 Forbidden"
     }
-  ]
+  ],
+  "officialPatchUpdates": {
+    "appliedAt": "2026-08-06T12:21:07.049Z",
+    "patches": [
+      {
+        "version": "11.3",
+        "date": "2026-05-28",
+        "url": "https://playeternalreturn.com/posts/news/3606?hl=en-US"
+      },
+      {
+        "version": "11.4",
+        "date": "2026-06-11",
+        "url": "https://playeternalreturn.com/posts/news/3629?hl=en-US"
+      },
+      {
+        "version": "11.5",
+        "date": "2026-06-25",
+        "url": "https://playeternalreturn.com/posts/news/3657?hl=en-US"
+      },
+      {
+        "version": "11.6",
+        "date": "2026-07-09",
+        "url": "https://playeternalreturn.com/posts/news/3690?hl=en-US"
+      },
+      {
+        "version": "11.7",
+        "date": "2026-07-23",
+        "url": "https://playeternalreturn.com/posts/news/3713?hl=en-US"
+      },
+      {
+        "version": "12.0",
+        "date": "2026-08-06",
+        "url": "https://playeternalreturn.com/posts/news/3742?hl=en-US"
+      }
+    ]
+  }
 }

@@ -612,21 +612,22 @@
       "coefKey": "SkillApCoef",
       "sourceExtension": "MagnusActive2Data",
       "levels": "1|2|3|4|5",
-      "lv1": 20,
-      "lv2": 30,
-      "lv3": 35,
-      "lv4": 45,
-      "lv5": 50,
+      "lv1": 22,
+      "lv2": 28,
+      "lv3": 34,
+      "lv4": 40,
+      "lv5": 46,
       "lv6": "",
-      "coefLv1": 0.3,
-      "coefLv2": 0.3,
-      "coefLv3": 0.3,
-      "coefLv4": 0.3,
-      "coefLv5": 0.3,
+      "coefLv1": 0.2,
+      "coefLv2": 0.2,
+      "coefLv3": 0.2,
+      "coefLv4": 0.2,
+      "coefLv5": 0.2,
       "formula": "base + (SkillApCoef) * skillAmp",
-      "coefficientText": "马格努斯挥动武器，{0}秒间对敌人造成{4}(每{10}额外防御力+{11})次{1}(+额外攻击力{3})(+技能增幅{7})(+敌人体力上限{9})的技能伤害。 每次技能命中，都会减少{6}秒冷却时间。使用技能期间，负面效果抵御增加{8}。",
+      "coefficientText": "22/28/34/40/46(+Extra Attack Power 45%)(+Skill Amplification 20%)(+Target's Max HP 2.5%)",
       "description": "无消耗 / 冷却14秒 马格努斯挥动武器，对范围内的所有敌人造成伤害。额外防御力越高，挥动武器的次数越多。 技能每次命中时，冷却都会减少。 使用技能期间增加负面效果抵御。",
-      "textSource": "dak.gg api zh-CN"
+      "textSource": "dak.gg api zh-CN",
+      "coefLv6": ""
     },
     {
       "standardId": "004-magnus-e-1004400-damage-by-level",
@@ -900,21 +901,22 @@
       "coefKey": "SkillApCoef_2",
       "sourceExtension": "ZahirActive4Data",
       "levels": "1|2|3",
-      "lv1": 50,
-      "lv2": 85,
-      "lv3": 120,
+      "lv1": 60,
+      "lv2": 120,
+      "lv3": 180,
       "lv4": "",
       "lv5": "",
       "lv6": "",
-      "coefLv1": 0.5,
-      "coefLv2": 0.5,
-      "coefLv3": 0.5,
+      "coefLv1": 0.4,
+      "coefLv2": 0.4,
+      "coefLv3": 0.4,
       "coefLv4": "",
       "coefLv5": "",
       "formula": "base + (SkillApCoef_2) * skillAmp",
-      "coefficientText": "扎希尔凝聚精力，向指定的方向依次发射飞轮。最初可对敌人造成{0}(+技能增幅的{4})的技能伤害，之后每0.45秒都能造成{1}(+技能增幅{5})的技能伤害。 如果敌人没有「死神之目」，跋尔伽婆则会对他们标记「死神之目」。",
+      "coefficientText": "Min Damage 60/120/180(+Skill Amplification 40%)",
       "description": "无消耗 / 冷却80秒 扎希尔凝聚精力，向指定的方向依次发射飞轮给敌人造成伤害。 如果敌人没有「死神之目」，则会被标记。",
-      "textSource": "dak.gg api zh-CN"
+      "textSource": "dak.gg api zh-CN",
+      "coefLv6": ""
     },
     {
       "standardId": "006-nadine-q-1006200-max-damage-by-level",
@@ -1124,9 +1126,9 @@
       "coefKey": "",
       "sourceExtension": "NadineActive4Data",
       "levels": "1|2|3",
-      "lv1": 50,
-      "lv2": 100,
-      "lv3": 150,
+      "lv1": 100,
+      "lv2": 150,
+      "lv3": 200,
       "lv4": "",
       "lv5": "",
       "lv6": "",
@@ -1136,7 +1138,7 @@
       "coefLv4": "",
       "coefLv5": "",
       "formula": "base",
-      "coefficientText": "每当在{7}秒内进行{0}次普攻可召唤狼一起进攻。召唤狼朝敌人扑去，造成{1}(+额外攻击力{4})(+技能增幅{6})(+野性叠层伤害)的技能伤害，同时减少敌人的攻速{5}，移速{3}。参与击杀敌人实验体时，持续时间增加{9}秒。",
+      "coefficientText": "100/150/200(+额外攻击力80%)(+技能增幅的80%)(+野性叠层伤害)",
       "description": "无消耗 / 冷却80秒 根据在一段时间内的普攻次数，娜町可召唤出狼一起进攻。 狼出现后猛扑向敌人，不仅对其造成技能伤害，还减缓敌人的攻击速度与移动速度。(伤害量随着娜町的野性重叠成正比增加。)",
       "textSource": "dak.gg api zh-CN"
     },
@@ -18962,5 +18964,62 @@
       "description": "无消耗 / 冷却80秒 鼻荆进入负面效果免疫状态并跃向指定位置。使用技能期间，自身承受伤害降低。 鼻荆戴上鬼怪假面，身体巨大化并获得额外体力。随后猛烈重击地面，造成技能伤害并降低命中敌人的移动速度。处于范围中心区域的敌人将受到更高的伤害与更强的减速效果。",
       "textSource": "dak.gg api zh-CN"
     }
-  ]
+  ],
+  "officialPatchUpdates": {
+    "appliedAt": "2026-08-06T12:21:07.049Z",
+    "patches": [
+      {
+        "version": "11.3",
+        "date": "2026-05-28",
+        "url": "https://playeternalreturn.com/posts/news/3606?hl=en-US"
+      },
+      {
+        "version": "11.4",
+        "date": "2026-06-11",
+        "url": "https://playeternalreturn.com/posts/news/3629?hl=en-US"
+      },
+      {
+        "version": "11.5",
+        "date": "2026-06-25",
+        "url": "https://playeternalreturn.com/posts/news/3657?hl=en-US"
+      },
+      {
+        "version": "11.6",
+        "date": "2026-07-09",
+        "url": "https://playeternalreturn.com/posts/news/3690?hl=en-US"
+      },
+      {
+        "version": "11.7",
+        "date": "2026-07-23",
+        "url": "https://playeternalreturn.com/posts/news/3713?hl=en-US"
+      },
+      {
+        "version": "12.0",
+        "date": "2026-08-06",
+        "url": "https://playeternalreturn.com/posts/news/3742?hl=en-US"
+      }
+    ]
+  },
+  "officialPatchUpdatesZh": {
+    "appliedAt": "2026-08-06T13:02:58.285Z",
+    "locale": "zh-CN",
+    "sources": [
+      {
+        "version": "11.5",
+        "url": "https://playeternalreturn.com/posts/news/3657?hl=zh-CN"
+      },
+      {
+        "version": "11.5a",
+        "url": "https://playeternalreturn.com/posts/news/3687?hl=zh-CN"
+      },
+      {
+        "version": "12.0 Part.1",
+        "url": "https://playeternalreturn.com/posts/news/3742?hl=zh-CN"
+      },
+      {
+        "version": "12.0 Part.2",
+        "url": "https://playeternalreturn.com/posts/news/3743?hl=zh-CN"
+      }
+    ]
+  }
 }

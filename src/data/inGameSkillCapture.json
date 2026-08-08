@@ -1,0 +1,14 @@
+{
+  "_comment": "游戏客户端截图读数录入表。数据来自《永恒轮回》客户端「藏品 → 实验体 → 技能」界面显示的参数，是当前版本真实生效的数值。",
+  "_usage": "不要手动改 id / bases / maxLevel / title —— 只填 levelValues 与 scaling，然后跑 `npm run capture:build` 由脚本生成。skills 是入库项（App 会读），drafts 是等级没填齐的草稿（App 忽略）。",
+  "source": "in-game-client",
+  "policy": "权威值 85：高于官方公告（公告只写改动项），低于人工规则与 manual 手改。见 src/lib/skillSources.js",
+  "generatedAt": "",
+  "counts": {
+    "skills": 0,
+    "drafts": 0,
+    "heroes": 0
+  },
+  "skills": [],
+  "drafts": []
+}

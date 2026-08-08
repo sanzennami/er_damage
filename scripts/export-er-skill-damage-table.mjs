@@ -420,7 +420,35 @@ async function main() {
     });
   }
 
+  // er-gamedata 是玩家自发维护的解包内容，不保证准确。因此这张表允许人工修改：
+  // 任何标了 "manual": true 的行都视为人工校对结果，重新导出时保留原值不覆盖；
+  // 手工新增、而解包数据里已经不存在的行也一并保留。
+  const previousPath = path.join(dataDir, 'erSkillDamageTable.json');
+  const preserved = [];
+  if (existsSync(previousPath)) {
+    const previous = JSON.parse(await readFile(previousPath, 'utf8'));
+    const manualRows = (previous.damageRows || []).filter((row) => row.manual === true);
+    const manualById = new Map(manualRows.map((row) => [row.standardId, row]));
+    for (let index = 0; index < damageRows.length; index += 1) {
+      const manualRow = manualById.get(damageRows[index].standardId);
+      if (!manualRow) continue;
+      damageRows[index] = { ...damageRows[index], ...manualRow };
+      preserved.push(damageRows[index].standardId);
+      manualById.delete(damageRows[index].standardId);
+    }
+    for (const orphan of manualById.values()) {
+      damageRows.push(orphan);
+      preserved.push(orphan.standardId);
+    }
+  }
+  if (preserved.length) {
+    console.log(`[manual] 保留 ${preserved.length} 行人工校对数据：`);
+    preserved.forEach((id) => console.log(`  - ${id}`));
+  }
+
   const payload = {
+    _comment: 'er-gamedata 解包导出的技能伤害骨架。er-gamedata 由玩家自发维护，数值不保证准确，官方更新公告的优先级更高。',
+    _usage: '本表可以手改：给某一行加 "manual": true，重新跑 npm run export 时该行不会被覆盖；手改行还可以直接写 formula 字段来表达解包数据表达不了的项（targetHp、extraAttack 等）。',
     source: repoUrl,
     textSource: {
       preferred: `${dakApiBase}/skills?hl=zh-CN`,

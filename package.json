@@ -6,7 +6,8 @@
     "dev": "vite --host 0.0.0.0 --port 5173",
     "build": "vite build .",
     "preview": "vite preview --host 0.0.0.0",
-    "update:gamedata": "node scripts/update-er-gamedata.mjs"
+    "update:gamedata": "node scripts/update-er-gamedata.mjs",
+    "push": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/push.ps1"
   },
   "dependencies": {
     "react": "18.2.0",

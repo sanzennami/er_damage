@@ -205,7 +205,7 @@
       "base": {
         "hp": 1000,
         "attackPower": 40,
-        "defense": 56,
+        "defense": 54,
         "skillAmp": 0,
         "moveSpeed": 3.55,
         "attackSpeed": 0.18
@@ -287,7 +287,7 @@
       "base": {
         "hp": 1070,
         "attackPower": 44,
-        "defense": 49,
+        "defense": 50,
         "skillAmp": 0,
         "moveSpeed": 3.6,
         "attackSpeed": 0.16
@@ -298,7 +298,7 @@
         "maxHp": 95,
         "maxVp": 0,
         "attackPower": 4.4,
-        "defense": 3.2,
+        "defense": 3.3,
         "skillAmp": 0,
         "adaptiveForce": 0,
         "criticalChance": 0,
@@ -577,7 +577,7 @@
         "name": "Hart",
         "maxHp": 73,
         "maxVp": 0,
-        "attackPower": 4.2,
+        "attackPower": 4.4,
         "defense": 2.7,
         "skillAmp": 0,
         "adaptiveForce": 0,
@@ -778,7 +778,7 @@
         "maxHp": 91,
         "maxVp": 0,
         "attackPower": 4.9,
-        "defense": 3.1,
+        "defense": 3.2,
         "skillAmp": 0,
         "adaptiveForce": 0,
         "criticalChance": 0,
@@ -1033,9 +1033,9 @@
         "HighAngleFire"
       ],
       "base": {
-        "hp": 890,
+        "hp": 920,
         "attackPower": 33,
-        "defense": 49,
+        "defense": 50,
         "skillAmp": 0,
         "moveSpeed": 3.4999999999999996,
         "attackSpeed": 0.15
@@ -1673,7 +1673,7 @@
         "name": "Bernice",
         "maxHp": 84,
         "maxVp": 0,
-        "attackPower": 4.3,
+        "attackPower": 4.6,
         "defense": 3.1,
         "skillAmp": 0,
         "adaptiveForce": 0,
@@ -1873,9 +1873,9 @@
         "Bat"
       ],
       "base": {
-        "hp": 1070,
+        "hp": 1020,
         "attackPower": 39,
-        "defense": 57,
+        "defense": 54,
         "skillAmp": 0,
         "moveSpeed": 3.55,
         "attackSpeed": 0.12
@@ -2141,7 +2141,7 @@
         "maxHp": 77,
         "maxVp": 0,
         "attackPower": 4.3,
-        "defense": 2.4999999999999996,
+        "defense": 2.7,
         "skillAmp": 0,
         "adaptiveForce": 0,
         "criticalChance": 0,
@@ -2975,7 +2975,7 @@
       "growth": {
         "code": 46,
         "name": "Aiden",
-        "maxHp": 94,
+        "maxHp": 96,
         "maxVp": 0,
         "attackPower": 5.3,
         "defense": 3.4,
@@ -3027,7 +3027,7 @@
         "attackPower": 28,
         "defense": 51,
         "skillAmp": 0,
-        "moveSpeed": 3.4499999999999997,
+        "moveSpeed": 3.5,
         "attackSpeed": 0.12
       },
       "growth": {
@@ -3140,8 +3140,8 @@
       ],
       "base": {
         "hp": 960,
-        "attackPower": 33,
-        "defense": 50,
+        "attackPower": 35,
+        "defense": 53,
         "skillAmp": 0,
         "moveSpeed": 3.5,
         "attackSpeed": 0.13
@@ -3375,7 +3375,7 @@
         "Hammer"
       ],
       "base": {
-        "hp": 920,
+        "hp": 950,
         "attackPower": 34,
         "defense": 52,
         "skillAmp": 0,
@@ -3747,7 +3747,7 @@
         "name": "Isaac",
         "maxHp": 93,
         "maxVp": 0,
-        "attackPower": 4.7,
+        "attackPower": 4.9,
         "defense": 3.1,
         "skillAmp": 0,
         "adaptiveForce": 0,
@@ -4095,7 +4095,7 @@
       "growth": {
         "code": 65,
         "name": "DebiMarlene",
-        "maxHp": 88,
+        "maxHp": 90,
         "maxVp": 0,
         "attackPower": 4.1,
         "defense": 3,
@@ -4320,7 +4320,7 @@
       "base": {
         "hp": 970,
         "attackPower": 35,
-        "defense": 52,
+        "defense": 53,
         "skillAmp": 0,
         "moveSpeed": 3.55,
         "attackSpeed": 0.14
@@ -4328,7 +4328,7 @@
       "growth": {
         "code": 69,
         "name": "Leni",
-        "maxHp": 79,
+        "maxHp": 81,
         "maxVp": 0,
         "attackPower": 4.1,
         "defense": 2.8,
@@ -4446,7 +4446,7 @@
         "name": "Kenneth",
         "maxHp": 85,
         "maxVp": 0,
-        "attackPower": 3.9,
+        "attackPower": 4.2,
         "defense": 2.6999999999999997,
         "skillAmp": 0,
         "adaptiveForce": 0,
@@ -4504,7 +4504,7 @@
         "name": "Katja",
         "maxHp": 80,
         "maxVp": 0,
-        "attackPower": 4.5,
+        "attackPower": 4.7,
         "defense": 2.6999999999999997,
         "skillAmp": 0,
         "adaptiveForce": 0,
@@ -4618,7 +4618,7 @@
       "growth": {
         "code": 74,
         "name": "Darko",
-        "maxHp": 93,
+        "maxHp": 96,
         "maxVp": 0,
         "attackPower": 4.6,
         "defense": 3.5,
@@ -4725,7 +4725,7 @@
         "Bat"
       ],
       "base": {
-        "hp": 1000,
+        "hp": 970,
         "attackPower": 35,
         "defense": 50,
         "skillAmp": 0,
@@ -5142,7 +5142,7 @@
       "growth": {
         "code": 83,
         "name": "Henry",
-        "maxHp": 81,
+        "maxHp": 78,
         "maxVp": 0,
         "attackPower": 4.4,
         "defense": 2.8,
@@ -5251,7 +5251,7 @@
       "base": {
         "hp": 960,
         "attackPower": 39,
-        "defense": 50,
+        "defense": 52,
         "skillAmp": 0,
         "moveSpeed": 3.55,
         "attackSpeed": 0.12
@@ -5425,7 +5425,7 @@
       "base": {
         "hp": 960,
         "attackPower": 34,
-        "defense": 52,
+        "defense": 50,
         "skillAmp": 0,
         "moveSpeed": 3.55,
         "attackSpeed": 0.14
@@ -5470,7 +5470,7 @@
     {
       "code": 89,
       "id": "Craver",
-      "name": "Craver",
+      "name": "克雷弗",
       "englishName": "Craver",
       "resource": "Craver",
       "archetypes": [
@@ -5478,7 +5478,9 @@
         "Marksman"
       ],
       "weaponRangeType": "Range",
-      "weapons": [],
+      "weapons": [
+        "Pistol"
+      ],
       "base": {
         "hp": 905,
         "attackPower": 43,
@@ -5489,8 +5491,8 @@
       },
       "growth": null,
       "ratings": [],
-      "playTip": "",
-      "storyName": "",
+      "playTip": "Craver 以固定攻击速度和 6 发弹药作战，普攻与基础技能都会消耗子弹，剩 1 发时进入必杀弹状态并需要装填。",
+      "storyName": "克雷弗",
       "image": "/assets/characters/089-Craver.png"
     }
   ],
@@ -11266,18 +11268,18 @@
     },
     {
       "id": "4-1004300-DamageByLevel",
-      "source": "er-gamedata",
+      "source": "official-patch-note",
       "hero": "马格努斯",
       "title": "W 17对1",
-      "bases": "20,30,35,45,50",
-      "formula": "base + ap * [0.3,0.3,0.3,0.3,0.3][level - 1]",
+      "bases": "22,28,34,40,46",
+      "formula": "base + extraAttack * 0.45 + ap * 0.2 + targetHp * 0.025",
       "maxLevel": 5,
       "group": 1004300,
       "skillId": "MagnusActive2",
       "dataKey": "DamageByLevel",
       "coefKey": "SkillApCoef",
       "description": "马格努斯挥动武器，{0}秒间对敌人造成{4}次{20}(+敌人体力上限{1})技能伤害。 技能每次命中，都会减少{6}秒冷却时间。使用技能期间，负面效果抵御增加{8}。",
-      "coefficientText": "马格努斯挥动武器，{0}秒间对敌人造成{4}(每{10}额外防御力+{11})次{1}(+额外攻击力{3})(+技能增幅{7})(+敌人体力上限{9})的技能伤害。 每次技能命中，都会减少{6}秒冷却时间。使用技能期间，负面效果抵御增加{8}。",
+      "coefficientText": "22/28/34/40/46(+Extra Attack Power 45%)(+Skill Amplification 20%)(+Target's Max HP 2.5%)",
       "rawData": {
         "AttackCountByLevel": {
           "1": 6,
@@ -11313,7 +11315,14 @@
           "13": 1004006
         },
         "MoveSpeedDown": 1004301
-      }
+      },
+      "updatedAt": "2026-06-11T02:00:00.000Z",
+      "sourceDate": "2026-06-11T02:00:00.000Z",
+      "sourceVersion": "11.4",
+      "sourceLabel": "11.4 / 2026-06-11",
+      "sourceUrl": "https://playeternalreturn.com/posts/news/3629?hl=en-US",
+      "sourceTitle": "PATCH NOTES 11.4 - JUNE 11TH, 2026",
+      "sourceNote": "官方补丁 11.4 数值：22/28/34/40/46(+Extra Attack Power 45%)(+Skill Amplification 20%)(+Target's Max HP 2.5%)"
     },
     {
       "id": "4-1004400-DamageByLevel",
@@ -11596,18 +11605,18 @@
     },
     {
       "id": "5-1005500-DamageByLevel_2",
-      "source": "er-gamedata",
+      "source": "official-patch-note",
       "hero": "扎希尔",
       "title": "R 跋尔伽婆 2",
-      "bases": "50,85,120",
-      "formula": "base + ap * 0.5",
+      "bases": "60,120,180",
+      "formula": "base + ap * 0.4",
       "maxLevel": 3,
       "group": 1005500,
       "skillId": "ZahirActive4",
       "dataKey": "DamageByLevel_2",
       "coefKey": "SkillApCoef_2",
       "description": "扎希尔凝聚精力，向指定的方向依次发射飞轮。最初可对敌人造成{6}的技能伤害，之后每0.45秒都能造成{7}的技能伤害。 如果敌人没有「死神之目」，跋尔伽婆则会对他们标记「死神之目」。",
-      "coefficientText": "扎希尔凝聚精力，向指定的方向依次发射飞轮。最初可对敌人造成{0}(+技能增幅的{4})的技能伤害，之后每0.45秒都能造成{1}(+技能增幅{5})的技能伤害。 如果敌人没有「死神之目」，跋尔伽婆则会对他们标记「死神之目」。",
+      "coefficientText": "Min Damage 60/120/180(+Skill Amplification 40%)",
       "rawData": {
         "ProjectileCode": 76,
         "DamageByLevel": {
@@ -11623,7 +11632,14 @@
         },
         "SkillApCoef_2": 0.5,
         "ProjectileSkillDelay": 0.29
-      }
+      },
+      "updatedAt": "2026-07-23T02:00:00.000Z",
+      "sourceDate": "2026-07-23T02:00:00.000Z",
+      "sourceVersion": "11.7",
+      "sourceLabel": "11.7 / 2026-07-23",
+      "sourceUrl": "https://playeternalreturn.com/posts/news/3713?hl=en-US",
+      "sourceTitle": "PATCH NOTES 11.7 - JULY 23RD, 2026",
+      "sourceNote": "官方补丁 11.7 数值：Min Damage 60/120/180(+Skill Amplification 40%)"
     },
     {
       "id": "6-1006200-MinDamageByLevel",
@@ -11717,18 +11733,18 @@
     },
     {
       "id": "6-1006500-DamageByLevel",
-      "source": "er-gamedata",
+      "source": "official-patch-note",
       "hero": "娜町",
       "title": "R 狼之猛袭",
-      "bases": "50,100,150",
-      "formula": "base + ap * 0",
+      "bases": "100,150,200",
+      "formula": "base + extraAttack * 0.8 + ap * 0.8",
       "maxLevel": 3,
       "group": 1006500,
       "skillId": "NadineActive4",
       "dataKey": "DamageByLevel",
       "coefKey": "SkillApCoef",
       "description": "每当在{8}秒内进行{0}次普攻可召唤狼一起进攻。召唤狼朝敌人扑去，造成{7}技能伤害，同时减少敌人的攻速{5}，移速{3}。参与击杀敌人实验体时，持续时间增加{9}秒。",
-      "coefficientText": "每当在{7}秒内进行{0}次普攻可召唤狼一起进攻。召唤狼朝敌人扑去，造成{1}(+额外攻击力{4})(+技能增幅{6})(+野性叠层伤害)的技能伤害，同时减少敌人的攻速{5}，移速{3}。参与击杀敌人实验体时，持续时间增加{9}秒。",
+      "coefficientText": "100/150/200(+额外攻击力80%)(+技能增幅的80%)(+野性叠层伤害)",
       "rawData": {
         "BuffState1": {
           "1": 1006501,
@@ -11749,7 +11765,14 @@
           "3": 150
         },
         "DamagePerPassiveStackCount": 1
-      }
+      },
+      "updatedAt": "2026-08-06T02:00:00.000Z",
+      "sourceDate": "2026-08-06T02:00:00.000Z",
+      "sourceVersion": "12.0",
+      "sourceLabel": "12.0 / 2026-08-06",
+      "sourceUrl": "https://playeternalreturn.com/posts/news/3743?hl=zh-CN",
+      "sourceTitle": "[修正] 12.0 更新日志 Part.2 - 实验体和物品",
+      "sourceNote": "官方公告 12.0 Part.2 数值：100/150/200(+额外攻击力80%)(+技能增幅的80%)(+野性叠层伤害) 野性叠层伤害未建模；原快照数值 50/100/150 已按官方公告覆盖。"
     },
     {
       "id": "7-1007200-DamageByLevel",
@@ -22617,7 +22640,7 @@
       "stats": {
         "attackPower": 42,
         "skillAmp": 95,
-        "attackSpeedRatio": 0.4
+        "attackSpeedRatio": 0.3
       },
       "ap": 95,
       "attackPower": 42,
@@ -26562,11 +26585,11 @@
       "makeMaterial2": 401212,
       "effect": "",
       "stats": {
-        "attackPower": 68,
+        "attackPower": 66,
         "attackSpeedRatio": 0.3
       },
       "ap": 0,
-      "attackPower": 68,
+      "attackPower": 66,
       "cd": 0,
       "pen": 0,
       "penPct": 0,
@@ -26654,11 +26677,11 @@
       "makeMaterial2": 401208,
       "effect": "",
       "stats": {
-        "attackPower": 80,
+        "attackPower": 77,
         "attackSpeedRatio": 0.35
       },
       "ap": 0,
-      "attackPower": 80,
+      "attackPower": 77,
       "cd": 0,
       "pen": 0,
       "penPct": 0,
@@ -28662,14 +28685,14 @@
       "makeMaterial2": 401304,
       "effect": "",
       "stats": {
-        "attackPower": 61,
+        "attackPower": 58,
         "attackSpeedRatio": 0.33,
         "criticalStrikeChance": 0.25,
         "criticalStrikeDamage": 0.07,
         "moveSpeedRatio": 0.03
       },
       "ap": 0,
-      "attackPower": 61,
+      "attackPower": 58,
       "cd": 0,
       "pen": 0,
       "penPct": 0,
@@ -29361,11 +29384,11 @@
       "makeMaterial2": 401209,
       "effect": "",
       "stats": {
-        "attackPower": 68,
+        "attackPower": 66,
         "attackSpeedRatio": 0.3
       },
       "ap": 0,
-      "attackPower": 68,
+      "attackPower": 66,
       "cd": 0,
       "pen": 0,
       "penPct": 0,
@@ -29392,11 +29415,11 @@
       "makeMaterial2": 113104,
       "effect": "",
       "stats": {
-        "attackPower": 60,
+        "attackPower": 58,
         "attackSpeedRatio": 0.23
       },
       "ap": 0,
-      "attackPower": 60,
+      "attackPower": 58,
       "cd": 0,
       "pen": 0,
       "penPct": 0,
@@ -30364,12 +30387,11 @@
       "effect": "",
       "stats": {
         "attackPower": 30,
-        "skillAmp": 70,
-        "cooldownReduction": 10
+        "skillAmp": 81
       },
-      "ap": 70,
+      "ap": 81,
       "attackPower": 30,
-      "cd": 10,
+      "cd": 0,
       "pen": 0,
       "penPct": 0,
       "apPct": 0,
@@ -30431,7 +30453,7 @@
         "attackPower": 30,
         "skillAmp": 63,
         "cooldownReduction": 10,
-        "healerGiveHpHealRatio": 0.05
+        "healerGiveHpHealRatio": 0.04
       },
       "ap": 63,
       "attackPower": 30,
@@ -30494,12 +30516,11 @@
       "effect": "",
       "stats": {
         "attackPower": 40,
-        "skillAmp": 88,
-        "cooldownReduction": 10
+        "skillAmp": 95
       },
-      "ap": 88,
+      "ap": 95,
       "attackPower": 40,
-      "cd": 10,
+      "cd": 0,
       "pen": 0,
       "penPct": 0,
       "apPct": 0,
@@ -30594,7 +30615,7 @@
         "attackPower": 35,
         "skillAmp": 82,
         "cooldownReduction": 15,
-        "healerGiveHpHealRatio": 0.1
+        "healerGiveHpHealRatio": 0.08
       },
       "ap": 82,
       "attackPower": 35,
@@ -30625,13 +30646,12 @@
       "effect": "",
       "stats": {
         "attackPower": 40,
-        "skillAmp": 100,
-        "cooldownReduction": 15,
+        "skillAmp": 114,
         "penetrationDefenseRatio": 0.07
       },
-      "ap": 100,
+      "ap": 114,
       "attackPower": 40,
-      "cd": 15,
+      "cd": 0,
       "pen": 0,
       "penPct": 0.07,
       "apPct": 0,
@@ -30872,13 +30892,13 @@
       "makeMaterial2": 131102,
       "effect": "",
       "stats": {
-        "attackPower": 57,
+        "attackPower": 60,
         "attackSpeedRatio": 0.15,
         "increaseBasicAttackDamageRatioByLv": 0.008,
         "uniqueAttackRange": 0.2
       },
       "ap": 0,
-      "attackPower": 57,
+      "attackPower": 60,
       "cd": 0,
       "pen": 0,
       "penPct": 0,
@@ -30905,12 +30925,12 @@
       "makeMaterial2": 131102,
       "effect": "",
       "stats": {
-        "attackPower": 49,
+        "attackPower": 52,
         "maxHpByLv": 4,
         "lifeSteal": 0.1
       },
       "ap": 0,
-      "attackPower": 49,
+      "attackPower": 52,
       "cd": 0,
       "pen": 0,
       "penPct": 0,
@@ -30969,13 +30989,13 @@
       "makeMaterial2": 401209,
       "effect": "",
       "stats": {
-        "attackPower": 63,
+        "attackPower": 66,
         "attackSpeedRatio": 0.2,
         "increaseBasicAttackDamageRatioByLv": 0.01,
         "uniqueAttackRange": 0.2
       },
       "ap": 0,
-      "attackPower": 63,
+      "attackPower": 66,
       "cd": 0,
       "pen": 0,
       "penPct": 0,
@@ -31002,14 +31022,14 @@
       "makeMaterial2": 401403,
       "effect": "",
       "stats": {
-        "attackPower": 70,
+        "attackPower": 72,
         "attackSpeedRatio": 0.3,
         "increaseBasicAttackDamageRatioByLv": 0.01,
         "uniqueAttackRange": 0.2,
         "uniqueTenacity": 0.3
       },
       "ap": 0,
-      "attackPower": 70,
+      "attackPower": 72,
       "cd": 0,
       "pen": 0,
       "penPct": 0,
@@ -31036,14 +31056,14 @@
       "makeMaterial2": 401401,
       "effect": "",
       "stats": {
-        "attackPower": 75,
+        "attackPower": 78,
         "attackSpeedRatio": 0.35,
         "increaseBasicAttackDamageRatioByLv": 0.01,
         "penetrationDefenseRatio": 0.12,
         "uniqueAttackRange": 0.2
       },
       "ap": 0,
-      "attackPower": 75,
+      "attackPower": 78,
       "cd": 0,
       "pen": 0,
       "penPct": 0.12,
@@ -31070,12 +31090,12 @@
       "makeMaterial2": 401208,
       "effect": "",
       "stats": {
-        "attackPower": 49,
+        "attackPower": 52,
         "maxHpByLv": 6,
         "lifeSteal": 0.1
       },
       "ap": 0,
-      "attackPower": 49,
+      "attackPower": 52,
       "cd": 0,
       "pen": 0,
       "penPct": 0,
@@ -31102,13 +31122,13 @@
       "makeMaterial2": 401403,
       "effect": "",
       "stats": {
-        "attackPower": 62,
+        "attackPower": 65,
         "maxHpByLv": 8,
         "lifeSteal": 0.1,
         "uniqueTenacity": 0.3
       },
       "ap": 0,
-      "attackPower": 62,
+      "attackPower": 65,
       "cd": 0,
       "pen": 0,
       "penPct": 0,
@@ -31135,12 +31155,12 @@
       "makeMaterial2": 401401,
       "effect": "",
       "stats": {
-        "attackPower": 66,
+        "attackPower": 69,
         "maxHpByLv": 10,
         "lifeSteal": 0.15
       },
       "ap": 0,
-      "attackPower": 66,
+      "attackPower": 69,
       "cd": 0,
       "pen": 0,
       "penPct": 0,
@@ -32033,7 +32053,7 @@
       "makeMaterial2": 401401,
       "effect": "",
       "stats": {
-        "defense": 10,
+        "defense": 8,
         "adaptiveForce": 45,
         "cooldownReduction": 20,
         "moveSpeedRatio": 0.03,
@@ -32045,7 +32065,7 @@
       "pen": 10,
       "penPct": 0,
       "apPct": 0,
-      "defense": 10,
+      "defense": 8,
       "maxHp": 0,
       "sightRange": 0,
       "dmgAmp": 0
@@ -32226,11 +32246,11 @@
       "makeMaterial2": 401210,
       "effect": "",
       "stats": {
-        "attackPower": 27,
+        "attackPower": 28,
         "attackSpeedRatio": 0.35
       },
       "ap": 0,
-      "attackPower": 27,
+      "attackPower": 28,
       "cd": 0,
       "pen": 0,
       "penPct": 0,
@@ -32321,10 +32341,10 @@
       "makeMaterial2": 401210,
       "effect": "",
       "stats": {
-        "skillAmp": 65,
+        "skillAmp": 68,
         "cooldownReduction": 10
       },
-      "ap": 65,
+      "ap": 68,
       "attackPower": 0,
       "cd": 10,
       "pen": 0,
@@ -32418,7 +32438,7 @@
       "effect": "",
       "stats": {
         "skillAmp": 65,
-        "maxHp": 150,
+        "maxHp": 200,
         "attackSpeedRatio": 0.3,
         "cooldownReduction": 15
       },
@@ -32429,7 +32449,7 @@
       "penPct": 0,
       "apPct": 0,
       "defense": 0,
-      "maxHp": 150,
+      "maxHp": 200,
       "sightRange": 0,
       "dmgAmp": 0
     },
@@ -32609,11 +32629,11 @@
       "makeMaterial2": 401209,
       "effect": "",
       "stats": {
-        "attackPower": 37,
-        "attackSpeedRatio": 0.46
+        "attackPower": 33,
+        "attackSpeedRatio": 0.4
       },
       "ap": 0,
-      "attackPower": 37,
+      "attackPower": 33,
       "cd": 0,
       "pen": 0,
       "penPct": 0,
@@ -33090,7 +33110,7 @@
       "makeMaterial2": 401401,
       "effect": "",
       "stats": {
-        "defense": 20,
+        "defense": 18,
         "maxHpByLv": 25,
         "cooldownReduction": 10
       },
@@ -33100,7 +33120,7 @@
       "pen": 0,
       "penPct": 0,
       "apPct": 0,
-      "defense": 20,
+      "defense": 18,
       "maxHp": 0,
       "sightRange": 0,
       "dmgAmp": 0
@@ -33125,7 +33145,7 @@
         "defense": 15,
         "adaptiveForce": 35,
         "attackSpeedRatio": 0.3,
-        "lifeSteal": 0.08
+        "lifeSteal": 0.06
       },
       "ap": 35,
       "attackPower": 0,
@@ -33319,7 +33339,7 @@
       "effect": "",
       "stats": {
         "attackPower": 30,
-        "maxHp": 230,
+        "maxHp": 250,
         "attackSpeedRatio": 0.3
       },
       "ap": 0,
@@ -33329,7 +33349,7 @@
       "penPct": 0,
       "apPct": 0,
       "defense": 0,
-      "maxHp": 230,
+      "maxHp": 250,
       "sightRange": 0,
       "dmgAmp": 0
     },
@@ -33352,7 +33372,7 @@
       "stats": {
         "skillAmp": 70,
         "cooldownReduction": 15,
-        "healerGiveHpHealRatio": 0.05
+        "healerGiveHpHealRatio": 0.06
       },
       "ap": 70,
       "attackPower": 0,
@@ -33415,7 +33435,7 @@
       "stats": {
         "adaptiveForce": 50,
         "attackSpeedRatio": 0.35,
-        "moveSpeedRatio": 0.04
+        "moveSpeedRatio": 0.035
       },
       "ap": 50,
       "attackPower": 0,
@@ -33724,11 +33744,11 @@
       "effect": "",
       "stats": {
         "defense": 25,
-        "skillAmp": 40,
+        "skillAmp": 35,
         "skillAmpByLevel": 5,
         "lifeSteal": 0.08
       },
-      "ap": 40,
+      "ap": 35,
       "attackPower": 0,
       "cd": 0,
       "pen": 0,
@@ -34135,12 +34155,12 @@
       "stats": {
         "attackPowerByLv": 3,
         "defense": 20,
-        "penetrationDefense": 11
+        "penetrationDefense": 12
       },
       "ap": 0,
       "attackPower": 0,
       "cd": 0,
-      "pen": 11,
+      "pen": 12,
       "penPct": 0,
       "apPct": 0,
       "defense": 20,
@@ -34653,7 +34673,7 @@
       "makeMaterial2": 401209,
       "effect": "",
       "stats": {
-        "defense": 25,
+        "defense": 28,
         "skillAmp": 40,
         "skillAmpByLevel": 5,
         "cooldownReduction": 10
@@ -34664,7 +34684,7 @@
       "pen": 0,
       "penPct": 0,
       "apPct": 0,
-      "defense": 25,
+      "defense": 28,
       "maxHp": 0,
       "sightRange": 0,
       "dmgAmp": 0
@@ -34687,12 +34707,12 @@
       "effect": "",
       "stats": {
         "defense": 30,
-        "skillAmp": 40,
+        "skillAmp": 35,
         "skillAmpByLevel": 5,
         "hpRegenRatio": 1,
         "cooldownReduction": 25
       },
-      "ap": 40,
+      "ap": 35,
       "attackPower": 0,
       "cd": 25,
       "pen": 0,
@@ -34753,14 +34773,14 @@
       "makeMaterial2": 401401,
       "effect": "",
       "stats": {
-        "attackPower": 15,
+        "attackPower": 13,
         "attackPowerByLv": 3,
         "defense": 15,
         "attackSpeedRatio": 0.2,
         "lifeSteal": 0.08
       },
       "ap": 0,
-      "attackPower": 15,
+      "attackPower": 13,
       "cd": 0,
       "pen": 0,
       "penPct": 0,
@@ -34787,13 +34807,13 @@
       "makeMaterial2": 401403,
       "effect": "",
       "stats": {
-        "attackPower": 25,
+        "attackPower": 20,
         "attackPowerByLv": 3,
         "defense": 22,
         "lifeSteal": 0.1
       },
       "ap": 0,
-      "attackPower": 25,
+      "attackPower": 20,
       "cd": 0,
       "pen": 0,
       "penPct": 0,
@@ -34852,7 +34872,7 @@
       "makeMaterial2": 401403,
       "effect": "",
       "stats": {
-        "defense": 45,
+        "defense": 42,
         "maxHpByLv": 26
       },
       "ap": 0,
@@ -34861,7 +34881,7 @@
       "pen": 0,
       "penPct": 0,
       "apPct": 0,
-      "defense": 45,
+      "defense": 42,
       "maxHp": 0,
       "sightRange": 0,
       "dmgAmp": 0
@@ -35014,13 +35034,13 @@
       "makeMaterial2": 401403,
       "effect": "",
       "stats": {
-        "attackPower": 20,
+        "attackPower": 22,
         "attackPowerByLv": 3,
         "defense": 27,
         "cooldownReduction": 20
       },
       "ap": 0,
-      "attackPower": 20,
+      "attackPower": 22,
       "cd": 20,
       "pen": 0,
       "penPct": 0,
@@ -35047,14 +35067,14 @@
       "makeMaterial2": 401209,
       "effect": "",
       "stats": {
-        "attackPower": 10,
+        "attackPower": 12,
         "attackPowerByLv": 3,
         "defense": 20,
         "cooldownReduction": 10,
         "penetrationDefense": 12
       },
       "ap": 0,
-      "attackPower": 10,
+      "attackPower": 12,
       "cd": 10,
       "pen": 12,
       "penPct": 0,
@@ -35149,11 +35169,11 @@
       "stats": {
         "defense": 25,
         "skillAmpByLevel": 5,
-        "cooldownReduction": 10
+        "cooldownReduction": 20
       },
       "ap": 0,
       "attackPower": 0,
-      "cd": 10,
+      "cd": 20,
       "pen": 0,
       "penPct": 0,
       "apPct": 0,
@@ -35214,7 +35234,7 @@
       "stats": {
         "defense": 30,
         "skillAmpByLevel": 5,
-        "maxHp": 200
+        "maxHp": 250
       },
       "ap": 0,
       "attackPower": 0,
@@ -35223,7 +35243,7 @@
       "penPct": 0,
       "apPct": 0,
       "defense": 30,
-      "maxHp": 200,
+      "maxHp": 250,
       "sightRange": 0,
       "dmgAmp": 0
     },
@@ -35310,7 +35330,7 @@
       "stats": {
         "attackPowerByLv": 3,
         "defense": 18,
-        "attackSpeedRatio": 0.15,
+        "attackSpeedRatio": 0.2,
         "criticalStrikeChance": 0.34
       },
       "ap": 0,
@@ -35440,7 +35460,7 @@
       "makeMaterial2": 401401,
       "effect": "",
       "stats": {
-        "defense": 45,
+        "defense": 41,
         "maxHpByLv": 25,
         "cooldownReduction": 10
       },
@@ -35450,7 +35470,7 @@
       "pen": 0,
       "penPct": 0,
       "apPct": 0,
-      "defense": 45,
+      "defense": 41,
       "maxHp": 0,
       "sightRange": 0,
       "dmgAmp": 0
@@ -35473,7 +35493,7 @@
       "effect": "",
       "stats": {
         "attackPower": 33,
-        "attackSpeedRatio": 0.35,
+        "attackSpeedRatio": 0.3,
         "criticalStrikeChance": 0.35
       },
       "ap": 0,
@@ -35540,11 +35560,11 @@
         "attackPowerByLv": 3,
         "defense": 25,
         "maxHp": 200,
-        "cooldownReduction": 20
+        "cooldownReduction": 15
       },
       "ap": 0,
       "attackPower": 0,
-      "cd": 20,
+      "cd": 15,
       "pen": 0,
       "penPct": 0,
       "apPct": 0,
@@ -36216,12 +36236,12 @@
       "stats": {
         "skillAmp": 40,
         "maxHp": 50,
-        "cooldownReduction": 10,
-        "healerGiveHpHealRatio": 0.05
+        "cooldownReduction": 15,
+        "healerGiveHpHealRatio": 0.04
       },
       "ap": 40,
       "attackPower": 0,
-      "cd": 10,
+      "cd": 15,
       "pen": 0,
       "penPct": 0,
       "apPct": 0,
@@ -36343,7 +36363,7 @@
       "effect": "",
       "stats": {
         "attackPower": 25,
-        "attackSpeedRatio": 0.15,
+        "attackSpeedRatio": 0.18,
         "criticalStrikeChance": 0.24
       },
       "ap": 0,
@@ -36501,7 +36521,7 @@
       "makeMaterial2": 401209,
       "effect": "",
       "stats": {
-        "defense": 16,
+        "defense": 15,
         "maxHpByLv": 20,
         "cooldownReduction": 10
       },
@@ -36511,7 +36531,7 @@
       "pen": 0,
       "penPct": 0,
       "apPct": 0,
-      "defense": 16,
+      "defense": 15,
       "maxHp": 0,
       "sightRange": 0,
       "dmgAmp": 0
@@ -36627,12 +36647,12 @@
       "makeMaterial2": 401401,
       "effect": "",
       "stats": {
-        "attackPower": 30,
+        "attackPower": 28,
         "attackSpeedRatio": 0.3,
         "penetrationDefenseRatio": 0.2
       },
       "ap": 0,
-      "attackPower": 30,
+      "attackPower": 28,
       "cd": 0,
       "pen": 0,
       "penPct": 0.2,
@@ -36754,7 +36774,7 @@
       "effect": "",
       "stats": {
         "attackPower": 25,
-        "defense": 18,
+        "defense": 20,
         "cooldownReduction": 15
       },
       "ap": 0,
@@ -36763,7 +36783,7 @@
       "pen": 0,
       "penPct": 0,
       "apPct": 0,
-      "defense": 18,
+      "defense": 20,
       "maxHp": 0,
       "sightRange": 0,
       "dmgAmp": 0
@@ -36818,7 +36838,7 @@
       "effect": "",
       "stats": {
         "defense": 15,
-        "adaptiveForce": 45,
+        "adaptiveForce": 43,
         "cooldownReduction": 20
       },
       "ap": 45,
@@ -36849,7 +36869,7 @@
       "makeMaterial2": 401401,
       "effect": "",
       "stats": {
-        "maxHpByLv": 30
+        "maxHpByLv": 25
       },
       "ap": 0,
       "attackPower": 0,
@@ -37636,13 +37656,13 @@
       "stats": {
         "defense": 10,
         "maxHp": 250,
-        "cooldownReduction": 25,
+        "cooldownReduction": 20,
         "moveSpeed": 0.27,
         "tacticalCooldownReduction": 20
       },
       "ap": 0,
       "attackPower": 0,
-      "cd": 25,
+      "cd": 20,
       "pen": 0,
       "penPct": 0,
       "apPct": 0,
@@ -37893,7 +37913,7 @@
       "effect": "",
       "stats": {
         "adaptiveForce": 25,
-        "attackSpeedRatio": 0.38,
+        "attackSpeedRatio": 0.33,
         "moveSpeed": 0.27
       },
       "ap": 25,
@@ -38022,7 +38042,6 @@
       "effect": "",
       "stats": {
         "defense": 10,
-        "hpRegenRatio": 1,
         "cooldownReduction": 20,
         "moveSpeed": 0.25
       },
@@ -38152,13 +38171,13 @@
       "makeMaterial2": 401401,
       "effect": "",
       "stats": {
-        "attackPower": 20,
+        "attackPower": 17,
         "attackSpeedRatio": 0.25,
         "criticalStrikeChance": 0.35,
         "moveSpeed": 0.27
       },
       "ap": 0,
-      "attackPower": 20,
+      "attackPower": 17,
       "cd": 0,
       "pen": 0,
       "penPct": 0,
@@ -38185,11 +38204,11 @@
       "makeMaterial2": 401401,
       "effect": "",
       "stats": {
-        "skillAmp": 50,
+        "skillAmp": 45,
         "cooldownReduction": 10,
         "moveSpeed": 0.27
       },
-      "ap": 50,
+      "ap": 45,
       "attackPower": 0,
       "cd": 10,
       "pen": 0,
@@ -38250,11 +38269,11 @@
       "makeMaterial2": 401401,
       "effect": "",
       "stats": {
-        "adaptiveForce": 28,
         "cooldownReduction": 20,
-        "moveSpeed": 0.27
+        "moveSpeed": 0.27,
+        "skillAmp": 50
       },
-      "ap": 28,
+      "ap": 50,
       "attackPower": 0,
       "cd": 20,
       "pen": 0,
@@ -38408,19 +38427,18 @@
       "makeMaterial2": 401209,
       "effect": "",
       "stats": {
-        "attackPower": 30,
+        "attackPower": 26,
         "attackSpeedRatio": 0.3,
-        "cooldownReduction": 20,
-        "slowResistRatio": 0.2
+        "maxHp": 200
       },
       "ap": 0,
-      "attackPower": 30,
-      "cd": 20,
+      "attackPower": 26,
+      "cd": 0,
       "pen": 0,
       "penPct": 0,
       "apPct": 0,
       "defense": 0,
-      "maxHp": 0,
+      "maxHp": 200,
       "sightRange": 0,
       "dmgAmp": 0
     },
@@ -38667,12 +38685,12 @@
       "makeMaterial2": 401208,
       "effect": "",
       "stats": {
-        "attackPower": 28,
+        "attackPower": 30,
         "attackSpeedRatio": 0.3,
         "moveSpeedRatio": 0.02
       },
       "ap": 0,
-      "attackPower": 28,
+      "attackPower": 30,
       "cd": 0,
       "pen": 0,
       "penPct": 0,
@@ -38702,7 +38720,7 @@
         "attackPower": 25,
         "attackSpeedRatio": 0.35,
         "criticalStrikeChance": 0.35,
-        "criticalStrikeDamage": 0.09
+        "criticalStrikeDamage": 0.1
       },
       "ap": 0,
       "attackPower": 25,
@@ -38856,10 +38874,10 @@
       "makeMaterial2": 401401,
       "effect": "",
       "stats": {
-        "skillAmp": 100,
+        "skillAmp": 95,
         "penetrationDefenseRatio": 0.15
       },
-      "ap": 100,
+      "ap": 95,
       "attackPower": 0,
       "cd": 0,
       "pen": 0,
@@ -39047,12 +39065,12 @@
       "stats": {
         "skillAmp": 55,
         "maxHp": 100,
-        "cooldownReduction": 20,
+        "cooldownReduction": 15,
         "healerGiveHpHealRatio": 0.1
       },
       "ap": 55,
       "attackPower": 0,
-      "cd": 20,
+      "cd": 15,
       "pen": 0,
       "penPct": 0,
       "apPct": 0,
@@ -39173,12 +39191,12 @@
       "makeMaterial2": 401304,
       "effect": "",
       "stats": {
-        "skillAmp": 55,
-        "cooldownReduction": 15
+        "skillAmp": 60,
+        "cooldownReduction": 10
       },
-      "ap": 55,
+      "ap": 60,
       "attackPower": 0,
-      "cd": 15,
+      "cd": 10,
       "pen": 0,
       "penPct": 0,
       "apPct": 0,
@@ -39186,6 +39204,267 @@
       "maxHp": 0,
       "sightRange": 0,
       "dmgAmp": 0
+    },
+    {
+      "source": "official-patch-note",
+      "type": "武器",
+      "itemType": "Weapon",
+      "weaponType": "刺剑 / Rapier",
+      "weaponTypeRaw": "Rapier",
+      "armorType": "",
+      "name": "苍野荆棘",
+      "quality": "传说",
+      "itemGrade": "Legend",
+      "isCompletedItem": true,
+      "showInItemBook": true,
+      "effect": "惩恶",
+      "recipe": "冰块 + 秘银",
+      "tooltip": "惩恶：4秒内用普攻或独立技能命中同一敌人3次时，造成 50(+技能增幅的20%)(+实验体等级*2) 技能伤害，并获得 100(+技能增幅的30%)(+实验体等级*5) 护盾、持续2.5秒。冷却 12秒。",
+      "stats": {
+        "attackPower": 32,
+        "skillAmp": 86,
+        "maxHp": 120
+      },
+      "sourceVersion": "12.0",
+      "sourceUrl": "https://playeternalreturn.com/posts/news/3743?hl=zh-CN",
+      "sourceTitle": "[修正] 12.0 更新日志 Part.2 - 实验体和物品",
+      "ap": 86,
+      "attackPower": 32,
+      "cd": 0,
+      "pen": 0,
+      "penPct": 0,
+      "apPct": 0,
+      "defense": 0,
+      "maxHp": 120,
+      "sightRange": 0,
+      "dmgAmp": 0
+    },
+    {
+      "source": "official-patch-note",
+      "type": "武器",
+      "itemType": "Weapon",
+      "weaponType": "棍棒 / Bat",
+      "weaponTypeRaw": "Bat",
+      "armorType": "",
+      "name": "棒棒糖",
+      "quality": "传说",
+      "itemGrade": "Legend",
+      "isCompletedItem": true,
+      "showInItemBook": true,
+      "effect": "神速 - 微风",
+      "recipe": "石头 + 秘银",
+      "tooltip": "神速 - 微风：4秒内造成3次普攻或独立技能伤害时，2.5秒内移动速度增加15%，并获得 100(+技能增幅的30%)(+实验体等级*5) 护盾。冷却 12秒。",
+      "stats": {
+        "attackPower": 30,
+        "skillAmp": 86,
+        "maxHp": 150
+      },
+      "sourceVersion": "12.0",
+      "sourceUrl": "https://playeternalreturn.com/posts/news/3743?hl=zh-CN",
+      "sourceTitle": "[修正] 12.0 更新日志 Part.2 - 实验体和物品",
+      "ap": 86,
+      "attackPower": 30,
+      "cd": 0,
+      "pen": 0,
+      "penPct": 0,
+      "apPct": 0,
+      "defense": 0,
+      "maxHp": 150,
+      "sightRange": 0,
+      "dmgAmp": 0
+    },
+    {
+      "source": "official-patch-note",
+      "type": "武器",
+      "itemType": "Weapon",
+      "weaponType": "圣器 / Arcana",
+      "weaponTypeRaw": "Arcana",
+      "armorType": "",
+      "name": "倒吊人",
+      "quality": "传说",
+      "itemGrade": "Legend",
+      "isCompletedItem": true,
+      "showInItemBook": true,
+      "effect": "瘟疫蝴蝶",
+      "recipe": "琉璃球 + 秘银",
+      "tooltip": "瘟疫蝴蝶：用独立技能对敌方实验体造成伤害时，飞出一只蝴蝶造成 40(+技能增幅的30%)(+实验体等级*3) 伤害，可在 4m 内最多弹射 5 次，每次弹射伤害降低 10%。冷却 10秒。",
+      "stats": {
+        "attackPower": 40,
+        "skillAmp": 92,
+        "cooldownReduction": 10
+      },
+      "sourceVersion": "12.0",
+      "sourceUrl": "https://playeternalreturn.com/posts/news/3743?hl=zh-CN",
+      "sourceTitle": "[修正] 12.0 更新日志 Part.2 - 实验体和物品",
+      "ap": 92,
+      "attackPower": 40,
+      "cd": 10,
+      "pen": 0,
+      "penPct": 0,
+      "apPct": 0,
+      "defense": 0,
+      "maxHp": 0,
+      "sightRange": 0,
+      "dmgAmp": 0
+    },
+    {
+      "source": "official-patch-note",
+      "type": "武器",
+      "itemType": "Weapon",
+      "weaponType": "双手剑 / TwoHandSword",
+      "weaponTypeRaw": "TwoHandSword",
+      "armorType": "",
+      "name": "均衡之刃",
+      "quality": "传说",
+      "itemGrade": "Legend",
+      "isCompletedItem": true,
+      "showInItemBook": true,
+      "effect": "惩恶",
+      "recipe": "铁锈剑 + 秘银",
+      "tooltip": "惩恶：4秒内用普攻或独立技能命中同一敌人3次时，造成 40(+额外攻击力50%)(+实验体等级*5) 技能伤害，并获得 100(+攻击力的55%)(+实验体等级*5) 护盾、持续2.5秒。冷却 12秒。",
+      "stats": {
+        "attackPower": 67,
+        "attackSpeedRatio": 0.3,
+        "maxHp": 150
+      },
+      "sourceVersion": "12.0",
+      "sourceUrl": "https://playeternalreturn.com/posts/news/3743?hl=zh-CN",
+      "sourceTitle": "[修正] 12.0 更新日志 Part.2 - 实验体和物品",
+      "ap": 0,
+      "attackPower": 67,
+      "cd": 0,
+      "pen": 0,
+      "penPct": 0,
+      "apPct": 0,
+      "defense": 0,
+      "maxHp": 150,
+      "sightRange": 0,
+      "dmgAmp": 0
+    },
+    {
+      "source": "official-patch-note",
+      "type": "衣服",
+      "itemType": "Armor",
+      "weaponType": "",
+      "weaponTypeRaw": "",
+      "armorType": "Chest",
+      "name": "凛风铠甲",
+      "quality": "传说",
+      "itemGrade": "Legend",
+      "isCompletedItem": true,
+      "showInItemBook": true,
+      "effect": "疾风 - 寒气",
+      "recipe": "皮革补丁 + 能源晶石",
+      "tooltip": "疾风 - 寒气：对敌方实验体施加无法移动效果时释放持续5秒的旋涡，每0.5秒造成 20(+额外体力6%) 技能伤害并降低范围内敌人 25% 移动速度。冷却 10秒。",
+      "stats": {
+        "defense": 40,
+        "maxHpByLv": 24,
+        "cooldownReduction": 10
+      },
+      "sourceVersion": "12.0",
+      "sourceUrl": "https://playeternalreturn.com/posts/news/3743?hl=zh-CN",
+      "sourceTitle": "[修正] 12.0 更新日志 Part.2 - 实验体和物品",
+      "ap": 0,
+      "attackPower": 0,
+      "cd": 10,
+      "pen": 0,
+      "penPct": 0,
+      "apPct": 0,
+      "defense": 40,
+      "maxHp": 0,
+      "sightRange": 0,
+      "dmgAmp": 0
+    },
+    {
+      "source": "official-patch-note",
+      "type": "衣服",
+      "itemType": "Armor",
+      "weaponType": "",
+      "weaponTypeRaw": "",
+      "armorType": "Chest",
+      "name": "凛风铠甲・戴维德",
+      "quality": "传说",
+      "itemGrade": "Legend",
+      "isCompletedItem": true,
+      "showInItemBook": true,
+      "effect": "疾风 - 寒气",
+      "recipe": "皮革补丁 + 能源晶石",
+      "tooltip": "凛风铠甲的戴维德变体：防御力 +4、每级别体力上限 +3。",
+      "stats": {
+        "defense": 44,
+        "maxHpByLv": 27,
+        "cooldownReduction": 10
+      },
+      "sourceVersion": "12.0",
+      "sourceUrl": "https://playeternalreturn.com/posts/news/3743?hl=zh-CN",
+      "sourceTitle": "[修正] 12.0 更新日志 Part.2 - 实验体和物品",
+      "ap": 0,
+      "attackPower": 0,
+      "cd": 10,
+      "pen": 0,
+      "penPct": 0,
+      "apPct": 0,
+      "defense": 44,
+      "maxHp": 0,
+      "sightRange": 0,
+      "dmgAmp": 0
     }
-  ]
+  ],
+  "officialPatchUpdates": {
+    "appliedAt": "2026-08-06T12:21:07.049Z",
+    "patches": [
+      {
+        "version": "11.3",
+        "date": "2026-05-28",
+        "url": "https://playeternalreturn.com/posts/news/3606?hl=en-US"
+      },
+      {
+        "version": "11.4",
+        "date": "2026-06-11",
+        "url": "https://playeternalreturn.com/posts/news/3629?hl=en-US"
+      },
+      {
+        "version": "11.5",
+        "date": "2026-06-25",
+        "url": "https://playeternalreturn.com/posts/news/3657?hl=en-US"
+      },
+      {
+        "version": "11.6",
+        "date": "2026-07-09",
+        "url": "https://playeternalreturn.com/posts/news/3690?hl=en-US"
+      },
+      {
+        "version": "11.7",
+        "date": "2026-07-23",
+        "url": "https://playeternalreturn.com/posts/news/3713?hl=en-US"
+      },
+      {
+        "version": "12.0",
+        "date": "2026-08-06",
+        "url": "https://playeternalreturn.com/posts/news/3742?hl=en-US"
+      }
+    ]
+  },
+  "officialPatchUpdatesZh": {
+    "appliedAt": "2026-08-06T13:02:58.285Z",
+    "locale": "zh-CN",
+    "sources": [
+      {
+        "version": "11.5",
+        "url": "https://playeternalreturn.com/posts/news/3657?hl=zh-CN"
+      },
+      {
+        "version": "11.5a",
+        "url": "https://playeternalreturn.com/posts/news/3687?hl=zh-CN"
+      },
+      {
+        "version": "12.0 Part.1",
+        "url": "https://playeternalreturn.com/posts/news/3742?hl=zh-CN"
+      },
+      {
+        "version": "12.0 Part.2",
+        "url": "https://playeternalreturn.com/posts/news/3743?hl=zh-CN"
+      }
+    ]
+  }
 }

@@ -391,19 +391,22 @@
       "title": "E 演员的修养 额外伤害",
       "formula": "base + ap * 0.58",
       "maxLevel": 5,
-      "source": "external-skill-damage-wiki-current",
+      "source": "official-patch-note",
       "description": " Jenny deals an additional 60(+58% Skill Amp) skill damage every 3 basic attacks or after activating Persona",
-      "coefficientText": "(+58% Skill Amp)",
+      "coefficientText": "60/95/130/165/200(+Skill Amplification 58%)",
       "group": 1038400,
       "skillId": "JennyActive3BlackTea",
       "dataKey": "Extra Damage",
-      "updatedAt": "2025-06-25T19:52:04Z",
-      "sourceUrl": "https://eternalreturn.fandom.com/wiki/Jenny",
-      "sourceTitle": "Jenny - Official Eternal Return Wiki",
-      "sourceNote": "补充强化普攻/强化技能/额外伤害归属；俞岷排除。",
+      "updatedAt": "2026-06-25T02:00:00.000Z",
+      "sourceUrl": "https://playeternalreturn.com/posts/news/3657?hl=en-US",
+      "sourceTitle": "PATCH NOTES 11.5 - JUNE 25TH, 2026",
+      "sourceNote": "官方补丁 11.5 数值：60/95/130/165/200(+Skill Amplification 58%)",
       "scalingText": "(+58% Skill Amp)",
-      "bases": "60,90,120,150,180",
-      "sourceIndex": 37
+      "bases": "60,95,130,165,200",
+      "sourceIndex": 37,
+      "sourceDate": "2026-06-25T02:00:00.000Z",
+      "sourceVersion": "11.5",
+      "sourceLabel": "11.5 / 2026-06-25"
     },
     {
       "id": "augment-041-johann-q-1041200-enhanced-damage-stat2",
@@ -454,19 +457,22 @@
       "title": "R 青蛇 Enhanced True Damage",
       "formula": "base + ap * 0.4",
       "maxLevel": 3,
-      "source": "external-skill-damage-wiki-current",
+      "source": "official-patch-note",
       "description": "Lenox quickly attacks twice in an X shape, dealing 70(+40% Skill Amp) skill damage and applying Blue Viper for 4 seconds | 23 seconds, enemies take 5 true damage depending on how far they move |  Hitting an enemy with both attacks deals 25 true damage depending on how far they move",
-      "coefficientText": "(+40% Skill Amp)",
+      "coefficientText": "2 Hits Blue Viper Grounded Damage 30/40/50",
       "group": 1020500,
       "skillId": "LenoxActive4",
       "dataKey": "Enhanced True Damage",
-      "updatedAt": "2025-07-10T12:41:57Z",
-      "sourceUrl": "https://eternalreturn.fandom.com/wiki/Lenox",
-      "sourceTitle": "Lenox - Official Eternal Return Wiki",
-      "sourceNote": "补充强化普攻/强化技能/额外伤害归属；俞岷排除。",
+      "updatedAt": "2026-06-11T02:00:00.000Z",
+      "sourceUrl": "https://playeternalreturn.com/posts/news/3629?hl=en-US",
+      "sourceTitle": "PATCH NOTES 11.4 - JUNE 11TH, 2026",
+      "sourceNote": "官方补丁 11.4 数值：2 Hits Blue Viper Grounded Damage 30/40/50",
       "scalingText": "(+40% Skill Amp)",
-      "bases": "25,35,45",
-      "sourceIndex": 3
+      "bases": "30,40,50",
+      "sourceIndex": 3,
+      "sourceDate": "2026-06-11T02:00:00.000Z",
+      "sourceVersion": "11.4",
+      "sourceLabel": "11.4 / 2026-06-11"
     },
     {
       "id": "augment-022-luke-r-1022500-extra-damage-stat1",
@@ -727,19 +733,22 @@
       "title": "W 裂变能源屏 额外伤害",
       "formula": "base + ap * 0.26",
       "maxLevel": 5,
-      "source": "external-skill-damage-wiki-current",
+      "source": "official-patch-note",
       "description": " Basic attacks that pass through the screen deal an additional 30(+26% Skill Amp) skill damage, and the projectile speed and range of Sparknade are increased",
-      "coefficientText": "(+26% Skill Amp)",
+      "coefficientText": "40/50/60/70/80(+Skill Amplification 26%)",
       "group": 1062300,
       "skillId": "TheodoreActive2",
       "dataKey": "Extra Damage",
-      "updatedAt": "2025-06-25T19:24:32Z",
-      "sourceUrl": "https://eternalreturn.fandom.com/wiki/Theodore",
-      "sourceTitle": "Theodore - Official Eternal Return Wiki",
-      "sourceNote": "补充强化普攻/强化技能/额外伤害归属；俞岷排除。",
+      "updatedAt": "2026-07-23T02:00:00.000Z",
+      "sourceUrl": "https://playeternalreturn.com/posts/news/3713?hl=en-US",
+      "sourceTitle": "PATCH NOTES 11.7 - JULY 23RD, 2026",
+      "sourceNote": "官方补丁 11.7 数值：40/50/60/70/80(+Skill Amplification 26%)",
       "scalingText": "(+26% Skill Amp)",
-      "bases": "30,40,50,60,70",
-      "sourceIndex": 48
+      "bases": "40,50,60,70,80",
+      "sourceIndex": 48,
+      "sourceDate": "2026-07-23T02:00:00.000Z",
+      "sourceVersion": "11.7",
+      "sourceLabel": "11.7 / 2026-07-23"
     },
     {
       "id": "augment-064-vanya-r-1064500-extra-damage-from-sleeping-stat2",
@@ -762,5 +771,62 @@
       "bases": "100,180,240",
       "sourceIndex": 49
     }
-  ]
+  ],
+  "officialPatchUpdates": {
+    "appliedAt": "2026-08-06T12:21:07.049Z",
+    "patches": [
+      {
+        "version": "11.3",
+        "date": "2026-05-28",
+        "url": "https://playeternalreturn.com/posts/news/3606?hl=en-US"
+      },
+      {
+        "version": "11.4",
+        "date": "2026-06-11",
+        "url": "https://playeternalreturn.com/posts/news/3629?hl=en-US"
+      },
+      {
+        "version": "11.5",
+        "date": "2026-06-25",
+        "url": "https://playeternalreturn.com/posts/news/3657?hl=en-US"
+      },
+      {
+        "version": "11.6",
+        "date": "2026-07-09",
+        "url": "https://playeternalreturn.com/posts/news/3690?hl=en-US"
+      },
+      {
+        "version": "11.7",
+        "date": "2026-07-23",
+        "url": "https://playeternalreturn.com/posts/news/3713?hl=en-US"
+      },
+      {
+        "version": "12.0",
+        "date": "2026-08-06",
+        "url": "https://playeternalreturn.com/posts/news/3742?hl=en-US"
+      }
+    ]
+  },
+  "officialPatchUpdatesZh": {
+    "appliedAt": "2026-08-06T13:02:58.285Z",
+    "locale": "zh-CN",
+    "sources": [
+      {
+        "version": "11.5",
+        "url": "https://playeternalreturn.com/posts/news/3657?hl=zh-CN"
+      },
+      {
+        "version": "11.5a",
+        "url": "https://playeternalreturn.com/posts/news/3687?hl=zh-CN"
+      },
+      {
+        "version": "12.0 Part.1",
+        "url": "https://playeternalreturn.com/posts/news/3742?hl=zh-CN"
+      },
+      {
+        "version": "12.0 Part.2",
+        "url": "https://playeternalreturn.com/posts/news/3743?hl=zh-CN"
+      }
+    ]
+  }
 }

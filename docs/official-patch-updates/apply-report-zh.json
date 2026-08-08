@@ -1,0 +1,878 @@
+{
+  "generatedAt": "2026-08-06T13:02:58.272Z",
+  "source": {
+    "patch": "12.0",
+    "date": "2026-08-06",
+    "at": "2026-08-06T02:00:00.000Z",
+    "url": "https://playeternalreturn.com/posts/news/3743?hl=zh-CN",
+    "title": "[修正] 12.0 更新日志 Part.2 - 实验体和物品"
+  },
+  "titles": [
+    {
+      "hero": "布莱尔",
+      "dataKey": "[Double Bladed Sword] Second Hit Damage",
+      "from": "Q 双重斩击 双刀二段伤害",
+      "to": "Q 双重横扫 双头剑1、2段伤害",
+      "targets": [
+        "localConfig:patch-113-blair-1084200-double-bladed-sword-second-hit-damage",
+        "externalSkillDamageFallback:patch-113-blair-1084200-double-bladed-sword-second-hit-damage"
+      ]
+    },
+    {
+      "hero": "伊安",
+      "dataKey": "[Phantom Ripper] Damage",
+      "from": "W 血染之指 附身伤害",
+      "to": "W 血染之指（噬身）",
+      "targets": [
+        "localConfig:external-lyanh-w-1063300-phantom-ripper-damage-stat2",
+        "externalSkillDamageFallback:external-lyanh-w-1063300-phantom-ripper-damage-stat2"
+      ]
+    },
+    {
+      "hero": "玛蒂娜",
+      "dataKey": "Recording Edge Damage",
+      "from": "R 录像 录制中边缘伤害",
+      "to": "R 录像 - 报道中 录像期间（边缘）",
+      "targets": [
+        "localConfig:patch-116-martina-1057500-recording-edge-damage",
+        "externalSkillDamageFallback:patch-116-martina-1057500-recording-edge-damage"
+      ]
+    },
+    {
+      "hero": "玛蒂娜",
+      "dataKey": "Recording Center Damage",
+      "from": "R 录像 录制中中心伤害",
+      "to": "R 录像 - 报道中 录像期间（中心）",
+      "targets": [
+        "localConfig:patch-116-martina-1057500-recording-center-damage",
+        "externalSkillDamageFallback:patch-116-martina-1057500-recording-center-damage"
+      ]
+    },
+    {
+      "hero": "玛蒂娜",
+      "dataKey": "Recording Complete Edge Damage",
+      "from": "R 录像 录制完成边缘伤害",
+      "to": "R 录像 - 报道中 录像结束（边缘）",
+      "targets": [
+        "localConfig:patch-116-martina-1057500-recording-complete-edge-damage",
+        "externalSkillDamageFallback:patch-116-martina-1057500-recording-complete-edge-damage"
+      ]
+    },
+    {
+      "hero": "玛蒂娜",
+      "dataKey": "Recording Complete Center Damage",
+      "from": "R 录像 录制完成中心伤害",
+      "to": "R 录像 - 报道中 录像结束（中心）",
+      "targets": [
+        "localConfig:patch-116-martina-1057500-recording-complete-center-damage",
+        "externalSkillDamageFallback:patch-116-martina-1057500-recording-complete-center-damage"
+      ]
+    },
+    {
+      "hero": "西尔维娅",
+      "dataKey": "[On Bike] Front Flip Damage",
+      "from": "W 前空翻（摩托）",
+      "to": "W 腾空飞跃（摩托车）",
+      "targets": [
+        "localConfig:patch-117-silvia-1016300-on-bike-front-flip-damage",
+        "externalSkillDamageFallback:patch-117-silvia-1016300-on-bike-front-flip-damage"
+      ]
+    },
+    {
+      "hero": "Craver",
+      "dataKey": "[Sweep Kick] Damage",
+      "from": "W 扫堂腿（每段）",
+      "to": "W 横扫千军（每段）",
+      "targets": [
+        "localConfig:patch-115-craver-1089300-sweep-kick-damage",
+        "externalSkillDamageFallback:patch-115-craver-1089300-sweep-kick-damage"
+      ]
+    },
+    {
+      "hero": "Craver",
+      "dataKey": "[Backflip] Damage",
+      "from": "W 后空翻",
+      "to": "W 腾空后跃",
+      "targets": [
+        "localConfig:patch-115-craver-1089300-backflip-damage",
+        "externalSkillDamageFallback:patch-115-craver-1089300-backflip-damage"
+      ]
+    },
+    {
+      "hero": "Craver",
+      "dataKey": "[Quick Step] Damage",
+      "from": "E 快步后撤",
+      "to": "E 迅步",
+      "targets": [
+        "localConfig:patch-115-craver-1089400-quick-step-damage",
+        "externalSkillDamageFallback:patch-115-craver-1089400-quick-step-damage"
+      ]
+    },
+    {
+      "hero": "Craver",
+      "dataKey": "Damage",
+      "from": "R 决斗时刻",
+      "to": "R 决战时刻！",
+      "targets": [
+        "localConfig:patch-115-craver-1089500-damage",
+        "externalSkillDamageFallback:patch-115-craver-1089500-damage"
+      ]
+    },
+    {
+      "hero": "Craver",
+      "dataKey": "[Focus Shot] Additional Damage",
+      "from": "Q 聚焦射击 追加伤害",
+      "to": "Q 聚焦射击 持续伤害",
+      "targets": [
+        "localConfig:patch-115-craver-1089200-focus-shot-additional-damage",
+        "externalSkillDamageFallback:patch-115-craver-1089200-focus-shot-additional-damage"
+      ]
+    }
+  ],
+  "renames": [
+    {
+      "from": "Craver",
+      "to": "克雷弗",
+      "skillEntries": 18,
+      "note": "11.5 官方中文译名；旧快照缺 89 号实验体的中文名。"
+    }
+  ],
+  "skills": [
+    {
+      "hero": "娜町",
+      "group": 1006500,
+      "dataKey": "DamageByLevel",
+      "before": "100/150/200(+额外攻击力75%)(+技能增幅的80%)(+野性叠层伤害)",
+      "after": "100/150/200(+额外攻击力80%)(+技能增幅的80%)(+野性叠层伤害)",
+      "bases": [
+        100,
+        150,
+        200
+      ],
+      "formula": "base + extraAttack * 0.8 + ap * 0.8",
+      "note": "野性叠层伤害未建模；原快照数值 50/100/150 已按官方公告覆盖。",
+      "targets": [
+        "localConfig:6-1006500-DamageByLevel",
+        "localConfig:006-nadine-r-1006500-damage-by-level",
+        "erGameData:6-1006500-DamageByLevel",
+        "erSkillDamageTable:006-nadine-r-1006500-damage-by-level"
+      ]
+    },
+    {
+      "hero": "丹尼尔",
+      "group": 1037400,
+      "dataKey": "Damage",
+      "before": "20/40/60/80/100(+额外攻击力60%)",
+      "after": "20/40/60/80/100(+额外攻击力50%)",
+      "bases": [
+        20,
+        40,
+        60,
+        80,
+        100
+      ],
+      "formula": "base + extraAttack * 0.5",
+      "note": null,
+      "targets": [
+        "created:patch-120p2-danielactive3-damage"
+      ]
+    },
+    {
+      "hero": "黛比&玛莲",
+      "group": 1065100,
+      "dataKey": "Damage",
+      "before": "15/20/25(+额外攻击力75%)",
+      "after": "15/20/25(+额外攻击力80%)",
+      "bases": null,
+      "formula": "base + extraAttack * 0.8",
+      "note": null,
+      "targets": [
+        "localConfig:external-debimarlene-p-1065100-damage-stat1",
+        "externalSkillDamageFallback:external-debimarlene-p-1065100-damage-stat1"
+      ]
+    },
+    {
+      "hero": "劳拉",
+      "group": 1047100,
+      "dataKey": "Damage",
+      "before": "20/50/80(+技能增幅的30%)",
+      "after": "20/45/70(+技能增幅的30%)",
+      "bases": [
+        20,
+        45,
+        70
+      ],
+      "formula": null,
+      "note": null,
+      "targets": [
+        "localConfig:external-laura-p-1047100-damage-stat1",
+        "externalSkillDamageFallback:external-laura-p-1047100-damage-stat1"
+      ]
+    },
+    {
+      "hero": "雷妮",
+      "group": 1069100,
+      "dataKey": "Damage",
+      "before": "15/25/35(+雷妮等级*4)",
+      "after": "15/25/35(+雷妮等级*2)(+技能增幅的10%)",
+      "bases": [
+        15,
+        25,
+        35
+      ],
+      "formula": "base + ap * 0.1",
+      "note": "实验体等级项未建模（公式变量只有技能等级）。",
+      "targets": [
+        "localConfig:external-leni-p-1069100-damage-stat1",
+        "externalSkillDamageFallback:external-leni-p-1069100-damage-stat1"
+      ]
+    },
+    {
+      "hero": "雷妮",
+      "group": 1069200,
+      "dataKey": "Damage",
+      "before": "40/55/70/85/100(+雷妮等级*18)(+技能增幅的35%)",
+      "after": "50/70/90/110/130(+雷妮等级*8)(+技能增幅的60%)",
+      "bases": [
+        50,
+        70,
+        90,
+        110,
+        130
+      ],
+      "formula": "base + ap * 0.6",
+      "note": "实验体等级项未建模。",
+      "targets": [
+        "localConfig:external-leni-q-1069200-damage-stat1",
+        "externalSkillDamageFallback:external-leni-q-1069200-damage-stat1"
+      ]
+    },
+    {
+      "hero": "雷妮",
+      "group": 1069400,
+      "dataKey": "Damage",
+      "before": "20/40/60/80/100(+雷妮等级*9)(+技能增幅的35%)",
+      "after": "20/40/60/80/100(+雷妮等级*5)(+技能增幅的45%)",
+      "bases": [
+        20,
+        40,
+        60,
+        80,
+        100
+      ],
+      "formula": "base + ap * 0.45",
+      "note": "实验体等级项未建模；原快照基础值 50/65/80/95/110 已按官方公告覆盖。",
+      "targets": [
+        "localConfig:external-leni-e-1069400-damage-stat1",
+        "externalSkillDamageFallback:external-leni-e-1069400-damage-stat1"
+      ]
+    },
+    {
+      "hero": "雷妮",
+      "group": 1069500,
+      "dataKey": "Damage",
+      "before": "100/150/200(+雷妮等级*12)(+技能增幅的40%)",
+      "after": "100/150/200(+雷妮等级*8)(+技能增幅的55%)",
+      "bases": [
+        100,
+        150,
+        200
+      ],
+      "formula": "base + ap * 0.55",
+      "note": "实验体等级项未建模。",
+      "targets": [
+        "localConfig:external-leni-r-1069500-damage-stat1",
+        "externalSkillDamageFallback:external-leni-r-1069500-damage-stat1"
+      ]
+    },
+    {
+      "hero": "彰一",
+      "group": 1018100,
+      "dataKey": "Dagger Damage",
+      "before": "短剑伤害 60/90/120(+技能增幅的30%)",
+      "after": "短剑伤害 50/80/110(+技能增幅的30%)",
+      "bases": [
+        50,
+        80,
+        110
+      ],
+      "formula": null,
+      "note": "原快照基础值 10/40/70 已按官方公告覆盖。",
+      "targets": [
+        "localConfig:external-shoichi-p-1018100-dagger-damage-stat3",
+        "externalSkillDamageFallback:external-shoichi-p-1018100-dagger-damage-stat3"
+      ]
+    },
+    {
+      "hero": "尤斯蒂娜",
+      "group": 1079100,
+      "dataKey": "Damage",
+      "before": "标记伤害 40/60/80(+技能增幅的20%)",
+      "after": "标记伤害 30/50/70(+技能增幅的15%)",
+      "bases": [
+        30,
+        50,
+        70
+      ],
+      "formula": "base + ap * 0.15",
+      "note": null,
+      "targets": [
+        "localConfig:external-justyna-p-1079100-damage-stat1",
+        "externalSkillDamageFallback:external-justyna-p-1079100-damage-stat1"
+      ]
+    },
+    {
+      "hero": "翡翠",
+      "group": 1078300,
+      "dataKey": "[Clear Cut] Damage",
+      "before": "一刀两断(W1) 1段伤害 15/30/45/60/75(+额外攻击力50%)",
+      "after": "一刀两断(W1) 1段伤害 15/30/45/60/75(+额外攻击力40%)",
+      "bases": null,
+      "formula": "base + attack * 0.4",
+      "note": null,
+      "targets": [
+        "localConfig:external-hisui-w-1078300-clear-cut-damage-stat1",
+        "externalSkillDamageFallback:external-hisui-w-1078300-clear-cut-damage-stat1"
+      ]
+    }
+  ],
+  "characters": [
+    {
+      "hero": "黛比&玛莲",
+      "path": "growth.maxHp",
+      "from": 88,
+      "to": 90
+    },
+    {
+      "hero": "雷妮",
+      "path": "growth.maxHp",
+      "from": 79,
+      "to": 81
+    },
+    {
+      "hero": "雷妮",
+      "path": "base.defense",
+      "from": 50,
+      "to": 53
+    },
+    {
+      "hero": "彰一",
+      "path": "base.hp",
+      "from": 940,
+      "to": 980
+    },
+    {
+      "hero": "秀雅",
+      "path": "base.hp",
+      "from": 1070,
+      "to": 1020
+    },
+    {
+      "hero": "秀雅",
+      "path": "base.defense",
+      "from": 57,
+      "to": 54
+    },
+    {
+      "hero": "艾登",
+      "path": "growth.maxHp",
+      "from": 94,
+      "to": 96
+    }
+  ],
+  "mastery": [
+    {
+      "hero": "凯希",
+      "type": "OneHandSword",
+      "stat": "AttackSpeedRatio",
+      "label": "短剑 攻击速度",
+      "from": 0.027,
+      "to": 0.034
+    },
+    {
+      "hero": "塔齐娅",
+      "type": "DirectFire",
+      "stat": "AttackSpeedRatio",
+      "label": "暗器 攻击速度",
+      "from": 0.029,
+      "to": 0.04
+    }
+  ],
+  "equipment": [
+    {
+      "item": "酒红色西装",
+      "code": 202504,
+      "stat": "attackPower",
+      "from": 15,
+      "to": 13,
+      "removed": false,
+      "added": false,
+      "note": null
+    },
+    {
+      "item": "赤星",
+      "code": 201534,
+      "stat": "attackPower",
+      "from": 20,
+      "to": 18,
+      "removed": false,
+      "added": false,
+      "note": null
+    },
+    {
+      "item": "比基尼",
+      "code": 202209,
+      "stat": "skillAmp",
+      "from": 40,
+      "to": 35,
+      "removed": false,
+      "added": false,
+      "note": null
+    },
+    {
+      "item": "红心女王",
+      "code": 202502,
+      "stat": "skillAmp",
+      "from": 40,
+      "to": 35,
+      "removed": false,
+      "added": false,
+      "note": null
+    },
+    {
+      "item": "黑炎龙铠甲",
+      "code": 202527,
+      "stat": "defense",
+      "from": 43,
+      "to": 41,
+      "removed": false,
+      "added": false,
+      "note": null
+    },
+    {
+      "item": "精灵舞裙",
+      "code": 202516,
+      "stat": "cooldownReduction",
+      "from": 10,
+      "to": 20,
+      "removed": false,
+      "added": false,
+      "note": null
+    },
+    {
+      "item": "白夜王冠",
+      "code": 201536,
+      "stat": "healerGiveHpHealRatio",
+      "from": 0.07,
+      "to": 0.06,
+      "removed": false,
+      "added": false,
+      "note": null
+    },
+    {
+      "item": "荒野之星",
+      "code": 201506,
+      "stat": "attackPower",
+      "from": 38,
+      "to": 33,
+      "removed": false,
+      "added": false,
+      "note": null
+    },
+    {
+      "item": "荒野之星",
+      "code": 201506,
+      "stat": "attackSpeedRatio",
+      "from": 0.46,
+      "to": 0.4,
+      "removed": false,
+      "added": false,
+      "note": null
+    },
+    {
+      "item": "瓦尔哈拉头盔",
+      "code": 201528,
+      "stat": "defense",
+      "from": 20,
+      "to": 18,
+      "removed": false,
+      "added": false,
+      "note": null
+    },
+    {
+      "item": "脸谱",
+      "code": 201411,
+      "stat": "defense",
+      "from": 10,
+      "to": 8,
+      "removed": false,
+      "added": false,
+      "note": null
+    },
+    {
+      "item": "玄瞳头盔",
+      "code": 201529,
+      "stat": "lifeSteal",
+      "from": 0.08,
+      "to": 0.06,
+      "removed": false,
+      "added": false,
+      "note": null
+    },
+    {
+      "item": "羽落",
+      "code": 202528,
+      "stat": "attackSpeedRatio",
+      "from": 0.35,
+      "to": 0.3,
+      "removed": false,
+      "added": false,
+      "note": null
+    },
+    {
+      "item": "血色王冠",
+      "code": 201701,
+      "stat": "moveSpeedRatio",
+      "from": 0.04,
+      "to": 0.035,
+      "removed": false,
+      "added": false,
+      "note": null
+    },
+    {
+      "item": "克拉达戒指",
+      "code": 705604,
+      "stat": "cooldownReduction",
+      "from": 20,
+      "to": 15,
+      "removed": false,
+      "added": false,
+      "note": null
+    },
+    {
+      "item": "海盗印记",
+      "code": 205306,
+      "stat": "cooldownReduction",
+      "from": 20,
+      "to": null,
+      "removed": true,
+      "added": false,
+      "note": null
+    },
+    {
+      "item": "海盗印记",
+      "code": 205306,
+      "stat": "slowResistRatio",
+      "from": 0.2,
+      "to": null,
+      "removed": true,
+      "added": false,
+      "note": null
+    },
+    {
+      "item": "海盗印记",
+      "code": 205306,
+      "stat": "maxHp",
+      "from": null,
+      "to": 200,
+      "removed": false,
+      "added": true,
+      "note": null
+    },
+    {
+      "item": "海盗印记",
+      "code": 205306,
+      "stat": "attackPower",
+      "from": 30,
+      "to": 26,
+      "removed": false,
+      "added": false,
+      "note": null
+    },
+    {
+      "item": "死灵之书",
+      "code": 205507,
+      "stat": "skillAmp",
+      "from": 100,
+      "to": 95,
+      "removed": false,
+      "added": false,
+      "note": null
+    },
+    {
+      "item": "超星臂章",
+      "code": 203515,
+      "stat": "adaptiveForce",
+      "from": 45,
+      "to": 43,
+      "removed": false,
+      "added": false,
+      "note": null
+    },
+    {
+      "item": "法夫纳",
+      "code": 203516,
+      "stat": "maxHpByLv",
+      "from": 26,
+      "to": 25,
+      "removed": false,
+      "added": false,
+      "note": null
+    },
+    {
+      "item": "血杀龙爪",
+      "code": 203509,
+      "stat": "attackPower",
+      "from": 30,
+      "to": 28,
+      "removed": false,
+      "added": false,
+      "note": "公告中文名为「嗜血魔爪」，与快照里的「血杀龙爪」为同一件（手部 / 攻击力 30）。"
+    },
+    {
+      "item": "蔷薇轻履",
+      "code": 204511,
+      "stat": "skillAmp",
+      "from": 50,
+      "to": 45,
+      "removed": false,
+      "added": false,
+      "note": null
+    },
+    {
+      "item": "红鞋",
+      "code": 204502,
+      "stat": "attackSpeedRatio",
+      "from": 0.38,
+      "to": 0.33,
+      "removed": false,
+      "added": false,
+      "note": null
+    },
+    {
+      "item": "艾尔迪安长靴",
+      "code": 204510,
+      "stat": "attackPower",
+      "from": 20,
+      "to": 17,
+      "removed": false,
+      "added": false,
+      "note": null
+    },
+    {
+      "item": "生化推进器",
+      "code": 204413,
+      "stat": "cooldownReduction",
+      "from": 25,
+      "to": 20,
+      "removed": false,
+      "added": false,
+      "note": null
+    },
+    {
+      "item": "精灵之靴",
+      "code": 204513,
+      "stat": "adaptiveForce",
+      "from": 28,
+      "to": null,
+      "removed": true,
+      "added": false,
+      "note": null
+    },
+    {
+      "item": "精灵之靴",
+      "code": 204513,
+      "stat": "skillAmp",
+      "from": null,
+      "to": 50,
+      "removed": false,
+      "added": true,
+      "note": null
+    },
+    {
+      "item": "月水晶",
+      "code": 130405,
+      "stat": "cooldownReduction",
+      "from": 10,
+      "to": null,
+      "removed": true,
+      "added": false,
+      "note": null
+    },
+    {
+      "item": "月水晶",
+      "code": 130405,
+      "stat": "skillAmp",
+      "from": 88,
+      "to": 95,
+      "removed": false,
+      "added": false,
+      "note": null
+    },
+    {
+      "item": "隐遁者",
+      "code": 130401,
+      "stat": "cooldownReduction",
+      "from": 10,
+      "to": null,
+      "removed": true,
+      "added": false,
+      "note": null
+    },
+    {
+      "item": "隐遁者",
+      "code": 130401,
+      "stat": "skillAmp",
+      "from": 70,
+      "to": 81,
+      "removed": false,
+      "added": false,
+      "note": null
+    },
+    {
+      "item": "炼狱 - 绯红",
+      "code": 130701,
+      "stat": "cooldownReduction",
+      "from": 15,
+      "to": null,
+      "removed": true,
+      "added": false,
+      "note": null
+    },
+    {
+      "item": "炼狱 - 绯红",
+      "code": 130701,
+      "stat": "skillAmp",
+      "from": 100,
+      "to": 114,
+      "removed": false,
+      "added": false,
+      "note": null
+    }
+  ],
+  "newEquipment": [
+    {
+      "name": "苍野荆棘",
+      "type": "武器",
+      "stats": {
+        "attackPower": 32,
+        "skillAmp": 86,
+        "maxHp": 120
+      },
+      "effect": "惩恶"
+    },
+    {
+      "name": "棒棒糖",
+      "type": "武器",
+      "stats": {
+        "attackPower": 30,
+        "skillAmp": 86,
+        "maxHp": 150
+      },
+      "effect": "神速 - 微风"
+    },
+    {
+      "name": "倒吊人",
+      "type": "武器",
+      "stats": {
+        "attackPower": 40,
+        "skillAmp": 92,
+        "cooldownReduction": 10
+      },
+      "effect": "瘟疫蝴蝶"
+    },
+    {
+      "name": "均衡之刃",
+      "type": "武器",
+      "stats": {
+        "attackPower": 67,
+        "attackSpeedRatio": 0.3,
+        "maxHp": 150
+      },
+      "effect": "惩恶"
+    },
+    {
+      "name": "凛风铠甲",
+      "type": "衣服",
+      "stats": {
+        "defense": 40,
+        "maxHpByLv": 24,
+        "cooldownReduction": 10
+      },
+      "effect": "疾风 - 寒气"
+    },
+    {
+      "name": "凛风铠甲・戴维德",
+      "type": "衣服",
+      "stats": {
+        "defense": 44,
+        "maxHpByLv": 27,
+        "cooldownReduction": 10
+      },
+      "effect": "疾风 - 寒气"
+    }
+  ],
+  "unapplied": [
+    {
+      "patch": "11.5a",
+      "target": "超再生 护盾及体力恢复量 10% → 8%",
+      "reason": "12.0 已进一步下调为 5%，数据取最新值，无需再改。"
+    },
+    {
+      "patch": "11.5a",
+      "target": "治愈之风 / 违规者 体力与护盾、冷却",
+      "reason": "非伤害项；违规者的伤害公式本身没有变化。"
+    },
+    {
+      "patch": "11.5a",
+      "target": "雷妮 Q/R 冷却、莉央 替弓和弓普攻 103%→102%",
+      "reason": "冷却与普攻倍率未建模。"
+    },
+    {
+      "patch": "12.0 Part.2",
+      "target": "全部武器技能(D)改动（弩、鞭子、投掷、旋棍、枪等的技能重做与数值）",
+      "reason": "计算器不建模武器技能。"
+    },
+    {
+      "patch": "12.0 Part.2",
+      "target": "墙体冲撞伤害判定拆分",
+      "reason": "为判定规则变更；撞墙伤害已在 11.7 作为独立条目录入。"
+    },
+    {
+      "patch": "12.0 Part.2",
+      "target": "武器技能触发条件扩展（约 40 名实验体的被动联动）",
+      "reason": "触发条件不影响伤害公式。"
+    },
+    {
+      "patch": "12.0 Part.2",
+      "target": "慧珍 P 三灾 / Q 镇压符",
+      "reason": "旧生成表把同一组 A1~A4 伤害行重复挂在每个技能组下，无法安全对应公告中的伤害段。"
+    },
+    {
+      "patch": "12.0 Part.2",
+      "target": "凯希 Q 动脉切开术 普攻额外伤害 55% → 50%",
+      "reason": "只给系数、无基础值，且当前没有对应条目。"
+    },
+    {
+      "patch": "12.0 Part.2",
+      "target": "秀雅 / 万尼亚 / 亚历克斯 / 威廉 / 卡拉 / 卡洛琳 / 埃琳娜 / 扎希尔 等",
+      "reason": "改动为护盾、治疗、冷却、移动速度或状态值。"
+    },
+    {
+      "patch": "12.0 Part.2",
+      "target": "绯红 / 晓色 系列 VF 武器的适性值改为攻击力或技能增幅",
+      "reason": "涉及约 20 件武器的属性重构，公告未给出改后的完整属性表，需要重新导出 er-gamedata 才能准确落库。"
+    },
+    {
+      "patch": "12.0 Part.2",
+      "target": "物品合成路线、材料删除（激光笔 / 弹夹 / 粉笔）、食物与区域刷新表",
+      "reason": "计算器不使用合成与刷新数据。"
+    },
+    {
+      "patch": "12.0 Part.2",
+      "target": "减少治愈 20% → 30%",
+      "reason": "减少治愈只作为效果名展示，不参与伤害公式。"
+    }
+  ],
+  "warnings": []
+}

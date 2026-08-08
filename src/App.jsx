@@ -1,9 +1,6 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import ER_GAME_DATA from './data/erGameData.json';
-import ER_SKILL_DAMAGE_TABLE from './data/erSkillDamageTable.json';
-import SKILL_DAMAGE_AUGMENTS from './data/skillDamageAugments.json';
-import EXTERNAL_SKILL_DAMAGE_FALLBACK from './data/externalSkillDamageFallback.json';
 import DEFAULT_HELP_NOTES from './data/helpNotes.json';
 import DEFAULT_ANNOUNCEMENT from './data/announcement.json';
 import DEFAULT_LOCAL_CONFIG from './data/localConfig.json';
@@ -11,8 +8,40 @@ import ITEM_UNIQUE_EFFECTS from './data/itemUniqueEffects.json';
 import DAK_LOADOUT_ASSETS from './data/dakLoadoutAssets.json';
 import DAK_ITEM_SKILL_ICONS from './data/dakItemSkillIcons.json';
 import MASTERY_STATS from './data/masteryStats.json';
+import {
+  adaptiveOffenseFormula,
+  basesFor,
+  calculateSkill,
+  clampLevel,
+  clone,
+  damageFloor,
+  formulaUsesVariable,
+  getNumber,
+  pct,
+  progressiveDamageBounds,
+  progressiveDamageRule,
+  progressiveDamageValue,
+  round,
+  scaledSkillDamage,
+  skillFormulaDescription
+} from './lib/formula.js';
+import {
+  DEFAULT_COMBOS,
+  HEROES_WITH_SKILL_DAMAGE,
+  INITIAL_SKILLS,
+  OFFICIAL_DATA_COUNTS,
+  mergeCombos,
+  mergeSkills
+} from './lib/skillSources.js';
+import {
+  DEFAULT_HERO,
+  MANUAL_HEROES,
+  skillDisplayRule,
+  stackLimit,
+  stackSelectorRule
+} from './lib/specialRules.js';
 
-const APP_VERSION = 'v0.1.060';
+const APP_VERSION = 'v0.1.061';
 
 const EXPORTED_LOCAL_CONFIG_MODULES = import.meta.glob('./data/localConfig.export.json', {
   eager: true,
@@ -144,13 +173,13 @@ const TRAIT_EFFECTS = {
   7310401: { penPct: 0.06, summary: '制动力：对敌人实验体造成伤害后 4 秒内防御穿透 +6%，当前按已触发计入。' },
   7310501: { extraEffect: 'rCharger', summary: 'R_echarger：终极技能冷却缩减 +15；使用终极技能后 5 秒内攻击力 +5+等级*0.5 或技能增幅 +10+等级。' },
   7310601: { extraEffect: 'rapidShot', summary: '急速射击：技能后普攻命中时，5 秒内攻击力 +2+等级*0.5 或技能增幅 +4+等级，并提升攻击速度 15%；按实验体主路径计入。' },
-  7200101: { extraEffect: 'hyperRegen', summary: '超再生：自身技能或潜能生成的护盾和体力恢复量持续增加 10%；获得护盾或体力恢复效果的目标，5 秒内攻击力 +5+等级*0.5 或技能增幅 +10+等级*1。' },
+  7200101: { summary: '超再生（12.0）：转为副潜能；护盾与体力恢复量增加 5%；原“被护盾/治疗目标获得适应力”已移除，不再提供攻击力或技能增幅。' },
   7200201: { extraEffect: 'enhancementDevice', summary: '强化装置：使用终极技能时出现强化装置，4.5 秒内给 4m 范围内自身和队友移动速度 +10+等级*0.6%，技能伤害量 +8+等级*0.5%。' },
   7200301: { summary: '治愈装置：自身或 4m 内队友体力低于 40% 承受伤害时出现治愈装置，每秒恢复 3+等级*0.3% 已失体力；重复时治疗效果为 50%。' },
   7200501: { summary: '无私：独立技能造成伤害时，自身和周围 8m 队友获得 6 秒护盾；体力低于 30% 以下目标获得 1.5 倍护盾，上限 35%。' },
   7210101: { dmgAmp: 0.05, summary: '荆棘丛：目标无法移动状态时，5 秒内治疗效果降低 20%，承受的所有伤害增加 5%。' },
   7211001: { summary: '狩猎的快感：对野生动物造成伤害增加 20%；参与击杀野生动物时恢复体力并获得移动速度，随后逐渐下降。' },
-  7211301: { extraEffect: 'explosiveCactus', summary: '爆炸仙人掌：对敌人造成伤害时附着 3 秒仙人掌，队友普攻或独立技能触发时造成 10~150+敌人体力上限 5% 的技能伤害；未触发时自动爆炸造成减少 70% 的伤害。' },
+  7211301: { extraEffect: 'explosiveCactus', summary: '爆炸仙人掌（12.0）：转为核心潜能；对敌人造成伤害时附着 4 秒仙人掌，队友普攻或独立技能触发时造成 8~160+敌人体力上限 4% 的技能伤害；未触发时自动爆炸造成减少 70% 的伤害。' },
   7211401: { dmgAmp: 0.04, summary: '压迫感：自身 3m 内敌方实验体承受伤害增加 4%；叠加时每层效果减少 25%，上限 3 层。' },
   7100101: { extraEffect: 'diamondShard', summary: '金刚碎片：定身成功后防御力 +20+等级*5，结束时造成等级*10 的技能伤害。' },
   7100401: { summary: '天使护翼：获得体力上限 18% 的护盾，护盾破裂时解除负面效果并增加移动速度；不直接计入伤害。' },
@@ -163,7 +192,6 @@ const TRAIT_EFFECTS = {
   7111101: { summary: '警戒心：体力低于 75% 时受到敌方实验体伤害，1.5 秒内所受伤害减少 5+等级*0.5%。' },
   7111201: { summary: '淬火：进入第二天白天时防御力增加 3，此后每 80 秒防御力增加 1。' }
 };
-const MANUAL_HEROES = ['俞岷', '奇娅拉'];
 const HEROES = [
   ...MANUAL_HEROES,
   ...ER_GAME_DATA.characters.map((character) => character.name).filter((name) => !MANUAL_HEROES.includes(name))
@@ -321,151 +349,6 @@ const DEFAULT_VISIBLE_STAT_KEYS = [
   'sightRange'
 ].filter((key) => DISPLAYABLE_ITEM_STAT_KEYS.has(key));
 
-const DEFAULT_SKILLS = [
-  { id: 'nun-q', hero: '奇娅拉', title: 'Q 一段', bases: '180,180,180,180,180', formula: 'base + ap * 0.65', maxLevel: 5 },
-  { id: 'nun-q2', hero: '奇娅拉', title: 'Q 二段/额外', bases: '50,50,50,50,50', formula: 'base + ap * 0.08', maxLevel: 5 },
-  { id: 'nun-w', hero: '奇娅拉', title: 'W', bases: '160,160,160,160,160', formula: 'base + ap * 0.5 + targetHp * 0.1', maxLevel: 5 },
-  { id: 'nun-e', hero: '奇娅拉', title: 'E 一段', bases: '130,130,130,130,130', formula: 'base + ap * 0.4', maxLevel: 5 },
-  { id: 'nun-e2', hero: '奇娅拉', title: 'E 二段', bases: '160,160,160,160,160', formula: 'base + ap * 0.7', maxLevel: 5 },
-  { id: 'nun-r', hero: '奇娅拉', title: 'R 一段', bases: '80,80,80', formula: 'base + ap * 0.25', maxLevel: 3 },
-  { id: 'nun-r2', hero: '奇娅拉', title: 'R2', bases: '150,150,150', formula: 'base + ap * 0.25', maxLevel: 3 },
-  { id: 'nun-r2-stack', hero: '奇娅拉', title: 'R2 带叠层', bases: '150,150,150', formula: '(base + ap * 0.25) * (1 + stacks * 0.2)', maxLevel: 3 },
-  { id: 'yumin-q', hero: '俞岷', title: 'Q 每跳', bases: '50,65,80,95,110', formula: 'base + ap * 0.4', maxLevel: 5 },
-  { id: 'yumin-eq', hero: '俞岷', title: 'EQ 每跳', bases: '50,70,90,110,130', formula: 'base + ap * 0.4', maxLevel: 5 },
-  { id: 'yumin-w', hero: '俞岷', title: 'W', bases: '80,110,140,170,200', formula: 'base + ap * 0.7', maxLevel: 5 },
-  { id: 'yumin-ew', hero: '俞岷', title: 'EW', bases: '100,135,170,205,240', formula: 'base + ap * 0.75', maxLevel: 5 },
-  { id: 'yumin-e', hero: '俞岷', title: 'E', bases: '60,95,130,165,200', formula: 'base + ap * 0.5', maxLevel: 5 },
-  { id: 'yumin-r1', hero: '俞岷', title: 'R 一段', bases: '50,100,150', formula: 'base + ap * 0.45', maxLevel: 3 },
-  { id: 'yumin-r2', hero: '俞岷', title: 'R 二段', bases: '100,200,300', formula: 'base + ap * 0.7', maxLevel: 3 },
-  { id: 'yumin-r2-hp', hero: '俞岷', title: 'R 二段 + 10%目标血', bases: '100,200,300', formula: 'base + ap * 0.7 + targetHp * 0.1', maxLevel: 3 }
-];
-
-function finiteDamageValue(value) {
-  if (value === '' || value === null || value === undefined) return null;
-  const next = Number(value);
-  return Number.isFinite(next) ? next : null;
-}
-
-function damageRowBases(row) {
-  return [1, 2, 3, 4, 5, 6]
-    .map((level) => finiteDamageValue(row[`lv${level}`]))
-    .filter((value) => value !== null);
-}
-
-function damageRowCoefValues(row) {
-  return [1, 2, 3, 4, 5, 6]
-    .map((level) => finiteDamageValue(row[`coefLv${level}`]))
-    .filter((value) => value !== null);
-}
-
-function damageRowScalingVariable(row) {
-  const text = String(row.coefficientText || '');
-  const hasAttackScaling = /攻击力/.test(text);
-  const hasSkillAmpScaling = /技能增幅|Skill Amp/i.test(text);
-  if (hasAttackScaling && !hasSkillAmpScaling) return 'attack';
-  return 'ap';
-}
-
-function damageRowFormula(row) {
-  const coefValues = damageRowCoefValues(row);
-  if (!coefValues.length || coefValues.every((value) => value === 0)) return 'base';
-
-  const variable = damageRowScalingVariable(row);
-  const uniqueValues = Array.from(new Set(coefValues));
-  if (uniqueValues.length === 1) return `base + ${variable} * ${uniqueValues[0]}`;
-
-  return `base + ${variable} * ${JSON.stringify(coefValues)}[level - 1]`;
-}
-
-function generatedSkillTitle(row) {
-  const parts = [row.slot, row.skillName, row.damagePart]
-    .map((part) => String(part || '').trim())
-    .filter(Boolean);
-  return Array.from(new Set(parts)).join(' ');
-}
-
-const DAMAGE_TABLE_SKILLS = (ER_SKILL_DAMAGE_TABLE.damageRows || [])
-  .map((row, index) => {
-    const bases = damageRowBases(row);
-    if (!bases.length) return null;
-    return {
-      id: row.standardId || `${row.heroKey || row.heroName}-${row.skillGroup}-${row.baseKey || index}`,
-      hero: row.heroName,
-      title: generatedSkillTitle(row),
-      bases: bases.join(','),
-      formula: damageRowFormula(row),
-      maxLevel: bases.length,
-      source: 'er-skill-damage-table',
-      description: row.description,
-      coefficientText: row.coefficientText,
-      group: row.skillGroup,
-      skillId: row.skillId,
-      dataKey: row.baseKey,
-      coefKey: row.coefKey,
-      updatedAt: ER_SKILL_DAMAGE_TABLE.generatedAt || '',
-      sourceIndex: index
-    };
-  })
-  .filter(Boolean);
-
-const AUGMENTED_DAMAGE_SKILLS = (SKILL_DAMAGE_AUGMENTS.skills || [])
-  .filter((skill) => !MANUAL_HEROES.includes(skill.hero))
-  .map((skill, index) => ({
-    ...skill,
-    sourceIndex: skill.sourceIndex ?? index,
-    updatedAt: skill.updatedAt || SKILL_DAMAGE_AUGMENTS.generatedAt || ''
-  }));
-
-const EXTERNAL_FALLBACK_DAMAGE_SKILLS = (EXTERNAL_SKILL_DAMAGE_FALLBACK.skills || [])
-  .filter((skill) => !MANUAL_HEROES.includes(skill.hero))
-  .map((skill, index) => ({
-    ...skill,
-    sourceIndex: skill.sourceIndex ?? index,
-    updatedAt: skill.updatedAt || skill.sourceDate || EXTERNAL_SKILL_DAMAGE_FALLBACK.generatedAt || ''
-  }));
-
-const LEGACY_GENERATED_SKILLS = ER_GAME_DATA.skills
-  .filter((skill) => !MANUAL_HEROES.includes(skill.hero))
-  .map((skill, index) => ({
-    ...skill,
-    id: skill.id,
-    hero: skill.hero,
-    title: skill.title,
-    bases: skill.bases,
-    formula: skill.formula,
-    maxLevel: skill.maxLevel,
-    source: skill.source,
-    description: skill.description,
-    coefficientText: skill.coefficientText,
-    group: skill.group,
-    skillId: skill.skillId,
-    dataKey: skill.dataKey,
-    updatedAt: skill.updatedAt || skill.updateDate || skill.updatedDate || skill.patch || '',
-    sourceIndex: index
-  }));
-
-const DAMAGE_TABLE_SKILL_KEYS = new Set(DAMAGE_TABLE_SKILLS.map((skill) => `${skill.hero}-${skill.group}-${skill.dataKey}`));
-const GENERATED_SKILLS = [
-  ...DAMAGE_TABLE_SKILLS,
-  ...AUGMENTED_DAMAGE_SKILLS,
-  ...EXTERNAL_FALLBACK_DAMAGE_SKILLS,
-  ...LEGACY_GENERATED_SKILLS.filter((skill) => !DAMAGE_TABLE_SKILL_KEYS.has(`${skill.hero}-${skill.group}-${skill.dataKey}`))
-];
-const INITIAL_SKILLS = dedupeSkillsByLatest([...DEFAULT_SKILLS, ...GENERATED_SKILLS]);
-const HEROES_WITH_SKILL_DAMAGE = new Set(
-  INITIAL_SKILLS
-    .filter((skill) => basesFor(skill).length)
-    .map((skill) => skill.hero)
-);
-const OFFICIAL_DATA_COUNTS = {
-  characters: ER_GAME_DATA.characters?.length || ER_GAME_DATA.counts?.characters || 0,
-  calculableSkills: INITIAL_SKILLS.filter((skill) => basesFor(skill).length).length
-};
-const DEFAULT_COMBOS = [
-  { id: 'yumin-q3', hero: '俞岷', title: 'Q 三跳全中', note: '工作簿 Q*3', hits: { 'yumin-q': 3 } },
-  { id: 'yumin-eq4', hero: '俞岷', title: 'EQ 四跳全中', note: '工作簿 EQ*4', hits: { 'yumin-eq': 4 } },
-  { id: 'yumin-eqqw', hero: '俞岷', title: 'EQQW 全中', note: 'Q3 + EQ4 + E + W', hits: { 'yumin-q': 3, 'yumin-eq': 4, 'yumin-e': 1, 'yumin-w': 1 } }
-];
 
 const SLOTS = ['武器', '衣服', '头部', '手部', '鞋子'];
 function defaultItemName(slot, preferred) {
@@ -522,11 +405,6 @@ const DEFAULT_COMPARISON_SETTINGS = {
   selectedMetrics: DEFAULT_COMPARISON_METRICS
 };
 
-function getNumber(value) {
-  const next = Number(value);
-  return Number.isFinite(next) ? next : 0;
-}
-
 function stripMarkup(value) {
   return String(value || '')
     .replace(/<[^>]+>/g, '')
@@ -553,35 +431,6 @@ function effectTooltipForItem(item, effect) {
   return effectText || stripMarkup(tooltip);
 }
 
-function pct(value) {
-  return `${Math.round(value * 1000) / 10}%`;
-}
-
-function round(value, digits = 1) {
-  const base = 10 ** digits;
-  return Math.round(value * base) / base;
-}
-
-function damageFloor(value) {
-  return Math.floor(getNumber(value) + 1e-9);
-}
-
-function adaptiveOffenseFormula({ base = 0, extraAttack = 0, attackRatio = 0, ap = 0, apRatio = 0 }) {
-  const attackPart = getNumber(extraAttack) * getNumber(attackRatio);
-  const apPart = getNumber(ap) * getNumber(apRatio);
-  const useAttack = attackPart > apPart;
-  return {
-    value: getNumber(base) + (useAttack ? attackPart : apPart),
-    route: useAttack ? '额外攻击力' : '技能增幅',
-    routeValue: useAttack ? extraAttack : ap,
-    ratio: useAttack ? attackRatio : apRatio
-  };
-}
-
-function clone(value) {
-  return JSON.parse(JSON.stringify(value));
-}
-
 function mergeEquipment(savedEquipment) {
   if (!Array.isArray(savedEquipment)) return clone(INITIAL_EQUIPMENT);
 
@@ -601,55 +450,6 @@ function mergeEquipment(savedEquipment) {
   ];
 }
 
-function mergeSkills(savedSkills) {
-  if (!Array.isArray(savedSkills)) return clone(INITIAL_SKILLS);
-
-  const metadataSkills = [
-    ...INITIAL_SKILLS,
-    ...(Array.isArray(DEFAULT_LOCAL_CONFIG?.skills) ? DEFAULT_LOCAL_CONFIG.skills : [])
-  ];
-  const initialById = new Map(metadataSkills.map((skill) => [skill.id, skill]));
-  const initialBySignature = new Map(metadataSkills
-    .map((skill) => [skillProgressiveSignature(skill), skill])
-    .filter(([key, skill]) => key && skill.progressiveDamage));
-  const mergedSaved = savedSkills.map((skill) => {
-    const initialSkill = initialById.get(skill.id) || initialBySignature.get(skillProgressiveSignature(skill));
-    if (!initialSkill) return skill;
-    return {
-      ...initialSkill,
-      ...skill,
-      progressiveDamage: skill.progressiveDamage || initialSkill.progressiveDamage
-    };
-  });
-  const existingIds = new Set(savedSkills.map((skill) => skill.id));
-  return dedupeSkillsByLatest([
-    ...mergedSaved,
-    ...INITIAL_SKILLS.filter((skill) => !existingIds.has(skill.id))
-  ]);
-}
-
-function skillProgressiveSignature(skill) {
-  if (!skill?.skillId || !skill?.group || !skill?.dataKey) return '';
-  return `${skill.skillId}-${skill.group}-${skill.dataKey}`;
-}
-
-function normalizeCombo(combo) {
-  const hits = Object.fromEntries(Object.entries(combo?.hits || {})
-    .map(([skillId, count]) => [skillId, Math.max(0, getNumber(count))])
-    .filter(([, count]) => count > 0));
-  return {
-    id: combo?.id || `combo-${Date.now()}`,
-    hero: combo?.hero || '俞岷',
-    title: combo?.title || combo?.name || '新连段',
-    note: combo?.note || '',
-    hits
-  };
-}
-
-function mergeCombos(savedCombos) {
-  return Array.isArray(savedCombos) ? savedCombos.map(normalizeCombo) : clone(DEFAULT_COMBOS);
-}
-
 function normalizeConfigPayload(config = {}) {
   return {
     equipment: mergeEquipment(config.equipment),
@@ -657,40 +457,6 @@ function normalizeConfigPayload(config = {}) {
     talents: Array.isArray(config.talents) ? config.talents : clone(DEFAULT_TALENTS),
     combos: mergeCombos(config.combos)
   };
-}
-
-function skillVersionTime(skill) {
-  const value = skill?.updatedAt || skill?.updateDate || skill?.updatedDate || skill?.patch || skill?.version || '';
-  const parsed = Date.parse(value);
-  if (Number.isFinite(parsed)) return parsed;
-  const numeric = String(value).match(/\d+(?:\.\d+)*/)?.[0];
-  return numeric ? Number(numeric.replace(/\./g, '').padEnd(8, '0')) : 0;
-}
-
-function skillDedupeKey(skill) {
-  return [
-    skill.hero || '',
-    skill.group || '',
-    skill.skillId || '',
-    skill.dataKey || '',
-    skill.title || ''
-  ].join('|');
-}
-
-function dedupeSkillsByLatest(skills) {
-  const latest = new Map();
-  skills.forEach((skill, index) => {
-    const key = skillDedupeKey(skill);
-    const current = latest.get(key);
-    const nextTime = skillVersionTime(skill);
-    const currentTime = current ? skillVersionTime(current.skill) : -1;
-    if (!current || nextTime > currentTime || (nextTime === currentTime && index > current.index)) {
-      latest.set(key, { skill, index });
-    }
-  });
-  return Array.from(latest.values())
-    .sort((a, b) => a.index - b.index)
-    .map(({ skill }) => skill);
 }
 
 function statValue(stats, key) {
@@ -1148,47 +914,6 @@ function calculatedTraitBonusSummaryItems(result) {
   return items.length ? items : traitBonusSummaryItems(bonuses);
 }
 
-function basesFor(skill) {
-  return String(skill.bases || '')
-    .split(',')
-    .map((value) => getNumber(value.trim()));
-}
-
-function skillBaseAtLevel(skill, level) {
-  const bases = basesFor(skill);
-  const index = Math.max(0, Math.min(getNumber(level) - 1, bases.length - 1));
-  return bases[index] ?? 0;
-}
-
-function clampLevel(skill, level) {
-  return Math.max(1, Math.min(getNumber(skill.maxLevel) || basesFor(skill).length || 1, getNumber(level) || 1));
-}
-
-function evaluateFormula(formula, context) {
-  const expression = String(formula || '').trim();
-  if (!/^[\d\s+\-*/().,_A-Za-z[\]]+$/.test(expression)) return 0;
-
-  try {
-    const calculate = Function(
-      'base',
-      'ap',
-      'attack',
-      'extraAttack',
-      'targetHp',
-      'stacks',
-      'level',
-      `"use strict"; return (${expression});`
-    );
-    return getNumber(calculate(context.base, context.ap, context.attack, context.extraAttack, context.targetHp, context.stacks, context.level));
-  } catch {
-    return 0;
-  }
-}
-
-function formulaUsesVariable(formula, variableName) {
-  return new RegExp(`\\b${variableName}\\b`).test(String(formula || ''));
-}
-
 function primaryOffensePath({ skills = [], masteryStat = null } = {}) {
   const hasAttackPowerMastery = masteryOptionValue(masteryStat, 'AttackPower') > 0;
   const hasBasicAttackMastery = masteryOptionValue(masteryStat, 'IncreaseBasicAttackDamageRatio') > 0;
@@ -1203,21 +928,6 @@ function primaryOffensePath({ skills = [], masteryStat = null } = {}) {
   if (usesAp && !usesAttack) return 'ap';
 
   return 'ap';
-}
-
-function calculateSkill(skill, level, context) {
-  const nextLevel = clampLevel(skill, level);
-  const base = skillBaseAtLevel(skill, nextLevel);
-  const formulaContext = { ...context, base, level: nextLevel };
-  const rawDamage = damageFloor(evaluateFormula(skill.formula, formulaContext));
-  const damage = damageFloor(rawDamage * context.finalMod);
-  return {
-    ...skill,
-    level: nextLevel,
-    base,
-    rawDamage,
-    damage
-  };
 }
 
 function calculateBasicAttackDamage({
@@ -1249,66 +959,6 @@ function calculateBasicAttackDamage({
     criticalStrikeDamage,
     damageIncreaseRatio,
     targetDamageReductionRatio
-  };
-}
-
-function scaledSkillDamage(skill, finalMod, { scale = 1, hits = 1 } = {}) {
-  const singleRaw = damageFloor(getNumber(skill.rawDamage) * scale);
-  const singleFinal = damageFloor(singleRaw * finalMod);
-  return {
-    raw: singleRaw * hits,
-    final: singleFinal * hits
-  };
-}
-
-function progressiveDamageRule(skill) {
-  return skill?.progressiveDamage || null;
-}
-
-function progressiveDamageBounds(rule) {
-  const min = getNumber(rule?.min ?? 0);
-  const max = getNumber(rule?.max ?? min);
-  const defaultValue = getNumber(rule?.default ?? min);
-  return {
-    min,
-    max: Math.max(min, max),
-    defaultValue: Math.max(min, Math.min(Math.max(min, max), defaultValue))
-  };
-}
-
-function progressiveLinearValue(from, to, progress) {
-  return getNumber(from) + (getNumber(to) - getNumber(from)) * progress;
-}
-
-function progressiveDamageValue(skill, context, stepValue) {
-  const rule = progressiveDamageRule(skill);
-  const { min, max, defaultValue } = progressiveDamageBounds(rule);
-  const step = Math.max(min, Math.min(max, getNumber(stepValue) || defaultValue));
-  const progress = max === min ? 0 : (step - min) / (max - min);
-  const base = getNumber(skill.base);
-  const baseRule = rule?.base || {};
-  const maxBase = damageFloor(base * getNumber(baseRule.toMultiplier ?? baseRule.maxMultiplier ?? 1));
-  const baseAtStep = progressiveLinearValue(
-    base * getNumber(baseRule.fromMultiplier ?? 1),
-    maxBase,
-    progress
-  );
-  const coefficientRule = rule?.coefficient || {};
-  const coefficient = progressiveLinearValue(
-    coefficientRule.from ?? coefficientRule.min ?? 0,
-    coefficientRule.to ?? coefficientRule.max ?? coefficientRule.from ?? coefficientRule.min ?? 0,
-    progress
-  );
-  const variable = coefficientRule.variable || 'ap';
-  const raw = damageFloor(baseAtStep + getNumber(context[variable]) * coefficient);
-
-  return {
-    step,
-    raw,
-    final: damageFloor(raw * context.finalMod),
-    coefficient,
-    variable,
-    base: baseAtStep
   };
 }
 
@@ -1366,50 +1016,6 @@ function calculateTacticalSkillEffect({ name, upgraded, level, extraHp, targetHp
   }
 }
 
-function coefficientAtLevel(formula, variableName, level) {
-  const source = String(formula || '');
-  const arrayAfterVariable = source.match(new RegExp(`${variableName}\\s*\\*\\s*(\\[[^\\]]+\\])\\s*\\[\\s*level\\s*-\\s*1\\s*\\]`));
-  const arrayBeforeVariable = source.match(new RegExp(`(\\[[^\\]]+\\])\\s*\\[\\s*level\\s*-\\s*1\\s*\\]\\s*\\*\\s*${variableName}`));
-  const arrayMatch = arrayAfterVariable || arrayBeforeVariable;
-  if (arrayMatch) {
-    try {
-      const values = JSON.parse(arrayMatch[1]);
-      return finiteDamageValue(values[Math.max(0, getNumber(level) - 1)]);
-    } catch {
-      return null;
-    }
-  }
-
-  const afterVariable = source.match(new RegExp(`${variableName}\\s*\\*\\s*(-?\\d+(?:\\.\\d+)?)`));
-  if (afterVariable) return finiteDamageValue(afterVariable[1]);
-
-  const beforeVariable = source.match(new RegExp(`(-?\\d+(?:\\.\\d+)?)\\s*\\*\\s*${variableName}`));
-  if (beforeVariable) return finiteDamageValue(beforeVariable[1]);
-
-  return null;
-}
-
-function skillFormulaDescription(skill, level) {
-  const nextLevel = clampLevel(skill, level);
-  const base = skillBaseAtLevel(skill, nextLevel);
-  const pieces = [`${round(base, 1)}`];
-  [
-    ['ap', '技能增幅'],
-    ['attack', '攻击力'],
-    ['targetHp', '目标体力'],
-    ['stacks', '叠层']
-  ].forEach(([variable, label]) => {
-    const coefficient = coefficientAtLevel(skill.formula, variable, nextLevel);
-    if (coefficient === null) return;
-    pieces.push(`${label}${pct(coefficient)}`);
-  });
-  const compactFormula = pieces.join(' + ');
-  const rawFormula = String(skill.formula || '').trim();
-  return rawFormula
-    ? `${compactFormula}\n原始公式：${rawFormula}`
-    : compactFormula;
-}
-
 function calc({
   equipment,
   skillTable,
@@ -1463,10 +1069,9 @@ function calc({
   const rChargerAttackPower = activeTraitEffectIds.has('rCharger') && usesAttackPath ? 5 + mastery * 0.5 : 0;
   const overclockAp = activeTraitEffectIds.has('overclock') && cd >= 40 && !usesAttackPath ? 10 : 0;
   const overclockAttackPower = activeTraitEffectIds.has('overclock') && cd >= 40 && usesAttackPath ? 5 : 0;
-  const hyperRegenAp = activeTraitEffectIds.has('hyperRegen') && !usesAttackPath ? 10 + mastery : 0;
-  const hyperRegenAttackPower = activeTraitEffectIds.has('hyperRegen') && usesAttackPath ? 5 + mastery * 0.5 : 0;
-  const talentBonusAp = getNumber(traitBonuses.ap) + concentrationAp + huntBearAp + rapidShotAp + rChargerAp + overclockAp + hyperRegenAp;
-  const talentBonusAttackPower = concentrationAttackPower + huntBearAttackPower + rapidShotAttackPower + rChargerAttackPower + overclockAttackPower + hyperRegenAttackPower;
+  // 12.0：超再生不再给予被护盾/治疗目标适应力，因此不再计入攻击力或技能增幅
+  const talentBonusAp = getNumber(traitBonuses.ap) + concentrationAp + huntBearAp + rapidShotAp + rChargerAp + overclockAp;
+  const talentBonusAttackPower = concentrationAttackPower + huntBearAttackPower + rapidShotAttackPower + rChargerAttackPower + overclockAttackPower;
   const pen = statValue(equipmentStats, 'penetrationDefense') + statValue(equipmentStats, 'uniquePenetrationDefense') + talentPen || selected.reduce((sum, item) => sum + getNumber(item.pen), 0) + talentPen;
   const penPct = statValue(equipmentStats, 'penetrationDefenseRatio') + statValue(equipmentStats, 'uniquePenetrationDefenseRatio') + talentPenPct || selected.reduce((sum, item) => sum + getNumber(item.penPct), 0) + talentPenPct;
   const dynamicTraitDefense = activeTraitEffectIds.has('diamondShard') ? 20 + mastery * 5 : 0;
@@ -1499,7 +1104,7 @@ function calc({
   const totalSkillReduction = skillReduction + targetMasterySkillReduction;
   const damageMod = 1 + totalDamageBonus - target.reduction - totalSkillReduction;
   const finalMod = defenseMod * damageMod;
-  const stackCount = Math.min(4, Math.max(0, r2Stacks));
+  const stackCount = Math.min(stackLimit(selectedHero), Math.max(0, r2Stacks));
   const basicAttackDamageIncreaseRatio = totalDamageBonus
     + statValue(equipmentStats, 'increaseBasicAttackDamageRatio')
     + masteryBasicAttackDamageRatio;
@@ -1524,7 +1129,8 @@ function calc({
   const tearBase = 10 + mastery * 2 + target.hp * 0.08;
   const thunderFormula = adaptiveOffenseFormula({ base: 30 + mastery * 2, extraAttack: extraAttackPower, attackRatio: 0.45, ap, apRatio: 0.26 });
   const vortexFormula = adaptiveOffenseFormula({ base: mastery * 5, extraAttack: extraAttackPower, attackRatio: 0.8, ap, apRatio: 0.4 });
-  const cactusBase = 10 + Math.max(0, mastery - 1) * (140 / 19) + target.hp * 0.05;
+  // 12.0：爆炸仙人掌 10~150(+体力上限5%) -> 8~160(+体力上限4%)，并转为核心潜能
+  const cactusBase = 8 + Math.max(0, mastery - 1) * (152 / 19) + target.hp * 0.04;
   const diamondShardBase = mastery * 10;
   const penanceBase = mastery * 15;
   const effects = [
@@ -1553,7 +1159,7 @@ function calc({
       ? { title: '伤口撕裂', raw: damageFloor(tearBase), value: damageFloor(damageFloor(tearBase) * finalMod), note: '10+等级*2+目标当前体力*8%' }
       : null,
     activeTraitEffectIds.has('explosiveCactus')
-      ? { title: '爆炸仙人掌(技)', raw: damageFloor(cactusBase), value: damageFloor(damageFloor(cactusBase) * finalMod), note: '队友普攻/独立技能触发：10~150+敌人体力上限5%；未触发自动爆炸为减少70%的伤害。' }
+      ? { title: '爆炸仙人掌(技)', raw: damageFloor(cactusBase), value: damageFloor(damageFloor(cactusBase) * finalMod), note: '队友普攻/独立技能触发：8~160+敌人体力上限4%；未触发自动爆炸为减少70%的伤害。' }
       : null
   ].filter(Boolean);
   const ghostFire = adaptiveOffenseFormula({ base: 50 + mastery * 10, extraAttack: extraAttackPower, attackRatio: 0.7, ap, apRatio: 0.2 });
@@ -2382,7 +1988,7 @@ export default function App() {
   const [activePage, setActivePage] = useState(initialWorkspaceState.activePage || 'calculator');
   const [gear, setGear] = useState(() => ({ ...DEFAULT_GEAR, ...(initialWorkspaceState.gear || {}) }));
   const [weaponTypeFilter, setWeaponTypeFilter] = useState(initialWorkspaceState.weaponTypeFilter || '全部类型');
-  const [selectedHero, setSelectedHero] = useState(initialWorkspaceState.selectedHero || '俞岷');
+  const [selectedHero, setSelectedHero] = useState(initialWorkspaceState.selectedHero || DEFAULT_HERO);
   const [mastery, setMastery] = useState(getNumber(initialWorkspaceState.mastery) || 20);
   const [talentAp, setTalentAp] = useState(getNumber(initialWorkspaceState.talentAp));
   const [traitSelection, setTraitSelection] = useState(() => normalizeTraitSelection(initialWorkspaceState.traitSelection || DEFAULT_TRAIT_SELECTION));
@@ -2627,8 +2233,10 @@ export default function App() {
   });
   useEffect(() => {
     if (visibleHeroNames.includes(selectedHero)) return;
-    setSelectedHero(visibleHeroNames[0] || '俞岷');
+    setSelectedHero(visibleHeroNames[0] || DEFAULT_HERO);
   }, [selectedHero, showUnsupportedHeroes, showDamageTestHeroes, editMode]);
+  // 叠层选择器由 specialSkillRules.json 的 heroes[英雄].stackSelector 决定
+  const stackSelector = stackSelectorRule(selectedHero);
   const allowedWeaponTypes = new Set(selectedCharacter?.weapons || []);
   const selectedWeaponRaw = weaponTypeFilter !== '全部类型'
     ? weaponTypeFromFilter(weaponTypeFilter)
@@ -3499,41 +3107,38 @@ export default function App() {
               if (progressiveDamageRule(skill)) {
                 return renderProgressiveSkillDamage(skill, skill.title.replace(/^[PQWER]\s*/, '') || skill.title);
               }
-              if (selectedHero === '俞岷' && skill.id === 'yumin-q') {
+              // 展示规则来自 src/data/specialSkillRules.json 的 heroes[英雄].display
+              const rule = skillDisplayRule(selectedHero, skill.id);
+              const defaultLabel = skill.title.replace(/^[PQWER]\s*/, '').replace(/^E([QW])\s*/, '强化$1 ') || skill.title;
+              const label = rule?.label || defaultLabel;
+              const targetKey = `${skill.id}-targets`;
+
+              if (rule && (rule.hits > 1 || rule.secondaryScale !== undefined)) {
+                const hits = Math.max(1, getNumber(rule.hits) || 1);
                 const primarySingle = scaledSkillDamage(skill, result.finalMod);
-                const primary = scaledSkillDamage(skill, result.finalMod, { hits: 3 });
-                const secondarySingle = scaledSkillDamage(skill, result.finalMod, { scale: 0.5 });
-                const secondary = scaledSkillDamage(skill, result.finalMod, { scale: 0.5, hits: 3 });
-                return renderSkillDamageLeaf(skill, '普通Q（三段）', {
-                  targetKey: `${skill.id}-targets`,
-                  primarySingleRaw: primarySingle.raw,
-                  primarySingleFinal: primarySingle.final,
+                const primary = scaledSkillDamage(skill, result.finalMod, { hits });
+                const hasSecondary = rule.secondaryScale !== undefined;
+                const secondarySingle = hasSecondary ? scaledSkillDamage(skill, result.finalMod, { scale: rule.secondaryScale }) : null;
+                const secondary = hasSecondary ? scaledSkillDamage(skill, result.finalMod, { scale: rule.secondaryScale, hits }) : null;
+                return renderSkillDamageLeaf(skill, label, {
+                  targetKey,
+                  targetMax: rule.maxTargets || MULTI_TARGET_MAX,
+                  primarySingleRaw: hasSecondary ? primarySingle.raw : undefined,
+                  primarySingleFinal: hasSecondary ? primarySingle.final : undefined,
                   primaryRaw: primary.raw,
                   primaryFinal: primary.final,
-                  secondarySingleRaw: secondarySingle.raw,
-                  secondarySingleFinal: secondarySingle.final,
-                  secondaryRaw: secondary.raw,
-                  secondaryFinal: secondary.final,
-                  totalLabel: (nextCount) => `${nextCount > 1 ? `${nextCount} 目标总计` : '单目标'}（只算全中）`,
-                  showBreakdown: true
+                  secondarySingleRaw: secondarySingle?.raw,
+                  secondarySingleFinal: secondarySingle?.final,
+                  secondaryRaw: secondary?.raw,
+                  secondaryFinal: secondary?.final,
+                  totalLabel: rule.totalLabelSuffix
+                    ? (nextCount) => `${nextCount > 1 ? `${nextCount} 目标总计` : '单目标'}${rule.totalLabelSuffix}`
+                    : undefined,
+                  showBreakdown: Boolean(rule.showBreakdown)
                 });
               }
-              if (selectedHero === '俞岷' && skill.id === 'yumin-eq') {
-                const primary = scaledSkillDamage(skill, result.finalMod, { hits: 4 });
-                return renderSkillDamageLeaf(skill, '强化Q（四段）', {
-                  targetKey: `${skill.id}-targets`,
-                  primaryRaw: primary.raw,
-                  primaryFinal: primary.final
-                });
-              }
-              const yuminLabel = selectedHero === '俞岷' && skill.id === 'yumin-w'
-                ? '普通W'
-                : selectedHero === '俞岷' && skill.id === 'yumin-ew'
-                  ? '强化W'
-                  : '';
-              const label = yuminLabel || skill.title.replace(/^[PQWER]\s*/, '').replace(/^E([QW])\s*/, '强化$1 ') || skill.title;
-              const targetMax = selectedHero === '俞岷' && skill.id === 'yumin-e' ? 3 : MULTI_TARGET_MAX;
-              return renderSkillDamageLeaf(skill, label, { targetKey: `${skill.id}-targets`, targetMax });
+
+              return renderSkillDamageLeaf(skill, label, { targetKey, targetMax: rule?.maxTargets || MULTI_TARGET_MAX });
             })}
           </div>
         ) : (
@@ -4279,9 +3884,9 @@ export default function App() {
               <p className="eyebrow">Skills</p>
               <h2>{selectedHero} 技能伤害</h2>
             </div>
-            {selectedHero === '奇娅拉' ? (
-              <div className="stackBlocks" aria-label="R2层数">
-                {[0, 1, 2, 3, 4].map((stack) => (
+            {stackSelector ? (
+              <div className="stackBlocks" aria-label={stackSelector.label || '叠层'}>
+                {stackSelector.values.map((stack) => (
                   <button
                     type="button"
                     className={r2Stacks === stack ? 'active' : ''}
