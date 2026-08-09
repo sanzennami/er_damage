@@ -42,7 +42,7 @@ import {
   stackSelectorRule
 } from './lib/specialRules.js';
 
-const APP_VERSION = 'v0.1.061';
+const APP_VERSION = 'v0.1.062';
 
 const EXPORTED_LOCAL_CONFIG_MODULES = import.meta.glob('./data/localConfig.export.json', {
   eager: true,
