@@ -1,0 +1,313 @@
+{
+  "generatedAt": "2026-08-09T00:30:16.531Z",
+  "note": "同一段伤害存在多个来源时的取舍记录；kept 为实际生效来源。",
+  "conflicts": [
+    {
+      "key": "爱琳|1061210|IremCatActive1|Damage",
+      "hero": "爱琳",
+      "title": "Q 无敌喵喵拳",
+      "kept": "manual(90)",
+      "dropped": [
+        "external-official-patch(80)"
+      ]
+    },
+    {
+      "key": "马格努斯|1004300|MagnusActive2|DamageByLevel",
+      "hero": "马格努斯",
+      "title": "W 17对1 基础伤害",
+      "kept": "manual(90)",
+      "dropped": [
+        "er-skill-damage-table(20)"
+      ]
+    },
+    {
+      "key": "娜町|1006500|NadineActive4|DamageByLevel",
+      "hero": "娜町",
+      "title": "R 狼之猛袭 基础伤害",
+      "kept": "manual(90)",
+      "dropped": [
+        "er-skill-damage-table(20)"
+      ]
+    },
+    {
+      "key": "雪|1011100|None|Damage",
+      "hero": "雪",
+      "title": "P 武装式 伤害",
+      "kept": "manual(90)",
+      "dropped": [
+        "er-skill-damage-table(20)",
+        "er-gamedata(10)"
+      ]
+    },
+    {
+      "key": "希瑟拉|1015200|SisselaActive1|Destination Damage",
+      "hero": "希瑟拉",
+      "title": "Q 去吧！威尔逊！ 落点范围伤害",
+      "kept": "in-game-client(60)",
+      "dropped": [
+        "external-wiki-current(40)"
+      ]
+    },
+    {
+      "key": "希瑟拉|1015200|SisselaActive1|Movement Damage",
+      "hero": "希瑟拉",
+      "title": "Q 去吧！威尔逊！ 路径伤害",
+      "kept": "in-game-client(60)",
+      "dropped": [
+        "external-wiki-current(40)"
+      ]
+    },
+    {
+      "key": "希瑟拉|1015300|SisselaActive2|Damage",
+      "hero": "希瑟拉",
+      "title": "W 小威！保护我！ 爆破伤害",
+      "kept": "in-game-client(60)",
+      "dropped": [
+        "external-wiki-current(40)"
+      ]
+    },
+    {
+      "key": "希瑟拉|1015400|SisselaActive3|Damage",
+      "hero": "希瑟拉",
+      "title": "E 一起玩吧！ 技能伤害",
+      "kept": "in-game-client(60)",
+      "dropped": [
+        "external-wiki-current(40)"
+      ]
+    },
+    {
+      "key": "希瑟拉|1015500|SisselaActive4|Additional damage proportional to missing HP",
+      "hero": "希瑟拉",
+      "title": "R 最终解脱 每失去1%体力的额外伤害",
+      "kept": "in-game-client(60)",
+      "dropped": [
+        "external-wiki-current(40)"
+      ]
+    },
+    {
+      "key": "杰琪|1001200|JackieActive1|DamageByLevel",
+      "hero": "杰琪",
+      "title": "Q 连斩 基础伤害",
+      "kept": "er-skill-damage-table(20)",
+      "dropped": [
+        "er-gamedata(10)"
+      ]
+    },
+    {
+      "key": "杰琪|1001200|JackieActive1|DamageByLevel_2",
+      "hero": "杰琪",
+      "title": "Q 连斩 基础伤害 2",
+      "kept": "er-skill-damage-table(20)",
+      "dropped": [
+        "er-gamedata(10)"
+      ]
+    },
+    {
+      "key": "杰琪|1001200|JackieActive1|DFS_DamageByLevel",
+      "hero": "杰琪",
+      "title": "Q 连斩 持续伤害",
+      "kept": "er-skill-damage-table(20)",
+      "dropped": [
+        "er-gamedata(10)"
+      ]
+    },
+    {
+      "key": "杰琪|1001400|JackieActive3|DamageByLevel",
+      "hero": "杰琪",
+      "title": "E 袭击 基础伤害",
+      "kept": "er-skill-damage-table(20)",
+      "dropped": [
+        "er-gamedata(10)"
+      ]
+    },
+    {
+      "key": "杰琪|1001500|JackieActive4|FinishDamageByLevel",
+      "hero": "杰琪",
+      "title": "R 电锯杀人狂 终结伤害",
+      "kept": "er-skill-damage-table(20)",
+      "dropped": [
+        "er-gamedata(10)"
+      ]
+    },
+    {
+      "key": "杰琪|1001500|JackieActive4|DFS_DamageByLevel",
+      "hero": "杰琪",
+      "title": "R 电锯杀人狂 持续伤害",
+      "kept": "er-skill-damage-table(20)",
+      "dropped": [
+        "er-gamedata(10)"
+      ]
+    },
+    {
+      "key": "阿雅|1002200|AyaActive1|DamageByLevel",
+      "hero": "阿雅",
+      "title": "Q 二连射 基础伤害",
+      "kept": "er-skill-damage-table(20)",
+      "dropped": [
+        "er-gamedata(10)"
+      ]
+    },
+    {
+      "key": "马格努斯|1004500|MagnusActive4|DamageByLevel",
+      "hero": "马格努斯",
+      "title": "R 暴走飞车 基础伤害",
+      "kept": "er-skill-damage-table(20)",
+      "dropped": [
+        "er-gamedata(10)"
+      ]
+    },
+    {
+      "key": "扎希尔|1005200|ZahirActive1|DamageByLevel_2",
+      "hero": "扎希尔",
+      "title": "Q 那罗延法宝 基础伤害 2",
+      "kept": "er-skill-damage-table(20)",
+      "dropped": [
+        "er-gamedata(10)"
+      ]
+    },
+    {
+      "key": "玄佑|1007400|HyunwooActive3|DamageByLevel",
+      "hero": "玄佑",
+      "title": "E 先发制人 基础伤害",
+      "kept": "er-skill-damage-table(20)",
+      "dropped": [
+        "er-gamedata(10)"
+      ]
+    },
+    {
+      "key": "埃索|1009500|IsolActive4|Damage",
+      "hero": "埃索",
+      "title": "R MOK 军用地雷 伤害",
+      "kept": "er-skill-damage-table(20)",
+      "dropped": [
+        "er-gamedata(10)"
+      ]
+    },
+    {
+      "key": "李黛琳|1010100|None|A1BaseDamage",
+      "hero": "李黛琳",
+      "title": "P 酒醉值 A1 基础伤害",
+      "kept": "er-skill-damage-table(20)",
+      "dropped": [
+        "er-gamedata(10)"
+      ]
+    },
+    {
+      "key": "李黛琳|1010100|None|A3BaseDamage",
+      "hero": "李黛琳",
+      "title": "P 酒醉值 A3 基础伤害",
+      "kept": "er-skill-damage-table(20)",
+      "dropped": [
+        "er-gamedata(10)"
+      ]
+    },
+    {
+      "key": "李黛琳|1010100|None|A4DamageBase",
+      "hero": "李黛琳",
+      "title": "P 酒醉值 A4 基础伤害",
+      "kept": "er-skill-damage-table(20)",
+      "dropped": [
+        "er-gamedata(10)"
+      ]
+    },
+    {
+      "key": "李黛琳|1010200|LiDailinActive1_1|A1BaseDamage",
+      "hero": "李黛琳",
+      "title": "Q 八卦回龙腿 A1 基础伤害",
+      "kept": "er-skill-damage-table(20)",
+      "dropped": [
+        "er-gamedata(10)"
+      ]
+    },
+    {
+      "key": "李黛琳|1010200|LiDailinActive1_1|A3BaseDamage",
+      "hero": "李黛琳",
+      "title": "Q 八卦回龙腿 A3 基础伤害",
+      "kept": "er-skill-damage-table(20)",
+      "dropped": [
+        "er-gamedata(10)"
+      ]
+    },
+    {
+      "key": "李黛琳|1010200|LiDailinActive1_1|A4DamageBase",
+      "hero": "李黛琳",
+      "title": "Q 八卦回龙腿 A4 基础伤害",
+      "kept": "er-skill-damage-table(20)",
+      "dropped": [
+        "er-gamedata(10)"
+      ]
+    },
+    {
+      "key": "李黛琳|1010400|LiDailinActive3|A1BaseDamage",
+      "hero": "李黛琳",
+      "title": "E 醉蝶敬酒 A1 基础伤害",
+      "kept": "er-skill-damage-table(20)",
+      "dropped": [
+        "er-gamedata(10)"
+      ]
+    },
+    {
+      "key": "李黛琳|1010400|LiDailinActive3|A3BaseDamage",
+      "hero": "李黛琳",
+      "title": "E 醉蝶敬酒 A3 基础伤害",
+      "kept": "er-skill-damage-table(20)",
+      "dropped": [
+        "er-gamedata(10)"
+      ]
+    },
+    {
+      "key": "李黛琳|1010400|LiDailinActive3|A4DamageBase",
+      "hero": "李黛琳",
+      "title": "E 醉蝶敬酒 A4 基础伤害",
+      "kept": "er-skill-damage-table(20)",
+      "dropped": [
+        "er-gamedata(10)"
+      ]
+    },
+    {
+      "key": "李黛琳|1010500|LiDailinActive4|A1BaseDamage",
+      "hero": "李黛琳",
+      "title": "R 猛虎穿心踢 A1 基础伤害",
+      "kept": "er-skill-damage-table(20)",
+      "dropped": [
+        "er-gamedata(10)"
+      ]
+    },
+    {
+      "key": "李黛琳|1010500|LiDailinActive4|A3BaseDamage",
+      "hero": "李黛琳",
+      "title": "R 猛虎穿心踢 A3 基础伤害",
+      "kept": "er-skill-damage-table(20)",
+      "dropped": [
+        "er-gamedata(10)"
+      ]
+    },
+    {
+      "key": "李黛琳|1010500|LiDailinActive4|A4DamageBase",
+      "hero": "李黛琳",
+      "title": "R 猛虎穿心踢 A4 基础伤害",
+      "kept": "er-skill-damage-table(20)",
+      "dropped": [
+        "er-gamedata(10)"
+      ]
+    },
+    {
+      "key": "雪|1011400|YukiActive3|SkillDamage",
+      "hero": "雪",
+      "title": "E 樱花流 技能伤害",
+      "kept": "er-skill-damage-table(20)",
+      "dropped": [
+        "er-gamedata(10)"
+      ]
+    },
+    {
+      "key": "雪|1011500|YukiActive4|SkillDamage",
+      "hero": "雪",
+      "title": "R 樱月剑舞 技能伤害",
+      "kept": "er-skill-damage-table(20)",
+      "dropped": [
+        "er-gamedata(10)"
+      ]
+    }
+  ]
+}

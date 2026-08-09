@@ -10,9 +10,9 @@
 //
 // 所以这一层平时是空转的，只在解包数据和客户端真的打架时才起作用。
 
-import ER_GAME_DATA from '../data/erGameData.json';
+import CHARACTER_DATA from '../data/characters.json';
 import MASTERY_STATS from '../data/masteryStats.json';
-import IN_GAME_SKILL_CAPTURE from '../data/inGameSkillCapture.json';
+import IN_GAME_SKILL_CAPTURE from '../data/sources/inGameSkillCapture.json';
 
 const CAPTURED_STATS = IN_GAME_SKILL_CAPTURE.characterStats || [];
 const CAPTURED_MASTERY = IN_GAME_SKILL_CAPTURE.weaponMastery || [];
@@ -25,7 +25,7 @@ const MASTERY_OVERRIDES = new Map(
 );
 
 /** 实验体列表：解包数据为底，客户端读数只在对账冲突时覆盖。 */
-export const CHARACTERS = (ER_GAME_DATA.characters || []).map((character) => {
+export const CHARACTERS = (CHARACTER_DATA.characters || []).map((character) => {
   const override = STATS_OVERRIDES.get(character.code);
   if (!override) return character;
   return {

@@ -5,7 +5,7 @@ import { fileURLToPath } from 'node:url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const rootDir = path.resolve(__dirname, '..');
 const docsDir = path.join(rootDir, 'docs', 'external-skill-damage');
-const outPath = path.join(rootDir, 'src', 'data', 'externalSkillDamageFallback.json');
+const outPath = path.join(rootDir, 'src', 'data', 'sources', 'externalSkillDamageFallback.json');
 
 const MANUAL_HEROES = new Set(['俞岷', '奇娅拉']);
 const DAMAGE_LABELS = new Map([

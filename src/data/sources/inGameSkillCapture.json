@@ -1,0 +1,612 @@
+{
+  "_comment": "游戏客户端截图读数录入表。数据来自《永恒轮回》客户端「藏品 → 实验体 → 技能」界面显示的参数：技能伤害段（skills/drafts）、统计栏的英雄等级成长（characterStats）、武器熟练度成长（weaponMastery）。",
+  "_usage": "不要手动改 id / bases / maxLevel / title / derivedGrowth / options —— 只填 levelValues、scaling、lv1、lv20，然后跑 `npm run capture:build` 由脚本生成。skills 是入库项（App 会读），drafts 是等级没填齐的草稿（App 忽略）。",
+  "source": "in-game-client",
+  "policy": "技能伤害权威值 60：高于 er-gamedata 解包与 Wiki，低于官方公告 —— 每个实验体只导入一次作为底稿，之后的版本更新一律由官方公告覆盖。成长数据先与 erGameData / masteryStats 对账，一致就只留证据不覆盖，不一致才生成 override。见 src/lib/skillSources.js",
+  "generatedAt": "2026-08-08T18:04:32.690Z",
+  "counts": {
+    "skills": 6,
+    "drafts": 1,
+    "nonDamage": 5,
+    "heroes": 1,
+    "characterStats": 1,
+    "weaponMastery": 1,
+    "statsConflicts": 0
+  },
+  "skills": [
+    {
+      "id": "ingame-015-sissela-q-1015200-destination-damage",
+      "hero": "希瑟拉",
+      "heroKey": "Sissela",
+      "slot": "Q",
+      "group": 1015200,
+      "skillId": "SisselaActive1",
+      "dataKey": "Destination Damage",
+      "title": "Q 去吧！威尔逊！ 落点范围伤害",
+      "damagePart": "落点范围伤害",
+      "levelValues": {
+        "1": 80,
+        "2": 115,
+        "3": 150,
+        "4": 185,
+        "5": 220
+      },
+      "bases": "80,115,150,185,220",
+      "maxLevel": 5,
+      "formula": "base + ap * 0.65",
+      "scaling": {
+        "ap": 0.65
+      },
+      "scalingText": "(+技能增幅65%)",
+      "cooldownByLevel": {
+        "1": 8,
+        "2": 7,
+        "3": 6,
+        "4": 5,
+        "5": 4
+      },
+      "cooldown": "8,7,6,5,4",
+      "source": "in-game-client",
+      "clientPatch": "",
+      "capturedAt": "2026-08-09T00:00:00Z",
+      "updatedAt": "2026-08-09T00:00:00Z",
+      "screenshots": [
+        "希瑟拉-Q-lv1.png"
+      ],
+      "sourceNote": "客户端「藏品 → 实验体 → 技能」界面读数",
+      "note": "LV1 来自客户端截图，LV2~5 由用户逐级口述补齐",
+      "confidence": "high"
+    },
+    {
+      "id": "ingame-015-sissela-q-1015200-movement-damage",
+      "hero": "希瑟拉",
+      "heroKey": "Sissela",
+      "slot": "Q",
+      "group": 1015200,
+      "skillId": "SisselaActive1",
+      "dataKey": "Movement Damage",
+      "title": "Q 去吧！威尔逊！ 路径伤害",
+      "damagePart": "路径伤害",
+      "levelValues": {
+        "1": 40,
+        "2": 50,
+        "3": 60,
+        "4": 70,
+        "5": 80
+      },
+      "bases": "40,50,60,70,80",
+      "maxLevel": 5,
+      "formula": "base + ap * 0.3",
+      "scaling": {
+        "ap": 0.3
+      },
+      "scalingText": "(+技能增幅30%)",
+      "cooldownByLevel": {
+        "1": 8,
+        "2": 7,
+        "3": 6,
+        "4": 5,
+        "5": 4
+      },
+      "cooldown": "8,7,6,5,4",
+      "source": "in-game-client",
+      "clientPatch": "",
+      "capturedAt": "2026-08-09T00:00:00Z",
+      "updatedAt": "2026-08-09T00:00:00Z",
+      "screenshots": [
+        "希瑟拉-Q-lv1.png"
+      ],
+      "sourceNote": "客户端「藏品 → 实验体 → 技能」界面读数",
+      "note": "LV1 来自客户端截图，LV2~5 由用户逐级口述补齐",
+      "confidence": "high"
+    },
+    {
+      "id": "ingame-015-sissela-w-1015300-damage",
+      "hero": "希瑟拉",
+      "heroKey": "Sissela",
+      "slot": "W",
+      "group": 1015300,
+      "skillId": "SisselaActive2",
+      "dataKey": "Damage",
+      "title": "W 小威！保护我！ 爆破伤害",
+      "damagePart": "爆破伤害",
+      "levelValues": {
+        "1": 100,
+        "2": 135,
+        "3": 170,
+        "4": 205,
+        "5": 240
+      },
+      "bases": "100,135,170,205,240",
+      "maxLevel": 5,
+      "formula": "base + ap * 0.8",
+      "scaling": {
+        "ap": 0.8
+      },
+      "scalingText": "(+技能增幅80%)",
+      "cooldownByLevel": {
+        "1": 17,
+        "2": 16,
+        "3": 15,
+        "4": 14,
+        "5": 13
+      },
+      "cooldown": "17,16,15,14,13",
+      "costByLevel": {
+        "1": 50,
+        "2": 60,
+        "3": 70,
+        "4": 80,
+        "5": 90
+      },
+      "cost": "50,60,70,80,90",
+      "source": "in-game-client",
+      "clientPatch": "",
+      "capturedAt": "2026-08-09T00:00:00Z",
+      "updatedAt": "2026-08-09T00:00:00Z",
+      "screenshots": [
+        "希瑟拉-W-lv1.png"
+      ],
+      "sourceNote": "客户端「藏品 → 实验体 → 技能」界面读数",
+      "note": "LV1 来自客户端截图，LV2~5 由用户逐级口述补齐",
+      "confidence": "high"
+    },
+    {
+      "id": "ingame-015-sissela-e-1015400-damage",
+      "hero": "希瑟拉",
+      "heroKey": "Sissela",
+      "slot": "E",
+      "group": 1015400,
+      "skillId": "SisselaActive3",
+      "dataKey": "Damage",
+      "title": "E 一起玩吧！ 技能伤害",
+      "damagePart": "技能伤害",
+      "levelValues": {
+        "1": 110,
+        "2": 125,
+        "3": 140,
+        "4": 155,
+        "5": 170
+      },
+      "bases": "110,125,140,155,170",
+      "maxLevel": 5,
+      "formula": "base + ap * 0.7",
+      "scaling": {
+        "ap": 0.7
+      },
+      "scalingText": "(+技能增幅70%)",
+      "cooldownByLevel": {
+        "1": 11,
+        "2": 10.5,
+        "3": 10,
+        "4": 9.5,
+        "5": 9
+      },
+      "cooldown": "11,10.5,10,9.5,9",
+      "source": "in-game-client",
+      "clientPatch": "",
+      "capturedAt": "2026-08-09T00:00:00Z",
+      "updatedAt": "2026-08-09T00:00:00Z",
+      "screenshots": [
+        "希瑟拉-E-lv1.png"
+      ],
+      "sourceNote": "客户端「藏品 → 实验体 → 技能」界面读数",
+      "note": "LV1 来自客户端截图，LV2~5 由用户逐级口述补齐；无消耗",
+      "confidence": "high"
+    },
+    {
+      "id": "ingame-015-sissela-r-1015500-additional-damage-proportional-to-missing-hp",
+      "hero": "希瑟拉",
+      "heroKey": "Sissela",
+      "slot": "R",
+      "group": 1015500,
+      "skillId": "SisselaActive4",
+      "dataKey": "Additional damage proportional to missing HP",
+      "title": "R 最终解脱 每失去1%体力的额外伤害",
+      "damagePart": "每失去1%体力的额外伤害",
+      "levelValues": {
+        "1": 2,
+        "2": 2,
+        "3": 3
+      },
+      "bases": "2,2,3",
+      "maxLevel": 3,
+      "formula": "base",
+      "cooldownByLevel": {
+        "1": 90,
+        "2": 80,
+        "3": 70
+      },
+      "cooldown": "90,80,70",
+      "source": "in-game-client",
+      "clientPatch": "",
+      "capturedAt": "2026-08-09T00:00:00Z",
+      "updatedAt": "2026-08-09T00:00:00Z",
+      "screenshots": [
+        "希瑟拉-R-lv1.png"
+      ],
+      "sourceNote": "客户端「藏品 → 实验体 → 技能」界面读数",
+      "note": "LV1 来自客户端截图，LV2~3 由用户逐级口述补齐；无消耗",
+      "modelNote": "客户端原文：希瑟拉每失去1%体力值，会给敌人造成额外伤害 2/2/3。当前伤害模型没有「自身已失体力百分比」这个变量，所以这里只存每 1% 的单位值、公式为 base（不再像 Wiki 那样错误地叠 95% 技能增幅）。要真正结算需要给她加 progressiveDamage 档位或特殊规则。",
+      "unit": "每 1% 已失体力",
+      "confidence": "high"
+    },
+    {
+      "id": "ingame-015-sissela-r-1015500-damage",
+      "hero": "希瑟拉",
+      "heroKey": "Sissela",
+      "slot": "R",
+      "group": 1015500,
+      "skillId": "SisselaActive4",
+      "dataKey": "Damage",
+      "title": "R 最终解脱 技能伤害",
+      "damagePart": "技能伤害",
+      "levelValues": {
+        "1": 150,
+        "2": 200,
+        "3": 250
+      },
+      "bases": "150,200,250",
+      "maxLevel": 3,
+      "formula": "base + ap * 0.95",
+      "scaling": {
+        "ap": 0.95
+      },
+      "scalingText": "(+技能增幅95%)",
+      "cooldownByLevel": {
+        "1": 90,
+        "2": 80,
+        "3": 70
+      },
+      "cooldown": "90,80,70",
+      "source": "in-game-client",
+      "clientPatch": "",
+      "capturedAt": "2026-08-09T00:00:00Z",
+      "updatedAt": "2026-08-09T00:00:00Z",
+      "screenshots": [
+        "希瑟拉-R-lv1.png"
+      ],
+      "sourceNote": "客户端「藏品 → 实验体 → 技能」界面读数",
+      "note": "LV1 来自客户端截图，LV2~3 由用户逐级口述补齐；无消耗",
+      "confidence": "high"
+    }
+  ],
+  "drafts": [
+    {
+      "id": "ingame-015-sissela-p-1015100-return-bonus-damage",
+      "hero": "希瑟拉",
+      "heroKey": "Sissela",
+      "slot": "P",
+      "group": 1015100,
+      "skillId": "SisselaPassive",
+      "dataKey": "ReturnBonusDamage",
+      "title": "P 苦痛的记忆 威尔逊回归额外伤害",
+      "damagePart": "威尔逊回归额外伤害",
+      "levelValues": {
+        "1": 30
+      },
+      "bases": "30",
+      "maxLevel": 1,
+      "formula": "base + ap * 0.45",
+      "scalingText": "(+技能增幅45%)(+实验体级别*9)",
+      "cooldownByLevel": {
+        "1": 2,
+        "2": 2,
+        "3": 2
+      },
+      "cooldown": "2,2,2",
+      "source": "in-game-client",
+      "clientPatch": "",
+      "capturedAt": "2026-08-09T00:00:00Z",
+      "updatedAt": "2026-08-09T00:00:00Z",
+      "screenshots": [
+        "希瑟拉-P-lv1.png"
+      ],
+      "sourceNote": "客户端「藏品 → 实验体 → 技能」界面读数",
+      "note": "只拿到 LV1 的基础值 30，LV2/LV3 未知",
+      "modelNote": "客户端原文：30(+技能增幅45%)(+实验体级别 * 9)。公式里的 level 是技能等级、不是实验体等级，模型里没有实验体等级变量，所以 +实验体级别*9 这一项当前无法表达（20 级时相当于少算 180）。",
+      "confidence": "high",
+      "draftReason": "只录到 1 级，这个技能共 3 级"
+    }
+  ],
+  "characterStats": [
+    {
+      "id": "ingame-stats-015-sissela",
+      "hero": "希瑟拉",
+      "heroCode": 15,
+      "heroKey": "Sissela",
+      "lv1": {
+        "hp": 920,
+        "attack": 33,
+        "defense": 50
+      },
+      "lv20": {
+        "hp": 2231,
+        "attack": 114,
+        "defense": 95
+      },
+      "derivedGrowth": {
+        "maxHp": 69,
+        "attackPower": 4.2632,
+        "defense": 2.3684
+      },
+      "repoCheck": "match",
+      "checks": [
+        {
+          "stat": "体力上限",
+          "captured": "920 → 2231",
+          "repo": "920 +69/级 → 2231",
+          "result": "match"
+        },
+        {
+          "stat": "攻击力",
+          "captured": "33 → 114",
+          "repo": "33 +4.3/级 → 114",
+          "result": "match"
+        },
+        {
+          "stat": "防御力",
+          "captured": "50 → 95",
+          "repo": "50 +2.4/级 → 95",
+          "result": "match"
+        }
+      ],
+      "source": "in-game-client",
+      "clientPatch": "",
+      "capturedAt": "2026-08-09T00:00:00Z",
+      "screenshots": [
+        "希瑟拉-Q-lv1.png"
+      ]
+    }
+  ],
+  "weaponMastery": [
+    {
+      "id": "ingame-mastery-015-sissela-direct-fire",
+      "hero": "希瑟拉",
+      "heroCode": 15,
+      "heroKey": "Sissela",
+      "weapon": "暗器",
+      "weaponType": "DirectFire",
+      "maxMasteryLevel": 20,
+      "lv1": {
+        "attackSpeed": 3.2,
+        "skillAmp": 3.9
+      },
+      "lv20": {
+        "attackSpeed": 64,
+        "skillAmp": 78
+      },
+      "options": [
+        {
+          "stat": "AttackSpeedRatio",
+          "capturedPerLevel": 0.032,
+          "capturedDisplay": "3.2% → 64%",
+          "repoValue": 0.032,
+          "levelCheck": "ok",
+          "result": "match"
+        },
+        {
+          "stat": "SkillAmpRatio",
+          "capturedPerLevel": 0.039,
+          "capturedDisplay": "3.9% → 78%",
+          "repoValue": 0.039,
+          "levelCheck": "ok",
+          "result": "match"
+        }
+      ],
+      "repoCheck": "match",
+      "source": "in-game-client",
+      "clientPatch": "",
+      "capturedAt": "2026-08-09T00:00:00Z",
+      "screenshots": [
+        "希瑟拉-Q-lv1.png"
+      ]
+    }
+  ],
+  "nonDamage": [
+    {
+      "id": "ingame-015-sissela-p-1015100-hp-regen-per-second",
+      "hero": "希瑟拉",
+      "heroKey": "Sissela",
+      "slot": "P",
+      "group": 1015100,
+      "skillId": "SisselaPassive",
+      "dataKey": "HpRegenPerSecond",
+      "kind": "other",
+      "title": "P 苦痛的记忆 每秒体力恢复量（随已失体力上升）",
+      "damagePart": "每秒体力恢复量（随已失体力上升）",
+      "levelValues": {
+        "1": 2,
+        "2": 4,
+        "3": 6
+      },
+      "levelValuesTo": {
+        "1": 10,
+        "2": 20,
+        "3": 30
+      },
+      "bases": "2,4,6",
+      "basesTo": "10,20,30",
+      "maxLevel": 3,
+      "formula": "base",
+      "cooldownByLevel": {
+        "1": 2,
+        "2": 2,
+        "3": 2
+      },
+      "cooldown": "2,2,2",
+      "source": "in-game-client",
+      "clientPatch": "",
+      "capturedAt": "2026-08-09T00:00:00Z",
+      "updatedAt": "2026-08-09T00:00:00Z",
+      "screenshots": [
+        "希瑟拉-P-lv1.png"
+      ],
+      "sourceNote": "客户端「藏品 → 实验体 → 技能」界面读数",
+      "note": "LV1 来自客户端截图，LV2~3 由用户逐级口述补齐；无消耗",
+      "unit": "点/秒（区间下界~上界）",
+      "confidence": "high"
+    },
+    {
+      "id": "ingame-015-sissela-p-1015100-passive-skill-amp",
+      "hero": "希瑟拉",
+      "heroKey": "Sissela",
+      "slot": "P",
+      "group": 1015100,
+      "skillId": "SisselaPassive",
+      "dataKey": "PassiveSkillAmp",
+      "kind": "other",
+      "title": "P 苦痛的记忆 技能增幅（随已失体力上升）",
+      "damagePart": "技能增幅（随已失体力上升）",
+      "levelValues": {
+        "1": 4,
+        "2": 7,
+        "3": 10
+      },
+      "levelValuesTo": {
+        "1": 28,
+        "2": 39,
+        "3": 50
+      },
+      "bases": "4,7,10",
+      "basesTo": "28,39,50",
+      "maxLevel": 3,
+      "formula": "base",
+      "cooldownByLevel": {
+        "1": 2,
+        "2": 2,
+        "3": 2
+      },
+      "cooldown": "2,2,2",
+      "source": "in-game-client",
+      "clientPatch": "",
+      "capturedAt": "2026-08-09T00:00:00Z",
+      "updatedAt": "2026-08-09T00:00:00Z",
+      "screenshots": [
+        "希瑟拉-P-lv1.png"
+      ],
+      "sourceNote": "客户端「藏品 → 实验体 → 技能」界面读数",
+      "note": "LV1 来自客户端截图，LV2~3 由用户逐级口述补齐；无消耗",
+      "unit": "技能增幅点数（区间下界~上界）",
+      "confidence": "high"
+    },
+    {
+      "id": "ingame-015-sissela-p-1015100-return-slow",
+      "hero": "希瑟拉",
+      "heroKey": "Sissela",
+      "slot": "P",
+      "group": 1015100,
+      "skillId": "SisselaPassive",
+      "dataKey": "ReturnSlow",
+      "kind": "other",
+      "title": "P 苦痛的记忆 威尔逊回归普攻的移速减缓（2秒）",
+      "damagePart": "威尔逊回归普攻的移速减缓（2秒）",
+      "levelValues": {
+        "1": 10,
+        "2": 20,
+        "3": 30
+      },
+      "bases": "10,20,30",
+      "maxLevel": 3,
+      "formula": "base",
+      "cooldownByLevel": {
+        "1": 2,
+        "2": 2,
+        "3": 2
+      },
+      "cooldown": "2,2,2",
+      "source": "in-game-client",
+      "clientPatch": "",
+      "capturedAt": "2026-08-09T00:00:00Z",
+      "updatedAt": "2026-08-09T00:00:00Z",
+      "screenshots": [
+        "希瑟拉-P-lv1.png"
+      ],
+      "sourceNote": "客户端「藏品 → 实验体 → 技能」界面读数",
+      "note": "LV1 来自客户端截图，LV2~3 由用户逐级口述补齐；无消耗",
+      "unit": "%",
+      "confidence": "high"
+    },
+    {
+      "id": "ingame-015-sissela-e-1015400-shield",
+      "hero": "希瑟拉",
+      "heroKey": "Sissela",
+      "slot": "E",
+      "group": 1015400,
+      "skillId": "SisselaActive3",
+      "dataKey": "Shield",
+      "kind": "shield",
+      "title": "E 一起玩吧！ 护盾（2.5秒）",
+      "damagePart": "护盾（2.5秒）",
+      "levelValues": {
+        "1": 60,
+        "2": 105,
+        "3": 150,
+        "4": 195,
+        "5": 240
+      },
+      "bases": "60,105,150,195,240",
+      "maxLevel": 5,
+      "formula": "base + ap * 0.2",
+      "scaling": {
+        "ap": 0.2
+      },
+      "scalingText": "(+技能增幅的20%)",
+      "cooldownByLevel": {
+        "1": 11,
+        "2": 10.5,
+        "3": 10,
+        "4": 9.5,
+        "5": 9
+      },
+      "cooldown": "11,10.5,10,9.5,9",
+      "source": "in-game-client",
+      "clientPatch": "",
+      "capturedAt": "2026-08-09T00:00:00Z",
+      "updatedAt": "2026-08-09T00:00:00Z",
+      "screenshots": [
+        "希瑟拉-E-lv1.png"
+      ],
+      "sourceNote": "客户端「藏品 → 实验体 → 技能」界面读数",
+      "note": "LV1 来自客户端截图，LV2~5 由用户逐级口述补齐；无消耗",
+      "confidence": "high"
+    },
+    {
+      "id": "ingame-015-sissela-r-1015500-passive-boost-duration",
+      "hero": "希瑟拉",
+      "heroKey": "Sissela",
+      "slot": "R",
+      "group": 1015500,
+      "skillId": "SisselaActive4",
+      "dataKey": "PassiveBoostDuration",
+      "kind": "other",
+      "title": "R 最终解脱 被动效果增强持续时间",
+      "damagePart": "被动效果增强持续时间",
+      "levelValues": {
+        "1": 7,
+        "2": 8,
+        "3": 9
+      },
+      "bases": "7,8,9",
+      "maxLevel": 3,
+      "formula": "base",
+      "cooldownByLevel": {
+        "1": 90,
+        "2": 80,
+        "3": 70
+      },
+      "cooldown": "90,80,70",
+      "source": "in-game-client",
+      "clientPatch": "",
+      "capturedAt": "2026-08-09T00:00:00Z",
+      "updatedAt": "2026-08-09T00:00:00Z",
+      "screenshots": [
+        "希瑟拉-R-lv1.png"
+      ],
+      "sourceNote": "客户端「藏品 → 实验体 → 技能」界面读数",
+      "note": "LV1 来自客户端截图，LV2~3 由用户逐级口述补齐；无消耗",
+      "unit": "秒（被动效果 +100%）",
+      "confidence": "high"
+    }
+  ]
+}

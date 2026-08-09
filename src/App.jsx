@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
-import ER_GAME_DATA from './data/erGameData.json';
+import EQUIPMENT_DATA from './data/equipment.json';
+import CHARACTER_DATA from './data/characters.json';
 import DEFAULT_HELP_NOTES from './data/helpNotes.json';
 import DEFAULT_ANNOUNCEMENT from './data/announcement.json';
 import DEFAULT_LOCAL_CONFIG from './data/localConfig.json';
@@ -261,8 +262,8 @@ const DEFAULT_EQUIPMENT = [
   { type: '鞋子', name: '蔷薇轻履', ap: 50, cd: 10, effect: '觉醒,减疗', quality: '红' },
   { type: '鞋子', name: '精灵之靴', ap: 60, cd: 20, effect: '乘风,减疗', quality: '红' }
 ];
-const INITIAL_EQUIPMENT = ER_GAME_DATA.equipment?.length ? ER_GAME_DATA.equipment : DEFAULT_EQUIPMENT;
-const ITEM_STAT_DEFINITIONS = ER_GAME_DATA.itemStatDefinitions || [];
+const INITIAL_EQUIPMENT = EQUIPMENT_DATA.equipment?.length ? EQUIPMENT_DATA.equipment : DEFAULT_EQUIPMENT;
+const ITEM_STAT_DEFINITIONS = EQUIPMENT_DATA.itemStatDefinitions || [];
 const ITEM_STAT_BY_KEY = Object.fromEntries(ITEM_STAT_DEFINITIONS.map((stat) => [stat.key, stat]));
 const LEVEL_SCALING_STAT_TARGETS = {
   attackPowerByLv: 'attackPower',
@@ -1089,7 +1090,8 @@ function calc({
     criticalStrikeChance: statValue(equipmentStats, 'criticalStrikeChance'),
     criticalStrikeDamage: statValue(equipmentStats, 'criticalStrikeDamage')
   });
-  const context = { ap, attack: attackPower, extraAttack: extraAttackPower, targetHp: target.hp, stacks: stackCount, finalMod };
+  // heroLevel = 界面「熟练度等级」，即实验体等级 1~20，供公式里的等级线性项使用
+  const context = { ap, attack: attackPower, extraAttack: extraAttackPower, targetHp: target.hp, stacks: stackCount, heroLevel: mastery, finalMod };
   const heroSkills = selectedHeroSkillRows
     .map((skill) => calculateSkill(skill, skillLevels[skill.id], context));
   const hpDiffRatio = Math.min(0.4, Math.max(0.1, (target.hp - selfHp) / selfHp));
@@ -2187,7 +2189,7 @@ export default function App() {
     ? (showUnsupportedHeroes ? HEROES : HEROES.filter((hero) => HEROES_WITH_SKILL_DAMAGE.has(hero)))
     : HEROES.filter((hero) => MANUAL_HEROES.includes(hero));
   const selectedCharacter = findCharacterByName(selectedHero);
-  const selectedOfficialSkillGroups = ER_GAME_DATA.rawSkillGroups.filter((skill) => skill.hero === selectedHero);
+  const selectedOfficialSkillGroups = (CHARACTER_DATA.skillGroups || []).filter((skill) => skill.hero === selectedHero);
   const heroPickerOptions = visibleHeroNames.map((hero) => ({
     name: hero,
     character: findCharacterByName(hero)
@@ -2980,6 +2982,8 @@ export default function App() {
       ap: result.ap,
       attack: result.attackPower,
       extraAttack: result.extraAttackPower,
+      targetHp: target.hp,
+      heroLevel: mastery,
       finalMod: result.finalMod
     };
     const selectedStep = progressiveDamageValue(skill, stepContext, stepValue);

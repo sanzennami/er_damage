@@ -7,9 +7,10 @@ import { fileURLToPath } from 'node:url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const rootDir = path.resolve(__dirname, '..');
 const cacheDir = path.join(rootDir, '.er-gamedata-cache');
-const outDir = path.join(rootDir, 'src', 'data');
+const outDir = path.join(rootDir, 'src', 'data', 'sources');
 const outFile = path.join(outDir, 'erGameData.json');
-const masteryOutFile = path.join(outDir, 'masteryStats.json');
+// masteryStats 是 App 直接读取的活数据，留在 src/data 顶层
+const masteryOutFile = path.join(rootDir, 'src', 'data', 'masteryStats.json');
 const repoUrl = 'https://github.com/pypy-vrc/er-gamedata.git';
 
 const SKILL_SLOT_LABELS = new Map([

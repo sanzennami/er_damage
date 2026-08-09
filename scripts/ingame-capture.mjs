@@ -1,7 +1,7 @@
 // 游戏客户端截图录入工具
 //
 // 用途：把《永恒轮回》客户端「藏品 → 实验体 → 技能」界面里显示的技能参数，
-// 规范化成 src/data/inGameSkillCapture.json，供计算器直接读取。
+// 规范化成 src/data/sources/inGameSkillCapture.json，再由 consolidate-hero-skills.mjs 并入 heroSkills.json。
 //
 // 客户端显示的是当前版本的真实生效数值，权威性高于官方公告（公告只写改动项），
 // 因此这个文件的 source 是 `in-game-client`，权威值 85（见 src/lib/skillSources.js）。
@@ -31,7 +31,7 @@ import { evaluateFormula } from '../src/lib/formula.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const rootDir = path.resolve(__dirname, '..');
-const dataDir = path.join(rootDir, 'src', 'data');
+const dataDir = path.join(rootDir, 'src', 'data', 'sources');
 const defaultCapturePath = path.join(dataDir, 'inGameSkillCapture.json');
 
 const SLOTS = ['P', 'Q', 'W', 'E', 'R', 'T', 'D'];
@@ -50,7 +50,7 @@ async function loadContext(capturePath) {
   const [gameData, damageTable, masteryStats, fallback, augments, capture] = await Promise.all([
     readJson(path.join(dataDir, 'erGameData.json')),
     readJson(path.join(dataDir, 'erSkillDamageTable.json')),
-    readJson(path.join(dataDir, 'masteryStats.json')),
+    readJson(path.join(rootDir, 'src', 'data', 'masteryStats.json')),
     readJson(path.join(dataDir, 'externalSkillDamageFallback.json')),
     readJson(path.join(dataDir, 'skillDamageAugments.json')),
     readJson(capturePath)

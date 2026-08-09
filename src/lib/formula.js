@@ -67,6 +67,13 @@ export function clampLevel(skill, level) {
 /**
  * 公式求值。只允许数字、英文变量名、四则运算、括号、逗号和数组下标；
  * 含中文、百分号或函数名的表达式会被白名单拦下并返回 0。
+ *
+ * 可用变量：
+ *   base        当前技能等级的基础值
+ *   ap          技能增幅        attack      攻击力
+ *   extraAttack 额外攻击力      targetHp    目标体力上限
+ *   stacks      叠层            level       技能等级（1 起）
+ *   heroLevel   实验体等级（界面「熟练度等级」，1~20）
  */
 export function evaluateFormula(formula, context) {
   const expression = String(formula || '').trim();
@@ -81,9 +88,19 @@ export function evaluateFormula(formula, context) {
       'targetHp',
       'stacks',
       'level',
+      'heroLevel',
       `"use strict"; return (${expression});`
     );
-    return getNumber(calculate(context.base, context.ap, context.attack, context.extraAttack, context.targetHp, context.stacks, context.level));
+    return getNumber(calculate(
+      context.base,
+      context.ap,
+      context.attack,
+      context.extraAttack,
+      context.targetHp,
+      context.stacks,
+      context.level,
+      context.heroLevel
+    ));
   } catch {
     return 0;
   }
@@ -124,12 +141,15 @@ export function skillFormulaDescription(skill, level) {
   [
     ['ap', '技能增幅'],
     ['attack', '攻击力'],
+    ['extraAttack', '额外攻击力'],
     ['targetHp', '目标体力'],
-    ['stacks', '叠层']
+    ['stacks', '叠层'],
+    ['heroLevel', '实验体等级']
   ].forEach(([variable, label]) => {
     const coefficient = coefficientAtLevel(skill.formula, variable, nextLevel);
     if (coefficient === null) return;
-    pieces.push(`${label}${pct(coefficient)}`);
+    // 实验体等级是「等级 * 系数」的线性项，按倍数显示比百分比更直观
+    pieces.push(variable === 'heroLevel' ? `${label}×${round(coefficient, 2)}` : `${label}${pct(coefficient)}`);
   });
   const compactFormula = pieces.join(' + ');
   const rawFormula = String(skill.formula || '').trim();

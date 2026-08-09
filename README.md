@@ -34,10 +34,12 @@ npm run build
 | --- | --- |
 | `src/App.jsx` | React 组件：状态、装备/潜能计算与全部 UI |
 | `src/lib/formula.js` | 纯计算层：数值处理、公式求值、单条技能伤害、渐进伤害 |
-| `src/lib/skillSources.js` | 技能来源层：按优先级拼装全部技能条目、去重、合并保存的配置 |
-| `src/lib/specialRules.js` | 特殊计算规则层：读取 `specialSkillRules.json` 并覆盖到技能表 |
+| `src/lib/skillSources.js` | 技能数据层：读取 `heroSkills.json`、按权威值去重、合并浏览器保存的配置 |
+| `src/lib/specialRules.js` | 展示与结算行为层：读取 `specialSkillRules.json`（多段命中 / 叠层 / 连段） |
+| `src/lib/characterStats.js` | 实验体成长属性层：解包值为底，客户端读数冲突时覆盖 |
 | `src/main.jsx` | React 入口 |
-| `src/data/*.json` | **所有可改数据**，见第 4 节；结构说明见 `src/data/README.md` |
+| `src/data/*.json` | **所有可改数据**（顶层＝编辑入口），见第 4 节；字段说明见 `src/data/README.md` |
+| `src/data/sources/*.json` | 原始导入源，脚本产出，App 不读，只作整合输入与溯源 |
 | `styles/globals.css` | 全部样式 |
 | `scripts/*.mjs` | 数据抓取 / 导出 / 审计脚本 |
 | `docs/` | 生成的数据快照、覆盖率与来源审计报告 |
@@ -70,66 +72,51 @@ npm run build
 saved ? { ...saved, ...item, effect: saved.effect || item.effect } : item
 ```
 
-- `item` 是 `erGameData.json` 里的官方装备，**官方字段覆盖用户保存的字段**。
+- `item` 是 `equipment.json` 里的官方装备，**官方字段覆盖用户保存的字段**。
 - 只有 `effect` 例外：用户填了就用用户的。
 - 官方表里没有的（`code` 和 `name` 都不冲突）自定义装备会追加到列表末尾。
 
 **结论：**
-- 想修正一件**官方已有装备**的数值 → 必须改 `src/data/erGameData.json`（或重新跑导出脚本），改 `localConfig.json` 无效。
-- 想加**自定义/测试装备** → 在 `localConfig.json` 的 `equipment` 里新增一条，`name` 不要和官方重名、不要写 `code`。
+- 想修正一件**官方已有装备**的数值 → 改 `src/data/equipment.json`。
+- 想加**自定义装备** → 也在 `equipment.json` 里追加一条，`name` 不要和官方重名、不要写 `code`。
 
-### 3.3 技能合并规则
+### 3.3 技能数据：只有一张表
 
-`mergeSkills()`（`src/lib/skillSources.js:198`）：
+技能统一放在 **`src/data/heroSkills.json`**，一段伤害只有一条。
+各来源之间的取舍已经由 `scripts/consolidate-hero-skills.mjs` 在**离线**做完，运行时不再跨文件比较优先级。
 
-```js
-{ ...initialSkill, ...skill, progressiveDamage: skill.progressiveDamage || initialSkill.progressiveDamage }
-```
+#### 为什么这么设计
 
-- 与装备相反：**用户/`localConfig` 的字段覆盖内置生成条目**，所以技能可以直接在 `localConfig.json` 里改。
+er-gamedata 是玩家自发维护的解包内容，不保证准确（旧表把杰琪、翡翠这类物理英雄的系数错记成技能增幅 `ap`，
+正确的是攻击力 `attack`）。它只用来把技能骨架跑一遍初始化，**之后的数值和效果一律以官方公告为准**。
 
-#### 数据来源的定位
+以前同一段伤害会在 5 个文件里各留一份，改错文件就白改（例如「雪 P 武装式」曾经有两条，
+改旧解包表那条完全不生效）。现在整合成一张表，这个坑从结构上消失了。
 
-**er-gamedata 是玩家自发维护的解包内容，不保证准确。** 它只用来把技能骨架（技能组、伤害段、文案模板）跑一遍初始化；
-之后的数值和效果一律以**官方更新公告**为准。实际踩过的坑：解包旧表把杰琪、翡翠这类物理英雄的系数错记成了技能增幅（`ap`），
-而正确的是攻击力（`attack`）。
+#### 权威值
 
-因此优先级按**数据权威性**决定，**与条目放在哪个文件无关**（`SKILL_SOURCE_AUTHORITY`，`src/lib/skillSources.js`）：
+一段伤害的身份是 `hero + group + skillId + dataKey`。同身份的多个来源按权威值择优：
 
 | 权威值 | `source` | 含义 |
 | ---: | --- | --- |
-| 100 | `special-skill-rule` | 人工特殊计算规则（`specialSkillRules.json`） |
-| 90 | `manual` | **人工录入 / 手改**：任何文件里 `"manual": true` 的条目 |
+| 100 | `special-skill-rule` | 人工特殊计算规则（俞岷、奇娅拉） |
+| 90 | `manual` | **人工录入 / 手改**（条目上 `"manual": true`） |
 | 80 | `official-patch-note`、`external-official-patch` | 官方更新公告 |
+| 60 | `in-game-client` | 客户端界面读数 |
 | 40 | `external-wiki-current` 等 | 官方 Wiki |
 | 20 | `er-skill-damage-table` | er-gamedata 结构化解包 |
-| 10 | `er-gamedata` | er-gamedata 旧版解包（最不可信） |
+| 10 | `er-gamedata` | er-gamedata 旧版解包 |
 
-同权威值再比 `updatedAt` 取新；仍相同则按来源文件可信度（结构化表 > 补充表 > Wiki/公告表 > 旧版表）；再相同取靠后的。
+同权威值再比 `updatedAt` 取新。**一段伤害同时有人工录入、官方公告、Wiki、客户端四份数据时，保留人工录入那条**，
+其余三条写进该条目的 `alternatives` 字段留档（只供核对，不参与计算）。
 
-#### 一段伤害只保留一条
+当前分布：Wiki 241 条、官方公告 128 条、解包 186 条、人工 20 条、客户端 6 条，共 581 条 / 86 名英雄。
 
-去重键是**一段伤害的身份**：`hero | group | skillId | dataKey`（**不含 `title`**）。
-同一段伤害无论来自解包表还是公告表，身份相同，只保留权威最高的那条——不会再出现「Q 连斩」和「Q 连斩 基础伤害」两行数值打架。
-手动条目通常没有 `group`/`skillId`/`dataKey`，这时退回用 `hero | title` 区分，不会被误合并。
+#### 与浏览器缓存的关系
 
-#### 参与拼装的文件（都可以手改）
-
-| 文件 | 定位 |
-| --- | --- |
-| `src/data/specialSkillRules.json` | 人工规则，最后整体盖回，不参与比较 |
-| `src/data/erSkillDamageTable.json` | 解包骨架；标了 `manual` 的行升到 90 且重新导出时不被覆盖 |
-| `src/data/skillDamageAugments.json` | 补强化普攻 / 强化技能 / 额外伤害 |
-| `src/data/externalSkillDamageFallback.json` | Wiki 结构 + 官方公告数值 |
-| `src/data/erGameData.json` → `skills` | 旧版解包表 |
-
-**优先级 0（人工规则）不参与比较**：拼装完、以及每次合并 `localStorage` 保存的配置之后，都会由 `applySpecialSkillRules()` 整体盖回。
-规则表里标了 `manual: true` 的英雄（俞岷、奇娅拉），生成表的条目根本不会进入合并。
-
-**结论：**
-- 想改**已校对英雄**（俞岷、奇娅拉）→ 只改 `specialSkillRules.json`，改别处无效。
-- 想让一条手改值压过所有生成数据 → 给它加 `"manual": true`（见 6.5）。
-- 想新增一条不冲突的技能 → 用一个新的 `dataKey`（或留空 `group`/`skillId`/`dataKey` 并换标题）。
+`mergeSkills()`（`src/lib/skillSources.js`）：内置条目权威值更高时（手改、或官方公告更新了数值），
+内置数据压过 `localStorage` 里的旧缓存；否则保留用户在页面上的改动。
+英雄改名和 `dataMigrations.json` 里登记的译名会自动迁移，**数值不会**——想看到新数值需要清一次 `er-damage-config-v1`。
 
 ---
 
@@ -139,21 +126,19 @@ saved ? { ...saved, ...item, effect: saved.effect || item.effect } : item
 
 | 文件 | 内容 | 日常是否手改 |
 | --- | --- | --- |
-| `src/data/specialSkillRules.json` | **特殊计算规则**：已校对英雄的公式 + 特殊展示/叠层规则 | ✅ 手写 |
-| `src/data/localConfig.json` | **主要人工入口**：`equipment` / `skills` / `talents` / `combos` | ✅ 常改 |
-| `src/data/skillDamageAugments.json` | 自动表没覆盖的强化技能、额外伤害 | ✅ 可改 |
-| `src/data/externalSkillDamageFallback.json` | Wiki / 官方补丁兜底技能伤害 | ✅ 可改 |
-| `src/data/erGameData.json` | 角色、装备、属性定义、旧技能表（解包导出） | ✅ 改装备数值时改这里 |
-| `src/data/erSkillDamageTable.json` | er-gamedata 解包骨架 | ✅ 可改，加 `manual: true` 防覆盖（见 6.5） |
-| `src/data/erSkillTables.json` | 技能原始表归一化快照（脚本生成，仅查来源） | ❌ |
-| `src/data/masteryStats.json` | 每级熟练度成长属性（脚本生成） | ⚠️ |
+| `src/data/heroSkills.json` | **技能唯一入口**：全部技能，一段伤害一条 | ✅ 改技能只改这里 |
+| `src/data/equipment.json` | **装备**：661 件 + 60 个属性定义 | ✅ 改装备只改这里 |
+| `src/data/characters.json` | 实验体基础/成长属性 + 技能组索引 | ✅ 跟官方公告改 |
+| `src/data/specialSkillRules.json` | 展示与结算行为（多段/次要目标/叠层/连段），**不含公式** | ✅ 手写 |
+| `src/data/masteryStats.json` | 每级武器熟练度成长 | ✅ 跟官方公告改 |
 | `src/data/itemUniqueEffects.json` | 装备独有效果名映射（按 code / name） | ✅ |
-| `src/data/dakLoadoutAssets.json` | 潜能组 / 潜能 / 战术技能及图标（DAK.GG 抓取） | ⚠️ |
-| `src/data/dakItemSkillIcons.json` | 装备图标与 tooltip | ⚠️ |
-| `src/data/helpNotes.json` | 界面帮助气泡文案 | ✅ |
-| `src/data/announcement.json` | 公告栏 | ✅ |
-| `src/data/dataMigrations.json` | 旧缓存迁移表：把 localStorage 里的过期译名换成当前值 | 官方改译名时追加 |
+| `src/data/localConfig.json` | 页面配置表默认值：`talents` / `combos` | ✅ 天赋常改 |
+| `src/data/dataMigrations.json` | 旧缓存译名迁移表 | 官方改译名时追加 |
+| `src/data/dakLoadoutAssets.json` | 潜能 / 战术技能及图标 | ⚠️ |
+| `src/data/dakItemSkillIcons.json` | 装备图标与 tooltip | ⚠️ 脚本生成 |
+| `src/data/helpNotes.json` / `announcement.json` | 帮助气泡 / 公告文案 | ✅ |
 | `src/data/localConfig.export.json` | 存在即锁定全部配置（见 3.1） | 按需 |
+| `src/data/sources/*.json` | 原始导入源，App 不读，只作整合输入与溯源 | ❌ 跑脚本重建 |
 
 所有 JSON 都是**标准 JSON，不能写 `//` 注释**。项目约定用 `_comment` / `_usage` 字段当注释头，代码会忽略它们。
 
@@ -163,7 +148,7 @@ saved ? { ...saved, ...item, effect: saved.effect || item.effect } : item
 
 ### 5.1 装备条目结构
 
-`erGameData.json` 里的官方条目（完整形态）：
+`equipment.json` 里的官方条目（完整形态）：
 
 ```json
 {
@@ -216,7 +201,7 @@ saved ? { ...saved, ...item, effect: saved.effect || item.effect } : item
 | `penetrationDefenseRatio` | `penPct` | 百分比防御穿透（小数） |
 | —（无别名） | `dmgAmp` | 伤害增幅（小数） |
 
-其他 `stats` 键（暴击、攻速、适性攻击力等）以 `erGameData.json` 的 `itemStatDefinitions` 为准，共 60 项，`key` 就是可以写进 `stats` 的名字。
+其他 `stats` 键（暴击、攻速、适性攻击力等）以 `equipment.json` 的 `itemStatDefinitions` 为准，共 60 项，`key` 就是可以写进 `stats` 的名字。
 
 三条特殊规则：
 
@@ -254,7 +239,7 @@ saved ? { ...saved, ...item, effect: saved.effect || item.effect } : item
 
 ### 6.1 技能条目结构
 
-写在 `localConfig.json` 的 `skills` 数组（或 `skillDamageAugments.json` / `externalSkillDamageFallback.json` 的 `skills`，字段基本一致）：
+全部技能写在 **`src/data/heroSkills.json`** 的 `skills` 数组里，**改技能只改这一个文件**：
 
 ```json
 {
@@ -277,7 +262,7 @@ saved ? { ...saved, ...item, effect: saved.effect || item.effect } : item
 | 字段 | 必填 | 说明 |
 | --- | --- | --- |
 | `id` | ✅ | 全局唯一。连段 `hits` 引用它，改名要同步改连段 |
-| `hero` | ✅ | 英雄中文名，必须和 `erGameData.json` 的 `characters[].name` 一致，否则技能不会出现在任何英雄下 |
+| `hero` | ✅ | 英雄中文名，必须和 `characters.json` 的 `characters[].name` 一致，否则技能不会出现在任何英雄下 |
 | `title` | ✅ | 显示名，建议 `Q 一段` / `R 二段`；开头的 `P/Q/W/E/R` 用来归入技能槽位列 |
 | `bases` | ✅ | 各级基础伤害，英文逗号分隔；也可写成数组 |
 | `formula` | ✅ | 伤害公式，见 6.2 |
@@ -300,6 +285,7 @@ saved ? { ...saved, ...item, effect: saved.effect || item.effect } : item
 | `targetHp` | 目标体力上限 |
 | `stacks` | 界面叠层输入 |
 | `level` | 当前技能等级，从 1 开始 |
+| `heroLevel` | **实验体等级**（界面「熟练度等级」，1~20） |
 
 写法示例：
 
@@ -309,6 +295,7 @@ saved ? { ...saved, ...item, effect: saved.effect || item.effect } : item
 "formula": "base + targetHp * 0.08"
 "formula": "(base + ap * 0.25) * (1 + stacks * 0.2)"
 "formula": "base + ap * [0.45,0.5,0.55,0.6,0.65][level - 1]"
+"formula": "base + heroLevel * 8 + ap * 0.6"
 ```
 
 **限制**：只允许数字、英文变量名、`+ - * / ( ) , [ ] _`。不能写中文、百分号、函数名。`65% 技能增幅` 要写成 `ap * 0.65`。表达式非法或抛错时，伤害按 `0` 处理（不会报错，只会显示 0，排查时注意）。
@@ -344,20 +331,54 @@ raw   = floor(base + context[coefficient.variable] * coef)
 
 有 `progressiveDamage` 的技能，界面会自动出现一个档位选择器，`formula` 不再参与该技能的伤害计算。
 
-### 6.4 特殊计算规则（specialSkillRules.json）
+### 6.4 手改一条技能（`manual` 标记）
 
-需要**手动指定计算方式**、或者公式已经人工校对好、不希望被任何生成数据覆盖的英雄，写在 `src/data/specialSkillRules.json`。
-只要英雄出现在这个文件里，计算器就按这里的规则算，生成表和 `localStorage` 里的旧缓存都不会覆盖它。
+想让手改值压过任何生成数据，给这条加 `"manual": true`：
+
+```jsonc
+{
+  "id": "011-yuki-p-1011100-damage",
+  "hero": "雪",
+  "title": "P 武装式 伤害",
+  "group": 1011100, "skillId": "None", "dataKey": "Damage",
+  "bases": "25,35,45",
+  "maxLevel": 3,
+  "formula": "40 + attack * base * 0.01",
+
+  "manual": true,                         // ← 权威值升到 90
+  "sourceUrl": "https://playeternalreturn.com/posts/news/3629?hl=zh-CN",
+  "sourceNote": "官方公告 11.4 数值"
+}
+```
+
+加上之后：
+
+1. **权威值 90**，压过官方公告(80)、客户端(60)、Wiki(40)、解包(20/10)；
+2. **重跑整合脚本不会覆盖它** —— `consolidate-hero-skills.mjs` 会把权威值 ≥ 90 的条目原样保留；
+3. **可以写任意合法公式**（解包表只能表达 `base + 系数 * 变量`，手改不受此限）。
+
+条目里的 `alternatives` 是被淘汰来源的留档，**不参与计算**，可以直接用来对照其它来源怎么写的：
+
+```jsonc
+"alternatives": [
+  { "source": "er-skill-damage-table", "authority": 20, "bases": "15,30,45", "formula": "base" },
+  { "source": "er-gamedata",           "authority": 10, "bases": "15,30,45", "formula": "base + ap * 0" }
+]
+```
+
+> 新增一条技能：用一个新的 `dataKey` 即可（身份不同就不会被合并）。
+> `group` / `skillId` 可从 `characters.json` 的 `skillGroups` 里查。
+
+### 6.5 展示与结算行为（specialSkillRules.json）
+
+**公式不在这里** —— 这个文件只管"算出来之后怎么显示、怎么叠加"：多段命中、次要目标衰减、
+目标数上限、叠层选择器、连段，以及哪些英雄由人工完全接管。
 
 ```jsonc
 "heroes": {
   "俞岷": {
-    "manual": true,                      // 生成表不参与该英雄的技能合并
-    "skills": [                          // 技能条目，字段与普通技能一致（hero 自动补）
-      { "id": "yumin-q", "title": "Q 每跳", "bases": "50,65,80,95,110",
-        "formula": "base + ap * 0.4", "maxLevel": 5 }
-    ],
-    "display": {                         // 展示 / 结算方式
+    "manual": true,                      // 该英雄不接受任何生成数据
+    "display": {
       "yumin-q": {
         "label": "普通Q（三段）",
         "hits": 3,                       // 命中段数：单发先取整再乘段数
@@ -367,67 +388,22 @@ raw   = floor(base + context[coefficient.variable] * coef)
         "maxTargets": 3                  // 目标数上限，默认 10
       }
     },
-    "combos": [ { "id": "yumin-q3", "title": "Q 三跳全中", "hits": { "yumin-q": 3 } } ],
-    "stackSelector": {                   // 叠层选择器（奇娅拉 R2 层数用的就是它）
+    "combos": [ { "id": "yumin-q3", "title": "Q 三跳全中", "hits": { "yumin-q": 3 } } ]
+  },
+  "奇娅拉": {
+    "stackSelector": {                   // 值会传给公式里的 stacks 变量
       "label": "R2层数", "values": [0, 1, 2, 3, 4], "default": 1, "max": 4
     }
   }
 }
 ```
 
-字段说明：
+顶层 `defaultHero` 是页面初始英雄。
 
-| 字段 | 作用 |
-| --- | --- |
-| `manual` | 为 `true` 时，生成表里该英雄的条目全部丢弃，只用这里的 `skills` |
-| `skills` | 技能条目，字段与第 6.1 节一致；`hero` 由所在键自动补上 |
-| `display[skillId].label` | 界面显示名，覆盖由 `title` 推导的默认名 |
-| `display[skillId].hits` | 命中段数；单发伤害先向下取整再乘段数，与原实现一致 |
-| `display[skillId].secondaryScale` | 次要目标倍率；填了才会显示“主要/次要目标”四行拆分 |
-| `display[skillId].showBreakdown` | 是否显示主/次分项 |
-| `display[skillId].totalLabelSuffix` | 合计行标签后缀，例如“（只算全中）” |
-| `display[skillId].maxTargets` | 目标数步进器上限，默认 10 |
-| `combos` | 该英雄的连段，格式同第 6.5 节 |
-| `stackSelector` | 叠层按钮组，值会传给公式里的 `stacks` 变量 |
-| `defaultHero`（顶层） | 页面初始英雄、以及新建连段的默认英雄 |
+**俞岷、奇娅拉的公式已经人工校对完成**，在 `heroSkills.json` 里以 `source: "special-skill-rule"`（权威值 100）存放，
+整合脚本重跑也会原样保留。要调整就改 `heroSkills.json` 里那 16 条，不要在别处改。
 
-**俞岷、奇娅拉的公式已经人工校对完成，请不要在别处修改或增减；需要调整就改这个文件。**
-
-### 6.5 手改生成表（`manual` 标记）
-
-`erSkillDamageTable.json` 等"生成表"**不是只读的**。er-gamedata 由玩家自发维护，解包结果经常与游戏内不符，
-遇到这种情况直接改表即可，只要给这一行加上 `"manual": true`：
-
-```jsonc
-{
-  "standardId": "001-jackie-q-1001200-damage-by-level",
-  "heroName": "杰琪",
-  "skillGroup": 1001200,
-  "baseKey": "DamageByLevel",
-  "lv1": 30, "lv2": 50, "lv3": 70, "lv4": 90, "lv5": 110,
-  "coefLv1": 0.55,
-
-  "manual": true,                                   // ← 关键
-  "formula": "base + attack * 0.55 + targetHp * 0.07",
-  "updatedAt": "2026-06-11",
-  "sourceUrl": "https://playeternalreturn.com/posts/news/3629?hl=zh-CN",
-  "sourceNote": "官方公告 11.4 数值"
-}
-```
-
-加上之后：
-
-1. **权威值升到 90**，压过所有生成数据（只有 `specialSkillRules.json` 更高）；
-2. **重新跑导出脚本不会覆盖它** —— `export-er-skill-damage-table.mjs` 会先读旧文件，
-   把 `manual: true` 的行原样保留，并在控制台列出保留了哪些行；解包数据里已经不存在、但手工加过的行也会保留；
-3. **可以直接写 `formula`** —— 解包表只能表达 `base + 系数 * 变量`，手改行不受此限制，
-   可以写 `targetHp`、`extraAttack` 等任意合法表达式（见 6.2）。
-
-同样的 `"manual": true` 也适用于 `skillDamageAugments.json`、`externalSkillDamageFallback.json`、
-`erGameData.json` 的 `skills`——权威判定只看 `source` 和 `manual` 字段，不看条目在哪个文件里。
-
-> 数值来源优先级：**官方更新公告 > 官方 Wiki > er-gamedata 解包**。
-> 抓公告见第 9 节（务必带 `hl=zh-CN`）。
+> **改数值 → `heroSkills.json`；改显示/叠加方式 → `specialSkillRules.json`。**
 
 ### 6.6 连段（combos）
 
@@ -449,7 +425,7 @@ raw   = floor(base + context[coefficient.variable] * coef)
 
 ### 6.7 新增一个英雄的完整流程
 
-1. 确认 `erGameData.json` 的 `characters` 里有这个英雄（没有就先跑 `npm run update:gamedata`）。
+1. 确认 `characters.json` 的 `characters` 里有这个英雄（没有就先跑 `npm run update:gamedata` 再跑整合）。
 2. 在 `localConfig.json` 的 `skills` 里按 6.1 逐条补技能，`hero` 用中文名。
 3. 需要连段就在 `combos` 里加。
 4. `npm run dev`，在英雄选择器里切到该英雄核对数值（界面右下"计算过程"面板会展开中间量）。
@@ -500,7 +476,8 @@ npm run update:gamedata
 
 | 脚本 | 作用 | 产物 |
 | --- | --- | --- |
-| `scripts/update-er-gamedata.mjs` | 同步 er-gamedata，导出角色/装备/属性定义/熟练度 | `src/data/erGameData.json`、`masteryStats.json` |
+| `scripts/update-er-gamedata.mjs` | 同步 er-gamedata，导出角色/装备/属性定义/熟练度 | `src/data/sources/erGameData.json`、`masteryStats.json` |
+| `scripts/consolidate-hero-skills.mjs` | **把 sources/ 整合成 heroSkills / equipment / characters 三张表** | `src/data/*.json`、`docs/data-consolidation/` |
 | `scripts/export-er-skill-tables.mjs` | 归一化技能组/等级/扩展表 | `docs/skill-tables/`、`src/data/erSkillTables.json` |
 | `scripts/export-er-skill-damage-table.mjs` | 导出结构化技能伤害表（文案优先取 DAK.GG 中文接口） | `docs/skill-damage/`、`src/data/erSkillDamageTable.json` |
 | `scripts/export-missing-skill-damage-heroes.mjs` | 列出缺伤害数据的英雄/技能 | `docs/external-skill-damage/missing-*` |
@@ -553,11 +530,11 @@ localStorage 键：
 ## 11. 常见坑
 
 1. **改了 `localConfig.json` 没生效** → `localConfig.export.json` 存在，或 localStorage 里有旧配置。
-2. **改了装备数值没生效** → 官方装备被 `erGameData.json` 覆盖（3.2），去改 `erGameData.json` 或换个自定义名字。
+2. **改了装备数值没生效** → 官方装备会覆盖用户保存值（3.2），改 `equipment.json`；或浏览器 `localStorage` 里有旧缓存，清一次 `er-damage-config-v1`。
 3. **技能改了没生效** → 被 `dedupeSkillsByLatest` 用同键的更新条目挤掉，补一个更大的 `updatedAt`。
-3b. **改了俞岷 / 奇娅拉却没变** → 这两个英雄由 `specialSkillRules.json` 全权接管，改 `localConfig.json`、生成表或页面配置表都不会生效。
+3b. **改了技能却没变** → 确认改的是 `heroSkills.json`（不是 `sources/` 里的导入源），并且浏览器 `localStorage` 没有更高优先级的旧缓存。
 4. **伤害显示 0** → `formula` 含中文/百分号/函数名，被白名单正则拦下静默返回 0。
-5. **新技能不出现在任何英雄下** → `hero` 中文名和 `erGameData.json` 的角色名对不上。
+5. **新技能不出现在任何英雄下** → `hero` 中文名和 `characters.json` 的角色名对不上。
 6. **`bases` 个数和 `maxLevel` 不一致** → 等级选择器和实际取值会错位。
 7. **百分比字段** → 一律写小数（`0.15` 表示 15%），不要写 `15`。
 8. **`import.meta.glob` 静态资源** → 新增角色/装备图片后需要重启 dev server。
@@ -569,8 +546,9 @@ localStorage 键：
 - 改动尽量小、聚焦公式；不要随意引入新依赖（当前只有 react / react-dom + vite）。
 - 改公式时对照工作簿或官方来源，并在 `sourceNote` / `sourceUrl` 里留出处。
 - 抓官方公告用 `hl=zh-CN`，译名以公告中文版为准；改了已发布条目的译名时，同步在 `src/data/dataMigrations.json` 追加一条迁移。
-- **不要擅自改动已人工校对的公式**：俞岷、奇娅拉的数值由 `src/data/specialSkillRules.json` 固定，数据导出脚本和补丁迁移脚本都不许碰它们。
-- **er-gamedata 只用于一次性初始化**：技能描述与公式骨架抓一次即可，之后的数值/效果改动走官方更新公告；发现解包数据不对就直接改表并加 `"manual": true`。
+- **不要擅自改动已人工校对的公式**：俞岷、奇娅拉的 16 条公式在 `heroSkills.json` 里以 `source: "special-skill-rule"` 存放，整合脚本会原样保留，任何生成流程都不许碰它们。
+- **er-gamedata 只用于一次性初始化**：技能骨架抓一次即可，之后的数值/效果改动走官方更新公告；发现解包数据不对就直接改 `heroSkills.json` 并加 `"manual": true`。
+- **技能只有一张表**：不要再往 `sources/` 里手改数据，那里是脚本产物；重新抓取后跑 `node scripts/consolidate-hero-skills.mjs` 并进 `heroSkills.json`。
 - 英雄的专属计算/展示逻辑一律写进 `specialSkillRules.json`，不要再往 `App.jsx` 里加 `selectedHero === 'xxx'` 这类特判。
 - 纯计算函数放 `src/lib/formula.js`，数据装配放 `src/lib/skillSources.js`，`App.jsx` 只留 React 与 UI。
 - 提交前跑 `npm run build`。

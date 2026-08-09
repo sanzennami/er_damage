@@ -8,7 +8,7 @@ const rootDir = path.resolve(__dirname, '..');
 const cacheDir = path.join(rootDir, '.er-gamedata-cache');
 const outDir = path.join(rootDir, 'docs', 'skill-damage');
 const skillTablesPath = path.join(rootDir, 'docs', 'skill-tables', 'er-skill-tables.json');
-const dataDir = path.join(rootDir, 'src', 'data');
+const dataDir = path.join(rootDir, 'src', 'data', 'sources');
 
 const repoUrl = 'https://github.com/pypy-vrc/er-gamedata';
 const dakApiBase = 'https://er.dakgg.io/api/v1/data';
