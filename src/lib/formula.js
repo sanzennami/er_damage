@@ -1,7 +1,9 @@
 // 纯计算层：数值处理、技能公式求值、单条技能伤害。
 //
 // 这里的函数都是纯函数，不依赖 React 也不读任何全局状态，方便单独测试和复用。
-// 公式可用变量见 docs/config-json-guide.md：base / ap / attack / extraAttack / targetHp / stacks / level。
+// 公式可用变量见 src/data/README.md：base / ap / attack / extraAttack /
+// targetHp / targetCurrentHp / targetLostHp / maxHp / extraHp / defense / shield /
+// critChance / stacks / level / heroLevel。
 
 export function getNumber(value) {
   const next = Number(value);
@@ -72,35 +74,27 @@ export function clampLevel(skill, level) {
  *   base        当前技能等级的基础值
  *   ap          技能增幅        attack      攻击力
  *   extraAttack 额外攻击力      targetHp    目标体力上限
+ *   maxHp       自身体力上限    extraHp     自身额外体力（装备/潜能提供的那部分）
+ *   defense     自身防御力      shield      自身护盾量
+ *   critChance  暴击率（0~1）
+ *   targetCurrentHp 目标当前体力   targetLostHp 目标已失体力
  *   stacks      叠层            level       技能等级（1 起）
  *   heroLevel   实验体等级（界面「熟练度等级」，1~20）
  */
+const FORMULA_VARIABLES = [
+  'base', 'ap', 'attack', 'extraAttack',
+  'targetHp', 'targetCurrentHp', 'targetLostHp',
+  'maxHp', 'extraHp', 'defense', 'shield', 'critChance',
+  'stacks', 'level', 'heroLevel'
+];
+
 export function evaluateFormula(formula, context) {
   const expression = String(formula || '').trim();
   if (!/^[\d\s+\-*/().,_A-Za-z[\]]+$/.test(expression)) return 0;
 
   try {
-    const calculate = Function(
-      'base',
-      'ap',
-      'attack',
-      'extraAttack',
-      'targetHp',
-      'stacks',
-      'level',
-      'heroLevel',
-      `"use strict"; return (${expression});`
-    );
-    return getNumber(calculate(
-      context.base,
-      context.ap,
-      context.attack,
-      context.extraAttack,
-      context.targetHp,
-      context.stacks,
-      context.level,
-      context.heroLevel
-    ));
+    const calculate = Function(...FORMULA_VARIABLES, `"use strict"; return (${expression});`);
+    return getNumber(calculate(...FORMULA_VARIABLES.map((name) => context[name])));
   } catch {
     return 0;
   }
@@ -143,6 +137,13 @@ export function skillFormulaDescription(skill, level) {
     ['attack', '攻击力'],
     ['extraAttack', '额外攻击力'],
     ['targetHp', '目标体力'],
+    ['targetCurrentHp', '目标当前体力'],
+    ['targetLostHp', '目标已失体力'],
+    ['maxHp', '自身体力'],
+    ['extraHp', '额外体力'],
+    ['defense', '防御力'],
+    ['shield', '护盾'],
+    ['critChance', '暴击率'],
     ['stacks', '叠层'],
     ['heroLevel', '实验体等级']
   ].forEach(([variable, label]) => {

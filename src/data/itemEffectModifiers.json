@@ -1,0 +1,190 @@
+{
+  "_comment": "装备独有效果里「改属性 / 增伤减伤」的那些。和 itemEffectDamage.json 分工：那边是独立伤害段，这边是修正项。",
+  "_usage": "装上带该效果的装备后自动生效。condition 为空＝常驻；targetHpBelow 会读界面「目标当前体力%」；toggle 表示需要界面开关（叠层类，默认不满层）。数值按官方 tooltip 的满层值写。",
+  "source": "客户端物品 tooltip（dakItemSkillIcons.json）",
+  "version": "12.0b",
+  "modifierKeys": {
+    "ap": "技能增幅（法强）加值",
+    "attackPower": "攻击力加值",
+    "attackPowerPct": "攻击力百分比加成",
+    "damageBonus": "自身造成伤害提升（进最终伤害倍率）",
+    "pen": "防御穿透固定值",
+    "penPct": "防御穿透百分比",
+    "targetDefensePct": "目标防御力减少百分比",
+    "cd": "冷却缩减",
+    "basicAttackBonus": "普攻伤害提升（只作用于普攻，不影响技能伤害）"
+  },
+  "effects": [
+    {
+      "name": "炽燃 - 增幅",
+      "label": "炽燃 - 增幅（满 6 层）",
+      "toggle": {
+        "label": "炽燃满层（6 层）"
+      },
+      "modifiers": {
+        "damageBonus": 0.15
+      },
+      "note": "使用独立技能命中敌方实验体叠层，每层技能伤害 +2.5%，上限 6 层。此前被错误地当成 +24 法强。"
+    },
+    {
+      "name": "炽燃 - 激燃",
+      "label": "炽燃 - 激燃（满 8 层）",
+      "toggle": {
+        "label": "炽燃满层（8 层）"
+      },
+      "modifiers": {
+        "attackPower": 24
+      },
+      "note": "普攻命中叠层，每层攻击力 +3、攻速 +3%，上限 8 层。攻速不参与技能伤害计算。"
+    },
+    {
+      "name": "炽燃 - 强化",
+      "label": "炽燃 - 强化（满 5 层）",
+      "toggle": {
+        "label": "炽燃满层（5 层）"
+      },
+      "modifiers": {
+        "attackPower": 15
+      },
+      "note": "普攻命中叠层，每层攻击力 +3，上限 5 层。"
+    },
+    {
+      "name": "炽燃 - 耐性",
+      "label": "炽燃 - 耐性（满 6 层）",
+      "toggle": {
+        "label": "炽燃满层（6 层）"
+      },
+      "modifiers": {},
+      "note": "每层防御力 +2.5%，上限 6 层。只影响自身承伤，不影响输出，故没有伤害修正。"
+    },
+    {
+      "name": "魔力种子",
+      "label": "魔力种子（满 20 层）",
+      "toggle": {
+        "label": "魔力种子满层（20 层）"
+      },
+      "modifiers": {
+        "ap": 20,
+        "cd": 20
+      },
+      "note": "每层 +1 技能增幅，上限 20 层；满层额外 +20 冷却缩减。"
+    },
+    {
+      "name": "光辉",
+      "label": "光辉（体力 > 60%）",
+      "toggle": {
+        "label": "光辉已触发（体力 > 60%）"
+      },
+      "modifiers": {
+        "damageBonus": 0.12
+      },
+      "note": "自身体力大于 60% 时技能伤害 +12%。"
+    },
+    {
+      "name": "刽子手",
+      "label": "刽子手（目标体力 < 40%）",
+      "condition": {
+        "targetHpBelow": 0.4
+      },
+      "modifiers": {
+        "damageBonus": 0.15
+      },
+      "note": "敌人当前体力低于体力上限 40% 时，对其技能伤害 +15%。跟着界面「目标当前体力%」自动生效。"
+    },
+    {
+      "name": "次元裂痕",
+      "label": "次元裂痕（次元紊乱）",
+      "modifiers": {
+        "damageBonus": 0.06
+      },
+      "note": "终极技能命中后目标承受伤害 +6%，持续 5 秒。伤害部分另见 itemEffectDamage.json。"
+    },
+    {
+      "name": "粉碎",
+      "label": "粉碎（满 5 层）",
+      "toggle": {
+        "label": "粉碎满层（5 层）"
+      },
+      "modifiers": {
+        "targetDefensePct": 0.2
+      },
+      "note": "普攻或独立技能给目标叠层，每层敌人防御力 -4%，上限 5 层。"
+    },
+    {
+      "name": "邪恶之雾",
+      "label": "邪恶之雾（区域内）",
+      "modifiers": {
+        "targetDefensePct": 0.12
+      },
+      "note": "区域内敌人防御力 -12%。伤害部分另见 itemEffectDamage.json。"
+    },
+    {
+      "name": "雷鸣裁决",
+      "label": "雷鸣裁决",
+      "modifiers": {
+        "pen": 12
+      },
+      "note": "5 秒内命中 2 次后进入状态，防御穿透 +12，持续 8 秒。"
+    },
+    {
+      "name": "神速 - 鲁德拉的短剑",
+      "label": "神速 - 鲁德拉的短剑",
+      "modifiers": {
+        "attackPowerPct": 0.12
+      },
+      "note": "4 秒内造成 3 次伤害后触发，攻击力 +12%，持续 3 秒。"
+    },
+    {
+      "name": "双重假面",
+      "label": "双重假面（内心的愤怒）",
+      "modifiers": {
+        "attackPowerPct": 0.1
+      },
+      "note": "体力低于 50% 时受伤触发，攻击力 +10%、吸血 +8%（吸血不影响伤害）。"
+    },
+    {
+      "name": "专注力",
+      "label": "专注力（满 10 层）",
+      "toggle": {
+        "label": "专注力满层"
+      },
+      "modifiers": {
+        "basicAttackBonus": 0.1
+      },
+      "note": "普攻命中同一敌人叠层，每层普攻伤害 +1%，上限 10 层；换目标时叠层 -30%。只影响普攻，不影响技能伤害。"
+    },
+    {
+      "name": "泰瑟电击 - 跳跃",
+      "label": "泰瑟电击 - 跳跃（减防）",
+      "modifiers": {
+        "targetDefensePct": 0.08
+      },
+      "note": "强化普攻命中后目标防御力 4 秒内 -8%。伤害部分见 itemEffectDamage.json。"
+    },
+    {
+      "name": "逆流 - 血之契约",
+      "label": "逆流 - 血之契约（增益）",
+      "toggle": {
+        "label": "逆流 - 血之契约已触发"
+      },
+      "modifiers": {
+        "ap": 30
+      },
+      "note": "触发后 8 秒内 +15 攻击力或 +30 技能增幅，按法系路线取技能增幅。"
+    }
+  ],
+  "notModelled": [
+    {
+      "name": "寒波",
+      "why": "只有减速"
+    },
+    {
+      "name": "先锋",
+      "why": "只减自身承受伤害"
+    },
+    {
+      "name": "凝聚 / 热情 / 觉醒 等",
+      "why": "攻速或移速，不进技能伤害"
+    }
+  ]
+}

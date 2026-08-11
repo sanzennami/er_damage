@@ -1,7 +1,43 @@
 {
-  "generatedAt": "2026-08-09T00:30:16.531Z",
+  "generatedAt": "2026-08-09T07:48:01.567Z",
   "note": "同一段伤害存在多个来源时的取舍记录；kept 为实际生效来源。",
   "conflicts": [
+    {
+      "key": "阿隆索|1068200|AlonsoActive1|Connected Enemy Max HP Damage (%)",
+      "hero": "阿隆索",
+      "title": "Q 磁石之握 额外伤害",
+      "kept": "manual(90)",
+      "dropped": [
+        "external-wiki-current(40)"
+      ]
+    },
+    {
+      "key": "阿隆索|1068300|AlonsoActive2|Final Damage",
+      "hero": "阿隆索",
+      "title": "W 磁盾光波 终结伤害",
+      "kept": "manual(90)",
+      "dropped": [
+        "external-wiki-current(40)"
+      ]
+    },
+    {
+      "key": "阿隆索|1068500|AlonsoActive4|Final Damage (Min)",
+      "hero": "阿隆索",
+      "title": "R 磁吸漩涡 Final Damage (Min)",
+      "kept": "manual(90)",
+      "dropped": [
+        "external-wiki-current(40)"
+      ]
+    },
+    {
+      "key": "艾比盖尔|1067200|AbigailActive1|Initial Damage",
+      "hero": "艾比盖尔",
+      "title": "Q 二元自旋 一段伤害",
+      "kept": "official-patch-note(80)",
+      "dropped": [
+        "external-wiki-current(40)"
+      ]
+    },
     {
       "key": "爱琳|1061210|IremCatActive1|Damage",
       "hero": "爱琳",
@@ -9,6 +45,195 @@
       "kept": "manual(90)",
       "dropped": [
         "external-official-patch(80)"
+      ]
+    },
+    {
+      "key": "芭芭拉|1026500|BarbaraActive4_Overclock|Ultra Free-Electron Laser Damage",
+      "hero": "芭芭拉",
+      "title": "R 超时实验 Ultra Free-Electron Laser Damage",
+      "kept": "official-patch-note(80)",
+      "dropped": [
+        "external-wiki-current(40)"
+      ]
+    },
+    {
+      "key": "达尔科|1074200|DarkoActive1|Damage",
+      "hero": "达尔科",
+      "title": "Q 天价利息",
+      "kept": "manual(90)",
+      "dropped": [
+        "external-wiki-current(40)"
+      ]
+    },
+    {
+      "key": "翡翠|1078400|HisuiActive3|Damage",
+      "hero": "翡翠",
+      "title": "E 月轮斩",
+      "kept": "manual(90)",
+      "dropped": [
+        "external-wiki-current(40)"
+      ]
+    },
+    {
+      "key": "翡翠|1078500|HisuiActive4_1|[Tsubame Gaeshi!] Damage",
+      "hero": "翡翠",
+      "title": "R 物干焯 / 燕返 Tsubame Gaeshi! Damage",
+      "kept": "manual(90)",
+      "dropped": [
+        "external-wiki-current(40)"
+      ]
+    },
+    {
+      "key": "费利克斯|1049500|FelixActive4|Minimum Damage",
+      "hero": "费利克斯",
+      "title": "R 雷龙一击 Minimum Damage",
+      "kept": "manual(90)",
+      "dropped": [
+        "external-wiki-current(40)"
+      ]
+    },
+    {
+      "key": "盖瑞特|1076200|GarnetActive1_1|Damage",
+      "hero": "盖瑞特",
+      "title": "Q 重击&尖刺",
+      "kept": "manual(90)",
+      "dropped": [
+        "external-wiki-current(40)"
+      ]
+    },
+    {
+      "key": "盖瑞特|1076200|GarnetActive1_1|Recast Damage",
+      "hero": "盖瑞特",
+      "title": "Q 重击&尖刺 Recast Damage",
+      "kept": "manual(90)",
+      "dropped": [
+        "external-wiki-current(40)"
+      ]
+    },
+    {
+      "key": "盖瑞特|1076300|GarnetActive2|Minimum Damage",
+      "hero": "盖瑞特",
+      "title": "W 压抑之痛 Minimum Damage",
+      "kept": "manual(90)",
+      "dropped": [
+        "external-wiki-current(40)"
+      ]
+    },
+    {
+      "key": "卡拉|1054100|None|Fully Charged Damage",
+      "hero": "卡拉",
+      "title": "P 水手的较量 Fully Charged Damage",
+      "kept": "official-patch-note(80)",
+      "dropped": [
+        "external-wiki-current(40)"
+      ]
+    },
+    {
+      "key": "卡米洛|1039200|CamiloActive1_1|Initial Damage",
+      "hero": "卡米洛",
+      "title": "Q 弗拉门戈舞 一段伤害",
+      "kept": "manual(90)",
+      "dropped": [
+        "external-wiki-current(40)"
+      ]
+    },
+    {
+      "key": "卡米洛|1039210|CamiloActive1_2|Initial Damage",
+      "hero": "卡米洛",
+      "title": "Q 弗拉门戈舞 - 升华 一段伤害",
+      "kept": "manual(90)",
+      "dropped": [
+        "external-wiki-current(40)"
+      ]
+    },
+    {
+      "key": "卡缇娅|1072200|KatjaActive1|Maximum Damage",
+      "hero": "卡缇娅",
+      "title": "Q 绝命狙击 Maximum Damage",
+      "kept": "official-patch-note(80)",
+      "dropped": [
+        "external-wiki-current(40)"
+      ]
+    },
+    {
+      "key": "卡缇娅|1072200|KatjaActive1|Minimum Damage",
+      "hero": "卡缇娅",
+      "title": "Q 绝命狙击 Minimum Damage",
+      "kept": "manual(90)",
+      "dropped": [
+        "external-wiki-current(40)"
+      ]
+    },
+    {
+      "key": "卡缇娅|1072500|KatjaActive4|Initial Damage",
+      "hero": "卡缇娅",
+      "title": "R 暗影终结 一段伤害",
+      "kept": "manual(90)",
+      "dropped": [
+        "external-wiki-current(40)"
+      ]
+    },
+    {
+      "key": "凯希|1023300|CathyActive2|Enhanced damage",
+      "hero": "凯希",
+      "title": "W 截断 强化伤害",
+      "kept": "official-patch-note(80)",
+      "dropped": [
+        "external-skill-damage-wiki-current(40)"
+      ]
+    },
+    {
+      "key": "劳拉|1047500|LauraActive4|Second Damage",
+      "hero": "劳拉",
+      "title": "R 幻影神偷 二段伤害",
+      "kept": "official-patch-note(80)",
+      "dropped": [
+        "external-wiki-current(40)"
+      ]
+    },
+    {
+      "key": "雷妮|1069100|None|Damage",
+      "hero": "雷妮",
+      "title": "P 熊熊出动！",
+      "kept": "manual(90)",
+      "dropped": [
+        "official-patch-note(80)"
+      ]
+    },
+    {
+      "key": "雷妮|1069200|LeniActive1|Damage",
+      "hero": "雷妮",
+      "title": "Q 胡萝卜火箭炮",
+      "kept": "manual(90)",
+      "dropped": [
+        "official-patch-note(80)"
+      ]
+    },
+    {
+      "key": "雷妮|1069400|LeniActive3|Damage",
+      "hero": "雷妮",
+      "title": "E 欢迎喇叭",
+      "kept": "manual(90)",
+      "dropped": [
+        "official-patch-note(80)"
+      ]
+    },
+    {
+      "key": "雷妮|1069500|LeniActive4|Damage",
+      "hero": "雷妮",
+      "title": "R 小熊出没",
+      "kept": "manual(90)",
+      "dropped": [
+        "official-patch-note(80)"
+      ]
+    },
+    {
+      "key": "卢克|1022500|LukeActive4|Extra Damage",
+      "hero": "卢克",
+      "title": "R 售后服务 额外伤害",
+      "kept": "official-patch-note(80)",
+      "dropped": [
+        "external-skill-damage-wiki-current(40)"
       ]
     },
     {
@@ -30,6 +255,60 @@
       ]
     },
     {
+      "key": "妮娅|1081500|NiahActive4|Damage",
+      "hero": "妮娅",
+      "title": "R 妮娅的游戏世界",
+      "kept": "manual(90)",
+      "dropped": [
+        "external-wiki-current(40)"
+      ]
+    },
+    {
+      "key": "普里亚|1051200|PriyaActive1|Full Bloom Damage",
+      "hero": "普里亚",
+      "title": "Q 绽放的旋律 Full Bloom Damage",
+      "kept": "official-patch-note(80)",
+      "dropped": [
+        "external-wiki-current(40)"
+      ]
+    },
+    {
+      "key": "西尔维娅|1016400|SilviaHumanActive3|Minimum Damage",
+      "hero": "西尔维娅",
+      "title": "E 备用轮 Minimum Damage",
+      "kept": "manual(90)",
+      "dropped": [
+        "external-wiki-current(40)"
+      ]
+    },
+    {
+      "key": "秀雅|1028400|SuaActive3|Enhanced damage",
+      "hero": "秀雅",
+      "title": "E 堂吉诃德 强化伤害",
+      "kept": "official-patch-note(80)",
+      "dropped": [
+        "external-skill-damage-wiki-current(40)"
+      ]
+    },
+    {
+      "key": "秀雅|1028500|SuaActive4_1|Memory of Don Quixote Damage",
+      "hero": "秀雅",
+      "title": "R 记忆力 记忆-堂吉诃德",
+      "kept": "official-patch-note(80)",
+      "dropped": [
+        "external-skill-damage-wiki-current(40)"
+      ]
+    },
+    {
+      "key": "秀雅|1028500|SuaActive4_1|Memory of The Curious Case Damage",
+      "hero": "秀雅",
+      "title": "R 记忆力 记忆-青鸟",
+      "kept": "official-patch-note(80)",
+      "dropped": [
+        "external-skill-damage-wiki-current(40)"
+      ]
+    },
+    {
       "key": "雪|1011100|None|Damage",
       "hero": "雪",
       "title": "P 武装式 伤害",
@@ -37,6 +316,96 @@
       "dropped": [
         "er-skill-damage-table(20)",
         "er-gamedata(10)"
+      ]
+    },
+    {
+      "key": "燕翼|1070200|TsubameActive1|Damage",
+      "hero": "燕翼",
+      "title": "Q 螺旋手里剑",
+      "kept": "official-patch-note(80)",
+      "dropped": [
+        "external-wiki-current(40)"
+      ]
+    },
+    {
+      "key": "燕翼|1070200|TsubameActive1|Second Damage",
+      "hero": "燕翼",
+      "title": "Q 螺旋手里剑 二段伤害",
+      "kept": "official-patch-note(80)",
+      "dropped": [
+        "external-wiki-current(40)"
+      ]
+    },
+    {
+      "key": "扬|1035200|JanActive1_1|Enhancement Damage",
+      "hero": "扬",
+      "title": "Q 膝踢 强化伤害",
+      "kept": "official-patch-note(80)",
+      "dropped": [
+        "external-skill-damage-wiki-current(40)"
+      ]
+    },
+    {
+      "key": "伊舒特|1080200|IstvanActive1|[Variable] Enhanced Damage",
+      "hero": "伊舒特",
+      "title": "Q 观测 [Variable] Enhanced Damage",
+      "kept": "manual(90)",
+      "dropped": [
+        "external-skill-damage-wiki-current(40)"
+      ]
+    },
+    {
+      "key": "尤斯蒂娜|1079200|JustynaActive1_1|Reactivation Damage",
+      "hero": "尤斯蒂娜",
+      "title": "Q 连环炮击&歼灭炮击 再次使用伤害",
+      "kept": "official-patch-note(80)",
+      "dropped": [
+        "external-wiki-current(40)"
+      ]
+    },
+    {
+      "key": "约翰|1041400|JohannActive3|Enhanced Damage",
+      "hero": "约翰",
+      "title": "E 指引的光芒 强化伤害",
+      "kept": "official-patch-note(80)",
+      "dropped": [
+        "external-skill-damage-wiki-current(40)"
+      ]
+    },
+    {
+      "key": "彰一|1018500|ShoichiActive4|Damage",
+      "hero": "彰一",
+      "title": "R 无情杀戮",
+      "kept": "official-patch-note(80)",
+      "dropped": [
+        "external-wiki-current(40)"
+      ]
+    },
+    {
+      "key": "Eleven|1030200|ElevenActive1|Minimum Damage",
+      "hero": "Eleven",
+      "title": "Q 汉堡少女 Minimum Damage",
+      "kept": "manual(90)",
+      "dropped": [
+        "external-wiki-current(40)"
+      ]
+    },
+    {
+      "key": "Eleven|1030300|ElevenActive2|Minimum Damage",
+      "hero": "Eleven",
+      "title": "W 开播啦！ Minimum Damage",
+      "kept": "manual(90)",
+      "dropped": [
+        "external-wiki-current(40)"
+      ]
+    },
+    {
+      "key": "Eleven|1030400|ElevenActive3|Minimum Damage",
+      "hero": "Eleven",
+      "title": "E 汉堡骑越 Minimum Damage",
+      "kept": "manual(90)",
+      "dropped": [
+        "external-wiki-current(40)"
       ]
     },
     {

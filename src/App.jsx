@@ -6,6 +6,8 @@ import DEFAULT_HELP_NOTES from './data/helpNotes.json';
 import DEFAULT_ANNOUNCEMENT from './data/announcement.json';
 import DEFAULT_LOCAL_CONFIG from './data/localConfig.json';
 import ITEM_UNIQUE_EFFECTS from './data/itemUniqueEffects.json';
+import ITEM_EFFECT_DAMAGE from './data/itemEffectDamage.json';
+import ITEM_EFFECT_MODIFIERS from './data/itemEffectModifiers.json';
 import DAK_LOADOUT_ASSETS from './data/dakLoadoutAssets.json';
 import DAK_ITEM_SKILL_ICONS from './data/dakItemSkillIcons.json';
 import { CHARACTERS, findCharacterByName, masteryStatFor } from './lib/characterStats.js';
@@ -16,6 +18,7 @@ import {
   clampLevel,
   clone,
   damageFloor,
+  evaluateFormula,
   formulaUsesVariable,
   getNumber,
   pct,
@@ -28,7 +31,6 @@ import {
 } from './lib/formula.js';
 import {
   DEFAULT_COMBOS,
-  HEROES_WITH_SKILL_DAMAGE,
   INITIAL_SKILLS,
   OFFICIAL_DATA_COUNTS,
   mergeCombos,
@@ -38,8 +40,8 @@ import {
   DEFAULT_HERO,
   MANUAL_HEROES,
   skillDisplayRule,
-  stackLimit,
-  stackSelectorRule
+  stackLimitForHero,
+  stackSelectorForHero
 } from './lib/specialRules.js';
 
 const APP_VERSION = 'v0.1.062';
@@ -185,8 +187,8 @@ const ACTIVE_TRAITS = (DAK_LOADOUT_ASSETS.traits || [])
   .sort((a, b) => (a.sortOrder || 0) - (b.sortOrder || 0));
 const TRAIT_BY_ID = Object.fromEntries(ACTIVE_TRAITS.map((trait) => [String(trait.id), trait]));
 const VAMPIRE_STACK_TRAIT_ID = '7000401';
-const BLAZING_SKILL_AMP_EFFECTS = new Set(['炽燃 - 增幅', '炽燃']);
-const MAGIC_SEED_EFFECT = '魔力种子';
+// 哪些装备特效需要开关，现在由 itemEffectDamage.json / itemEffectModifiers.json 的 toggle 声明，
+// 不再在这里硬编码效果名（原来的 BLAZING_SKILL_AMP_EFFECTS 把三种不同的炽燃混成了一个开关）。
 const CONDITIONAL_DAMAGE_AMP_EFFECTS = new Set(['光辉']);
 const DAK_ITEM_TOOLTIP_BY_CODE = new Map((DAK_ITEM_SKILL_ICONS.equipment || []).map((item) => [String(item.id), item.tooltip || '']));
 const DEFAULT_TRAIT_SELECTION = {
@@ -506,6 +508,99 @@ function uniqueEffectsForItem(item) {
   return [...new Set(effects.map(normalizeUniqueEffect).filter(Boolean))];
 }
 
+/**
+ * 需要界面开关的装备特效（叠层类、条件触发类）。两张表里凡是写了 toggle 的都算，
+ * 按效果名去重 —— 装上带该效果的装备后，对应开关才会出现。
+ */
+const EFFECT_TOGGLE_LABELS = new Map(
+  [...(ITEM_EFFECT_DAMAGE.effects || []), ...(ITEM_EFFECT_MODIFIERS.effects || [])]
+    .filter((effect) => effect.toggle)
+    .map((effect) => [effect.name, effect.toggle.label || effect.name])
+);
+
+function toggleableEffectsFor(items) {
+  const equipped = new Set(items.flatMap((item) => uniqueEffectsForItem(item)));
+  return [...EFFECT_TOGGLE_LABELS.entries()]
+    .filter(([name]) => equipped.has(name))
+    .map(([name, label]) => ({ name, label }));
+}
+
+/** 声明了开关但没勾上的效果不参与计算 */
+const effectEnabled = (effect, effectToggles = {}) => !effect.toggle || Boolean(effectToggles[effect.name]);
+
+/** 开关的悬停说明：把该效果在两张表里的 note 拼起来 */
+function effectToggleHint(name) {
+  return [...(ITEM_EFFECT_DAMAGE.effects || []), ...(ITEM_EFFECT_MODIFIERS.effects || [])]
+    .filter((effect) => effect.name === name)
+    .map((effect) => effect.note)
+    .filter(Boolean)
+    .join('\n');
+}
+
+/**
+ * 已装备装备的独有效果伤害。公式表在 src/data/itemEffectDamage.json，
+ * 变量和技能公式共用一套（ap / attack / extraAttack / targetHp / maxHp / extraHp / heroLevel）。
+ * 只列出真的装上了的效果，没装的不显示。
+ */
+function equipmentEffectDamages(items, context, effectToggles = {}) {
+  const equippedNames = new Set(items.flatMap((item) => uniqueEffectsForItem(item)));
+  const owners = new Map();
+  for (const item of items) {
+    for (const name of uniqueEffectsForItem(item)) {
+      if (!owners.has(name)) owners.set(name, []);
+      owners.get(name).push(item.name);
+    }
+  }
+
+  const SUFFIX = { true: '(真伤)', shield: '(护盾)', skill: '(技)' };
+  return (ITEM_EFFECT_DAMAGE.effects || [])
+    .filter((effect) => equippedNames.has(effect.name) && effectEnabled(effect, effectToggles))
+    .map((effect) => {
+      const raw = damageFloor(evaluateFormula(effect.formula, { ...context, base: 0, level: 1 }));
+      // 真实伤害和护盾不吃防御与减伤，技能伤害走最终倍率
+      const flat = effect.damageType === 'true' || effect.damageType === 'shield';
+      const single = flat ? raw : damageFloor(raw * context.finalMod);
+      const hits = Math.max(1, getNumber(effect.hits) || 1);
+      const from = (owners.get(effect.name) || []).join('、');
+      return {
+        title: `${effect.label || effect.name}${SUFFIX[effect.damageType] || '(技)'}${hits > 1 ? ` ×${hits}` : ''}`,
+        raw: raw * hits,
+        value: single * hits,
+        // 护盾不是伤害，不进「特效小计」
+        excludeFromSubtotal: effect.damageType === 'shield',
+        note: [effect.coefficientText, hits > 1 ? `单次 ${single}，共 ${hits} 次` : '', effect.note, from ? `来自 ${from}` : '']
+          .filter(Boolean).join('；')
+      };
+    });
+}
+
+/**
+ * 已装备装备的独有效果**修正项**（增伤、攻击力、防御穿透、目标减防…）。
+ * 表在 src/data/itemEffectModifiers.json，取代原来散在代码里的魔法数字
+ *（那批常量已经和官方数值脱节：炽燃-增幅本是「每层技能伤害+2.5%」，却被写成了 +24 法强）。
+ */
+function equipmentEffectModifiers(items, { effectToggles = {}, targetHpRatio = 1 } = {}) {
+  const equipped = new Set(items.flatMap((item) => uniqueEffectsForItem(item)));
+  const total = {
+    ap: 0, attackPower: 0, attackPowerPct: 0, damageBonus: 0,
+    pen: 0, penPct: 0, targetDefensePct: 0, cd: 0, basicAttackBonus: 0
+  };
+  const applied = [];
+
+  for (const effect of ITEM_EFFECT_MODIFIERS.effects || []) {
+    if (!equipped.has(effect.name)) continue;
+    if (!effectEnabled(effect, effectToggles)) continue;
+    const below = effect.condition?.targetHpBelow;
+    if (below !== undefined && targetHpRatio >= below) continue;
+    for (const [key, value] of Object.entries(effect.modifiers || {})) {
+      if (total[key] === undefined) continue;
+      total[key] += getNumber(value);
+    }
+    if (Object.keys(effect.modifiers || {}).length) applied.push(effect);
+  }
+  return { ...total, applied };
+}
+
 function itemDirectStatValue(item, key) {
   const stats = item?.stats || {};
   const directValue = statValue(stats, key);
@@ -633,13 +728,23 @@ function normalizeComparisonScenario(scenario, fallbackGear = DEFAULT_GEAR, inde
     id: scenario?.id || `scenario-${Date.now()}-${index}`,
     name: String(scenario?.name || `方案 ${index + 1}`),
     gear: { ...fallbackGear, ...(scenario?.gear || {}) },
-    effectToggles: {
-      vampireFull: Boolean(scenario?.effectToggles?.vampireFull),
-      blazingFull: Boolean(scenario?.effectToggles?.blazingFull),
-      magicSeedFull: Boolean(scenario?.effectToggles?.magicSeedFull),
-      conditionalDamageAmpActive: Boolean(scenario?.effectToggles?.conditionalDamageAmpActive)
-    }
+    // vampireFull 是潜能开关；其余键是装备特效名，由 itemEffect*.json 的 toggle 声明决定。
+    // 老方案存的 blazingFull / magicSeedFull / conditionalDamageAmpActive 在这里迁移成效果名。
+    effectToggles: migrateScenarioToggles(scenario?.effectToggles)
   };
+}
+
+function migrateScenarioToggles(saved) {
+  const out = {};
+  for (const [key, value] of Object.entries(saved || {})) {
+    if (!value) continue;
+    if (key === 'blazingFull') {
+      ['炽燃 - 增幅', '炽燃 - 激燃', '炽燃 - 强化', '炽燃 - 耐性', '粉碎'].forEach((name) => { out[name] = true; });
+    } else if (key === 'magicSeedFull') out['魔力种子'] = true;
+    else if (key === 'conditionalDamageAmpActive') out['光辉'] = true;
+    else out[key] = true;
+  }
+  return out;
 }
 
 function normalizeComparisonSettings(settings) {
@@ -995,21 +1100,22 @@ function calc({
   mastery,
   masteryStat,
   attack,
+  baseDefense = 0,
   talentAp,
   traitBonuses = {},
   selectedTraits = [],
   target,
   targetMastery,
+  targetHpPct = 100,
   selfHp,
+  selfShield = 0,
   damageBonus,
   skillReduction,
   r2Stacks,
   tacticalSkill,
   tacticalUpgraded,
   vampireFull,
-  blazingFull,
-  magicSeedFull,
-  conditionalDamageAmpActive,
+  effectToggles = {},
   selectedHero,
   combos = []
 }) {
@@ -1026,9 +1132,14 @@ function calc({
   const usesAttackPath = offensePath === 'attack';
   const vampireStackAp = usesAttackPath ? 0 : (vampireFull ? 30 + mastery : 0);
   const vampireStackAttackPower = usesAttackPath && vampireFull ? 15 + mastery * 0.5 : 0;
-  const stackAp = vampireStackAp + (blazingFull ? 24 : 0) + (magicSeedFull ? 20 : 0);
-  const stackAttackPower = vampireStackAttackPower;
-  const stackCd = magicSeedFull ? 20 : 0;
+  // 装备独有效果的修正项统一从 itemEffectModifiers.json 取，不再散落成魔法数字
+  const effectMods = equipmentEffectModifiers(selected, {
+    effectToggles,
+    targetHpRatio: Math.max(0, Math.min(1, getNumber(targetHpPct) / 100))
+  });
+  const stackAp = vampireStackAp + effectMods.ap;
+  const stackAttackPower = vampireStackAttackPower + effectMods.attackPower;
+  const stackCd = effectMods.cd;
   const cd = (statValue(equipmentStats, 'cooldownReduction') || selected.reduce((sum, item) => sum + getNumber(item.cd), 0)) + stackCd + getNumber(traitBonuses.cd);
   const concentrationAp = activeTraitEffectIds.has('concentration') && !usesAttackPath ? 32 : 0;
   const concentrationAttackPower = activeTraitEffectIds.has('concentration') && usesAttackPath ? 16 : 0;
@@ -1052,33 +1163,39 @@ function calc({
   const normalApPct = 0;
   const uniqueApPct = Math.max(statValue(equipmentStats, 'uniqueSkillAmpRatio'), ...selected.filter((item) => item.uniqueApPct).map((item) => getNumber(item.apPct)));
   const equipDamageBonus = selected.reduce((sum, item) => (
-    sum + (hasConditionalDamageAmp(item) && !conditionalDamageAmpActive ? 0 : getNumber(item.dmgAmp))
+    sum + (hasConditionalDamageAmp(item) && !effectToggles['光辉'] ? 0 : getNumber(item.dmgAmp))
   ), 0);
   const masteryApPct = mastery * masteryOptionValue(masteryStat, 'SkillAmpRatio');
   const masteryAttackPower = mastery * masteryOptionValue(masteryStat, 'AttackPower');
   const masteryBasicAttackDamageRatio = mastery * masteryOptionValue(masteryStat, 'IncreaseBasicAttackDamageRatio');
   const baseAttackPower = attack + masteryAttackPower;
   const extraAttackPower = equipAttackPower + talentBonusAttackPower + stackAttackPower;
-  const attackPower = baseAttackPower + extraAttackPower;
+  // 攻击力百分比加成（神速-鲁德拉的短剑、双重假面）作用在总攻击力上
+  const attackPower = (baseAttackPower + extraAttackPower) * (1 + effectMods.attackPowerPct);
   const totalApPct = normalApPct + uniqueApPct + masteryApPct;
   const totalBaseAp = equipAp + talentAp + talentBonusAp + stackAp;
   const apRaw = totalBaseAp * (1 + totalApPct);
   const ap = damageFloor(apRaw);
-  const finalDefense = target.defense * (1 - target.defenseReduction) * (1 - penPct) - pen;
+  // 粉碎 / 邪恶之雾之类的减防和目标自身的减防叠乘；雷鸣裁决的穿透加进固定穿透
+  const finalDefense = target.defense
+    * (1 - target.defenseReduction)
+    * (1 - effectMods.targetDefensePct)
+    * (1 - penPct - effectMods.penPct) - pen - effectMods.pen;
   const defenseMod = 100 / (100 + finalDefense);
   const enhancementDeviceDamageBonus = activeTraitEffectIds.has('enhancementDevice') ? 0.08 + mastery * 0.005 : 0;
   const potentialDamageBonus = talentDamageBonus + enhancementDeviceDamageBonus;
-  const totalDamageBonus = damageBonus + equipDamageBonus + potentialDamageBonus;
+  const totalDamageBonus = damageBonus + equipDamageBonus + potentialDamageBonus + effectMods.damageBonus;
   const targetMasteryLevel = Math.max(1, Math.min(20, getNumber(targetMastery) || 1));
   const targetMasterySkillReduction = targetMasteryLevel <= 1 ? 0 : targetMasteryLevel * 0.008;
   const targetMasteryBasicReduction = targetMasteryLevel <= 1 ? 0 : targetMasteryLevel * 0.01;
   const totalSkillReduction = skillReduction + targetMasterySkillReduction;
   const damageMod = 1 + totalDamageBonus - target.reduction - totalSkillReduction;
   const finalMod = defenseMod * damageMod;
-  const stackCount = Math.min(stackLimit(selectedHero), Math.max(0, r2Stacks));
+  const stackCount = Math.min(stackLimitForHero(selectedHero, selectedHeroSkillRows), Math.max(0, r2Stacks));
   const basicAttackDamageIncreaseRatio = totalDamageBonus
     + statValue(equipmentStats, 'increaseBasicAttackDamageRatio')
-    + masteryBasicAttackDamageRatio;
+    + masteryBasicAttackDamageRatio
+    + effectMods.basicAttackBonus;
   const basicAttackTargetReductionRatio = target.reduction + targetMasteryBasicReduction;
   const basicAttackDamage = calculateBasicAttackDamage({
     attackPower,
@@ -1091,9 +1208,32 @@ function calc({
     criticalStrikeDamage: statValue(equipmentStats, 'criticalStrikeDamage')
   });
   // heroLevel = 界面「熟练度等级」，即实验体等级 1~20，供公式里的等级线性项使用
-  const context = { ap, attack: attackPower, extraAttack: extraAttackPower, targetHp: target.hp, stacks: stackCount, heroLevel: mastery, finalMod };
+  // maxHp = 界面「自身血量」；extraHp = 装备与潜能提供的额外体力，官方文案里这两者是分开写的
+  // targetCurrentHp / targetLostHp 由界面的「目标当前体力%」推出，两者之和恒等于目标体力上限
+  const targetHpRatio = Math.max(0, Math.min(1, getNumber(targetHpPct) / 100));
+  const selfDefense = getNumber(baseDefense) + equipDefense;
+  const context = {
+    ap,
+    attack: attackPower,
+    extraAttack: extraAttackPower,
+    targetHp: target.hp,
+    targetCurrentHp: target.hp * targetHpRatio,
+    targetLostHp: target.hp * (1 - targetHpRatio),
+    maxHp: selfHp,
+    extraHp,
+    defense: selfDefense,
+    shield: getNumber(selfShield),
+    critChance: statValue(equipmentStats, 'criticalStrikeChance'),
+    stacks: stackCount,
+    heroLevel: mastery,
+    finalMod
+  };
   const heroSkills = selectedHeroSkillRows
     .map((skill) => calculateSkill(skill, skillLevels[skill.id], context));
+  // 强化普攻类技能：给下一次普攻加一段额外伤害，单独归到「强化普攻」栏
+  const basicAttackSkills = heroSkills.filter((skill) => skill.kind === 'basicAttack');
+  const basicAttackBonusRaw = basicAttackSkills.reduce((sum, skill) => sum + getNumber(skill.rawDamage), 0);
+  const basicAttackBonus = basicAttackSkills.reduce((sum, skill) => sum + getNumber(skill.damage), 0);
   const hpDiffRatio = Math.min(0.4, Math.max(0.1, (target.hp - selfHp) / selfHp));
   const burstBonus = Math.min(0.1, Math.max(0, (target.hp - selfHp) / selfHp) * 0.25);
   const curse = 50 + ap * 0.15;
@@ -1147,8 +1287,11 @@ function calc({
     finalMod
   });
   if (tacticalEffect) effects.push(tacticalEffect);
-  const effectSubtotalRaw = effects.reduce((sum, effect) => sum + effect.raw, 0);
-  const effectSubtotal = effects.reduce((sum, effect) => sum + effect.value, 0);
+  // 装备独有效果伤害（诅咒 / 腐化 / 破裂…）：只算当前真的装上的
+  effects.push(...equipmentEffectDamages(selected, context, effectToggles));
+  const damageEffects = effects.filter((effect) => !effect.excludeFromSubtotal);
+  const effectSubtotalRaw = damageEffects.reduce((sum, effect) => sum + effect.raw, 0);
+  const effectSubtotal = damageEffects.reduce((sum, effect) => sum + effect.value, 0);
   const comboSkills = skillTable
     .filter((skill) => skill.hero === selectedHero)
     .map((skill) => calculateSkill(skill, skillLevels[skill.id], context));
@@ -1195,6 +1338,13 @@ function calc({
     pen,
     penPct,
     equipDefense,
+    selfDefense,
+    effectMods,
+    basicAttackSkills,
+    basicAttackBonusRaw,
+    basicAttackBonus,
+    // 公式上下文整体带出来，递增伤害等二次计算直接复用，不用逐个字段同步
+    formulaContext: context,
     extraHp,
     normalApPct,
     uniqueApPct,
@@ -1940,6 +2090,21 @@ function skillTargetCount(counts, key, maxTargets = MULTI_TARGET_MAX) {
   return Math.max(1, Math.min(maxTargets, getNumber(counts[key]) || 1));
 }
 
+// 多段结算技能的分组：同一技能的各段伤害标题形如「R 沉睡之力 第3段」「R 记忆力 记忆-青鸟」，
+// 取槽位后的第一个词当组名。段数 >= SEGMENTED_MIN 时改用压扁的多段视图。
+const SEGMENTED_MIN = 3;
+
+function skillSegmentGroupName(skill) {
+  const title = String(skill?.title || '').replace(/^(EQ|EW|[PQWER])\s*/, '').trim();
+  return title.split(/\s+/)[0] || title;
+}
+
+function skillSegmentLabel(skill, groupName) {
+  const title = String(skill?.title || '').replace(/^(EQ|EW|[PQWER])\s*/, '').trim();
+  const rest = title.startsWith(groupName) ? title.slice(groupName.length).trim() : title;
+  return rest || groupName;
+}
+
 function groupSkillRows(skills) {
   return Object.values(skills.reduce((groups, skill) => {
     const key = skill.title.replace(/\s*(一段|二段|三段|每跳|带叠层|\/额外|\+\s*10%目标血).*$/, '').trim() || skill.title;
@@ -1951,6 +2116,11 @@ function groupSkillRows(skills) {
 function characterAttackAtLevel(character, level = 20) {
   if (!character) return 0;
   return damageFloor(getNumber(character.base?.attackPower) + getNumber(character.growth?.attackPower) * Math.max(0, level - 1));
+}
+
+function characterDefenseAtLevel(character, level = 20) {
+  if (!character) return 0;
+  return damageFloor(getNumber(character.base?.defense) + getNumber(character.growth?.defense) * Math.max(0, level - 1));
 }
 
 export default function App() {
@@ -1968,15 +2138,30 @@ export default function App() {
   const [target, setTarget] = useState(() => (initialWorkspaceState.target ? { ...TARGETS[0], ...initialWorkspaceState.target } : TARGETS[0]));
   const [targetMastery, setTargetMastery] = useState(getNumber(initialWorkspaceState.targetMastery) || 1);
   const [selfHp, setSelfHp] = useState(getNumber(initialWorkspaceState.selfHp) || 2514);
+  const [selfShield, setSelfShield] = useState(getNumber(initialWorkspaceState.selfShield));
+  // 目标当前体力 / 已失体力是同一件事的两面，两个框联动，和为 100%
+  const [targetHpPct, setTargetHpPct] = useState(() => {
+    const saved = getNumber(initialWorkspaceState.targetHpPct);
+    return saved > 0 ? saved : 100;
+  });
   const [damageBonus, setDamageBonus] = useState(getNumber(initialWorkspaceState.damageBonus));
   const [skillReduction, setSkillReduction] = useState(getNumber(initialWorkspaceState.skillReduction));
   const [r2Stacks, setR2Stacks] = useState(getNumber(initialWorkspaceState.r2Stacks) || 1);
   const [tacticalSkill, setTacticalSkill] = useState(initialWorkspaceState.tacticalSkill || '斥力弹');
   const [tacticalUpgraded, setTacticalUpgraded] = useState(initialWorkspaceState.tacticalUpgraded ?? true);
   const [vampireFull, setVampireFull] = useState(Boolean(initialWorkspaceState.vampireFull));
-  const [blazingFull, setBlazingFull] = useState(Boolean(initialWorkspaceState.blazingFull));
-  const [magicSeedFull, setMagicSeedFull] = useState(Boolean(initialWorkspaceState.magicSeedFull));
-  const [conditionalDamageAmpActive, setConditionalDamageAmpActive] = useState(Boolean(initialWorkspaceState.conditionalDamageAmpActive));
+  // 装备特效开关按效果名存，哪些开关出现由 itemEffect*.json 的 toggle 声明决定。
+  // 老版本存的是 blazingFull / magicSeedFull / conditionalDamageAmpActive 三个布尔，这里做一次迁移。
+  const [effectToggles, setEffectToggles] = useState(() => {
+    if (initialWorkspaceState.effectToggles) return initialWorkspaceState.effectToggles;
+    const migrated = {};
+    if (initialWorkspaceState.blazingFull) {
+      ['炽燃 - 增幅', '炽燃 - 激燃', '炽燃 - 强化', '炽燃 - 耐性', '粉碎'].forEach((name) => { migrated[name] = true; });
+    }
+    if (initialWorkspaceState.magicSeedFull) migrated['魔力种子'] = true;
+    if (initialWorkspaceState.conditionalDamageAmpActive) migrated['光辉'] = true;
+    return migrated;
+  });
   const [showBuildSettings, setShowBuildSettings] = useState(false);
   const [showGlobalSettings, setShowGlobalSettings] = useState(false);
   const [showHeroDebugSettings, setShowHeroDebugSettings] = useState(false);
@@ -1984,7 +2169,6 @@ export default function App() {
   const [skillTargetCounts, setSkillTargetCounts] = useState(initialWorkspaceState.skillTargetCounts || {});
   const [useHeroAvatarPicker, setUseHeroAvatarPicker] = useState(() => Boolean(initialAppSettings.useHeroAvatarPicker));
   const [editMode, setEditMode] = useState(Boolean(initialAppSettings.editMode));
-  const [showUnsupportedHeroes, setShowUnsupportedHeroes] = useState(Boolean(initialAppSettings.showUnsupportedHeroes));
   const [showDamageTestHeroes, setShowDamageTestHeroes] = useState(Boolean(initialAppSettings.showDamageTestHeroes));
   const [uiTheme, setUiTheme] = useState(() => initialAppSettings.uiTheme || 'night');
   const [heroAvatarQuery, setHeroAvatarQuery] = useState(initialWorkspaceState.heroAvatarQuery || '');
@@ -2030,16 +2214,16 @@ export default function App() {
       targetIndex,
       target,
       targetMastery,
+      targetHpPct,
       selfHp,
+      selfShield,
       damageBonus,
       skillReduction,
       r2Stacks,
       tacticalSkill,
       tacticalUpgraded,
       vampireFull,
-      blazingFull,
-      magicSeedFull,
-      conditionalDamageAmpActive,
+      effectToggles,
       effectsCollapsed,
       skillTargetCounts,
       heroAvatarQuery,
@@ -2050,11 +2234,11 @@ export default function App() {
       comparisonScenarios,
       selectedComparisonMastery
     }));
-  }, [activePage, gear, weaponTypeFilter, selectedHero, mastery, talentAp, traitSelection, targetIndex, target, targetMastery, selfHp, damageBonus, skillReduction, r2Stacks, tacticalSkill, tacticalUpgraded, vampireFull, blazingFull, magicSeedFull, conditionalDamageAmpActive, effectsCollapsed, skillTargetCounts, heroAvatarQuery, showLowerTierEquipment, visibleStatKeys, skillLevels, comparisonSettings, comparisonScenarios, selectedComparisonMastery]);
+  }, [activePage, gear, weaponTypeFilter, selectedHero, mastery, talentAp, traitSelection, targetIndex, target, targetMastery, targetHpPct, selfHp, selfShield, damageBonus, skillReduction, r2Stacks, tacticalSkill, tacticalUpgraded, vampireFull, effectToggles, effectsCollapsed, skillTargetCounts, heroAvatarQuery, showLowerTierEquipment, visibleStatKeys, skillLevels, comparisonSettings, comparisonScenarios, selectedComparisonMastery]);
 
   useEffect(() => {
-    window.localStorage.setItem(APP_SETTINGS_KEY, JSON.stringify({ useHeroAvatarPicker, editMode, showUnsupportedHeroes, showDamageTestHeroes, uiTheme }));
-  }, [useHeroAvatarPicker, editMode, showUnsupportedHeroes, showDamageTestHeroes, uiTheme]);
+    window.localStorage.setItem(APP_SETTINGS_KEY, JSON.stringify({ useHeroAvatarPicker, editMode, showDamageTestHeroes, uiTheme }));
+  }, [useHeroAvatarPicker, editMode, showDamageTestHeroes, uiTheme]);
 
   useEffect(() => {
     if (!editMode) setShowHeroDebugSettings(false);
@@ -2185,8 +2369,10 @@ export default function App() {
     [selectedTraits, estimatedBurstBonus]
   );
   const canShowExtendedHeroes = editMode && showDamageTestHeroes;
+  // 开关打开时列出全部实验体：没有伤害数据的（雪琳 / 米尔卡 / 卡洛琳）也要能选中，
+  // 技能面板会显示「暂无技能数据」，方便对照官方数据面板补录。
   const visibleHeroNames = canShowExtendedHeroes
-    ? (showUnsupportedHeroes ? HEROES : HEROES.filter((hero) => HEROES_WITH_SKILL_DAMAGE.has(hero)))
+    ? HEROES
     : HEROES.filter((hero) => MANUAL_HEROES.includes(hero));
   const selectedCharacter = findCharacterByName(selectedHero);
   const selectedOfficialSkillGroups = (CHARACTER_DATA.skillGroups || []).filter((skill) => skill.hero === selectedHero);
@@ -2206,9 +2392,9 @@ export default function App() {
   useEffect(() => {
     if (visibleHeroNames.includes(selectedHero)) return;
     setSelectedHero(visibleHeroNames[0] || DEFAULT_HERO);
-  }, [selectedHero, showUnsupportedHeroes, showDamageTestHeroes, editMode]);
-  // 叠层选择器由 specialSkillRules.json 的 heroes[英雄].stackSelector 决定
-  const stackSelector = stackSelectorRule(selectedHero);
+  }, [selectedHero, showDamageTestHeroes, editMode]);
+  // 叠层选择器：specialSkillRules.json 里配了就用配置，没配但该英雄有公式用到 stacks 就自动生成
+  const stackSelector = stackSelectorForHero(selectedHero, skills.filter((skill) => skill.hero === selectedHero));
   const allowedWeaponTypes = new Set(selectedCharacter?.weapons || []);
   const selectedWeaponRaw = weaponTypeFilter !== '全部类型'
     ? weaponTypeFromFilter(weaponTypeFilter)
@@ -2227,36 +2413,46 @@ export default function App() {
       tooltip: effectTooltipForItem(item, effect)
     }))
   ));
+  // 「目标当前体力 / 已失体力 / 自身护盾」只在当前英雄的技能、或身上装备的特效公式里
+  // 真的用到时才显示输入框，平时不占地方。
+  const contextFieldsInUse = useMemo(() => {
+    const equippedEffects = selectedEquipmentEffectsRaw.map((item) => item.effect);
+    const formulas = [
+      ...skills.filter((skill) => skill.hero === selectedHero).map((skill) => skill.formula),
+      ...(ITEM_EFFECT_DAMAGE.effects || [])
+        .filter((effect) => equippedEffects.includes(effect.name))
+        .map((effect) => effect.formula)
+    ].join(' ');
+    // 刽子手这类「目标血量低于 X%」的触发条件也需要那两个框
+    const needsTargetHp = (ITEM_EFFECT_MODIFIERS.effects || [])
+      .some((effect) => equippedEffects.includes(effect.name) && effect.condition?.targetHpBelow !== undefined);
+    return ['targetCurrentHp', 'targetLostHp', 'shield'].filter((name) => (
+      new RegExp(`\\b${name}\\b`).test(formulas) || (needsTargetHp && name !== 'shield')
+    ));
+  }, [skills, selectedHero, selectedEquipmentEffectsRaw]);
   const hasVampireStackTrait = selectedTraits.some((trait) => String(trait.id) === VAMPIRE_STACK_TRAIT_ID || trait.name === '吸血鬼');
-  const hasBlazingSkillAmpEffect = selectedEquipmentEffectsRaw.some((item) => BLAZING_SKILL_AMP_EFFECTS.has(item.effect));
-  const hasMagicSeedEffect = selectedEquipmentEffectsRaw.some((item) => item.effect === MAGIC_SEED_EFFECT);
-  const hasConditionalDamageAmpEffect = selectedGearItems.some(hasConditionalDamageAmp);
   const effectiveVampireFull = hasVampireStackTrait && vampireFull;
-  const effectiveBlazingFull = hasBlazingSkillAmpEffect && blazingFull;
-  const effectiveMagicSeedFull = hasMagicSeedEffect && magicSeedFull;
-  const effectiveConditionalDamageAmpActive = hasConditionalDamageAmpEffect && conditionalDamageAmpActive;
+  // 当前装备里需要开关的特效；换装后开关跟着变
+  const availableEffectToggles = useMemo(() => toggleableEffectsFor(selectedGearItems), [selectedGearItems]);
+  // 只把「装备还在身上」的开关传下去，脱装后自动失效
+  const activeEffectToggles = useMemo(() => Object.fromEntries(
+    availableEffectToggles.filter((item) => effectToggles[item.name]).map((item) => [item.name, true])
+  ), [availableEffectToggles, effectToggles]);
 
   function comparisonScenarioGearItems(scenario) {
     return SLOTS.map((slot) => byName(equipment, scenario.gear[slot])).filter(Boolean);
   }
 
   function comparisonScenarioEffectAvailability(scenario) {
-    const scenarioGearItems = comparisonScenarioGearItems(scenario);
-    const scenarioEffects = scenarioGearItems.flatMap(uniqueEffectsForItem);
     return {
-      vampireFull: selectedTraits.some((trait) => String(trait.id) === VAMPIRE_STACK_TRAIT_ID || trait.name === '吸血鬼'),
-      blazingFull: scenarioEffects.some((effect) => BLAZING_SKILL_AMP_EFFECTS.has(effect)),
-      magicSeedFull: scenarioEffects.includes(MAGIC_SEED_EFFECT),
-      conditionalDamageAmpActive: scenarioGearItems.some(hasConditionalDamageAmp)
+      vampireFull: hasVampireStackTrait,
+      effects: toggleableEffectsFor(comparisonScenarioGearItems(scenario))
     };
   }
 
   useEffect(() => {
     if (!hasVampireStackTrait && vampireFull) setVampireFull(false);
-    if (!hasBlazingSkillAmpEffect && blazingFull) setBlazingFull(false);
-    if (!hasMagicSeedEffect && magicSeedFull) setMagicSeedFull(false);
-    if (!hasConditionalDamageAmpEffect && conditionalDamageAmpActive) setConditionalDamageAmpActive(false);
-  }, [hasVampireStackTrait, hasBlazingSkillAmpEffect, hasMagicSeedEffect, hasConditionalDamageAmpEffect, vampireFull, blazingFull, magicSeedFull, conditionalDamageAmpActive]);
+  }, [hasVampireStackTrait, vampireFull]);
 
   const result = useMemo(
     () => calc({
@@ -2267,25 +2463,26 @@ export default function App() {
       mastery,
       masteryStat: selectedMasteryStat,
       attack,
+      baseDefense: characterDefenseAtLevel(selectedCharacter, mastery),
       talentAp,
       traitBonuses,
       selectedTraits,
       target,
       targetMastery,
+      targetHpPct,
       selfHp,
+      selfShield,
       damageBonus,
       skillReduction,
       r2Stacks,
       tacticalSkill,
       tacticalUpgraded,
       vampireFull: effectiveVampireFull,
-      blazingFull: effectiveBlazingFull,
-      magicSeedFull: effectiveMagicSeedFull,
-      conditionalDamageAmpActive: effectiveConditionalDamageAmpActive,
+      effectToggles: activeEffectToggles,
       selectedHero,
       combos
     }),
-    [equipment, skills, skillLevels, gear, mastery, selectedMasteryStat, attack, talentAp, traitBonuses, selectedTraits, target, targetMastery, selfHp, damageBonus, skillReduction, r2Stacks, tacticalSkill, tacticalUpgraded, effectiveVampireFull, effectiveBlazingFull, effectiveMagicSeedFull, effectiveConditionalDamageAmpActive, selectedHero, combos]
+    [equipment, skills, skillLevels, gear, mastery, selectedMasteryStat, attack, selectedCharacter, talentAp, traitBonuses, selectedTraits, target, targetMastery, targetHpPct, selfHp, selfShield, damageBonus, skillReduction, r2Stacks, tacticalSkill, tacticalUpgraded, effectiveVampireFull, activeEffectToggles, selectedHero, combos]
   );
   const heroWeaponOptions = WEAPON_TYPE_OPTIONS.filter((type) => {
     if (type === '全部类型') return true;
@@ -2376,9 +2573,9 @@ export default function App() {
         tacticalSkill,
         tacticalUpgraded,
         vampireFull: effectAvailability.vampireFull && scenario.effectToggles.vampireFull,
-        blazingFull: effectAvailability.blazingFull && scenario.effectToggles.blazingFull,
-        magicSeedFull: effectAvailability.magicSeedFull && scenario.effectToggles.magicSeedFull,
-        conditionalDamageAmpActive: effectAvailability.conditionalDamageAmpActive && scenario.effectToggles.conditionalDamageAmpActive,
+        effectToggles: Object.fromEntries(effectAvailability.effects
+          .filter((item) => scenario.effectToggles[item.name])
+          .map((item) => [item.name, true])),
         selectedHero,
         combos
       });
@@ -2690,11 +2887,20 @@ export default function App() {
     }));
   }
 
+  // 在配置表里改过的技能会打上 manual 标记，之后随包数据不再覆盖它；
+  // 没改过的条目则始终跟随随包数据，这样官方公告更新后不需要清缓存也能看到新值。
   function updateSkillRow(index, key, value) {
     updateConfig((current) => ({
       ...current,
       skills: current.skills.map((skill, rowIndex) => (
-        rowIndex === index ? { ...skill, [key]: key === 'maxLevel' ? getNumber(value) : value } : skill
+        rowIndex === index
+          ? {
+            ...skill,
+            [key]: key === 'maxLevel' ? getNumber(value) : value,
+            manual: true,
+            updatedAt: new Date().toISOString()
+          }
+          : skill
       ))
     }));
   }
@@ -2978,14 +3184,7 @@ export default function App() {
     const ruleId = rule?.id || 'progressive';
     const stepKey = `${skill.id}-${ruleId}`;
     const stepValue = Math.max(min, Math.min(max, getNumber(skillTargetCounts[stepKey]) || defaultValue));
-    const stepContext = {
-      ap: result.ap,
-      attack: result.attackPower,
-      extraAttack: result.extraAttackPower,
-      targetHp: target.hp,
-      heroLevel: mastery,
-      finalMod: result.finalMod
-    };
+    const stepContext = result.formulaContext;
     const selectedStep = progressiveDamageValue(skill, stepContext, stepValue);
     const steps = Array.from({ length: max - min + 1 }, (_, index) => progressiveDamageValue(skill, stepContext, min + index));
     const sourceMeta = skillSourceMeta(skill);
@@ -3038,8 +3237,77 @@ export default function App() {
     );
   }
 
+  // 多段结算技能（阿尔达 R、秀雅 R 这种强化并重放其它技能的大招）压扁成一栏，
+  // 逐段列出，并按「命中段数」给出前 N 段的合计。
+  function renderSegmentedSkillGroup(groupName, skills) {
+    const stepKey = `${skills[0].id}-segments`;
+    const max = skills.length;
+    const stored = getNumber(skillTargetCounts[stepKey]);
+    const hitCount = stored > 0 ? Math.min(max, stored) : max;
+    const levelValue = skillLevels[skills[0].id] || skills[0].level || 1;
+    const rows = skills.map((skill) => ({
+      skill,
+      label: skillSegmentLabel(skill, groupName),
+      raw: getNumber(skill.rawDamage),
+      final: getNumber(skill.damage)
+    }));
+    const picked = rows.slice(0, hitCount);
+    const totalRaw = picked.reduce((sum, row) => sum + row.raw, 0);
+    const totalFinal = picked.reduce((sum, row) => sum + row.final, 0);
+    const sourceMeta = skillSourceMeta(skills[0]);
+
+    return (
+      <div className="skillDamageLeaf segmentedDamageLeaf" key={`segment-${skills[0].id}`}>
+        <div className="skillLeafHead">
+          <div className="skillLeafTitle">
+            <PortalHovercard
+              className="skillNameHover"
+              content={(
+                <span className="skillDescriptionContent">
+                  <strong>{groupName} Lv.{levelValue}（{max} 段）</strong>
+                  {rows.map((row) => (
+                    <span className="skillDescriptionEntry" key={`segdesc-${row.skill.id}`}>
+                      <b>{row.label}</b>
+                      <span className="skillFormulaText">{skillFormulaDescription(row.skill, levelValue)}</span>
+                      {row.skill.coefficientText ? <span>{row.skill.coefficientText}</span> : null}
+                    </span>
+                  ))}
+                </span>
+              )}
+            >
+              <strong>{groupName}</strong>
+            </PortalHovercard>
+            <span className="skillSegmentBadge">{max} 段</span>
+          </div>
+          <div className="targetStepper">
+            <span>命中段数</span>
+            <button type="button" onClick={() => updateSkillCount(stepKey, hitCount - 1, { min: 1, max })}>-</button>
+            <b>{hitCount}</b>
+            <button type="button" onClick={() => updateSkillCount(stepKey, hitCount + 1, { min: 1, max })}>+</button>
+          </div>
+        </div>
+        <div className="segmentedDamageRows">
+          {rows.map((row, index) => (
+            <div className={index < hitCount ? 'active' : ''} key={`segrow-${row.skill.id}`}>
+              <span title={row.label}>{row.label}</span>
+              <DamageValue raw={row.raw} final={row.final} />
+            </div>
+          ))}
+        </div>
+        <div className="skillLeafValues">
+          <div className="skillTotalValue">
+            <span>{hitCount >= max ? '全段合计' : `前 ${hitCount} 段合计`}</span>
+            <DamageValue raw={totalRaw} final={totalFinal} />
+          </div>
+        </div>
+        {sourceMeta ? <p className="skillLeafNote">{sourceMeta.label}</p> : null}
+      </div>
+    );
+  }
+
   function renderSkillMainColumn(slot) {
-    const slotSkills = result.skills.filter((skill) => skillMainSlot(skill) === slot);
+    // 强化普攻类不进技能栏，它们在下面的「强化普攻」面板里
+    const slotSkills = result.skills.filter((skill) => skillMainSlot(skill) === slot && skill.kind !== 'basicAttack');
     const levelValue = slotSkills[0] ? skillLevels[slotSkills[0].id] : 1;
     const slotDescription = slotSkills.length ? (
       <span className="skillDescriptionContent">
@@ -3077,49 +3345,188 @@ export default function App() {
         </div>
         {slotSkills.length ? (
           <div className="skillSubGrid">
-            {slotSkills.map((skill) => {
-              if (progressiveDamageRule(skill)) {
-                return renderProgressiveSkillDamage(skill, skill.title.replace(/^[PQWER]\s*/, '') || skill.title);
-              }
-              // 展示规则来自 src/data/specialSkillRules.json 的 heroes[英雄].display
-              const rule = skillDisplayRule(selectedHero, skill.id);
-              const defaultLabel = skill.title.replace(/^[PQWER]\s*/, '').replace(/^E([QW])\s*/, '强化$1 ') || skill.title;
-              const label = rule?.label || defaultLabel;
-              const targetKey = `${skill.id}-targets`;
-
-              if (rule && (rule.hits > 1 || rule.secondaryScale !== undefined)) {
-                const hits = Math.max(1, getNumber(rule.hits) || 1);
-                const primarySingle = scaledSkillDamage(skill, result.finalMod);
-                const primary = scaledSkillDamage(skill, result.finalMod, { hits });
-                const hasSecondary = rule.secondaryScale !== undefined;
-                const secondarySingle = hasSecondary ? scaledSkillDamage(skill, result.finalMod, { scale: rule.secondaryScale }) : null;
-                const secondary = hasSecondary ? scaledSkillDamage(skill, result.finalMod, { scale: rule.secondaryScale, hits }) : null;
-                return renderSkillDamageLeaf(skill, label, {
-                  targetKey,
-                  targetMax: rule.maxTargets || MULTI_TARGET_MAX,
-                  primarySingleRaw: hasSecondary ? primarySingle.raw : undefined,
-                  primarySingleFinal: hasSecondary ? primarySingle.final : undefined,
-                  primaryRaw: primary.raw,
-                  primaryFinal: primary.final,
-                  secondarySingleRaw: secondarySingle?.raw,
-                  secondarySingleFinal: secondarySingle?.final,
-                  secondaryRaw: secondary?.raw,
-                  secondaryFinal: secondary?.final,
-                  totalLabel: rule.totalLabelSuffix
-                    ? (nextCount) => `${nextCount > 1 ? `${nextCount} 目标总计` : '单目标'}${rule.totalLabelSuffix}`
-                    : undefined,
-                  showBreakdown: Boolean(rule.showBreakdown)
-                });
-              }
-
-              return renderSkillDamageLeaf(skill, label, { targetKey, targetMax: rule?.maxTargets || MULTI_TARGET_MAX });
-            })}
+            {renderSlotLeaves(slotSkills)}
           </div>
         ) : (
           <p className="note">暂无技能数据</p>
         )}
       </div>
     );
+  }
+
+  // 先把同一技能的多段聚成一组，够 SEGMENTED_MIN 段的走压扁视图，其余按原样逐条渲染
+  function renderSlotLeaves(slotSkills) {
+    const buckets = [];
+    const indexByName = new Map();
+    for (const skill of slotSkills) {
+      const special = progressiveDamageRule(skill)
+        || skillDisplayRule(selectedHero, skill.id)
+        || getNumber(skill.maxHits) > 1
+        || skill.kind;
+      const name = special ? null : skillSegmentGroupName(skill);
+      if (!name) { buckets.push({ name: null, skills: [skill] }); continue; }
+      if (!indexByName.has(name)) {
+        indexByName.set(name, buckets.length);
+        buckets.push({ name, skills: [] });
+      }
+      buckets[indexByName.get(name)].skills.push(skill);
+    }
+
+    return buckets.flatMap((bucket) => (
+      bucket.name && bucket.skills.length >= SEGMENTED_MIN
+        ? [renderSegmentedSkillGroup(bucket.name, bucket.skills)]
+        : bucket.skills.map((skill) => renderSkillLeaf(skill))
+    ));
+  }
+
+  /**
+   * 会打多下的技能（万尼亚 Q 命中 + 回收 2 段、W 腾空期间 5 跳……）。
+   * 条目上写 "maxHits": N 就会出现命中次数步进器，并把 1~N 次的伤害逐档列出来。
+   */
+  function renderMultiHitSkillDamage(skill, label, maxHits) {
+    const hitKey = `${skill.id}-hits`;
+    const stored = getNumber(skillTargetCounts[hitKey]);
+    const defaultHits = Math.max(1, Math.min(maxHits, getNumber(skill.defaultHits) || 1));
+    const hits = stored > 0 ? Math.min(maxHits, stored) : defaultHits;
+    const single = scaledSkillDamage(skill, result.finalMod);
+    const picked = scaledSkillDamage(skill, result.finalMod, { hits });
+    const sourceMeta = skillSourceMeta(skill);
+    const skillLevel = skill.level || skillLevels[skill.id] || 1;
+    const hitLabel = skill.hitLabel || '命中次数';
+
+    return (
+      <div className="skillDamageLeaf" key={`${skill.id}-multihit`}>
+        <div className="skillLeafHead">
+          <div className="skillLeafTitle">
+            <PortalHovercard
+              className="skillNameHover"
+              content={(
+                <SkillDescriptionContent
+                  title={label}
+                  level={skillLevel}
+                  formula={skillFormulaDescription(skill, skillLevel)}
+                  description={skill.coefficientText || skill.description || ''}
+                  source={sourceMeta?.title}
+                />
+              )}
+            >
+              <strong>{label}</strong>
+            </PortalHovercard>
+            {sourceMeta ? <span className="skillSourceMeta" title={sourceMeta.title}>{sourceMeta.label}</span> : null}
+          </div>
+          <div className="targetStepper">
+            <span>{hitLabel}</span>
+            <button type="button" onClick={() => updateSkillCount(hitKey, hits - 1, { min: 1, max: maxHits })}>-</button>
+            <b>{hits}</b>
+            <button type="button" onClick={() => updateSkillCount(hitKey, hits + 1, { min: 1, max: maxHits })}>+</button>
+          </div>
+        </div>
+        <div className="progressiveDamageSteps" aria-label={`${hitLabel}伤害列表`}>
+          {Array.from({ length: maxHits }, (unused, index) => index + 1).map((count) => {
+            const value = scaledSkillDamage(skill, result.finalMod, { hits: count });
+            return (
+              <div className={count === hits ? 'active' : ''} key={`${skill.id}-hit-${count}`}>
+                <span>中 {count} 次</span>
+                <DamageValue raw={value.raw} final={value.final} />
+              </div>
+            );
+          })}
+        </div>
+        <div className="skillLeafValues">
+          <div>
+            <span>单次</span>
+            <DamageValue raw={single.raw} final={single.final} />
+          </div>
+          <div className="skillTotalValue">
+            <span>中 {hits} 次合计</span>
+            <DamageValue raw={picked.raw} final={picked.final} />
+          </div>
+        </div>
+        {skill.hitNote ? <p className="skillLeafNote">{skill.hitNote}</p> : null}
+      </div>
+    );
+  }
+
+  // 护盾 / 治疗量：用同一套公式算，但不是伤害，单独显示且不参与伤害合计
+  const NON_DAMAGE_KIND_LABELS = { shield: '护盾', heal: '治疗' };
+
+  function renderNonDamageLeaf(skill) {
+    const kindLabel = NON_DAMAGE_KIND_LABELS[skill.kind] || skill.kind;
+    const label = skill.title.replace(/^[PQWER]\s*/, '') || skill.title;
+    const sourceMeta = skillSourceMeta(skill);
+    const skillLevel = skill.level || skillLevels[skill.id] || 1;
+    return (
+      <div className="skillDamageLeaf nonDamageLeaf" key={skill.id}>
+        <div className="skillLeafHead">
+          <div className="skillLeafTitle">
+            <PortalHovercard
+              className="skillNameHover"
+              content={(
+                <SkillDescriptionContent
+                  title={label}
+                  level={skillLevel}
+                  formula={skillFormulaDescription(skill, skillLevel)}
+                  description={skill.coefficientText || skill.description || ''}
+                  source={sourceMeta?.title}
+                />
+              )}
+            >
+              <strong>{label}</strong>
+            </PortalHovercard>
+            <span className="nonDamageBadge">{kindLabel}</span>
+          </div>
+        </div>
+        <div className="skillLeafValues">
+          <div className="skillTotalValue">
+            <span>{kindLabel}量（不吃减伤）</span>
+            <DamageValue raw={skill.rawDamage} final={skill.rawDamage} />
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  function renderSkillLeaf(skill) {
+    if (skill.kind && NON_DAMAGE_KIND_LABELS[skill.kind]) return renderNonDamageLeaf(skill);
+    const maxHits = Math.max(0, getNumber(skill.maxHits));
+    if (maxHits > 1) {
+      return renderMultiHitSkillDamage(skill, skill.title.replace(/^[PQWER]\s*/, '') || skill.title, maxHits);
+    }
+    if (progressiveDamageRule(skill)) {
+      return renderProgressiveSkillDamage(skill, skill.title.replace(/^[PQWER]\s*/, '') || skill.title);
+    }
+    // 展示规则来自 src/data/specialSkillRules.json 的 heroes[英雄].display
+    const rule = skillDisplayRule(selectedHero, skill.id);
+    const defaultLabel = skill.title.replace(/^[PQWER]\s*/, '').replace(/^E([QW])\s*/, '强化$1 ') || skill.title;
+    const label = rule?.label || defaultLabel;
+    const targetKey = `${skill.id}-targets`;
+
+    if (rule && (rule.hits > 1 || rule.secondaryScale !== undefined)) {
+      const hits = Math.max(1, getNumber(rule.hits) || 1);
+      const primarySingle = scaledSkillDamage(skill, result.finalMod);
+      const primary = scaledSkillDamage(skill, result.finalMod, { hits });
+      const hasSecondary = rule.secondaryScale !== undefined;
+      const secondarySingle = hasSecondary ? scaledSkillDamage(skill, result.finalMod, { scale: rule.secondaryScale }) : null;
+      const secondary = hasSecondary ? scaledSkillDamage(skill, result.finalMod, { scale: rule.secondaryScale, hits }) : null;
+      return renderSkillDamageLeaf(skill, label, {
+        targetKey,
+        targetMax: rule.maxTargets || MULTI_TARGET_MAX,
+        primarySingleRaw: hasSecondary ? primarySingle.raw : undefined,
+        primarySingleFinal: hasSecondary ? primarySingle.final : undefined,
+        primaryRaw: primary.raw,
+        primaryFinal: primary.final,
+        secondarySingleRaw: secondarySingle?.raw,
+        secondarySingleFinal: secondarySingle?.final,
+        secondaryRaw: secondary?.raw,
+        secondaryFinal: secondary?.final,
+        totalLabel: rule.totalLabelSuffix
+          ? (nextCount) => `${nextCount > 1 ? `${nextCount} 目标总计` : '单目标'}${rule.totalLabelSuffix}`
+          : undefined,
+        showBreakdown: Boolean(rule.showBreakdown)
+      });
+    }
+
+    return renderSkillDamageLeaf(skill, label, { targetKey, targetMax: rule?.maxTargets || MULTI_TARGET_MAX });
   }
 
   function renderPassiveSkillRow() {
@@ -3209,11 +3616,9 @@ export default function App() {
           {comparisonScenarios.map((scenario) => {
             const effectAvailability = comparisonScenarioEffectAvailability(scenario);
             const effectOptions = [
-              { key: 'vampireFull', label: '吸血鬼满层', enabled: effectAvailability.vampireFull },
-              { key: 'blazingFull', label: '炽燃满层', enabled: effectAvailability.blazingFull },
-              { key: 'magicSeedFull', label: '魔力种子满层', enabled: effectAvailability.magicSeedFull },
-              { key: 'conditionalDamageAmpActive', label: '装备特效触发', enabled: effectAvailability.conditionalDamageAmpActive }
-            ].filter((option) => option.enabled);
+              ...(effectAvailability.vampireFull ? [{ key: 'vampireFull', label: '吸血鬼满层' }] : []),
+              ...effectAvailability.effects.map((item) => ({ key: item.name, label: item.label }))
+            ];
             return (
               <div className="panel comparisonScenario" key={scenario.id}>
                 <div className="comparisonScenarioHead">
@@ -3458,24 +3863,14 @@ export default function App() {
                       <span>使用头像列表选择实验体</span>
                     </label>
                     {editMode && showHeroDebugSettings ? (
-                      <>
-                        <label className="toggle">
-                          <input
-                            type="checkbox"
-                            checked={showUnsupportedHeroes}
-                            onChange={(event) => setShowUnsupportedHeroes(event.target.checked)}
-                          />
-                          <span>显示暂不支持技能伤害计算的英雄</span>
-                        </label>
-                        <label className="toggle">
-                          <input
-                            type="checkbox"
-                            checked={showDamageTestHeroes}
-                            onChange={(event) => setShowDamageTestHeroes(event.target.checked)}
-                          />
-                          <span>显示技能伤害统计测试英雄</span>
-                        </label>
-                      </>
+                      <label className="toggle">
+                        <input
+                          type="checkbox"
+                          checked={showDamageTestHeroes}
+                          onChange={(event) => setShowDamageTestHeroes(event.target.checked)}
+                        />
+                        <span>显示技能伤害统计测试英雄</span>
+                      </label>
                     ) : null}
                     <label className="toggle">
                       <input
@@ -3649,24 +4044,17 @@ export default function App() {
                 <span>吸血鬼满层</span>
               </label>
             ) : null}
-            {hasBlazingSkillAmpEffect ? (
-              <label className="toggle">
-                <input type="checkbox" checked={blazingFull} onChange={(event) => setBlazingFull(event.target.checked)} />
-                <span>炽燃满层</span>
+            {/* 叠层类 / 条件触发类装备特效：装上带该效果的装备后开关才出现 */}
+            {availableEffectToggles.map((item) => (
+              <label className="toggle" key={item.name} title={effectToggleHint(item.name)}>
+                <input
+                  type="checkbox"
+                  checked={Boolean(effectToggles[item.name])}
+                  onChange={(event) => setEffectToggles((current) => ({ ...current, [item.name]: event.target.checked }))}
+                />
+                <span>{item.label}</span>
               </label>
-            ) : null}
-            {hasMagicSeedEffect ? (
-              <label className="toggle" title="魔力种子满层：技能增幅 +20，冷却缩减 +20。">
-                <input type="checkbox" checked={magicSeedFull} onChange={(event) => setMagicSeedFull(event.target.checked)} />
-                <span>魔力种子满层</span>
-              </label>
-            ) : null}
-            {hasConditionalDamageAmpEffect ? (
-              <label className="toggle" title="暗影面纱等条件触发类装备增伤，勾选后才计入伤害提升。">
-                <input type="checkbox" checked={conditionalDamageAmpActive} onChange={(event) => setConditionalDamageAmpActive(event.target.checked)} />
-                <span>装备增伤触发</span>
-              </label>
-            ) : null}
+            ))}
             <label className="toggle">
               <input type="checkbox" checked={tacticalUpgraded} onChange={(event) => setTacticalUpgraded(event.target.checked)} />
               <span>战术技能升级</span>
@@ -3873,6 +4261,32 @@ export default function App() {
               </div>
             ) : null}
           </summary>
+          {/* 这几项只有当前英雄的技能或身上装备的特效真的用到时才出现，平时不占地方 */}
+          {contextFieldsInUse.length ? (
+            <div className="skillContextFields">
+              {contextFieldsInUse.includes('targetCurrentHp') || contextFieldsInUse.includes('targetLostHp') ? (
+                <>
+                  <Field
+                    label="目标当前体力"
+                    value={targetHpPct}
+                    onChange={(value) => setTargetHpPct(Math.max(0, Math.min(100, getNumber(value))))}
+                    suffix="%"
+                    note={help('field.targetCurrentHp')}
+                  />
+                  <Field
+                    label="目标已失体力"
+                    value={round(100 - getNumber(targetHpPct), 1)}
+                    onChange={(value) => setTargetHpPct(Math.max(0, Math.min(100, 100 - getNumber(value))))}
+                    suffix="%"
+                    note={help('field.targetLostHp')}
+                  />
+                </>
+              ) : null}
+              {contextFieldsInUse.includes('shield') ? (
+                <Field label="自身护盾" value={selfShield} onChange={setSelfShield} note={help('field.selfShield')} />
+              ) : null}
+            </div>
+          ) : null}
           <div className="skillMainGrid">
             {SKILL_MAIN_SLOTS.map(renderSkillMainColumn)}
             {!result.skills.length ? (
@@ -3911,14 +4325,73 @@ export default function App() {
             <div className="damageRow compactDamageRow highlight">
               <div>
                 <strong>特效小计</strong>
-                <span>当前潜能与战术技能附加效果</span>
+                <span>潜能 / 战术技能 / 装备独有效果的附加伤害</span>
               </div>
               <DamageValue raw={result.effectSubtotalRaw} final={result.effectSubtotal} />
             </div>
+            {/* 不产生独立伤害段、但改了属性或增伤的装备效果，单独列出来说明它们已计入 */}
+            {result.effectMods?.applied?.length ? (
+              <div className="damageRow compactDamageRow">
+                <div>
+                  <strong>已计入的装备特效修正</strong>
+                  <span>
+                    {result.effectMods.applied.map((effect) => `${effect.label || effect.name}：`
+                      + Object.entries(effect.modifiers || {})
+                        .map(([key, value]) => `${ITEM_EFFECT_MODIFIERS.modifierKeys?.[key] || key} ${value > 0 && value < 1 ? pct(value) : value}`)
+                        .join('、')).join('｜')}
+                  </span>
+                </div>
+              </div>
+            ) : null}
           </div>
           ) : null}
         </div>
       </section>
+
+      {result.basicAttackSkills.length ? (
+      <section className="panel damagePanel">
+        <div className="panelHead">
+          <div>
+            <p className="eyebrow">Basic Attack</p>
+            <h2>强化普攻</h2>
+          </div>
+        </div>
+        <p className="note">
+          这些技能不单独打出伤害，而是给下一次普攻附加一段。下面按当前面板属性算出强化后的一次普攻总量。
+        </p>
+        <div className="damageRowList">
+          <div className="damageRow compactDamageRow">
+            <div>
+              <strong>普通攻击</strong>
+              <span>攻击力 {round(result.attackPower, 1)} 经防御与增伤修正后的一次普攻</span>
+            </div>
+            <DamageValue raw={result.basicAttackDamage.normal} final={result.basicAttackDamage.normal} />
+          </div>
+          {result.basicAttackSkills.map((skill) => {
+            const level = skill.level || skillLevels[skill.id] || 1;
+            return (
+              <div className="damageRow compactDamageRow" key={skill.id}>
+                <div>
+                  <strong>{skill.title}</strong>
+                  <span>{skillFormulaDescription(skill, level).split('\n')[0]}{skill.coefficientText ? ` ｜ ${skill.coefficientText}` : ''}</span>
+                </div>
+                <DamageValue raw={skill.rawDamage} final={skill.damage} />
+              </div>
+            );
+          })}
+          <div className="damageRow compactDamageRow highlight">
+            <div>
+              <strong>强化后一次普攻合计</strong>
+              <span>普通攻击 + 上面全部额外段</span>
+            </div>
+            <DamageValue
+              raw={result.basicAttackDamage.normal + result.basicAttackBonusRaw}
+              final={result.basicAttackDamage.normal + result.basicAttackBonus}
+            />
+          </div>
+        </div>
+      </section>
+      ) : null}
 
       {result.comboRows.length ? (
       <section className="panel formulaPanel">

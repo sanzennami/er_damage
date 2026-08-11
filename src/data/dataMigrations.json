@@ -1,6 +1,6 @@
 {
   "_comment": "数据迁移表：把浏览器 localStorage 里保存的过期字段改成当前的官方译名。只有当保存值与 from 完全一致时才替换，用户自己改过的内容不受影响。",
-  "_usage": "官方公告改了中文译名、或修正了此前自拟的翻译时，在 skillTitles 里追加一条 { id, from, to }。",
+  "_usage": "官方公告改了中文译名、或修正了此前自拟的翻译时，在 skillTitles 里追加一条 { id, from, to }。从 heroSkills.json 删条目不需要在这里登记：合并逻辑按 source 字段判定，随包数据消失即从缓存清除。",
   "generatedAt": "2026-08-06T13:07:50.977Z",
   "skillTitles": [
     {
@@ -62,6 +62,11 @@
       "id": "patch-115-craver-1089200-focus-shot-additional-damage",
       "from": "Q 聚焦射击 追加伤害",
       "to": "Q 聚焦射击 持续伤害"
+    },
+    {
+      "id": "007-hyunwoo-e-1007400-damage-by-level",
+      "from": "E 先发制人 基础伤害",
+      "to": "E 先发制人 命中伤害"
     }
   ]
 }

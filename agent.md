@@ -108,6 +108,7 @@ names resolve to the canonical one); numbers are not.
 | `specialSkillRules.json` | Display/aggregation behaviour only (multi-hit, secondary scaling, stack selector, combos). **No formulas.** |
 | `masteryStats.json` | Per-level weapon mastery growth. |
 | `localConfig.json` | In-app config table defaults: `talents` / `combos`. `equipment`/`skills` stay empty. |
+| `patchLog.json` | **Official patch log in target-state form.** Applied by `scripts/apply-patch-log.mjs`, which is idempotent — never revert data to re-run it. Add a new patch by appending an entry. |
 | `dataMigrations.json` | Rewrites stale names in old browser caches. |
 | `dakLoadoutAssets.json` | Augments/traits, tactical skills, icons. |
 | `sources/*.json` | Raw imports (er-gamedata, wiki/patch pipeline, in-game capture). App never reads these. |

@@ -1,7 +1,7 @@
 {
   "_comment": "实验体总表：基础属性、每级成长、武器、技能组索引。",
   "_usage": "基础/成长数值随官方公告更新；技能伤害不放这里，见 heroSkills.json。",
-  "generatedAt": "2026-08-09T00:30:16.533Z",
+  "generatedAt": "2026-08-09T07:48:01.569Z",
   "source": "https://github.com/pypy-vrc/er-gamedata.git",
   "counts": {
     "characters": 89,
@@ -437,7 +437,7 @@
         "maxHp": 73,
         "maxVp": 0,
         "attackPower": 4.3,
-        "defense": 2.5,
+        "defense": 2.7,
         "skillAmp": 0,
         "adaptiveForce": 0,
         "criticalChance": 0,
@@ -477,7 +477,9 @@
       ],
       "playTip": "娜町是一位天生的猎手。善于使用弓和陷阱进行狩猎，击杀的野生动物越多，娜町就变得越强，是一位成长型的实验体。",
       "storyName": "娜町・钱德拉温娜塔",
-      "image": "/assets/characters/006-Nadine.png"
+      "image": "/assets/characters/006-Nadine.png",
+      "patchVersion": "12.0b",
+      "patchOrder": 20260810
     },
     {
       "code": 7,
@@ -2127,7 +2129,7 @@
       ],
       "base": {
         "hp": 945,
-        "attackPower": 37,
+        "attackPower": 40,
         "defense": 52,
         "skillAmp": 0,
         "moveSpeed": 3.55,
@@ -2168,7 +2170,9 @@
       ],
       "playTip": "威廉是一位灵活的投手。他从不失误，并有着不逊色于王牌投手的强大投掷能力。",
       "storyName": "威廉・本森",
-      "image": "/assets/characters/032-William.png"
+      "image": "/assets/characters/032-William.png",
+      "patchVersion": "12.0b",
+      "patchOrder": 20260810
     },
     {
       "code": 33,

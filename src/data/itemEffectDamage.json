@@ -1,0 +1,441 @@
+{
+  "_comment": "装备独有效果里会造成伤害的那些，按当前面板属性实时计算。效果名与 itemUniqueEffects.json 的 effectsByName 一致；公式变量与 heroSkills.json 相同。",
+  "_usage": "damageType: skill 走最终伤害倍率，true 是真实伤害不吃减伤，shield 是护盾量（不吃减伤、不计入伤害小计）。hits > 1 时同时给出单次和合计。toggle 表示需要界面开关（叠层或条件触发），装上该装备后开关才出现。数值随官方公告改动时直接改这里。",
+  "source": "客户端物品 tooltip（dakItemSkillIcons.json）",
+  "version": "12.0b",
+  "effects": [
+    {
+      "name": "诅咒",
+      "label": "诅咒",
+      "damageType": "true",
+      "formula": "25 + ap * 0.1",
+      "coefficientText": "25 + 技能增幅的10% 真实伤害",
+      "note": "技能命中后敌人陷入诅咒 4 秒，解除时结算。8 秒内不再重复中招（普攻命中减 1 秒），冷却 2 秒。"
+    },
+    {
+      "name": "腐化",
+      "label": "腐化 每跳",
+      "damageType": "skill",
+      "formula": "targetHp * (0.004 + ap * 0.000014)",
+      "hits": 3,
+      "coefficientText": "每秒 目标体力上限的 0.4(+技能增幅的0.14%)%",
+      "note": "造成技能伤害时附着，每秒 1 跳共 3 秒，叠层上限 1。"
+    },
+    {
+      "name": "破裂",
+      "label": "破裂",
+      "damageType": "skill",
+      "formula": "60 + heroLevel * 3 + ap * 0.25",
+      "coefficientText": "60(+实验体等级*3)(+技能增幅25%)",
+      "note": "独立技能命中后 0.8 秒引爆，冷却 8 秒。"
+    },
+    {
+      "name": "光子发射器",
+      "label": "光子发射器",
+      "damageType": "skill",
+      "formula": "10 + ap * 0.2",
+      "coefficientText": "10(+技能增幅20%)",
+      "note": "每第 3 次普攻触发。"
+    },
+    {
+      "name": "大师",
+      "label": "大师 冲击波",
+      "damageType": "skill",
+      "formula": "60 + attack * 0.5 + heroLevel * 2",
+      "coefficientText": "60(+攻击力50%)(+实验体等级*2)",
+      "note": "使用武器技能后 0.5 秒释放，冷却 10 秒。"
+    },
+    {
+      "name": "惩恶",
+      "label": "惩恶",
+      "damageType": "skill",
+      "formula": "30 + ap * 0.2 + heroLevel * 2",
+      "coefficientText": "30(+技能增幅20%)(+实验体等级*2)",
+      "note": "4 秒内命中同一敌人 3 次触发，冷却 12 秒。护盾部分未计入。"
+    },
+    {
+      "name": "爆能弹",
+      "label": "爆能弹",
+      "damageType": "skill",
+      "formula": "attack * 0.8",
+      "coefficientText": "(+攻击力80%)",
+      "note": "普攻命中触发，附近有敌人时最多溅射 5 人（同样数值），冷却 5 秒。"
+    },
+    {
+      "name": "充能 - 闪光",
+      "label": "充能 - 闪光",
+      "damageType": "skill",
+      "formula": "heroLevel * 11",
+      "coefficientText": "实验体等级*11",
+      "note": "强化下一次普攻，冷却 5 秒。"
+    },
+    {
+      "name": "充能 - 铁环",
+      "label": "充能 - 铁环",
+      "damageType": "skill",
+      "formula": "100",
+      "coefficientText": "100",
+      "note": "强化下一次普攻，冷却 5 秒。"
+    },
+    {
+      "name": "次元裂痕",
+      "label": "次元裂痕 每秒",
+      "damageType": "skill",
+      "formula": "12 + ap * 0.04",
+      "hits": 5,
+      "coefficientText": "每秒 12(+技能增幅4%)",
+      "note": "终极技能命中后附加「次元紊乱」5 秒，期间目标承受伤害 +6%（未计入）。每目标冷却 20 秒。"
+    },
+    {
+      "name": "火力延伸",
+      "label": "火力延伸",
+      "damageType": "skill",
+      "formula": "heroLevel * 3",
+      "coefficientText": "实验体等级*3",
+      "note": "每 7 秒强化下一次普攻，射程 +25%。"
+    },
+    {
+      "name": "炽焰",
+      "label": "炽焰 每秒",
+      "damageType": "skill",
+      "formula": "targetHp * 0.02",
+      "coefficientText": "目标体力上限的 2%",
+      "note": "VF暴走状态下进入战斗，每秒对 2.5m 内敌人结算。"
+    },
+    {
+      "name": "疾风",
+      "label": "疾风 每跳",
+      "damageType": "skill",
+      "formula": "20 + ap * 0.15 + targetHp * 0.005",
+      "hits": 10,
+      "coefficientText": "每 0.5 秒 20(+技能增幅15%)(+目标体力上限0.5%)",
+      "note": "5 秒内命中同一敌人 3 次生成龙卷风，持续 5 秒共 10 跳，冷却 10 秒。"
+    },
+    {
+      "name": "疾风 - 集结",
+      "label": "疾风 - 集结 每跳",
+      "damageType": "skill",
+      "formula": "20 + attack * 0.3 + targetHp * 0.005",
+      "hits": 10,
+      "coefficientText": "每 0.5 秒 20(+攻击力30%)(+目标体力上限0.5%)",
+      "note": "对敌人施加无法移动效果时生成，持续 5 秒共 10 跳，冷却 10 秒。"
+    },
+    {
+      "name": "灵魂收割者",
+      "label": "灵魂收割者 首次",
+      "damageType": "skill",
+      "formula": "10 + ap * 0.1",
+      "coefficientText": "10(+技能增幅10%)",
+      "note": "独立技能命中时触发并留下标识；标识满 3 秒后再次命中另有一段更高伤害。冷却 8 秒。"
+    },
+    {
+      "name": "灵魂收割者",
+      "label": "灵魂收割者 标识引爆",
+      "damageType": "skill",
+      "formula": "40 + ap * 0.4",
+      "coefficientText": "40(+技能增幅40%)",
+      "note": "标识持续 3 秒后再次造成技能伤害时结算。"
+    },
+    {
+      "name": "掠食",
+      "label": "掠食",
+      "damageType": "skill",
+      "formula": "20 + extraHp * 0.12",
+      "coefficientText": "20(+额外体力12%)",
+      "note": "对停留 6m 内超过 2 秒的敌人强化普攻，每目标冷却 10 秒。"
+    },
+    {
+      "name": "魔弹",
+      "label": "魔弹",
+      "damageType": "skill",
+      "formula": "ap * 0.3 + targetHp * 0.08",
+      "coefficientText": "技能增幅30% + 敌人体力上限8%",
+      "note": "叠满 2 层后普攻触发，冷却 5 秒。"
+    },
+    {
+      "name": "齐放",
+      "label": "齐放",
+      "damageType": "skill",
+      "formula": "80 + heroLevel * 8",
+      "coefficientText": "80(+实验体等级*8)",
+      "note": "对同一敌人连续 3 次普攻后强化下一次远程普攻，冷却 1 秒。"
+    },
+    {
+      "name": "起火",
+      "label": "起火 每秒每层",
+      "damageType": "true",
+      "formula": "targetHp * 0.006",
+      "hits": 4,
+      "coefficientText": "每秒 目标体力上限的 0.6% 真实伤害",
+      "note": "普攻附着 4 秒，最多叠 4 层；这里的合计是满 4 层同一秒的量。"
+    },
+    {
+      "name": "热情",
+      "label": "热情",
+      "damageType": "skill",
+      "formula": "targetHp * 0.02",
+      "coefficientText": "敌人当前体力的 2%",
+      "note": "普攻命中触发。官方写的是「当前体力」，模型只有目标体力上限，满血时才等价。"
+    },
+    {
+      "name": "热情 - 欢喜",
+      "label": "热情 - 欢喜",
+      "damageType": "skill",
+      "formula": "targetHp * 0.05",
+      "coefficientText": "目标当前体力的 5%",
+      "note": "同上，按目标体力上限近似。"
+    },
+    {
+      "name": "热情 - 循环",
+      "label": "热情 - 循环",
+      "damageType": "skill",
+      "formula": "10 + ap * 0.25",
+      "coefficientText": "近战 10(+技能增幅25%)｜远程 10(+技能增幅20%)",
+      "note": "按近战取值；远程为技能增幅 20%。"
+    },
+    {
+      "name": "守势反击",
+      "label": "守势反击",
+      "damageType": "skill",
+      "formula": "50 + extraHp * 0.1 + targetHp * 0.06",
+      "coefficientText": "50(+额外体力10%)(+敌人体力上限6%)",
+      "note": "获得护盾后强化下一次普攻，冷却 10 秒。"
+    },
+    {
+      "name": "余震",
+      "label": "余震",
+      "damageType": "skill",
+      "formula": "20 + heroLevel * 1",
+      "coefficientText": "20(+实验体等级*1)",
+      "note": "普攻命中触发。"
+    },
+    {
+      "name": "震荡",
+      "label": "震荡",
+      "damageType": "skill",
+      "formula": "10 + extraHp * 0.12 + heroLevel * 2",
+      "coefficientText": "10(+额外体力12%)(+实验体等级*2)",
+      "note": "战斗状态下敌人在 2.5m 内停留超过 2 秒时生成。"
+    },
+    {
+      "name": "直击",
+      "label": "直击",
+      "damageType": "skill",
+      "formula": "25 + ap * 0.25 + heroLevel * 2",
+      "coefficientText": "25(+技能增幅25%)(+实验体等级*2)",
+      "note": "对 6.5m 外的敌人用独立技能造成伤害时触发，冷却 9 秒。"
+    },
+    {
+      "name": "致命一击",
+      "label": "致命一击",
+      "damageType": "skill",
+      "formula": "attack * 0.55",
+      "coefficientText": "(+攻击力55%)",
+      "note": "强化下一次普攻，冷却 6 秒。"
+    },
+    {
+      "name": "泰瑟电击",
+      "label": "泰瑟电击",
+      "damageType": "skill",
+      "formula": "30 + ap * 0.25",
+      "coefficientText": "30(+技能增幅25%)",
+      "note": "敌人在 8m 内停留 3 秒以上时强化普攻；命中后 5 秒内技能伤害 +10%（未计入）。冷却 10 秒。"
+    },
+    {
+      "name": "邪恶之雾",
+      "label": "邪恶之雾 每秒",
+      "damageType": "skill",
+      "formula": "20 + extraHp * 0.12",
+      "hits": 6,
+      "coefficientText": "每秒 20(+额外体力12%)",
+      "note": "施加无法移动效果后生成区域，持续 6 秒，区域内敌人防御 -12%（未计入）。冷却 10 秒。"
+    },
+    {
+      "name": "灼火之心",
+      "label": "灼火之心",
+      "damageType": "skill",
+      "formula": "20 + maxHp * 0.06",
+      "coefficientText": "20(+体力上限6%)",
+      "note": "战斗状态下每 3 秒对 4m 内敌人结算。"
+    },
+    {
+      "name": "再生之击",
+      "label": "再生之击",
+      "damageType": "skill",
+      "formula": "20 + extraAttack * 0.4 + ap * 0.15",
+      "coefficientText": "20(+额外攻击力40%)(+技能增幅15%)",
+      "note": "每 10 秒强化下一次普攻，普攻命中各减 1 秒冷却。"
+    },
+    {
+      "name": "碎裂冲击",
+      "label": "碎裂冲击",
+      "damageType": "skill",
+      "formula": "20 + extraHp * 0.1 + heroLevel * 3",
+      "coefficientText": "20(+额外体力10%)(+实验体等级*3)",
+      "note": "战斗状态下每 4 秒蓄能一次强化普攻。"
+    },
+    {
+      "name": "精准锁定",
+      "label": "精准锁定",
+      "damageType": "skill",
+      "formula": "10 + heroLevel * 2",
+      "coefficientText": "10(+实验体等级*2)",
+      "note": "队友对被标识的目标造成伤害时结算，冷却 8 秒。"
+    },
+    {
+      "name": "荆棘",
+      "label": "荆棘 爆发",
+      "damageType": "skill",
+      "formula": "150",
+      "coefficientText": "150",
+      "note": "4 秒内累计承受 600 伤害时对周围造成，冷却 3 秒。普攻反弹 4.5% 真伤未建模。"
+    },
+    {
+      "name": "泰瑟电击 - 跳跃",
+      "label": "泰瑟电击 - 跳跃",
+      "damageType": "skill",
+      "formula": "20 + attack * 0.3 + heroLevel * 2",
+      "coefficientText": "20(+攻击力30%)(+实验体等级*2)",
+      "note": "使用移动技能后强化下一次普攻；命中后目标防御力 4 秒内 -8%（见修正表）。冷却 8 秒。"
+    },
+    {
+      "name": "亡灵祷告",
+      "label": "亡灵祷告",
+      "damageType": "skill",
+      "formula": "30 + heroLevel * 5 + targetHp * 0.07",
+      "coefficientText": "30(+实验体等级*5)(+目标体力上限7%)",
+      "note": "给队友提供恢复或护盾后，队友命中敌人时亡灵飞出结算。冷却 6 秒。"
+    },
+    {
+      "name": "微步",
+      "label": "微步（满 100 层）",
+      "damageType": "skill",
+      "formula": "100",
+      "toggle": {
+        "label": "微步满层"
+      },
+      "coefficientText": "最多造成 100 技能伤害",
+      "note": "每移动 0.4m 叠 1 层，上限 100 层；普攻消耗全部叠层结算，满层才是这个值。"
+    },
+    {
+      "name": "意念",
+      "label": "意念",
+      "damageType": "skill",
+      "formula": "ap * 0.4",
+      "toggle": {
+        "label": "意念已充能"
+      },
+      "coefficientText": "技能增幅40%",
+      "note": "使用技能后充能，3 秒内下一个普攻造成额外技能伤害。冷却 2 秒。"
+    },
+    {
+      "name": "法夫纳之鳞",
+      "label": "法夫纳之鳞（满 8 层）",
+      "damageType": "shield",
+      "formula": "100 + extraHp * 1",
+      "toggle": {
+        "label": "法夫纳之鳞满层"
+      },
+      "coefficientText": "100(+额外体力100%)",
+      "note": "累计承受 350 伤害叠 1 层，上限 8 层；满层时获得持续 4 秒且逐渐减弱的护盾。"
+    },
+    {
+      "name": "明镜止水",
+      "label": "明镜止水 护盾上限",
+      "damageType": "shield",
+      "formula": "50 + heroLevel * 10 + ap * 0.4",
+      "coefficientText": "护盾上限 50(+实验体等级*10)(+技能增幅40%)",
+      "note": "持续 5 秒未承受伤害后每秒获得 30(+实验体等级*5) 护盾，累计不超过这个上限。"
+    },
+    {
+      "name": "逆流 - 巨人",
+      "label": "逆流 - 巨人",
+      "damageType": "shield",
+      "formula": "125 + extraHp * 0.8",
+      "toggle": {
+        "label": "逆流 - 巨人已触发"
+      },
+      "coefficientText": "125(+额外体力80%)",
+      "note": "体力低于 40% 时承受敌人伤害触发，持续 2 秒。冷却 30 秒。"
+    },
+    {
+      "name": "逆流 - 血之契约",
+      "label": "逆流 - 血之契约",
+      "damageType": "shield",
+      "formula": "200 + heroLevel * 15",
+      "toggle": {
+        "label": "逆流 - 血之契约已触发"
+      },
+      "coefficientText": "200(+实验体等级*15)",
+      "note": "体力低于 40% 时承受敌人伤害触发，持续 2.5 秒；同时 8 秒内 +15 攻击力或 +30 技能增幅（见修正表）。冷却 40 秒。"
+    },
+    {
+      "name": "神速 - 等离子",
+      "label": "神速 - 等离子",
+      "damageType": "shield",
+      "formula": "150",
+      "toggle": {
+        "label": "神速 - 等离子已触发"
+      },
+      "coefficientText": "150",
+      "note": "4 秒内造成 3 次伤害后触发。冷却 10 秒。"
+    },
+    {
+      "name": "神速 - 微风",
+      "label": "神速 - 微风",
+      "damageType": "shield",
+      "formula": "100 + ap * 0.3 + heroLevel * 5",
+      "toggle": {
+        "label": "神速 - 微风已触发"
+      },
+      "coefficientText": "100(+技能增幅30%)(+实验体等级*5)",
+      "note": "4 秒内造成 3 次伤害后触发。冷却 12 秒。"
+    }
+  ],
+  "unmodeled": [
+    {
+      "name": "电击",
+      "why": "近战/远程分档，且带「20~58（实验体等级比例）」的区间值"
+    },
+    {
+      "name": "回响",
+      "why": "反弹自身承受的伤害，跟输入伤害相关，不是独立伤害段"
+    },
+    {
+      "name": "宣告",
+      "why": "斩杀线，不是伤害"
+    },
+    {
+      "name": "刽子手",
+      "why": "增伤 15%，已按增伤处理不重复计"
+    },
+    {
+      "name": "光辉",
+      "why": "增伤 12%，界面已有单独开关"
+    },
+    {
+      "name": "炽燃 - 增幅",
+      "why": "叠层增伤，不是独立伤害段"
+    },
+    {
+      "name": "粉碎",
+      "why": "减防，不是伤害"
+    },
+    {
+      "name": "间隔",
+      "why": "只减自身承受伤害，且按距离分档"
+    },
+    {
+      "name": "减少治愈",
+      "why": "减疗，不产生伤害"
+    },
+    {
+      "name": "神速",
+      "why": "只有移速"
+    },
+    {
+      "name": "迅捷",
+      "why": "只有移速"
+    }
+  ]
+}

@@ -133,6 +133,7 @@ er-gamedata 是玩家自发维护的解包内容，不保证准确（旧表把�
 | `src/data/masteryStats.json` | 每级武器熟练度成长 | ✅ 跟官方公告改 |
 | `src/data/itemUniqueEffects.json` | 装备独有效果名映射（按 code / name） | ✅ |
 | `src/data/localConfig.json` | 页面配置表默认值：`talents` / `combos` | ✅ 天赋常改 |
+| `src/data/patchLog.json` | **官方补丁日志**（目标态），配合 `apply-patch-log.mjs` 跟版本更新 | ✅ 出新版本时追加 |
 | `src/data/dataMigrations.json` | 旧缓存译名迁移表 | 官方改译名时追加 |
 | `src/data/dakLoadoutAssets.json` | 潜能 / 战术技能及图标 | ⚠️ |
 | `src/data/dakItemSkillIcons.json` | 装备图标与 tooltip | ⚠️ 脚本生成 |
@@ -432,7 +433,7 @@ raw   = floor(base + context[coefficient.variable] * coef)
 5. 有需要就补 `helpNotes.json` 文案。
 6. `npm run build` 验证。
 
-界面默认只列出"有伤害数据"的英雄（`HEROES_WITH_SKILL_DAMAGE`）；全英雄入口在设置里开关控制（`showUnsupportedHeroes` / `showDamageTestHeroes`）。
+界面默认只列出人工接管的英雄；开启编辑模式后点版本号打开调试区，勾选「显示技能伤害统计测试英雄」（`showDamageTestHeroes`）即可列出**全部 89 名实验体**。其中雪琳、米尔卡、卡洛琳暂无伤害数据，技能面板会显示「暂无技能数据」，但实验体本体（基础属性、成长、熟练度、技能组）都在，可对照「官方数据」面板补录。
 
 ---
 
@@ -478,6 +479,9 @@ npm run update:gamedata
 | --- | --- | --- |
 | `scripts/update-er-gamedata.mjs` | 同步 er-gamedata，导出角色/装备/属性定义/熟练度 | `src/data/sources/erGameData.json`、`masteryStats.json` |
 | `scripts/consolidate-hero-skills.mjs` | **把 sources/ 整合成 heroSkills / equipment / characters 三张表** | `src/data/*.json`、`docs/data-consolidation/` |
+| `scripts/apply-patch-log.mjs` | **按官方补丁日志把数据推到目标态（幂等，可随时重跑）** | `heroSkills` / `equipment` / `characters` / `masteryStats` |
+| `scripts/ocr-skill-capture.mjs` | **客户端截图 → OCR → 结构化技能读数**，产出 `ingame-capture.mjs` 能吃的条目 | 打印到 stdout |
+| `scripts/lib/win-ocr.ps1` | Windows 自带 OCR 封装（离线、认中文、零依赖） | JSON（带坐标） |
 | `scripts/export-er-skill-tables.mjs` | 归一化技能组/等级/扩展表 | `docs/skill-tables/`、`src/data/erSkillTables.json` |
 | `scripts/export-er-skill-damage-table.mjs` | 导出结构化技能伤害表（文案优先取 DAK.GG 中文接口） | `docs/skill-damage/`、`src/data/erSkillDamageTable.json` |
 | `scripts/export-missing-skill-damage-heroes.mjs` | 列出缺伤害数据的英雄/技能 | `docs/external-skill-damage/missing-*` |

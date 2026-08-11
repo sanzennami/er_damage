@@ -1,0 +1,4198 @@
+{
+  "_comment": "官方补丁变更日志。每条记录的是「该补丁之后应该是什么值」（目标态），不是增量。",
+  "_usage": "新版本上线：在 patches 末尾追加一段，然后跑 node scripts/apply-patch-log.mjs。脚本幂等，重跑只会跳过已达标的条目，不需要还原任何数据。",
+  "updatedAt": "2026-08-10T18:25:45.610Z",
+  "patches": [
+    {
+      "version": "sweep-2023-07-19",
+      "order": 20230719,
+      "date": "2023-07-19",
+      "url": "https://playeternalreturn.com/posts/news/1286?hl=zh-CN",
+      "title": "更新日志 1.0.0 (2023.07.20)",
+      "skills": [
+        {
+          "id": "external-debimarlene-w-1065300-damage-stat1",
+          "hero": "黛比&玛莲",
+          "title": "W 靛旋之舞",
+          "bases": "40,70,100,130,160",
+          "formula": "base + extraAttack * 0.6 + targetHp * 0.05",
+          "coefficientText": "40/70/100/130/160 (+额外攻击力60%)(+目标体力上限5%)",
+          "note": "仅修正变量：该英雄全部伤害吃额外攻击力，公告从无一处写「攻击力」。数值沿用现值（无公告改动过此段）。"
+        },
+        {
+          "id": "external-debimarlene-w-1065310-damage-stat1",
+          "hero": "黛比&玛莲",
+          "title": "W 赤月之舞",
+          "bases": "40,70,100,130,160",
+          "formula": "base + extraAttack * 0.6 + targetHp * 0.05",
+          "coefficientText": "40/70/100/130/160 (+额外攻击力60%)(+目标体力上限5%)",
+          "note": "仅修正变量，同上。"
+        },
+        {
+          "id": "external-debimarlene-e-1065400-debi-damage-stat2",
+          "hero": "黛比&玛莲",
+          "title": "E 守护我，玛莲！ Debi Damage",
+          "bases": "30,70,110,150,190",
+          "formula": "base + extraAttack * 0.7",
+          "coefficientText": "30/70/110/150/190 (+额外攻击力70%)",
+          "note": "仅修正变量，同上。"
+        },
+        {
+          "id": "external-debimarlene-e-1065400-marlene-damage-stat1",
+          "hero": "黛比&玛莲",
+          "title": "E 守护我，玛莲！ Marlene Damage",
+          "bases": "30,65,100,135,170",
+          "formula": "base + extraAttack * 0.7",
+          "coefficientText": "30/65/100/135/170 (+额外攻击力70%)",
+          "note": "仅修正变量，同上。"
+        },
+        {
+          "id": "external-debimarlene-e-1065410-debi-damage-stat2",
+          "hero": "黛比&玛莲",
+          "title": "E 就是现在，黛比！ Debi Damage",
+          "bases": "30,70,110,150,190",
+          "formula": "base + extraAttack * 0.7",
+          "coefficientText": "30/70/110/150/190 (+额外攻击力70%)",
+          "note": "仅修正变量，同上。"
+        },
+        {
+          "id": "external-debimarlene-e-1065410-marlene-damage-stat1",
+          "hero": "黛比&玛莲",
+          "title": "E 就是现在，黛比！ Marlene Damage",
+          "bases": "30,65,100,135,170",
+          "formula": "base + extraAttack * 0.7",
+          "coefficientText": "30/65/100/135/170 (+额外攻击力70%)",
+          "note": "仅修正变量，同上。"
+        },
+        {
+          "id": "external-debimarlene-r-1065500-initial-damage-stat1",
+          "hero": "黛比&玛莲",
+          "title": "R 靛赤双生 一段伤害",
+          "bases": "100,200,300",
+          "formula": "base + extraAttack * 1",
+          "coefficientText": "100/200/300 (+额外攻击力100%)",
+          "note": "仅修正变量；与已按 9.2 修正的二段伤害配套。"
+        }
+      ],
+      "equipment": [],
+      "characters": [],
+      "mastery": []
+    },
+    {
+      "version": "release-2023-08-16",
+      "order": 20230816,
+      "date": "2023-08-16",
+      "url": "https://playeternalreturn.com/posts/news/1354?hl=zh-CN",
+      "title": "2023.08.17 - 1.2 更新日志",
+      "skills": [
+        {
+          "create": true,
+          "id": "release-66-w-01",
+          "hero": "阿尔达",
+          "slot": "W",
+          "title": "W 巴比伦魔方",
+          "bases": "10,30,50,70,90",
+          "formula": "base + ap * 0.2",
+          "coefficientText": "10/30/50/70/90(+技能增幅20%) ",
+          "note": "发布公告技能描述：巴比伦魔方对区域内的敌人造成 数值取自该实验体的发布公告，是时间上最早的一份，任何后续补丁都会覆盖它。"
+        },
+        {
+          "create": true,
+          "id": "release-66-e-01",
+          "hero": "阿尔达",
+          "slot": "E",
+          "title": "E 尼姆鲁德石碑",
+          "bases": "40,70,100,130,160",
+          "formula": "base + ap * 0.3",
+          "coefficientText": "40/70/100/130/160(+技能增幅30%) ",
+          "note": "发布公告技能描述：对范围内的敌人造成 数值取自该实验体的发布公告，是时间上最早的一份，任何后续补丁都会覆盖它。"
+        },
+        {
+          "create": true,
+          "id": "release-66-r-01",
+          "hero": "阿尔达",
+          "slot": "R",
+          "title": "R 沉睡之力 第1段",
+          "bases": "50,90,130,170,210",
+          "formula": "base + ap * 0.7",
+          "coefficientText": "50/90/130/170/210(+技能增幅70%) ",
+          "note": "发布公告技能描述：对和法典冲撞的敌人造成 数值取自该实验体的发布公告，是时间上最早的一份，任何后续补丁都会覆盖它。"
+        },
+        {
+          "create": true,
+          "id": "release-66-r-02",
+          "hero": "阿尔达",
+          "slot": "R",
+          "title": "R 沉睡之力 第2段",
+          "bases": "160,240,320",
+          "formula": "base + ap * 0.8",
+          "coefficientText": "160/240/320(+技能增幅80%) ",
+          "note": "发布公告技能描述：秒后对路径上的敌人造成 数值取自该实验体的发布公告，是时间上最早的一份，任何后续补丁都会覆盖它。"
+        },
+        {
+          "create": true,
+          "id": "release-66-r-03",
+          "hero": "阿尔达",
+          "slot": "R",
+          "title": "R 沉睡之力 第3段",
+          "bases": "100,140,180",
+          "formula": "base + ap * 0.4",
+          "coefficientText": "100/140/180(+技能增幅40%) ",
+          "note": "发布公告技能描述：同时对敌人造成 数值取自该实验体的发布公告，是时间上最早的一份，任何后续补丁都会覆盖它。"
+        },
+        {
+          "create": true,
+          "id": "release-66-r-04",
+          "hero": "阿尔达",
+          "slot": "R",
+          "title": "R 沉睡之力 第4段",
+          "bases": "10,30,50,70,90",
+          "formula": "base + ap * 0.2",
+          "coefficientText": "10/30/50/70/90(+技能增幅20%) ",
+          "note": "发布公告技能描述：对骰子范围内的敌人造成 数值取自该实验体的发布公告，是时间上最早的一份，任何后续补丁都会覆盖它。"
+        },
+        {
+          "create": true,
+          "id": "release-66-r-05",
+          "hero": "阿尔达",
+          "slot": "R",
+          "title": "R 沉睡之力 第5段",
+          "bases": "50,80,110,140,170",
+          "formula": "base + ap * 0.6",
+          "coefficientText": "50/80/110/140/170(+技能增幅60%) ",
+          "note": "发布公告技能描述：不见的同时对区域内的敌人造成 数值取自该实验体的发布公告，是时间上最早的一份，任何后续补丁都会覆盖它。"
+        },
+        {
+          "create": true,
+          "id": "release-66-r-06",
+          "hero": "阿尔达",
+          "slot": "R",
+          "title": "R 沉睡之力 第6段",
+          "bases": "40,70,100,130,160",
+          "formula": "base + ap * 0.3",
+          "coefficientText": "40/70/100/130/160(+技能增幅30%) ",
+          "note": "发布公告技能描述：对范围内的敌人造成 数值取自该实验体的发布公告，是时间上最早的一份，任何后续补丁都会覆盖它。"
+        }
+      ],
+      "equipment": [],
+      "characters": [],
+      "mastery": []
+    },
+    {
+      "version": "release-2023-08-30",
+      "order": 20230830,
+      "date": "2023-08-30",
+      "url": "https://playeternalreturn.com/posts/news/1381?hl=zh-CN",
+      "title": "2023.08.31 - 1.3 更新日志",
+      "skills": [
+        {
+          "create": true,
+          "id": "release-67-q-01",
+          "hero": "艾比盖尔",
+          "slot": "Q",
+          "title": "Q 二元自旋 第1段",
+          "bases": "20,35,50,65,80",
+          "formula": "base + ap * 0.2",
+          "coefficientText": "20/35/50/65/80(+技能增幅20%) ",
+          "note": "发布公告技能描述：第一次旋转造成 数值取自该实验体的发布公告，是时间上最早的一份，任何后续补丁都会覆盖它。"
+        },
+        {
+          "create": true,
+          "id": "release-67-q-02",
+          "hero": "艾比盖尔",
+          "slot": "Q",
+          "title": "Q 二元自旋 第2段",
+          "bases": "60,90,120,150,180",
+          "formula": "base + ap * 0.6",
+          "coefficientText": "60/90/120/150/180(+技能增幅60%) ",
+          "note": "发布公告技能描述：第二次旋转造成 数值取自该实验体的发布公告，是时间上最早的一份，任何后续补丁都会覆盖它。"
+        }
+      ],
+      "equipment": [],
+      "characters": [],
+      "mastery": []
+    },
+    {
+      "version": "release-2023-10-11",
+      "order": 20231011,
+      "date": "2023-10-11",
+      "url": "https://playeternalreturn.com/posts/news/1480?hl=zh-CN",
+      "title": "2023.10.12 - 1.6 更新日志",
+      "skills": [
+        {
+          "create": true,
+          "id": "release-68-r-01",
+          "hero": "阿隆索",
+          "slot": "R",
+          "title": "R 磁吸漩涡 最小伤害",
+          "bases": "40,80,120",
+          "formula": "base + ap * 0.4 + extraHp * 0.02",
+          "coefficientText": "40/80/120(+技能增幅40%)(+额外体力2%)",
+          "note": "发布公告的额外体力 2%，现在用 extraHp 变量建模。"
+        },
+        {
+          "create": true,
+          "id": "release-68-r-02",
+          "hero": "阿隆索",
+          "slot": "R",
+          "title": "R 磁吸漩涡 最大伤害",
+          "bases": "80,160,240",
+          "formula": "base + ap * 0.8 + extraHp * 0.04",
+          "coefficientText": "80/160/240(+技能增幅80%)(+额外体力4%)",
+          "note": "发布公告的额外体力 4%，现在用 extraHp 变量建模。"
+        }
+      ],
+      "equipment": [],
+      "characters": [],
+      "mastery": []
+    },
+    {
+      "version": "release-2024-01-17",
+      "order": 20240117,
+      "date": "2024-01-17",
+      "url": "https://playeternalreturn.com/posts/news/1673?hl=zh-CN",
+      "title": "[更正] 2024.01.18 - 1.13 更新日志",
+      "skills": [
+        {
+          "create": true,
+          "id": "release-71-p-01",
+          "hero": "肯尼思",
+          "slot": "P",
+          "title": "P 暗火燃烧",
+          "bases": "0",
+          "formula": "base + targetHp * 0.01",
+          "coefficientText": "1(+攻击力0.5/0.75/1%)",
+          "note": "发布公告技能描述：或技能命中时造成目标体力上限 未建模项：攻击力 0.5/0.75/1% 数值取自该实验体的发布公告，是时间上最早的一份，任何后续补丁都会覆盖它。"
+        },
+        {
+          "create": true,
+          "id": "release-71-r-01",
+          "hero": "肯尼思",
+          "slot": "R",
+          "title": "R 碎焰风暴",
+          "bases": "80,200,320",
+          "formula": "base + attack * 1.1",
+          "coefficientText": "80/200/320(+攻击力110%) ",
+          "note": "发布公告技能描述：斧子下劈对落地点的敌人造成 数值取自该实验体的发布公告，是时间上最早的一份，任何后续补丁都会覆盖它。"
+        }
+      ],
+      "equipment": [],
+      "characters": [],
+      "mastery": []
+    },
+    {
+      "version": "release-2024-02-28",
+      "order": 20240228,
+      "date": "2024-02-28",
+      "url": "https://playeternalreturn.com/posts/news/1765?hl=zh-CN",
+      "title": "2024.02.29 - 1.16 更新日志",
+      "skills": [
+        {
+          "create": true,
+          "id": "release-72-q-01",
+          "hero": "卡缇娅",
+          "slot": "Q",
+          "title": "Q 绝命狙击 最小伤害",
+          "bases": "40,70,100,130,160",
+          "formula": "base + attack * 0.6",
+          "coefficientText": "40/70/100/130/160(+攻击力60%) ",
+          "note": "发布公告技能描述：对首位命中的敌人造成 数值取自该实验体的发布公告，是时间上最早的一份，任何后续补丁都会覆盖它。"
+        },
+        {
+          "create": true,
+          "id": "release-72-q-02",
+          "hero": "卡缇娅",
+          "slot": "Q",
+          "title": "Q 绝命狙击 最大伤害",
+          "bases": "60,105,150,195,240",
+          "formula": "base + attack * 0.9",
+          "coefficientText": "60/105/150/195/240(+攻击力90%) ",
+          "note": "发布公告技能描述：最大 数值取自该实验体的发布公告，是时间上最早的一份，任何后续补丁都会覆盖它。"
+        },
+        {
+          "create": true,
+          "id": "release-72-r-01",
+          "hero": "卡缇娅",
+          "slot": "R",
+          "title": "R 暗影终结 第三发",
+          "bases": "300,600,900",
+          "formula": "base + attack * 2",
+          "coefficientText": "300/600/900(+攻击力200%)",
+          "note": "发布公告技能描述：造成 数值取自该实验体的发布公告，是时间上最早的一份，任何后续补丁都会覆盖它。"
+        }
+      ],
+      "equipment": [],
+      "characters": [],
+      "mastery": []
+    },
+    {
+      "version": "sweep-2024-12-18",
+      "order": 20241218,
+      "date": "2024-12-18",
+      "url": "https://playeternalreturn.com/posts/news/2401?hl=zh-CN",
+      "title": "2024.12.19 - 1.37 更新日志",
+      "skills": [
+        {
+          "id": "external-hisui-q-1078200-damage-stat1",
+          "hero": "翡翠",
+          "title": "Q 连斩",
+          "bases": "70,75,80,85,90",
+          "formula": "base + extraAttack * [0.7,0.75,0.8,0.85,0.9][level - 1]",
+          "coefficientText": "70/75/80/85/90 (+额外攻击力70/75/80/85/90%)",
+          "note": "发布公告原文即为额外攻击力且逐级递增；此后无公告改动此段。原 Wiki 记成 attack*0.7（丢了逐级差异）。"
+        },
+        {
+          "id": "external-hisui-w-1078300-flash-cut-damage-stat4",
+          "hero": "翡翠",
+          "title": "W 居合一闪 Flash Cut Damage",
+          "bases": "30,50,70,90,110",
+          "formula": "base + extraAttack * 1",
+          "coefficientText": "一闪(W2) 30/50/70/90/110 (+额外攻击力100%)",
+          "note": "发布公告原文；仅修正变量。"
+        },
+        {
+          "id": "external-hisui-w-1078300-nichirin-cut-second-damage-stat7",
+          "hero": "翡翠",
+          "title": "W 居合一闪 Nichirin Cut Second Damage",
+          "bases": "50,80,110,140,170",
+          "formula": "base + extraAttack * 1",
+          "coefficientText": "日轮乱舞(W3) 终结攻击 50/80/110/140/170 (+额外攻击力100%)",
+          "note": "原 attack*0.15 是把同句前半段「每跳 10(+额外攻击力15~35%)」的系数错配到了终结伤害上。"
+        }
+      ],
+      "equipment": [],
+      "characters": [],
+      "mastery": []
+    },
+    {
+      "version": "release-2024-12-18",
+      "order": 20241218,
+      "date": "2024-12-18",
+      "url": "https://playeternalreturn.com/posts/news/2401?hl=zh-CN",
+      "title": "2024.12.19 - 1.37 更新日志",
+      "skills": [
+        {
+          "create": true,
+          "id": "release-78-w-01",
+          "hero": "翡翠",
+          "slot": "W",
+          "title": "W 居合一闪 日轮乱舞",
+          "bases": "10",
+          "formula": "base + extraAttack * [0.15,0.2,0.25,0.3,0.35][level - 1]",
+          "coefficientText": "10(+额外攻击力15/20/25/30/35%) ",
+          "note": "发布公告技能描述：并对范围内的敌人造成 数值取自该实验体的发布公告，是时间上最早的一份，任何后续补丁都会覆盖它。"
+        },
+        {
+          "create": true,
+          "id": "release-78-r-01",
+          "hero": "翡翠",
+          "slot": "R",
+          "title": "R 物干焯 / 燕返",
+          "bases": "20",
+          "formula": "base + extraAttack * [0.2,0.3,0.4][level - 1]",
+          "coefficientText": "20(+额外攻击力20/30/40%) ",
+          "note": "发布公告技能描述：成普攻和技能伤害时对敌人造成 数值取自该实验体的发布公告，是时间上最早的一份，任何后续补丁都会覆盖它。"
+        }
+      ],
+      "equipment": [],
+      "characters": [],
+      "mastery": []
+    },
+    {
+      "version": "sweep-2024-12-24",
+      "order": 20241224,
+      "date": "2024-12-24",
+      "url": "https://playeternalreturn.com/posts/news/2415?hl=zh-CN",
+      "title": "1.37c不停机维护",
+      "skills": [
+        {
+          "id": "external-hisui-w-1078300-clear-cut-second-damage-stat2",
+          "hero": "翡翠",
+          "title": "W 居合一闪 Clear Cut Second Damage",
+          "bases": "20,40,60,80,100",
+          "formula": "base + extraAttack * 0.85 + targetHp * 0.03",
+          "coefficientText": "2段 伤害 20/40/60/80/100 (+额外攻击力85%)(+目标体力上限的3%)",
+          "note": "1.37c 的改后值；此后无公告改动此段。"
+        }
+      ],
+      "equipment": [],
+      "characters": [],
+      "mastery": []
+    },
+    {
+      "version": "sweep-2024-12-31",
+      "order": 20241231,
+      "date": "2024-12-31",
+      "url": "https://playeternalreturn.com/posts/news/2426?hl=zh-CN",
+      "title": "2025.01.02 - 1.38 更新日志",
+      "skills": [
+        {
+          "id": "external-hisui-r-1078500-tsubame-gaeshi-damage-stat2",
+          "hero": "翡翠",
+          "title": "R 物干焯 / 燕返 Tsubame Gaeshi! Damage",
+          "bases": "80,120,160",
+          "formula": "base + extraAttack * 0.95",
+          "coefficientText": "燕返(R2) 1、2段 伤害 80/120/160 (+额外攻击力95%)",
+          "note": "1.38 把 100% 降到 95%；之前按发布公告写的 100% 已过期。",
+          "overrideManual": true
+        }
+      ],
+      "equipment": [],
+      "characters": [],
+      "mastery": []
+    },
+    {
+      "version": "release-2025-02-05",
+      "order": 20250205,
+      "date": "2025-02-05",
+      "url": "https://playeternalreturn.com/posts/news/2513?hl=zh-CN",
+      "title": "2025.02.06 - 1.40 更新日志",
+      "skills": [
+        {
+          "create": true,
+          "id": "release-79-p-01",
+          "hero": "尤斯蒂娜",
+          "slot": "P",
+          "title": "P 阿斯特拉能量 罪恶终结",
+          "bases": "40,60,80",
+          "formula": "base + ap * 0.25",
+          "coefficientText": "40/60/80(+技能增幅25%) ",
+          "note": "发布公告技能描述：将消耗标记并造成 数值取自该实验体的发布公告，是时间上最早的一份，任何后续补丁都会覆盖它。"
+        }
+      ],
+      "equipment": [],
+      "characters": [],
+      "mastery": []
+    },
+    {
+      "version": "release-2025-04-02",
+      "order": 20250402,
+      "date": "2025-04-02",
+      "url": "https://playeternalreturn.com/posts/news/2623?hl=zh-CN",
+      "title": "2025.04.03 - 1.44 更新日志",
+      "skills": [
+        {
+          "create": true,
+          "id": "release-80-q-01",
+          "hero": "伊舒特",
+          "slot": "Q",
+          "title": "Q 观测 第1段",
+          "bases": "60,100,140,180,220",
+          "formula": "base + attack * 1",
+          "coefficientText": "60/100/140/180/220(+攻击力的100%) ",
+          "note": "发布公告技能描述：对敌人造成 数值取自该实验体的发布公告，是时间上最早的一份，任何后续补丁都会覆盖它。"
+        },
+        {
+          "create": true,
+          "id": "release-80-q-02",
+          "hero": "伊舒特",
+          "slot": "Q",
+          "title": "Q 观测 其他可能性 第2段",
+          "bases": "60,100,140,180,220",
+          "formula": "base + attack * 1",
+          "coefficientText": "60/100/140/180/220(+攻击力的100%) ",
+          "note": "发布公告技能描述：同时造成 数值取自该实验体的发布公告，是时间上最早的一份，任何后续补丁都会覆盖它。"
+        },
+        {
+          "create": true,
+          "id": "release-80-w-01",
+          "hero": "伊舒特",
+          "slot": "W",
+          "title": "W 量子纠缠 第1段",
+          "bases": "60,85,110,135,160",
+          "formula": "base + attack * 0.8",
+          "coefficientText": "60/85/110/135/160(+攻击力的80%) ",
+          "note": "发布公告技能描述：对敌人造成 数值取自该实验体的发布公告，是时间上最早的一份，任何后续补丁都会覆盖它。"
+        },
+        {
+          "create": true,
+          "id": "release-80-w-02",
+          "hero": "伊舒特",
+          "slot": "W",
+          "title": "W 量子纠缠 其他可能性 第2段",
+          "bases": "60,85,110,135,160",
+          "formula": "base + attack * 0.8",
+          "coefficientText": "60/85/110/135/160(+攻击力的80%) ",
+          "note": "发布公告技能描述：对敌人造成 数值取自该实验体的发布公告，是时间上最早的一份，任何后续补丁都会覆盖它。"
+        },
+        {
+          "create": true,
+          "id": "release-80-e-01",
+          "hero": "伊舒特",
+          "slot": "E",
+          "title": "E 路径积分 其他可能性",
+          "bases": "60,100,140,180,220",
+          "formula": "base + attack * 1",
+          "coefficientText": "60/100/140/180/220(+攻击力的100%) ",
+          "note": "发布公告技能描述：对周围敌人造成 数值取自该实验体的发布公告，是时间上最早的一份，任何后续补丁都会覆盖它。"
+        },
+        {
+          "create": true,
+          "id": "release-80-r-01",
+          "hero": "伊舒特",
+          "slot": "R",
+          "title": "R 波函数坍缩 三种可能性",
+          "bases": "50,100,150",
+          "formula": "base + attack * 0.6",
+          "coefficientText": "50/100/150(+攻击力的60%) ",
+          "note": "发布公告技能描述：分别对范围内的敌人造成 数值取自该实验体的发布公告，是时间上最早的一份，任何后续补丁都会覆盖它。"
+        }
+      ],
+      "equipment": [],
+      "characters": [],
+      "mastery": []
+    },
+    {
+      "version": "release-2025-05-14",
+      "order": 20250514,
+      "date": "2025-05-14",
+      "url": "https://playeternalreturn.com/posts/news/2702?hl=zh-CN",
+      "title": "2025.05.15 - 1.47 更新日志",
+      "skills": [
+        {
+          "create": true,
+          "id": "release-81-p-01",
+          "hero": "妮娅",
+          "slot": "P",
+          "title": "P K.O. 每叠层伤害",
+          "bases": "2,6,10",
+          "formula": "(base + ap * 0.025) * stacks",
+          "coefficientText": "2/6/10(+技能增幅2.5%) ",
+          "note": "发布公告技能描述：每叠层 数值取自该实验体的发布公告，是时间上最早的一份，任何后续补丁都会覆盖它。"
+        },
+        {
+          "create": true,
+          "id": "release-81-q-01",
+          "hero": "妮娅",
+          "slot": "Q",
+          "title": "Q 落点 第1段",
+          "bases": "60,95,130,165,200",
+          "formula": "base + ap * 0.55",
+          "coefficientText": "60/95/130/165/200(+技能增幅55%) ",
+          "note": "发布公告技能描述：造成 数值取自该实验体的发布公告，是时间上最早的一份，任何后续补丁都会覆盖它。"
+        },
+        {
+          "create": true,
+          "id": "release-81-q-02",
+          "hero": "妮娅",
+          "slot": "Q",
+          "title": "Q 落点 第2段",
+          "bases": "40,65,90,115,140",
+          "formula": "base + ap * 0.55",
+          "coefficientText": "40/65/90/115/140(+技能增幅55%) ",
+          "note": "发布公告技能描述：对路径造成 数值取自该实验体的发布公告，是时间上最早的一份，任何后续补丁都会覆盖它。"
+        }
+      ],
+      "equipment": [],
+      "characters": [],
+      "mastery": []
+    },
+    {
+      "version": "sweep-2025-07-23",
+      "order": 20250723,
+      "date": "2025-07-23",
+      "url": "https://playeternalreturn.com/posts/news/2885?hl=zh-CN",
+      "title": "[内容调整] 2025.07.24 - 8.2 更新日志",
+      "skills": [
+        {
+          "id": "external-katja-q-1072200-maximum-damage-stat2",
+          "hero": "卡缇娅",
+          "title": "Q 绝命狙击 Maximum Damage",
+          "bases": "60,120,180,240,300",
+          "formula": "base + attack * 1.05",
+          "coefficientText": "60/120/180/240/300 (+攻击力的105%)",
+          "note": "由历史公告普查得出（基础值逐级一致 + 仅升级低权威来源 + 不回填更新条目），待人工复核。"
+        },
+        {
+          "id": "external-katja-q-1072200-minimum-damage-stat1",
+          "hero": "卡缇娅",
+          "title": "Q 绝命狙击 Minimum Damage",
+          "bases": "40,80,120,160,200",
+          "formula": "base + attack * 0.7",
+          "coefficientText": "40/80/120/160/200 (+攻击力的70%)",
+          "note": "公告改前值 60% 与条目一致，确认同段；与同组 Maximum Damage 的 8.2 修正配套。",
+          "overrideManual": true
+        },
+        {
+          "id": "external-debimarlene-q-1065210-damage-stat1",
+          "hero": "黛比&玛莲",
+          "title": "Q 赤月斩",
+          "bases": "50,75,100,125,150",
+          "formula": "base + extraAttack * 0.7",
+          "coefficientText": "50/75/100/125/150 (+额外攻击力70%)",
+          "note": "链条：1.46 降到 65% → 8.2 提回 70%；此后公告只动过靛风斩。"
+        }
+      ],
+      "equipment": [],
+      "characters": [],
+      "mastery": []
+    },
+    {
+      "version": "8.2",
+      "order": 20250724,
+      "date": "2025-07-24",
+      "url": "https://playeternalreturn.com/posts/news/2885?hl=zh-CN",
+      "title": "8.2 更新日志 - 新实验体 雪琳",
+      "skills": [
+        {
+          "create": true,
+          "id": "patch-xuelin-1082100-damage",
+          "hero": "雪琳",
+          "heroKey": "Xuelin",
+          "slot": "P",
+          "group": 1082100,
+          "skillId": "None",
+          "dataKey": "Damage",
+          "title": "P 剑道 强化普攻额外伤害",
+          "bases": "20,40,60",
+          "formula": "base + attack * [0.3,0.4,0.5][level - 1]",
+          "coefficientText": "20/40/60(+攻击力的30/40/50%)"
+        },
+        {
+          "create": true,
+          "id": "patch-xuelin-1082200-damage",
+          "hero": "雪琳",
+          "heroKey": "Xuelin",
+          "slot": "Q",
+          "group": 1082200,
+          "skillId": "XuelinActive1",
+          "dataKey": "Damage",
+          "title": "Q 剑影回旋 飞剑伤害",
+          "bases": "60,70,80,90,100",
+          "formula": "base + attack * 0.6",
+          "coefficientText": "60/70/80/90/100(+攻击力的60%)"
+        },
+        {
+          "create": true,
+          "id": "patch-xuelin-1082200-orbit-damage",
+          "hero": "雪琳",
+          "heroKey": "Xuelin",
+          "slot": "Q",
+          "group": 1082200,
+          "skillId": "XuelinActive1",
+          "dataKey": "Orbit Damage",
+          "title": "Q 剑影回旋 回收环绕伤害",
+          "bases": "30,35,40,45,50",
+          "formula": "base + attack * 0.35",
+          "coefficientText": "30/35/40/45/50(+攻击力的35%)"
+        },
+        {
+          "create": true,
+          "id": "patch-xuelin-1082300-damage",
+          "hero": "雪琳",
+          "heroKey": "Xuelin",
+          "slot": "W",
+          "group": 1082300,
+          "skillId": "XuelinActive2",
+          "dataKey": "Damage",
+          "title": "W 无尘剑诀",
+          "bases": "50,70,90,110,130",
+          "formula": "base + attack * 0.9",
+          "coefficientText": "50/70/90/110/130(+攻击力的90%)"
+        },
+        {
+          "create": true,
+          "id": "patch-xuelin-1082300-block-damage",
+          "hero": "雪琳",
+          "heroKey": "Xuelin",
+          "slot": "W",
+          "group": 1082300,
+          "skillId": "XuelinActive2",
+          "dataKey": "Block Damage",
+          "title": "W 无尘剑诀 阻挡无法移动时",
+          "bases": "100,130,160,190,220",
+          "formula": "base + attack * 1",
+          "coefficientText": "100/130/160/190/220(+攻击力的100%)"
+        },
+        {
+          "create": true,
+          "id": "patch-xuelin-1082400-damage",
+          "hero": "雪琳",
+          "heroKey": "Xuelin",
+          "slot": "E",
+          "group": 1082400,
+          "skillId": "XuelinActive3",
+          "dataKey": "Damage",
+          "title": "E 飞闪步 突进伤害",
+          "bases": "60,70,80,90,100",
+          "formula": "base + attack * 0.55",
+          "coefficientText": "60/70/80/90/100(+攻击力的55%)"
+        },
+        {
+          "create": true,
+          "id": "patch-xuelin-1082400-sword-drop-damage",
+          "hero": "雪琳",
+          "heroKey": "Xuelin",
+          "slot": "E",
+          "group": 1082400,
+          "skillId": "XuelinActive3",
+          "dataKey": "Sword Drop Damage",
+          "title": "E 飞闪步 落剑伤害",
+          "bases": "60,90,120,150,180",
+          "formula": "base + attack * 0.7",
+          "coefficientText": "60/90/120/150/180(+攻击力的70%)"
+        },
+        {
+          "create": true,
+          "id": "patch-xuelin-1082500-sword-fall-damage",
+          "hero": "雪琳",
+          "heroKey": "Xuelin",
+          "slot": "R",
+          "group": 1082500,
+          "skillId": "XuelinActive4",
+          "dataKey": "Sword Fall Damage",
+          "title": "R 万剑归宗 剑落额外伤害",
+          "bases": "10,20,30",
+          "formula": "base + attack * [0.1,0.15,0.2][level - 1]",
+          "coefficientText": "10/20/30(+攻击力的10/15/20%)"
+        },
+        {
+          "create": true,
+          "id": "patch-xuelin-1082500-recall-damage",
+          "hero": "雪琳",
+          "heroKey": "Xuelin",
+          "slot": "R",
+          "group": 1082500,
+          "skillId": "XuelinActive4",
+          "dataKey": "Recall Damage",
+          "title": "R 万剑归宗 回收飞剑伤害",
+          "bases": "100,200,300",
+          "formula": "base + attack * 0.85",
+          "coefficientText": "100/200/300(+攻击力的85%)",
+          "note": "第二次命中起伤害减少 80%，未建模"
+        }
+      ],
+      "equipment": [],
+      "characters": [],
+      "mastery": []
+    },
+    {
+      "version": "sweep-2025-08-06",
+      "order": 20250806,
+      "date": "2025-08-06",
+      "url": "https://playeternalreturn.com/posts/news/2916?hl=zh-CN",
+      "title": "2025.08.07 - 8.3 更新日志",
+      "skills": [
+        {
+          "id": "augment-028-sua-e-1028400-enhanced-damage-stat3",
+          "hero": "秀雅",
+          "title": "E 堂吉诃德 强化伤害",
+          "bases": "150,190,230,270,310",
+          "formula": "base + ap * 0.85",
+          "coefficientText": "150/190/230/270/310 (+技能增幅的85%)",
+          "note": "由历史公告普查得出（基础值逐级一致 + 仅升级低权威来源 + 不回填更新条目），待人工复核。"
+        },
+        {
+          "id": "patch-xuelin-1082500-recall-damage",
+          "hero": "雪琳",
+          "title": "R 万剑归宗 回收飞剑伤害",
+          "bases": "100,200,300",
+          "formula": "base + attack * 0.75",
+          "coefficientText": "100/200/300 (+攻击力的75%)",
+          "note": "公告改前值 100/200/300 + 85% 与条目完全一致，身份确认无疑。"
+        }
+      ],
+      "equipment": [],
+      "characters": [],
+      "mastery": []
+    },
+    {
+      "version": "sweep-2025-08-20",
+      "order": 20250820,
+      "date": "2025-08-20",
+      "url": "https://playeternalreturn.com/posts/news/2952?hl=zh-CN",
+      "title": "2025.08.21 - 8.4 更新日志 Part.1 - 主要更新",
+      "skills": [
+        {
+          "id": "patch-xuelin-1082200-orbit-damage",
+          "hero": "雪琳",
+          "title": "Q 剑影回旋 回收环绕伤害",
+          "bases": "30,35,40,45,50",
+          "formula": "base + attack * 0.25",
+          "coefficientText": "30/35/40/45/50 (+攻击力的25%)",
+          "note": "基础值与公告一致，攻击力系数按最新公告取 25%。"
+        }
+      ],
+      "equipment": [],
+      "characters": [],
+      "mastery": []
+    },
+    {
+      "version": "release-2025-09-03",
+      "order": 20250903,
+      "date": "2025-09-03",
+      "url": "https://playeternalreturn.com/posts/news/3000?hl=zh-CN",
+      "title": "2025.09.04 - 8.5 更新日志",
+      "skills": [
+        {
+          "create": true,
+          "id": "release-83-q-01",
+          "hero": "亨利",
+          "slot": "Q",
+          "title": "Q 指针 第1段",
+          "bases": "40,65,90,115,140",
+          "formula": "base + ap * 0.6",
+          "coefficientText": "40/65/90/115/140(+技能增幅60%) ",
+          "note": "发布公告技能描述：对路径上的敌人造成 数值取自该实验体的发布公告，是时间上最早的一份，任何后续补丁都会覆盖它。"
+        },
+        {
+          "create": true,
+          "id": "release-83-q-02",
+          "hero": "亨利",
+          "slot": "Q",
+          "title": "Q 指针 第2段",
+          "bases": "10",
+          "formula": "base + heroLevel * 1",
+          "coefficientText": "10(+亨利等级* 1) ",
+          "note": "发布公告技能描述：将造成 数值取自该实验体的发布公告，是时间上最早的一份，任何后续补丁都会覆盖它。"
+        },
+        {
+          "create": true,
+          "id": "release-83-q-03",
+          "hero": "亨利",
+          "slot": "Q",
+          "title": "Q 指针 第3段",
+          "bases": "60,85,110,135,160",
+          "formula": "base + ap * 0.65 + targetHp * 0.05",
+          "coefficientText": "60/85/110/135/160(+技能增幅65%)(+目标体力上限5%) ",
+          "note": "发布公告技能描述：对路径上的敌人造成 数值取自该实验体的发布公告，是时间上最早的一份，任何后续补丁都会覆盖它。"
+        },
+        {
+          "create": true,
+          "id": "release-83-q-04",
+          "hero": "亨利",
+          "slot": "Q",
+          "title": "Q 指针 第4段",
+          "bases": "20",
+          "formula": "base + heroLevel * 2",
+          "coefficientText": "20(+亨利等级* 2) ",
+          "note": "发布公告技能描述：将造成 数值取自该实验体的发布公告，是时间上最早的一份，任何后续补丁都会覆盖它。"
+        },
+        {
+          "create": true,
+          "id": "release-83-e-01",
+          "hero": "亨利",
+          "slot": "E",
+          "title": "E 瞬时跃迁",
+          "bases": "40,80,120,160,200",
+          "formula": "base + ap * 0.6",
+          "coefficientText": "40/80/120/160/200(+技能增幅60%) ",
+          "note": "发布公告技能描述：则会束缚秒装置上的敌人并造成 数值取自该实验体的发布公告，是时间上最早的一份，任何后续补丁都会覆盖它。"
+        },
+        {
+          "create": true,
+          "id": "release-83-r-01",
+          "hero": "亨利",
+          "slot": "R",
+          "title": "R 时序重铸域",
+          "bases": "150,250,350",
+          "formula": "base + ap * 1",
+          "coefficientText": "150/250/350(+技能增幅100%) ",
+          "note": "发布公告技能描述：对敌人造成 数值取自该实验体的发布公告，是时间上最早的一份，任何后续补丁都会覆盖它。"
+        }
+      ],
+      "equipment": [],
+      "characters": [],
+      "mastery": []
+    },
+    {
+      "version": "sweep-2025-09-17",
+      "order": 20250917,
+      "date": "2025-09-17",
+      "url": "https://playeternalreturn.com/posts/news/3030?hl=zh-CN",
+      "title": "2025.09.18 - 8.6 更新日志",
+      "skills": [
+        {
+          "id": "external-shoichi-r-1018500-damage-stat1",
+          "hero": "彰一",
+          "title": "R 无情杀戮",
+          "bases": "50,150,250",
+          "formula": "base + ap * 0.7",
+          "coefficientText": "50/150/250 (+技能增幅的70%)",
+          "note": "由历史公告普查得出（基础值逐级一致 + 仅升级低权威来源 + 不回填更新条目），待人工复核。"
+        },
+        {
+          "id": "augment-028-sua-r-1028500-memory-of-the-curious-case-damage-stat2",
+          "hero": "秀雅",
+          "title": "R 记忆力 记忆-青鸟",
+          "bases": "50,100,150",
+          "formula": "base + ap * 0.4",
+          "coefficientText": "50/100/150 (+技能增幅的40%)",
+          "note": "由历史公告普查得出（基础值逐级一致 + 仅升级低权威来源 + 不回填更新条目），待人工复核。"
+        },
+        {
+          "id": "external-alonso-w-1068300-final-damage-stat2",
+          "hero": "阿隆索",
+          "title": "W 磁盾光波 终结伤害",
+          "bases": "80,120,160,200,240",
+          "formula": "base + ap * 0.5 + extraHp * 0.2",
+          "coefficientText": "80/120/160/200/240 (+技能增幅的50%) (+额外体力20%)",
+          "note": "8.6 公告的额外体力 20%，现在用 extraHp 变量建模。",
+          "overrideManual": true
+        }
+      ],
+      "equipment": [],
+      "characters": [],
+      "mastery": []
+    },
+    {
+      "version": "sweep-2025-09-30",
+      "order": 20250930,
+      "date": "2025-09-30",
+      "url": "https://playeternalreturn.com/posts/news/3055?hl=zh-CN",
+      "title": "2025.10.01 - 8.7 更新日志",
+      "skills": [
+        {
+          "id": "augment-041-johann-e-1041400-enhanced-damage-stat2",
+          "hero": "约翰",
+          "title": "E 指引的光芒 强化伤害",
+          "bases": "80,115,150,185,220",
+          "formula": "base + ap * 0.65",
+          "coefficientText": "80/115/150/185/220 (+技能增幅的65%)",
+          "note": "由历史公告普查得出（基础值逐级一致 + 仅升级低权威来源 + 不回填更新条目），待人工复核。"
+        }
+      ],
+      "equipment": [],
+      "characters": [],
+      "mastery": []
+    },
+    {
+      "version": "sweep-2025-10-22",
+      "order": 20251022,
+      "date": "2025-10-22",
+      "url": "https://playeternalreturn.com/posts/news/3111?hl=zh-CN",
+      "title": "2025.10.23 - 9.1 更新日志",
+      "skills": [
+        {
+          "id": "external-tsubame-q-1070200-damage-stat1",
+          "hero": "燕翼",
+          "title": "Q 螺旋手里剑",
+          "bases": "20,40,60,80,100",
+          "formula": "base + attack * 0.45",
+          "coefficientText": "20/40/60/80/100 (+攻击力的45%)",
+          "note": "由历史公告普查得出（基础值逐级一致 + 仅升级低权威来源 + 不回填更新条目），待人工复核。"
+        },
+        {
+          "id": "external-tsubame-q-1070200-second-damage-stat2",
+          "hero": "燕翼",
+          "title": "Q 螺旋手里剑 二段伤害",
+          "bases": "40,60,80,100,120",
+          "formula": "base + attack * 0.55",
+          "coefficientText": "40/60/80/100/120 (+攻击力的55%)",
+          "note": "由历史公告普查得出（基础值逐级一致 + 仅升级低权威来源 + 不回填更新条目），待人工复核。"
+        }
+      ],
+      "equipment": [],
+      "characters": [],
+      "mastery": []
+    },
+    {
+      "version": "sweep-2025-10-29",
+      "order": 20251029,
+      "date": "2025-10-29",
+      "url": "https://playeternalreturn.com/posts/news/3127?hl=zh-CN",
+      "title": "2025.10.30 - 9.2 更新日志",
+      "skills": [
+        {
+          "id": "external-debimarlene-r-1065500-second-damage-stat2",
+          "hero": "黛比&玛莲",
+          "title": "R 靛赤双生 二段伤害",
+          "bases": "5,10,15",
+          "formula": "base + extraAttack * 0.15",
+          "coefficientText": "5/10/15 (+额外攻击力15%)",
+          "note": "公告改前值 10% 与条目一致，确认同段。顺带修正旧表把额外攻击力记成攻击力的问题。"
+        }
+      ],
+      "equipment": [],
+      "characters": [],
+      "mastery": []
+    },
+    {
+      "version": "release-2025-10-29",
+      "order": 20251029,
+      "date": "2025-10-29",
+      "url": "https://playeternalreturn.com/posts/news/3127?hl=zh-CN",
+      "title": "2025.10.30 - 9.2 更新日志",
+      "skills": [
+        {
+          "create": true,
+          "id": "release-84-p-01",
+          "hero": "布莱尔",
+          "slot": "P",
+          "title": "P 刃移",
+          "bases": "20,40,60",
+          "formula": "base + extraAttack * [0.4,0.5,0.6][level - 1]",
+          "coefficientText": "20/40/60(+额外攻击力的40/50/60%)",
+          "note": "发布公告技能描述：|双头剑 数值取自该实验体的发布公告，是时间上最早的一份，任何后续补丁都会覆盖它。"
+        },
+        {
+          "create": true,
+          "id": "release-84-q-01-6",
+          "hero": "布莱尔",
+          "slot": "Q",
+          "title": "Q 双重斩击（双剑） 第1段",
+          "bases": "20,40,60,80,100",
+          "formula": "base + extraAttack * [1,1.1,1.2,1.3,1.4][level - 1] + targetHp * [0.01,0.015,0.02,0.025,0.03][level - 1]",
+          "coefficientText": "20/40/60/80/100(+额外攻击力100/110/120/130/140%)",
+          "note": "发布公告技能描述：造成 未建模项：额外攻击力 5%（作用于体力百分比项） 数值取自该实验体的发布公告，是时间上最早的一份，任何后续补丁都会覆盖它。"
+        },
+        {
+          "create": true,
+          "id": "release-84-q-02-6",
+          "hero": "布莱尔",
+          "slot": "Q",
+          "title": "Q 双重斩击（双剑） 第2段",
+          "bases": "20,50,80,110,140",
+          "formula": "base + extraAttack * [1,1.1,1.2,1.3,1.4][level - 1]",
+          "coefficientText": "20/50/80/110/140(+额外攻击力100/110/120/130/140%) ",
+          "note": "发布公告技能描述：造成 数值取自该实验体的发布公告，是时间上最早的一份，任何后续补丁都会覆盖它。"
+        },
+        {
+          "create": true,
+          "id": "release-84-w-01-12",
+          "hero": "布莱尔",
+          "slot": "W",
+          "title": "W 抹杀（双剑）",
+          "bases": "60,90,120,150,180",
+          "formula": "base + extraAttack * 1",
+          "coefficientText": "60/90/120/150/180(+额外攻击力100%) ",
+          "note": "发布公告技能描述：对敌人造成 数值取自该实验体的发布公告，是时间上最早的一份，任何后续补丁都会覆盖它。"
+        },
+        {
+          "create": true,
+          "id": "release-84-w-01-14",
+          "hero": "布莱尔",
+          "slot": "W",
+          "title": "W 刃舞风暴（双头剑）",
+          "bases": "10,20,30,40,50",
+          "formula": "base + attack * 0.4",
+          "coefficientText": "10/20/30/40/50(+攻击力40%) ",
+          "note": "发布公告技能描述：每秒对范围内的敌人造成 数值取自该实验体的发布公告，是时间上最早的一份，任何后续补丁都会覆盖它。"
+        },
+        {
+          "create": true,
+          "id": "release-84-e-01-16",
+          "hero": "布莱尔",
+          "slot": "E",
+          "title": "E 断裂斩（双剑）",
+          "bases": "40,70,100,130,160",
+          "formula": "base + extraAttack * [0.9,0.95,1,1.05,1.1][level - 1]",
+          "coefficientText": "40/70/100/130/160(+额外攻击力90/95/100/105/110%) ",
+          "note": "发布公告技能描述：对圆形范围内的目标造成 数值取自该实验体的发布公告，是时间上最早的一份，任何后续补丁都会覆盖它。"
+        },
+        {
+          "create": true,
+          "id": "release-84-r-01",
+          "hero": "布莱尔",
+          "slot": "R",
+          "title": "R XMS-5启动 / 无尽追击",
+          "bases": "100,200,300",
+          "formula": "base + attack * 1",
+          "coefficientText": "100/200/300(+攻击力100%)(+每消耗1气力*2) ",
+          "note": "发布公告技能描述：并在到达位置造成 数值取自该实验体的发布公告，是时间上最早的一份，任何后续补丁都会覆盖它。"
+        }
+      ],
+      "equipment": [],
+      "characters": [],
+      "mastery": []
+    },
+    {
+      "version": "sweep-2025-11-26",
+      "order": 20251126,
+      "date": "2025-11-26",
+      "url": "https://playeternalreturn.com/posts/news/3182?hl=zh-CN",
+      "title": "2025.11.27 - 9.4 更新日志",
+      "skills": [
+        {
+          "id": "external-justyna-q-1079200-reactivation-damage-stat2",
+          "hero": "尤斯蒂娜",
+          "title": "Q 连环炮击&歼灭炮击 再次使用伤害",
+          "bases": "70,115,160,205,250",
+          "formula": "base + ap * 0.7",
+          "coefficientText": "70/115/160/205/250(+技能增幅的70%)",
+          "note": "由历史公告普查得出（基础值逐级一致 + 仅升级低权威来源 + 不回填更新条目），待人工复核。"
+        },
+        {
+          "id": "augment-064-vanya-r-1064500-extra-damage-from-sleeping-stat2",
+          "hero": "万尼亚",
+          "title": "R 蝶之羽翼 Extra Damage from Sleeping",
+          "bases": "100,180,260",
+          "formula": "base + ap * 0.7",
+          "coefficientText": "100/180/260 (+技能增幅的70%)",
+          "note": "公告改前值 100/180/240 + 65% 与条目完全一致，身份确认无疑。"
+        }
+      ],
+      "equipment": [],
+      "characters": [],
+      "mastery": []
+    },
+    {
+      "version": "sweep-2025-12-10",
+      "order": 20251210,
+      "date": "2025-12-10",
+      "url": "https://playeternalreturn.com/posts/news/3209?hl=zh-CN",
+      "title": "[内容调整]2025.12.11 - 9.5 更新日志",
+      "skills": [
+        {
+          "id": "external-barbara-r-1026500-ultra-free-electron-laser-damage-stat3",
+          "hero": "芭芭拉",
+          "title": "R 超时实验 Ultra Free-Electron Laser Damage",
+          "bases": "200,250,300",
+          "formula": "base + ap * 0.85 + targetHp * 0.2",
+          "coefficientText": "200/250/300 (+技能增幅的85%) (+目标体力上限的 20%)",
+          "note": "由历史公告普查得出（基础值逐级一致 + 仅升级低权威来源 + 不回填更新条目），待人工复核。"
+        },
+        {
+          "id": "external-hisui-w-1078300-flash-cut-second-damage-stat5",
+          "hero": "翡翠",
+          "title": "W 居合一闪 Flash Cut Second Damage",
+          "bases": "50,80,110,140,170",
+          "formula": "base + extraAttack * 1.4",
+          "coefficientText": "一闪(W2) 额外伤害 50/80/110/140/170 (+额外攻击力140%)",
+          "note": "9.5 把 130% 提到 140%，条目还停在 attack*1。"
+        }
+      ],
+      "equipment": [],
+      "characters": [],
+      "mastery": []
+    },
+    {
+      "version": "9.5",
+      "order": 20251211,
+      "date": "2025-12-11",
+      "url": "https://playeternalreturn.com/posts/news/3209?hl=zh-CN",
+      "title": "9.5 更新日志 - 新实验体 米尔卡",
+      "skills": [
+        {
+          "create": true,
+          "id": "patch-mirka-1085200-damage",
+          "hero": "米尔卡",
+          "heroKey": "Mirka",
+          "slot": "Q",
+          "group": 1085200,
+          "skillId": "MirkaActive1",
+          "dataKey": "Damage",
+          "title": "Q 粉碎锤",
+          "bases": "60,95,130,165,200",
+          "formula": "base + ap * 0.5 + maxHp * 0.06",
+          "coefficientText": "60/95/130/165/200(+技能增幅50%)(+体力上限6%)",
+          "note": "9.5 公告的体力上限 6%，现在用 maxHp 变量建模。"
+        },
+        {
+          "create": true,
+          "id": "patch-mirka-1085400-damage",
+          "hero": "米尔卡",
+          "heroKey": "Mirka",
+          "slot": "E",
+          "group": 1085400,
+          "skillId": "MirkaActive3_1",
+          "dataKey": "Damage",
+          "title": "E 后撤急袭 突进伤害",
+          "bases": "40,60,80,100,120",
+          "formula": "base + ap * 0.5 + targetHp * 0.12",
+          "coefficientText": "40/60/80/100/120(+技能增幅50%)(+目标体力上限12%)"
+        },
+        {
+          "create": true,
+          "id": "patch-mirka-1085500-damage",
+          "hero": "米尔卡",
+          "heroKey": "Mirka",
+          "slot": "R",
+          "group": 1085500,
+          "skillId": "MirkaActive4",
+          "dataKey": "Damage",
+          "title": "R 坠风冲击",
+          "bases": "150,250,350",
+          "formula": "base + ap * 0.9 + targetHp * 0.15",
+          "coefficientText": "150/250/350(+技能增幅90%)(+目标体力上限15%)"
+        }
+      ],
+      "equipment": [],
+      "characters": [],
+      "mastery": []
+    },
+    {
+      "version": "9.5c",
+      "order": 20251216,
+      "date": "2025-12-16",
+      "url": "https://playeternalreturn.com/posts/news/3229?hl=zh-CN",
+      "title": "9.5c 不停机维护",
+      "skills": [
+        {
+          "create": true,
+          "id": "patch-mirka-1085200-aftershock-damage",
+          "hero": "米尔卡",
+          "heroKey": "Mirka",
+          "slot": "Q",
+          "group": 1085200,
+          "skillId": "MirkaActive1",
+          "dataKey": "Aftershock Damage",
+          "title": "Q 粉碎锤 强化余震伤害",
+          "bases": "10,20,30,40,50",
+          "formula": "base + targetHp * 0.04",
+          "coefficientText": "10/20/30/40/50(+目标体力上限6%→4%)",
+          "note": "0.5 秒间隔共 2 次"
+        },
+        {
+          "create": true,
+          "id": "patch-mirka-1085400-power-strike-damage",
+          "hero": "米尔卡",
+          "heroKey": "Mirka",
+          "slot": "E",
+          "group": 1085400,
+          "skillId": "MirkaActive3_1",
+          "dataKey": "Power Strike Damage",
+          "title": "E2 强力一击",
+          "bases": "70,95,120,145,170",
+          "formula": "base + ap * 0.55 + maxHp * 0.07",
+          "coefficientText": "70/95/120/145/170(+技能增幅55%)(+体力上限7%)",
+          "note": "9.5c 公告的体力上限 7%，现在用 maxHp 变量建模。"
+        }
+      ],
+      "equipment": [],
+      "characters": [],
+      "mastery": []
+    },
+    {
+      "version": "sweep-2026-01-07",
+      "order": 20260107,
+      "date": "2026-01-07",
+      "url": "https://playeternalreturn.com/posts/news/3275?hl=zh-CN",
+      "title": "2026.01.08 - 9.7 更新日志",
+      "skills": [
+        {
+          "id": "augment-028-sua-r-1028500-memory-of-don-quixote-damage-stat3",
+          "hero": "秀雅",
+          "title": "R 记忆力 记忆-堂吉诃德",
+          "bases": "125,190,255",
+          "formula": "base + ap * 0.65",
+          "coefficientText": "125/190/255 (+技能增幅的65%)",
+          "note": "由历史公告普查得出（基础值逐级一致 + 仅升级低权威来源 + 不回填更新条目），待人工复核。"
+        },
+        {
+          "id": "external-debimarlene-q-1065200-damage-stat1",
+          "hero": "黛比&玛莲",
+          "title": "Q 靛风斩",
+          "bases": "50,75,100,125,150",
+          "formula": "base + extraAttack * 0.85",
+          "coefficientText": "50/75/100/125/150 (+额外攻击力85%)",
+          "note": "链条：1.46 降到 70% → 8.2 提到 75% → 9.7 提到 85%（9.7 明确点名 Q-靛风斩）。"
+        }
+      ],
+      "equipment": [],
+      "characters": [],
+      "mastery": []
+    },
+    {
+      "version": "9.7",
+      "order": 20260108,
+      "date": "2026-01-08",
+      "url": "https://playeternalreturn.com/posts/news/3275?hl=zh-CN",
+      "title": "9.7 更新日志",
+      "skills": [
+        {
+          "create": true,
+          "id": "patch-xuelin-1082200-spin-damage",
+          "hero": "雪琳",
+          "heroKey": "Xuelin",
+          "slot": "Q",
+          "group": 1082200,
+          "skillId": "XuelinActive1",
+          "dataKey": "Spin Damage",
+          "title": "Q 剑影回旋 飞剑持续伤害",
+          "bases": "20,35,50,65,80",
+          "formula": "base + attack * 0.4",
+          "coefficientText": "20/35/50/65/80(+攻击力的40%)"
+        },
+        {
+          "create": true,
+          "id": "patch-xuelin-1082500-damage",
+          "hero": "雪琳",
+          "heroKey": "Xuelin",
+          "slot": "R",
+          "group": 1082500,
+          "skillId": "XuelinActive4",
+          "dataKey": "Damage",
+          "title": "R 万剑归宗 领域伤害",
+          "bases": "80,155,230",
+          "formula": "base + attack * 0.6",
+          "coefficientText": "80/155/230(+攻击力的60%)"
+        },
+        {
+          "create": true,
+          "id": "patch-mirka-1085100-damage",
+          "hero": "米尔卡",
+          "heroKey": "Mirka",
+          "slot": "P",
+          "group": 1085100,
+          "skillId": "None",
+          "dataKey": "Damage",
+          "title": "P 反击值 无法移动触发伤害",
+          "bases": "10,15,20",
+          "formula": "base + targetHp * [0.008,0.016,0.024][level - 1]",
+          "coefficientText": "10/15/20(+目标体力上限的0.8/1.6/2.4%)",
+          "note": "3 秒内每秒触发一次"
+        }
+      ],
+      "equipment": [],
+      "characters": [],
+      "mastery": []
+    },
+    {
+      "version": "sweep-2026-01-21",
+      "order": 20260121,
+      "date": "2026-01-21",
+      "url": "https://playeternalreturn.com/posts/news/3306?hl=zh-CN",
+      "title": "10.0 更新日志 Part.2 - 实验体和物品",
+      "skills": [
+        {
+          "id": "external-eleven-q-1030200-minimum-damage-stat1",
+          "hero": "Eleven",
+          "title": "Q 汉堡少女 Minimum Damage",
+          "bases": "80,110,140,170,200",
+          "formula": "base + attack * 0.4 + targetHp * 0.06",
+          "coefficientText": "80/110/140/170/200 (+攻击力的40%) (+目标体力上限的6%)",
+          "note": "10.0 Part.2 公告的目标体力上限 6%，现在用 targetHp 变量建模。",
+          "overrideManual": true
+        }
+      ],
+      "equipment": [],
+      "characters": [],
+      "mastery": []
+    },
+    {
+      "version": "sweep-2026-02-04",
+      "order": 20260204,
+      "date": "2026-02-04",
+      "url": "https://playeternalreturn.com/posts/news/3340?hl=zh-CN",
+      "title": "[内容调整] 2026.02.05 - 10.2 更新日志",
+      "skills": [
+        {
+          "id": "external-abigail-q-1067200-initial-damage-stat1",
+          "hero": "艾比盖尔",
+          "title": "Q 二元自旋 一段伤害",
+          "bases": "20,40,60,80,100",
+          "formula": "base + ap * 0.3",
+          "coefficientText": "20/40/60/80/100 (+技能增幅的30%)",
+          "note": "由历史公告普查得出（基础值逐级一致 + 仅升级低权威来源 + 不回填更新条目），待人工复核。"
+        },
+        {
+          "id": "external-niah-q-1081200-damage-stat1",
+          "hero": "妮娅",
+          "title": "Q 落点",
+          "bases": "60,100,140,180,220",
+          "formula": "base + ap * 0.7",
+          "coefficientText": "60/100/140/180/220 (+技能增幅的70%)",
+          "note": "公告改前值 65% 与条目一致，确认同段。"
+        }
+      ],
+      "equipment": [],
+      "characters": [],
+      "mastery": []
+    },
+    {
+      "version": "release-2026-02-04",
+      "order": 20260204,
+      "date": "2026-02-04",
+      "url": "https://playeternalreturn.com/posts/news/3340?hl=zh-CN",
+      "title": "[内容调整] 2026.02.05 - 10.2 更新日志",
+      "skills": [
+        {
+          "create": true,
+          "id": "release-86-p-01",
+          "hero": "芬里尔",
+          "slot": "P",
+          "title": "P 最后的挣扎 VF吸收",
+          "bases": "6,13,20",
+          "formula": "base + extraAttack * 0.1",
+          "coefficientText": "6/13/20(+额外攻击力10%) ",
+          "note": "发布公告技能描述：每秒造成 数值取自该实验体的发布公告，是时间上最早的一份，任何后续补丁都会覆盖它。"
+        },
+        {
+          "create": true,
+          "id": "release-86-q-01",
+          "hero": "芬里尔",
+          "slot": "Q",
+          "title": "Q 撕裂利爪 第1段",
+          "bases": "60,90,120,150,180",
+          "formula": "base + attack * 0.9",
+          "coefficientText": "60/90/120/150/180(+攻击力90%) ",
+          "note": "发布公告技能描述：对范围内的敌人造成 数值取自该实验体的发布公告，是时间上最早的一份，任何后续补丁都会覆盖它。"
+        },
+        {
+          "create": true,
+          "id": "release-86-q-02",
+          "hero": "芬里尔",
+          "slot": "Q",
+          "title": "Q 撕裂利爪 第2段",
+          "bases": "90,135,180,225,270",
+          "formula": "base + attack * 1.35",
+          "coefficientText": "90/135/180/225/270(+攻击力135%) ",
+          "note": "发布公告技能描述：造成 数值取自该实验体的发布公告，是时间上最早的一份，任何后续补丁都会覆盖它。"
+        },
+        {
+          "create": true,
+          "id": "release-86-w-01",
+          "hero": "芬里尔",
+          "slot": "W",
+          "title": "W 猎物追踪 第1段",
+          "bases": "60,90,120,150,180",
+          "formula": "base + attack * 0.8",
+          "coefficientText": "60/90/120/150/180(+攻击力80%) ",
+          "note": "发布公告技能描述：对命中的敌人造成 数值取自该实验体的发布公告，是时间上最早的一份，任何后续补丁都会覆盖它。"
+        },
+        {
+          "create": true,
+          "id": "release-86-w-02",
+          "hero": "芬里尔",
+          "slot": "W",
+          "title": "W 猎物追踪 第2段",
+          "bases": "20,40,60,80,100",
+          "formula": "base + attack * 0.6",
+          "coefficientText": "20/40/60/80/100(+攻击力60%) ",
+          "note": "发布公告技能描述：对目标造成 数值取自该实验体的发布公告，是时间上最早的一份，任何后续补丁都会覆盖它。"
+        },
+        {
+          "create": true,
+          "id": "release-86-e-01",
+          "hero": "芬里尔",
+          "slot": "E",
+          "title": "E 狩猎时刻",
+          "bases": "40,60,80,100,120",
+          "formula": "base + extraAttack * 0.55",
+          "coefficientText": "40/60/80/100/120(+额外攻击力55%) ",
+          "note": "发布公告技能描述：时间内下一次发起的普攻将造成 数值取自该实验体的发布公告，是时间上最早的一份，任何后续补丁都会覆盖它。"
+        }
+      ],
+      "equipment": [],
+      "characters": [],
+      "mastery": []
+    },
+    {
+      "version": "sweep-2026-02-13",
+      "order": 20260213,
+      "date": "2026-02-13",
+      "url": "https://playeternalreturn.com/posts/news/3374?hl=zh-CN",
+      "title": "2026.02.19 - 10.3 更新日志",
+      "skills": [
+        {
+          "id": "external-laura-r-1047500-second-damage-stat2",
+          "hero": "劳拉",
+          "title": "R 幻影神偷 二段伤害",
+          "bases": "170,250,330",
+          "formula": "base + ap * 0.8",
+          "coefficientText": "170/250/330 (+技能增幅的80%)",
+          "note": "由历史公告普查得出（基础值逐级一致 + 仅升级低权威来源 + 不回填更新条目），待人工复核。"
+        }
+      ],
+      "equipment": [],
+      "characters": [],
+      "mastery": []
+    },
+    {
+      "version": "sweep-2026-03-04",
+      "order": 20260304,
+      "date": "2026-03-04",
+      "url": "https://playeternalreturn.com/posts/news/3406?hl=zh-CN",
+      "title": "[内容调整] 2026.03.05 - 10.4 更新日志",
+      "skills": [
+        {
+          "id": "augment-023-cathy-w-1023300-enhanced-damage-stat2",
+          "hero": "凯希",
+          "title": "W 截断 强化伤害",
+          "bases": "50,100,150,200,250",
+          "formula": "base + ap * 0.95",
+          "coefficientText": "50/100/150/200/250 (+技能增幅的95%)",
+          "note": "由历史公告普查得出（基础值逐级一致 + 仅升级低权威来源 + 不回填更新条目），待人工复核。"
+        },
+        {
+          "id": "external-garnet-q-1076200-recast-damage-stat2",
+          "hero": "盖瑞特",
+          "title": "Q 重击&尖刺 Recast Damage",
+          "bases": "50,75,100,125,150",
+          "formula": "base + ap * 0.5 + maxHp * 0.07",
+          "coefficientText": "50/75/100/125/150 (+技能增幅的50%) (+体力上限的7%)",
+          "note": "10.4 公告的体力上限 7%，现在用 maxHp 变量建模。",
+          "overrideManual": true
+        },
+        {
+          "create": true,
+          "id": "patch-104-hyunwoo-1007400-wall-slam-damage",
+          "hero": "玄佑",
+          "slot": "E",
+          "title": "E 先发制人 撞墙额外伤害",
+          "bases": "80,115,150,185,220",
+          "formula": "base + extraAttack * 0.75 + ap * 0.9",
+          "coefficientText": "80/115/150/185/220 (+额外攻击力75%)(+技能增幅的90%)",
+          "note": "链条：1.50 把 60/95/130/165/200(+55%) 提到 80/115/150/185/220(+60%)，10.4 再把额外攻击力提到 75%。"
+        }
+      ],
+      "equipment": [],
+      "characters": [],
+      "mastery": []
+    },
+    {
+      "version": "sweep-2026-03-18",
+      "order": 20260318,
+      "date": "2026-03-18",
+      "url": "https://playeternalreturn.com/posts/news/3444?hl=zh-CN",
+      "title": "2026.03.19 - 10.5 更新日志",
+      "skills": [
+        {
+          "id": "augment-035-jan-q-1035200-enhancement-damage-stat2",
+          "hero": "扬",
+          "title": "Q 膝踢 强化伤害",
+          "bases": "65,90,115,140,165",
+          "formula": "base + ap * 0.7",
+          "coefficientText": "65/90/115/140/165(+额外攻击力 90%) (+技能增幅的70%)",
+          "note": "由历史公告普查得出（基础值逐级一致 + 仅升级低权威来源 + 不回填更新条目），待人工复核。"
+        },
+        {
+          "id": "augment-042-bianca-r-1042500-extra-damage-stat2",
+          "hero": "比安卡",
+          "title": "R 血族女皇的契约 额外伤害",
+          "bases": "50,100,150",
+          "formula": "base + ap * 0.4 + targetHp * 0.11",
+          "coefficientText": "50/100/150 (+技能增幅的40%) (+目标体力上限的11%)",
+          "note": "10.5 公告的目标体力上限 11%，现在用 targetHp 变量建模。"
+        },
+        {
+          "id": "external-tazia-q-1060200-spada-explosion-damage-stat3",
+          "hero": "塔齐娅",
+          "title": "Q 凌空碎 Spada Explosion Damage",
+          "bases": "40,70,100,130,160",
+          "formula": "base + ap * 0.55",
+          "coefficientText": "40/70/100/130/160 (+技能增幅的55%)",
+          "note": "公告「破空斩爆炸伤害」，基础值与条目一致。凌空碎 / 破空斩是同一技能的两种形态，同步修改。"
+        },
+        {
+          "id": "external-tazia-q-1060210-spada-explosion-damage-stat3",
+          "hero": "塔齐娅",
+          "title": "Q 破空斩 Spada Explosion Damage",
+          "bases": "40,70,100,130,160",
+          "formula": "base + ap * 0.55",
+          "coefficientText": "40/70/100/130/160 (+技能增幅的55%)",
+          "note": "同上，与 凌空碎 形态保持一致。"
+        }
+      ],
+      "equipment": [],
+      "characters": [],
+      "mastery": []
+    },
+    {
+      "version": "10.5",
+      "order": 20260319,
+      "date": "2026-03-19",
+      "url": "https://playeternalreturn.com/posts/news/3444?hl=zh-CN",
+      "title": "10.5 更新日志 - 新实验体 卡洛琳",
+      "skills": [
+        {
+          "create": true,
+          "id": "patch-coraline-1087200-black-mirror-damage",
+          "hero": "卡洛琳",
+          "heroKey": "Coraline",
+          "slot": "Q",
+          "group": 1087200,
+          "skillId": "CoralineActive1",
+          "dataKey": "Black Mirror Damage",
+          "title": "Q 断罪之光 黑镜强化",
+          "bases": "60,105,150,195,240",
+          "formula": "base + ap * 0.85",
+          "coefficientText": "60/105/150/195/240(+技能增幅85%)(+目标失去体力3/6/9/12/15%)",
+          "note": "目标已失体力部分未建模"
+        },
+        {
+          "create": true,
+          "id": "patch-coraline-1087400-damage",
+          "hero": "卡洛琳",
+          "heroKey": "Coraline",
+          "slot": "E",
+          "group": 1087400,
+          "skillId": "CoralineActive3",
+          "dataKey": "Damage",
+          "title": "E 罪业枷锁",
+          "bases": "60,90,120,150,180",
+          "formula": "base + ap * 0.65",
+          "coefficientText": "60/90/120/150/180(+技能增幅65%)"
+        },
+        {
+          "create": true,
+          "id": "patch-coraline-1087500-damage",
+          "hero": "卡洛琳",
+          "heroKey": "Coraline",
+          "slot": "R",
+          "group": 1087500,
+          "skillId": "CoralineActive4",
+          "dataKey": "Damage",
+          "title": "R 异世界的残影 强化普攻额外伤害",
+          "bases": "70,110,150",
+          "formula": "base + ap * 0.35",
+          "coefficientText": "70/110/150(+技能增幅35%)"
+        }
+      ],
+      "equipment": [],
+      "characters": [],
+      "mastery": []
+    },
+    {
+      "version": "10.5a",
+      "order": 20260324,
+      "date": "2026-03-24",
+      "url": "https://playeternalreturn.com/posts/news/3457?hl=zh-CN",
+      "title": "10.5a 不停机维护",
+      "skills": [
+        {
+          "create": true,
+          "id": "patch-coraline-1087200-white-mirror-damage",
+          "hero": "卡洛琳",
+          "heroKey": "Coraline",
+          "slot": "Q",
+          "group": 1087200,
+          "skillId": "CoralineActive1",
+          "dataKey": "White Mirror Damage",
+          "title": "Q 断罪之光 白镜强化",
+          "bases": "60,105,150,195,240",
+          "formula": "base + ap * 0.8",
+          "coefficientText": "60/105/150/195/240(+技能增幅80%)(+目标当前体力4/6/8/10/12%)",
+          "note": "目标当前体力部分未建模"
+        }
+      ],
+      "equipment": [],
+      "characters": [],
+      "mastery": []
+    },
+    {
+      "version": "10.6",
+      "order": 20260402,
+      "date": "2026-04-02",
+      "url": "https://playeternalreturn.com/posts/news/3480?hl=zh-CN",
+      "title": "10.6 更新日志",
+      "skills": [
+        {
+          "create": true,
+          "id": "patch-coraline-1087200-damage",
+          "hero": "卡洛琳",
+          "heroKey": "Coraline",
+          "slot": "Q",
+          "group": 1087200,
+          "skillId": "CoralineActive1",
+          "dataKey": "Damage",
+          "title": "Q 断罪之光",
+          "bases": "50,90,130,170,210",
+          "formula": "base + ap * 0.8",
+          "coefficientText": "50/90/130/170/210(+技能增幅的80%)"
+        },
+        {
+          "create": true,
+          "id": "patch-coraline-1087400-white-mirror-damage",
+          "hero": "卡洛琳",
+          "heroKey": "Coraline",
+          "slot": "E",
+          "group": 1087400,
+          "skillId": "CoralineActive3",
+          "dataKey": "White Mirror Damage",
+          "title": "E 罪业枷锁 白镜强化",
+          "bases": "80,110,140,170,200",
+          "formula": "base + ap * 0.65",
+          "coefficientText": "80/110/140/170/200(+技能增幅的65%)"
+        },
+        {
+          "create": true,
+          "id": "patch-coraline-1087400-black-mirror-damage",
+          "hero": "卡洛琳",
+          "heroKey": "Coraline",
+          "slot": "E",
+          "group": 1087400,
+          "skillId": "CoralineActive3",
+          "dataKey": "Black Mirror Damage",
+          "title": "E 罪业枷锁 黑镜强化",
+          "bases": "80,110,140,170,200",
+          "formula": "base + ap * 0.65",
+          "coefficientText": "80/110/140/170/200(+技能增幅的65%)"
+        }
+      ],
+      "equipment": [],
+      "characters": [],
+      "mastery": []
+    },
+    {
+      "version": "sweep-2026-04-15",
+      "order": 20260415,
+      "date": "2026-04-15",
+      "url": "https://playeternalreturn.com/posts/news/3504?hl=zh-CN",
+      "title": "2026.04.16 - 10.7 更新日志",
+      "skills": [
+        {
+          "id": "external-karla-p-1054100-fully-charged-damage-stat2",
+          "hero": "卡拉",
+          "title": "P 水手的较量 Fully Charged Damage",
+          "bases": "10,25,40",
+          "formula": "base + attack * 1 + ap * 0.25 + targetHp * 0.04",
+          "coefficientText": "10/25/40(+攻击力的100%)(+技能增幅的25%) (+目标体力上限的 4/8/12%)",
+          "note": "由历史公告普查得出（基础值逐级一致 + 仅升级低权威来源 + 不回填更新条目），待人工复核。"
+        },
+        {
+          "id": "external-priya-q-1051200-full-bloom-damage-stat2",
+          "hero": "普里亚",
+          "title": "Q 绽放的旋律 Full Bloom Damage",
+          "bases": "60,80,100,120,140",
+          "formula": "base + ap * 0.6",
+          "coefficientText": "60/80/100/120/140 (+技能增幅的60%)",
+          "note": "由历史公告普查得出（基础值逐级一致 + 仅升级低权威来源 + 不回填更新条目），待人工复核。"
+        }
+      ],
+      "equipment": [],
+      "characters": [],
+      "mastery": []
+    },
+    {
+      "version": "11.1a",
+      "order": 20260508,
+      "date": "2026-05-08",
+      "url": "https://playeternalreturn.com/posts/news/3568?hl=zh-CN",
+      "title": "11.1a 不停机维护",
+      "skills": [
+        {
+          "create": true,
+          "id": "patch-coraline-1087100-damage",
+          "hero": "卡洛琳",
+          "heroKey": "Coraline",
+          "slot": "P",
+          "group": 1087100,
+          "skillId": "None",
+          "dataKey": "Damage",
+          "title": "P 因果 真实伤害",
+          "bases": "20,40,60,80,100",
+          "formula": "base + ap * 0.12",
+          "coefficientText": "20/40/60/80/100(+技能增幅的12%)",
+          "note": "真实伤害，不吃防御修正；计算器当前按技能伤害走"
+        }
+      ],
+      "equipment": [],
+      "characters": [],
+      "mastery": []
+    },
+    {
+      "version": "sweep-2026-05-13",
+      "order": 20260513,
+      "date": "2026-05-13",
+      "url": "https://playeternalreturn.com/posts/news/3572?hl=zh-CN",
+      "title": "[内容调整] 2026.05.14 - 11.2 更新日志",
+      "skills": [
+        {
+          "id": "augment-022-luke-r-1022500-extra-damage-stat1",
+          "hero": "卢克",
+          "title": "R 售后服务 额外伤害",
+          "bases": "20,45,70",
+          "formula": "base + attack * 0.13",
+          "coefficientText": "20/45/70 (+攻击力的13%) (+目标体力上限的 2%)",
+          "note": "由历史公告普查得出（基础值逐级一致 + 仅升级低权威来源 + 不回填更新条目），待人工复核。"
+        },
+        {
+          "id": "external-isaac-r-1059500-damage-stat1",
+          "hero": "伊萨克",
+          "title": "R 湮灭",
+          "bases": "120,180,240",
+          "formula": "base + attack * 1",
+          "coefficientText": "120/180/240 (+攻击力的100%)",
+          "note": "公告改前值 80/140/200 + 100% 与条目完全一致，身份确认无疑。"
+        },
+        {
+          "id": "external-hisui-q-1078200-second-damage-stat3",
+          "hero": "翡翠",
+          "title": "Q 连斩 二段伤害",
+          "bases": "70,85,100,115,130",
+          "formula": "base + extraAttack * [1,1.05,1.1,1.15,1.2][level - 1]",
+          "coefficientText": "70/85/100/115/130 (+额外攻击力100/105/110/115/120%)",
+          "note": "链条：发布公告 50/65/80/95/110(+90~110%) → 9.7 基础值改 70/85/100/115/130 → 11.2 系数改 100~120%。9.7 的改前值与发布值完全一致，确认同段。"
+        }
+      ],
+      "equipment": [],
+      "characters": [],
+      "mastery": []
+    },
+    {
+      "version": "release-2026-05-13",
+      "order": 20260513,
+      "date": "2026-05-13",
+      "url": "https://playeternalreturn.com/posts/news/3572?hl=zh-CN",
+      "title": "[内容调整] 2026.05.14 - 11.2 更新日志",
+      "skills": [
+        {
+          "create": true,
+          "id": "release-88-q-01",
+          "hero": "鼻荆",
+          "slot": "Q",
+          "title": "Q 咚锵！ 再次使用时 第1段",
+          "bases": "20,40,60,80,100",
+          "formula": "base + attack * [0.1,0.2,0.3,0.4,0.5][level - 1]",
+          "coefficientText": "20/40/60/80/100(+攻击力的10/20/30/40/50%) ",
+          "note": "发布公告技能描述：鼻荆的下一次普攻将在造成 数值取自该实验体的发布公告，是时间上最早的一份，任何后续补丁都会覆盖它。"
+        },
+        {
+          "create": true,
+          "id": "release-88-q-02",
+          "hero": "鼻荆",
+          "slot": "Q",
+          "title": "Q 咚锵！ 再次使用时 第2段",
+          "bases": "8,16,24,32,40",
+          "formula": "base + attack * [0.12,0.14,0.16,0.18,0.2][level - 1]",
+          "coefficientText": "8/16/24/32/40(+攻击力的12/14/16/18/20%) ",
+          "note": "发布公告技能描述：额外触发次伤害为的普攻与 数值取自该实验体的发布公告，是时间上最早的一份，任何后续补丁都会覆盖它。"
+        },
+        {
+          "create": true,
+          "id": "release-88-w-01",
+          "hero": "鼻荆",
+          "slot": "W",
+          "title": "W 尝尝天罚！",
+          "bases": "80,110,140,170,200",
+          "formula": "base + attack * 0.8 + targetHp * [0.09,0.1,0.11,0.12,0.13][level - 1]",
+          "coefficientText": "80/110/140/170/200(+攻击力的80%)(+目标体力上限9/10/11/12/13%) ",
+          "note": "发布公告技能描述：造成 数值取自该实验体的发布公告，是时间上最早的一份，任何后续补丁都会覆盖它。"
+        },
+        {
+          "create": true,
+          "id": "release-88-e-01",
+          "hero": "鼻荆",
+          "slot": "E",
+          "title": "E 赌上一局！",
+          "bases": "80,110,140,170,200",
+          "formula": "base + attack * 1",
+          "coefficientText": "80/110/140/170/200(+攻击力100%) ",
+          "note": "发布公告技能描述：并对其造成 数值取自该实验体的发布公告，是时间上最早的一份，任何后续补丁都会覆盖它。"
+        },
+        {
+          "create": true,
+          "id": "release-88-r-01",
+          "hero": "鼻荆",
+          "slot": "R",
+          "title": "R 闹个痛快吧！",
+          "bases": "200,350,500",
+          "formula": "base + extraAttack * 1.8 + targetHp * 0.1",
+          "coefficientText": "200/350/500(+额外攻击力180%)(+目标体力上限10%) ",
+          "note": "发布公告技能描述：造成 数值取自该实验体的发布公告，是时间上最早的一份，任何后续补丁都会覆盖它。"
+        }
+      ],
+      "equipment": [],
+      "characters": [],
+      "mastery": []
+    },
+    {
+      "version": "11.2",
+      "order": 20260514,
+      "date": "2026-05-14",
+      "url": "https://playeternalreturn.com/posts/news/3572?hl=zh-CN",
+      "title": "11.2 更新日志",
+      "skills": [
+        {
+          "create": true,
+          "id": "patch-xuelin-1082500-enhanced-sword-damage",
+          "hero": "雪琳",
+          "heroKey": "Xuelin",
+          "slot": "R",
+          "group": 1082500,
+          "skillId": "XuelinActive4",
+          "dataKey": "Enhanced Sword Damage",
+          "title": "R 万剑归宗 强化飞剑伤害",
+          "bases": "20,40,60",
+          "formula": "base + attack * [0.2,0.3,0.4][level - 1]",
+          "coefficientText": "20/40/60(+攻击力的20/30/40%)"
+        }
+      ],
+      "equipment": [],
+      "characters": [],
+      "mastery": []
+    },
+    {
+      "version": "11.3",
+      "order": 20260528,
+      "date": "2026-05-28",
+      "url": "https://playeternalreturn.com/posts/news/3606?hl=zh-CN",
+      "title": "11.3 更新日志",
+      "skills": [
+        {
+          "id": "patch-113-nicky-1033100-damage",
+          "hero": "妮琪",
+          "title": "P 狂躁",
+          "bases": "60,85,110",
+          "formula": "base + ap * 0.35",
+          "coefficientText": "60/85/110(+Skill Amplification 35%)"
+        },
+        {
+          "id": "patch-113-nicky-1033400-damage",
+          "hero": "妮琪",
+          "title": "E 重拳",
+          "bases": "60,95,130,165,200",
+          "formula": "base + ap * 0.95",
+          "coefficientText": "60/95/130/165/200(+Skill Amplification 95%)"
+        },
+        {
+          "id": "patch-113-blair-1084200-double-bladed-sword-second-hit-damage",
+          "hero": "布莱尔",
+          "title": "Q 双重斩击 双刀二段伤害",
+          "bases": "40,65,90,115,140",
+          "formula": "base + attack * 0.75",
+          "coefficientText": "40/65/90/115/140(+Attack Power 75%)"
+        },
+        {
+          "id": "patch-113-bihyung-1088100-damage",
+          "hero": "鼻荆",
+          "title": "P 鬼火",
+          "bases": "16,24,32",
+          "formula": "base + extraAttack * 0.4 + targetHp * [0.01,0.02,0.03][level - 1]",
+          "coefficientText": "16/24/32(+Extra Attack Power 40%)(+Target's Max HP 1/2/3%)"
+        },
+        {
+          "id": "external-charlotte-q-1073200-damage-stat1",
+          "hero": "夏洛特",
+          "title": "Q 幻影流光",
+          "formula": "base + ap * 1",
+          "coefficientText": "120/150/180/210/240(+Skill Amplification 100%)"
+        },
+        {
+          "id": "external-shoichi-e-1018400-damage-stat1",
+          "hero": "彰一",
+          "title": "E 协商",
+          "formula": "base + ap * 0.75",
+          "coefficientText": "60/100/140/180/220(+Skill Amplification 75%)"
+        },
+        {
+          "id": "external-lyanh-w-1063300-phantom-ripper-damage-stat2",
+          "hero": "伊安",
+          "title": "W 血染之指 附身伤害",
+          "bases": "30,60,90,120,150",
+          "formula": "base + attack * 0.65",
+          "coefficientText": "30/60/90/120/150(+Attack Power 65%)"
+        },
+        {
+          "id": "external-priya-e-1051400-damage-stat1",
+          "hero": "普里亚",
+          "title": "E 禁忌之歌",
+          "formula": "base + ap * 0.65",
+          "coefficientText": "60/90/120/150/180(+Skill Amplification 65%)"
+        },
+        {
+          "id": "patch-113-fiora-1003300-damage",
+          "hero": "菲欧娜",
+          "title": "W 复杂进攻",
+          "bases": "30,65,100,135,170",
+          "formula": "base + ap * 0.3",
+          "coefficientText": "30/65/100/135/170(+Skill Amplification 30%)"
+        },
+        {
+          "id": "patch-113-piolo-1056200-chokeslam-center-damage",
+          "hero": "皮奥洛",
+          "title": "Q 狂龙乱舞&下劈 下劈中心伤害",
+          "bases": "50,80,110,140,170",
+          "formula": "base + ap * 0.85",
+          "coefficientText": "50/80/110/140/170(+Skill Amplification 85%)"
+        },
+        {
+          "id": "patch-113-piolo-1056300-hammer-throw-damage",
+          "hero": "皮奥洛",
+          "title": "W 流星赶月&翻转 翻转伤害",
+          "bases": "70,115,160,205,250",
+          "formula": "base + ap * 0.85",
+          "coefficientText": "70/115/160/205/250(+Skill Amplification 85%)"
+        },
+        {
+          "id": "patch-113-jan-1035200-damage",
+          "hero": "扬",
+          "title": "Q 膝踢",
+          "bases": "100,120,140,160,180",
+          "formula": "base + extraAttack * 0.65 + ap * 0.55 + targetHp * 0.06",
+          "coefficientText": "100/120/140/160/180(+Extra Attack Power 65%)(+Skill Amplification 55%)(+Target's Max HP 6%)"
+        },
+        {
+          "id": "external-estelle-w-1055320-first-response-damage-stat1",
+          "hero": "艾丝蒂尔",
+          "title": "W 盾牌防御 First Response Damage",
+          "formula": "base + ap * 0.55 + targetHp * 0.03",
+          "coefficientText": "20/50/80/110/140(+Skill Amplification 55%)(+Target's Max HP 3%)"
+        },
+        {
+          "id": "external-estelle-e-1055400-forcible-entry-damage-stat2",
+          "hero": "艾丝蒂尔",
+          "title": "E 盾牌防御 Forcible Entry Damage",
+          "formula": "base + ap * 0.7 + maxHp * 0.1",
+          "coefficientText": "60/85/110/135/160 (+技能增幅70%)(+体力上限10%)",
+          "note": "11.3 公告的 Max HP 10%，现在用 maxHp 变量建模。",
+          "bases": "60,85,110,135,160"
+        },
+        {
+          "id": "yumin-eq",
+          "hero": "yumin-eq",
+          "title": "EQ 每跳",
+          "bases": "40,60,80,100,120",
+          "coefficientText": "40/60/80/100/120(+Skill Amplification 40%)",
+          "note": "俞岷 Q 风之领域伤害（手动校对英雄）。"
+        },
+        {
+          "id": "external-tsubame-p-1070100-max-hp-damage-stat1",
+          "hero": "燕翼",
+          "title": "P 奥义 - 生死印记",
+          "bases": "30,30,30",
+          "formula": "base + extraAttack * 0.25 + targetHp * [0.04,0.07,0.1][level - 1]",
+          "coefficientText": "30(+额外攻击力25%)(+目标体力上限的4/7/10(+额外攻击力5%)%)",
+          "note": "链条：9.7 把体力上限系数 3/6/9% 提到 4/7/10%，10.6 把额外攻击力 45% 降到 25%，11.3 只动了体力项内部的额外攻击力加成。原条目 3,6,9 是把体力百分比当成了基础值。括号内的额外攻击力 5%（作用于体力百分比项）未建模。"
+        },
+        {
+          "id": "augment-022-luke-r-1022500-extra-damage-stat1",
+          "hero": "卢克",
+          "title": "R 售后服务 每叠层额外伤害",
+          "formula": "(base + attack * 0.13) * stacks",
+          "maxStacks": 4,
+          "stackLabel": "售后服务标记",
+          "coefficientText": "每个叠层造成 基础值(+攻击力13%)(+目标体力上限X%) 的额外伤害",
+          "note": "官方描述：「卢克对标记的目标造成技能伤害时，每个叠层可以造成…的额外伤害」，所以按层数结算。叠层上限官方文案里是占位符，暂按 4 层，界面可调。目标体力上限项未建模。"
+        },
+        {
+          "id": "external-abigail-w-1067300-damage-stat1",
+          "hero": "艾比盖尔",
+          "title": "W 时空交错",
+          "bases": "80,110,140,170,200",
+          "formula": "base + targetCurrentHp * 0.08 + ap * 0.02",
+          "coefficientText": "80/110/140/170/200 (+目标当前体力8%)(+技能增幅2%)",
+          "note": "同上"
+        },
+        {
+          "id": "external-garnet-r-1076500-damage-stat1",
+          "hero": "盖瑞特",
+          "title": "R 处刑式",
+          "bases": "75,150,225",
+          "formula": "base + ap * 0.4 + targetCurrentHp * 0.15",
+          "coefficientText": "75/150/225 (+技能增幅40%)(+目标当前体力15%)",
+          "note": "同上"
+        },
+        {
+          "id": "external-xiukai-q-1013200-damage-stat1",
+          "hero": "修凯",
+          "title": "Q 秘制酱油",
+          "bases": "80,120,160,200,240",
+          "formula": "base + ap * 0.7 + targetCurrentHp * 0.25",
+          "coefficientText": "80/120/160/200/240 (+技能增幅70%)(+目标当前体力25%)",
+          "note": "同上"
+        },
+        {
+          "id": "patch-coraline-1087200-white-mirror-damage",
+          "hero": "卡洛琳",
+          "title": "Q 断罪之光 白镜强化",
+          "bases": "60,105,150,195,240",
+          "formula": "base + ap * 0.8 + targetCurrentHp * [0.04,0.06,0.08,0.1,0.12][level - 1]",
+          "coefficientText": "60/105/150/195/240(+技能增幅80%)(+目标当前体力4/6/8/10/12%)",
+          "note": "公告写了但此前没有变量可用"
+        },
+        {
+          "id": "patch-coraline-1087200-black-mirror-damage",
+          "hero": "卡洛琳",
+          "title": "Q 断罪之光 黑镜强化",
+          "bases": "60,105,150,195,240",
+          "formula": "base + ap * 0.85 + targetLostHp * [0.03,0.06,0.09,0.12,0.15][level - 1]",
+          "coefficientText": "60/105/150/195/240(+技能增幅85%)(+目标失去体力3/6/9/12/15%)",
+          "note": "同上"
+        }
+      ],
+      "equipment": [
+        {
+          "name": "摇滚乐手夹克",
+          "stat": "penetrationDefense",
+          "value": 12
+        },
+        {
+          "name": "监管者套装",
+          "stat": "defense",
+          "value": 42
+        },
+        {
+          "name": "反抗的意志",
+          "stat": "maxHp",
+          "value": 220
+        },
+        {
+          "name": "摇滚外套",
+          "stat": "attackPower",
+          "value": 12
+        },
+        {
+          "name": "奥黛",
+          "stat": "attackPower",
+          "value": 22
+        },
+        {
+          "name": "缄默法则",
+          "stat": "attackPower",
+          "value": 22
+        },
+        {
+          "name": "牛仔帽",
+          "stat": "attackPower",
+          "value": 28
+        },
+        {
+          "name": "恶魔面具",
+          "stat": "maxHp",
+          "value": 250
+        },
+        {
+          "name": "战术护目镜",
+          "stat": "maxHp",
+          "value": 200
+        },
+        {
+          "name": "龙首簪",
+          "stat": "skillAmp",
+          "value": 60
+        },
+        {
+          "name": "龙首簪",
+          "stat": "cooldownReduction",
+          "value": 10
+        },
+        {
+          "name": "荒野之星",
+          "stat": "attackPower",
+          "value": 38
+        },
+        {
+          "name": "蜈蚣护肩",
+          "stat": "defense",
+          "value": 15
+        },
+        {
+          "name": "荒野行者",
+          "stat": "hpRegenRatio",
+          "remove": true
+        }
+      ],
+      "characters": [
+        {
+          "hero": "雷妮",
+          "path": "base.defense",
+          "value": 50
+        },
+        {
+          "hero": "希瑟拉",
+          "path": "base.hp",
+          "value": 920
+        },
+        {
+          "hero": "希瑟拉",
+          "path": "base.defense",
+          "value": 50
+        },
+        {
+          "hero": "伊萨克",
+          "path": "growth.attackPower",
+          "value": 4.9
+        },
+        {
+          "hero": "卡缇娅",
+          "path": "growth.attackPower",
+          "value": 4.7
+        },
+        {
+          "hero": "哈特",
+          "path": "growth.attackPower",
+          "value": 4.4
+        },
+        {
+          "hero": "亨利",
+          "path": "growth.maxHp",
+          "value": 78
+        },
+        {
+          "hero": "劳拉",
+          "path": "base.moveSpeed",
+          "value": 3.5
+        }
+      ],
+      "mastery": [
+        {
+          "hero": "娜町",
+          "type": "CrossBow",
+          "stat": "AttackSpeedRatio",
+          "value": 0.034
+        },
+        {
+          "hero": "劳拉",
+          "type": "Whip",
+          "stat": "SkillAmpRatio",
+          "value": 0.041
+        },
+        {
+          "hero": "扎希尔",
+          "type": "DirectFire",
+          "stat": "SkillAmpRatio",
+          "value": 0.039
+        }
+      ]
+    },
+    {
+      "version": "11.4",
+      "order": 20260611,
+      "date": "2026-06-11",
+      "url": "https://playeternalreturn.com/posts/news/3629?hl=zh-CN",
+      "title": "11.4 更新日志",
+      "skills": [
+        {
+          "id": "patch-114-nicky-1033200-min-damage",
+          "hero": "妮琪",
+          "title": "Q 格斗动作 最小伤害",
+          "bases": "40,60,80,100,120",
+          "formula": "base + ap * 0.7",
+          "coefficientText": "40/60/80/100/120(+Skill Amplification 70%)"
+        },
+        {
+          "id": "patch-114-nicky-1033200-max-damage",
+          "hero": "妮琪",
+          "title": "Q 格斗动作 最大伤害",
+          "bases": "80,120,160,200,240",
+          "formula": "base + ap * 1.4",
+          "coefficientText": "80/120/160/200/240(+Skill Amplification 140%)"
+        },
+        {
+          "id": "patch-114-daniel-1037200-center-hit-damage",
+          "hero": "丹尼尔",
+          "title": "Q 剪影 中心命中伤害",
+          "bases": "40,60,80,100,120",
+          "formula": "base + attack * 1.4",
+          "coefficientText": "40/60/80/100/120(+Attack Power 140%)"
+        },
+        {
+          "id": "augment-020-lenox-r-1020500-enhanced-true-damage-stat3",
+          "hero": "伦诺克斯",
+          "title": "R 青蛇 Enhanced True Damage",
+          "bases": "30,40,50",
+          "coefficientText": "2 Hits Blue Viper Grounded Damage 30/40/50"
+        },
+        {
+          "id": "patch-114-lenox-1020500-grounded-damage",
+          "hero": "伦诺克斯",
+          "title": "R 青蛇 落地伤害",
+          "bases": "15,20,25",
+          "formula": "base",
+          "coefficientText": "Blue Viper Grounded Damage 15/20/25",
+          "note": "补丁只给出固定数值，未标注系数。"
+        },
+        {
+          "id": "external-leon-p-1029100-damage-stat3",
+          "hero": "里昂",
+          "title": "P 人体鱼雷",
+          "bases": "30,45,60",
+          "formula": "base + ap * 0.35",
+          "coefficientText": "30/45/60(+Skill Amplification 35%)"
+        },
+        {
+          "id": "external-lenore-q-1075200-damage-stat1",
+          "hero": "莉诺尔",
+          "title": "Q 断奏",
+          "bases": "80,100,120,140,160",
+          "coefficientText": "80/100/120/140/160(+Skill Amplification 60%)"
+        },
+        {
+          "id": "004-magnus-w-1004300-damage-by-level",
+          "hero": "马格努斯",
+          "title": "W 17对1 基础伤害",
+          "bases": "22,28,34,40,46",
+          "formula": "base + extraAttack * 0.45 + ap * 0.2 + targetHp * 0.025",
+          "coefficientText": "22/28/34/40/46(+Extra Attack Power 45%)(+Skill Amplification 20%)(+Target's Max HP 2.5%)"
+        },
+        {
+          "id": "patch-114-vanya-1064400-outer-area-damage",
+          "hero": "万尼亚",
+          "title": "E 祈愿 外围伤害",
+          "bases": "90,125,160,195,230",
+          "formula": "base + ap * 0.9",
+          "coefficientText": "90/125/160/195/230(+Skill Amplification 90%)"
+        },
+        {
+          "id": "external-adela-w-1024300-damage-stat1",
+          "hero": "阿德拉",
+          "title": "W 单马捉双",
+          "formula": "base + ap * 0.75",
+          "coefficientText": "20/60/100/140/180(+Skill Amplification 75%)"
+        },
+        {
+          "id": "yumin-e",
+          "hero": "yumin-e",
+          "title": "E",
+          "bases": "60,90,120,150,180",
+          "coefficientText": "60/90/120/150/180(+Skill Amplification 50%)",
+          "note": "俞岷 E 云步（手动校对英雄）。"
+        },
+        {
+          "id": "external-justyna-q-1079200-damage-stat1",
+          "hero": "尤斯蒂娜",
+          "title": "Q 连环炮击&歼灭炮击",
+          "formula": "base + ap * 0.45",
+          "coefficientText": "50/75/100/125/150(+Skill Amplification 45%)"
+        },
+        {
+          "id": "external-priya-w-1051300-damage-stat1",
+          "hero": "普里亚",
+          "title": "W 音刃",
+          "formula": "base + ap * 0.7",
+          "coefficientText": "60/100/140/180/220(+Skill Amplification 70%)"
+        },
+        {
+          "id": "patch-114-henry-1083300-damage",
+          "hero": "亨利",
+          "title": "W 时控装置",
+          "bases": "8,16,24,32,40",
+          "formula": "base + ap * 0.2 + targetHp * [0.01,0.01,0.02,0.02,0.03][level - 1]",
+          "coefficientText": "8/16/24/32/40(+Skill Amplification 20%)(+Target's Max HP 1/1/2/2/3%)"
+        },
+        {
+          "id": "external-alonso-q-1068200-connected-enemy-max-hp-damage-stat3",
+          "hero": "阿隆索",
+          "title": "Q 磁石之握 额外伤害",
+          "bases": "0,0,0,0,0",
+          "formula": "heroLevel * 6 + targetHp * [0.06,0.07,0.08,0.09,0.1][level - 1]",
+          "coefficientText": "(阿隆索级别*6)(+目标体力上限的 6/7/8/9/10%)",
+          "note": "原 Wiki 条目把体力上限百分比当成了基础值，按官方公告重写；实验体等级项用 heroLevel 建模。"
+        },
+        {
+          "id": "007-hyunwoo-e-1007400-damage-by-level",
+          "hero": "玄佑",
+          "title": "E 先发制人 命中伤害",
+          "bases": "0,0,0,0,0",
+          "formula": "base + extraAttack * 0.8 + ap * 0.55 + targetCurrentHp * [0.06,0.09,0.12,0.15,0.18][level - 1]",
+          "coefficientText": "(+额外攻击力的80%)(+技能增幅的55%)(+目标当前体力的6/9/12/15/18%)",
+          "note": "同上"
+        }
+      ],
+      "equipment": [
+        {
+          "name": "格洛克 48",
+          "stat": "attackPower",
+          "value": 66
+        },
+        {
+          "name": "等离子枪",
+          "stat": "attackPower",
+          "value": 77
+        },
+        {
+          "name": "反抗的意志",
+          "stat": "maxHp",
+          "value": 200
+        },
+        {
+          "name": "反抗的意志",
+          "stat": "cooldownReduction",
+          "value": 15
+        },
+        {
+          "name": "日轮之铠",
+          "stat": "defense",
+          "value": 28
+        },
+        {
+          "name": "赫利克斯",
+          "stat": "defense",
+          "value": 20
+        }
+      ],
+      "characters": [
+        {
+          "hero": "马库斯",
+          "path": "base.hp",
+          "value": 950
+        },
+        {
+          "hero": "雪",
+          "path": "growth.defense",
+          "value": 3.2
+        },
+        {
+          "hero": "费利克斯",
+          "path": "base.defense",
+          "value": 53
+        },
+        {
+          "hero": "菲欧娜",
+          "path": "base.defense",
+          "value": 54
+        }
+      ],
+      "mastery": [
+        {
+          "hero": "玛蒂娜",
+          "type": "Camera",
+          "stat": "IncreaseBasicAttackDamageRatio",
+          "value": 0.011
+        },
+        {
+          "hero": "比安卡",
+          "type": "Arcana",
+          "stat": "SkillAmpRatio",
+          "value": 0.044
+        },
+        {
+          "hero": "阿德瑞娜",
+          "type": "HighAngleFire",
+          "stat": "SkillAmpRatio",
+          "value": 0.04
+        },
+        {
+          "hero": "卡米洛",
+          "type": "Rapier",
+          "stat": "IncreaseBasicAttackDamageRatio",
+          "value": 0.013
+        }
+      ]
+    },
+    {
+      "version": "11.5",
+      "order": 20260625,
+      "date": "2026-06-25",
+      "url": "https://playeternalreturn.com/posts/news/3657?hl=zh-CN",
+      "title": "11.5 更新日志",
+      "skills": [
+        {
+          "id": "patch-115-craver-1089100-damage",
+          "hero": "Craver",
+          "title": "P 亡命之徒 普攻额外伤害",
+          "bases": "20,40,60",
+          "formula": "base + ap * 0.25",
+          "coefficientText": "20/40/60(+Skill Amplification 25%)(+0.5 per 1% Additional Attack Speed)",
+          "note": "11.5 上线值 10/30/50，11.6 上调为 20/40/60；额外攻击速度换算部分未建模。"
+        },
+        {
+          "id": "patch-115-craver-1089200-double-tap-damage",
+          "hero": "Craver",
+          "title": "Q 双重射击",
+          "bases": "50,70,90,110,130",
+          "formula": "base + ap * 0.4",
+          "coefficientText": "50/70/90/110/130(+Skill Amplification 40%)"
+        },
+        {
+          "id": "patch-115-craver-1089200-focus-shot-damage",
+          "hero": "Craver",
+          "title": "Q 聚焦射击",
+          "bases": "80,120,160,200,240",
+          "formula": "base + ap * 0.85",
+          "coefficientText": "80/120/160/200/240(+Skill Amplification 85%)"
+        },
+        {
+          "id": "patch-115-craver-1089200-focus-shot-additional-damage",
+          "hero": "Craver",
+          "title": "Q 聚焦射击 追加伤害",
+          "bases": "40,70,100,130,160",
+          "formula": "base + ap * 0.3",
+          "coefficientText": "40/70/100/130/160(+Skill Amplification 30%)"
+        },
+        {
+          "id": "patch-115-craver-1089300-sweep-kick-damage",
+          "hero": "Craver",
+          "title": "W 扫堂腿（每段）",
+          "bases": "30,55,80,105,130",
+          "formula": "base + ap * 0.4",
+          "coefficientText": "30/55/80/105/130(+Skill Amplification 40%) x2",
+          "note": "技能命中 2 段，界面可用目标/段数倍率叠加。"
+        },
+        {
+          "id": "patch-115-craver-1089300-backflip-damage",
+          "hero": "Craver",
+          "title": "W 后空翻",
+          "bases": "130,160,190,220,250",
+          "formula": "base + ap * 0.85",
+          "coefficientText": "130/160/190/220/250(+Skill Amplification 85%)"
+        },
+        {
+          "id": "patch-115-craver-1089400-combat-roll-damage",
+          "hero": "Craver",
+          "title": "E 战术翻滚",
+          "bases": "50,80,110,140,170",
+          "formula": "base + ap * 0.55",
+          "coefficientText": "50/80/110/140/170(+Skill Amplification 55%)"
+        },
+        {
+          "id": "patch-115-craver-1089400-quick-step-damage",
+          "hero": "Craver",
+          "title": "E 快步后撤",
+          "bases": "100,125,150,175,200",
+          "formula": "base + ap * 0.8",
+          "coefficientText": "100/125/150/175/200(+Skill Amplification 80%)"
+        },
+        {
+          "id": "patch-115-craver-1089500-damage",
+          "hero": "Craver",
+          "title": "R 决斗时刻",
+          "bases": "150,235,320",
+          "formula": "base + ap * 0.7",
+          "coefficientText": "150/235/320(+Skill Amplification 70%)"
+        },
+        {
+          "id": "external-niah-w-1081300-damage-stat1",
+          "hero": "妮娅",
+          "title": "W 节拍交汇",
+          "formula": "base + ap * 0.7",
+          "coefficientText": "60/100/140/180/220(+Skill Amplification 70%)"
+        },
+        {
+          "id": "patch-115-lenox-1020400-damage",
+          "hero": "伦诺克斯",
+          "title": "E 反向双钓",
+          "bases": "60,100,140,180,220",
+          "formula": "base + ap * 0.5 + targetHp * 0.07",
+          "coefficientText": "60/100/140/180/220(+Skill Amplification 50%)(+Target's Max HP 7%)"
+        },
+        {
+          "id": "external-adriana-r-1017500-damage-stat1",
+          "hero": "阿德瑞娜",
+          "title": "R 莫洛托夫燃烧瓶",
+          "bases": "140,170,200",
+          "coefficientText": "140/170/200(+Skill Amplification 40%)"
+        },
+        {
+          "id": "patch-115-jan-1035400-damage",
+          "hero": "扬",
+          "title": "E 闪烁",
+          "bases": "20,30,40,50,60",
+          "formula": "base + extraAttack * 1 + ap * 0.5 + targetHp * 0.05",
+          "coefficientText": "20/30/40/50/60(+Extra Attack Power 100%)(+Skill Amplification 50%)(+Target's Max HP 5%)"
+        },
+        {
+          "id": "external-elena-w-1050300-damage-stat1",
+          "hero": "埃琳娜",
+          "title": "W 双旋击",
+          "formula": "base + ap * 0.55 + extraHp * 0.12",
+          "coefficientText": "50/70/90/110/130 (+技能增幅55%)(+额外体力12%)",
+          "note": "11.5 公告的 Additional HP 12%，现在用 extraHp 变量建模。",
+          "bases": "50,70,90,110,130"
+        },
+        {
+          "id": "external-justyna-r-1079500-damage-stat1",
+          "hero": "尤斯蒂娜",
+          "title": "R 阿斯特拉冲击",
+          "bases": "30,50,70",
+          "formula": "base + ap * 0.22",
+          "coefficientText": "30/50/70(+Skill Amplification 22%)",
+          "note": "原 Wiki 快照记录为 80/160/240(+攻击力90%)，按官方补丁数值覆盖。"
+        },
+        {
+          "id": "external-irem-w-1061310-damage-stat1",
+          "hero": "爱琳",
+          "title": "W 喵心不悦",
+          "formula": "base + ap * 0.8",
+          "coefficientText": "40/80/120/160/200(+Skill Amplification 80%)"
+        },
+        {
+          "id": "external-eleven-r-1030500-damage-stat2",
+          "hero": "Eleven",
+          "title": "R 美食风暴",
+          "formula": "base + attack * 0.08",
+          "coefficientText": "10/15/20(+Attack Power 8%)(+Additional HP 3%)"
+        },
+        {
+          "id": "augment-038-jenny-e-1038400-extra-damage-stat3",
+          "hero": "珍妮",
+          "title": "E 演员的修养 额外伤害",
+          "bases": "60,95,130,165,200",
+          "coefficientText": "60/95/130/165/200(+Skill Amplification 58%)"
+        },
+        {
+          "id": "external-camilo-q-1039200-damage-stat1",
+          "hero": "卡米洛",
+          "title": "Q 弗拉门戈舞",
+          "formula": "base + attack * 0.7",
+          "coefficientText": "10/30/50/70/90(+Attack Power 70%)*(Basic Attack Amplification)",
+          "note": "普攻增幅倍率部分计算器未建模。"
+        },
+        {
+          "id": "external-kenneth-q-1071200-damage-stat1",
+          "hero": "肯尼思",
+          "title": "Q 烈焰一击",
+          "formula": "base + attack * [1.7,1.75,1.8,1.85,1.9][level - 1]",
+          "coefficientText": "30/40/50/60/70(+Attack Power 170/175/180/185/190%)"
+        },
+        {
+          "id": "external-haze-q-1058220-40mm-grenade-damage-stat1",
+          "hero": "海因茨",
+          "title": "Q 火箭加速器 40mm Grenade Damage",
+          "bases": "80,110,140,170,200",
+          "formula": "base + ap * 0.4",
+          "coefficientText": "80/110/140/170/200(+Skill Amplification 40%)",
+          "note": "RQ 火箭加速器；原 Wiki 快照 80/115/150/185/220(+85%) 已按官方补丁覆盖。"
+        },
+        {
+          "id": "patch-115-hisui-1078500-additional-damage",
+          "hero": "翡翠",
+          "title": "R 物干焯 额外伤害",
+          "bases": "20,20,20",
+          "formula": "base + extraAttack * [0.15,0.3,0.45][level - 1]",
+          "coefficientText": "20(+Additional Attack Power 15/30/45%)"
+        }
+      ],
+      "equipment": [
+        {
+          "name": "圣杯 - 节制",
+          "stat": "healerGiveHpHealRatio",
+          "value": 0.04
+        },
+        {
+          "name": "烈阳",
+          "stat": "healerGiveHpHealRatio",
+          "value": 0.08
+        },
+        {
+          "name": "乌拉诺斯",
+          "stat": "attackSpeedRatio",
+          "value": 0.3
+        },
+        {
+          "name": "吉利服",
+          "stat": "attackSpeedRatio",
+          "value": 0.2
+        },
+        {
+          "name": "奥黛",
+          "stat": "attackPower",
+          "value": 20
+        },
+        {
+          "name": "赤星",
+          "stat": "attackPower",
+          "value": 20
+        },
+        {
+          "name": "黑炎龙铠甲",
+          "stat": "defense",
+          "value": 43
+        },
+        {
+          "name": "魔女帽",
+          "stat": "skillAmp",
+          "value": 68
+        },
+        {
+          "name": "白夜王冠",
+          "stat": "healerGiveHpHealRatio",
+          "value": 0.07
+        },
+        {
+          "name": "星魂臂章",
+          "stat": "attackSpeedRatio",
+          "value": 0.18
+        },
+        {
+          "name": "苏丹箭筒",
+          "stat": "attackPower",
+          "value": 30
+        },
+        {
+          "name": "命运之骰",
+          "stat": "criticalStrikeDamage",
+          "value": 0.1
+        },
+        {
+          "name": "法夫纳",
+          "stat": "maxHpByLv",
+          "value": 26
+        }
+      ],
+      "characters": [
+        {
+          "hero": "伯尼斯",
+          "path": "growth.attackPower",
+          "value": 4.6
+        },
+        {
+          "hero": "鼻荆",
+          "path": "base.defense",
+          "value": 50
+        },
+        {
+          "hero": "肯尼思",
+          "path": "growth.attackPower",
+          "value": 4.2
+        }
+      ],
+      "mastery": [
+        {
+          "hero": "娜町",
+          "type": "CrossBow",
+          "stat": "IncreaseBasicAttackDamageRatio",
+          "value": 0.013
+        },
+        {
+          "hero": "莉央",
+          "type": "Bow",
+          "stat": "IncreaseBasicAttackDamageRatio",
+          "value": 0.013
+        },
+        {
+          "hero": "约翰",
+          "type": "Arcana",
+          "stat": "SkillAmpRatio",
+          "value": 0.043
+        },
+        {
+          "hero": "卡拉",
+          "type": "CrossBow",
+          "stat": "SkillAmpRatio",
+          "value": 0.042
+        }
+      ]
+    },
+    {
+      "version": "11.6",
+      "order": 20260709,
+      "date": "2026-07-09",
+      "url": "https://playeternalreturn.com/posts/news/3690?hl=zh-CN",
+      "title": "11.6 更新日志",
+      "skills": [
+        {
+          "id": "external-debimarlene-p-1065100-damage-stat1",
+          "hero": "黛比&玛莲",
+          "title": "P 靛与赤",
+          "formula": "base + extraAttack * 0.75",
+          "coefficientText": "15/20/25(+Extra Attack Power 75%)(+Critical Strike Chance 50%)",
+          "note": "暴击率换算部分计算器未建模；原公式按攻击力记录，已按补丁改为额外攻击力。"
+        },
+        {
+          "id": "patch-116-martina-1057500-recording-edge-damage",
+          "hero": "玛蒂娜",
+          "title": "R 录像 录制中边缘伤害",
+          "bases": "10,15,20",
+          "formula": "base + attack * 0.15",
+          "coefficientText": "10/15/20(+Attack Power 15%)"
+        },
+        {
+          "id": "patch-116-martina-1057500-recording-center-damage",
+          "hero": "玛蒂娜",
+          "title": "R 录像 录制中中心伤害",
+          "bases": "20,25,30",
+          "formula": "base + attack * 0.2",
+          "coefficientText": "20/25/30(+Attack Power 20%)"
+        },
+        {
+          "id": "patch-116-martina-1057500-recording-complete-edge-damage",
+          "hero": "玛蒂娜",
+          "title": "R 录像 录制完成边缘伤害",
+          "bases": "100,200,300",
+          "formula": "base + attack * 0.9",
+          "coefficientText": "100/200/300(+Attack Power 90%)"
+        },
+        {
+          "id": "patch-116-martina-1057500-recording-complete-center-damage",
+          "hero": "玛蒂娜",
+          "title": "R 录像 录制完成中心伤害",
+          "bases": "200,325,450",
+          "formula": "base + attack * 1.3",
+          "coefficientText": "200/325/450(+Attack Power 130%)"
+        },
+        {
+          "id": "external-silvia-q-1016200-damage-stat1",
+          "hero": "西尔维娅",
+          "title": "Q 雷达枪",
+          "bases": "60,95,130,165,200",
+          "formula": "base + ap * 0.6",
+          "coefficientText": "60/95/130/165/200(+Skill Amplification 60%)",
+          "note": "原 Wiki 快照 20/40/60/80/100(+10%) 已按官方补丁覆盖。"
+        },
+        {
+          "id": "external-adriana-q-1017200-damage-stat1",
+          "hero": "阿德瑞娜",
+          "title": "Q 火焰发射",
+          "formula": "base + ap * [0.27,0.29,0.31,0.33,0.35][level - 1]",
+          "coefficientText": "35/45/55/65/75(+Skill Amplification 27/29/31/33/35%)"
+        },
+        {
+          "id": "external-isaac-p-1059100-damage-stat1",
+          "hero": "伊萨克",
+          "title": "P 管制",
+          "formula": "base + attack * 0.6 + targetHp * [0.04,0.05,0.06][level - 1]",
+          "coefficientText": "20/30/40(+Attack Power 60%)(+Target's Max HP 4/5/6%)"
+        },
+        {
+          "id": "external-justyna-e-1079400-damage-stat1",
+          "hero": "尤斯蒂娜",
+          "title": "E 迅影",
+          "formula": "base + ap * 0.35",
+          "coefficientText": "50/75/100/125/150(+Skill Amplification 35%)"
+        },
+        {
+          "id": "external-irem-q-1061200-damage-stat1",
+          "hero": "爱琳",
+          "title": "Q 跳跳球",
+          "bases": "50,75,100,125,150",
+          "formula": "base + ap * 0.55",
+          "coefficientText": "50/75/100/125/150(+Skill Amplification 55%)",
+          "note": "同时同步跳跳球渐进伤害条目的基础值。"
+        },
+        {
+          "id": "external-karla-w-1054300-damage-stat1",
+          "hero": "卡拉",
+          "title": "W 回收",
+          "bases": "80,105,130,155,180",
+          "formula": "base + attack * 0.3 + ap * 0.75",
+          "coefficientText": "80/105/130/155/180(+Attack Power 30%)(+Skill Amplification 75%)(+Critical Strike Chance 65%)"
+        },
+        {
+          "id": "patch-116-theodore-1062200-screen-projectile-damage",
+          "hero": "西奥多",
+          "title": "Q 聚能磁轨炮 屏幕穿透伤害",
+          "bases": "70,110,150,190,230",
+          "formula": "base + ap * 0.8",
+          "coefficientText": "70/110/150/190/230(+Skill Amplification 80%)"
+        },
+        {
+          "id": "external-priya-q-1051200-damage-stat1",
+          "hero": "普里亚",
+          "title": "Q 绽放的旋律",
+          "bases": "60,90,120,150,180",
+          "formula": "base + ap * 0.75",
+          "coefficientText": "60/90/120/150/180(+Skill Amplification 75%)",
+          "note": "原 Wiki 快照基础值 80/110/140/170/200 已按官方补丁覆盖。"
+        },
+        {
+          "id": "patch-116-henry-1083100-damage",
+          "hero": "亨利",
+          "title": "P 裂时之隙",
+          "bases": "40,70,100",
+          "formula": "base + ap * 0.3 + targetLostHp * [0.08,0.1,0.12][level - 1]",
+          "coefficientText": "40/70/100(+技能增幅30%)(+目标已失体力8/10/12%)",
+          "note": "目标已失体力用新的 targetLostHp 变量建模"
+        },
+        {
+          "id": "patch-116-hyunwoo-1007100-damage",
+          "hero": "玄佑",
+          "title": "P 鏖战",
+          "bases": "40,70,100",
+          "formula": "base + attack * 0.7 + ap * 0.45",
+          "coefficientText": "40/70/100(+Attack Power 70%)(+Skill Amplification 45%)"
+        }
+      ],
+      "equipment": [
+        {
+          "name": "红砖",
+          "stat": "attackPower",
+          "value": 58
+        },
+        {
+          "name": "绝色之夜",
+          "stat": "attackPower",
+          "value": 66
+        },
+        {
+          "name": "女王蛇",
+          "stat": "attackPower",
+          "value": 60
+        },
+        {
+          "name": "帝王黑曼巴蛇",
+          "stat": "attackPower",
+          "value": 52
+        },
+        {
+          "name": "女王蛇 MT",
+          "stat": "attackPower",
+          "value": 66
+        },
+        {
+          "name": "女王蛇 FC",
+          "stat": "attackPower",
+          "value": 72
+        },
+        {
+          "name": "帝王黑曼巴蛇 TL",
+          "stat": "attackPower",
+          "value": 52
+        },
+        {
+          "name": "帝王黑曼巴蛇 FC",
+          "stat": "attackPower",
+          "value": 65
+        },
+        {
+          "name": "女王蛇 VBS",
+          "stat": "attackPower",
+          "value": 78
+        },
+        {
+          "name": "帝王黑曼巴蛇 VBS",
+          "stat": "attackPower",
+          "value": 69
+        },
+        {
+          "name": "幽冥战甲",
+          "stat": "maxHp",
+          "value": 250
+        },
+        {
+          "name": "南丁格尔",
+          "stat": "cooldownReduction",
+          "value": 15
+        },
+        {
+          "name": "南丁格尔",
+          "stat": "healerGiveHpHealRatio",
+          "value": 0.04
+        }
+      ],
+      "characters": [
+        {
+          "hero": "盖瑞特",
+          "path": "base.hp",
+          "value": 970
+        },
+        {
+          "hero": "达尔科",
+          "path": "growth.maxHp",
+          "value": 96
+        },
+        {
+          "hero": "马格努斯",
+          "path": "base.defense",
+          "value": 50
+        },
+        {
+          "hero": "马格努斯",
+          "path": "growth.defense",
+          "value": 3.3
+        },
+        {
+          "hero": "米尔卡",
+          "path": "base.defense",
+          "value": 52
+        },
+        {
+          "hero": "彰一",
+          "path": "base.hp",
+          "value": 940
+        },
+        {
+          "hero": "费利克斯",
+          "path": "base.attackPower",
+          "value": 35
+        }
+      ],
+      "mastery": [
+        {
+          "hero": "席琳",
+          "type": "HighAngleFire",
+          "stat": "SkillAmpRatio",
+          "value": 0.042
+        },
+        {
+          "hero": "卡洛琳",
+          "type": "Arcana",
+          "stat": "SkillAmpRatio",
+          "value": 0.041
+        },
+        {
+          "hero": "艾登",
+          "type": "TwoHandSword",
+          "stat": "IncreaseBasicAttackDamageRatio",
+          "value": 0.02
+        },
+        {
+          "hero": "杰琪",
+          "type": "TwoHandSword",
+          "stat": "IncreaseBasicAttackDamageRatio",
+          "value": 0.024
+        },
+        {
+          "hero": "卡缇娅",
+          "type": "SniperRifle",
+          "stat": "IncreaseBasicAttackDamageRatio",
+          "value": 0.02
+        },
+        {
+          "hero": "埃琳娜",
+          "type": "Rapier",
+          "stat": "SkillAmpRatio",
+          "value": 0.048
+        },
+        {
+          "hero": "皮奥洛",
+          "type": "Nunchaku",
+          "stat": "SkillAmpRatio",
+          "value": 0.045
+        },
+        {
+          "hero": "埃索",
+          "type": "AssaultRifle",
+          "stat": "AttackSpeedRatio",
+          "value": 0.03
+        },
+        {
+          "hero": "阿德瑞娜",
+          "type": "HighAngleFire",
+          "stat": "SkillAmpRatio",
+          "value": 0.041
+        }
+      ]
+    },
+    {
+      "version": "11.7",
+      "order": 20260723,
+      "date": "2026-07-23",
+      "url": "https://playeternalreturn.com/posts/news/3713?hl=zh-CN",
+      "title": "11.7 更新日志",
+      "skills": [
+        {
+          "id": "patch-117-nathapon-1034400-damage",
+          "hero": "纳塔朋",
+          "title": "E 时光倒影",
+          "bases": "30,50,70,90,110",
+          "formula": "base + ap * 0.4",
+          "coefficientText": "30/50/70/90/110(+Skill Amplification 40%)"
+        },
+        {
+          "id": "external-leon-e-1029400-damage-stat1",
+          "hero": "里昂",
+          "title": "E 潜移",
+          "bases": "60,95,130,165,200",
+          "formula": "base + ap * 0.75",
+          "coefficientText": "60/95/130/165/200(+Skill Amplification 75%)"
+        },
+        {
+          "id": "patch-117-magnus-1004400-wall-collision-damage",
+          "hero": "马格努斯",
+          "title": "E 猛击 撞墙伤害",
+          "bases": "20,40,60,80,100",
+          "formula": "base + extraAttack * 0.3 + ap * 0.3 + targetHp * 0.07",
+          "coefficientText": "20/40/60/80/100(+Extra Attack Power 30%)(+Skill Amplification 30%)(+Target's Max HP 7%)"
+        },
+        {
+          "id": "external-barbara-r-1026500-sentry-gun-damage-stat2",
+          "hero": "芭芭拉",
+          "title": "R 超时实验 Sentry Gun Damage",
+          "formula": "base + ap * 0.45",
+          "coefficientText": "Railgun Damage 100/125/150(+Skill Amplification 45%)"
+        },
+        {
+          "id": "patch-117-silvia-1016300-on-bike-front-flip-damage",
+          "hero": "西尔维娅",
+          "title": "W 前空翻（摩托）",
+          "bases": "60,100,140,180,220",
+          "formula": "base + ap * 0.55",
+          "coefficientText": "60/100/140/180/220(+Skill Amplification 55%)"
+        },
+        {
+          "id": "patch-117-arda-1066200-damage",
+          "hero": "阿尔达",
+          "title": "Q 沙玛什卷轴",
+          "bases": "70,110,150,190,230",
+          "formula": "base + ap * 0.8",
+          "coefficientText": "70/110/150/190/230(+Skill Amplification 80%)",
+          "note": "同样适用于 R-Q 沙玛什密码。"
+        },
+        {
+          "id": "external-emma-p-1019100-damage-stat1",
+          "hero": "艾玛",
+          "title": "P CheerUP♥",
+          "bases": "60,80,100",
+          "formula": "base + ap * [0.25,0.35,0.45][level - 1]",
+          "coefficientText": "60/80/100(+Skill Amplification 25/35/45%)"
+        },
+        {
+          "id": "patch-117-istvan-1080500-damage",
+          "hero": "伊舒特",
+          "title": "R 波函数坍缩",
+          "bases": "80,160,240",
+          "formula": "base + attack * 0.85",
+          "coefficientText": "80/160/240(+Attack Power 85%)"
+        },
+        {
+          "id": "5-1005500-DamageByLevel_2",
+          "hero": "扎希尔",
+          "title": "R 跋尔伽婆 2",
+          "bases": "60,120,180",
+          "formula": "base + ap * 0.4",
+          "coefficientText": "Min Damage 60/120/180(+Skill Amplification 40%)"
+        },
+        {
+          "id": "augment-062-theodore-w-1062300-extra-damage-stat1",
+          "hero": "西奥多",
+          "title": "W 裂变能源屏 额外伤害",
+          "bases": "40,50,60,70,80",
+          "coefficientText": "40/50/60/70/80(+Skill Amplification 26%)"
+        },
+        {
+          "id": "patch-117-fenrir-1086500-damage",
+          "hero": "芬里尔",
+          "title": "R 绝息一击",
+          "bases": "150,225,300",
+          "formula": "base + attack * 1.1",
+          "coefficientText": "150/225/300(+Attack Power 110%)"
+        }
+      ],
+      "equipment": [
+        {
+          "name": "咎瓦尤斯",
+          "stat": "attackPower",
+          "value": 58
+        }
+      ],
+      "characters": [
+        {
+          "hero": "威廉",
+          "path": "growth.defense",
+          "value": 2.7
+        }
+      ],
+      "mastery": [
+        {
+          "hero": "达尔科",
+          "type": "Bat",
+          "stat": "IncreaseBasicAttackDamageRatio",
+          "value": 0.017
+        },
+        {
+          "hero": "玛蒂娜",
+          "type": "Camera",
+          "stat": "IncreaseBasicAttackDamageRatio",
+          "value": 0.01
+        },
+        {
+          "hero": "杰琪",
+          "type": "TwoHandSword",
+          "stat": "IncreaseBasicAttackDamageRatio",
+          "value": 0.023
+        },
+        {
+          "hero": "哈特",
+          "type": "Guitar",
+          "stat": "AttackSpeedRatio",
+          "value": 0.031
+        },
+        {
+          "hero": "俞岷",
+          "type": "Arcana",
+          "stat": "SkillAmpRatio",
+          "value": 0.041
+        }
+      ]
+    },
+    {
+      "version": "12.0-part2",
+      "order": 20260806,
+      "date": "2026-08-06",
+      "url": "https://playeternalreturn.com/posts/news/3743?hl=zh-CN",
+      "title": "12.0 更新日志 Part.2 - 实验体和物品",
+      "skills": [
+        {
+          "id": "006-nadine-r-1006500-damage-by-level",
+          "hero": "娜町",
+          "title": "R 狼之猛袭 基础伤害",
+          "bases": "100,150,200",
+          "formula": "base + extraAttack * 0.8 + ap * 0.8",
+          "coefficientText": "100/150/200(+额外攻击力80%)(+技能增幅的80%)(+野性叠层伤害)",
+          "note": "野性叠层伤害未建模；原快照数值 50/100/150 已按官方公告覆盖。"
+        },
+        {
+          "id": "patch-120p2-danielactive3-damage",
+          "hero": "丹尼尔",
+          "title": "E 暗影刺客",
+          "bases": "20,40,60,80,100",
+          "formula": "base + extraAttack * 0.5",
+          "coefficientText": "20/40/60/80/100(+额外攻击力50%)"
+        },
+        {
+          "id": "external-debimarlene-p-1065100-damage-stat1",
+          "hero": "黛比&玛莲",
+          "title": "P 靛与赤",
+          "formula": "base + extraAttack * 0.8",
+          "coefficientText": "15/20/25(+额外攻击力80%)"
+        },
+        {
+          "id": "external-laura-p-1047100-damage-stat1",
+          "hero": "劳拉",
+          "title": "P 怪盗",
+          "bases": "20,45,70",
+          "coefficientText": "20/45/70(+技能增幅的30%)"
+        },
+        {
+          "id": "external-leni-p-1069100-damage-stat1",
+          "hero": "雷妮",
+          "title": "P 熊熊出动！",
+          "bases": "15,25,35",
+          "formula": "base + heroLevel * 2 + ap * 0.1",
+          "coefficientText": "15/25/35(+雷妮等级*2)(+技能增幅的10%)",
+          "note": "实验体等级项未建模（公式变量只有技能等级）。 实验体等级项用 heroLevel 变量建模。"
+        },
+        {
+          "id": "external-leni-q-1069200-damage-stat1",
+          "hero": "雷妮",
+          "title": "Q 胡萝卜火箭炮",
+          "bases": "50,70,90,110,130",
+          "formula": "base + heroLevel * 8 + ap * 0.6",
+          "coefficientText": "50/70/90/110/130(+雷妮等级*8)(+技能增幅的60%)",
+          "note": "实验体等级项未建模。 实验体等级项用 heroLevel 变量建模。"
+        },
+        {
+          "id": "external-leni-e-1069400-damage-stat1",
+          "hero": "雷妮",
+          "title": "E 欢迎喇叭",
+          "bases": "20,40,60,80,100",
+          "formula": "base + heroLevel * 5 + ap * 0.45",
+          "coefficientText": "20/40/60/80/100(+雷妮等级*5)(+技能增幅的45%)",
+          "note": "实验体等级项未建模；原快照基础值 50/65/80/95/110 已按官方公告覆盖。 实验体等级项用 heroLevel 变量建模。"
+        },
+        {
+          "id": "external-leni-r-1069500-damage-stat1",
+          "hero": "雷妮",
+          "title": "R 小熊出没",
+          "bases": "100,150,200",
+          "formula": "base + heroLevel * 8 + ap * 0.55",
+          "coefficientText": "100/150/200(+雷妮等级*8)(+技能增幅的55%)",
+          "note": "实验体等级项未建模。 实验体等级项用 heroLevel 变量建模。"
+        },
+        {
+          "id": "external-shoichi-p-1018100-dagger-damage-stat3",
+          "hero": "彰一",
+          "title": "P 骗局 Dagger Damage",
+          "bases": "50,80,110",
+          "coefficientText": "短剑伤害 50/80/110(+技能增幅的30%)",
+          "note": "原快照基础值 10/40/70 已按官方公告覆盖。"
+        },
+        {
+          "id": "external-justyna-p-1079100-damage-stat1",
+          "hero": "尤斯蒂娜",
+          "title": "P 阿斯特拉能量",
+          "bases": "30,50,70",
+          "formula": "base + ap * 0.15",
+          "coefficientText": "标记伤害 30/50/70(+技能增幅的15%)"
+        },
+        {
+          "id": "external-hisui-w-1078300-clear-cut-damage-stat1",
+          "hero": "翡翠",
+          "title": "W 居合一闪 Clear Cut Damage",
+          "bases": "15,30,45,60,75",
+          "formula": "base + extraAttack * 0.4",
+          "coefficientText": "一刀两断(W1) 1段伤害 15/30/45/60/75 (+额外攻击力40%)",
+          "note": "修正 12.0 Part.2 这条本身写错的变量：公告是额外攻击力，之前记成了 attack。"
+        }
+      ],
+      "equipment": [
+        {
+          "name": "酒红色西装",
+          "stat": "attackPower",
+          "value": 13
+        },
+        {
+          "name": "赤星",
+          "stat": "attackPower",
+          "value": 18
+        },
+        {
+          "name": "比基尼",
+          "stat": "skillAmp",
+          "value": 35
+        },
+        {
+          "name": "红心女王",
+          "stat": "skillAmp",
+          "value": 35
+        },
+        {
+          "name": "黑炎龙铠甲",
+          "stat": "defense",
+          "value": 41
+        },
+        {
+          "name": "精灵舞裙",
+          "stat": "cooldownReduction",
+          "value": 20
+        },
+        {
+          "name": "白夜王冠",
+          "stat": "healerGiveHpHealRatio",
+          "value": 0.06
+        },
+        {
+          "name": "荒野之星",
+          "stat": "attackPower",
+          "value": 33
+        },
+        {
+          "name": "荒野之星",
+          "stat": "attackSpeedRatio",
+          "value": 0.4
+        },
+        {
+          "name": "瓦尔哈拉头盔",
+          "stat": "defense",
+          "value": 18
+        },
+        {
+          "name": "脸谱",
+          "stat": "defense",
+          "value": 8
+        },
+        {
+          "name": "玄瞳头盔",
+          "stat": "lifeSteal",
+          "value": 0.06
+        },
+        {
+          "name": "羽落",
+          "stat": "attackSpeedRatio",
+          "value": 0.3
+        },
+        {
+          "name": "血色王冠",
+          "stat": "moveSpeedRatio",
+          "value": 0.035
+        },
+        {
+          "name": "克拉达戒指",
+          "stat": "cooldownReduction",
+          "value": 15
+        },
+        {
+          "name": "海盗印记",
+          "stat": "cooldownReduction",
+          "remove": true
+        },
+        {
+          "name": "海盗印记",
+          "stat": "slowResistRatio",
+          "remove": true
+        },
+        {
+          "name": "海盗印记",
+          "stat": "maxHp",
+          "value": 200
+        },
+        {
+          "name": "海盗印记",
+          "stat": "attackPower",
+          "value": 26
+        },
+        {
+          "name": "死灵之书",
+          "stat": "skillAmp",
+          "value": 95
+        },
+        {
+          "name": "超星臂章",
+          "stat": "adaptiveForce",
+          "value": 43
+        },
+        {
+          "name": "法夫纳",
+          "stat": "maxHpByLv",
+          "value": 25
+        },
+        {
+          "name": "血杀龙爪",
+          "stat": "attackPower",
+          "value": 28
+        },
+        {
+          "name": "蔷薇轻履",
+          "stat": "skillAmp",
+          "value": 45
+        },
+        {
+          "name": "红鞋",
+          "stat": "attackSpeedRatio",
+          "value": 0.33
+        },
+        {
+          "name": "艾尔迪安长靴",
+          "stat": "attackPower",
+          "value": 17
+        },
+        {
+          "name": "生化推进器",
+          "stat": "cooldownReduction",
+          "value": 20
+        },
+        {
+          "name": "精灵之靴",
+          "stat": "adaptiveForce",
+          "remove": true
+        },
+        {
+          "name": "精灵之靴",
+          "stat": "skillAmp",
+          "value": 50
+        },
+        {
+          "name": "月水晶",
+          "stat": "cooldownReduction",
+          "remove": true
+        },
+        {
+          "name": "月水晶",
+          "stat": "skillAmp",
+          "value": 95
+        },
+        {
+          "name": "隐遁者",
+          "stat": "cooldownReduction",
+          "remove": true
+        },
+        {
+          "name": "隐遁者",
+          "stat": "skillAmp",
+          "value": 81
+        },
+        {
+          "name": "炼狱 - 绯红",
+          "stat": "cooldownReduction",
+          "remove": true
+        },
+        {
+          "name": "炼狱 - 绯红",
+          "stat": "skillAmp",
+          "value": 114
+        }
+      ],
+      "characters": [
+        {
+          "hero": "黛比&玛莲",
+          "path": "growth.maxHp",
+          "value": 90
+        },
+        {
+          "hero": "雷妮",
+          "path": "growth.maxHp",
+          "value": 81
+        },
+        {
+          "hero": "雷妮",
+          "path": "base.defense",
+          "value": 53
+        },
+        {
+          "hero": "彰一",
+          "path": "base.hp",
+          "value": 980
+        },
+        {
+          "hero": "秀雅",
+          "path": "base.hp",
+          "value": 1020
+        },
+        {
+          "hero": "秀雅",
+          "path": "base.defense",
+          "value": 54
+        },
+        {
+          "hero": "艾登",
+          "path": "growth.maxHp",
+          "value": 96
+        }
+      ],
+      "mastery": [
+        {
+          "hero": "凯希",
+          "type": "OneHandSword",
+          "stat": "AttackSpeedRatio",
+          "value": 0.034
+        },
+        {
+          "hero": "塔齐娅",
+          "type": "DirectFire",
+          "stat": "AttackSpeedRatio",
+          "value": 0.04
+        }
+      ]
+    },
+    {
+      "version": "12.0b",
+      "order": 20260810,
+      "date": "2026-08-10",
+      "url": "https://playeternalreturn.com/posts/news/3768?hl=zh-CN",
+      "title": "12.0b不停机维护",
+      "skills": [
+        {
+          "id": "augment-028-sua-e-1028400-enhanced-damage-stat3",
+          "hero": "秀雅",
+          "title": "E 堂吉诃德 强化伤害",
+          "bases": "150,190,230,270,310",
+          "formula": "base + ap * 0.8",
+          "coefficientText": "堂吉诃德(E) 书签目标伤害 150/190/230/270/310(+技能增幅的80%)",
+          "note": "改前值 85% 与条目一致，确认同段。"
+        },
+        {
+          "id": "augment-028-sua-r-1028500-memory-of-don-quixote-damage-enhanced-stat4",
+          "hero": "秀雅",
+          "title": "R 记忆力 记忆-堂吉诃德强化",
+          "bases": "170,260,350",
+          "formula": "base + ap * 0.8",
+          "coefficientText": "记忆力-堂吉诃德(RE) 书签目标伤害 170/260/350(+技能增幅的80%)",
+          "note": "改前值 170/260/350 + 85% 与条目完全一致。"
+        },
+        {
+          "create": true,
+          "id": "patch-120b-sua-1028200-bookmark-damage",
+          "hero": "秀雅",
+          "slot": "Q",
+          "title": "Q 奥德赛 书签伤害",
+          "bases": "20,40,60,80,100",
+          "formula": "base + ap * 0.35",
+          "coefficientText": "奥德赛(Q) 书签伤害 20/40/60/80/100(+技能增幅的35%)",
+          "note": "秀雅 Q 此前一条都没有，本次公告首次给出可计算的数值。"
+        },
+        {
+          "create": true,
+          "id": "patch-120b-sua-1028500-memory-of-odyssey-bookmark-damage",
+          "hero": "秀雅",
+          "slot": "R",
+          "title": "R 记忆力 记忆-奥德赛 书签伤害",
+          "bases": "50,100,150",
+          "formula": "base + ap * 0.45",
+          "coefficientText": "记忆力-奥德赛(RQ) 书签伤害 50/100/150(+技能增幅的45%)",
+          "note": "与已有的「记忆-奥德赛」(180/230/280) 是同一技能的两段：那条是主伤害，这条是书签伤害。基础值 50/100/150 与「记忆-青鸟」相同属于巧合，不要合并。"
+        },
+        {
+          "id": "001-jackie-q-1001200-damage-by-level-2",
+          "hero": "杰琪",
+          "title": "Q 连斩 基础伤害 2",
+          "bases": "30,50,70,90,110",
+          "formula": "base + attack * 0.5 + targetCurrentHp * 0.07",
+          "coefficientText": "连斩(Q) 伤害 30/50/70/90/110(+攻击力的50%)(+目标当前体力的7%)",
+          "note": "目标当前体力改用 targetCurrentHp，不再用体力上限近似"
+        }
+      ],
+      "equipment": [
+        {
+          "name": "玄瞳头盔",
+          "stat": "lifeSteal",
+          "value": 0.08
+        },
+        {
+          "name": "玄瞳头盔",
+          "stat": "attackSpeedRatio",
+          "value": 0.25
+        }
+      ],
+      "characters": [
+        {
+          "hero": "威廉",
+          "path": "base.attackPower",
+          "value": 40
+        },
+        {
+          "hero": "娜町",
+          "path": "growth.defense",
+          "value": 2.7
+        }
+      ],
+      "mastery": []
+    },
+    {
+      "version": "client-12.0b-vanya",
+      "order": 20260811,
+      "date": "2026-08-11",
+      "url": "",
+      "title": "客户端读数：万尼亚（12.0b）",
+      "skills": [
+        {
+          "create": true,
+          "id": "ingame-064-vanya-p-1064100-reverie-damage",
+          "hero": "万尼亚",
+          "slot": "P",
+          "group": 1064100,
+          "skillId": "VanyaPassive",
+          "dataKey": "ReverieDamage",
+          "title": "P 遐思 普攻额外伤害",
+          "bases": "20,50,80",
+          "formula": "base + ap * 0.5",
+          "coefficientText": "[遐思] 伤害量 20/50/80 (+技能增幅50%)",
+          "source": "in-game-client",
+          "note": "每隔一段时间普攻造成额外技能伤害，冷却 8/6.5/5 秒。"
+        },
+        {
+          "create": true,
+          "id": "ingame-064-vanya-p-1064100-dream-dot-damage",
+          "hero": "万尼亚",
+          "slot": "P",
+          "group": 1064100,
+          "skillId": "VanyaPassive",
+          "dataKey": "DreamDotDamage",
+          "title": "P 幻蝶如梦 持续伤害",
+          "bases": "30,42,54",
+          "formula": "base + ap * 0.6",
+          "coefficientText": "[幻蝶如梦] 持续伤害 30/42/54 (+技能增幅60%)",
+          "source": "in-game-client",
+          "maxStacks": 4,
+          "stackLabel": "幻蝶如梦叠层",
+          "note": "命中敌人叠 1 层，满 4 层触发，3 秒内持续造成。护盾部分（获得 30/65/100、上限 70/135/200）不是伤害，未建条目。"
+        },
+        {
+          "create": true,
+          "id": "ingame-064-vanya-q-1064200-damage",
+          "hero": "万尼亚",
+          "slot": "Q",
+          "group": 1064200,
+          "skillId": "VanyaActive1",
+          "dataKey": "Damage",
+          "title": "Q 蝶向",
+          "bases": "50,75,100,125,150",
+          "formula": "base + ap * 0.6",
+          "coefficientText": "伤害 50/75/100/125/150 (+技能增幅60%)",
+          "source": "in-game-client",
+          "note": "冷却 11/10/9/8/7 秒。",
+          "maxHits": 2,
+          "defaultHits": 1,
+          "hitLabel": "Q 命中次数",
+          "hitNote": "蝴蝶飞出命中 1 次，命中或飞行结束回到万尼亚身边时再命中 1 次，两段同值。"
+        },
+        {
+          "create": true,
+          "id": "ingame-064-vanya-w-1064300-damage",
+          "hero": "万尼亚",
+          "slot": "W",
+          "group": 1064300,
+          "skillId": "VanyaActive2_1",
+          "dataKey": "Damage",
+          "title": "W 青风 每跳伤害",
+          "bases": "20,24,28,32,36",
+          "formula": "base + ap * 0.16",
+          "coefficientText": "[青风] 伤害量 20/24/28/32/36 (+技能增幅16%)",
+          "source": "in-game-client",
+          "note": "移动速度增加 28/32/36/40/44%。",
+          "maxHits": 5,
+          "defaultHits": 1,
+          "hitLabel": "青风命中次数",
+          "hitNote": "腾空 3 秒内最多结算 5 次。"
+        },
+        {
+          "create": true,
+          "id": "ingame-064-vanya-w-1064300-cloud-veil-damage",
+          "hero": "万尼亚",
+          "slot": "W",
+          "group": 1064300,
+          "skillId": "VanyaActive2_1",
+          "dataKey": "CloudVeilDamage",
+          "title": "W 云幕 落地伤害",
+          "bases": "60,95,130,165,200",
+          "formula": "base + ap * 0.95",
+          "coefficientText": "[云幕] 伤害量 60/95/130/165/200 (+技能增幅95%)",
+          "source": "in-game-client",
+          "note": "青风持续期间可再次使用；落地结算，使用时该技能冷却增加 5.71 秒。"
+        },
+        {
+          "create": true,
+          "id": "ingame-064-vanya-e-1064400-inner-area-damage",
+          "hero": "万尼亚",
+          "slot": "E",
+          "group": 1064400,
+          "skillId": "VanyaActive3",
+          "dataKey": "InnerAreaDamage",
+          "title": "E 祈愿 内侧伤害",
+          "bases": "80,110,140,170,200",
+          "formula": "base + ap * 0.8",
+          "coefficientText": "内侧伤害量 80/110/140/170/200 (+技能增幅80%)",
+          "source": "in-game-client",
+          "note": "飞向目标命中的那一下；外围是另一段。冷却 16/15/14/13/12 秒。"
+        },
+        {
+          "create": true,
+          "id": "ingame-064-vanya-r-1064500-damage",
+          "hero": "万尼亚",
+          "slot": "R",
+          "group": 1064500,
+          "skillId": "VanyaActive4",
+          "dataKey": "Damage",
+          "title": "R 蝶之羽翼 伤害",
+          "bases": "70,140,210",
+          "formula": "base + ap * 0.35",
+          "coefficientText": "伤害量 70/140/210 (+技能增幅35%)",
+          "source": "in-game-client",
+          "note": "冷却 80/70/60 秒。客户端底部表把这行标成「[祈愿]伤害量」，只是和 E 技能重名，归属于 R 本身。"
+        },
+        {
+          "create": true,
+          "id": "ingame-064-vanya-p-1064100-dream-shield",
+          "hero": "万尼亚",
+          "slot": "P",
+          "group": 1064100,
+          "skillId": "VanyaPassive",
+          "dataKey": "DreamShield",
+          "title": "P 幻蝶如梦 护盾",
+          "bases": "30,65,100",
+          "formula": "base + ap * 0.3",
+          "kind": "shield",
+          "coefficientText": "[幻蝶如梦] 获得护盾 30/65/100 (+技能增幅30%)",
+          "source": "in-game-client",
+          "note": "满 4 层叠层时获得，护盾每秒减少 50(+万尼亚每级别*2)。"
+        },
+        {
+          "create": true,
+          "id": "ingame-064-vanya-p-1064100-dream-shield-cap",
+          "hero": "万尼亚",
+          "slot": "P",
+          "group": 1064100,
+          "skillId": "VanyaPassive",
+          "dataKey": "DreamShieldCap",
+          "title": "P 幻蝶如梦 护盾上限",
+          "bases": "70,135,200",
+          "formula": "base + ap * 0.7",
+          "kind": "shield",
+          "coefficientText": "[幻蝶如梦] 护盾上限 70/135/200 (+技能增幅70%)",
+          "source": "in-game-client",
+          "note": "护盾累计不会超过这个值。"
+        }
+      ],
+      "equipment": [],
+      "characters": [],
+      "mastery": []
+    },
+    {
+      "version": "client-12.0b-aiden",
+      "order": 20260811,
+      "date": "2026-08-11",
+      "url": "",
+      "title": "客户端读数：艾登（12.0b）",
+      "skills": [
+        {
+          "create": true,
+          "id": "ingame-046-aiden-q-1046200-damage",
+          "hero": "艾登",
+          "slot": "Q",
+          "group": 1046200,
+          "skillId": "AidenActive1_Spear",
+          "dataKey": "Damage",
+          "title": "Q 雷击",
+          "bases": "70,100,130,160,190",
+          "formula": "base + attack * 0.75",
+          "coefficientText": "雷击伤害量 70/100/130/160/190(+攻击力75%)*(普攻增幅)",
+          "source": "in-game-client",
+          "note": "官方标为「普攻伤害」并额外乘普攻增幅，模型里没有普攻增幅乘区，故未计入该乘区。此普攻也被视为技能攻击、不会暴击。命中额外获得 1 个电荷，冷却 5/4.5/4/3.5/3 秒。"
+        },
+        {
+          "create": true,
+          "id": "ingame-046-aiden-q-1046200-electron-cannon-damage",
+          "hero": "艾登",
+          "slot": "Q",
+          "group": 1046200,
+          "skillId": "AidenActive1_Spear",
+          "dataKey": "ElectronCannonDamage",
+          "title": "Q 电子炮",
+          "bases": "70,100,130,160,190",
+          "formula": "base + attack * 0.75",
+          "coefficientText": "电子炮伤害量 70/100/130/160/190(+攻击力75%)*(普攻增幅)",
+          "source": "in-game-client",
+          "note": "超电荷状态下才能使用，命中使移速减少 25/30/35/40/45%、冷却减半。普攻增幅乘区未建模。"
+        },
+        {
+          "create": true,
+          "id": "ingame-046-aiden-w-1046300-min-damage",
+          "hero": "艾登",
+          "slot": "W",
+          "group": 1046300,
+          "skillId": "AidenActive2",
+          "dataKey": "MinDamage",
+          "title": "W 极电释放 最小伤害",
+          "bases": "40,50,60,70,80",
+          "formula": "base + attack * 0.45",
+          "coefficientText": "最小伤害 40/50/60/70/80(+攻击力45%)",
+          "source": "in-game-client",
+          "note": "按蓄能时间在最小~最大之间取值，未蓄能即为本条。"
+        },
+        {
+          "create": true,
+          "id": "ingame-046-aiden-w-1046300-max-damage",
+          "hero": "艾登",
+          "slot": "W",
+          "group": 1046300,
+          "skillId": "AidenActive2",
+          "dataKey": "MaxDamage",
+          "title": "W 极电释放 最大伤害",
+          "bases": "80,100,120,140,160",
+          "formula": "base + attack * 0.9",
+          "coefficientText": "最大伤害 80/100/120/140/160(+攻击力90%)",
+          "source": "in-game-client",
+          "note": "蓄能至上限时的值，同时生成持续 2.5 秒的电磁场。冷却 15/14/13/12/11 秒。"
+        },
+        {
+          "create": true,
+          "id": "ingame-046-aiden-e-1046400-damage",
+          "hero": "艾登",
+          "slot": "E",
+          "group": 1046400,
+          "skillId": "AidenActive3_BackStep",
+          "dataKey": "Damage",
+          "title": "E 后闪",
+          "bases": "15,30,45,60,75",
+          "formula": "base + attack * 0.2",
+          "coefficientText": "后闪伤害量 15/30/45/60/75(+攻击力20%)",
+          "source": "in-game-client",
+          "note": "向后退并发射电流子弹，命中后留下标识并可使用伏特闪移。电荷充满时重置本技能冷却。"
+        },
+        {
+          "create": true,
+          "id": "ingame-046-aiden-e-1046400-volt-blink-damage",
+          "hero": "艾登",
+          "slot": "E",
+          "group": 1046400,
+          "skillId": "AidenActive3_BackStep",
+          "dataKey": "VoltBlinkDamage",
+          "title": "E 伏特闪移",
+          "bases": "55,85,115,145,175",
+          "formula": "base + attack * 0.55",
+          "coefficientText": "伏特闪移伤害量 55/85/115/145/175(+攻击力55%)",
+          "source": "in-game-client",
+          "note": "穿透被赋予标识的敌人时结算。"
+        },
+        {
+          "create": true,
+          "id": "ingame-046-aiden-r-1046500-first-damage",
+          "hero": "艾登",
+          "slot": "R",
+          "group": 1046500,
+          "skillId": "AidenActive4",
+          "dataKey": "FirstDamage",
+          "title": "R 落雷1 伤害",
+          "bases": "60,90,120",
+          "formula": "base + attack * 0.75",
+          "coefficientText": "落雷1 伤害量 60/90/120(+攻击力的75%)",
+          "source": "in-game-client",
+          "note": "外围命中，移速减 40%。冷却 80/70/60 秒。"
+        },
+        {
+          "create": true,
+          "id": "ingame-046-aiden-r-1046500-first-inner-damage",
+          "hero": "艾登",
+          "slot": "R",
+          "group": 1046500,
+          "skillId": "AidenActive4",
+          "dataKey": "FirstInnerDamage",
+          "title": "R 落雷1 内围伤害",
+          "bases": "80,130,180",
+          "formula": "base + attack * 1.1",
+          "coefficientText": "落雷1 内围伤害量 80/130/180(+攻击力的110%)",
+          "source": "in-game-client",
+          "note": "处于落雷中心的敌人改吃这一段，并晕厥 1 秒。与外围段互斥，不叠加。"
+        },
+        {
+          "create": true,
+          "id": "ingame-046-aiden-r-1046500-second-damage",
+          "hero": "艾登",
+          "slot": "R",
+          "group": 1046500,
+          "skillId": "AidenActive4",
+          "dataKey": "SecondDamage",
+          "title": "R 落雷2 伤害",
+          "bases": "70,115,160",
+          "formula": "base + attack * 0.8",
+          "coefficientText": "落雷2 伤害量 70/115/160(+攻击力的80%)",
+          "source": "in-game-client",
+          "note": "第 2 枚落雷，移速减 40%。可在落地前再次施法传送过去让它立即掉落。"
+        }
+      ],
+      "equipment": [],
+      "characters": [],
+      "mastery": []
+    },
+    {
+      "version": "client-12.0b-piolo-hyejin",
+      "order": 20260811,
+      "date": "2026-08-11",
+      "url": "",
+      "title": "客户端读数：皮奥洛 / 慧珍（12.0b）",
+      "skills": [
+        {
+          "create": true,
+          "id": "ingame-056-piolo-p-1056100-workout-basic-attack-damage",
+          "hero": "皮奥洛",
+          "slot": "P",
+          "group": 1056100,
+          "skillId": "PioloPassive",
+          "dataKey": "BasicAttackDamage",
+          "title": "P 锻炼狂 强化普攻额外伤害",
+          "bases": "0,0,0",
+          "formula": "base + ap * [0.2,0.4,0.6][level - 1]",
+          "kind": "basicAttack",
+          "coefficientText": "总技能增幅系数 20%/40%/60%",
+          "source": "in-game-client",
+          "note": "持有[锻炼成果]时使用惩戒者，下一次普攻额外造成技能增幅 20/40/60% 的技能伤害。官方只给系数不给基础值，故基础值为 0；额外伤害最小为 1。"
+        },
+        {
+          "create": true,
+          "id": "ingame-056-piolo-q-1056200-spin-damage",
+          "hero": "皮奥洛",
+          "slot": "Q",
+          "group": 1056200,
+          "skillId": "PioloActive1_1",
+          "dataKey": "SpinDamage",
+          "title": "Q 狂龙乱舞 每跳伤害",
+          "bases": "8,16,24,32,40",
+          "formula": "base + ap * 0.14",
+          "coefficientText": "[狂龙乱舞] 伤害量 8/16/24/32/40(+技能增幅的14%)",
+          "source": "in-game-client",
+          "note": "每 0.12 秒对范围内敌人结算一次并叠层，跳数随持续时间变化，未按固定次数建模。"
+        },
+        {
+          "id": "augment-056-piolo-q-1056200-helicopter-spin-enhanced-damage-stat2",
+          "hero": "皮奥洛",
+          "title": "Q 狂龙乱舞 强化伤害",
+          "bases": "20,30,40,50,60",
+          "formula": "base + ap * 0.25",
+          "maxHits": 3,
+          "defaultHits": 1,
+          "hitLabel": "强化命中次数",
+          "hitNote": "第 1、5、10 叠层各触发一次；命中 2 次强化伤害即激活下劈。",
+          "coefficientText": "[狂龙乱舞] 强化伤害量 20/30/40/50/60(+技能增幅的25%)",
+          "source": "in-game-client",
+          "note": "客户端读数修正：原 Wiki 条目是 30/40/50/60/70，整体高了一级。"
+        },
+        {
+          "id": "patch-113-piolo-1056200-chokeslam-center-damage",
+          "hero": "皮奥洛",
+          "title": "Q 下劈 内围伤害",
+          "bases": "50,80,110,140,170",
+          "formula": "base + ap * 0.85",
+          "coefficientText": "[下劈] 内围伤害量 50/80/110/140/170(+技能增幅的85%)",
+          "source": "in-game-client",
+          "note": "客户端读数与 11.3 公告完全一致。位于范围中心的敌人吃这一段，移速减 55%。"
+        },
+        {
+          "create": true,
+          "id": "ingame-056-piolo-q-1056200-chokeslam-outer-damage",
+          "hero": "皮奥洛",
+          "slot": "Q",
+          "group": 1056200,
+          "skillId": "PioloActive1_1",
+          "dataKey": "ChokeslamOuterDamage",
+          "title": "Q 下劈 外围伤害",
+          "bases": "50,70,90,110,130",
+          "formula": "base + ap * 0.6",
+          "coefficientText": "[下劈] 外围伤害量 50/70/90/110/130(+技能增幅的60%)",
+          "source": "in-game-client",
+          "note": "范围外敌人吃这一段，与内围互斥。冷却 9/8.5/8/7.5/7 秒。"
+        },
+        {
+          "id": "patch-113-piolo-1056300-hammer-throw-damage",
+          "hero": "皮奥洛",
+          "title": "W 翻转 伤害",
+          "bases": "70,115,160,205,250",
+          "formula": "base + ap * 0.85",
+          "coefficientText": "[翻转] 伤害量 70/115/160/205/250(+技能增幅的85%)",
+          "source": "in-game-client",
+          "note": "客户端读数与 11.3 公告完全一致。流星赶月反弹投射体 0.8 秒后激活翻转。"
+        },
+        {
+          "create": true,
+          "id": "ingame-056-piolo-e-1056400-nunchaku-min-damage",
+          "hero": "皮奥洛",
+          "slot": "E",
+          "group": 1056400,
+          "skillId": "PioloActive3_1",
+          "dataKey": "NunchakuMinDamage",
+          "title": "E 白蛇吐信 双节棍 最小伤害",
+          "bases": "10,25,40,55,70",
+          "formula": "base + ap * 0.3",
+          "coefficientText": "[白蛇吐信] 双节棍 最小伤害 10/25/40/55/70(+技能增幅的30%)",
+          "source": "in-game-client",
+          "note": "按蓄力时间在最小~最大之间取值，未蓄力即为本条。"
+        },
+        {
+          "create": true,
+          "id": "ingame-056-piolo-e-1056400-nunchaku-max-damage",
+          "hero": "皮奥洛",
+          "slot": "E",
+          "group": 1056400,
+          "skillId": "PioloActive3_1",
+          "dataKey": "NunchakuMaxDamage",
+          "title": "E 白蛇吐信 双节棍 最大伤害",
+          "bases": "30,50,70,90,110",
+          "formula": "base + ap * 0.5",
+          "coefficientText": "[白蛇吐信] 双节棍 最大伤害 30/50/70/90/110(+技能增幅的50%)",
+          "source": "in-game-client",
+          "note": "蓄力至上限时的值。"
+        },
+        {
+          "create": true,
+          "id": "ingame-056-piolo-e-1056400-dash-min-damage",
+          "hero": "皮奥洛",
+          "slot": "E",
+          "group": 1056400,
+          "skillId": "PioloActive3_1",
+          "dataKey": "DashMinDamage",
+          "title": "E 白蛇吐信 突进 最小伤害",
+          "bases": "20,30,40,50,60",
+          "formula": "base + ap * 0.2",
+          "coefficientText": "[白蛇吐信] 突进 最小伤害 20/30/40/50/60(+技能增幅的20%)",
+          "source": "in-game-client",
+          "note": "双节棍命中后朝目标飞去的那一段，同样随蓄力变化并击退敌人。"
+        },
+        {
+          "create": true,
+          "id": "ingame-056-piolo-e-1056400-dash-max-damage",
+          "hero": "皮奥洛",
+          "slot": "E",
+          "group": 1056400,
+          "skillId": "PioloActive3_1",
+          "dataKey": "DashMaxDamage",
+          "title": "E 白蛇吐信 突进 最大伤害",
+          "bases": "40,60,80,100,120",
+          "formula": "base + ap * 0.5",
+          "coefficientText": "[白蛇吐信] 突进 最大伤害 40/60/80/100/120(+技能增幅的50%)",
+          "source": "in-game-client",
+          "note": "蓄力至上限时的值。"
+        },
+        {
+          "create": true,
+          "id": "ingame-056-piolo-e-1056400-uppercut-damage",
+          "hero": "皮奥洛",
+          "slot": "E",
+          "group": 1056400,
+          "skillId": "PioloActive3_1",
+          "dataKey": "UppercutDamage",
+          "title": "E 上劈 伤害",
+          "bases": "50,75,100,125,150",
+          "formula": "base + ap * 0.75",
+          "coefficientText": "[上劈] 伤害量 50/75/100/125/150(+技能增幅的75%)",
+          "source": "in-game-client",
+          "note": "突进命中后激活，将目标悬空 0.75 秒。冷却 10/9.5/9/8.5/8 秒。"
+        },
+        {
+          "create": true,
+          "id": "ingame-056-piolo-r-1056500-damage",
+          "hero": "皮奥洛",
+          "slot": "R",
+          "group": 1056500,
+          "skillId": "PioloActive4_1",
+          "dataKey": "Damage",
+          "title": "R 惩戒者 伤害",
+          "bases": "100,225,350",
+          "formula": "base + ap * 0.6",
+          "coefficientText": "伤害 100/225/350(+技能增幅的60%)",
+          "source": "in-game-client",
+          "note": "消耗 1 个[元气值]突进，穿透敌人。下劈/翻转/上劈激活时各获得 1 个元气值。冷却 6 秒。"
+        },
+        {
+          "create": true,
+          "id": "ingame-056-piolo-r-1056500-shield",
+          "hero": "皮奥洛",
+          "slot": "R",
+          "group": 1056500,
+          "skillId": "PioloActive4_1",
+          "dataKey": "Shield",
+          "title": "R 惩戒者 护盾",
+          "bases": "40,80,120",
+          "formula": "base + ap * 0.5",
+          "kind": "shield",
+          "coefficientText": "护盾吸收 40/80/120(+技能增幅50%)",
+          "source": "in-game-client",
+          "note": "命中时获得，持续 4 秒。"
+        },
+        {
+          "create": true,
+          "id": "ingame-012-hyejin-p-1012100-damage",
+          "hero": "慧珍",
+          "slot": "P",
+          "group": 1012100,
+          "skillId": "HyejinPassive",
+          "dataKey": "Damage",
+          "title": "P 三灾 额外伤害",
+          "bases": "0,0,0",
+          "formula": "base + ap * [0.1,0.15,0.2][level - 1]",
+          "coefficientText": "总技能增幅系数 10%/15%/20%",
+          "source": "in-game-client",
+          "note": "第 3 次使用技能命中同一敌人时触发，使其恐惧 1/1.1/1.2 秒。官方只给系数不给基础值；额外伤害最小为 1。"
+        },
+        {
+          "create": true,
+          "id": "ingame-012-hyejin-q-1012200-damage",
+          "hero": "慧珍",
+          "slot": "Q",
+          "group": 1012200,
+          "skillId": "HyejinActive1",
+          "dataKey": "Damage",
+          "title": "Q 镇压符",
+          "bases": "80,115,150,185,220",
+          "formula": "base + ap * 0.8",
+          "coefficientText": "伤害 80/115/150/185/220(+技能增幅的80%)",
+          "source": "in-game-client",
+          "note": "穿透敌人，最多命中 2 名。命中时冷却减少 35%。冷却 7/6/5/4/3 秒。"
+        },
+        {
+          "create": true,
+          "id": "ingame-012-hyejin-w-1012300-damage",
+          "hero": "慧珍",
+          "slot": "W",
+          "group": 1012300,
+          "skillId": "HyejinActive2",
+          "dataKey": "Damage",
+          "title": "W 吸灵符",
+          "bases": "70,100,130,160,190",
+          "formula": "base + ap * 0.8",
+          "coefficientText": "伤害 70/100/130/160/190(+技能增幅的80%)",
+          "source": "in-game-client",
+          "note": "1 秒后激活并把敌人拉至中央，范围内敌人移速 -35%。冷却 14/13/12/11/10 秒。"
+        },
+        {
+          "create": true,
+          "id": "ingame-012-hyejin-e-1012400-talisman-damage",
+          "hero": "慧珍",
+          "slot": "E",
+          "group": 1012400,
+          "skillId": "HyejinActive3_1",
+          "dataKey": "TalismanDamage",
+          "title": "E 移动符 符咒伤害",
+          "bases": "60,95,130,165,200",
+          "formula": "base + ap * 0.6",
+          "coefficientText": "符咒伤害 60/95/130/165/200(+技能增幅的60%)",
+          "source": "in-game-client",
+          "note": "掷出时对路径上的敌人结算。"
+        },
+        {
+          "create": true,
+          "id": "ingame-012-hyejin-e-1012400-landing-damage",
+          "hero": "慧珍",
+          "slot": "E",
+          "group": 1012400,
+          "skillId": "HyejinActive3_1",
+          "dataKey": "LandingDamage",
+          "title": "E 移动符 着地伤害",
+          "bases": "60,80,100,120,140",
+          "formula": "base + ap * 0.55",
+          "coefficientText": "着地伤害 60/80/100/120/140(+技能增幅55%)",
+          "source": "in-game-client",
+          "note": "再次使用传送到符咒位置时，对范围内敌人结算。冷却 13/12.5/12/11.5/11 秒。"
+        },
+        {
+          "create": true,
+          "id": "ingame-012-hyejin-r-1012500-damage",
+          "hero": "慧珍",
+          "slot": "R",
+          "group": 1012500,
+          "skillId": "HyejinActive4",
+          "dataKey": "Damage",
+          "title": "R 五大明王阵 伤害",
+          "bases": "50,100,150",
+          "formula": "base + ap * 0.3",
+          "coefficientText": "伤害 50/100/150(+技能增幅30%)",
+          "source": "in-game-client",
+          "note": "召唤瞬间对周围敌人结算。冷却 80/70/60 秒。此技能仅作用于实验体和终极野怪。"
+        },
+        {
+          "create": true,
+          "id": "ingame-012-hyejin-r-1012500-talisman-damage",
+          "hero": "慧珍",
+          "slot": "R",
+          "group": 1012500,
+          "skillId": "HyejinActive4",
+          "dataKey": "TalismanDamage",
+          "title": "R 五大明王阵 符咒伤害",
+          "bases": "80,105,130",
+          "formula": "base + ap * 0.5",
+          "maxHits": 5,
+          "defaultHits": 1,
+          "hitLabel": "符咒命中数",
+          "hitNote": "五个符咒围绕慧珍旋转 10 秒，每个撞到敌人后造成一次伤害并消失，最多 5 次。",
+          "coefficientText": "符咒伤害 80/105/130(+技能增幅50%)",
+          "source": "in-game-client",
+          "note": "与召唤瞬间的伤害是两段。"
+        }
+      ],
+      "equipment": [],
+      "characters": [],
+      "mastery": []
+    }
+  ]
+}

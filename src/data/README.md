@@ -9,7 +9,7 @@
 
 ```
 src/data/
-├─ heroSkills.json          ← 技能唯一入口（581 条，一段伤害一条）
+├─ heroSkills.json          ← 技能唯一入口（545 条，一段伤害一条）
 ├─ equipment.json           ← 装备（661 件）+ 属性定义
 ├─ characters.json          ← 实验体基础/成长属性 + 技能组索引
 ├─ specialSkillRules.json   ← 展示与结算行为（不含公式）
@@ -18,6 +18,7 @@ src/data/
 ├─ dakLoadoutAssets.json    ← 潜能 / 战术技能及图标
 ├─ dakItemSkillIcons.json   ← 装备图标与 tooltip
 ├─ localConfig.json         ← 页面配置表默认值（天赋 / 连段）
+├─ patchLog.json            ← 官方补丁日志（目标态，跟版本更新）
 ├─ dataMigrations.json      ← 旧缓存译名迁移
 ├─ helpNotes.json           ← 帮助气泡文案
 ├─ announcement.json        ← 公告栏
@@ -85,15 +86,79 @@ src/data/
 
 ### 公式变量
 
-`base`、`ap`（技能增幅）、`attack`（攻击力）、`extraAttack`（额外攻击力）、`targetHp`（目标体力上限）、`stacks`（叠层）、`level`（技能等级，从 1 开始）、`heroLevel`（**实验体等级**，即界面「熟练度等级」1~20）。
+| 变量 | 对应官方文案 | 数据来源 |
+| --- | --- | --- |
+| `base` | 该技能等级的基础值 | `bases` 按 `level` 取 |
+| `ap` | 技能增幅 | 面板 |
+| `attack` | 攻击力 | 面板 |
+| `extraAttack` | 额外攻击力 | 面板 |
+| `targetHp` | 目标体力上限 | 目标设置 |
+| `targetCurrentHp` | **目标当前体力** | 界面「目标当前体力 %」× 体力上限 |
+| `targetLostHp` | **目标已失体力** | 界面「目标已失体力 %」× 体力上限 |
+| `maxHp` | **自身体力上限** | 界面「自身血量」 |
+| `extraHp` | **自身额外体力** | 装备 + 潜能提供的那部分 |
+| `defense` | **自身防御力** | 实验体成长 + 装备 |
+| `shield` | **自身护盾量** | 界面「自身护盾」 |
+| `critChance` | **暴击率**（0~1） | 装备汇总 |
+| `stacks` | 叠层 | 叠层选择器 |
+| `level` | 技能等级，从 1 开始 | 技能栏 Lv. |
+| `heroLevel` | 实验体等级 1~20 | 界面「熟练度等级」 |
+
+官方文案里「体力上限」指自己的，用 `maxHp`；「额外体力」指装备加的那部分，用 `extraHp`；
+「目标体力上限」才是 `targetHp`。三者经常出现在同一句里，别搞混。
 
 ```jsonc
 "formula": "base + ap * 0.65"
 "formula": "base + attack * 0.55 + targetHp * 0.07"
 "formula": "base + ap * [0.45,0.5,0.55,0.6,0.65][level - 1]"   // 按等级取系数
 "formula": "base + heroLevel * 8 + ap * 0.6"                  // 官方写法 (+实验体等级*8)
-"formula": "(base + ap * 0.25) * (1 + stacks * 0.2)"
+"formula": "base + ap * 0.5 + maxHp * 0.06"                   // 官方写法 (+体力上限6%)
+"formula": "base + ap * 0.55 + extraHp * 0.12"                // 官方写法 (+额外体力12%)
+"formula": "(base + attack * 0.13) * stacks"                  // 「每个叠层造成…」
+"formula": "(base + ap * 0.25) * (1 + stacks * 0.2)"          // 「每层增伤 20%」
 ```
+
+### 叠层技能
+
+公式里用了 `stacks` 的英雄，界面会**自动**出现叠层选择器，不必再去改 `specialSkillRules.json`。
+条目上可以带两个可选字段控制它：
+
+```jsonc
+"maxStacks": 4,              // 选择器上限，不写按 4
+"stackLabel": "售后服务标记"   // 选择器标题，不写显示「叠层」
+```
+
+`specialSkillRules.json` 里显式配了 `stackSelector` 的英雄（奇娅拉）仍以配置为准。
+
+### 会打多下的技能
+
+条目上写 `maxHits` 就会出现命中次数步进器，并把 1~N 次的伤害逐档列出来：
+
+```jsonc
+"maxHits": 5,                    // 最多命中几次
+"defaultHits": 1,                // 默认选中几次，不写按 1
+"hitLabel": "青风命中次数",        // 步进器标题，不写显示「命中次数」
+"hitNote": "腾空 3 秒内最多结算 5 次。"
+```
+
+万尼亚 Q 是 `maxHits: 2`（飞出 + 回收），W 青风是 `maxHits: 5`（腾空期间 5 跳）。
+
+### kind：不是普通伤害段的条目
+
+| `kind` | 含义 | 界面表现 |
+| --- | --- | --- |
+| `shield` | 护盾量 | 技能栏里带蓝色「护盾」标记，不吃减伤、不计入伤害合计 |
+| `heal` | 治疗量 | 同上 |
+| `basicAttack` | **给下一次普攻附加的额外伤害** | 不进技能栏，改进「强化普攻」面板，和普攻本体一起算总量 |
+
+```jsonc
+"kind": "basicAttack",
+"formula": "base + attack * [0.3,0.4,0.5][level - 1]"
+```
+
+希瑟拉收回小威后的强化平A、雪琳 P 剑道、杰琪 W 断筋、克雷弗 P、卡洛琳 R、万尼亚 P 遐思
+都属于这一类。官方文案里带「强化下一次普攻」「下次普攻造成…额外伤害」的技能共 13 个，
+录入时记得带上这个 `kind`，否则会被当成一段独立技能伤害。
 
 只允许数字、英文变量名、`+ - * / ( ) , [ ] _`。**含中文、百分号或函数名的表达式会被白名单拦下并静默返回 0**，`65% 技能增幅` 要写成 `ap * 0.65`。
 
@@ -203,17 +268,113 @@ src/data/
 | --- | --- | --- |
 | `masteryStats.json` | 每级武器熟练度成长（`SkillAmpRatio` / `AttackPower` / `IncreaseBasicAttackDamageRatio` / `AttackSpeedRatio`） | 跟官方公告改 |
 | `itemUniqueEffects.json` | 装备独有效果名映射（按 code / name） | 可改 |
+| `itemEffectDamage.json` | **装备独有效果的伤害公式**（诅咒 / 腐化 / 破裂…）。装上带该效果的装备后，「特效与附加」里会按当前面板属性实时算出来 | 跟官方公告改 |
+| `itemEffectModifiers.json` | **装备独有效果的修正项**（炽燃增伤、粉碎减防、雷鸣裁决穿透…）。装上就自动进伤害计算 | 跟官方公告改 |
+
+### 装备独有效果怎么写
+
+两张表分工：**打出独立一段伤害的**进 `itemEffectDamage.json`，**只改属性或增伤的**进 `itemEffectModifiers.json`。
+同一个效果两边都有很正常（比如次元裂痕既每秒掉血、又让目标承受伤害 +6%）。
+
+```jsonc
+// itemEffectDamage.json
+{
+  "name": "腐化",                 // 必须和 itemUniqueEffects.json 的效果名一致
+  "label": "腐化 每跳",
+  "damageType": "skill",          // skill 走最终伤害倍率｜true 真伤不吃减伤｜shield 护盾，不计入伤害小计
+  "formula": "targetHp * (0.004 + ap * 0.000014)",
+  "hits": 3,                      // > 1 时同时给出单次和合计
+  "coefficientText": "每秒 目标体力上限的 0.4(+技能增幅的0.14%)%",
+  "note": "造成技能伤害时附着，每秒 1 跳共 3 秒。"
+}
+
+// itemEffectModifiers.json
+{
+  "name": "炽燃 - 增幅",
+  "toggle": { "label": "炽燃满层（6 层）" },   // 叠层/条件触发类，装上该装备后界面才出现这个开关
+  "modifiers": { "damageBonus": 0.15 },       // 可用键见文件里的 modifierKeys
+  "note": "每层技能伤害 +2.5%，上限 6 层。"
+}
+```
+
+**`toggle` 是通用的**：两张表里任何效果写了它，装上对应装备后主界面和拉表对比方案里都会自动多出一个勾选框，
+不勾就不计入。不需要再去 App.jsx 加状态——原来那套 `blazingFull` / `magicSeedFull` 硬编码布尔已经撤掉了
+（它把三种不同的炽燃混成一个开关，还把「炽燃-增幅」的增伤错记成了 +24 法强）。
+
+`condition: { "targetHpBelow": 0.4 }` 这类条件不用开关，直接读界面的「目标当前体力 %」。
 | `dakLoadoutAssets.json` | 潜能组 / 潜能 / 战术技能及图标 | 跟官方公告改 |
 | `dakItemSkillIcons.json` | 装备图标与 tooltip | 脚本生成 |
 | `localConfig.json` | 页面配置表默认值：`talents`（天赋）/ `combos`（连段）。`equipment`/`skills` 保持空数组＝无用户覆盖 | 天赋常改 |
-| `dataMigrations.json` | 把 localStorage 里的过期译名换成当前值 | 官方改译名时追加 |
+| `patchLog.json` | **官方补丁日志（目标态）**：每条记录「该补丁之后应该是什么值」，配合 `scripts/apply-patch-log.mjs` 使用，幂等可重跑 | 出新版本时追加 |
+| `dataMigrations.json` | `skillTitles` 把 localStorage 里的过期译名换成当前值 | 官方改译名时追加 |
 | `helpNotes.json` / `announcement.json` | 帮助气泡 / 公告文案 | 可改 |
+
+### patchLog.json 的字段约定
+
+```jsonc
+{
+  "version": "12.0-part2",       // 版本名，也是 --from 的参数
+  "order": 20260806,             // 排序键，一律写 YYYYMMDD（见下）
+  "date": "2026-08-06",
+  "url": "https://playeternalreturn.com/posts/news/3743?hl=zh-CN",
+  "title": "12.0 更新日志 Part.2 - 实验体和物品",
+  "skills": [
+    {
+      "id": "external-isaac-r-1059500-damage-stat1",   // heroSkills.json 的条目 id
+      "bases": "120,180,240",
+      "formula": "base + attack * 1",
+      "coefficientText": "120/180/240 (+攻击力的100%)",
+      "note": "取值依据，写清楚为什么认为是这一段伤害",
+      "overrideManual": true     // 可选，见下
+    }
+  ],
+  "equipment": [], "characters": [], "mastery": []
+}
+```
+
+**`order` 必须是 `YYYYMMDD`。** 曾经版本号系补丁写成 `8.2 → 80200`、日期系写成
+`2025-08-20 → 20250.82`，两套数值不在一个量纲上，导致 2025-07-24 的 8.2 反而排在
+2025-08-20 之后，「新公告压旧公告」判错。现在统一按公告日期排序。
+
+**`overrideManual`** 用于「这条 `manual: true` 本来就是脚本推导出的待复核值，
+而后来的官方公告给了确定数值」的情况，允许公告压过去并把 `manual` 清成 `false`。
+真正人工校对过的技能（俞岷 / 奇娅拉）走 `special-skill-rule` 来源，不受此影响。
 
 ### localStorage 的优先级
 
-计算器把配置存在浏览器 `er-damage-config-v1`，**数值上它高于随包数据**。
-内置条目权威值更高时（手改、或官方公告更新）会压过旧缓存；否则保留用户在页面上的改动。
-英雄改名和 `dataMigrations.json` 里登记的译名会自动迁移，**数值不会**——想看到新数值需要清一次该键。
+计算器把配置存在浏览器 `er-damage-config-v1`。合并规则：
+
+1. **在配置表里改过的条目**会被打上 `"manual": true`，之后随包数据不再覆盖它；
+2. **没改过的生成条目**（有 `source`、没 `manual`）始终跟随随包数据——
+   官方公告更新后不需要清缓存就能看到新值；
+3. 两边都是人工数据时，比权威值，再比 `updatedAt`。
+
+第 2 条是必须的：同一个补丁版本内修正公式时，权威值和 `updatedAt` 都不变，
+按旧规则旧缓存会永远赢，用户只能靠清 localStorage 才看得到修正。
+
+英雄改名和 `dataMigrations.json` 里登记的译名会自动迁移。
+
+**从 `heroSkills.json` 删条目不需要额外登记。** 合并逻辑按 `source` 字段区分来路：
+随包数据每条都带 `source`，配置表里「新增技能」建的条目没有。带 `source` 却已不在
+随包数据里的，判定为「已删除的生成条目」直接从缓存丢弃；不带 `source` 的一律保留。
+
+这条规则是补上一个真实的坑：早先清理掉的 62 条解包垃圾行（`A1ApDamage`、基础值
+`0.3,0.3,0.3`、公式只有 `base`）一直留在老用户缓存里，慧珍和李黛琳页面上全是算 0 的条目。
+
+### 多段结算技能怎么建
+
+一段伤害一条，不要塞进同一条公式里。标题按 `<槽位> <技能名>[ 形态] <段标签>` 写，
+段标签用 `第N段` / `最小伤害` / `最大伤害` / `每叠层伤害`：
+
+```
+R 沉睡之力 第1段        R 记忆力 记忆-青鸟
+Q 绝命狙击 最小伤害      Q 绝命狙击 最大伤害
+P K.O. 每叠层伤害        （公式写成 (base + ap * 0.025) * stacks）
+```
+
+同一槽位下、技能名相同的条目达到 **3 段**时，界面会自动切成压扁的多段视图：
+逐段列出数值，并给一个「命中段数」步进器显示前 N 段的合计（阿尔达 R、秀雅 R 这类
+强化并重放其它技能的大招就是这么显示的）。不足 3 段仍按普通卡片逐条渲染。
 
 ---
 

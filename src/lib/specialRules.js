@@ -52,3 +52,37 @@ export function stackSelectorRule(hero) {
 export function stackLimit(hero) {
   return stackSelectorRule(hero)?.max ?? 4;
 }
+
+const usesStacks = (skill) => /\bstacks\b/.test(String(skill?.formula || ''));
+
+/**
+ * 叠层上限，按「显式规则 > 技能条目自报的 maxStacks > 兜底 4」取值。
+ * 条目上写 "maxStacks": 12 就能让界面给出 0~12 的选择器，不必再去改 specialSkillRules.json。
+ */
+export function stackLimitForHero(hero, skills = []) {
+  const configured = stackSelectorRule(hero)?.max;
+  if (Number.isFinite(configured)) return configured;
+  const declared = skills.filter(usesStacks)
+    .map((skill) => Number(skill?.maxStacks))
+    .filter((value) => Number.isFinite(value) && value > 0);
+  return declared.length ? Math.max(...declared) : 4;
+}
+
+/**
+ * 叠层选择器：优先用 specialSkillRules.json 里写死的配置；
+ * 没配但该英雄有公式用到 stacks 时，自动生成一个 0~上限 的选择器。
+ */
+export function stackSelectorForHero(hero, skills = []) {
+  const configured = stackSelectorRule(hero);
+  if (configured) return configured;
+  if (!skills.some(usesStacks)) return null;
+  const max = stackLimitForHero(hero, skills);
+  const label = skills.filter(usesStacks).map((skill) => skill.stackLabel).find(Boolean) || '叠层';
+  return {
+    label,
+    values: Array.from({ length: max + 1 }, (_, index) => index),
+    default: 1,
+    max,
+    auto: true
+  };
+}

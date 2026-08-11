@@ -3,14 +3,14 @@
   "_usage": "不要手动改 id / bases / maxLevel / title / derivedGrowth / options —— 只填 levelValues、scaling、lv1、lv20，然后跑 `npm run capture:build` 由脚本生成。skills 是入库项（App 会读），drafts 是等级没填齐的草稿（App 忽略）。",
   "source": "in-game-client",
   "policy": "技能伤害权威值 60：高于 er-gamedata 解包与 Wiki，低于官方公告 —— 每个实验体只导入一次作为底稿，之后的版本更新一律由官方公告覆盖。成长数据先与 erGameData / masteryStats 对账，一致就只留证据不覆盖，不一致才生成 override。见 src/lib/skillSources.js",
-  "generatedAt": "2026-08-08T18:04:32.690Z",
+  "generatedAt": "2026-08-10T18:31:14.496Z",
   "counts": {
     "skills": 6,
     "drafts": 1,
     "nonDamage": 5,
     "heroes": 1,
-    "characterStats": 1,
-    "weaponMastery": 1,
+    "characterStats": 5,
+    "weaponMastery": 6,
     "statsConflicts": 0
   },
   "skills": [
@@ -311,6 +311,54 @@
   ],
   "characterStats": [
     {
+      "id": "ingame-stats-012-hyejin",
+      "hero": "慧珍",
+      "heroCode": 12,
+      "heroKey": "Hyejin",
+      "lv1": {
+        "hp": 940,
+        "attack": 30,
+        "defense": 51
+      },
+      "lv20": {
+        "hp": 2327,
+        "attack": 115,
+        "defense": 104
+      },
+      "derivedGrowth": {
+        "maxHp": 73,
+        "attackPower": 4.4737,
+        "defense": 2.7895
+      },
+      "repoCheck": "match",
+      "checks": [
+        {
+          "stat": "体力上限",
+          "captured": "940 → 2327",
+          "repo": "940 +73/级 → 2327",
+          "result": "match"
+        },
+        {
+          "stat": "攻击力",
+          "captured": "30 → 115",
+          "repo": "30 +4.5/级 → 115",
+          "result": "match"
+        },
+        {
+          "stat": "防御力",
+          "captured": "51 → 104",
+          "repo": "51 +2.8/级 → 104",
+          "result": "match"
+        }
+      ],
+      "source": "in-game-client",
+      "clientPatch": "12.0b",
+      "capturedAt": "2026-08-11",
+      "screenshots": [
+        "慧珍-属性.png"
+      ]
+    },
+    {
       "id": "ingame-stats-015-sissela",
       "hero": "希瑟拉",
       "heroCode": 15,
@@ -357,9 +405,237 @@
       "screenshots": [
         "希瑟拉-Q-lv1.png"
       ]
+    },
+    {
+      "id": "ingame-stats-046-aiden",
+      "hero": "艾登",
+      "heroCode": 46,
+      "heroKey": "Aiden",
+      "lv1": {
+        "hp": 995,
+        "attack": 39,
+        "defense": 57
+      },
+      "lv20": {
+        "hp": 2819,
+        "attack": 139,
+        "defense": 121
+      },
+      "derivedGrowth": {
+        "maxHp": 96,
+        "attackPower": 5.2632,
+        "defense": 3.3684
+      },
+      "repoCheck": "match",
+      "checks": [
+        {
+          "stat": "体力上限",
+          "captured": "995 → 2819",
+          "repo": "995 +96/级 → 2819",
+          "result": "match"
+        },
+        {
+          "stat": "攻击力",
+          "captured": "39 → 139",
+          "repo": "39 +5.3/级 → 139",
+          "result": "match"
+        },
+        {
+          "stat": "防御力",
+          "captured": "57 → 121",
+          "repo": "57 +3.4/级 → 121",
+          "result": "match"
+        }
+      ],
+      "source": "in-game-client",
+      "clientPatch": "12.0b",
+      "capturedAt": "2026-08-11",
+      "screenshots": [
+        "艾登-属性.png"
+      ]
+    },
+    {
+      "id": "ingame-stats-056-piolo",
+      "hero": "皮奥洛",
+      "heroCode": 56,
+      "heroKey": "Piolo",
+      "lv1": {
+        "hp": 960,
+        "attack": 31,
+        "defense": 52
+      },
+      "lv20": {
+        "hp": 2708,
+        "attack": 105,
+        "defense": 114
+      },
+      "derivedGrowth": {
+        "maxHp": 92,
+        "attackPower": 3.8947,
+        "defense": 3.2632
+      },
+      "repoCheck": "match",
+      "checks": [
+        {
+          "stat": "体力上限",
+          "captured": "960 → 2708",
+          "repo": "960 +92/级 → 2708",
+          "result": "match"
+        },
+        {
+          "stat": "攻击力",
+          "captured": "31 → 105",
+          "repo": "31 +3.9/级 → 105",
+          "result": "match"
+        },
+        {
+          "stat": "防御力",
+          "captured": "52 → 114",
+          "repo": "52 +3.3/级 → 114",
+          "result": "match"
+        }
+      ],
+      "source": "in-game-client",
+      "clientPatch": "12.0b",
+      "capturedAt": "2026-08-11",
+      "screenshots": [
+        "皮奥洛-属性.png"
+      ]
+    },
+    {
+      "id": "ingame-stats-064-vanya",
+      "hero": "万尼亚",
+      "heroCode": 64,
+      "heroKey": "Vanya",
+      "lv1": {
+        "hp": 930,
+        "attack": 30,
+        "defense": 52
+      },
+      "lv20": {
+        "hp": 2545,
+        "attack": 115,
+        "defense": 105
+      },
+      "derivedGrowth": {
+        "maxHp": 85,
+        "attackPower": 4.4737,
+        "defense": 2.7895
+      },
+      "repoCheck": "match",
+      "checks": [
+        {
+          "stat": "体力上限",
+          "captured": "930 → 2545",
+          "repo": "930 +85/级 → 2545",
+          "result": "match"
+        },
+        {
+          "stat": "攻击力",
+          "captured": "30 → 115",
+          "repo": "30 +4.5/级 → 115",
+          "result": "match"
+        },
+        {
+          "stat": "防御力",
+          "captured": "52 → 105",
+          "repo": "52 +2.8/级 → 105",
+          "result": "match"
+        }
+      ],
+      "source": "in-game-client",
+      "clientPatch": "12.0b",
+      "capturedAt": "2026-08-11",
+      "screenshots": [
+        "万尼亚-属性.png"
+      ]
     }
   ],
   "weaponMastery": [
+    {
+      "id": "ingame-mastery-012-hyejin-bow",
+      "hero": "慧珍",
+      "heroCode": 12,
+      "heroKey": "Hyejin",
+      "weapon": "弓",
+      "weaponType": "Bow",
+      "maxMasteryLevel": 20,
+      "lv1": {
+        "attackSpeed": 3.2,
+        "skillAmp": 4.8
+      },
+      "lv20": {
+        "attackSpeed": 64,
+        "skillAmp": 96
+      },
+      "options": [
+        {
+          "stat": "AttackSpeedRatio",
+          "capturedPerLevel": 0.032,
+          "capturedDisplay": "3.2% → 64%",
+          "repoValue": 0.032,
+          "levelCheck": "ok",
+          "result": "match"
+        },
+        {
+          "stat": "SkillAmpRatio",
+          "capturedPerLevel": 0.048,
+          "capturedDisplay": "4.8% → 96%",
+          "repoValue": 0.048,
+          "levelCheck": "ok",
+          "result": "match"
+        }
+      ],
+      "repoCheck": "match",
+      "source": "in-game-client",
+      "clientPatch": "12.0b",
+      "capturedAt": "2026-08-11",
+      "screenshots": [
+        "慧珍-属性.png"
+      ]
+    },
+    {
+      "id": "ingame-mastery-012-hyejin-direct-fire",
+      "hero": "慧珍",
+      "heroCode": 12,
+      "heroKey": "Hyejin",
+      "weapon": "暗器",
+      "weaponType": "DirectFire",
+      "maxMasteryLevel": 20,
+      "lv1": {
+        "attackSpeed": 4,
+        "skillAmp": 4.8
+      },
+      "lv20": {
+        "attackSpeed": 80,
+        "skillAmp": 96
+      },
+      "options": [
+        {
+          "stat": "AttackSpeedRatio",
+          "capturedPerLevel": 0.04,
+          "capturedDisplay": "4% → 80%",
+          "repoValue": 0.04,
+          "levelCheck": "ok",
+          "result": "match"
+        },
+        {
+          "stat": "SkillAmpRatio",
+          "capturedPerLevel": 0.048,
+          "capturedDisplay": "4.8% → 96%",
+          "repoValue": 0.048,
+          "levelCheck": "ok",
+          "result": "match"
+        }
+      ],
+      "repoCheck": "match",
+      "source": "in-game-client",
+      "clientPatch": "12.0b",
+      "capturedAt": "2026-08-11",
+      "screenshots": [
+        "慧珍-属性.png"
+      ]
+    },
     {
       "id": "ingame-mastery-015-sissela-direct-fire",
       "hero": "希瑟拉",
@@ -400,6 +676,132 @@
       "capturedAt": "2026-08-09T00:00:00Z",
       "screenshots": [
         "希瑟拉-Q-lv1.png"
+      ]
+    },
+    {
+      "id": "ingame-mastery-046-aiden-two-hand-sword",
+      "hero": "艾登",
+      "heroCode": 46,
+      "heroKey": "Aiden",
+      "weapon": "双手剑",
+      "weaponType": "TwoHandSword",
+      "maxMasteryLevel": 20,
+      "lv1": {
+        "attackSpeed": 4,
+        "basicAttackDamage": 2
+      },
+      "lv20": {
+        "attackSpeed": 80,
+        "basicAttackDamage": 40
+      },
+      "options": [
+        {
+          "stat": "AttackSpeedRatio",
+          "capturedPerLevel": 0.04,
+          "capturedDisplay": "4% → 80%",
+          "repoValue": 0.04,
+          "levelCheck": "ok",
+          "result": "match"
+        },
+        {
+          "stat": "IncreaseBasicAttackDamageRatio",
+          "capturedPerLevel": 0.02,
+          "capturedDisplay": "2% → 40%",
+          "repoValue": 0.02,
+          "levelCheck": "ok",
+          "result": "match"
+        }
+      ],
+      "repoCheck": "match",
+      "source": "in-game-client",
+      "clientPatch": "12.0b",
+      "capturedAt": "2026-08-11",
+      "screenshots": [
+        "艾登-属性.png"
+      ]
+    },
+    {
+      "id": "ingame-mastery-056-piolo-nunchaku",
+      "hero": "皮奥洛",
+      "heroCode": 56,
+      "heroKey": "Piolo",
+      "weapon": "双节棍",
+      "weaponType": "Nunchaku",
+      "maxMasteryLevel": 20,
+      "lv1": {
+        "attackSpeed": 2.5,
+        "skillAmp": 4.5
+      },
+      "lv20": {
+        "attackSpeed": 50,
+        "skillAmp": 90
+      },
+      "options": [
+        {
+          "stat": "AttackSpeedRatio",
+          "capturedPerLevel": 0.025,
+          "capturedDisplay": "2.5% → 50%",
+          "repoValue": 0.025,
+          "levelCheck": "ok",
+          "result": "match"
+        },
+        {
+          "stat": "SkillAmpRatio",
+          "capturedPerLevel": 0.045,
+          "capturedDisplay": "4.5% → 90%",
+          "repoValue": 0.045,
+          "levelCheck": "ok",
+          "result": "match"
+        }
+      ],
+      "repoCheck": "match",
+      "source": "in-game-client",
+      "clientPatch": "12.0b",
+      "capturedAt": "2026-08-11",
+      "screenshots": [
+        "皮奥洛-属性.png"
+      ]
+    },
+    {
+      "id": "ingame-mastery-064-vanya-arcana",
+      "hero": "万尼亚",
+      "heroCode": 64,
+      "heroKey": "Vanya",
+      "weapon": "圣器",
+      "weaponType": "Arcana",
+      "maxMasteryLevel": 20,
+      "lv1": {
+        "attackSpeed": 2.5,
+        "skillAmp": 4.6
+      },
+      "lv20": {
+        "attackSpeed": 50,
+        "skillAmp": 92
+      },
+      "options": [
+        {
+          "stat": "AttackSpeedRatio",
+          "capturedPerLevel": 0.025,
+          "capturedDisplay": "2.5% → 50%",
+          "repoValue": 0.025,
+          "levelCheck": "ok",
+          "result": "match"
+        },
+        {
+          "stat": "SkillAmpRatio",
+          "capturedPerLevel": 0.046,
+          "capturedDisplay": "4.6% → 92%",
+          "repoValue": 0.046,
+          "levelCheck": "ok",
+          "result": "match"
+        }
+      ],
+      "repoCheck": "match",
+      "source": "in-game-client",
+      "clientPatch": "12.0b",
+      "capturedAt": "2026-08-11",
+      "screenshots": [
+        "万尼亚-属性.png"
       ]
     }
   ],

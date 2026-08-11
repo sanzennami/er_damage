@@ -1,7 +1,7 @@
 {
   "_comment": "装备总表：属性定义 + 全部装备。与英雄技能分开存储。",
   "_usage": "改官方装备数值直接改这里；新增自定义装备追加一条，name 不要与官方重名。",
-  "generatedAt": "2026-08-09T00:30:16.533Z",
+  "generatedAt": "2026-08-09T07:48:01.569Z",
   "source": "https://github.com/pypy-vrc/er-gamedata.git",
   "counts": {
     "items": 661,
@@ -15215,8 +15215,8 @@
       "stats": {
         "defense": 15,
         "adaptiveForce": 35,
-        "attackSpeedRatio": 0.3,
-        "lifeSteal": 0.06
+        "attackSpeedRatio": 0.25,
+        "lifeSteal": 0.08
       },
       "ap": 35,
       "attackPower": 0,
@@ -15227,7 +15227,9 @@
       "defense": 15,
       "maxHp": 0,
       "sightRange": 0,
-      "dmgAmp": 0
+      "dmgAmp": 0,
+      "patchVersion": "12.0b",
+      "patchOrder": 20260810
     },
     {
       "code": 201530,

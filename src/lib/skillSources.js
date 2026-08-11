@@ -134,6 +134,23 @@ function migrateSkillTitle(savedSkill) {
   return SKILL_TITLE_MIGRATIONS.get(`${savedSkill?.id}|${savedSkill?.title}`) || savedSkill?.title;
 }
 
+/**
+ * 内置数据里删掉的条目不应该继续留在浏览器缓存里（否则会变成永远算 0 的幽灵条目，
+ * 或者和新条目并排显示成同一段伤害的两份）。
+ *
+ * 判断依据是 `source`：随包数据每条都带 source，用户在配置表「新增技能」建的条目没有。
+ * 所以「带 source 但内置数据里已经没有」= 被删掉的生成条目，直接丢弃；
+ * 不带 source 的一律保留，那是用户自己的东西。
+ *
+ * 例外：递增伤害条目换过 id 时靠 progressive 签名重新挂钩，签名对得上就不算失效。
+ */
+function isStaleGeneratedSkill(skill, canonicalById, canonicalBySignature) {
+  if (!skill?.source) return false;
+  if (canonicalById.has(skill?.id)) return false;
+  const signature = skillProgressiveSignature(skill);
+  return !(signature && canonicalBySignature.has(signature));
+}
+
 function skillProgressiveSignature(skill) {
   if (!skill?.skillId || !skill?.group || !skill?.dataKey) return '';
   return `${skill.skillId}-${skill.group}-${skill.dataKey}`;
@@ -157,21 +174,30 @@ export function mergeSkills(savedSkills) {
     .map((skill) => [skillProgressiveSignature(skill), skill])
     .filter(([key, skill]) => key && skill.progressiveDamage));
 
-  const mergedSaved = savedSkills.map((skill) => {
-    const initialSkill = initialById.get(skill.id) || initialBySignature.get(skillProgressiveSignature(skill));
-    if (!initialSkill) return skill;
-    const canonical = canonicalById.get(skill.id) || initialSkill;
-    const preferCanonical = skillAuthority(canonical) > skillAuthority(skill);
-    const merged = preferCanonical ? { ...skill, ...canonical } : { ...initialSkill, ...skill };
-    return {
-      ...merged,
-      hero: migrateHeroName(skill, initialSkill),
-      title: preferCanonical ? (canonical.title || migrateSkillTitle(skill)) : migrateSkillTitle(skill),
-      progressiveDamage: skill.progressiveDamage || initialSkill.progressiveDamage
-    };
-  });
+  const mergedSaved = savedSkills
+    .filter((skill) => !isStaleGeneratedSkill(skill, canonicalById, initialBySignature))
+    .map((skill) => {
+      const initialSkill = initialById.get(skill.id) || initialBySignature.get(skillProgressiveSignature(skill));
+      if (!initialSkill) return skill;
+      const canonical = canonicalById.get(skill.id) || initialSkill;
+      // 缓存里没被用户改过的生成条目（有 source、没 manual）一律跟随随包数据。
+      // 不这样的话，同一个补丁版本内改公式时权威值和 updatedAt 都相同，旧缓存会一直赢，
+      // 用户必须清 localStorage 才看得到修正 —— 那就违背了「跟着版本更新」的目的。
+      const untouchedGenerated = Boolean(skill?.source) && skill?.manual !== true;
+      const preferCanonical = untouchedGenerated
+        || skillAuthority(canonical) > skillAuthority(skill)
+        || (skillAuthority(canonical) === skillAuthority(skill)
+          && skillVersionTime(canonical) > skillVersionTime(skill));
+      const merged = preferCanonical ? { ...skill, ...canonical } : { ...initialSkill, ...skill };
+      return {
+        ...merged,
+        hero: migrateHeroName(skill, initialSkill),
+        title: preferCanonical ? (canonical.title || migrateSkillTitle(skill)) : migrateSkillTitle(skill),
+        progressiveDamage: skill.progressiveDamage || initialSkill.progressiveDamage
+      };
+    });
 
-  const existingIds = new Set(savedSkills.map((skill) => skill.id));
+  const existingIds = new Set(mergedSaved.map((skill) => skill.id));
   return dedupeSkillsByLatest([
     ...mergedSaved,
     ...INITIAL_SKILLS.filter((skill) => !existingIds.has(skill.id))

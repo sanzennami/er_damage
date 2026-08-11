@@ -102,7 +102,10 @@ function damageRowTitle(row) {
 const KEEP_FIELDS = [
   'heroKey', 'slot', 'group', 'skillId', 'dataKey', 'coefKey',
   'description', 'coefficientText', 'scalingText', 'cooldown',
-  'progressiveDamage', 'sourceUrl', 'sourceTitle', 'sourceNote', 'sourceLabel', 'sourceVersion'
+  'progressiveDamage', 'maxStacks', 'stackLabel',
+  'maxHits', 'defaultHits', 'hitLabel', 'hitNote', 'kind',
+  'sourceUrl', 'sourceTitle', 'sourceNote', 'sourceLabel', 'sourceVersion',
+  'patchVersion', 'patchOrder'
 ];
 
 function normalize(entry, sourceFile) {
@@ -158,7 +161,9 @@ async function main() {
   //    包含 manual 与 special-skill-rule 两类，即权威值 >= 90 的全部人工数据。
   //    公式搬进 heroSkills.json 之后，这条路径就是它们唯一的存活方式。
   for (const skill of previousSkills.skills || []) {
-    if (authorityOf(skill) >= AUTHORITY.manual) {
+    // 人工数据（>=90）永远保留；由 patchLog 建条的官方公告数据（带 patchVersion，
+    // 源文件里并不存在）也要保留，否则整合会把新实验体的技能整批丢掉。
+    if (authorityOf(skill) >= AUTHORITY.manual || skill.patchVersion) {
       candidates.push(normalize(skill, 'heroSkills.json'));
     }
   }
@@ -236,6 +241,16 @@ async function main() {
       updatedAt: row.updatedAt || damageTable.generatedAt || ''
     }, 'erSkillDamageTable.json'));
   }
+
+  // 剔除「系数表被当成伤害行」的垃圾条目：dataKey 形如 A1ApDamage / *Coef，
+  // 且 bases 全是小于 1 的小数（那是系数，不是伤害值）。
+  const isCoefRow = (entry) => /ApDamage|Coef/i.test(entry.dataKey || '')
+    && String(entry.bases || '').split(',').every((v) => Number(v) > 0 && Number(v) < 1);
+  const junkCount = candidates.filter(isCoefRow).length;
+  for (let i = candidates.length - 1; i >= 0; i -= 1) {
+    if (isCoefRow(candidates[i])) candidates.splice(i, 1);
+  }
+  if (junkCount) console.log(`[clean] 剔除系数表误导入的伤害行 ${junkCount} 条`);
 
   // --- 按身份择优 ---------------------------------------------------------
   const groups = new Map();
