@@ -103,7 +103,7 @@ const KEEP_FIELDS = [
   'heroKey', 'slot', 'group', 'skillId', 'dataKey', 'coefKey',
   'description', 'coefficientText', 'scalingText', 'cooldown',
   'progressiveDamage', 'maxStacks', 'stackLabel',
-  'maxHits', 'defaultHits', 'hitLabel', 'hitNote', 'kind',
+  'maxHits', 'defaultHits', 'hitLabel', 'hitNote', 'kind', 'damageType',
   'sourceUrl', 'sourceTitle', 'sourceNote', 'sourceLabel', 'sourceVersion',
   'patchVersion', 'patchOrder'
 ];

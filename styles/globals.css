@@ -1689,6 +1689,43 @@ input:focus {
   gap: 8px;
 }
 
+/* 公告编辑器里的「创建新公告」一行 */
+.announcementNewRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.announcementNewRow small {
+  color: #a9a0a0;
+  font-size: 0.8rem;
+}
+
+body[data-theme='day'] .announcementNewRow {
+  border-bottom-color: rgba(45, 98, 166, 0.14);
+}
+
+body[data-theme='day'] .announcementNewRow small {
+  color: #576274;
+}
+
+/* 英雄级计算口径提醒 */
+.skillCaveat {
+  margin: 0 0 12px;
+  padding: 8px 12px;
+  border-left: 3px solid rgba(255, 213, 107, 0.5);
+  border-radius: 0 8px 8px 0;
+  background: rgba(255, 213, 107, 0.08);
+}
+
+body[data-theme='day'] .skillCaveat {
+  border-left-color: rgba(201, 141, 35, 0.5);
+  background: #fff7e5;
+}
+
 /* 技能栏上方的条件输入项（目标当前体力 / 已失体力 / 自身护盾） */
 .skillContextFields {
   display: flex;

@@ -168,7 +168,10 @@ export function calculateSkill(skill, level, context) {
   const base = skillBaseAtLevel(skill, nextLevel);
   const formulaContext = { ...context, base, level: nextLevel };
   const rawDamage = damageFloor(evaluateFormula(skill.formula, formulaContext));
-  const damage = damageFloor(rawDamage * context.finalMod);
+  // 真实伤害不吃防御与减伤，最终值就是原始值
+  const damage = skill.damageType === 'true'
+    ? rawDamage
+    : damageFloor(rawDamage * context.finalMod);
   return {
     ...skill,
     level: nextLevel,
@@ -181,7 +184,8 @@ export function calculateSkill(skill, level, context) {
 /** 按倍率和命中段数放大一条技能的伤害（先取整单发，再乘段数）。 */
 export function scaledSkillDamage(skill, finalMod, { scale = 1, hits = 1 } = {}) {
   const singleRaw = damageFloor(getNumber(skill.rawDamage) * scale);
-  const singleFinal = damageFloor(singleRaw * finalMod);
+  // 真实伤害不吃防御与减伤，和 calculateSkill 保持一致
+  const singleFinal = skill?.damageType === 'true' ? singleRaw : damageFloor(singleRaw * finalMod);
   return {
     raw: singleRaw * hits,
     final: singleFinal * hits

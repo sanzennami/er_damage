@@ -8,6 +8,7 @@ import DEFAULT_LOCAL_CONFIG from './data/localConfig.json';
 import ITEM_UNIQUE_EFFECTS from './data/itemUniqueEffects.json';
 import ITEM_EFFECT_DAMAGE from './data/itemEffectDamage.json';
 import ITEM_EFFECT_MODIFIERS from './data/itemEffectModifiers.json';
+import HERO_STATUS from './data/heroStatus.json';
 import DAK_LOADOUT_ASSETS from './data/dakLoadoutAssets.json';
 import DAK_ITEM_SKILL_ICONS from './data/dakItemSkillIcons.json';
 import { CHARACTERS, findCharacterByName, masteryStatFor } from './lib/characterStats.js';
@@ -44,7 +45,7 @@ import {
   stackSelectorForHero
 } from './lib/specialRules.js';
 
-const APP_VERSION = 'v0.1.062';
+const APP_VERSION = 'v0.2.000';
 
 const EXPORTED_LOCAL_CONFIG_MODULES = import.meta.glob('./data/localConfig.export.json', {
   eager: true,
@@ -169,10 +170,22 @@ const TRAIT_EFFECTS = {
   7111101: { summary: '警戒心：体力低于 75% 时受到敌方实验体伤害，1.5 秒内所受伤害减少 5+等级*0.5%。' },
   7111201: { summary: '淬火：进入第二天白天时防御力增加 3，此后每 80 秒防御力增加 1。' }
 };
-const HEROES = [
-  ...MANUAL_HEROES,
-  ...CHARACTERS.map((character) => character.name).filter((name) => !MANUAL_HEROES.includes(name))
-];
+/**
+ * 该实验体是否只在「显示技能伤害统计测试英雄」开关下可见。
+ * 状态写在 src/data/heroStatus.json，核对完一个英雄就把它改成 false。
+ */
+function heroDamageTestOnly(hero) {
+  const entry = HERO_STATUS.heroes?.[hero];
+  if (entry && typeof entry.damageTestOnly === 'boolean') return entry.damageTestOnly;
+  return HERO_STATUS.defaultDamageTestOnly !== false;
+}
+
+// 已核对的排在前面，其余按官方顺序
+const HEROES = (() => {
+  const names = [...MANUAL_HEROES, ...CHARACTERS.map((character) => character.name)]
+    .filter((name, index, all) => all.indexOf(name) === index);
+  return [...names.filter((name) => !heroDamageTestOnly(name)), ...names.filter(heroDamageTestOnly)];
+})();
 
 const DEFAULT_TALENTS = [
   { id: 'main-custom', slot: '主天赋', name: '手动主天赋', ap: 0, pen: 0, penPct: 0, dmgAmp: 0, note: '预留：可在后台修改数值与说明' },
@@ -781,8 +794,23 @@ function normalizeAnnouncement(value) {
     body: typeof value?.body === 'string' ? value.body : DEFAULT_ANNOUNCEMENT.body,
     history: typeof value?.history === 'string' ? value.history : DEFAULT_ANNOUNCEMENT.history || '',
     updatedAt: typeof value?.updatedAt === 'string' ? value.updatedAt : DEFAULT_ANNOUNCEMENT.updatedAt,
+    // 该条公告发布时的应用版本；老数据没有这个字段，归档时就只写日期
+    version: typeof value?.version === 'string' ? value.version : (DEFAULT_ANNOUNCEMENT.version || ''),
     showBadge: typeof value?.showBadge === 'boolean' ? value.showBadge : Boolean(DEFAULT_ANNOUNCEMENT.showBadge)
   };
+}
+
+/**
+ * 发布新公告：把当前这条按「vX / 日期：正文」的格式压进历史公告最前面，
+ * 然后腾空标题和正文等着写新的。旧公告为空时不产生空条目。
+ */
+function archiveAnnouncement(announcement) {
+  // 用这条公告自己发布时的版本号，而不是当前版本
+  const stamp = [announcement.version, announcement.updatedAt].filter(Boolean).join(' / ');
+  const previous = [announcement.title, announcement.body].filter(Boolean).join('\n').trim();
+  const archived = previous ? `${stamp ? `${stamp}：` : ''}${previous}` : '';
+  const history = [archived, announcement.history].filter(Boolean).join('\n\n');
+  return { ...announcement, title: '公告', body: '', version: '', history };
 }
 
 function loadAnnouncement() {
@@ -1634,8 +1662,10 @@ function AnnouncementDialog({
   saveStatus,
   onChange,
   onClose,
-  onSave
+  onSave,
+  onCreate
 }) {
+  const hasCurrent = Boolean(announcement.title || announcement.body);
   return createPortal(
     <div className="announcementOverlay" role="presentation" onMouseDown={onClose}>
       <section
@@ -1654,6 +1684,21 @@ function AnnouncementDialog({
         </div>
         {editable ? (
           <div className="announcementEditor">
+            {/* 只在本地编辑时出现：把当前公告归档进历史，腾空正文写新的 */}
+            <div className="announcementNewRow">
+              <button
+                type="button"
+                className="quietButton"
+                onClick={onCreate}
+                disabled={!hasCurrent}
+                title={hasCurrent
+                  ? '把当前公告按「版本 / 日期：正文」压进历史公告最前面，然后清空标题和正文'
+                  : '当前没有公告内容可归档'}
+              >
+                创建新公告
+              </button>
+              <small>{hasCurrent ? '当前这条会自动归档进历史公告' : '正文为空，直接写就行'}</small>
+            </div>
             <label className="field">
               <span>公告标题</span>
               <input
@@ -2287,12 +2332,22 @@ export default function App() {
     setAnnouncementSaveStatus('idle');
   }
 
+  /** 创建新公告：把当前这条归档进历史，正文清空等着写新的（只在本地编辑时可用） */
+  function startNewAnnouncement() {
+    if (!HELP_NOTES_EDITABLE) return;
+    setAnnouncement((current) => normalizeAnnouncement(archiveAnnouncement(current)));
+    setAnnouncementDirty(true);
+    setAnnouncementSaveStatus('idle');
+  }
+
   async function saveAnnouncement() {
     if (!HELP_NOTES_EDITABLE) return;
 
     const nextAnnouncement = normalizeAnnouncement({
       ...announcement,
       updatedAt: new Date().toISOString().slice(0, 10),
+      // 记下发布时的版本号，归档进历史公告时才知道这条属于哪个版本
+      version: APP_VERSION,
       showBadge: true
     });
     setAnnouncementSaveStatus('saving');
@@ -2369,11 +2424,12 @@ export default function App() {
     [selectedTraits, estimatedBurstBonus]
   );
   const canShowExtendedHeroes = editMode && showDamageTestHeroes;
-  // 开关打开时列出全部实验体：没有伤害数据的（雪琳 / 米尔卡 / 卡洛琳）也要能选中，
+  // 默认只列出核对过的实验体（heroStatus.json 里 damageTestOnly: false 的）。
+  // 打开「显示技能伤害统计测试英雄」后列出全部：没有伤害数据的也要能选中，
   // 技能面板会显示「暂无技能数据」，方便对照官方数据面板补录。
   const visibleHeroNames = canShowExtendedHeroes
     ? HEROES
-    : HEROES.filter((hero) => MANUAL_HEROES.includes(hero));
+    : HEROES.filter((hero) => !heroDamageTestOnly(hero));
   const selectedCharacter = findCharacterByName(selectedHero);
   const selectedOfficialSkillGroups = (CHARACTER_DATA.skillGroups || []).filter((skill) => skill.hero === selectedHero);
   const heroPickerOptions = visibleHeroNames.map((hero) => ({
@@ -3915,6 +3971,7 @@ export default function App() {
           onChange={updateAnnouncement}
           onClose={() => setShowAnnouncement(false)}
           onSave={saveAnnouncement}
+          onCreate={startNewAnnouncement}
         />
       ) : null}
 
@@ -4261,6 +4318,10 @@ export default function App() {
               </div>
             ) : null}
           </summary>
+          {/* 该英雄的计算口径提醒（heroStatus.json 的 caveat），例如被动会额外提供属性但模型没建 */}
+          {HERO_STATUS.heroes?.[selectedHero]?.caveat ? (
+            <p className="note skillCaveat">{HERO_STATUS.heroes[selectedHero].caveat}</p>
+          ) : null}
           {/* 这几项只有当前英雄的技能或身上装备的特效真的用到时才出现，平时不占地方 */}
           {contextFieldsInUse.length ? (
             <div className="skillContextFields">

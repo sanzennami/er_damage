@@ -57,7 +57,7 @@ function getByPath(target, dottedPath) {
 }
 
 // 只影响界面呈现、不影响数值本身的字段（叠层选择器、命中次数、护盾/治疗标记）
-const PRESENTATION_FIELDS = ['maxStacks', 'stackLabel', 'maxHits', 'defaultHits', 'hitLabel', 'hitNote', 'kind'];
+const PRESENTATION_FIELDS = ['maxStacks', 'stackLabel', 'maxHits', 'defaultHits', 'hitLabel', 'hitNote', 'kind', 'damageType'];
 
 const STAT_ALIAS = {
   attackPower: 'attackPower', skillAmp: 'ap', cooldownReduction: 'cd', defense: 'defense',

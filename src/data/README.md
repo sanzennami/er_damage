@@ -18,6 +18,7 @@ src/data/
 ├─ dakLoadoutAssets.json    ← 潜能 / 战术技能及图标
 ├─ dakItemSkillIcons.json   ← 装备图标与 tooltip
 ├─ localConfig.json         ← 页面配置表默认值（天赋 / 连段）
+├─ heroStatus.json          ← 每个实验体是否已核对（决定默认列不列出来）
 ├─ patchLog.json            ← 官方补丁日志（目标态，跟版本更新）
 ├─ dataMigrations.json      ← 旧缓存译名迁移
 ├─ helpNotes.json           ← 帮助气泡文案
@@ -150,6 +151,9 @@ src/data/
 | `shield` | 护盾量 | 技能栏里带蓝色「护盾」标记，不吃减伤、不计入伤害合计 |
 | `heal` | 治疗量 | 同上 |
 | `basicAttack` | **给下一次普攻附加的额外伤害** | 不进技能栏，改进「强化普攻」面板，和普攻本体一起算总量 |
+
+另外还有一个独立字段 `damageType`：写 `"true"` 表示**真实伤害**，不吃防御和减伤，
+最终值等于原始值（凯希 P 的外伤、致命外伤就是这类）。它和 `kind` 可以同时存在。
 
 ```jsonc
 "kind": "basicAttack",
@@ -305,9 +309,34 @@ src/data/
 | `dakLoadoutAssets.json` | 潜能组 / 潜能 / 战术技能及图标 | 跟官方公告改 |
 | `dakItemSkillIcons.json` | 装备图标与 tooltip | 脚本生成 |
 | `localConfig.json` | 页面配置表默认值：`talents`（天赋）/ `combos`（连段）。`equipment`/`skills` 保持空数组＝无用户覆盖 | 天赋常改 |
+| `heroStatus.json` | **实验体核对状态**：`damageTestOnly: false` 的默认出现在实验体列表里，`true` 的只在「显示技能伤害统计测试英雄」开关下可见 | 核对完一个改一个 |
 | `patchLog.json` | **官方补丁日志（目标态）**：每条记录「该补丁之后应该是什么值」，配合 `scripts/apply-patch-log.mjs` 使用，幂等可重跑 | 出新版本时追加 |
 | `dataMigrations.json` | `skillTitles` 把 localStorage 里的过期译名换成当前值 | 官方改译名时追加 |
 | `helpNotes.json` / `announcement.json` | 帮助气泡 / 公告文案 | 可改 |
+
+### heroStatus.json —— 实验体核对状态
+
+核对完一个实验体的技能伤害后，把它的 `damageTestOnly` 改成 `false`，它就会像俞岷、奇娅拉那样
+默认出现在实验体列表里，不用再开「显示技能伤害统计测试英雄」。没在 `heroes` 里列出的按
+`defaultDamageTestOnly`（当前是 `true`）处理。
+
+```jsonc
+"heroes": {
+  "万尼亚": {
+    "damageTestOnly": false,
+    "verifiedBy": "客户端截图（12.0b）",   // 仅供人看，不参与计算
+    "note": "9 段伤害 + 2 段护盾全部按客户端读数录入。"
+  },
+  "希瑟拉": {
+    "damageTestOnly": false,
+    // caveat 会显示在技能栏顶部，用来说明该英雄有模型表达不了的东西
+    "caveat": "技能增幅按满血计算。P 苦痛的记忆会随已失体力额外提供最多 28/39/50 技能增幅…"
+  }
+}
+```
+
+> 这个状态**不能**写进 `characters.json` —— 那个文件由 `consolidate-hero-skills.mjs` 全量重生成，
+> 加上去的字段下次跑脚本就没了。
 
 ### patchLog.json 的字段约定
 

@@ -1,0 +1,68 @@
+{
+  "_comment": "每个实验体的技能数据核对状态。damageTestOnly = true 时该实验体只在「显示技能伤害统计测试英雄」开关下可见；false 则默认出现在实验体列表里，点进去就能用。",
+  "_usage": "核对完一个实验体的技能伤害后，把它的 damageTestOnly 改成 false 即可。没在 heroes 里列出的实验体按 defaultDamageTestOnly 处理。verifiedBy / note 只是给人看的记录，不参与任何计算。",
+  "defaultDamageTestOnly": true,
+  "heroes": {
+    "俞岷": {
+      "damageTestOnly": false,
+      "verifiedBy": "人工校对",
+      "note": "公式在 specialSkillRules.json 里人工维护，含 Q/EQ 多跳与 R 两段结算。"
+    },
+    "奇娅拉": {
+      "damageTestOnly": false,
+      "verifiedBy": "人工校对",
+      "note": "公式人工维护，R2 带叠层用 stacks 变量结算。"
+    },
+    "万尼亚": {
+      "damageTestOnly": false,
+      "verifiedBy": "客户端截图（12.0b）",
+      "note": "9 段伤害 + 2 段护盾全部按客户端读数录入；已有的 E 外围伤害、R 睡梦额外伤害与公告推导值完全一致。"
+    },
+    "慧珍": {
+      "damageTestOnly": false,
+      "verifiedBy": "客户端截图（12.0b）",
+      "note": "原先 35 条是解包表副本，已全部删除后按客户端重建 7 段。"
+    },
+    "皮奥洛": {
+      "damageTestOnly": false,
+      "verifiedBy": "客户端截图（12.0b）",
+      "note": "13 段全部客户端读数；顺带修正了 Wiki 把 Q 强化伤害记高一级的问题。"
+    },
+    "艾登": {
+      "damageTestOnly": false,
+      "verifiedBy": "客户端截图（12.0b）",
+      "note": "10 段全部客户端读数。Q 雷击/电子炮官方标为普攻伤害且额外乘普攻增幅，该乘区未建模。"
+    },
+    "希瑟拉": {
+      "damageTestOnly": false,
+      "verifiedBy": "客户端截图（12.0b）",
+      "note": "7 段客户端读数，含 P 苦痛的记忆的强化普攻额外伤害。P 的「技能增幅随已失体力上升 4/7/10 ~ 28/39/50」是英雄被动属性加成，模型没有这一层，未计入。",
+      "caveat": "技能增幅按满血计算。P 苦痛的记忆会随已失体力额外提供最多 28/39/50 技能增幅，模型没有这一层，所以残血时实际伤害会比这里显示的更高。"
+    },
+    "雪琳": {
+      "damageTestOnly": false,
+      "verifiedBy": "客户端截图（12.0b）",
+      "note": "12 段全部与截图核对；其中 11 条与公告推导值完全一致，P 剑道的攻击力系数由 30/40/50% 修正为 20/30/40%。"
+    },
+    "卢克": {
+      "damageTestOnly": false,
+      "verifiedBy": "客户端截图（12.0b）",
+      "note": "6 段客户端读数。Q 突进与 R 主动是「按目标已失体力在最小~最大之间线性变化」，最大值恰好是最小值的 2 倍，用 (1 + targetLostHp / targetHp) 插值成一条公式。R 每叠层额外伤害的上限由 4 修正为 3 并补上目标体力上限 2%。P 完美管家只有攻速和回复，无伤害段。"
+    },
+    "莉央": {
+      "damageTestOnly": false,
+      "verifiedBy": "客户端截图（12.0b）",
+      "note": "13 段客户端读数，单弓/和弓两形态分开建。Q 替弓的三段是「替换普攻」不是叠加，普攻增幅乘区未建模。E 和弓额外伤害系数由 Wiki 的 30% 修正为 35%。P 集中只改属性（按暴击率减防、普攻按暴击率提伤），无伤害段。"
+    },
+    "凯希": {
+      "damageTestOnly": false,
+      "verifiedBy": "客户端截图（12.0b）",
+      "note": "10 段客户端读数。P 外伤/致命外伤是真实伤害（damageType: true，不吃防御减伤），R 急诊手术按目标已失体力插值且在剩 30% 体力时封顶。"
+    },
+    "伊娃": {
+      "damageTestOnly": false,
+      "verifiedBy": "客户端截图（12.0b）",
+      "note": "8 段客户端读数，其中 W 结束额外伤害、R 满叠层额外伤害与原 Wiki 值一致。"
+    }
+  }
+}
