@@ -12,7 +12,7 @@
 //   100 special-skill-rule  人工特殊计算规则
 //    90 manual              人工录入 / 手改（条目上标 "manual": true）
 //    80 官方更新公告
-//    60 in-game-client      客户端界面读数
+//    60 in-game-client      客户端截图读值
 //    40 官方 Wiki
 //    20 er-gamedata 结构化解包
 //    10 er-gamedata 旧版解包

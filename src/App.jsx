@@ -47,7 +47,7 @@ import {
   stackSelectorForHero
 } from './lib/specialRules.js';
 
-const APP_VERSION = 'v0.2.011';
+const APP_VERSION = 'v0.2.013';
 
 const EXPORTED_LOCAL_CONFIG_MODULES = import.meta.glob('./data/localConfig.export.json', {
   eager: true,

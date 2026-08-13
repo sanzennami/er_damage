@@ -3,7 +3,7 @@
 // 「统计」栏（体力上限 / 攻击力 / 防御力 的等级成长）和「武器熟练度」栏（每级攻速、技能增幅…）
 // 两份数据 er-gamedata 解包里本来就有，客户端截图录入的作用是**对账**：
 //
-//   - 对得上（`repoCheck: "match"`）：只留证据，不覆盖。客户端 Lv20 是向下取整显示的
+//   - 对得上（`repoCheck: "match"`）：只留证据，不覆盖。客户端截图 Lv20 是向下取整显示的
 //     （33 + 4.3*19 = 114.7 显示成 114），反推出来的每级成长精度反而不如解包原值。
 //   - 对不上（`repoCheck: "conflict"`）：`scripts/ingame-capture.mjs` 会生成 `override`，
 //     由这里盖到解包值上。
@@ -24,7 +24,7 @@ const MASTERY_OVERRIDES = new Map(
   CAPTURED_MASTERY.filter((entry) => entry.override).map((entry) => [`${entry.heroCode}|${entry.weaponType}`, entry.override])
 );
 
-/** 实验体列表：解包数据为底，客户端读数只在对账冲突时覆盖。 */
+/** 实验体列表：解包数据为底，客户端截图读值只在对账冲突时覆盖。 */
 export const CHARACTERS = (CHARACTER_DATA.characters || []).map((character) => {
   const override = STATS_OVERRIDES.get(character.code);
   if (!override) return character;
@@ -40,7 +40,7 @@ export function findCharacterByName(name) {
   return CHARACTERS.find((character) => character.name === name) || null;
 }
 
-/** 某实验体用某武器的每级熟练度成长；冲突项由客户端读数覆盖。 */
+/** 某实验体用某武器的每级熟练度成长；冲突项由客户端截图读值覆盖。 */
 export function masteryStatFor(characterCode, weaponRawType) {
   const row = MASTERY_STATS.find((item) => item.characterCode === characterCode && item.type === weaponRawType) || null;
   const override = MASTERY_OVERRIDES.get(`${characterCode}|${weaponRawType}`);

@@ -78,7 +78,7 @@ src/data/
 | 100 | `special-skill-rule` | 人工特殊计算规则（俞岷、奇娅拉） |
 | 90 | `manual` | **人工录入 / 手改**（条目上 `"manual": true`） |
 | 80 | `official-patch-note`、`external-official-patch` | 官方更新公告 |
-| 60 | `in-game-client` | 客户端界面读数 |
+| 60 | `in-game-client` | 客户端截图读值 |
 | 40 | `external-wiki-current` 等 | 官方 Wiki |
 | 20 | `er-skill-damage-table` | er-gamedata 结构化解包 |
 | 10 | `er-gamedata` | er-gamedata 旧版解包（最不可信） |
@@ -396,8 +396,8 @@ src/data/
 "heroes": {
   "万尼亚": {
     "damageTestOnly": false,
-    "verifiedBy": "客户端截图（12.0b）",   // 仅供人看，不参与计算
-    "note": "9 段伤害 + 2 段护盾全部按客户端读数录入。"
+    "verifiedBy": "客户端截图读值（12.0b）",   // 仅供人看，不参与计算
+    "note": "9 段伤害 + 2 段护盾全部按客户端截图读值录入。"
   },
   "希瑟拉": {
     "damageTestOnly": false,

@@ -65,11 +65,18 @@ function samePresentationValue(a, b) {
   return a === b;
 }
 
-/** 条目上那句来源说明。达标判断和实际写入必须用同一份，否则改说明永远写不进去。 */
+/**
+ * 条目上那句来源说明。达标判断和实际写入必须用同一份，否则改说明永远写不进去。
+ *
+ * 印的是 patch.label（人看的版本号，例如「12.0b」），不是 patch.version（内部标识）。
+ * 早期把几个英雄的客户端截图读值打包成一段时，version 是 client-12.0b-piolo-hyejin 这种，
+ * 直接印出来会让慧珍的条目上出现皮奥洛的名字。
+ */
 function composeSourceNote(patch, change) {
+  const label = patch.label || patch.version;
   const origin = change.source === 'in-game-client'
-    ? `客户端读数 ${patch.version}`
-    : `官方公告 ${patch.version}`;
+    ? `客户端截图读值 ${label}`
+    : `官方公告 ${label}`;
   return [`${origin} 数值：${change.coefficientText || ''}`, change.note].filter(Boolean).join(' ');
 }
 
@@ -179,7 +186,7 @@ async function main() {
       // 展示参数也要参与「是否已达标」的判断，否则数值没变时新字段永远写不进去
       const samePresentation = PRESENTATION_FIELDS
         .every((field) => change[field] === undefined || samePresentationValue(change[field], entry[field]));
-      // 标题和来源也要比：只改名或只换来源（例如 Wiki 值被客户端读数确认）时数值不变，
+      // 标题和来源也要比：只改名或只换来源（例如 Wiki 值被客户端截图读值确认）时数值不变，
       // 不比的话这类变更永远写不进去。
       const sameTitle = change.title === undefined || change.title === entry.title;
       const sameSource = change.source === undefined || change.source === entry.source;

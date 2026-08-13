@@ -1136,8 +1136,8 @@
       "coefficientText": "额外伤害 50/80/110/140/170(+攻击力的50%)",
       "scalingText": "(+50% Attack Power)",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：艾登（12.0b）",
-      "sourceNote": "客户端读数 client-12.0b-aiden 数值：额外伤害 50/80/110/140/170(+攻击力的50%) 截图确认与原 Wiki 值完全一致，来源升级为客户端读数。蓄能至上限时生成电磁场，接触的敌人吃这一段并被束缚 0.7~1.1 秒。",
+      "sourceTitle": "客户端截图读值：艾登（12.0b）",
+      "sourceNote": "客户端截图读值 12.0b 数值：额外伤害 50/80/110/140/170(+攻击力的50%) 截图确认与原 Wiki 值完全一致，来源升级为客户端截图读值。蓄能至上限时生成电磁场，接触的敌人吃这一段并被束缚 0.7~1.1 秒。",
       "patchVersion": "client-12.0b-aiden",
       "patchOrder": 20260811
     },
@@ -2036,7 +2036,7 @@
       "formula": "base + ap * 0.5 + targetHp * 0.1",
       "source": "in-game-client",
       "manual": false,
-      "updatedAt": "2026-08-16T02:00:00.000Z",
+      "updatedAt": "2026-08-12T02:00:00.000Z",
       "heroKey": "Bianca",
       "group": 1042200,
       "skillId": "BiancaActive1",
@@ -2045,10 +2045,10 @@
       "coefficientText": "额外伤害 10/40/70/100/130(+技能增幅的50%)(+目标体力上限的10%)",
       "scalingText": "(+8% of target’s max HP)",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：比安卡（12.0b）",
-      "sourceNote": "客户端读数 client-12.0b-bianca 数值：额外伤害 10/40/70/100/130(+技能增幅的50%)(+目标体力上限的10%) 血之枪落点形成圆形血滩，对第一个命中的敌人结算后消失。客户端校对：原先漏了技能增幅 50% 这一项，目标体力上限系数也由 8% 修正为 10%。处于缓血状态的目标被血之枪命中时会被束缚 1 秒。",
+      "sourceTitle": "客户端截图读值：比安卡（12.0b）",
+      "sourceNote": "客户端截图读值 12.0b 数值：额外伤害 10/40/70/100/130(+技能增幅的50%)(+目标体力上限的10%) 血之枪落点形成圆形血滩，对第一个命中的敌人结算后消失。客户端校对：原先漏了技能增幅 50% 这一项，目标体力上限系数也由 8% 修正为 10%。处于缓血状态的目标被血之枪命中时会被束缚 1 秒。",
       "patchVersion": "client-12.0b-bianca",
-      "patchOrder": 20260816
+      "patchOrder": 20260812
     },
     {
       "id": "augment-042-bianca-r-1042500-extra-damage-stat2",
@@ -2059,7 +2059,7 @@
       "formula": "base + ap * 0.4 + targetHp * 0.11",
       "source": "in-game-client",
       "manual": false,
-      "updatedAt": "2026-08-16T02:00:00.000Z",
+      "updatedAt": "2026-08-12T02:00:00.000Z",
       "heroKey": "Bianca",
       "group": 1042500,
       "skillId": "BiancaActive4",
@@ -2068,10 +2068,10 @@
       "coefficientText": "伤害 50/100/150(+技能增幅的40%)(+目标体力上限的11%)",
       "scalingText": "(+70% Skill Amp)",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：比安卡（12.0b）",
-      "sourceNote": "客户端读数 client-12.0b-bianca 数值：伤害 50/100/150(+技能增幅的40%)(+目标体力上限的11%) 血咒结束后星芒血阵固定于地面，范围内敌人承受该伤害并在 2 秒内移速 -60%。客户端校对：数值本来就对，只是原标题「额外伤害」和结束伤害那条搞混了，改名区分。比安卡站在血阵上方时吸血-所有伤害 +14/22/30%，该部分未建模。",
+      "sourceTitle": "客户端截图读值：比安卡（12.0b）",
+      "sourceNote": "客户端截图读值 12.0b 数值：伤害 50/100/150(+技能增幅的40%)(+目标体力上限的11%) 血咒结束后星芒血阵固定于地面，范围内敌人承受该伤害并在 2 秒内移速 -60%。客户端校对：数值本来就对，只是原标题「额外伤害」和结束伤害那条搞混了，改名区分。比安卡站在血阵上方时吸血-所有伤害 +14/22/30%，该部分未建模。",
       "patchVersion": "client-12.0b-bianca",
-      "patchOrder": 20260816
+      "patchOrder": 20260812
     },
     {
       "id": "augment-042-bianca-r-1042500-maximum-extra-damage-stat3",
@@ -2082,7 +2082,7 @@
       "formula": "(base + ap * 0.7) * (1 + targetLostHp / targetHp)",
       "source": "in-game-client",
       "manual": false,
-      "updatedAt": "2026-08-16T02:00:00.000Z",
+      "updatedAt": "2026-08-12T02:00:00.000Z",
       "heroKey": "Bianca",
       "group": 1042500,
       "skillId": "BiancaActive4",
@@ -2091,10 +2091,10 @@
       "coefficientText": "额外伤害 50/100/150(+技能增幅70%) ~ 上限 100/200/300(+技能增幅140%)，按目标已失体力取值",
       "scalingText": "(+140% Skill Amp)",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：比安卡（12.0b）",
-      "sourceNote": "客户端读数 client-12.0b-bianca 数值：额外伤害 50/100/150(+技能增幅70%) ~ 上限 100/200/300(+技能增幅140%)，按目标已失体力取值 星芒血阵持续时间结束时按范围内敌人的已失体力按比例结算。上限恰好是下限的 2 倍（基础值与技能增幅系数同步翻倍），所以用 (1 + 已失体力 / 体力上限) 插值成一条。客户端校对：原先这条只记了上限那一半，改成完整的插值公式。",
+      "sourceTitle": "客户端截图读值：比安卡（12.0b）",
+      "sourceNote": "客户端截图读值 12.0b 数值：额外伤害 50/100/150(+技能增幅70%) ~ 上限 100/200/300(+技能增幅140%)，按目标已失体力取值 星芒血阵持续时间结束时按范围内敌人的已失体力按比例结算。上限恰好是下限的 2 倍（基础值与技能增幅系数同步翻倍），所以用 (1 + 已失体力 / 体力上限) 插值成一条。客户端校对：原先这条只记了上限那一半，改成完整的插值公式。",
       "patchVersion": "client-12.0b-bianca",
-      "patchOrder": 20260816
+      "patchOrder": 20260812
     },
     {
       "id": "augment-025-bernice-q-1025200-enhanced-damage-stat3",
@@ -2105,7 +2105,7 @@
       "formula": "base + attack * 1",
       "source": "in-game-client",
       "manual": false,
-      "updatedAt": "2026-08-16T02:00:00.000Z",
+      "updatedAt": "2026-08-12T02:00:00.000Z",
       "heroKey": "Bernice",
       "group": 1025200,
       "skillId": "BerniceActive1",
@@ -2114,10 +2114,10 @@
       "coefficientText": "强化伤害 90/130/170/210/250(+攻击力的100%)",
       "scalingText": "(+100% Attack Power)",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：伯尼斯（12.1）",
-      "sourceNote": "客户端读数 client-12.1-bernice 数值：强化伤害 90/130/170/210/250(+攻击力的100%) 子弹打在处于束缚状态的敌人身上时改为这一段，移速改为 -30/35/40/45/50%。束缚主要来自 W 捕兽夹和 R 星锤。与普通段互斥，不是叠加。",
-      "patchVersion": "client-12.1-bernice",
-      "patchOrder": 20260816
+      "sourceTitle": "客户端截图读值：伯尼斯（12.0b）",
+      "sourceNote": "客户端截图读值 12.0b 数值：强化伤害 90/130/170/210/250(+攻击力的100%) 子弹打在处于束缚状态的敌人身上时改为这一段，移速改为 -30/35/40/45/50%。束缚主要来自 W 捕兽夹和 R 星锤。与普通段互斥，不是叠加。",
+      "patchVersion": "client-12.0b-bernice",
+      "patchOrder": 20260812
     },
     {
       "id": "patch-113-blair-1084200-double-bladed-sword-second-hit-damage",
@@ -4578,7 +4578,7 @@
       "formula": "base + ap * 0.8 + targetLostHp * [0.03,0.06,0.09,0.12,0.15][level - 1]",
       "source": "in-game-client",
       "manual": false,
-      "updatedAt": "2026-08-15T02:00:00.000Z",
+      "updatedAt": "2026-08-12T02:00:00.000Z",
       "heroKey": "Coraline",
       "slot": "Q",
       "group": 1087200,
@@ -4587,9 +4587,9 @@
       "coefficientText": "黑镜伤害量 60/105/150/195/240(+技能增幅80%)(+目标失去体力3/6/9/12/15%)",
       "sourceUrl": "",
       "sourceTitle": "客户端校对：卡洛琳（12.0b）",
-      "sourceNote": "客户端读数 client-12.0b-coraline 数值：黑镜伤害量 60/105/150/195/240(+技能增幅80%)(+目标失去体力3/6/9/12/15%) 客户端校对：技能增幅系数由 85% 修正为 80%，与白镜同值。黑镜命中后目标 1 秒内移速 -60%。",
+      "sourceNote": "客户端截图读值 12.0b 数值：黑镜伤害量 60/105/150/195/240(+技能增幅80%)(+目标失去体力3/6/9/12/15%) 客户端校对：技能增幅系数由 85% 修正为 80%，与白镜同值。黑镜命中后目标 1 秒内移速 -60%。",
       "patchVersion": "client-12.0b-coraline",
-      "patchOrder": 20260815
+      "patchOrder": 20260812
     },
     {
       "id": "patch-coraline-1087200-damage",
@@ -5273,9 +5273,9 @@
       "coefficientText": "额外伤害 30/50/70/90/110(+技能增幅的50%)",
       "scalingText": "(+50% Skill Amp)",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：莉央 / 凯希 / 伊娃（12.0b）",
-      "sourceNote": "客户端读数 client-12.0b-rio-cathy-eva 数值：额外伤害 30/50/70/90/110(+技能增幅的50%) 串中两名敌人相互碰撞、或被击退撞墙时结算，晕厥 0.9 秒。该冲撞伤害不赋予外伤叠层。",
-      "patchVersion": "client-12.0b-rio-cathy-eva",
+      "sourceTitle": "客户端截图读值：凯希（12.0b）",
+      "sourceNote": "客户端截图读值 12.0b 数值：额外伤害 30/50/70/90/110(+技能增幅的50%) 串中两名敌人相互碰撞、或被击退撞墙时结算，晕厥 0.9 秒。该冲撞伤害不赋予外伤叠层。",
+      "patchVersion": "client-12.0b-cathy",
       "patchOrder": 20260811
     },
     {
@@ -5513,8 +5513,8 @@
       "coefficientText": "[妮娜] 普攻强化伤害 20/50/80(+妮娜攻击力的50%)",
       "scalingText": "(+50% Nina Attack Power)",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：克洛伊（12.0b）",
-      "sourceNote": "客户端读数 client-12.0b-chloe 数值：[妮娜] 普攻强化伤害 20/50/80(+妮娜攻击力的50%) 克洛伊连续普攻 2 次以上时妮娜跟着攻击。客户端读数修正：原 Wiki 直接按克洛伊攻击力算，实际吃的是妮娜攻击力（克洛伊攻击力的 62%，每升一级 +2%）。妮娜另有 P 等级给的固定攻击力 4/7/10，公式里引用不到 P 的等级，未计入。",
+      "sourceTitle": "客户端截图读值：克洛伊（12.0b）",
+      "sourceNote": "客户端截图读值 12.0b 数值：[妮娜] 普攻强化伤害 20/50/80(+妮娜攻击力的50%) 克洛伊连续普攻 2 次以上时妮娜跟着攻击。客户端截图读值修正：原 Wiki 直接按克洛伊攻击力算，实际吃的是妮娜攻击力（克洛伊攻击力的 62%，每升一级 +2%）。妮娜另有 P 等级给的固定攻击力 4/7/10，公式里引用不到 P 的等级，未计入。",
       "patchVersion": "client-12.0b-chloe",
       "patchOrder": 20260811
     },
@@ -6228,9 +6228,9 @@
       "coefficientText": "和弓额外伤害 45/50/55/60/65(+攻击力的45%)",
       "scalingText": "(+45% Attack Power)",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：莉央 / 凯希 / 伊娃（12.0b）",
-      "sourceNote": "客户端读数 client-12.0b-rio-cathy-eva 数值：和弓额外伤害 45/50/55/60/65(+攻击力的45%) 和弓的箭对首位目标之后的敌人结算。客户端读数与原值一致。",
-      "patchVersion": "client-12.0b-rio-cathy-eva",
+      "sourceTitle": "客户端截图读值：莉央（12.0b）",
+      "sourceNote": "客户端截图读值 12.0b 数值：和弓额外伤害 45/50/55/60/65(+攻击力的45%) 和弓的箭对首位目标之后的敌人结算。客户端截图读值与原值一致。",
+      "patchVersion": "client-12.0b-rio",
       "patchOrder": 20260811
     },
     {
@@ -6251,9 +6251,9 @@
       "coefficientText": "和弓额外伤害 20/40/60/80/100(+攻击力的35%)",
       "scalingText": "(+30% Attack Power)",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：莉央 / 凯希 / 伊娃（12.0b）",
-      "sourceNote": "客户端读数 client-12.0b-rio-cathy-eva 数值：和弓额外伤害 20/40/60/80/100(+攻击力的35%) 客户端读数修正：原 Wiki 系数是 30%，客户端是 35%。在敌人周围 2m 内的范围伤害。",
-      "patchVersion": "client-12.0b-rio-cathy-eva",
+      "sourceTitle": "客户端截图读值：莉央（12.0b）",
+      "sourceNote": "客户端截图读值 12.0b 数值：和弓额外伤害 20/40/60/80/100(+攻击力的35%) 客户端截图读值修正：原 Wiki 系数是 30%，客户端是 35%。在敌人周围 2m 内的范围伤害。",
+      "patchVersion": "client-12.0b-rio",
       "patchOrder": 20260811
     },
     {
@@ -6274,8 +6274,8 @@
       "coefficientText": "额外伤害 20/45/70(+攻击力13%)(+目标体力上限2.0%)，每层",
       "scalingText": "(+10% Attack Power)",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：卢克（12.0b）",
-      "sourceNote": "客户端读数 client-12.0b-luke 数值：额外伤害 20/45/70(+攻击力13%)(+目标体力上限2.0%)，每层 客户端读数修正：叠层上限是 3 不是 4，且补上了此前缺的目标体力上限 2%。普攻命中施加标记，对标记目标造成技能伤害时按层数结算，每层还使目标 1.25 秒内移速 -6/7/8%。",
+      "sourceTitle": "客户端截图读值：卢克（12.0b）",
+      "sourceNote": "客户端截图读值 12.0b 数值：额外伤害 20/45/70(+攻击力13%)(+目标体力上限2.0%)，每层 客户端截图读值修正：叠层上限是 3 不是 4，且补上了此前缺的目标体力上限 2%。普攻命中施加标记，对标记目标造成技能伤害时按层数结算，每层还使目标 1.25 秒内移速 -6/7/8%。",
       "patchVersion": "client-12.0b-luke",
       "patchOrder": 20260811,
       "alternatives": [
@@ -7608,11 +7608,11 @@
       "dataKey": "[Chokeslam] Center Damage",
       "coefficientText": "[下劈] 内围伤害量 50/80/110/140/170(+技能增幅的85%)",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：皮奥洛 / 慧珍（12.0b）",
-      "sourceNote": "客户端读数 client-12.0b-piolo-hyejin 数值：[下劈] 内围伤害量 50/80/110/140/170(+技能增幅的85%) 客户端读数与 11.3 公告完全一致。位于范围中心的敌人吃这一段，移速减 55%。",
+      "sourceTitle": "客户端截图读值：皮奥洛（12.0b）",
+      "sourceNote": "客户端截图读值 12.0b 数值：[下劈] 内围伤害量 50/80/110/140/170(+技能增幅的85%) 客户端截图读值与 11.3 公告完全一致。位于范围中心的敌人吃这一段，移速减 55%。",
       "sourceLabel": "11.3 / 2026-05-28",
       "sourceVersion": "11.3",
-      "patchVersion": "client-12.0b-piolo-hyejin",
+      "patchVersion": "client-12.0b-piolo",
       "patchOrder": 20260811
     },
     {
@@ -7633,13 +7633,13 @@
       "coefficientText": "[狂龙乱舞] 强化伤害量 20/30/40/50/60(+技能增幅的25%)",
       "scalingText": "(+25% Skill Amp)",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：皮奥洛 / 慧珍（12.0b）",
-      "sourceNote": "客户端读数 client-12.0b-piolo-hyejin 数值：[狂龙乱舞] 强化伤害量 20/30/40/50/60(+技能增幅的25%) 客户端读数修正：原 Wiki 条目是 30/40/50/60/70，整体高了一级。",
+      "sourceTitle": "客户端截图读值：皮奥洛（12.0b）",
+      "sourceNote": "客户端截图读值 12.0b 数值：[狂龙乱舞] 强化伤害量 20/30/40/50/60(+技能增幅的25%) 客户端截图读值修正：原 Wiki 条目是 30/40/50/60/70，整体高了一级。",
       "maxHits": 3,
       "defaultHits": 1,
       "hitLabel": "强化命中次数",
       "hitNote": "第 1、5、10 叠层各触发一次；命中 2 次强化伤害即激活下劈。",
-      "patchVersion": "client-12.0b-piolo-hyejin",
+      "patchVersion": "client-12.0b-piolo",
       "patchOrder": 20260811
     },
     {
@@ -7658,11 +7658,11 @@
       "dataKey": "[Hammer Throw] Damage",
       "coefficientText": "[翻转] 伤害量 70/115/160/205/250(+技能增幅的85%)",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：皮奥洛 / 慧珍（12.0b）",
-      "sourceNote": "客户端读数 client-12.0b-piolo-hyejin 数值：[翻转] 伤害量 70/115/160/205/250(+技能增幅的85%) 客户端读数与 11.3 公告完全一致。流星赶月反弹投射体 0.8 秒后激活翻转。",
+      "sourceTitle": "客户端截图读值：皮奥洛（12.0b）",
+      "sourceNote": "客户端截图读值 12.0b 数值：[翻转] 伤害量 70/115/160/205/250(+技能增幅的85%) 客户端截图读值与 11.3 公告完全一致。流星赶月反弹投射体 0.8 秒后激活翻转。",
       "sourceLabel": "11.3 / 2026-05-28",
       "sourceVersion": "11.3",
-      "patchVersion": "client-12.0b-piolo-hyejin",
+      "patchVersion": "client-12.0b-piolo",
       "patchOrder": 20260811
     },
     {
@@ -8829,8 +8829,8 @@
       "coefficientText": "强化伤害 150/190/230/270/310(+技能增幅85%)",
       "scalingText": "(+55% Skill Amp) | (+80% Skill Amp) | (+28% Skill Amp) | (+42% Skill Amp)",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：秀雅（12.0b）",
-      "sourceNote": "客户端读数 client-12.0b-sua 数值：强化伤害 150/190/230/270/310(+技能增幅85%) 对已有书签标识的敌人改判这段并将目标撞至悬空。客户端校对：技能增幅系数由 80% 修正为 85%。",
+      "sourceTitle": "客户端截图读值：秀雅（12.0b）",
+      "sourceNote": "客户端截图读值 12.0b 数值：强化伤害 150/190/230/270/310(+技能增幅85%) 对已有书签标识的敌人改判这段并将目标撞至悬空。客户端校对：技能增幅系数由 80% 修正为 85%。",
       "patchVersion": "client-12.0b-sua",
       "patchOrder": 20260812,
       "alternatives": [
@@ -8862,8 +8862,8 @@
       "coefficientText": "记忆力-堂吉诃德 伤害 125/190/255(+技能增幅65%)",
       "scalingText": "(+80% Skill Amp) | (+50% Skill Amp) | (+30% Skill Amp) | (+60% Skill Amp) | (+85% Skill Amp) | (+28% Skill Amp) | (+42% Skill Amp)",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：秀雅（12.0b）",
-      "sourceNote": "客户端读数 client-12.0b-sua 数值：记忆力-堂吉诃德 伤害 125/190/255(+技能增幅65%) 对首个命中的敌人结算并附加 5 秒书签，1 秒内移速 -50%。",
+      "sourceTitle": "客户端截图读值：秀雅（12.0b）",
+      "sourceNote": "客户端截图读值 12.0b 数值：记忆力-堂吉诃德 伤害 125/190/255(+技能增幅65%) 对首个命中的敌人结算并附加 5 秒书签，1 秒内移速 -50%。",
       "patchVersion": "client-12.0b-sua",
       "patchOrder": 20260812,
       "alternatives": [
@@ -8895,8 +8895,8 @@
       "coefficientText": "记忆力-堂吉诃德 强化伤害 170/260/350(+技能增幅85%)",
       "scalingText": "(+80% Skill Amp) | (+50% Skill Amp) | (+30% Skill Amp) | (+60% Skill Amp) | (+85% Skill Amp) | (+28% Skill Amp) | (+42% Skill Amp)",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：秀雅（12.0b）",
-      "sourceNote": "客户端读数 client-12.0b-sua 数值：记忆力-堂吉诃德 强化伤害 170/260/350(+技能增幅85%) 对已有书签的敌人改判这段并使其悬空。客户端校对：技能增幅系数由 80% 修正为 85%。",
+      "sourceTitle": "客户端截图读值：秀雅（12.0b）",
+      "sourceNote": "客户端截图读值 12.0b 数值：记忆力-堂吉诃德 强化伤害 170/260/350(+技能增幅85%) 对已有书签的敌人改判这段并使其悬空。客户端校对：技能增幅系数由 80% 修正为 85%。",
       "patchVersion": "client-12.0b-sua",
       "patchOrder": 20260812
     },
@@ -8918,8 +8918,8 @@
       "coefficientText": "记忆力-奥德赛 伤害 180/230/280(+技能增幅80%)",
       "scalingText": "(+80% Skill Amp) | (+50% Skill Amp) | (+30% Skill Amp) | (+60% Skill Amp) | (+85% Skill Amp) | (+28% Skill Amp) | (+42% Skill Amp)",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：秀雅（12.0b）",
-      "sourceNote": "客户端读数 client-12.0b-sua 数值：记忆力-奥德赛 伤害 180/230/280(+技能增幅80%) 重放奥德赛，书本向中心碰撞时结算并留下 5 秒书签。",
+      "sourceTitle": "客户端截图读值：秀雅（12.0b）",
+      "sourceNote": "客户端截图读值 12.0b 数值：记忆力-奥德赛 伤害 180/230/280(+技能增幅80%) 重放奥德赛，书本向中心碰撞时结算并留下 5 秒书签。",
       "patchVersion": "client-12.0b-sua",
       "patchOrder": 20260812
     },
@@ -8941,8 +8941,8 @@
       "coefficientText": "记忆力-青鸟 伤害 50/110/170(+技能增幅40%)",
       "scalingText": "(+80% Skill Amp) | (+50% Skill Amp) | (+30% Skill Amp) | (+60% Skill Amp) | (+85% Skill Amp) | (+28% Skill Amp) | (+42% Skill Amp)",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：秀雅（12.0b）",
-      "sourceNote": "客户端读数 client-12.0b-sua 数值：记忆力-青鸟 伤害 50/110/170(+技能增幅40%) 客户端校对：基础值由 50/100/150 修正为 50/110/170。",
+      "sourceTitle": "客户端截图读值：秀雅（12.0b）",
+      "sourceNote": "客户端截图读值 12.0b 数值：记忆力-青鸟 伤害 50/110/170(+技能增幅40%) 客户端校对：基础值由 50/100/150 修正为 50/110/170。",
       "patchVersion": "client-12.0b-sua",
       "patchOrder": 20260812,
       "alternatives": [
@@ -9222,8 +9222,8 @@
       "dataKey": "Damage",
       "coefficientText": "伤害 20/40/60，总攻击力比率 20%/30%/40%",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：雪琳（12.0b）",
-      "sourceNote": "客户端读数 client-12.0b-xuelin 数值：伤害 20/40/60，总攻击力比率 20%/30%/40% 客户端读数修正：原公告推导值是 30/40/50%，客户端是 20/30/40%。流云残影剑叠满 3 层后强化下一次普攻，同时使剑影回旋和飞闪步冷却各减 1.5 秒、恢复 20/35/50(+攻击力40%) 体力。",
+      "sourceTitle": "客户端截图读值：雪琳（12.0b）",
+      "sourceNote": "客户端截图读值 12.0b 数值：伤害 20/40/60，总攻击力比率 20%/30%/40% 客户端截图读值修正：原公告推导值是 30/40/50%，客户端是 20/30/40%。流云残影剑叠满 3 层后强化下一次普攻，同时使剑影回旋和飞闪步冷却各减 1.5 秒、恢复 20/35/50(+攻击力40%) 体力。",
       "patchVersion": "client-12.0b-xuelin",
       "patchOrder": 20260811,
       "kind": "basicAttack"
@@ -9245,8 +9245,8 @@
       "dataKey": "Damage",
       "coefficientText": "投射体伤害 60/70/80/90/100(+攻击力60%)",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：雪琳（12.0b）",
-      "sourceNote": "客户端读数 client-12.0b-xuelin 数值：投射体伤害 60/70/80/90/100(+攻击力60%) 飞剑飞行途中命中路径上的敌人。冷却 13/12/11/10/9 秒。",
+      "sourceTitle": "客户端截图读值：雪琳（12.0b）",
+      "sourceNote": "客户端截图读值 12.0b 数值：投射体伤害 60/70/80/90/100(+攻击力60%) 飞剑飞行途中命中路径上的敌人。冷却 13/12/11/10/9 秒。",
       "patchVersion": "client-12.0b-xuelin",
       "patchOrder": 20260811
     },
@@ -9267,8 +9267,8 @@
       "dataKey": "Orbit Damage",
       "coefficientText": "回收持续伤害量 30/35/40/45/50(+攻击力25%)",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：雪琳（12.0b）",
-      "sourceNote": "客户端读数 client-12.0b-xuelin 数值：回收持续伤害量 30/35/40/45/50(+攻击力25%) 触碰旋转中的剑即可回收，并返还 60% 飞闪步冷却。",
+      "sourceTitle": "客户端截图读值：雪琳（12.0b）",
+      "sourceNote": "客户端截图读值 12.0b 数值：回收持续伤害量 30/35/40/45/50(+攻击力25%) 触碰旋转中的剑即可回收，并返还 60% 飞闪步冷却。",
       "patchVersion": "client-12.0b-xuelin",
       "patchOrder": 20260811,
       "maxHits": 5,
@@ -9293,8 +9293,8 @@
       "dataKey": "Spin Damage",
       "coefficientText": "飞剑持续伤害量 20/35/50/65/80(+攻击力40%)",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：雪琳（12.0b）",
-      "sourceNote": "客户端读数 client-12.0b-xuelin 数值：飞剑持续伤害量 20/35/50/65/80(+攻击力40%)",
+      "sourceTitle": "客户端截图读值：雪琳（12.0b）",
+      "sourceNote": "客户端截图读值 12.0b 数值：飞剑持续伤害量 20/35/50/65/80(+攻击力40%)",
       "patchVersion": "client-12.0b-xuelin",
       "patchOrder": 20260811,
       "maxHits": 5,
@@ -9319,8 +9319,8 @@
       "dataKey": "Block Damage",
       "coefficientText": "强化伤害量 100/130/160/190/220(+攻击力100%)",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：雪琳（12.0b）",
-      "sourceNote": "客户端读数 client-12.0b-xuelin 数值：强化伤害量 100/130/160/190/220(+攻击力100%) 阻挡到无法移动效果时改为这一段，并获得 3 层流云残影剑、使目标眩晕 1 秒（不再减速）。与普通段互斥。",
+      "sourceTitle": "客户端截图读值：雪琳（12.0b）",
+      "sourceNote": "客户端截图读值 12.0b 数值：强化伤害量 100/130/160/190/220(+攻击力100%) 阻挡到无法移动效果时改为这一段，并获得 3 层流云残影剑、使目标眩晕 1 秒（不再减速）。与普通段互斥。",
       "patchVersion": "client-12.0b-xuelin",
       "patchOrder": 20260811
     },
@@ -9341,8 +9341,8 @@
       "dataKey": "Damage",
       "coefficientText": "伤害 50/70/90/110/130(+攻击力90%)",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：雪琳（12.0b）",
-      "sourceNote": "客户端读数 client-12.0b-xuelin 数值：伤害 50/70/90/110/130(+攻击力90%) 环绕 0.75 秒免疫负面并阻挡所有伤害，随后发射飞剑命中第一个敌人实验体，其移速 1 秒内 -70%。",
+      "sourceTitle": "客户端截图读值：雪琳（12.0b）",
+      "sourceNote": "客户端截图读值 12.0b 数值：伤害 50/70/90/110/130(+攻击力90%) 环绕 0.75 秒免疫负面并阻挡所有伤害，随后发射飞剑命中第一个敌人实验体，其移速 1 秒内 -70%。",
       "patchVersion": "client-12.0b-xuelin",
       "patchOrder": 20260811
     },
@@ -9363,8 +9363,8 @@
       "dataKey": "Damage",
       "coefficientText": "突进伤害 60/70/80/90/100(+攻击力55%)",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：雪琳（12.0b）",
-      "sourceNote": "客户端读数 client-12.0b-xuelin 数值：突进伤害 60/70/80/90/100(+攻击力55%) 突进路径上的敌人，移速 1 秒内 -30%。冷却 14/13.5/13/12.5/12 秒。",
+      "sourceTitle": "客户端截图读值：雪琳（12.0b）",
+      "sourceNote": "客户端截图读值 12.0b 数值：突进伤害 60/70/80/90/100(+攻击力55%) 突进路径上的敌人，移速 1 秒内 -30%。冷却 14/13.5/13/12.5/12 秒。",
       "patchVersion": "client-12.0b-xuelin",
       "patchOrder": 20260811
     },
@@ -9385,8 +9385,8 @@
       "dataKey": "Sword Drop Damage",
       "coefficientText": "飞剑伤害量 60/90/120/150/180(+攻击力70%)",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：雪琳（12.0b）",
-      "sourceNote": "客户端读数 client-12.0b-xuelin 数值：飞剑伤害量 60/90/120/150/180(+攻击力70%) 突进结束后沿途掉落剑，对范围内敌人结算。",
+      "sourceTitle": "客户端截图读值：雪琳（12.0b）",
+      "sourceNote": "客户端截图读值 12.0b 数值：飞剑伤害量 60/90/120/150/180(+攻击力70%) 突进结束后沿途掉落剑，对范围内敌人结算。",
       "patchVersion": "client-12.0b-xuelin",
       "patchOrder": 20260811
     },
@@ -9407,8 +9407,8 @@
       "dataKey": "Damage",
       "coefficientText": "伤害 80/155/230(+攻击力60%)",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：雪琳（12.0b）",
-      "sourceNote": "客户端读数 client-12.0b-xuelin 数值：伤害 80/155/230(+攻击力60%) 展开领域瞬间结算，领域持续 7 秒。冷却 80/70/60 秒。",
+      "sourceTitle": "客户端截图读值：雪琳（12.0b）",
+      "sourceNote": "客户端截图读值 12.0b 数值：伤害 80/155/230(+攻击力60%) 展开领域瞬间结算，领域持续 7 秒。冷却 80/70/60 秒。",
       "patchVersion": "client-12.0b-xuelin",
       "patchOrder": 20260811
     },
@@ -9429,8 +9429,8 @@
       "dataKey": "Enhanced Sword Damage",
       "coefficientText": "强化飞剑伤害量 20/40/60，攻击力系数 20%/30%/40%",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：雪琳（12.0b）",
-      "sourceNote": "客户端读数 client-12.0b-xuelin 数值：强化飞剑伤害量 20/40/60，攻击力系数 20%/30%/40% 第 5 次落下时触发，落在目标身上并对周围结算，使其 0.5 秒内移速 -30%。",
+      "sourceTitle": "客户端截图读值：雪琳（12.0b）",
+      "sourceNote": "客户端截图读值 12.0b 数值：强化飞剑伤害量 20/40/60，攻击力系数 20%/30%/40% 第 5 次落下时触发，落在目标身上并对周围结算，使其 0.5 秒内移速 -30%。",
       "patchVersion": "client-12.0b-xuelin",
       "patchOrder": 20260811
     },
@@ -9451,8 +9451,8 @@
       "dataKey": "Recall Damage",
       "coefficientText": "回收伤害量 100/200/300(+攻击力75%)",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：雪琳（12.0b）",
-      "sourceNote": "客户端读数 client-12.0b-xuelin 数值：回收伤害量 100/200/300(+攻击力75%) 用飞闪步停在领域外时，外圈的剑飞回雪琳身边并命中路径上的敌人。从第二次命中起伤害减少 80%（未建模）。",
+      "sourceTitle": "客户端截图读值：雪琳（12.0b）",
+      "sourceNote": "客户端截图读值 12.0b 数值：回收伤害量 100/200/300(+攻击力75%) 用飞闪步停在领域外时，外圈的剑飞回雪琳身边并命中路径上的敌人。从第二次命中起伤害减少 80%（未建模）。",
       "patchVersion": "client-12.0b-xuelin",
       "patchOrder": 20260811
     },
@@ -9473,8 +9473,8 @@
       "dataKey": "Sword Fall Damage",
       "coefficientText": "飞剑伤害量 10/20/30，攻击力系数 10%/15%/20%",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：雪琳（12.0b）",
-      "sourceNote": "客户端读数 client-12.0b-xuelin 数值：飞剑伤害量 10/20/30，攻击力系数 10%/15%/20%",
+      "sourceTitle": "客户端截图读值：雪琳（12.0b）",
+      "sourceNote": "客户端截图读值 12.0b 数值：飞剑伤害量 10/20/30，攻击力系数 10%/15%/20%",
       "patchVersion": "client-12.0b-xuelin",
       "patchOrder": 20260811,
       "maxHits": 4,
@@ -10267,9 +10267,9 @@
       "coefficientText": "额外伤害 40/70/100/130/160(+技能增幅的40%)",
       "scalingText": "(+40% Skill Amp)",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：莉央 / 凯希 / 伊娃（12.0b）",
-      "sourceNote": "客户端读数 client-12.0b-rio-cathy-eva 数值：额外伤害 40/70/100/130/160(+技能增幅的40%) 旋涡持续 1 秒结束时再结算一次，位于中心的敌人悬空 1 秒。客户端读数与原值一致。",
-      "patchVersion": "client-12.0b-rio-cathy-eva",
+      "sourceTitle": "客户端截图读值：伊娃（12.0b）",
+      "sourceNote": "客户端截图读值 12.0b 数值：额外伤害 40/70/100/130/160(+技能增幅的40%) 旋涡持续 1 秒结束时再结算一次，位于中心的敌人悬空 1 秒。客户端截图读值与原值一致。",
+      "patchVersion": "client-12.0b-eva",
       "patchOrder": 20260811
     },
     {
@@ -10290,9 +10290,9 @@
       "coefficientText": "额外伤害 30/50/70(+技能增幅的30%)",
       "scalingText": "(+30% Skill Amp)",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：莉央 / 凯希 / 伊娃（12.0b）",
-      "sourceNote": "客户端读数 client-12.0b-rio-cathy-eva 数值：额外伤害 30/50/70(+技能增幅的30%) 被赋予 5 叠层的目标结算一次并重置叠层。客户端读数与原值一致。",
-      "patchVersion": "client-12.0b-rio-cathy-eva",
+      "sourceTitle": "客户端截图读值：伊娃（12.0b）",
+      "sourceNote": "客户端截图读值 12.0b 数值：额外伤害 30/50/70(+技能增幅的30%) 被赋予 5 叠层的目标结算一次并重置叠层。客户端截图读值与原值一致。",
+      "patchVersion": "client-12.0b-eva",
       "patchOrder": 20260811
     },
     {
@@ -10967,7 +10967,7 @@
       "formula": "base + ap * 0.58",
       "source": "in-game-client",
       "manual": false,
-      "updatedAt": "2026-08-15T02:00:00.000Z",
+      "updatedAt": "2026-08-12T02:00:00.000Z",
       "heroKey": "Jenny",
       "group": 1038400,
       "skillId": "JennyActive3BlackTea",
@@ -10976,12 +10976,12 @@
       "coefficientText": "额外伤害 60/95/130/165/200",
       "scalingText": "(+58% Skill Amp)",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：珍妮（12.1）",
-      "sourceNote": "客户端读数 client-12.1-jenny 数值：额外伤害 60/95/130/165/200 被动：每发起一次普攻该技能冷却 -1 秒，第 3 次普攻附带这段额外伤害；官方注明「此普攻也被视为技能攻击」。主动：向指定方向位移一小段并切换扮演角色，同时激活额外伤害。冷却 13/12/11/10/9 秒且固定，不吃冷却缩减。技能增幅系数 58% 沿用官方公告，客户端提示框没把伤害内联进描述所以看不到系数，未能核对。",
+      "sourceTitle": "客户端截图读值：珍妮（12.0b）",
+      "sourceNote": "客户端截图读值 12.0b 数值：额外伤害 60/95/130/165/200 被动：每发起一次普攻该技能冷却 -1 秒，第 3 次普攻附带这段额外伤害；官方注明「此普攻也被视为技能攻击」。主动：向指定方向位移一小段并切换扮演角色，同时激活额外伤害。冷却 13/12/11/10/9 秒且固定，不吃冷却缩减。技能增幅系数 58% 沿用官方公告，客户端提示框没把伤害内联进描述所以看不到系数，未能核对。",
       "sourceLabel": "11.5 / 2026-06-25",
       "sourceVersion": "11.5",
-      "patchVersion": "client-12.1-jenny",
-      "patchOrder": 20260815,
+      "patchVersion": "client-12.0b-jenny",
+      "patchOrder": 20260812,
       "kind": "basicAttack"
     },
     {
@@ -12216,12 +12216,12 @@
       "source": "in-game-client",
       "manual": false,
       "coefficientText": "书签伤害 20/40/60/80/100(+技能增幅40%)",
-      "sourceNote": "客户端读数 client-12.0b-sua 数值：书签伤害 20/40/60/80/100(+技能增幅40%) 对已有书签的目标留下新书签时触发，附带 0.6 秒晕厥。客户端校对：技能增幅系数由 35% 修正为 40%。",
+      "sourceNote": "客户端截图读值 12.0b 数值：书签伤害 20/40/60/80/100(+技能增幅40%) 对已有书签的目标留下新书签时触发，附带 0.6 秒晕厥。客户端校对：技能增幅系数由 35% 修正为 40%。",
       "patchVersion": "client-12.0b-sua",
       "patchOrder": 20260812,
       "updatedAt": "2026-08-12T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：秀雅（12.0b）"
+      "sourceTitle": "客户端截图读值：秀雅（12.0b）"
     },
     {
       "id": "patch-120b-sua-1028500-memory-of-odyssey-bookmark-damage",
@@ -12234,12 +12234,12 @@
       "source": "in-game-client",
       "manual": false,
       "coefficientText": "对已有书签的目标造成 50(+技能增幅50%)，晕厥 5 秒",
-      "sourceNote": "客户端读数 client-12.0b-sua 数值：对已有书签的目标造成 50(+技能增幅50%)，晕厥 5 秒 客户端校对：技能增幅系数由 45% 修正为 50%。客户端数值表没有这一行，1 级读数与原公告的 50/100/150 一致，故沿用公告的分级值。",
+      "sourceNote": "客户端截图读值 12.0b 数值：对已有书签的目标造成 50(+技能增幅50%)，晕厥 5 秒 客户端校对：技能增幅系数由 45% 修正为 50%。客户端数值表没有这一行，1 级读数与原公告的 50/100/150 一致，故沿用公告的分级值。",
       "patchVersion": "client-12.0b-sua",
       "patchOrder": 20260812,
       "updatedAt": "2026-08-12T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：秀雅（12.0b）"
+      "sourceTitle": "客户端截图读值：秀雅（12.0b）"
     },
     {
       "id": "ingame-064-vanya-p-1064100-reverie-damage",
@@ -12255,12 +12255,12 @@
       "source": "in-game-client",
       "manual": false,
       "coefficientText": "[遐思] 伤害量 20/50/80 (+技能增幅50%)",
-      "sourceNote": "客户端读数 client-12.0b-vanya 数值：[遐思] 伤害量 20/50/80 (+技能增幅50%) 每隔一段时间普攻造成额外技能伤害，冷却 8/6.5/5 秒。",
+      "sourceNote": "客户端截图读值 12.0b 数值：[遐思] 伤害量 20/50/80 (+技能增幅50%) 每隔一段时间普攻造成额外技能伤害，冷却 8/6.5/5 秒。",
       "patchVersion": "client-12.0b-vanya",
       "patchOrder": 20260811,
       "updatedAt": "2026-08-11T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：万尼亚（12.0b）",
+      "sourceTitle": "客户端截图读值：万尼亚（12.0b）",
       "kind": "basicAttack"
     },
     {
@@ -12279,12 +12279,12 @@
       "maxStacks": 4,
       "stackLabel": "幻蝶如梦叠层",
       "coefficientText": "[幻蝶如梦] 持续伤害 30/42/54 (+技能增幅60%)",
-      "sourceNote": "客户端读数 client-12.0b-vanya 数值：[幻蝶如梦] 持续伤害 30/42/54 (+技能增幅60%) 命中敌人叠 1 层，满 4 层触发，3 秒内持续造成。护盾部分（获得 30/65/100、上限 70/135/200）不是伤害，未建条目。",
+      "sourceNote": "客户端截图读值 12.0b 数值：[幻蝶如梦] 持续伤害 30/42/54 (+技能增幅60%) 命中敌人叠 1 层，满 4 层触发，3 秒内持续造成。护盾部分（获得 30/65/100、上限 70/135/200）不是伤害，未建条目。",
       "patchVersion": "client-12.0b-vanya",
       "patchOrder": 20260811,
       "updatedAt": "2026-08-11T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：万尼亚（12.0b）"
+      "sourceTitle": "客户端截图读值：万尼亚（12.0b）"
     },
     {
       "id": "ingame-064-vanya-q-1064200-damage",
@@ -12300,12 +12300,12 @@
       "source": "in-game-client",
       "manual": false,
       "coefficientText": "伤害 50/75/100/125/150 (+技能增幅60%)",
-      "sourceNote": "客户端读数 client-12.0b-vanya 数值：伤害 50/75/100/125/150 (+技能增幅60%) 冷却 11/10/9/8/7 秒。",
+      "sourceNote": "客户端截图读值 12.0b 数值：伤害 50/75/100/125/150 (+技能增幅60%) 冷却 11/10/9/8/7 秒。",
       "patchVersion": "client-12.0b-vanya",
       "patchOrder": 20260811,
       "updatedAt": "2026-08-11T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：万尼亚（12.0b）",
+      "sourceTitle": "客户端截图读值：万尼亚（12.0b）",
       "maxHits": 2,
       "defaultHits": 1,
       "hitLabel": "Q 命中次数",
@@ -12325,12 +12325,12 @@
       "source": "in-game-client",
       "manual": false,
       "coefficientText": "[青风] 伤害量 20/24/28/32/36 (+技能增幅16%)",
-      "sourceNote": "客户端读数 client-12.0b-vanya 数值：[青风] 伤害量 20/24/28/32/36 (+技能增幅16%) 移动速度增加 28/32/36/40/44%。",
+      "sourceNote": "客户端截图读值 12.0b 数值：[青风] 伤害量 20/24/28/32/36 (+技能增幅16%) 移动速度增加 28/32/36/40/44%。",
       "patchVersion": "client-12.0b-vanya",
       "patchOrder": 20260811,
       "updatedAt": "2026-08-11T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：万尼亚（12.0b）",
+      "sourceTitle": "客户端截图读值：万尼亚（12.0b）",
       "maxHits": 5,
       "defaultHits": 1,
       "hitLabel": "青风命中次数",
@@ -12350,12 +12350,12 @@
       "source": "in-game-client",
       "manual": false,
       "coefficientText": "[云幕] 伤害量 60/95/130/165/200 (+技能增幅95%)",
-      "sourceNote": "客户端读数 client-12.0b-vanya 数值：[云幕] 伤害量 60/95/130/165/200 (+技能增幅95%) 青风持续期间可再次使用；落地结算，使用时该技能冷却增加 5.71 秒。",
+      "sourceNote": "客户端截图读值 12.0b 数值：[云幕] 伤害量 60/95/130/165/200 (+技能增幅95%) 青风持续期间可再次使用；落地结算，使用时该技能冷却增加 5.71 秒。",
       "patchVersion": "client-12.0b-vanya",
       "patchOrder": 20260811,
       "updatedAt": "2026-08-11T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：万尼亚（12.0b）"
+      "sourceTitle": "客户端截图读值：万尼亚（12.0b）"
     },
     {
       "id": "ingame-064-vanya-e-1064400-inner-area-damage",
@@ -12371,12 +12371,12 @@
       "source": "in-game-client",
       "manual": false,
       "coefficientText": "内侧伤害量 80/110/140/170/200 (+技能增幅80%)",
-      "sourceNote": "客户端读数 client-12.0b-vanya 数值：内侧伤害量 80/110/140/170/200 (+技能增幅80%) 飞向目标命中的那一下；外围是另一段。冷却 16/15/14/13/12 秒。",
+      "sourceNote": "客户端截图读值 12.0b 数值：内侧伤害量 80/110/140/170/200 (+技能增幅80%) 飞向目标命中的那一下；外围是另一段。冷却 16/15/14/13/12 秒。",
       "patchVersion": "client-12.0b-vanya",
       "patchOrder": 20260811,
       "updatedAt": "2026-08-11T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：万尼亚（12.0b）"
+      "sourceTitle": "客户端截图读值：万尼亚（12.0b）"
     },
     {
       "id": "ingame-064-vanya-r-1064500-damage",
@@ -12392,12 +12392,12 @@
       "source": "in-game-client",
       "manual": false,
       "coefficientText": "伤害量 70/140/210 (+技能增幅35%)",
-      "sourceNote": "客户端读数 client-12.0b-vanya 数值：伤害量 70/140/210 (+技能增幅35%) 冷却 80/70/60 秒。客户端底部表把这行标成「[祈愿]伤害量」，只是和 E 技能重名，归属于 R 本身。",
+      "sourceNote": "客户端截图读值 12.0b 数值：伤害量 70/140/210 (+技能增幅35%) 冷却 80/70/60 秒。客户端底部表把这行标成「[祈愿]伤害量」，只是和 E 技能重名，归属于 R 本身。",
       "patchVersion": "client-12.0b-vanya",
       "patchOrder": 20260811,
       "updatedAt": "2026-08-11T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：万尼亚（12.0b）"
+      "sourceTitle": "客户端截图读值：万尼亚（12.0b）"
     },
     {
       "id": "ingame-064-vanya-p-1064100-dream-shield",
@@ -12414,12 +12414,12 @@
       "manual": false,
       "kind": "shield",
       "coefficientText": "[幻蝶如梦] 获得护盾 30/65/100 (+技能增幅30%)",
-      "sourceNote": "客户端读数 client-12.0b-vanya 数值：[幻蝶如梦] 获得护盾 30/65/100 (+技能增幅30%) 满 4 层叠层时获得，护盾每秒减少 50(+万尼亚每级别*2)。",
+      "sourceNote": "客户端截图读值 12.0b 数值：[幻蝶如梦] 获得护盾 30/65/100 (+技能增幅30%) 满 4 层叠层时获得，护盾每秒减少 50(+万尼亚每级别*2)。",
       "patchVersion": "client-12.0b-vanya",
       "patchOrder": 20260811,
       "updatedAt": "2026-08-11T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：万尼亚（12.0b）"
+      "sourceTitle": "客户端截图读值：万尼亚（12.0b）"
     },
     {
       "id": "ingame-064-vanya-p-1064100-dream-shield-cap",
@@ -12436,12 +12436,12 @@
       "manual": false,
       "kind": "shield",
       "coefficientText": "[幻蝶如梦] 护盾上限 70/135/200 (+技能增幅70%)",
-      "sourceNote": "客户端读数 client-12.0b-vanya 数值：[幻蝶如梦] 护盾上限 70/135/200 (+技能增幅70%) 护盾累计不会超过这个值。",
+      "sourceNote": "客户端截图读值 12.0b 数值：[幻蝶如梦] 护盾上限 70/135/200 (+技能增幅70%) 护盾累计不会超过这个值。",
       "patchVersion": "client-12.0b-vanya",
       "patchOrder": 20260811,
       "updatedAt": "2026-08-11T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：万尼亚（12.0b）"
+      "sourceTitle": "客户端截图读值：万尼亚（12.0b）"
     },
     {
       "id": "ingame-046-aiden-q-1046200-damage",
@@ -12454,16 +12454,15 @@
       "bases": "70,100,130,160,190",
       "maxLevel": 5,
       "formula": "base + attack * 0.75",
-      "source": "official-patch-note",
+      "source": "in-game-client",
       "manual": false,
       "coefficientText": "雷击伤害量 70/100/130/160/190(+攻击力75%)*(普攻增幅)",
-      "sourceNote": "官方公告 model-basic-attack-amp 数值： 客户端把雷击标为普攻伤害，除技能系数外还额外乘一次普攻增幅，该乘区已建模（basicAttackAmp）。 该段按普攻伤害结算：吃普攻增幅，减伤走目标的普攻减伤而不是技能减伤。",
-      "patchVersion": "model-basic-attack-amp",
+      "sourceNote": "客户端截图读值 12.0b 数值： 客户端把雷击标为普攻伤害，除技能系数外还额外乘一次普攻增幅，该乘区已建模（basicAttackAmp）。 该段按普攻伤害结算：吃普攻增幅，减伤走目标的普攻减伤而不是技能减伤。",
+      "patchVersion": "model-basic-attack-amp-aiden",
       "patchOrder": 20260814,
       "updatedAt": "2026-08-14T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "建模：普攻伤害结算线（普攻增幅 + 普攻减伤）",
-      "authority": 80,
+      "sourceTitle": "建模：艾登 的普攻伤害结算线",
       "damageType": "basicAttack"
     },
     {
@@ -12477,16 +12476,15 @@
       "bases": "70,100,130,160,190",
       "maxLevel": 5,
       "formula": "base + attack * 0.75",
-      "source": "official-patch-note",
+      "source": "in-game-client",
       "manual": false,
       "coefficientText": "电子炮伤害量 70/100/130/160/190(+攻击力75%)*(普攻增幅)",
-      "sourceNote": "官方公告 model-basic-attack-amp 数值： 客户端把电子炮标为普攻伤害，除技能系数外还额外乘一次普攻增幅，该乘区已建模（basicAttackAmp）。 该段按普攻伤害结算：吃普攻增幅，减伤走目标的普攻减伤而不是技能减伤。",
-      "patchVersion": "model-basic-attack-amp",
+      "sourceNote": "客户端截图读值 12.0b 数值： 客户端把电子炮标为普攻伤害，除技能系数外还额外乘一次普攻增幅，该乘区已建模（basicAttackAmp）。 该段按普攻伤害结算：吃普攻增幅，减伤走目标的普攻减伤而不是技能减伤。",
+      "patchVersion": "model-basic-attack-amp-aiden",
       "patchOrder": 20260814,
       "updatedAt": "2026-08-14T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "建模：普攻伤害结算线（普攻增幅 + 普攻减伤）",
-      "authority": 80,
+      "sourceTitle": "建模：艾登 的普攻伤害结算线",
       "damageType": "basicAttack"
     },
     {
@@ -12503,12 +12501,12 @@
       "source": "in-game-client",
       "manual": false,
       "coefficientText": "最小伤害 40/50/60/70/80(+攻击力45%)",
-      "sourceNote": "客户端读数 client-12.0b-aiden 数值：最小伤害 40/50/60/70/80(+攻击力45%) 按蓄能时间在最小~最大之间取值，未蓄能即为本条。",
+      "sourceNote": "客户端截图读值 12.0b 数值：最小伤害 40/50/60/70/80(+攻击力45%) 按蓄能时间在最小~最大之间取值，未蓄能即为本条。",
       "patchVersion": "client-12.0b-aiden",
       "patchOrder": 20260811,
       "updatedAt": "2026-08-11T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：艾登（12.0b）"
+      "sourceTitle": "客户端截图读值：艾登（12.0b）"
     },
     {
       "id": "ingame-046-aiden-w-1046300-max-damage",
@@ -12524,12 +12522,12 @@
       "source": "in-game-client",
       "manual": false,
       "coefficientText": "最大伤害 80/100/120/140/160(+攻击力90%)",
-      "sourceNote": "客户端读数 client-12.0b-aiden 数值：最大伤害 80/100/120/140/160(+攻击力90%) 蓄能至上限时的值，同时生成持续 2.5 秒的电磁场。冷却 15/14/13/12/11 秒。",
+      "sourceNote": "客户端截图读值 12.0b 数值：最大伤害 80/100/120/140/160(+攻击力90%) 蓄能至上限时的值，同时生成持续 2.5 秒的电磁场。冷却 15/14/13/12/11 秒。",
       "patchVersion": "client-12.0b-aiden",
       "patchOrder": 20260811,
       "updatedAt": "2026-08-11T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：艾登（12.0b）"
+      "sourceTitle": "客户端截图读值：艾登（12.0b）"
     },
     {
       "id": "ingame-046-aiden-e-1046400-damage",
@@ -12545,12 +12543,12 @@
       "source": "in-game-client",
       "manual": false,
       "coefficientText": "后闪伤害量 15/30/45/60/75(+攻击力20%)",
-      "sourceNote": "客户端读数 client-12.0b-aiden 数值：后闪伤害量 15/30/45/60/75(+攻击力20%) 向后退并发射电流子弹，命中后留下标识并可使用伏特闪移。电荷充满时重置本技能冷却。",
+      "sourceNote": "客户端截图读值 12.0b 数值：后闪伤害量 15/30/45/60/75(+攻击力20%) 向后退并发射电流子弹，命中后留下标识并可使用伏特闪移。电荷充满时重置本技能冷却。",
       "patchVersion": "client-12.0b-aiden",
       "patchOrder": 20260811,
       "updatedAt": "2026-08-11T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：艾登（12.0b）"
+      "sourceTitle": "客户端截图读值：艾登（12.0b）"
     },
     {
       "id": "ingame-046-aiden-e-1046400-volt-blink-damage",
@@ -12566,12 +12564,12 @@
       "source": "in-game-client",
       "manual": false,
       "coefficientText": "伏特闪移伤害量 55/85/115/145/175(+攻击力55%)",
-      "sourceNote": "客户端读数 client-12.0b-aiden 数值：伏特闪移伤害量 55/85/115/145/175(+攻击力55%) 穿透被赋予标识的敌人时结算。",
+      "sourceNote": "客户端截图读值 12.0b 数值：伏特闪移伤害量 55/85/115/145/175(+攻击力55%) 穿透被赋予标识的敌人时结算。",
       "patchVersion": "client-12.0b-aiden",
       "patchOrder": 20260811,
       "updatedAt": "2026-08-11T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：艾登（12.0b）"
+      "sourceTitle": "客户端截图读值：艾登（12.0b）"
     },
     {
       "id": "ingame-046-aiden-r-1046500-first-damage",
@@ -12587,12 +12585,12 @@
       "source": "in-game-client",
       "manual": false,
       "coefficientText": "落雷1 伤害量 60/90/120(+攻击力的75%)",
-      "sourceNote": "客户端读数 client-12.0b-aiden 数值：落雷1 伤害量 60/90/120(+攻击力的75%) 外围命中，移速减 40%。冷却 80/70/60 秒。",
+      "sourceNote": "客户端截图读值 12.0b 数值：落雷1 伤害量 60/90/120(+攻击力的75%) 外围命中，移速减 40%。冷却 80/70/60 秒。",
       "patchVersion": "client-12.0b-aiden",
       "patchOrder": 20260811,
       "updatedAt": "2026-08-11T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：艾登（12.0b）"
+      "sourceTitle": "客户端截图读值：艾登（12.0b）"
     },
     {
       "id": "ingame-046-aiden-r-1046500-first-inner-damage",
@@ -12608,12 +12606,12 @@
       "source": "in-game-client",
       "manual": false,
       "coefficientText": "落雷1 内围伤害量 80/130/180(+攻击力的110%)",
-      "sourceNote": "客户端读数 client-12.0b-aiden 数值：落雷1 内围伤害量 80/130/180(+攻击力的110%) 处于落雷中心的敌人改吃这一段，并晕厥 1 秒。与外围段互斥，不叠加。",
+      "sourceNote": "客户端截图读值 12.0b 数值：落雷1 内围伤害量 80/130/180(+攻击力的110%) 处于落雷中心的敌人改吃这一段，并晕厥 1 秒。与外围段互斥，不叠加。",
       "patchVersion": "client-12.0b-aiden",
       "patchOrder": 20260811,
       "updatedAt": "2026-08-11T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：艾登（12.0b）"
+      "sourceTitle": "客户端截图读值：艾登（12.0b）"
     },
     {
       "id": "ingame-046-aiden-r-1046500-second-damage",
@@ -12629,12 +12627,12 @@
       "source": "in-game-client",
       "manual": false,
       "coefficientText": "落雷2 伤害量 70/115/160(+攻击力的80%)",
-      "sourceNote": "客户端读数 client-12.0b-aiden 数值：落雷2 伤害量 70/115/160(+攻击力的80%) 第 2 枚落雷，移速减 40%。可在落地前再次施法传送过去让它立即掉落。",
+      "sourceNote": "客户端截图读值 12.0b 数值：落雷2 伤害量 70/115/160(+攻击力的80%) 第 2 枚落雷，移速减 40%。可在落地前再次施法传送过去让它立即掉落。",
       "patchVersion": "client-12.0b-aiden",
       "patchOrder": 20260811,
       "updatedAt": "2026-08-11T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：艾登（12.0b）"
+      "sourceTitle": "客户端截图读值：艾登（12.0b）"
     },
     {
       "id": "ingame-056-piolo-p-1056100-workout-basic-attack-damage",
@@ -12651,12 +12649,12 @@
       "manual": false,
       "kind": "basicAttack",
       "coefficientText": "总技能增幅系数 20%/40%/60%",
-      "sourceNote": "客户端读数 client-12.0b-piolo-hyejin 数值：总技能增幅系数 20%/40%/60% 持有[锻炼成果]时使用惩戒者，下一次普攻额外造成技能增幅 20/40/60% 的技能伤害。官方只给系数不给基础值，故基础值为 0；额外伤害最小为 1。",
-      "patchVersion": "client-12.0b-piolo-hyejin",
+      "sourceNote": "客户端截图读值 12.0b 数值：总技能增幅系数 20%/40%/60% 持有[锻炼成果]时使用惩戒者，下一次普攻额外造成技能增幅 20/40/60% 的技能伤害。官方只给系数不给基础值，故基础值为 0；额外伤害最小为 1。",
+      "patchVersion": "client-12.0b-piolo",
       "patchOrder": 20260811,
       "updatedAt": "2026-08-11T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：皮奥洛 / 慧珍（12.0b）"
+      "sourceTitle": "客户端截图读值：皮奥洛（12.0b）"
     },
     {
       "id": "ingame-056-piolo-q-1056200-spin-damage",
@@ -12672,12 +12670,12 @@
       "source": "in-game-client",
       "manual": false,
       "coefficientText": "[狂龙乱舞] 伤害量 8/16/24/32/40(+技能增幅的14%)",
-      "sourceNote": "客户端读数 client-12.0b-piolo-hyejin 数值：[狂龙乱舞] 伤害量 8/16/24/32/40(+技能增幅的14%) 每 0.12 秒对范围内敌人结算一次并叠层，跳数随持续时间变化，未按固定次数建模。",
-      "patchVersion": "client-12.0b-piolo-hyejin",
+      "sourceNote": "客户端截图读值 12.0b 数值：[狂龙乱舞] 伤害量 8/16/24/32/40(+技能增幅的14%) 每 0.12 秒对范围内敌人结算一次并叠层，跳数随持续时间变化，未按固定次数建模。",
+      "patchVersion": "client-12.0b-piolo",
       "patchOrder": 20260811,
       "updatedAt": "2026-08-11T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：皮奥洛 / 慧珍（12.0b）"
+      "sourceTitle": "客户端截图读值：皮奥洛（12.0b）"
     },
     {
       "id": "ingame-056-piolo-q-1056200-chokeslam-outer-damage",
@@ -12693,12 +12691,12 @@
       "source": "in-game-client",
       "manual": false,
       "coefficientText": "[下劈] 外围伤害量 50/70/90/110/130(+技能增幅的60%)",
-      "sourceNote": "客户端读数 client-12.0b-piolo-hyejin 数值：[下劈] 外围伤害量 50/70/90/110/130(+技能增幅的60%) 范围外敌人吃这一段，与内围互斥。冷却 9/8.5/8/7.5/7 秒。",
-      "patchVersion": "client-12.0b-piolo-hyejin",
+      "sourceNote": "客户端截图读值 12.0b 数值：[下劈] 外围伤害量 50/70/90/110/130(+技能增幅的60%) 范围外敌人吃这一段，与内围互斥。冷却 9/8.5/8/7.5/7 秒。",
+      "patchVersion": "client-12.0b-piolo",
       "patchOrder": 20260811,
       "updatedAt": "2026-08-11T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：皮奥洛 / 慧珍（12.0b）"
+      "sourceTitle": "客户端截图读值：皮奥洛（12.0b）"
     },
     {
       "id": "ingame-056-piolo-e-1056400-nunchaku-min-damage",
@@ -12714,12 +12712,12 @@
       "source": "in-game-client",
       "manual": false,
       "coefficientText": "[白蛇吐信] 双节棍 最小伤害 10/25/40/55/70(+技能增幅的30%)",
-      "sourceNote": "客户端读数 client-12.0b-piolo-hyejin 数值：[白蛇吐信] 双节棍 最小伤害 10/25/40/55/70(+技能增幅的30%) 按蓄力时间在最小~最大之间取值，未蓄力即为本条。",
-      "patchVersion": "client-12.0b-piolo-hyejin",
+      "sourceNote": "客户端截图读值 12.0b 数值：[白蛇吐信] 双节棍 最小伤害 10/25/40/55/70(+技能增幅的30%) 按蓄力时间在最小~最大之间取值，未蓄力即为本条。",
+      "patchVersion": "client-12.0b-piolo",
       "patchOrder": 20260811,
       "updatedAt": "2026-08-11T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：皮奥洛 / 慧珍（12.0b）"
+      "sourceTitle": "客户端截图读值：皮奥洛（12.0b）"
     },
     {
       "id": "ingame-056-piolo-e-1056400-nunchaku-max-damage",
@@ -12735,12 +12733,12 @@
       "source": "in-game-client",
       "manual": false,
       "coefficientText": "[白蛇吐信] 双节棍 最大伤害 30/50/70/90/110(+技能增幅的50%)",
-      "sourceNote": "客户端读数 client-12.0b-piolo-hyejin 数值：[白蛇吐信] 双节棍 最大伤害 30/50/70/90/110(+技能增幅的50%) 蓄力至上限时的值。",
-      "patchVersion": "client-12.0b-piolo-hyejin",
+      "sourceNote": "客户端截图读值 12.0b 数值：[白蛇吐信] 双节棍 最大伤害 30/50/70/90/110(+技能增幅的50%) 蓄力至上限时的值。",
+      "patchVersion": "client-12.0b-piolo",
       "patchOrder": 20260811,
       "updatedAt": "2026-08-11T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：皮奥洛 / 慧珍（12.0b）"
+      "sourceTitle": "客户端截图读值：皮奥洛（12.0b）"
     },
     {
       "id": "ingame-056-piolo-e-1056400-dash-min-damage",
@@ -12756,12 +12754,12 @@
       "source": "in-game-client",
       "manual": false,
       "coefficientText": "[白蛇吐信] 突进 最小伤害 20/30/40/50/60(+技能增幅的20%)",
-      "sourceNote": "客户端读数 client-12.0b-piolo-hyejin 数值：[白蛇吐信] 突进 最小伤害 20/30/40/50/60(+技能增幅的20%) 双节棍命中后朝目标飞去的那一段，同样随蓄力变化并击退敌人。",
-      "patchVersion": "client-12.0b-piolo-hyejin",
+      "sourceNote": "客户端截图读值 12.0b 数值：[白蛇吐信] 突进 最小伤害 20/30/40/50/60(+技能增幅的20%) 双节棍命中后朝目标飞去的那一段，同样随蓄力变化并击退敌人。",
+      "patchVersion": "client-12.0b-piolo",
       "patchOrder": 20260811,
       "updatedAt": "2026-08-11T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：皮奥洛 / 慧珍（12.0b）"
+      "sourceTitle": "客户端截图读值：皮奥洛（12.0b）"
     },
     {
       "id": "ingame-056-piolo-e-1056400-dash-max-damage",
@@ -12777,12 +12775,12 @@
       "source": "in-game-client",
       "manual": false,
       "coefficientText": "[白蛇吐信] 突进 最大伤害 40/60/80/100/120(+技能增幅的50%)",
-      "sourceNote": "客户端读数 client-12.0b-piolo-hyejin 数值：[白蛇吐信] 突进 最大伤害 40/60/80/100/120(+技能增幅的50%) 蓄力至上限时的值。",
-      "patchVersion": "client-12.0b-piolo-hyejin",
+      "sourceNote": "客户端截图读值 12.0b 数值：[白蛇吐信] 突进 最大伤害 40/60/80/100/120(+技能增幅的50%) 蓄力至上限时的值。",
+      "patchVersion": "client-12.0b-piolo",
       "patchOrder": 20260811,
       "updatedAt": "2026-08-11T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：皮奥洛 / 慧珍（12.0b）"
+      "sourceTitle": "客户端截图读值：皮奥洛（12.0b）"
     },
     {
       "id": "ingame-056-piolo-e-1056400-uppercut-damage",
@@ -12798,12 +12796,12 @@
       "source": "in-game-client",
       "manual": false,
       "coefficientText": "[上劈] 伤害量 50/75/100/125/150(+技能增幅的75%)",
-      "sourceNote": "客户端读数 client-12.0b-piolo-hyejin 数值：[上劈] 伤害量 50/75/100/125/150(+技能增幅的75%) 突进命中后激活，将目标悬空 0.75 秒。冷却 10/9.5/9/8.5/8 秒。",
-      "patchVersion": "client-12.0b-piolo-hyejin",
+      "sourceNote": "客户端截图读值 12.0b 数值：[上劈] 伤害量 50/75/100/125/150(+技能增幅的75%) 突进命中后激活，将目标悬空 0.75 秒。冷却 10/9.5/9/8.5/8 秒。",
+      "patchVersion": "client-12.0b-piolo",
       "patchOrder": 20260811,
       "updatedAt": "2026-08-11T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：皮奥洛 / 慧珍（12.0b）"
+      "sourceTitle": "客户端截图读值：皮奥洛（12.0b）"
     },
     {
       "id": "ingame-056-piolo-r-1056500-damage",
@@ -12819,12 +12817,12 @@
       "source": "in-game-client",
       "manual": false,
       "coefficientText": "伤害 100/225/350(+技能增幅的60%)",
-      "sourceNote": "客户端读数 client-12.0b-piolo-hyejin 数值：伤害 100/225/350(+技能增幅的60%) 消耗 1 个[元气值]突进，穿透敌人。下劈/翻转/上劈激活时各获得 1 个元气值。冷却 6 秒。",
-      "patchVersion": "client-12.0b-piolo-hyejin",
+      "sourceNote": "客户端截图读值 12.0b 数值：伤害 100/225/350(+技能增幅的60%) 消耗 1 个[元气值]突进，穿透敌人。下劈/翻转/上劈激活时各获得 1 个元气值。冷却 6 秒。",
+      "patchVersion": "client-12.0b-piolo",
       "patchOrder": 20260811,
       "updatedAt": "2026-08-11T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：皮奥洛 / 慧珍（12.0b）"
+      "sourceTitle": "客户端截图读值：皮奥洛（12.0b）"
     },
     {
       "id": "ingame-056-piolo-r-1056500-shield",
@@ -12841,12 +12839,12 @@
       "manual": false,
       "kind": "shield",
       "coefficientText": "护盾吸收 40/80/120(+技能增幅50%)",
-      "sourceNote": "客户端读数 client-12.0b-piolo-hyejin 数值：护盾吸收 40/80/120(+技能增幅50%) 命中时获得，持续 4 秒。",
-      "patchVersion": "client-12.0b-piolo-hyejin",
+      "sourceNote": "客户端截图读值 12.0b 数值：护盾吸收 40/80/120(+技能增幅50%) 命中时获得，持续 4 秒。",
+      "patchVersion": "client-12.0b-piolo",
       "patchOrder": 20260811,
       "updatedAt": "2026-08-11T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：皮奥洛 / 慧珍（12.0b）"
+      "sourceTitle": "客户端截图读值：皮奥洛（12.0b）"
     },
     {
       "id": "ingame-012-hyejin-p-1012100-damage",
@@ -12862,12 +12860,12 @@
       "source": "in-game-client",
       "manual": false,
       "coefficientText": "总技能增幅系数 10%/15%/20%",
-      "sourceNote": "客户端读数 client-12.0b-piolo-hyejin 数值：总技能增幅系数 10%/15%/20% 第 3 次使用技能命中同一敌人时触发，使其恐惧 1/1.1/1.2 秒。官方只给系数不给基础值；额外伤害最小为 1。",
-      "patchVersion": "client-12.0b-piolo-hyejin",
+      "sourceNote": "客户端截图读值 12.0b 数值：总技能增幅系数 10%/15%/20% 第 3 次使用技能命中同一敌人时触发，使其恐惧 1/1.1/1.2 秒。官方只给系数不给基础值；额外伤害最小为 1。",
+      "patchVersion": "client-12.0b-hyejin",
       "patchOrder": 20260811,
       "updatedAt": "2026-08-11T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：皮奥洛 / 慧珍（12.0b）"
+      "sourceTitle": "客户端截图读值：慧珍（12.0b）"
     },
     {
       "id": "ingame-012-hyejin-q-1012200-damage",
@@ -12883,12 +12881,12 @@
       "source": "in-game-client",
       "manual": false,
       "coefficientText": "伤害 80/115/150/185/220(+技能增幅的80%)",
-      "sourceNote": "客户端读数 client-12.0b-piolo-hyejin 数值：伤害 80/115/150/185/220(+技能增幅的80%) 穿透敌人，最多命中 2 名。命中时冷却减少 35%。冷却 7/6/5/4/3 秒。",
-      "patchVersion": "client-12.0b-piolo-hyejin",
+      "sourceNote": "客户端截图读值 12.0b 数值：伤害 80/115/150/185/220(+技能增幅的80%) 穿透敌人，最多命中 2 名。命中时冷却减少 35%。冷却 7/6/5/4/3 秒。",
+      "patchVersion": "client-12.0b-hyejin",
       "patchOrder": 20260811,
       "updatedAt": "2026-08-11T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：皮奥洛 / 慧珍（12.0b）"
+      "sourceTitle": "客户端截图读值：慧珍（12.0b）"
     },
     {
       "id": "ingame-012-hyejin-w-1012300-damage",
@@ -12904,12 +12902,12 @@
       "source": "in-game-client",
       "manual": false,
       "coefficientText": "伤害 70/100/130/160/190(+技能增幅的80%)",
-      "sourceNote": "客户端读数 client-12.0b-piolo-hyejin 数值：伤害 70/100/130/160/190(+技能增幅的80%) 1 秒后激活并把敌人拉至中央，范围内敌人移速 -35%。冷却 14/13/12/11/10 秒。",
-      "patchVersion": "client-12.0b-piolo-hyejin",
+      "sourceNote": "客户端截图读值 12.0b 数值：伤害 70/100/130/160/190(+技能增幅的80%) 1 秒后激活并把敌人拉至中央，范围内敌人移速 -35%。冷却 14/13/12/11/10 秒。",
+      "patchVersion": "client-12.0b-hyejin",
       "patchOrder": 20260811,
       "updatedAt": "2026-08-11T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：皮奥洛 / 慧珍（12.0b）"
+      "sourceTitle": "客户端截图读值：慧珍（12.0b）"
     },
     {
       "id": "ingame-012-hyejin-e-1012400-talisman-damage",
@@ -12925,12 +12923,12 @@
       "source": "in-game-client",
       "manual": false,
       "coefficientText": "符咒伤害 60/95/130/165/200(+技能增幅的60%)",
-      "sourceNote": "客户端读数 client-12.0b-piolo-hyejin 数值：符咒伤害 60/95/130/165/200(+技能增幅的60%) 掷出时对路径上的敌人结算。",
-      "patchVersion": "client-12.0b-piolo-hyejin",
+      "sourceNote": "客户端截图读值 12.0b 数值：符咒伤害 60/95/130/165/200(+技能增幅的60%) 掷出时对路径上的敌人结算。",
+      "patchVersion": "client-12.0b-hyejin",
       "patchOrder": 20260811,
       "updatedAt": "2026-08-11T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：皮奥洛 / 慧珍（12.0b）"
+      "sourceTitle": "客户端截图读值：慧珍（12.0b）"
     },
     {
       "id": "ingame-012-hyejin-e-1012400-landing-damage",
@@ -12946,12 +12944,12 @@
       "source": "in-game-client",
       "manual": false,
       "coefficientText": "着地伤害 60/80/100/120/140(+技能增幅55%)",
-      "sourceNote": "客户端读数 client-12.0b-piolo-hyejin 数值：着地伤害 60/80/100/120/140(+技能增幅55%) 再次使用传送到符咒位置时，对范围内敌人结算。冷却 13/12.5/12/11.5/11 秒。",
-      "patchVersion": "client-12.0b-piolo-hyejin",
+      "sourceNote": "客户端截图读值 12.0b 数值：着地伤害 60/80/100/120/140(+技能增幅55%) 再次使用传送到符咒位置时，对范围内敌人结算。冷却 13/12.5/12/11.5/11 秒。",
+      "patchVersion": "client-12.0b-hyejin",
       "patchOrder": 20260811,
       "updatedAt": "2026-08-11T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：皮奥洛 / 慧珍（12.0b）"
+      "sourceTitle": "客户端截图读值：慧珍（12.0b）"
     },
     {
       "id": "ingame-012-hyejin-r-1012500-damage",
@@ -12967,12 +12965,12 @@
       "source": "in-game-client",
       "manual": false,
       "coefficientText": "伤害 50/100/150(+技能增幅30%)",
-      "sourceNote": "客户端读数 client-12.0b-piolo-hyejin 数值：伤害 50/100/150(+技能增幅30%) 召唤瞬间对周围敌人结算。冷却 80/70/60 秒。此技能仅作用于实验体和终极野怪。",
-      "patchVersion": "client-12.0b-piolo-hyejin",
+      "sourceNote": "客户端截图读值 12.0b 数值：伤害 50/100/150(+技能增幅30%) 召唤瞬间对周围敌人结算。冷却 80/70/60 秒。此技能仅作用于实验体和终极野怪。",
+      "patchVersion": "client-12.0b-hyejin",
       "patchOrder": 20260811,
       "updatedAt": "2026-08-11T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：皮奥洛 / 慧珍（12.0b）"
+      "sourceTitle": "客户端截图读值：慧珍（12.0b）"
     },
     {
       "id": "ingame-012-hyejin-r-1012500-talisman-damage",
@@ -13014,12 +13012,12 @@
       "manual": false,
       "kind": "basicAttack",
       "coefficientText": "30(+技能增幅45%)(+实验体级别*9)",
-      "sourceNote": "客户端读数 client-12.0b-sissela 数值：30(+技能增幅45%)(+实验体级别*9) 威尔逊回到希瑟拉身边时强化下一次普攻，命中后目标 2 秒内移速 -10/20/30%。客户端底部数值表里没有这段伤害的分级行（只列了体力恢复上限、技能增幅上限、移动速度减少），说明它不随 P 等级变化，故三级同值。此普攻也被视为技能攻击。",
+      "sourceNote": "客户端截图读值 12.0b 数值：30(+技能增幅45%)(+实验体级别*9) 威尔逊回到希瑟拉身边时强化下一次普攻，命中后目标 2 秒内移速 -10/20/30%。客户端底部数值表里没有这段伤害的分级行（只列了体力恢复上限、技能增幅上限、移动速度减少），说明它不随 P 等级变化，故三级同值。此普攻也被视为技能攻击。",
       "patchVersion": "client-12.0b-sissela",
       "patchOrder": 20260811,
       "updatedAt": "2026-08-11T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：希瑟拉 P（12.0b）"
+      "sourceTitle": "客户端截图读值：希瑟拉 P（12.0b）"
     },
     {
       "id": "ingame-022-luke-q-1022200-projectile-damage",
@@ -13035,12 +13033,12 @@
       "source": "in-game-client",
       "manual": false,
       "coefficientText": "弹丸伤害 40/60/80/100/120(+额外攻击力的80%)",
-      "sourceNote": "客户端读数 client-12.0b-luke 数值：弹丸伤害 40/60/80/100/120(+额外攻击力的80%) 投掷清洁剂命中第一个敌人，获得其视野，3 秒内可再次使用。冷却 15/13/11/9/7 秒。",
+      "sourceNote": "客户端截图读值 12.0b 数值：弹丸伤害 40/60/80/100/120(+额外攻击力的80%) 投掷清洁剂命中第一个敌人，获得其视野，3 秒内可再次使用。冷却 15/13/11/9/7 秒。",
       "patchVersion": "client-12.0b-luke",
       "patchOrder": 20260811,
       "updatedAt": "2026-08-11T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：卢克（12.0b）"
+      "sourceTitle": "客户端截图读值：卢克（12.0b）"
     },
     {
       "id": "ingame-022-luke-q-1022200-dash-damage",
@@ -13056,12 +13054,12 @@
       "source": "in-game-client",
       "manual": false,
       "coefficientText": "突进伤害 40/60/80/100/120(+额外攻击力的60%) ~ 80/120/160/200/240(+额外攻击力的120%)",
-      "sourceNote": "客户端读数 client-12.0b-luke 数值：突进伤害 40/60/80/100/120(+额外攻击力的60%) ~ 80/120/160/200/240(+额外攻击力的120%) 再次使用时冲向被击中的敌人，伤害随「目标已失体力」在最小~最大之间线性变化，最大值恰好是最小值的 2 倍，故用 (1 + targetLostHp / targetHp) 做插值：满血取最小、空血取最大。升级后突进并使目标 3 秒内防御力 -10%（未建模）。",
+      "sourceNote": "客户端截图读值 12.0b 数值：突进伤害 40/60/80/100/120(+额外攻击力的60%) ~ 80/120/160/200/240(+额外攻击力的120%) 再次使用时冲向被击中的敌人，伤害随「目标已失体力」在最小~最大之间线性变化，最大值恰好是最小值的 2 倍，故用 (1 + targetLostHp / targetHp) 做插值：满血取最小、空血取最大。升级后突进并使目标 3 秒内防御力 -10%（未建模）。",
       "patchVersion": "client-12.0b-luke",
       "patchOrder": 20260811,
       "updatedAt": "2026-08-11T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：卢克（12.0b）"
+      "sourceTitle": "客户端截图读值：卢克（12.0b）"
     },
     {
       "id": "ingame-022-luke-w-1022300-damage",
@@ -13098,12 +13096,12 @@
       "source": "in-game-client",
       "manual": false,
       "coefficientText": "伤害 50/75/100/125/150(+攻击力55%)",
-      "sourceNote": "客户端读数 client-12.0b-luke 数值：伤害 50/75/100/125/150(+攻击力55%) 移动到敌人/队友/监视器位置后用手枪结算，目标 0.5 秒内移速 -70%。升级后对体力 5% 以下的敌人直接处决。冷却 14/13/12/11/10 秒。",
+      "sourceNote": "客户端截图读值 12.0b 数值：伤害 50/75/100/125/150(+攻击力55%) 移动到敌人/队友/监视器位置后用手枪结算，目标 0.5 秒内移速 -70%。升级后对体力 5% 以下的敌人直接处决。冷却 14/13/12/11/10 秒。",
       "patchVersion": "client-12.0b-luke",
       "patchOrder": 20260811,
       "updatedAt": "2026-08-11T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：卢克（12.0b）"
+      "sourceTitle": "客户端截图读值：卢克（12.0b）"
     },
     {
       "id": "ingame-022-luke-r-1022500-damage",
@@ -13119,12 +13117,12 @@
       "source": "in-game-client",
       "manual": false,
       "coefficientText": "伤害 150/250/350(+额外攻击力80%) ~ 300/500/700(+额外攻击力160%)",
-      "sourceNote": "客户端读数 client-12.0b-luke 数值：伤害 150/250/350(+额外攻击力80%) ~ 300/500/700(+额外攻击力160%) 向后跳跃发射爆炸性弹药，伤害随「目标已失体力」线性变化，最大值是最小值的 2 倍，插值方式同 Q 突进。命中后目标 1.25 秒内移速 -30%。冷却 80/70/60 秒。",
+      "sourceNote": "客户端截图读值 12.0b 数值：伤害 150/250/350(+额外攻击力80%) ~ 300/500/700(+额外攻击力160%) 向后跳跃发射爆炸性弹药，伤害随「目标已失体力」线性变化，最大值是最小值的 2 倍，插值方式同 Q 突进。命中后目标 1.25 秒内移速 -30%。冷却 80/70/60 秒。",
       "patchVersion": "client-12.0b-luke",
       "patchOrder": 20260811,
       "updatedAt": "2026-08-11T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：卢克（12.0b）"
+      "sourceTitle": "客户端截图读值：卢克（12.0b）"
     },
     {
       "id": "ingame-031-rio-q-1031200-short-bow-basic-attack",
@@ -13137,16 +13135,15 @@
       "bases": "0,0,0,0,0",
       "maxLevel": 5,
       "formula": "attack * 0.37",
-      "source": "official-patch-note",
+      "source": "in-game-client",
       "manual": false,
       "coefficientText": "(攻击力37% * (普攻增幅))",
-      "sourceNote": "官方公告 model-basic-attack-amp 数值： 替弓状态下的单弓普攻主箭，本身就是普攻，吃普攻增幅乘区。 该段按普攻伤害结算：吃普攻增幅，减伤走目标的普攻减伤而不是技能减伤。",
-      "patchVersion": "model-basic-attack-amp",
+      "sourceNote": "客户端截图读值 12.0b 数值： 替弓状态下的单弓普攻主箭，本身就是普攻，吃普攻增幅乘区。 该段按普攻伤害结算：吃普攻增幅，减伤走目标的普攻减伤而不是技能减伤。",
+      "patchVersion": "model-basic-attack-amp-rio",
       "patchOrder": 20260814,
       "updatedAt": "2026-08-14T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "建模：普攻伤害结算线（普攻增幅 + 普攻减伤）",
-      "authority": 80,
+      "sourceTitle": "建模：莉央 的普攻伤害结算线",
       "damageType": "basicAttack"
     },
     {
@@ -13160,20 +13157,19 @@
       "bases": "0,0,0,0,0",
       "maxLevel": 5,
       "formula": "attack * 0.33",
-      "source": "official-patch-note",
+      "source": "in-game-client",
       "manual": false,
       "maxHits": 2,
       "defaultHits": 2,
       "hitLabel": "副箭命中数",
       "hitNote": "单弓普攻额外发射 2 支箭矢，每支同值。",
       "coefficientText": "每支 (攻击力33% * (普攻增幅))",
-      "sourceNote": "官方公告 model-basic-attack-amp 数值： 替弓状态下的单弓普攻副箭，本身就是普攻，吃普攻增幅乘区。 该段按普攻伤害结算：吃普攻增幅，减伤走目标的普攻减伤而不是技能减伤。",
-      "patchVersion": "model-basic-attack-amp",
+      "sourceNote": "客户端截图读值 12.0b 数值： 替弓状态下的单弓普攻副箭，本身就是普攻，吃普攻增幅乘区。 该段按普攻伤害结算：吃普攻增幅，减伤走目标的普攻减伤而不是技能减伤。",
+      "patchVersion": "model-basic-attack-amp-rio",
       "patchOrder": 20260814,
       "updatedAt": "2026-08-14T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "建模：普攻伤害结算线（普攻增幅 + 普攻减伤）",
-      "authority": 80,
+      "sourceTitle": "建模：莉央 的普攻伤害结算线",
       "damageType": "basicAttack"
     },
     {
@@ -13187,16 +13183,15 @@
       "bases": "0,0,0,0,0",
       "maxLevel": 5,
       "formula": "attack * 1.02",
-      "source": "official-patch-note",
+      "source": "in-game-client",
       "manual": false,
       "coefficientText": "(攻击力102% * (普攻增幅))",
-      "sourceNote": "官方公告 model-basic-attack-amp 数值： 替弓状态下的和弓普攻，本身就是普攻，吃普攻增幅乘区。 该段按普攻伤害结算：吃普攻增幅，减伤走目标的普攻减伤而不是技能减伤。",
-      "patchVersion": "model-basic-attack-amp",
+      "sourceNote": "客户端截图读值 12.0b 数值： 替弓状态下的和弓普攻，本身就是普攻，吃普攻增幅乘区。 该段按普攻伤害结算：吃普攻增幅，减伤走目标的普攻减伤而不是技能减伤。",
+      "patchVersion": "model-basic-attack-amp-rio",
       "patchOrder": 20260814,
       "updatedAt": "2026-08-14T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "建模：普攻伤害结算线（普攻增幅 + 普攻减伤）",
-      "authority": 80,
+      "sourceTitle": "建模：莉央 的普攻伤害结算线",
       "damageType": "basicAttack"
     },
     {
@@ -13213,12 +13208,12 @@
       "source": "in-game-client",
       "manual": false,
       "coefficientText": "单弓伤害 50/70/90/110/130(+攻击力的80%)",
-      "sourceNote": "客户端读数 client-12.0b-rio-cathy-eva 数值：单弓伤害 50/70/90/110/130(+攻击力的80%) 扇形范围内连续发射箭矢并留下 1.5 秒风力（移速 -30%）。连续射中同一目标的后续箭只造成 20% 伤害（未建模）。",
-      "patchVersion": "client-12.0b-rio-cathy-eva",
+      "sourceNote": "客户端截图读值 12.0b 数值：单弓伤害 50/70/90/110/130(+攻击力的80%) 扇形范围内连续发射箭矢并留下 1.5 秒风力（移速 -30%）。连续射中同一目标的后续箭只造成 20% 伤害（未建模）。",
+      "patchVersion": "client-12.0b-rio",
       "patchOrder": 20260811,
       "updatedAt": "2026-08-11T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：莉央 / 凯希 / 伊娃（12.0b）"
+      "sourceTitle": "客户端截图读值：莉央（12.0b）"
     },
     {
       "id": "ingame-031-rio-w-1031300-long-bow-damage",
@@ -13234,12 +13229,12 @@
       "source": "in-game-client",
       "manual": false,
       "coefficientText": "和弓伤害 90/105/120/135/150(+攻击力的90%)",
-      "sourceNote": "客户端读数 client-12.0b-rio-cathy-eva 数值：和弓伤害 90/105/120/135/150(+攻击力的90%) 和弓形态下使用会同时算作普攻与技能判定，命中首位敌人时激活效果。",
-      "patchVersion": "client-12.0b-rio-cathy-eva",
+      "sourceNote": "客户端截图读值 12.0b 数值：和弓伤害 90/105/120/135/150(+攻击力的90%) 和弓形态下使用会同时算作普攻与技能判定，命中首位敌人时激活效果。",
+      "patchVersion": "client-12.0b-rio",
       "patchOrder": 20260811,
       "updatedAt": "2026-08-11T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：莉央 / 凯希 / 伊娃（12.0b）"
+      "sourceTitle": "客户端截图读值：莉央（12.0b）"
     },
     {
       "id": "ingame-031-rio-e-1031400-short-bow-damage",
@@ -13259,12 +13254,12 @@
       "hitLabel": "箭矢命中数",
       "hitNote": "普攻射程内最多向 3 位敌人各发射 3 支箭，这里按命中箭数计。",
       "coefficientText": "单弓伤害 10/20/30/40/50(+攻击力的30%)",
-      "sourceNote": "客户端读数 client-12.0b-rio-cathy-eva 数值：单弓伤害 10/20/30/40/50(+攻击力的30%)",
-      "patchVersion": "client-12.0b-rio-cathy-eva",
+      "sourceNote": "客户端截图读值 12.0b 数值：单弓伤害 10/20/30/40/50(+攻击力的30%)",
+      "patchVersion": "client-12.0b-rio",
       "patchOrder": 20260811,
       "updatedAt": "2026-08-11T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：莉央 / 凯希 / 伊娃（12.0b）"
+      "sourceTitle": "客户端截图读值：莉央（12.0b）"
     },
     {
       "id": "ingame-031-rio-e-1031400-long-bow-damage",
@@ -13280,12 +13275,12 @@
       "source": "in-game-client",
       "manual": false,
       "coefficientText": "和弓伤害 70/90/110/130/150(+攻击力的40%)",
-      "sourceNote": "客户端读数 client-12.0b-rio-cathy-eva 数值：和弓伤害 70/90/110/130/150(+攻击力的40%) 最多向 3 位敌人各发射 1 支箭。命中敌人时获得皆中叠层上限。",
-      "patchVersion": "client-12.0b-rio-cathy-eva",
+      "sourceNote": "客户端截图读值 12.0b 数值：和弓伤害 70/90/110/130/150(+攻击力的40%) 最多向 3 位敌人各发射 1 支箭。命中敌人时获得皆中叠层上限。",
+      "patchVersion": "client-12.0b-rio",
       "patchOrder": 20260811,
       "updatedAt": "2026-08-11T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：莉央 / 凯希 / 伊娃（12.0b）"
+      "sourceTitle": "客户端截图读值：莉央（12.0b）"
     },
     {
       "id": "ingame-031-rio-r-1031500-short-bow-damage",
@@ -13305,12 +13300,12 @@
       "hitLabel": "连矢命中数",
       "hitNote": "快速发射 3 支箭，每支同值并推开敌人；每命中一次缩减本技能冷却 5 秒。",
       "coefficientText": "单弓伤害 40/70/100(+攻击力40%)",
-      "sourceNote": "客户端读数 client-12.0b-rio-cathy-eva 数值：单弓伤害 40/70/100(+攻击力40%)",
-      "patchVersion": "client-12.0b-rio-cathy-eva",
+      "sourceNote": "客户端截图读值 12.0b 数值：单弓伤害 40/70/100(+攻击力40%)",
+      "patchVersion": "client-12.0b-rio",
       "patchOrder": 20260811,
       "updatedAt": "2026-08-11T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：莉央 / 凯希 / 伊娃（12.0b）"
+      "sourceTitle": "客户端截图读值：莉央（12.0b）"
     },
     {
       "id": "ingame-031-rio-r-1031500-short-bow-final-damage",
@@ -13326,12 +13321,12 @@
       "source": "in-game-client",
       "manual": false,
       "coefficientText": "单弓最后一箭伤害 100/150/200(+攻击力的60%)",
-      "sourceNote": "客户端读数 client-12.0b-rio-cathy-eva 数值：单弓最后一箭伤害 100/150/200(+攻击力的60%) 3 支箭之后再发射的强力箭矢，命中后震退 4m。",
-      "patchVersion": "client-12.0b-rio-cathy-eva",
+      "sourceNote": "客户端截图读值 12.0b 数值：单弓最后一箭伤害 100/150/200(+攻击力的60%) 3 支箭之后再发射的强力箭矢，命中后震退 4m。",
+      "patchVersion": "client-12.0b-rio",
       "patchOrder": 20260811,
       "updatedAt": "2026-08-11T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：莉央 / 凯希 / 伊娃（12.0b）"
+      "sourceTitle": "客户端截图读值：莉央（12.0b）"
     },
     {
       "id": "ingame-031-rio-r-1031500-wall-damage",
@@ -13347,12 +13342,12 @@
       "source": "in-game-client",
       "manual": false,
       "coefficientText": "撞至墙壁伤害量 100/125/150(+攻击力40%)",
-      "sourceNote": "客户端读数 client-12.0b-rio-cathy-eva 数值：撞至墙壁伤害量 100/125/150(+攻击力40%) 被最后一箭震退的敌人撞墙时追加结算，并晕厥 1.5 秒。",
-      "patchVersion": "client-12.0b-rio-cathy-eva",
+      "sourceNote": "客户端截图读值 12.0b 数值：撞至墙壁伤害量 100/125/150(+攻击力40%) 被最后一箭震退的敌人撞墙时追加结算，并晕厥 1.5 秒。",
+      "patchVersion": "client-12.0b-rio",
       "patchOrder": 20260811,
       "updatedAt": "2026-08-11T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：莉央 / 凯希 / 伊娃（12.0b）"
+      "sourceTitle": "客户端截图读值：莉央（12.0b）"
     },
     {
       "id": "ingame-031-rio-r-1031500-long-bow-damage",
@@ -13368,12 +13363,12 @@
       "source": "in-game-client",
       "manual": false,
       "coefficientText": "和弓伤害 200/340/480(+攻击力80%)",
-      "sourceNote": "客户端读数 client-12.0b-rio-cathy-eva 数值：和弓伤害 200/340/480(+攻击力80%) 和弓形态的范围伤害，目标 1.5 秒内移速 -60%。发射 0.8 秒后箭速 +30%、伤害 +30%（该加成未建模）。和弓状态下正射必中仅命中实验体。",
-      "patchVersion": "client-12.0b-rio-cathy-eva",
+      "sourceNote": "客户端截图读值 12.0b 数值：和弓伤害 200/340/480(+攻击力80%) 和弓形态的范围伤害，目标 1.5 秒内移速 -60%。发射 0.8 秒后箭速 +30%、伤害 +30%（该加成未建模）。和弓状态下正射必中仅命中实验体。",
+      "patchVersion": "client-12.0b-rio",
       "patchOrder": 20260811,
       "updatedAt": "2026-08-11T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：莉央 / 凯希 / 伊娃（12.0b）"
+      "sourceTitle": "客户端截图读值：莉央（12.0b）"
     },
     {
       "id": "ingame-023-cathy-p-1023100-trauma-damage",
@@ -13394,12 +13389,12 @@
       "hitNote": "造成技能伤害时赋予 1 层外伤，持续 4 秒；累计 3 层进入致命外伤状态。",
       "damageType": "true",
       "coefficientText": "技能增幅的25% 真实伤害",
-      "sourceNote": "客户端读数 client-12.0b-rio-cathy-eva 数值：技能增幅的25% 真实伤害 真实伤害，不吃防御与减伤。",
-      "patchVersion": "client-12.0b-rio-cathy-eva",
+      "sourceNote": "客户端截图读值 12.0b 数值：技能增幅的25% 真实伤害 真实伤害，不吃防御与减伤。",
+      "patchVersion": "client-12.0b-cathy",
       "patchOrder": 20260811,
       "updatedAt": "2026-08-11T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：莉央 / 凯希 / 伊娃（12.0b）"
+      "sourceTitle": "客户端截图读值：凯希（12.0b）"
     },
     {
       "id": "ingame-023-cathy-p-1023100-fatal-trauma-damage",
@@ -13416,12 +13411,12 @@
       "manual": false,
       "damageType": "true",
       "coefficientText": "体力上限6%(+技能增幅25%) 真实伤害",
-      "sourceNote": "客户端读数 client-12.0b-rio-cathy-eva 数值：体力上限6%(+技能增幅25%) 真实伤害 3 层外伤时触发，同时使目标治愈效果 -30%。真实伤害，不吃防御与减伤。",
-      "patchVersion": "client-12.0b-rio-cathy-eva",
+      "sourceNote": "客户端截图读值 12.0b 数值：体力上限6%(+技能增幅25%) 真实伤害 3 层外伤时触发，同时使目标治愈效果 -30%。真实伤害，不吃防御与减伤。",
+      "patchVersion": "client-12.0b-cathy",
       "patchOrder": 20260811,
       "updatedAt": "2026-08-11T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：莉央 / 凯希 / 伊娃（12.0b）"
+      "sourceTitle": "客户端截图读值：凯希（12.0b）"
     },
     {
       "id": "ingame-023-cathy-p-1023100-shield",
@@ -13438,12 +13433,12 @@
       "manual": false,
       "kind": "shield",
       "coefficientText": "护盾吸收 70/120/170(+技能增幅45%)",
-      "sourceNote": "客户端读数 client-12.0b-rio-cathy-eva 数值：护盾吸收 70/120/170(+技能增幅45%) 赋予致命外伤时获得，持续 2 秒。冷却 16 秒。",
-      "patchVersion": "client-12.0b-rio-cathy-eva",
+      "sourceNote": "客户端截图读值 12.0b 数值：护盾吸收 70/120/170(+技能增幅45%) 赋予致命外伤时获得，持续 2 秒。冷却 16 秒。",
+      "patchVersion": "client-12.0b-cathy",
       "patchOrder": 20260811,
       "updatedAt": "2026-08-11T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：莉央 / 凯希 / 伊娃（12.0b）"
+      "sourceTitle": "客户端截图读值：凯希（12.0b）"
     },
     {
       "id": "ingame-023-cathy-q-1023200-passive-basic-attack",
@@ -13460,12 +13455,12 @@
       "manual": false,
       "kind": "basicAttack",
       "coefficientText": "技能增幅的50%",
-      "sourceNote": "客户端读数 client-12.0b-rio-cathy-eva 数值：技能增幅的50% 使用任意技能后，下一个普攻附加这段额外技能伤害（最小为 1）。使用双剑时该被动普攻改为造成攻击力 110% 的伤害（未建模）。",
-      "patchVersion": "client-12.0b-rio-cathy-eva",
+      "sourceNote": "客户端截图读值 12.0b 数值：技能增幅的50% 使用任意技能后，下一个普攻附加这段额外技能伤害（最小为 1）。使用双剑时该被动普攻改为造成攻击力 110% 的伤害（未建模）。",
+      "patchVersion": "client-12.0b-cathy",
       "patchOrder": 20260811,
       "updatedAt": "2026-08-11T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：莉央 / 凯希 / 伊娃（12.0b）"
+      "sourceTitle": "客户端截图读值：凯希（12.0b）"
     },
     {
       "id": "ingame-023-cathy-q-1023200-damage",
@@ -13481,12 +13476,12 @@
       "source": "in-game-client",
       "manual": false,
       "coefficientText": "伤害 90/120/150/180/210(+技能增幅80%)",
-      "sourceNote": "客户端读数 client-12.0b-rio-cathy-eva 数值：伤害 90/120/150/180/210(+技能增幅80%) 冲向指定方向，所有被冲撞的敌人结算。使敌人陷入致命外伤时本技能冷却减少 50/55/60/65/70%。",
-      "patchVersion": "client-12.0b-rio-cathy-eva",
+      "sourceNote": "客户端截图读值 12.0b 数值：伤害 90/120/150/180/210(+技能增幅80%) 冲向指定方向，所有被冲撞的敌人结算。使敌人陷入致命外伤时本技能冷却减少 50/55/60/65/70%。",
+      "patchVersion": "client-12.0b-cathy",
       "patchOrder": 20260811,
       "updatedAt": "2026-08-11T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：莉央 / 凯希 / 伊娃（12.0b）"
+      "sourceTitle": "客户端截图读值：凯希（12.0b）"
     },
     {
       "id": "ingame-023-cathy-w-1023300-damage",
@@ -13502,12 +13497,12 @@
       "source": "in-game-client",
       "manual": false,
       "coefficientText": "伤害 30/55/80/105/130(+技能增幅的70%)",
-      "sourceNote": "客户端读数 client-12.0b-rio-cathy-eva 数值：伤害 30/55/80/105/130(+技能增幅的70%) 内围命中，且**不会**赋予外伤叠层。",
-      "patchVersion": "client-12.0b-rio-cathy-eva",
+      "sourceNote": "客户端截图读值 12.0b 数值：伤害 30/55/80/105/130(+技能增幅的70%) 内围命中，且**不会**赋予外伤叠层。",
+      "patchVersion": "client-12.0b-cathy",
       "patchOrder": 20260811,
       "updatedAt": "2026-08-11T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：莉央 / 凯希 / 伊娃（12.0b）"
+      "sourceTitle": "客户端截图读值：凯希（12.0b）"
     },
     {
       "id": "ingame-023-cathy-e-1023400-damage",
@@ -13527,12 +13522,12 @@
       "hitLabel": "穿透敌人数",
       "hitNote": "针头最多可再串中另一名敌人。",
       "coefficientText": "伤害 50/60/70/80/90(+技能增幅的45%)",
-      "sourceNote": "客户端读数 client-12.0b-rio-cathy-eva 数值：伤害 50/60/70/80/90(+技能增幅的45%) 命中后束缚 0.7 秒。",
-      "patchVersion": "client-12.0b-rio-cathy-eva",
+      "sourceNote": "客户端截图读值 12.0b 数值：伤害 50/60/70/80/90(+技能增幅的45%) 命中后束缚 0.7 秒。",
+      "patchVersion": "client-12.0b-cathy",
       "patchOrder": 20260811,
       "updatedAt": "2026-08-11T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：莉央 / 凯希 / 伊娃（12.0b）"
+      "sourceTitle": "客户端截图读值：凯希（12.0b）"
     },
     {
       "id": "ingame-023-cathy-r-1023500-damage",
@@ -13548,12 +13543,12 @@
       "source": "in-game-client",
       "manual": false,
       "coefficientText": "最小伤害 100/175/250(+技能增幅的70%) ~ 最大伤害 200/350/500(+技能增幅的140%)",
-      "sourceNote": "客户端读数 client-12.0b-rio-cathy-eva 数值：最小伤害 100/175/250(+技能增幅的70%) ~ 最大伤害 200/350/500(+技能增幅的140%) 与目标已失体力成正比，**目标当前体力低于 30% 时达到最大值**，所以插值在已失 70% 处封顶。最大值恰好是最小值的 2 倍。命中后立即赋予致命外伤。冷却 80/70/60 秒。",
-      "patchVersion": "client-12.0b-rio-cathy-eva",
+      "sourceNote": "客户端截图读值 12.0b 数值：最小伤害 100/175/250(+技能增幅的70%) ~ 最大伤害 200/350/500(+技能增幅的140%) 与目标已失体力成正比，**目标当前体力低于 30% 时达到最大值**，所以插值在已失 70% 处封顶。最大值恰好是最小值的 2 倍。命中后立即赋予致命外伤。冷却 80/70/60 秒。",
+      "patchVersion": "client-12.0b-cathy",
       "patchOrder": 20260811,
       "updatedAt": "2026-08-11T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：莉央 / 凯希 / 伊娃（12.0b）"
+      "sourceTitle": "客户端截图读值：凯希（12.0b）"
     },
     {
       "id": "ingame-036-eva-p-1036100-damage",
@@ -13570,12 +13565,12 @@
       "manual": false,
       "kind": "basicAttack",
       "coefficientText": "伤害 30/60/90(+技能增幅的45%)",
-      "sourceNote": "客户端读数 client-12.0b-rio-cathy-eva 数值：伤害 30/60/90(+技能增幅的45%) 每 5 秒普攻射程 +1 并强化一次普攻，此普攻也被视为技能攻击。命中时获得 15 Vital Force。",
-      "patchVersion": "client-12.0b-rio-cathy-eva",
+      "sourceNote": "客户端截图读值 12.0b 数值：伤害 30/60/90(+技能增幅的45%) 每 5 秒普攻射程 +1 并强化一次普攻，此普攻也被视为技能攻击。命中时获得 15 Vital Force。",
+      "patchVersion": "client-12.0b-eva",
       "patchOrder": 20260811,
       "updatedAt": "2026-08-11T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：莉央 / 凯希 / 伊娃（12.0b）"
+      "sourceTitle": "客户端截图读值：伊娃（12.0b）"
     },
     {
       "id": "ingame-036-eva-q-1036200-orb-damage",
@@ -13591,12 +13586,12 @@
       "source": "in-game-client",
       "manual": false,
       "coefficientText": "球体伤害 40/60/80/100/120(+技能增幅的40%)",
-      "sourceNote": "客户端读数 client-12.0b-rio-cathy-eva 数值：球体伤害 40/60/80/100/120(+技能增幅的40%) 穿透性球体对路径上的敌人结算。冷却 9/8/7/6/5 秒。",
-      "patchVersion": "client-12.0b-rio-cathy-eva",
+      "sourceNote": "客户端截图读值 12.0b 数值：球体伤害 40/60/80/100/120(+技能增幅的40%) 穿透性球体对路径上的敌人结算。冷却 9/8/7/6/5 秒。",
+      "patchVersion": "client-12.0b-eva",
       "patchOrder": 20260811,
       "updatedAt": "2026-08-11T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：莉央 / 凯希 / 伊娃（12.0b）"
+      "sourceTitle": "客户端截图读值：伊娃（12.0b）"
     },
     {
       "id": "ingame-036-eva-q-1036200-explosion-damage",
@@ -13612,12 +13607,12 @@
       "source": "in-game-client",
       "manual": false,
       "coefficientText": "爆炸伤害 40/70/100/130/160(+技能增幅的40%)",
-      "sourceNote": "客户端读数 client-12.0b-rio-cathy-eva 数值：爆炸伤害 40/70/100/130/160(+技能增幅的40%) 球体飞到射程末端或再次使用技能时爆炸。爆炸命中敌人可使冷却缩减 1 秒。",
-      "patchVersion": "client-12.0b-rio-cathy-eva",
+      "sourceNote": "客户端截图读值 12.0b 数值：爆炸伤害 40/70/100/130/160(+技能增幅的40%) 球体飞到射程末端或再次使用技能时爆炸。爆炸命中敌人可使冷却缩减 1 秒。",
+      "patchVersion": "client-12.0b-eva",
       "patchOrder": 20260811,
       "updatedAt": "2026-08-11T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：莉央 / 凯希 / 伊娃（12.0b）"
+      "sourceTitle": "客户端截图读值：伊娃（12.0b）"
     },
     {
       "id": "ingame-036-eva-w-1036300-damage",
@@ -13633,12 +13628,12 @@
       "source": "in-game-client",
       "manual": false,
       "coefficientText": "伤害 40/70/100/130/160(+技能增幅的40%)",
-      "sourceNote": "客户端读数 client-12.0b-rio-cathy-eva 数值：伤害 40/70/100/130/160(+技能增幅的40%) 生成时结算，停留在范围内的敌人移速 -40%。",
-      "patchVersion": "client-12.0b-rio-cathy-eva",
+      "sourceNote": "客户端截图读值 12.0b 数值：伤害 40/70/100/130/160(+技能增幅的40%) 生成时结算，停留在范围内的敌人移速 -40%。",
+      "patchVersion": "client-12.0b-eva",
       "patchOrder": 20260811,
       "updatedAt": "2026-08-11T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：莉央 / 凯希 / 伊娃（12.0b）"
+      "sourceTitle": "客户端截图读值：伊娃（12.0b）"
     },
     {
       "id": "ingame-036-eva-e-1036400-damage",
@@ -13654,12 +13649,12 @@
       "source": "in-game-client",
       "manual": false,
       "coefficientText": "伤害 20/25/30/35/40(+技能增幅的20%)",
-      "sourceNote": "客户端读数 client-12.0b-rio-cathy-eva 数值：伤害 20/25/30/35/40(+技能增幅的20%) 幻步后 3 秒内对敌人造成技能伤害时，发射持续 4 秒的 VF 能量球。能量球不会对 VF觉醒 普攻伤害的目标触发，只触发于承受叠层伤害的目标。",
-      "patchVersion": "client-12.0b-rio-cathy-eva",
+      "sourceNote": "客户端截图读值 12.0b 数值：伤害 20/25/30/35/40(+技能增幅的20%) 幻步后 3 秒内对敌人造成技能伤害时，发射持续 4 秒的 VF 能量球。能量球不会对 VF觉醒 普攻伤害的目标触发，只触发于承受叠层伤害的目标。",
+      "patchVersion": "client-12.0b-eva",
       "patchOrder": 20260811,
       "updatedAt": "2026-08-11T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：莉央 / 凯希 / 伊娃（12.0b）"
+      "sourceTitle": "客户端截图读值：伊娃（12.0b）"
     },
     {
       "id": "ingame-036-eva-r-1036500-damage",
@@ -13679,12 +13674,12 @@
       "hitLabel": "投射跳数",
       "hitNote": "每 0.1 秒结算一次并叠层，叠满 5 层触发额外伤害后重置。",
       "coefficientText": "伤害 8/12/16(+技能增幅的5%)",
-      "sourceNote": "客户端读数 client-12.0b-rio-cathy-eva 数值：伤害 8/12/16(+技能增幅的5%) 至少需要 20 Vital Force 才能使用，投射时每 0.1 秒消耗 4。",
-      "patchVersion": "client-12.0b-rio-cathy-eva",
+      "sourceNote": "客户端截图读值 12.0b 数值：伤害 8/12/16(+技能增幅的5%) 至少需要 20 Vital Force 才能使用，投射时每 0.1 秒消耗 4。",
+      "patchVersion": "client-12.0b-eva",
       "patchOrder": 20260811,
       "updatedAt": "2026-08-11T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：莉央 / 凯希 / 伊娃（12.0b）"
+      "sourceTitle": "客户端截图读值：伊娃（12.0b）"
     },
     {
       "id": "ingame-040-chloe-q-1040200-damage",
@@ -13700,12 +13695,12 @@
       "source": "in-game-client",
       "manual": false,
       "coefficientText": "[妮娜] 伤害 70/90/110/130/150(+妮娜攻击力的75%)",
-      "sourceNote": "客户端读数 client-12.0b-chloe 数值：[妮娜] 伤害 70/90/110/130/150(+妮娜攻击力的75%) 妮娜用双刀刃腿攻击周围敌人，命中后目标 1.5 秒内移速 -10/15/20/25/30%。冷却 5 秒。",
+      "sourceNote": "客户端截图读值 12.0b 数值：[妮娜] 伤害 70/90/110/130/150(+妮娜攻击力的75%) 妮娜用双刀刃腿攻击周围敌人，命中后目标 1.5 秒内移速 -10/15/20/25/30%。冷却 5 秒。",
       "patchVersion": "client-12.0b-chloe",
       "patchOrder": 20260811,
       "updatedAt": "2026-08-11T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：克洛伊（12.0b）"
+      "sourceTitle": "客户端截图读值：克洛伊（12.0b）"
     },
     {
       "id": "ingame-040-chloe-w-1040300-spin-true-damage",
@@ -13722,12 +13717,12 @@
       "manual": false,
       "damageType": "true",
       "coefficientText": "每秒 15(+攻击力的6%) 真实伤害",
-      "sourceNote": "客户端读数 client-12.0b-chloe 数值：每秒 15(+攻击力的6%) 真实伤害 操纵线旋转期间每秒结算一次，敌人移速 -35%。客户端底部数值表没有这一行（只列了恢复量、投掷伤害、下劈伤害），说明它不随技能等级变化，故五级同值。",
+      "sourceNote": "客户端截图读值 12.0b 数值：每秒 15(+攻击力的6%) 真实伤害 操纵线旋转期间每秒结算一次，敌人移速 -35%。客户端底部数值表没有这一行（只列了恢复量、投掷伤害、下劈伤害），说明它不随技能等级变化，故五级同值。",
       "patchVersion": "client-12.0b-chloe",
       "patchOrder": 20260811,
       "updatedAt": "2026-08-11T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：克洛伊（12.0b）"
+      "sourceTitle": "客户端截图读值：克洛伊（12.0b）"
     },
     {
       "id": "ingame-040-chloe-w-1040300-throw-damage",
@@ -13743,12 +13738,12 @@
       "source": "in-game-client",
       "manual": false,
       "coefficientText": "[克洛伊] 投掷伤害 40/60/80/100/120(+攻击力的80%)",
-      "sourceNote": "客户端读数 client-12.0b-chloe 数值：[克洛伊] 投掷伤害 40/60/80/100/120(+攻击力的80%) 3 秒内再次使用时把十字提线插在指定位置，目标 1 秒内移速 -30/35/40/45/50%。蓄力中被取消或未使用时返还 50% 冷却。",
+      "sourceNote": "客户端截图读值 12.0b 数值：[克洛伊] 投掷伤害 40/60/80/100/120(+攻击力的80%) 3 秒内再次使用时把十字提线插在指定位置，目标 1 秒内移速 -30/35/40/45/50%。蓄力中被取消或未使用时返还 50% 冷却。",
       "patchVersion": "client-12.0b-chloe",
       "patchOrder": 20260811,
       "updatedAt": "2026-08-11T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：克洛伊（12.0b）"
+      "sourceTitle": "客户端截图读值：克洛伊（12.0b）"
     },
     {
       "id": "ingame-040-chloe-w-1040300-nina-slam-damage",
@@ -13764,12 +13759,12 @@
       "source": "in-game-client",
       "manual": false,
       "coefficientText": "[妮娜] 下劈伤害 40/80/120/160/200(+妮娜攻击力的70%)",
-      "sourceNote": "客户端读数 client-12.0b-chloe 数值：[妮娜] 下劈伤害 40/80/120/160/200(+妮娜攻击力的70%) 妮娜瞬移到十字提线位置下劈，敌人悬空 0.5 秒。妮娜攻击结束后提线弹回克洛伊。",
+      "sourceNote": "客户端截图读值 12.0b 数值：[妮娜] 下劈伤害 40/80/120/160/200(+妮娜攻击力的70%) 妮娜瞬移到十字提线位置下劈，敌人悬空 0.5 秒。妮娜攻击结束后提线弹回克洛伊。",
       "patchVersion": "client-12.0b-chloe",
       "patchOrder": 20260811,
       "updatedAt": "2026-08-11T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：克洛伊（12.0b）"
+      "sourceTitle": "客户端截图读值：克洛伊（12.0b）"
     },
     {
       "id": "ingame-040-chloe-e-1040400-damage",
@@ -13785,12 +13780,12 @@
       "source": "in-game-client",
       "manual": false,
       "coefficientText": "[克洛伊] 伤害 40/55/70/85/100(+攻击力的40%)",
-      "sourceNote": "客户端读数 client-12.0b-chloe 数值：[克洛伊] 伤害 40/55/70/85/100(+攻击力的40%) 朝指定方向快速移动，对路径上的敌人结算。冷却 14/13.5/13/12.5/12 秒。",
+      "sourceNote": "客户端截图读值 12.0b 数值：[克洛伊] 伤害 40/55/70/85/100(+攻击力的40%) 朝指定方向快速移动，对路径上的敌人结算。冷却 14/13.5/13/12.5/12 秒。",
       "patchVersion": "client-12.0b-chloe",
       "patchOrder": 20260811,
       "updatedAt": "2026-08-11T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：克洛伊（12.0b）"
+      "sourceTitle": "客户端截图读值：克洛伊（12.0b）"
     },
     {
       "id": "ingame-040-chloe-e-1040400-nina-damage",
@@ -13806,12 +13801,12 @@
       "source": "in-game-client",
       "manual": false,
       "coefficientText": "[妮娜] 伤害 50/80/110/140/170(+妮娜攻击力的60%)",
-      "sourceNote": "客户端读数 client-12.0b-chloe 数值：[妮娜] 伤害 50/80/110/140/170(+妮娜攻击力的60%) 1 秒后再次使用时妮娜飞向克洛伊并刺伤路径上的敌人；妮娜命中敌人时重置攻击指令(Q)的冷却。",
+      "sourceNote": "客户端截图读值 12.0b 数值：[妮娜] 伤害 50/80/110/140/170(+妮娜攻击力的60%) 1 秒后再次使用时妮娜飞向克洛伊并刺伤路径上的敌人；妮娜命中敌人时重置攻击指令(Q)的冷却。",
       "patchVersion": "client-12.0b-chloe",
       "patchOrder": 20260811,
       "updatedAt": "2026-08-11T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：克洛伊（12.0b）"
+      "sourceTitle": "客户端截图读值：克洛伊（12.0b）"
     },
     {
       "id": "ingame-040-chloe-r-1040500-link-true-damage",
@@ -13828,12 +13823,12 @@
       "manual": false,
       "damageType": "true",
       "coefficientText": "连结线伤害(秒) 30/60/90 真实伤害",
-      "sourceNote": "客户端读数 client-12.0b-chloe 数值：连结线伤害(秒) 30/60/90 真实伤害 连结状态持续 5 秒，敌人碰到连结线时每秒结算。接触越久伤害越高（1 级为 30~70），这里取的是下限；上限随接触时间递增，模型没有这一层。连结期间妮娜攻速 +20/25/30%、移速 +25/30/35%，W 与 E 冷却 -30%。冷却 80/70/60 秒。",
+      "sourceNote": "客户端截图读值 12.0b 数值：连结线伤害(秒) 30/60/90 真实伤害 连结状态持续 5 秒，敌人碰到连结线时每秒结算。接触越久伤害越高（1 级为 30~70），这里取的是下限；上限随接触时间递增，模型没有这一层。连结期间妮娜攻速 +20/25/30%、移速 +25/30/35%，W 与 E 冷却 -30%。冷却 80/70/60 秒。",
       "patchVersion": "client-12.0b-chloe",
       "patchOrder": 20260811,
       "updatedAt": "2026-08-11T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：克洛伊（12.0b）"
+      "sourceTitle": "客户端截图读值：克洛伊（12.0b）"
     },
     {
       "id": "patch-121-nathapon-q-1034200-damage",
@@ -13889,13 +13884,12 @@
       "manual": false,
       "kind": "basicAttack",
       "coefficientText": "总攻击力比率 35/45/55，(+攻击力的35/45/55%) * (普攻增幅)",
-      "sourceNote": "官方公告 model-basic-attack-amp 数值：总攻击力比率 35/45/55，(+攻击力的35/45/55%) * (普攻增幅) 醉仙模式下普攻变成两连击，第二段按「总攻击力比率」结算，官方明写要再乘一次普攻增幅，该乘区已建模（basicAttackAmp）。12.1 把系数由 30/40/50 上调至 35/45/55（客户端 12.0b 截图读到的仍是改版前的 30/40/50）。酒醉值 40 以上进入微醺，Q 与 E 强化为醉拳状态；100 以上进入酒醉状态，5 秒内无法使用技能。 该段按普攻伤害结算：吃普攻增幅，减伤走目标的普攻减伤而不是技能减伤。",
-      "patchVersion": "model-basic-attack-amp",
+      "sourceNote": "官方公告 12.1 数值：总攻击力比率 35/45/55，(+攻击力的35/45/55%) * (普攻增幅) 醉仙模式下普攻变成两连击，第二段按「总攻击力比率」结算，官方明写要再乘一次普攻增幅，该乘区已建模（basicAttackAmp）。12.1 把系数由 30/40/50 上调至 35/45/55（客户端 12.0b 截图读到的仍是改版前的 30/40/50）。酒醉值 40 以上进入微醺，Q 与 E 强化为醉拳状态；100 以上进入酒醉状态，5 秒内无法使用技能。 该段按普攻伤害结算：吃普攻增幅，减伤走目标的普攻减伤而不是技能减伤。",
+      "patchVersion": "model-basic-attack-amp-lidailin",
       "patchOrder": 20260814,
       "updatedAt": "2026-08-14T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "建模：普攻伤害结算线（普攻增幅 + 普攻减伤）",
-      "authority": 80,
+      "sourceTitle": "建模：李黛琳 的普攻伤害结算线",
       "damageType": "basicAttack"
     },
     {
@@ -13936,12 +13930,12 @@
       "hitLabel": "使用次数",
       "hitNote": "短暂冲向敌人，可再次使用两次，共 3 段；只有最后一次能穿越墙壁。",
       "coefficientText": "伤害 20/40/60/80/100(+攻击力的70%)",
-      "sourceNote": "客户端读数 client-12.0b-lidailin 数值：伤害 20/40/60/80/100(+攻击力的70%) 冷却 13/12.5/12/11.5/11 秒。",
+      "sourceNote": "客户端截图读值 12.0b 数值：伤害 20/40/60/80/100(+攻击力的70%) 冷却 13/12.5/12/11.5/11 秒。",
       "patchVersion": "client-12.0b-lidailin",
       "patchOrder": 20260812,
       "updatedAt": "2026-08-12T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：李黛琳（12.0b）"
+      "sourceTitle": "客户端截图读值：李黛琳（12.0b）"
     },
     {
       "id": "ingame-010-lidailin-q-1010200-drunk-fist-damage",
@@ -13960,12 +13954,12 @@
       "hitLabel": "使用次数",
       "hitNote": "醉拳状态下的强化版，同样可用 3 次。",
       "coefficientText": "醉拳强化伤害 40/65/90/115/140(+攻击力的85%)",
-      "sourceNote": "客户端读数 client-12.0b-lidailin 数值：醉拳强化伤害 40/65/90/115/140(+攻击力的85%) 酒醉值 40 以上时 Q 强化为醉拳状态，每次使用消耗 40 酒醉值，突进距离也会增加。",
+      "sourceNote": "客户端截图读值 12.0b 数值：醉拳强化伤害 40/65/90/115/140(+攻击力的85%) 酒醉值 40 以上时 Q 强化为醉拳状态，每次使用消耗 40 酒醉值，突进距离也会增加。",
       "patchVersion": "client-12.0b-lidailin",
       "patchOrder": 20260812,
       "updatedAt": "2026-08-12T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：李黛琳（12.0b）"
+      "sourceTitle": "客户端截图读值：李黛琳（12.0b）"
     },
     {
       "id": "ingame-010-lidailin-e-1010400-damage",
@@ -13980,12 +13974,12 @@
       "source": "in-game-client",
       "manual": false,
       "coefficientText": "伤害 50/100/150/200/250(+攻击力的90%)",
-      "sourceNote": "客户端读数 client-12.0b-lidailin 数值：伤害 50/100/150/200/250(+攻击力的90%) 扇形洒出酒雨，命中的敌人 2 秒内移速 -25/27.5/30/32.5/35%。醉拳状态下消耗 40 酒醉值，减速提升到 45/50/55/60/65%，伤害不变。冷却 10/9.5/9/8.5/8 秒。",
+      "sourceNote": "客户端截图读值 12.0b 数值：伤害 50/100/150/200/250(+攻击力的90%) 扇形洒出酒雨，命中的敌人 2 秒内移速 -25/27.5/30/32.5/35%。醉拳状态下消耗 40 酒醉值，减速提升到 45/50/55/60/65%，伤害不变。冷却 10/9.5/9/8.5/8 秒。",
       "patchVersion": "client-12.0b-lidailin",
       "patchOrder": 20260812,
       "updatedAt": "2026-08-12T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：李黛琳（12.0b）"
+      "sourceTitle": "客户端截图读值：李黛琳（12.0b）"
     },
     {
       "id": "ingame-010-lidailin-r-1010500-damage",
@@ -14007,12 +14001,12 @@
       "hitLabel": "命中次数",
       "hitNote": "1.2 秒内压制冲撞的敌人，共 4 次攻击。",
       "coefficientText": "每次 20/70/120(+攻击力的60%)(+消耗酒醉值的50%) ~ 30/105/180(+攻击力的90%)(+消耗酒醉值的75%)",
-      "sourceNote": "客户端读数 client-12.0b-lidailin 数值：每次 20/70/120(+攻击力的60%)(+消耗酒醉值的50%) ~ 30/105/180(+攻击力的90%)(+消耗酒醉值的75%) 伤害随目标已失体力在最小~最大之间变化，最大值恰好是最小值的 1.5 倍（基础值、攻击力系数、酒醉值系数三项都是 1.5 倍关系），因此用 (1 + 0.5 * 已失体力 / 体力上限) 插值成一条公式。施放时消耗全部酒醉值，消耗得越多伤害越高，用叠层选择器代表消耗量。该技能仅对实验体和终极野怪生效。冷却 80/70/60 秒。",
+      "sourceNote": "客户端截图读值 12.0b 数值：每次 20/70/120(+攻击力的60%)(+消耗酒醉值的50%) ~ 30/105/180(+攻击力的90%)(+消耗酒醉值的75%) 伤害随目标已失体力在最小~最大之间变化，最大值恰好是最小值的 1.5 倍（基础值、攻击力系数、酒醉值系数三项都是 1.5 倍关系），因此用 (1 + 0.5 * 已失体力 / 体力上限) 插值成一条公式。施放时消耗全部酒醉值，消耗得越多伤害越高，用叠层选择器代表消耗量。该技能仅对实验体和终极野怪生效。冷却 80/70/60 秒。",
       "patchVersion": "client-12.0b-lidailin",
       "patchOrder": 20260812,
       "updatedAt": "2026-08-12T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：李黛琳（12.0b）"
+      "sourceTitle": "客户端截图读值：李黛琳（12.0b）"
     },
     {
       "id": "ingame-038-jenny-q-1038200-damage",
@@ -14031,12 +14025,12 @@
       "hitLabel": "照亮次数",
       "hitNote": "聚光灯照亮目标点 3 次，每次独立结算一段伤害。",
       "coefficientText": "伤害 70/80/90/100/110(+技能增幅的40%)",
-      "sourceNote": "客户端读数 client-12.1-jenny 数值：伤害 70/80/90/100/110(+技能增幅的40%) 照到敌人时该技能冷却 -0.5 秒；照到自己时按扮演角色给增益（红酒攻速+6%／红茶移速+2%，各上限 3 层）。冷却 9/8.5/8/7.5/7 秒。",
-      "patchVersion": "client-12.1-jenny",
-      "patchOrder": 20260815,
-      "updatedAt": "2026-08-15T02:00:00.000Z",
+      "sourceNote": "客户端截图读值 12.0b 数值：伤害 70/80/90/100/110(+技能增幅的40%) 照到敌人时该技能冷却 -0.5 秒；照到自己时按扮演角色给增益（红酒攻速+6%／红茶移速+2%，各上限 3 层）。冷却 9/8.5/8/7.5/7 秒。",
+      "patchVersion": "client-12.0b-jenny",
+      "patchOrder": 20260812,
+      "updatedAt": "2026-08-12T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：珍妮（12.1）"
+      "sourceTitle": "客户端截图读值：珍妮（12.0b）"
     },
     {
       "id": "ingame-038-jenny-w-1038300-damage",
@@ -14051,12 +14045,12 @@
       "source": "in-game-client",
       "manual": false,
       "coefficientText": "伤害 30/55/80/105/130(+技能增幅的40%)",
-      "sourceNote": "客户端读数 client-12.1-jenny 数值：伤害 30/55/80/105/130(+技能增幅的40%) 朝指定方向铺红毯，命中的敌人 0.25 秒内移速 -30%。冷却 15 秒。",
-      "patchVersion": "client-12.1-jenny",
-      "patchOrder": 20260815,
-      "updatedAt": "2026-08-15T02:00:00.000Z",
+      "sourceNote": "客户端截图读值 12.0b 数值：伤害 30/55/80/105/130(+技能增幅的40%) 朝指定方向铺红毯，命中的敌人 0.25 秒内移速 -30%。冷却 15 秒。",
+      "patchVersion": "client-12.0b-jenny",
+      "patchOrder": 20260812,
+      "updatedAt": "2026-08-12T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：珍妮（12.1）"
+      "sourceTitle": "客户端截图读值：珍妮（12.0b）"
     },
     {
       "id": "ingame-038-jenny-w-1038300-reactivation-damage",
@@ -14071,12 +14065,12 @@
       "source": "in-game-client",
       "manual": false,
       "coefficientText": "再使用伤害 30/55/80/105/130(+技能增幅的40%)",
-      "sourceNote": "客户端读数 client-12.1-jenny 数值：再使用伤害 30/55/80/105/130(+技能增幅的40%) 再次使用时对红毯上的敌人结算第二段。红酒把敌人拉向自己，红茶把敌人推离。",
-      "patchVersion": "client-12.1-jenny",
-      "patchOrder": 20260815,
-      "updatedAt": "2026-08-15T02:00:00.000Z",
+      "sourceNote": "客户端截图读值 12.0b 数值：再使用伤害 30/55/80/105/130(+技能增幅的40%) 再次使用时对红毯上的敌人结算第二段。红酒把敌人拉向自己，红茶把敌人推离。",
+      "patchVersion": "client-12.0b-jenny",
+      "patchOrder": 20260812,
+      "updatedAt": "2026-08-12T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：珍妮（12.1）"
+      "sourceTitle": "客户端截图读值：珍妮（12.0b）"
     },
     {
       "id": "ingame-038-jenny-r-1038500-damage",
@@ -14091,12 +14085,12 @@
       "source": "in-game-client",
       "manual": false,
       "coefficientText": "伤害 150/240/330(+技能增幅的70%)",
-      "sourceNote": "客户端读数 client-12.1-jenny 数值：伤害 150/240/330(+技能增幅的70%) 设置颁奖舞台，范围内敌人移速 -25/30/35% 并重置演员的修养(E)冷却；舞台 2 秒后消失时才结算伤害并使敌人迷惑 0.8 秒。冷却 80/65/60 秒。",
-      "patchVersion": "client-12.1-jenny",
-      "patchOrder": 20260815,
-      "updatedAt": "2026-08-15T02:00:00.000Z",
+      "sourceNote": "客户端截图读值 12.0b 数值：伤害 150/240/330(+技能增幅的70%) 设置颁奖舞台，范围内敌人移速 -25/30/35% 并重置演员的修养(E)冷却；舞台 2 秒后消失时才结算伤害并使敌人迷惑 0.8 秒。冷却 80/65/60 秒。",
+      "patchVersion": "client-12.0b-jenny",
+      "patchOrder": 20260812,
+      "updatedAt": "2026-08-12T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：珍妮（12.1）"
+      "sourceTitle": "客户端截图读值：珍妮（12.0b）"
     },
     {
       "id": "ingame-038-jenny-p-1038100-revive-heal",
@@ -14112,12 +14106,12 @@
       "manual": false,
       "kind": "heal",
       "coefficientText": "体力恢复 100(+体力上限的 2/11/20%)",
-      "sourceNote": "客户端读数 client-12.1-jenny 数值：体力恢复 100(+体力上限的 2/11/20%) 体力归零时进入死亡演技状态：3 秒进入隐身、无敌、不可被指定，但移速大幅降低，之后按这个量恢复体力并复活。期间只能吃食物，不能用其他物品或技能。冷却 70 秒。演技值：用 E 切换扮演角色时红酒攻速 +30/45/60%、红茶移速 +4%，持续 6 秒。",
-      "patchVersion": "client-12.1-jenny",
-      "patchOrder": 20260815,
-      "updatedAt": "2026-08-15T02:00:00.000Z",
+      "sourceNote": "客户端截图读值 12.0b 数值：体力恢复 100(+体力上限的 2/11/20%) 体力归零时进入死亡演技状态：3 秒进入隐身、无敌、不可被指定，但移速大幅降低，之后按这个量恢复体力并复活。期间只能吃食物，不能用其他物品或技能。冷却 70 秒。演技值：用 E 切换扮演角色时红酒攻速 +30/45/60%、红茶移速 +4%，持续 6 秒。",
+      "patchVersion": "client-12.0b-jenny",
+      "patchOrder": 20260812,
+      "updatedAt": "2026-08-12T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：珍妮（12.1）"
+      "sourceTitle": "客户端截图读值：珍妮（12.0b）"
     },
     {
       "id": "ingame-025-bernice-q-1025200-damage",
@@ -14132,12 +14126,12 @@
       "source": "in-game-client",
       "manual": false,
       "coefficientText": "伤害 60/90/120/150/180(+攻击力的100%)",
-      "sourceNote": "客户端读数 client-12.1-bernice 数值：伤害 60/90/120/150/180(+攻击力的100%) 发射穿透性子弹，命中的敌人 1.5 秒内移速 -20/25/30/35/40%。冷却 7/6.5/6/5.5/5 秒。",
-      "patchVersion": "client-12.1-bernice",
-      "patchOrder": 20260816,
-      "updatedAt": "2026-08-16T02:00:00.000Z",
+      "sourceNote": "客户端截图读值 12.0b 数值：伤害 60/90/120/150/180(+攻击力的100%) 发射穿透性子弹，命中的敌人 1.5 秒内移速 -20/25/30/35/40%。冷却 7/6.5/6/5.5/5 秒。",
+      "patchVersion": "client-12.0b-bernice",
+      "patchOrder": 20260812,
+      "updatedAt": "2026-08-12T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：伯尼斯（12.1）"
+      "sourceTitle": "客户端截图读值：伯尼斯（12.0b）"
     },
     {
       "id": "ingame-025-bernice-w-1025300-bleed-damage",
@@ -14152,12 +14146,12 @@
       "source": "in-game-client",
       "manual": false,
       "coefficientText": "流血伤害 40/70/100/130/160(+攻击力的60%)",
-      "sourceNote": "客户端读数 client-12.1-bernice 数值：流血伤害 40/70/100/130/160(+攻击力的60%) 安装一个持续 20/25/30/35/40 秒的捕兽夹，踩中的敌人 0.75 秒内陷入束缚，并在 3 秒内承受这一段持续伤害（这里是 3 秒总量，不是每跳）。一次可设置 2/2/2/3/3 个，最多持有 2/2/3/3/4 个，蓄能 18/17/16/15/14 秒，冷却 1 秒。",
-      "patchVersion": "client-12.1-bernice",
-      "patchOrder": 20260816,
-      "updatedAt": "2026-08-16T02:00:00.000Z",
+      "sourceNote": "客户端截图读值 12.0b 数值：流血伤害 40/70/100/130/160(+攻击力的60%) 安装一个持续 20/25/30/35/40 秒的捕兽夹，踩中的敌人 0.75 秒内陷入束缚，并在 3 秒内承受这一段持续伤害（这里是 3 秒总量，不是每跳）。一次可设置 2/2/2/3/3 个，最多持有 2/2/3/3/4 个，蓄能 18/17/16/15/14 秒，冷却 1 秒。",
+      "patchVersion": "client-12.0b-bernice",
+      "patchOrder": 20260812,
+      "updatedAt": "2026-08-12T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：伯尼斯（12.1）"
+      "sourceTitle": "客户端截图读值：伯尼斯（12.0b）"
     },
     {
       "id": "ingame-025-bernice-r-1025500-first-damage",
@@ -14172,12 +14166,12 @@
       "source": "in-game-client",
       "manual": false,
       "coefficientText": "1段伤害 150/200/250(+攻击力的85%)",
-      "sourceNote": "客户端读数 client-12.1-bernice 数值：1段伤害 150/200/250(+攻击力的85%) 朝指定方向发射星锤，命中的敌人被束缚 1.4 秒。冷却 90/75/60 秒。",
-      "patchVersion": "client-12.1-bernice",
-      "patchOrder": 20260816,
-      "updatedAt": "2026-08-16T02:00:00.000Z",
+      "sourceNote": "客户端截图读值 12.0b 数值：1段伤害 150/200/250(+攻击力的85%) 朝指定方向发射星锤，命中的敌人被束缚 1.4 秒。冷却 90/75/60 秒。",
+      "patchVersion": "client-12.0b-bernice",
+      "patchOrder": 20260812,
+      "updatedAt": "2026-08-12T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：伯尼斯（12.1）"
+      "sourceTitle": "客户端截图读值：伯尼斯（12.0b）"
     },
     {
       "id": "ingame-025-bernice-r-1025500-second-damage",
@@ -14192,12 +14186,12 @@
       "source": "in-game-client",
       "manual": false,
       "coefficientText": "2段伤害 80/120/160(+攻击力的45%)",
-      "sourceNote": "客户端读数 client-12.1-bernice 数值：2段伤害 80/120/160(+攻击力的45%) 束缚时间结束后爆发结算。爆发会把相同效果转移给 2m 内最近的敌人，最多转移 3 次；转移打的是别的目标，所以单个目标只吃一次，多目标情况用「命中目标」那栏调。",
-      "patchVersion": "client-12.1-bernice",
-      "patchOrder": 20260816,
-      "updatedAt": "2026-08-16T02:00:00.000Z",
+      "sourceNote": "客户端截图读值 12.0b 数值：2段伤害 80/120/160(+攻击力的45%) 束缚时间结束后爆发结算。爆发会把相同效果转移给 2m 内最近的敌人，最多转移 3 次；转移打的是别的目标，所以单个目标只吃一次，多目标情况用「命中目标」那栏调。",
+      "patchVersion": "client-12.0b-bernice",
+      "patchOrder": 20260812,
+      "updatedAt": "2026-08-12T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：伯尼斯（12.1）"
+      "sourceTitle": "客户端截图读值：伯尼斯（12.0b）"
     },
     {
       "id": "ingame-025-bernice-p-1025100-first-bullet",
@@ -14213,12 +14207,12 @@
       "manual": false,
       "damageType": "basicAttack",
       "coefficientText": "攻击力100% * (普攻增幅) 普攻伤害",
-      "sourceNote": "客户端读数 client-12.1-bernice 数值：攻击力100% * (普攻增幅) 普攻伤害 伯尼斯每次普攻发射 4 发子弹，第一发按这个系数结算。官方明确标为普攻伤害并额外乘普攻增幅。每 2 秒填装 3 发，装弹上限 3/4/5，重载 1.3/1.1/0.9 秒。",
-      "patchVersion": "client-12.1-bernice",
-      "patchOrder": 20260816,
-      "updatedAt": "2026-08-16T02:00:00.000Z",
+      "sourceNote": "客户端截图读值 12.0b 数值：攻击力100% * (普攻增幅) 普攻伤害 伯尼斯每次普攻发射 4 发子弹，第一发按这个系数结算。官方明确标为普攻伤害并额外乘普攻增幅。每 2 秒填装 3 发，装弹上限 3/4/5，重载 1.3/1.1/0.9 秒。",
+      "patchVersion": "client-12.0b-bernice",
+      "patchOrder": 20260812,
+      "updatedAt": "2026-08-12T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：伯尼斯（12.1）"
+      "sourceTitle": "客户端截图读值：伯尼斯（12.0b）"
     },
     {
       "id": "ingame-025-bernice-p-1025100-extra-bullet",
@@ -14238,12 +14232,12 @@
       "hitNote": "一次普攻的 4 发子弹里，第一发之外的 3 发各按 10% 攻击力结算。",
       "damageType": "basicAttack",
       "coefficientText": "攻击力10% * (普攻增幅) 普攻伤害（每发）",
-      "sourceNote": "客户端读数 client-12.1-bernice 数值：攻击力10% * (普攻增幅) 普攻伤害（每发） 4 发全中时一次普攻合计 攻击力的 130%。暴击不走一般的暴击倍率，而是额外发射一发相当于普攻伤害 75% 的子弹，这一层未建模。",
-      "patchVersion": "client-12.1-bernice",
-      "patchOrder": 20260816,
-      "updatedAt": "2026-08-16T02:00:00.000Z",
+      "sourceNote": "客户端截图读值 12.0b 数值：攻击力10% * (普攻增幅) 普攻伤害（每发） 4 发全中时一次普攻合计 攻击力的 130%。暴击不走一般的暴击倍率，而是额外发射一发相当于普攻伤害 75% 的子弹，这一层未建模。",
+      "patchVersion": "client-12.0b-bernice",
+      "patchOrder": 20260812,
+      "updatedAt": "2026-08-12T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：伯尼斯（12.1）"
+      "sourceTitle": "客户端截图读值：伯尼斯（12.0b）"
     },
     {
       "id": "ingame-087-coraline-e-1087400-white-mirror-shield",
@@ -14259,10 +14253,10 @@
       "manual": false,
       "kind": "shield",
       "coefficientText": "护盾吸收 60/85/110/135/160(+技能增幅35%)",
-      "sourceNote": "客户端读数 client-12.0b-coraline 数值：护盾吸收 60/85/110/135/160(+技能增幅35%) 白镜强化的球体命中敌人时，卡洛琳获得该护盾，持续 2.5 秒。此前整段缺失。",
+      "sourceNote": "客户端截图读值 12.0b 数值：护盾吸收 60/85/110/135/160(+技能增幅35%) 白镜强化的球体命中敌人时，卡洛琳获得该护盾，持续 2.5 秒。此前整段缺失。",
       "patchVersion": "client-12.0b-coraline",
-      "patchOrder": 20260815,
-      "updatedAt": "2026-08-15T02:00:00.000Z",
+      "patchOrder": 20260812,
+      "updatedAt": "2026-08-12T02:00:00.000Z",
       "sourceUrl": "",
       "sourceTitle": "客户端校对：卡洛琳（12.0b）"
     },
@@ -14279,12 +14273,12 @@
       "source": "in-game-client",
       "manual": false,
       "coefficientText": "伤害 40/80/120/160/200(+技能增幅的50%)",
-      "sourceNote": "客户端读数 client-12.0b-bianca 数值：伤害 40/80/120/160/200(+技能增幅的50%) 向指定地点投射血之枪，命中的敌人承受该伤害。消耗当前体力 4%，冷却 10/9/8/7/6 秒。",
+      "sourceNote": "客户端截图读值 12.0b 数值：伤害 40/80/120/160/200(+技能增幅的50%) 向指定地点投射血之枪，命中的敌人承受该伤害。消耗当前体力 4%，冷却 10/9/8/7/6 秒。",
       "patchVersion": "client-12.0b-bianca",
-      "patchOrder": 20260816,
-      "updatedAt": "2026-08-16T02:00:00.000Z",
+      "patchOrder": 20260812,
+      "updatedAt": "2026-08-12T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：比安卡（12.0b）"
+      "sourceTitle": "客户端截图读值：比安卡（12.0b）"
     },
     {
       "id": "ingame-042-bianca-w-1042300-heal",
@@ -14304,12 +14298,12 @@
       "hitNote": "棺材中每 0.5 秒回一次，最多 3 秒共 6 跳。",
       "kind": "heal",
       "coefficientText": "每 0.5 秒恢复体力上限的 4%",
-      "sourceNote": "客户端读数 client-12.0b-bianca 数值：每 0.5 秒恢复体力上限的 4% 隐身于棺材中最多 3 秒，期间承受伤害减少 60/65/70/75/80%。恢复量不随技能等级变化（客户端数值表里只有减伤和冷却两行）。血液累积达 50% 以上时可消耗全部血液按比例追加恢复量，该部分未建模。",
+      "sourceNote": "客户端截图读值 12.0b 数值：每 0.5 秒恢复体力上限的 4% 隐身于棺材中最多 3 秒，期间承受伤害减少 60/65/70/75/80%。恢复量不随技能等级变化（客户端数值表里只有减伤和冷却两行）。血液累积达 50% 以上时可消耗全部血液按比例追加恢复量，该部分未建模。",
       "patchVersion": "client-12.0b-bianca",
-      "patchOrder": 20260816,
-      "updatedAt": "2026-08-16T02:00:00.000Z",
+      "patchOrder": 20260812,
+      "updatedAt": "2026-08-12T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：比安卡（12.0b）"
+      "sourceTitle": "客户端截图读值：比安卡（12.0b）"
     },
     {
       "id": "ingame-042-bianca-e-1042400-damage",
@@ -14343,12 +14337,12 @@
         "note": "每档 0.2 秒，满 1 秒（5 档）时伤害与技能增幅系数都翻倍；每蓄力 0.2 秒额外消耗当前体力 1%，蓄力状态最长维持 3 秒。"
       },
       "coefficientText": "最小伤害 30/55/80/105/130(+技能增幅60%) ~ 最大伤害 60/110/160/210/260(+技能增幅120%)",
-      "sourceNote": "客户端读数 client-12.0b-bianca 数值：最小伤害 30/55/80/105/130(+技能增幅60%) ~ 最大伤害 60/110/160/210/260(+技能增幅120%) 蓄力越久突进距离和伤害范围越大。最大值恰好是最小值的 2 倍，基础值与技能增幅系数同步翻倍，所以用蓄力档位做线性插值。消耗当前体力 2%，冷却 12/11/10/9/8 秒。",
+      "sourceNote": "客户端截图读值 12.0b 数值：最小伤害 30/55/80/105/130(+技能增幅60%) ~ 最大伤害 60/110/160/210/260(+技能增幅120%) 蓄力越久突进距离和伤害范围越大。最大值恰好是最小值的 2 倍，基础值与技能增幅系数同步翻倍，所以用蓄力档位做线性插值。消耗当前体力 2%，冷却 12/11/10/9/8 秒。",
       "patchVersion": "client-12.0b-bianca",
-      "patchOrder": 20260816,
-      "updatedAt": "2026-08-16T02:00:00.000Z",
+      "patchOrder": 20260812,
+      "updatedAt": "2026-08-12T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：比安卡（12.0b）"
+      "sourceTitle": "客户端截图读值：比安卡（12.0b）"
     },
     {
       "id": "ingame-042-bianca-e-1042400-heal",
@@ -14364,12 +14358,12 @@
       "manual": false,
       "kind": "heal",
       "coefficientText": "体力恢复 25/35/45/55/65(+技能增幅的30%)",
-      "sourceNote": "客户端读数 client-12.0b-bianca 数值：体力恢复 25/35/45/55/65(+技能增幅的30%) 蓄力超过 1 秒时触发。命中多个敌人时每个敌人额外增加 40% 恢复量，该部分未建模。",
+      "sourceNote": "客户端截图读值 12.0b 数值：体力恢复 25/35/45/55/65(+技能增幅的30%) 蓄力超过 1 秒时触发。命中多个敌人时每个敌人额外增加 40% 恢复量，该部分未建模。",
       "patchVersion": "client-12.0b-bianca",
-      "patchOrder": 20260816,
-      "updatedAt": "2026-08-16T02:00:00.000Z",
+      "patchOrder": 20260812,
+      "updatedAt": "2026-08-12T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：比安卡（12.0b）"
+      "sourceTitle": "客户端截图读值：比安卡（12.0b）"
     },
     {
       "id": "ingame-042-bianca-r-1042500-heal",
@@ -14385,12 +14379,12 @@
       "manual": false,
       "kind": "heal",
       "coefficientText": "体力恢复 70/110/150(+技能增幅的35%)(+已失体力的8%)",
-      "sourceNote": "客户端读数 model-self-hp 数值：体力恢复 70/110/150(+技能增幅的35%)(+已失体力的8%) 血阵结束时与结束伤害同时触发。「+已失体力的8%」已按自身已失体力建模。命中多个敌人时每个敌人额外增加 40% 恢复量，这一层仍未建模。",
-      "patchVersion": "model-self-hp",
+      "sourceNote": "客户端截图读值 12.0b 数值：体力恢复 70/110/150(+技能增幅的35%)(+已失体力的8%) 血阵结束时与结束伤害同时触发。「+已失体力的8%」已按自身已失体力建模。命中多个敌人时每个敌人额外增加 40% 恢复量，这一层仍未建模。",
+      "patchVersion": "model-self-hp-bianca",
       "patchOrder": 20260817,
       "updatedAt": "2026-08-17T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "建模：自身当前 / 已失体力"
+      "sourceTitle": "建模：比安卡 的自身已失体力"
     },
     {
       "id": "ingame-042-bianca-p-1042100-slow-blood-damage",
@@ -14406,12 +14400,12 @@
       "manual": false,
       "kind": "basicAttack",
       "coefficientText": "伤害 30/70/110(+技能增幅的40%)(+目标体力上限的5%)",
-      "sourceNote": "客户端读数 client-12.0b-bianca 数值：伤害 30/70/110(+技能增幅的40%)(+目标体力上限的5%) 每隔 9/7/5 秒，下一次普攻附带该技能伤害（本身仍是技能伤害，吃技能增幅，走技能减伤）。承受比安卡技能伤害的目标 2 秒内移速 -5/10/15%。血袋部分（按技能伤害 12%、体力消耗值与承受伤害 20% 累积血液，上限为自身体力上限 35%）只影响资源，无伤害。",
+      "sourceNote": "客户端截图读值 12.0b 数值：伤害 30/70/110(+技能增幅的40%)(+目标体力上限的5%) 每隔 9/7/5 秒，下一次普攻附带该技能伤害（本身仍是技能伤害，吃技能增幅，走技能减伤）。承受比安卡技能伤害的目标 2 秒内移速 -5/10/15%。血袋部分（按技能伤害 12%、体力消耗值与承受伤害 20% 累积血液，上限为自身体力上限 35%）只影响资源，无伤害。",
       "patchVersion": "client-12.0b-bianca",
-      "patchOrder": 20260816,
-      "updatedAt": "2026-08-16T02:00:00.000Z",
+      "patchOrder": 20260812,
+      "updatedAt": "2026-08-12T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：比安卡（12.0b）"
+      "sourceTitle": "客户端截图读值：比安卡（12.0b）"
     },
     {
       "id": "ingame-028-sua-q-1028200-damage",
@@ -14426,12 +14420,12 @@
       "source": "in-game-client",
       "manual": false,
       "coefficientText": "伤害 60/100/140/180/220(+技能增幅65%)",
-      "sourceNote": "客户端读数 client-12.0b-sua 数值：伤害 60/100/140/180/220(+技能增幅65%) 召唤两本书籍在中心互撞，给范围内敌人结算并留下 5 秒书签标识。冲撞地点的敌人承受伤害 +30%、1 秒内移速 -50/55/60/65/70%（这两项未建模）。冷却 12/11/10/9/8 秒。",
+      "sourceNote": "客户端截图读值 12.0b 数值：伤害 60/100/140/180/220(+技能增幅65%) 召唤两本书籍在中心互撞，给范围内敌人结算并留下 5 秒书签标识。冲撞地点的敌人承受伤害 +30%、1 秒内移速 -50/55/60/65/70%（这两项未建模）。冷却 12/11/10/9/8 秒。",
       "patchVersion": "client-12.0b-sua",
       "patchOrder": 20260812,
       "updatedAt": "2026-08-12T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：秀雅（12.0b）"
+      "sourceTitle": "客户端截图读值：秀雅（12.0b）"
     },
     {
       "id": "ingame-028-sua-w-1028300-shield",
@@ -14447,12 +14441,12 @@
       "manual": false,
       "kind": "shield",
       "coefficientText": "护盾吸收 80/110/140/170/200(+技能增幅40%)",
-      "sourceNote": "客户端读数 client-12.0b-sua 数值：护盾吸收 80/110/140/170/200(+技能增幅40%) 对自身使用时给 2.5 秒护盾，并免疫负面效果。",
+      "sourceNote": "客户端截图读值 12.0b 数值：护盾吸收 80/110/140/170/200(+技能增幅40%) 对自身使用时给 2.5 秒护盾，并免疫负面效果。",
       "patchVersion": "client-12.0b-sua",
       "patchOrder": 20260812,
       "updatedAt": "2026-08-12T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：秀雅（12.0b）"
+      "sourceTitle": "客户端截图读值：秀雅（12.0b）"
     },
     {
       "id": "ingame-028-sua-w-1028300-damage",
@@ -14467,12 +14461,12 @@
       "source": "in-game-client",
       "manual": false,
       "coefficientText": "伤害 30/65/100/135/170(+技能增幅40%)",
-      "sourceNote": "客户端读数 client-12.0b-sua 数值：伤害 30/65/100/135/170(+技能增幅40%) 对敌人使用时的伤害，附带 1.1/1.15/1.2/1.25/1.3 秒失明。冷却 19/18.5/18/17.5/17 秒。",
+      "sourceNote": "客户端截图读值 12.0b 数值：伤害 30/65/100/135/170(+技能增幅40%) 对敌人使用时的伤害，附带 1.1/1.15/1.2/1.25/1.3 秒失明。冷却 19/18.5/18/17.5/17 秒。",
       "patchVersion": "client-12.0b-sua",
       "patchOrder": 20260812,
       "updatedAt": "2026-08-12T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：秀雅（12.0b）"
+      "sourceTitle": "客户端截图读值：秀雅（12.0b）"
     },
     {
       "id": "ingame-028-sua-e-1028400-damage",
@@ -14487,12 +14481,12 @@
       "source": "in-game-client",
       "manual": false,
       "coefficientText": "伤害 110/140/170/200/230(+技能增幅65%)",
-      "sourceNote": "客户端读数 client-12.0b-sua 数值：伤害 110/140/170/200/230(+技能增幅65%) 武器变枪向前突进，对首个命中的敌人结算并附加 5 秒书签，1 秒内移速 -50%。命中目标时本技能冷却缩减 20%。冷却 16/15/14/13/12 秒。",
+      "sourceNote": "客户端截图读值 12.0b 数值：伤害 110/140/170/200/230(+技能增幅65%) 武器变枪向前突进，对首个命中的敌人结算并附加 5 秒书签，1 秒内移速 -50%。命中目标时本技能冷却缩减 20%。冷却 16/15/14/13/12 秒。",
       "patchVersion": "client-12.0b-sua",
       "patchOrder": 20260812,
       "updatedAt": "2026-08-12T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：秀雅（12.0b）"
+      "sourceTitle": "客户端截图读值：秀雅（12.0b）"
     },
     {
       "id": "ingame-028-sua-e-1028400-heal",
@@ -14508,12 +14502,12 @@
       "manual": false,
       "kind": "heal",
       "coefficientText": "体力恢复 20/30/40/50/60(+技能增幅20%) ~ 30/45/60/75/90(+技能增幅30%)",
-      "sourceNote": "客户端读数 model-self-hp 数值：体力恢复 20/30/40/50/60(+技能增幅20%) ~ 30/45/60/75/90(+技能增幅30%) 命中时按秀雅自身已失体力在最小~最大之间取值，体力剩 40%（已失 60%）时到达上限，上限恰为下限的 1.5 倍，所以用 (1 + 0.5 × min(1, 已失体力 / (体力上限 × 60%))) 插值。",
-      "patchVersion": "model-self-hp",
+      "sourceNote": "客户端截图读值 12.0b 数值：体力恢复 20/30/40/50/60(+技能增幅20%) ~ 30/45/60/75/90(+技能增幅30%) 命中时按秀雅自身已失体力在最小~最大之间取值，体力剩 40%（已失 60%）时到达上限，上限恰为下限的 1.5 倍，所以用 (1 + 0.5 × min(1, 已失体力 / (体力上限 × 60%))) 插值。",
+      "patchVersion": "model-self-hp-sua",
       "patchOrder": 20260817,
       "updatedAt": "2026-08-17T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "建模：自身当前 / 已失体力"
+      "sourceTitle": "建模：秀雅 的自身已失体力"
     },
     {
       "id": "ingame-028-sua-r-1028500-memory-of-the-curious-case-shield",
@@ -14529,12 +14523,12 @@
       "manual": false,
       "kind": "shield",
       "coefficientText": "自身吸收 100(+技能增幅40%) 的护盾",
-      "sourceNote": "客户端读数 client-12.0b-sua 数值：自身吸收 100(+技能增幅40%) 的护盾 客户端数值表没有这一行，只能读到 R 1 级的 100。2/3 级是否递增未核对，这里按不随等级变化处理，实际可能更高。需要 R 2/3 级的技能提示框才能确认。",
+      "sourceNote": "客户端截图读值 12.0b 数值：自身吸收 100(+技能增幅40%) 的护盾 客户端数值表没有这一行，只能读到 R 1 级的 100。2/3 级是否递增未核对，这里按不随等级变化处理，实际可能更高。需要 R 2/3 级的技能提示框才能确认。",
       "patchVersion": "client-12.0b-sua",
       "patchOrder": 20260812,
       "updatedAt": "2026-08-12T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：秀雅（12.0b）"
+      "sourceTitle": "客户端截图读值：秀雅（12.0b）"
     },
     {
       "id": "ingame-028-sua-r-1028500-memory-of-don-quixote-heal",
@@ -14550,12 +14544,12 @@
       "manual": false,
       "kind": "heal",
       "coefficientText": "按已失体力恢复 50(+技能增幅20%) ~ 75(+技能增幅30%)",
-      "sourceNote": "客户端读数 model-self-hp 数值：按已失体力恢复 50(+技能增幅20%) ~ 75(+技能增幅30%) 与 E 堂吉诃德同一套插值口径。客户端数值表没有这一行，只能读到 R 1 级的 50~75，按不随 R 等级变化处理。",
-      "patchVersion": "model-self-hp",
+      "sourceNote": "客户端截图读值 12.0b 数值：按已失体力恢复 50(+技能增幅20%) ~ 75(+技能增幅30%) 与 E 堂吉诃德同一套插值口径。客户端数值表没有这一行，只能读到 R 1 级的 50~75，按不随 R 等级变化处理。",
+      "patchVersion": "model-self-hp-sua",
       "patchOrder": 20260817,
       "updatedAt": "2026-08-17T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "建模：自身当前 / 已失体力"
+      "sourceTitle": "建模：秀雅 的自身已失体力"
     },
     {
       "id": "ingame-028-sua-p-1028100-damage",
@@ -14571,12 +14565,12 @@
       "manual": false,
       "kind": "basicAttack",
       "coefficientText": "伤害 100/160/220(+技能增幅50%)",
-      "sourceNote": "客户端读数 client-12.0b-sua 数值：伤害 100/160/220(+技能增幅50%) 使用技能后获得精神食粮（上限 3 层），下一次普攻改判这段技能伤害。官方注明「此普攻也被视为技能攻击」，所以按技能伤害结算、吃技能增幅，不走普攻减伤。造成伤害时所有技能冷却缩减 1.2 秒（与命中目标数无关，只作用一次）。",
+      "sourceNote": "客户端截图读值 12.0b 数值：伤害 100/160/220(+技能增幅50%) 使用技能后获得精神食粮（上限 3 层），下一次普攻改判这段技能伤害。官方注明「此普攻也被视为技能攻击」，所以按技能伤害结算、吃技能增幅，不走普攻减伤。造成伤害时所有技能冷却缩减 1.2 秒（与命中目标数无关，只作用一次）。",
       "patchVersion": "client-12.0b-sua",
       "patchOrder": 20260812,
       "updatedAt": "2026-08-12T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：秀雅（12.0b）"
+      "sourceTitle": "客户端截图读值：秀雅（12.0b）"
     },
     {
       "id": "ingame-028-sua-p-1028100-splash-damage",
@@ -14592,12 +14586,12 @@
       "manual": false,
       "kind": "basicAttack",
       "coefficientText": "射程内伤害 50/80/110(+技能增幅25%)",
-      "sourceNote": "客户端读数 client-12.0b-sua 数值：射程内伤害 50/80/110(+技能增幅25%) 同一次普攻对周围 2m 内的其它敌人结算这段。",
+      "sourceNote": "客户端截图读值 12.0b 数值：射程内伤害 50/80/110(+技能增幅25%) 同一次普攻对周围 2m 内的其它敌人结算这段。",
       "patchVersion": "client-12.0b-sua",
       "patchOrder": 20260812,
       "updatedAt": "2026-08-12T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：秀雅（12.0b）"
+      "sourceTitle": "客户端截图读值：秀雅（12.0b）"
     },
     {
       "id": "ingame-028-sua-p-1028100-heal",
@@ -14613,12 +14607,12 @@
       "manual": false,
       "kind": "heal",
       "coefficientText": "恢复精神食粮伤害量 35% 的体力",
-      "sourceNote": "客户端读数 client-12.0b-sua 数值：恢复精神食粮伤害量 35% 的体力 按主目标那段伤害的 35% 折算。官方只说「精神食粮伤害量」，是否把射程内伤害也算进去没写明，这里只按主目标那段算，多目标时实际恢复可能更高。",
+      "sourceNote": "客户端截图读值 12.0b 数值：恢复精神食粮伤害量 35% 的体力 按主目标那段伤害的 35% 折算。官方只说「精神食粮伤害量」，是否把射程内伤害也算进去没写明，这里只按主目标那段算，多目标时实际恢复可能更高。",
       "patchVersion": "client-12.0b-sua",
       "patchOrder": 20260812,
       "updatedAt": "2026-08-12T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：秀雅（12.0b）"
+      "sourceTitle": "客户端截图读值：秀雅（12.0b）"
     },
     {
       "id": "ingame-087-coraline-w-1087300-mirror-amp",
@@ -14637,12 +14631,12 @@
       "hitNote": "镜子触碰到断罪之光或罪业枷锁时触发，持续 4 秒，最多叠 2 层。",
       "kind": "buff",
       "coefficientText": "技能增幅(%) 5/7/9，最多叠加 2 次",
-      "sourceNote": "客户端读数 client-12.0b-coraline-w-buff 数值：技能增幅(%) 5/7/9，最多叠加 2 次 W 本身没有伤害段，这条只用来承载技能增幅加成，让 W 这一槽有自己的等级选择器。数值按技能等级取（5/7/9%），乘上选中的层数后加进技能增幅百分比那个桶。W 还会让经镜子强化的断罪之光在命中时冷却缩减 20/25/30%，冷却类未建模。",
+      "sourceNote": "客户端截图读值 12.0b 数值：技能增幅(%) 5/7/9，最多叠加 2 次 W 本身没有伤害段，这条只用来承载技能增幅加成，让 W 这一槽有自己的等级选择器。数值按技能等级取（5/7/9%），乘上选中的层数后加进技能增幅百分比那个桶。W 还会让经镜子强化的断罪之光在命中时冷却缩减 20/25/30%，冷却类未建模。",
       "patchVersion": "client-12.0b-coraline-w-buff",
       "patchOrder": 20260812,
       "updatedAt": "2026-08-12T02:00:00.000Z",
       "sourceUrl": "",
-      "sourceTitle": "客户端读数：卡洛琳 W 镜子技能增幅（12.0b）",
+      "sourceTitle": "客户端截图读值：卡洛琳 W 镜子技能增幅（12.0b）",
       "buffKey": "apPct"
     }
   ]
