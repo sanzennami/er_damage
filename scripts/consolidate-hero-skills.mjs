@@ -102,8 +102,8 @@ function damageRowTitle(row) {
 const KEEP_FIELDS = [
   'heroKey', 'slot', 'group', 'skillId', 'dataKey', 'coefKey',
   'description', 'coefficientText', 'scalingText', 'cooldown',
-  'progressiveDamage', 'maxStacks', 'stackLabel',
-  'maxHits', 'defaultHits', 'hitLabel', 'hitNote', 'kind', 'damageType',
+  'progressiveDamage', 'maxStacks', 'stackLabel', 'stackStep',
+  'maxHits', 'defaultHits', 'hitLabel', 'hitNote', 'kind', 'buffKey', 'damageType',
   'sourceUrl', 'sourceTitle', 'sourceNote', 'sourceLabel', 'sourceVersion',
   'patchVersion', 'patchOrder'
 ];

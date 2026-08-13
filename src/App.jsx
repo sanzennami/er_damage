@@ -40,12 +40,14 @@ import {
 import {
   DEFAULT_HERO,
   MANUAL_HEROES,
+  heroModifiersFor,
+  heroModifierTotals,
   skillDisplayRule,
   stackLimitForHero,
   stackSelectorForHero
 } from './lib/specialRules.js';
 
-const APP_VERSION = 'v0.2.000';
+const APP_VERSION = 'v0.2.011';
 
 const EXPORTED_LOCAL_CONFIG_MODULES = import.meta.glob('./data/localConfig.export.json', {
   eager: true,
@@ -451,6 +453,59 @@ function normalizeConfigPayload(config = {}) {
 
 function statValue(stats, key) {
   return getNumber(stats?.[key]);
+}
+
+// 增益类条目把每级的百分点写在 bases 里（例如卡洛琳 W 的 "5,7,9" = 5%/7%/9%）
+const BUFF_KEY_LABELS = { apPct: '技能增幅', damageBonus: '伤害提升', basicAttackAmp: '普攻增幅' };
+
+function buffValueAtLevel(skill, level) {
+  const values = String(skill?.bases || '').split(',').map((value) => getNumber(value));
+  if (!values.length) return 0;
+  const index = Math.max(0, Math.min(values.length - 1, getNumber(level) - 1));
+  return values[index] / 100;
+}
+
+/** 当前英雄的增益条目按「所在技能等级 × 已选层数」汇总成各个桶的加成。 */
+function buffTotals(skillRows, skillLevels = {}, stackCounts = {}) {
+  return skillRows.filter((skill) => skill.kind === 'buff').reduce((totals, skill) => {
+    const level = getNumber(skillLevels[skill.id]) || 1;
+    const maxStacks = Math.max(1, getNumber(skill.maxStacks) || 1);
+    const stacks = Math.max(0, Math.min(maxStacks, getNumber(stackCounts[`${skill.id}-buffStacks`])));
+    const key = skill.buffKey || 'apPct';
+    return { ...totals, [key]: getNumber(totals[key]) + buffValueAtLevel(skill, level) * stacks };
+  }, { apPct: 0, damageBonus: 0, basicAttackAmp: 0 });
+}
+
+/** 体力百分比控件：滑条 + 右侧数字框，和技能面板表头那个自身当前体力同一套。 */
+function HpRatioSlider({ label, value, onChange, note }) {
+  return (
+    <div className="hpRatioSlider">
+      <div className="hpRatioSliderHead">
+        <span>{label}</span>
+        {note}
+      </div>
+      <div className="stackSlider">
+        <input
+          type="range"
+          min={0}
+          max={100}
+          step={1}
+          value={Math.max(0, Math.min(100, getNumber(value)))}
+          onChange={(event) => onChange(Number(event.target.value))}
+          aria-label={label}
+        />
+        <input
+          type="number"
+          min={0}
+          max={100}
+          value={value}
+          onChange={(event) => onChange(getNumber(event.target.value))}
+          aria-label={`${label}（手动输入）`}
+        />
+        <small>%</small>
+      </div>
+    </div>
+  );
 }
 
 function formatStatValue(key, value) {
@@ -1034,11 +1089,20 @@ function primaryOffensePath({ skills = [], masteryStat = null } = {}) {
   return 'ap';
 }
 
+/**
+ * 普攻伤害。官方 Wiki 给的顺序是：
+ *   ((攻击力 × 100/(100+防御) × 暴击修正) + 普攻额外伤害 − 目标承受普攻伤害减少)
+ *     × (1 + 普攻增幅% − 目标普攻减伤%)
+ * 关键点有两条：
+ *   1. 「普攻额外伤害」是防御之后才加的固定值，不吃防御，也不吃暴击；
+ *   2. 「普攻增幅%」是最后一道乘区，跟技能增幅% 是两个互不相干的桶。
+ */
 function calculateBasicAttackDamage({
   attackPower,
   target,
   armorPenetration,
   armorPenetrationRatio,
+  flatBonus = 0,
   damageIncreaseRatio,
   targetDamageReductionRatio,
   criticalStrikeChance,
@@ -1047,17 +1111,20 @@ function calculateBasicAttackDamage({
   const finalDefense = target.defense * (1 - target.defenseReduction) * (1 - armorPenetrationRatio) - armorPenetration;
   const defenseMod = 100 / (100 + finalDefense);
   const damageMod = 1 + damageIncreaseRatio - targetDamageReductionRatio;
-  const normalRaw = attackPower * defenseMod * damageMod;
-  const normal = damageFloor(normalRaw);
   const criticalMultiplier = 1.75 + criticalStrikeDamage;
+  const afterDefense = attackPower * defenseMod;
+  const normal = damageFloor((afterDefense + flatBonus) * damageMod);
+  // 固定值不参与暴击倍率，所以暴击不能直接拿 normal 乘
+  const critical = damageFloor((afterDefense * criticalMultiplier + flatBonus) * damageMod);
   const chance = Math.max(0, Math.min(1, criticalStrikeChance));
 
   return {
     finalDefense,
     defenseMod,
     damageMod,
+    flatBonus,
     normal,
-    critical: damageFloor(normal * criticalMultiplier),
+    critical,
     criticalMultiplier,
     criticalStrikeChance: chance,
     criticalStrikeDamage,
@@ -1135,6 +1202,7 @@ function calc({
   target,
   targetMastery,
   targetHpPct = 100,
+  selfHpPct = 100,
   selfHp,
   selfShield = 0,
   damageBonus,
@@ -1144,10 +1212,14 @@ function calc({
   tacticalUpgraded,
   vampireFull,
   effectToggles = {},
+  heroModifierChoices = {},
+  skillTargetCounts = {},
   selectedHero,
   combos = []
 }) {
   const selected = SLOTS.map((slot) => byName(equipment, gear[slot])).filter(Boolean);
+  // 英雄专属的条件修正（卡洛琳 W 的镜子增幅、秀雅 Q 冲撞点的承受伤害提升）
+  const heroModifiers = heroModifierTotals(selectedHero, heroModifierChoices);
   const equipmentStats = aggregateEquipmentStats(selected, mastery);
   const activeTraitEffectIds = new Set(traitBonuses.effectIds || []);
   const talentPen = getNumber(traitBonuses.pen);
@@ -1156,6 +1228,8 @@ function calc({
   const equipAp = statValue(equipmentStats, 'skillAmp') + statValue(equipmentStats, 'adaptiveForce') || selected.reduce((sum, item) => sum + getNumber(item.ap), 0);
   const equipAttackPower = statValue(equipmentStats, 'attackPower');
   const selectedHeroSkillRows = skillTable.filter((skill) => skill.hero === selectedHero);
+  // 增益类条目（卡洛琳 W 的镜子技能增幅）：按所在技能等级 × 已选层数进对应的桶
+  const buffs = buffTotals(selectedHeroSkillRows, skillLevels, skillTargetCounts);
   const offensePath = primaryOffensePath({ skills: selectedHeroSkillRows, masteryStat });
   const usesAttackPath = offensePath === 'attack';
   const vampireStackAp = usesAttackPath ? 0 : (vampireFull ? 30 + mastery : 0);
@@ -1200,7 +1274,7 @@ function calc({
   const extraAttackPower = equipAttackPower + talentBonusAttackPower + stackAttackPower;
   // 攻击力百分比加成（神速-鲁德拉的短剑、双重假面）作用在总攻击力上
   const attackPower = (baseAttackPower + extraAttackPower) * (1 + effectMods.attackPowerPct);
-  const totalApPct = normalApPct + uniqueApPct + masteryApPct;
+  const totalApPct = normalApPct + uniqueApPct + masteryApPct + heroModifiers.apPct + buffs.apPct;
   const totalBaseAp = equipAp + talentAp + talentBonusAp + stackAp;
   const apRaw = totalBaseAp * (1 + totalApPct);
   const ap = damageFloor(apRaw);
@@ -1212,24 +1286,32 @@ function calc({
   const defenseMod = 100 / (100 + finalDefense);
   const enhancementDeviceDamageBonus = activeTraitEffectIds.has('enhancementDevice') ? 0.08 + mastery * 0.005 : 0;
   const potentialDamageBonus = talentDamageBonus + enhancementDeviceDamageBonus;
-  const totalDamageBonus = damageBonus + equipDamageBonus + potentialDamageBonus + effectMods.damageBonus;
+  const totalDamageBonus = damageBonus + equipDamageBonus + potentialDamageBonus + effectMods.damageBonus + heroModifiers.damageBonus + buffs.damageBonus;
   const targetMasteryLevel = Math.max(1, Math.min(20, getNumber(targetMastery) || 1));
   const targetMasterySkillReduction = targetMasteryLevel <= 1 ? 0 : targetMasteryLevel * 0.008;
-  const targetMasteryBasicReduction = targetMasteryLevel <= 1 ? 0 : targetMasteryLevel * 0.01;
+  // 目标武器熟练度带来的普攻减伤：每级 1%，1 级 1% ~ 20 级 20% 线性增长
+  const targetMasteryBasicReduction = targetMasteryLevel * 0.01;
   const totalSkillReduction = skillReduction + targetMasterySkillReduction;
   const damageMod = 1 + totalDamageBonus - target.reduction - totalSkillReduction;
   const finalMod = defenseMod * damageMod;
   const stackCount = Math.min(stackLimitForHero(selectedHero, selectedHeroSkillRows), Math.max(0, r2Stacks));
-  const basicAttackDamageIncreaseRatio = totalDamageBonus
-    + statValue(equipmentStats, 'increaseBasicAttackDamageRatio')
+  // 普攻增幅（IncreaseBasicAttackDamageRatio）：官方独立的一档乘区，只作用于普攻伤害，
+  // 跟技能增幅互不影响。装备的「每级别普攻增幅」已由 aggregateEquipmentStats 乘好等级
+  // 折进同一个键，这里不要再乘一次。
+  const basicAttackAmp = statValue(equipmentStats, 'increaseBasicAttackDamageRatio')
     + masteryBasicAttackDamageRatio
-    + effectMods.basicAttackBonus;
+    + effectMods.basicAttackBonus
+    + buffs.basicAttackAmp;
+  // 普攻额外伤害（IncreaseBasicAttackDamage）：防御结算之后才加的固定值，同样已折好等级
+  const basicAttackFlatBonus = statValue(equipmentStats, 'increaseBasicAttackDamage');
+  const basicAttackDamageIncreaseRatio = totalDamageBonus + basicAttackAmp;
   const basicAttackTargetReductionRatio = target.reduction + targetMasteryBasicReduction;
   const basicAttackDamage = calculateBasicAttackDamage({
     attackPower,
     target,
     armorPenetration: pen,
     armorPenetrationRatio: penPct,
+    flatBonus: basicAttackFlatBonus,
     damageIncreaseRatio: basicAttackDamageIncreaseRatio,
     targetDamageReductionRatio: basicAttackTargetReductionRatio,
     criticalStrikeChance: statValue(equipmentStats, 'criticalStrikeChance'),
@@ -1239,6 +1321,8 @@ function calc({
   // maxHp = 界面「自身血量」；extraHp = 装备与潜能提供的额外体力，官方文案里这两者是分开写的
   // targetCurrentHp / targetLostHp 由界面的「目标当前体力%」推出，两者之和恒等于目标体力上限
   const targetHpRatio = Math.max(0, Math.min(1, getNumber(targetHpPct) / 100));
+  // 自身当前 / 已失体力：和目标那两个对称，由界面「自身当前体力 %」推出
+  const selfHpRatio = Math.max(0, Math.min(1, getNumber(selfHpPct) / 100));
   const selfDefense = getNumber(baseDefense) + equipDefense;
   const context = {
     ap,
@@ -1248,13 +1332,19 @@ function calc({
     targetCurrentHp: target.hp * targetHpRatio,
     targetLostHp: target.hp * (1 - targetHpRatio),
     maxHp: selfHp,
+    selfCurrentHp: getNumber(selfHp) * selfHpRatio,
+    selfLostHp: getNumber(selfHp) * (1 - selfHpRatio),
     extraHp,
     defense: selfDefense,
     shield: getNumber(selfShield),
     critChance: statValue(equipmentStats, 'criticalStrikeChance'),
+    basicAttackAmp,
     stacks: stackCount,
     heroLevel: mastery,
-    finalMod
+    finalMod,
+    // 被官方判定为普攻伤害的技能段（damageType: "basicAttack"）走这条：
+    // 增伤那一档换成普攻增幅，减伤那一档换成目标的普攻减伤，防御修正两边一样
+    basicAttackFinalMod: defenseMod * (1 + basicAttackDamageIncreaseRatio - basicAttackTargetReductionRatio)
   };
   const heroSkills = selectedHeroSkillRows
     .map((skill) => calculateSkill(skill, skillLevels[skill.id], context));
@@ -1371,6 +1461,10 @@ function calc({
     basicAttackSkills,
     basicAttackBonusRaw,
     basicAttackBonus,
+    basicAttackAmp,
+    basicAttackFlatBonus,
+    heroModifiers,
+    buffs,
     // 公式上下文整体带出来，递增伤害等二次计算直接复用，不用逐个字段同步
     formulaContext: context,
     extraHp,
@@ -2189,6 +2283,11 @@ export default function App() {
     const saved = getNumber(initialWorkspaceState.targetHpPct);
     return saved > 0 ? saved : 100;
   });
+  const [selfHpPct, setSelfHpPct] = useState(() => {
+    const saved = getNumber(initialWorkspaceState.selfHpPct);
+    return saved > 0 ? saved : 100;
+  });
+  const [heroModifierChoices, setHeroModifierChoices] = useState(initialWorkspaceState.heroModifierChoices || {});
   const [damageBonus, setDamageBonus] = useState(getNumber(initialWorkspaceState.damageBonus));
   const [skillReduction, setSkillReduction] = useState(getNumber(initialWorkspaceState.skillReduction));
   const [r2Stacks, setR2Stacks] = useState(getNumber(initialWorkspaceState.r2Stacks) || 1);
@@ -2260,6 +2359,9 @@ export default function App() {
       target,
       targetMastery,
       targetHpPct,
+      selfHpPct,
+      heroModifierChoices,
+      skillTargetCounts,
       selfHp,
       selfShield,
       damageBonus,
@@ -2279,7 +2381,7 @@ export default function App() {
       comparisonScenarios,
       selectedComparisonMastery
     }));
-  }, [activePage, gear, weaponTypeFilter, selectedHero, mastery, talentAp, traitSelection, targetIndex, target, targetMastery, targetHpPct, selfHp, selfShield, damageBonus, skillReduction, r2Stacks, tacticalSkill, tacticalUpgraded, vampireFull, effectToggles, effectsCollapsed, skillTargetCounts, heroAvatarQuery, showLowerTierEquipment, visibleStatKeys, skillLevels, comparisonSettings, comparisonScenarios, selectedComparisonMastery]);
+  }, [activePage, gear, weaponTypeFilter, selectedHero, mastery, talentAp, traitSelection, targetIndex, target, targetMastery, targetHpPct, selfHpPct, heroModifierChoices, selfHp, selfShield, damageBonus, skillReduction, r2Stacks, tacticalSkill, tacticalUpgraded, vampireFull, effectToggles, effectsCollapsed, skillTargetCounts, heroAvatarQuery, showLowerTierEquipment, visibleStatKeys, skillLevels, comparisonSettings, comparisonScenarios, selectedComparisonMastery]);
 
   useEffect(() => {
     window.localStorage.setItem(APP_SETTINGS_KEY, JSON.stringify({ useHeroAvatarPicker, editMode, showDamageTestHeroes, uiTheme }));
@@ -2451,6 +2553,27 @@ export default function App() {
   }, [selectedHero, showDamageTestHeroes, editMode]);
   // 叠层选择器：specialSkillRules.json 里配了就用配置，没配但该英雄有公式用到 stacks 就自动生成
   const stackSelector = stackSelectorForHero(selectedHero, skills.filter((skill) => skill.hero === selectedHero));
+  const heroModifiers = heroModifiersFor(selectedHero);
+  // 自身当前体力滑块只在该英雄的公式真的引用 selfCurrentHp / selfLostHp 时出现
+  const usesSelfHp = useMemo(() => skills.some((skill) => (
+    skill.hero === selectedHero && /\b(selfCurrentHp|selfLostHp)\b/.test(String(skill.formula || ''))
+  )), [skills, selectedHero]);
+  const stackValuesKey = stackSelector ? `${stackSelector.mode}:${stackSelector.values.join(',')}` : '';
+  // 换英雄后原来的叠层值可能落在新选择器的范围之外。滑块只要夹进 0~上限；
+  // 按钮模式还得正好落在某个按钮上，否则整排都不高亮，看着像坏了。
+  useEffect(() => {
+    if (!stackSelector) return;
+    const { values, max, mode } = stackSelector;
+    setR2Stacks((current) => {
+      const clamped = Math.min(max, Math.max(0, current));
+      if (mode === 'slider' || values.includes(clamped)) return clamped;
+      return values.reduce((best, value) => (
+        Math.abs(value - clamped) < Math.abs(best - clamped) ? value : best
+      ), values[0]);
+    });
+    // stackValuesKey 已经代表了整份取值表，stackSelector 每次渲染都是新对象不能进依赖
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [stackValuesKey]);
   const allowedWeaponTypes = new Set(selectedCharacter?.weapons || []);
   const selectedWeaponRaw = weaponTypeFilter !== '全部类型'
     ? weaponTypeFromFilter(weaponTypeFilter)
@@ -2486,6 +2609,10 @@ export default function App() {
       new RegExp(`\\b${name}\\b`).test(formulas) || (needsTargetHp && name !== 'shield')
     ));
   }, [skills, selectedHero, selectedEquipmentEffectsRaw]);
+  // 普攻增幅只对普攻流有意义：数值不为 0，或者该英雄有被官方判定为普攻伤害的技能段时才显示
+  const heroUsesBasicAttackAmp = useMemo(() => skills
+    .some((skill) => skill.hero === selectedHero && /\bbasicAttackAmp\b/.test(String(skill.formula || ''))),
+  [skills, selectedHero]);
   const hasVampireStackTrait = selectedTraits.some((trait) => String(trait.id) === VAMPIRE_STACK_TRAIT_ID || trait.name === '吸血鬼');
   const effectiveVampireFull = hasVampireStackTrait && vampireFull;
   // 当前装备里需要开关的特效；换装后开关跟着变
@@ -2526,6 +2653,9 @@ export default function App() {
       target,
       targetMastery,
       targetHpPct,
+      selfHpPct,
+      heroModifierChoices,
+      skillTargetCounts,
       selfHp,
       selfShield,
       damageBonus,
@@ -2538,7 +2668,7 @@ export default function App() {
       selectedHero,
       combos
     }),
-    [equipment, skills, skillLevels, gear, mastery, selectedMasteryStat, attack, selectedCharacter, talentAp, traitBonuses, selectedTraits, target, targetMastery, targetHpPct, selfHp, selfShield, damageBonus, skillReduction, r2Stacks, tacticalSkill, tacticalUpgraded, effectiveVampireFull, activeEffectToggles, selectedHero, combos]
+    [equipment, skills, skillLevels, gear, mastery, selectedMasteryStat, attack, selectedCharacter, talentAp, traitBonuses, selectedTraits, target, targetMastery, targetHpPct, selfHpPct, heroModifierChoices, skillTargetCounts, selfHp, selfShield, damageBonus, skillReduction, r2Stacks, tacticalSkill, tacticalUpgraded, effectiveVampireFull, activeEffectToggles, selectedHero, combos]
   );
   const heroWeaponOptions = WEAPON_TYPE_OPTIONS.filter((type) => {
     if (type === '全部类型') return true;
@@ -2556,6 +2686,7 @@ export default function App() {
     slot,
     slot === '武器' ? weaponChoices : builderEquipment.filter((item) => item.type === slot)
   ]));
+  const showBasicAttackAmp = Boolean(result.basicAttackAmp || result.basicAttackFlatBonus || heroUsesBasicAttackAmp);
   const displayEquipmentStatValue = (key) => (
     statValue(result.equipmentStats, key) + (key === 'cooldownReduction' ? result.stackCd : 0)
   );
@@ -3444,8 +3575,8 @@ export default function App() {
     const stored = getNumber(skillTargetCounts[hitKey]);
     const defaultHits = Math.max(1, Math.min(maxHits, getNumber(skill.defaultHits) || 1));
     const hits = stored > 0 ? Math.min(maxHits, stored) : defaultHits;
-    const single = scaledSkillDamage(skill, result.finalMod);
-    const picked = scaledSkillDamage(skill, result.finalMod, { hits });
+    const single = scaledSkillDamage(skill, result.finalMod, { context: result.formulaContext });
+    const picked = scaledSkillDamage(skill, result.finalMod, { hits, context: result.formulaContext });
     const sourceMeta = skillSourceMeta(skill);
     const skillLevel = skill.level || skillLevels[skill.id] || 1;
     const hitLabel = skill.hitLabel || '命中次数';
@@ -3479,7 +3610,7 @@ export default function App() {
         </div>
         <div className="progressiveDamageSteps" aria-label={`${hitLabel}伤害列表`}>
           {Array.from({ length: maxHits }, (unused, index) => index + 1).map((count) => {
-            const value = scaledSkillDamage(skill, result.finalMod, { hits: count });
+            const value = scaledSkillDamage(skill, result.finalMod, { hits: count, context: result.formulaContext });
             return (
               <div className={count === hits ? 'active' : ''} key={`${skill.id}-hit-${count}`}>
                 <span>中 {count} 次</span>
@@ -3504,7 +3635,52 @@ export default function App() {
   }
 
   // 护盾 / 治疗量：用同一套公式算，但不是伤害，单独显示且不参与伤害合计
-  const NON_DAMAGE_KIND_LABELS = { shield: '护盾', heal: '治疗' };
+  const NON_DAMAGE_KIND_LABELS = { shield: '护盾', heal: '治疗', buff: '增益' };
+
+  /**
+   * 增益类条目（卡洛琳 W 的镜子技能增幅这种）：没有伤害，只按技能等级给一档百分比，
+   * 可叠层。等级直接跟着所在技能槽的 Lv 走，层数用条目自己的 ± 步进器。
+   */
+  function renderBuffLeaf(skill) {
+    const label = skill.title.replace(/^[PQWER]\s*/, '') || skill.title;
+    const sourceMeta = skillSourceMeta(skill);
+    const skillLevel = skill.level || skillLevels[skill.id] || 1;
+    const maxStacks = Math.max(1, getNumber(skill.maxStacks) || 1);
+    const stackKey = `${skill.id}-buffStacks`;
+    const stacks = Math.max(0, Math.min(maxStacks, getNumber(skillTargetCounts[stackKey])));
+    const perStack = buffValueAtLevel(skill, skillLevel);
+    return (
+      <div className="skillDamageLeaf nonDamageLeaf" key={skill.id}>
+        <div className="skillLeafHead">
+          <div className="skillLeafTitle">
+            <PortalHovercard
+              className="skillNameHover"
+              content={(
+                <SkillDescriptionContent
+                  title={label}
+                  level={skillLevel}
+                  formula={`每层 ${pct(perStack)}　最多 ${maxStacks} 层`}
+                  description={skill.coefficientText || skill.description || ''}
+                  source={sourceMeta?.title}
+                />
+              )}
+            >
+              <strong>{label}</strong>
+            </PortalHovercard>
+            <span className="nonDamageBadge">增益</span>
+          </div>
+          {renderCountStepper(skill.stackLabel || '叠层', stackKey, { min: 0, max: maxStacks })}
+        </div>
+        <div className="skillLeafValues">
+          <div className="skillTotalValue">
+            <span>{BUFF_KEY_LABELS[skill.buffKey] || skill.buffKey}（Lv.{skillLevel} 每层 {pct(perStack)}）</span>
+            <span className="buffValue">{pct(perStack * stacks)}</span>
+          </div>
+        </div>
+        {skill.hitNote ? <p className="skillLeafNote">{skill.hitNote}</p> : null}
+      </div>
+    );
+  }
 
   function renderNonDamageLeaf(skill) {
     const kindLabel = NON_DAMAGE_KIND_LABELS[skill.kind] || skill.kind;
@@ -3543,6 +3719,7 @@ export default function App() {
   }
 
   function renderSkillLeaf(skill) {
+    if (skill.kind === 'buff') return renderBuffLeaf(skill);
     if (skill.kind && NON_DAMAGE_KIND_LABELS[skill.kind]) return renderNonDamageLeaf(skill);
     const maxHits = Math.max(0, getNumber(skill.maxHits));
     if (maxHits > 1) {
@@ -3559,11 +3736,11 @@ export default function App() {
 
     if (rule && (rule.hits > 1 || rule.secondaryScale !== undefined)) {
       const hits = Math.max(1, getNumber(rule.hits) || 1);
-      const primarySingle = scaledSkillDamage(skill, result.finalMod);
-      const primary = scaledSkillDamage(skill, result.finalMod, { hits });
+      const primarySingle = scaledSkillDamage(skill, result.finalMod, { context: result.formulaContext });
+      const primary = scaledSkillDamage(skill, result.finalMod, { hits, context: result.formulaContext });
       const hasSecondary = rule.secondaryScale !== undefined;
-      const secondarySingle = hasSecondary ? scaledSkillDamage(skill, result.finalMod, { scale: rule.secondaryScale }) : null;
-      const secondary = hasSecondary ? scaledSkillDamage(skill, result.finalMod, { scale: rule.secondaryScale, hits }) : null;
+      const secondarySingle = hasSecondary ? scaledSkillDamage(skill, result.finalMod, { scale: rule.secondaryScale, context: result.formulaContext }) : null;
+      const secondary = hasSecondary ? scaledSkillDamage(skill, result.finalMod, { scale: rule.secondaryScale, hits, context: result.formulaContext }) : null;
       return renderSkillDamageLeaf(skill, label, {
         targetKey,
         targetMax: rule.maxTargets || MULTI_TARGET_MAX,
@@ -4204,6 +4381,15 @@ export default function App() {
         <StatCard label="伤害提升" value={pct(result.totalDamageBonus)} hint={`装备 ${pct(result.equipDamageBonus)} / 潜能 ${pct(result.talentDamageBonus)} / 手动 ${pct(damageBonus)}`} note={help('stat.damageBonus')} />
         <StatCard label="技能减伤" value={pct(result.totalSkillReduction)} hint={`目标熟练 ${pct(result.targetMasterySkillReduction)} / 手动 ${pct(skillReduction)}，平A熟练减伤 ${pct(result.targetMasteryBasicReduction)}`} note={help('field.targetMastery')} />
         <StatCard label="增减伤合算" value={pct(result.damageMod - 1)} hint={`最终倍率 ${round(result.damageMod, 3)}`} note={help('stat.damageMod')} />
+        {showBasicAttackAmp ? (
+          <StatCard
+            label="普攻增幅"
+            value={pct(result.basicAttackAmp)}
+            hint={`熟练度 ${pct(result.masteryBasicAttackDamageRatio)} / 装备与特效 ${pct(result.basicAttackAmp - result.masteryBasicAttackDamageRatio)}`
+              + (result.basicAttackFlatBonus ? `，普攻额外伤害 +${round(result.basicAttackFlatBonus, 1)}` : '')}
+            note={help('stat.basicAttackAmp')}
+          />
+        ) : null}
         {hasBurstTrait ? (
           <StatCard label="血量差比" value={pct(result.hpDiffRatio)} hint={`爆发力追伤 ${pct(result.burstBonus)}`} note={help('stat.hpDiffRatio')} />
         ) : null}
@@ -4304,41 +4490,114 @@ export default function App() {
               <h2>{selectedHero} 技能伤害</h2>
             </div>
             {stackSelector ? (
-              <div className="stackBlocks" aria-label={stackSelector.label || '叠层'}>
-                {stackSelector.values.map((stack) => (
-                  <button
-                    type="button"
-                    className={r2Stacks === stack ? 'active' : ''}
-                    onClick={() => setR2Stacks(stack)}
-                    key={stack}
-                  >
-                    {stack}
-                  </button>
-                ))}
+              <div className="stackSelector" onClick={(event) => event.preventDefault()}>
+                <div className="stackSelectorHead">
+                  <span>{stackSelector.label || '叠层'}</span>
+                  {help('field.stackSelector')}
+                </div>
+                {stackSelector.mode === 'slider' ? (
+                  <div className="stackSlider">
+                    <input
+                      type="range"
+                      min={0}
+                      max={stackSelector.max}
+                      step={1}
+                      value={Math.min(stackSelector.max, Math.max(0, r2Stacks))}
+                      onChange={(event) => setR2Stacks(Number(event.target.value))}
+                      aria-label={stackSelector.label || '叠层'}
+                    />
+                    <input
+                      type="number"
+                      min={0}
+                      max={stackSelector.max}
+                      value={r2Stacks}
+                      onChange={(event) => setR2Stacks(Math.min(stackSelector.max, Math.max(0, getNumber(event.target.value))))}
+                      aria-label={`${stackSelector.label || '叠层'}（手动输入）`}
+                    />
+                    <small>/ {stackSelector.max}</small>
+                  </div>
+                ) : (
+                  <div className="stackBlocks">
+                    {stackSelector.values.map((stack) => (
+                      <button
+                        type="button"
+                        className={r2Stacks === stack ? 'active' : ''}
+                        onClick={() => setR2Stacks(stack)}
+                        key={stack}
+                      >
+                        {stack}
+                      </button>
+                    ))}
+                  </div>
+                )}
               </div>
             ) : null}
+            {/* 自身当前体力：和叠层选择器同一排，只在该英雄的公式真的用到时出现 */}
+            {usesSelfHp ? (
+              <div className="stackSelector" onClick={(event) => event.preventDefault()}>
+                <div className="stackSelectorHead">
+                  <span>自身当前体力</span>
+                  {help('field.selfHpPct')}
+                </div>
+                <div className="stackSlider">
+                  <input
+                    type="range"
+                    min={0}
+                    max={100}
+                    step={1}
+                    value={selfHpPct}
+                    onChange={(event) => setSelfHpPct(Number(event.target.value))}
+                    aria-label="自身当前体力"
+                  />
+                  <input
+                    type="number"
+                    min={0}
+                    max={100}
+                    value={selfHpPct}
+                    onChange={(event) => setSelfHpPct(Math.max(0, Math.min(100, getNumber(event.target.value))))}
+                    aria-label="自身当前体力（手动输入）"
+                  />
+                  <small>%</small>
+                </div>
+              </div>
+            ) : null}
+            {/* 英雄专属的条件修正（卡洛琳 W 镜子增幅、秀雅 Q 冲撞点） */}
+            {heroModifiers.map((modifier) => (
+              <div className="stackSelector" key={modifier.id} onClick={(event) => event.preventDefault()}>
+                <div className="stackSelectorHead">
+                  <span>{modifier.label}</span>
+                  {modifier.note ? <HelpNote note={modifier.note} /> : null}
+                </div>
+                <select
+                  className="heroModifierSelect"
+                  value={heroModifierChoices[`${selectedHero}:${modifier.id}`] ?? modifier.default ?? 0}
+                  onChange={(event) => setHeroModifierChoices((current) => ({
+                    ...current,
+                    [`${selectedHero}:${modifier.id}`]: Number(event.target.value)
+                  }))}
+                >
+                  {(modifier.options || []).map((option) => (
+                    <option value={option.value} key={option.value}>{option.label}</option>
+                  ))}
+                </select>
+              </div>
+            ))}
           </summary>
-          {/* 该英雄的计算口径提醒（heroStatus.json 的 caveat），例如被动会额外提供属性但模型没建 */}
-          {HERO_STATUS.heroes?.[selectedHero]?.caveat ? (
-            <p className="note skillCaveat">{HERO_STATUS.heroes[selectedHero].caveat}</p>
-          ) : null}
           {/* 这几项只有当前英雄的技能或身上装备的特效真的用到时才出现，平时不占地方 */}
           {contextFieldsInUse.length ? (
             <div className="skillContextFields">
               {contextFieldsInUse.includes('targetCurrentHp') || contextFieldsInUse.includes('targetLostHp') ? (
                 <>
-                  <Field
+                  <HpRatioSlider
                     label="目标当前体力"
                     value={targetHpPct}
-                    onChange={(value) => setTargetHpPct(Math.max(0, Math.min(100, getNumber(value))))}
-                    suffix="%"
+                    onChange={(value) => setTargetHpPct(Math.max(0, Math.min(100, value)))}
                     note={help('field.targetCurrentHp')}
                   />
-                  <Field
+                  <HpRatioSlider
                     label="目标已失体力"
                     value={round(100 - getNumber(targetHpPct), 1)}
-                    onChange={(value) => setTargetHpPct(Math.max(0, Math.min(100, 100 - getNumber(value))))}
-                    suffix="%"
+                    onChange={(value) => setTargetHpPct(Math.max(0, Math.min(100, 100 - value)))}
                     note={help('field.targetLostHp')}
                   />
                 </>

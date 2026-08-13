@@ -75,17 +75,22 @@ export function clampLevel(skill, level) {
  *   ap          技能增幅        attack      攻击力
  *   extraAttack 额外攻击力      targetHp    目标体力上限
  *   maxHp       自身体力上限    extraHp     自身额外体力（装备/潜能提供的那部分）
+ *   selfCurrentHp 自身当前体力   selfLostHp  自身已失体力（由界面「自身当前体力 %」推出）
  *   defense     自身防御力      shield      自身护盾量
  *   critChance  暴击率（0~1）
  *   targetCurrentHp 目标当前体力   targetLostHp 目标已失体力
  *   stacks      叠层            level       技能等级（1 起）
  *   heroLevel   实验体等级（界面「熟练度等级」，1~20）
+ *   basicAttackAmp 普攻增幅（0~1 的小数）。官方独立乘区，只作用于普攻伤害。
+ *                  公告里写成「* (普攻增幅)」的段落（李黛琳醉仙2段、莉央替弓、
+ *                  艾登 Q 这类被判定为普攻伤害的技能）写成 `... * (1 + basicAttackAmp)`。
  */
 const FORMULA_VARIABLES = [
   'base', 'ap', 'attack', 'extraAttack',
   'targetHp', 'targetCurrentHp', 'targetLostHp',
-  'maxHp', 'extraHp', 'defense', 'shield', 'critChance',
-  'stacks', 'level', 'heroLevel'
+  'maxHp', 'selfCurrentHp', 'selfLostHp',
+  'extraHp', 'defense', 'shield', 'critChance',
+  'basicAttackAmp', 'stacks', 'level', 'heroLevel'
 ];
 
 export function evaluateFormula(formula, context) {
@@ -140,6 +145,8 @@ export function skillFormulaDescription(skill, level) {
     ['targetCurrentHp', '目标当前体力'],
     ['targetLostHp', '目标已失体力'],
     ['maxHp', '自身体力'],
+    ['selfCurrentHp', '自身当前体力'],
+    ['selfLostHp', '自身已失体力'],
     ['extraHp', '额外体力'],
     ['defense', '防御力'],
     ['shield', '护盾'],
@@ -152,7 +159,10 @@ export function skillFormulaDescription(skill, level) {
     // 实验体等级是「等级 * 系数」的线性项，按倍数显示比百分比更直观
     pieces.push(variable === 'heroLevel' ? `${label}×${round(coefficient, 2)}` : `${label}${pct(coefficient)}`);
   });
-  const compactFormula = pieces.join(' + ');
+  // 普攻类伤害段走的是另一条结算线，系数表里看不出来，单独缀一句说明
+  const compactFormula = skill.damageType === 'basicAttack' || formulaUsesVariable(skill.formula, 'basicAttackAmp')
+    ? `${pieces.join(' + ')}　→ 按普攻结算（吃普攻增幅 / 普攻减伤）`
+    : pieces.join(' + ');
   const rawFormula = String(skill.formula || '').trim();
   return rawFormula
     ? `${compactFormula}\n原始公式：${rawFormula}`
@@ -163,6 +173,20 @@ export function skillFormulaDescription(skill, level) {
 // 单条技能伤害
 // ---------------------------------------------------------------------------
 
+/**
+ * 该技能段该走哪条结算线。
+ *   damageType: "true"        → 真实伤害，不吃防御也不吃减伤
+ *   damageType: "basicAttack" → 官方判定为普攻伤害，吃普攻增幅和目标的普攻减伤，
+ *                               而不是技能增幅那条线（李黛琳醉仙2段、莉央替弓、艾登 Q）
+ *   其余                       → 常规技能伤害
+ */
+export function skillFinalMod(skill, context) {
+  if (skill?.damageType === 'basicAttack') {
+    return getNumber(context?.basicAttackFinalMod ?? context?.finalMod);
+  }
+  return getNumber(context?.finalMod);
+}
+
 export function calculateSkill(skill, level, context) {
   const nextLevel = clampLevel(skill, level);
   const base = skillBaseAtLevel(skill, nextLevel);
@@ -171,7 +195,7 @@ export function calculateSkill(skill, level, context) {
   // 真实伤害不吃防御与减伤，最终值就是原始值
   const damage = skill.damageType === 'true'
     ? rawDamage
-    : damageFloor(rawDamage * context.finalMod);
+    : damageFloor(rawDamage * skillFinalMod(skill, context));
   return {
     ...skill,
     level: nextLevel,
@@ -181,11 +205,17 @@ export function calculateSkill(skill, level, context) {
   };
 }
 
-/** 按倍率和命中段数放大一条技能的伤害（先取整单发，再乘段数）。 */
-export function scaledSkillDamage(skill, finalMod, { scale = 1, hits = 1 } = {}) {
+/**
+ * 按倍率和命中段数放大一条技能的伤害（先取整单发，再乘段数）。
+ * 普攻类伤害段要用普攻那条修正，所以允许传 context 覆盖默认的 finalMod。
+ */
+export function scaledSkillDamage(skill, finalMod, { scale = 1, hits = 1, context } = {}) {
   const singleRaw = damageFloor(getNumber(skill.rawDamage) * scale);
+  const mod = context && skill?.damageType === 'basicAttack'
+    ? skillFinalMod(skill, context)
+    : finalMod;
   // 真实伤害不吃防御与减伤，和 calculateSkill 保持一致
-  const singleFinal = skill?.damageType === 'true' ? singleRaw : damageFloor(singleRaw * finalMod);
+  const singleFinal = skill?.damageType === 'true' ? singleRaw : damageFloor(singleRaw * mod);
   return {
     raw: singleRaw * hits,
     final: singleFinal * hits

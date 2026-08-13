@@ -48,6 +48,34 @@ export function stackSelectorRule(hero) {
   return heroRule(hero)?.stackSelector || null;
 }
 
+/**
+ * 英雄专属的条件修正（卡洛琳 W 的镜子技能增幅、秀雅 Q 冲撞点的承受伤害提升这类）。
+ * 每条是一个下拉，选项自带要加进哪个桶：
+ *   apPct       → 技能增幅百分比，和熟练度/独有增幅同一个桶
+ *   damageBonus → 伤害提升百分比，和装备/潜能/手动增伤同一个乘区
+ * 「敌人承受伤害增加」按官方口径就落在 damageBonus 这一档。
+ */
+export function heroModifiersFor(hero) {
+  const list = heroRule(hero)?.modifiers;
+  return Array.isArray(list) ? list : [];
+}
+
+/** 把当前选中的选项汇总成各个桶的加成。 */
+export function heroModifierTotals(hero, choices = {}) {
+  return heroModifiersFor(hero).reduce((totals, modifier) => {
+    const picked = choices[`${hero}:${modifier.id}`] ?? modifier.default ?? 0;
+    const option = (modifier.options || []).find((item) => item.value === picked);
+    if (!option) return totals;
+    return {
+      apPct: totals.apPct + (Number(option.apPct) || 0),
+      damageBonus: totals.damageBonus + (Number(option.damageBonus) || 0),
+      applied: option.apPct || option.damageBonus
+        ? [...totals.applied, { label: modifier.label, option: option.label }]
+        : totals.applied
+    };
+  }, { apPct: 0, damageBonus: 0, applied: [] });
+}
+
 /** 叠层上限：没有规则时沿用旧的 4 层上限。 */
 export function stackLimit(hero) {
   return stackSelectorRule(hero)?.max ?? 4;
@@ -69,6 +97,17 @@ export function stackLimitForHero(hero, skills = []) {
 }
 
 /**
+ * 叠层步长。像李黛琳的酒醉值那样上限 100 的资源，一格一个按钮会铺满整行，
+ * 条目上写 "stackStep": 10 就改成 0/10/20…/100。
+ */
+function stackStepForHero(skills = []) {
+  const declared = skills.filter(usesStacks)
+    .map((skill) => Number(skill?.stackStep))
+    .filter((value) => Number.isFinite(value) && value > 0);
+  return declared.length ? Math.max(...declared) : 1;
+}
+
+/**
  * 叠层选择器：优先用 specialSkillRules.json 里写死的配置；
  * 没配但该英雄有公式用到 stacks 时，自动生成一个 0~上限 的选择器。
  */
@@ -77,12 +116,20 @@ export function stackSelectorForHero(hero, skills = []) {
   if (configured) return configured;
   if (!skills.some(usesStacks)) return null;
   const max = stackLimitForHero(hero, skills);
+  const step = stackStepForHero(skills);
   const label = skills.filter(usesStacks).map((skill) => skill.stackLabel).find(Boolean) || '叠层';
+  const values = [];
+  for (let value = 0; value <= max; value += step) values.push(value);
+  if (values[values.length - 1] !== max) values.push(max);
   return {
     label,
-    values: Array.from({ length: max + 1 }, (_, index) => index),
-    default: 1,
+    values,
+    // 步长大于 1 时说明是资源条而不是层数，默认给满，跟游戏里「消耗全部酒醉值」的用法一致
+    default: step > 1 ? max : 1,
     max,
+    step,
+    // 取值多的用滑块 + 输入框，少的还是一排按钮点着方便
+    mode: step > 1 || max > 12 ? 'slider' : 'buttons',
     auto: true
   };
 }

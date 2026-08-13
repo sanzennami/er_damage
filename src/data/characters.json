@@ -5264,7 +5264,7 @@
         "maxHp": 92,
         "maxVp": 0,
         "attackPower": 3.8,
-        "defense": 2.9,
+        "defense": 3.1,
         "skillAmp": 0,
         "adaptiveForce": 0,
         "criticalChance": 0,
@@ -5293,7 +5293,9 @@
       ],
       "playTip": "米尔卡是一名利用群体控制技能来展开交战，并在战斗中积累反击值以创造机会的实验体。",
       "storyName": "米尔卡",
-      "image": "/assets/characters/085-Mirka.png"
+      "image": "/assets/characters/085-Mirka.png",
+      "patchVersion": "12.1",
+      "patchOrder": 20260813
     },
     {
       "code": 86,

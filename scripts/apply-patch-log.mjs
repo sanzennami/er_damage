@@ -57,7 +57,21 @@ function getByPath(target, dottedPath) {
 }
 
 // 只影响界面呈现、不影响数值本身的字段（叠层选择器、命中次数、护盾/治疗标记）
-const PRESENTATION_FIELDS = ['maxStacks', 'stackLabel', 'maxHits', 'defaultHits', 'hitLabel', 'hitNote', 'kind', 'damageType'];
+const PRESENTATION_FIELDS = ['maxStacks', 'stackLabel', 'stackStep', 'maxHits', 'defaultHits', 'hitLabel', 'hitNote', 'kind', 'buffKey', 'damageType', 'progressiveDamage'];
+
+/** progressiveDamage 是对象，不能用 === 比，否则每次都判定成没达标、反复重写。 */
+function samePresentationValue(a, b) {
+  if (a && typeof a === 'object') return JSON.stringify(a) === JSON.stringify(b);
+  return a === b;
+}
+
+/** 条目上那句来源说明。达标判断和实际写入必须用同一份，否则改说明永远写不进去。 */
+function composeSourceNote(patch, change) {
+  const origin = change.source === 'in-game-client'
+    ? `客户端读数 ${patch.version}`
+    : `官方公告 ${patch.version}`;
+  return [`${origin} 数值：${change.coefficientText || ''}`, change.note].filter(Boolean).join(' ');
+}
 
 const STAT_ALIAS = {
   attackPower: 'attackPower', skillAmp: 'ap', cooldownReduction: 'cd', defense: 'defense',
@@ -164,14 +178,18 @@ async function main() {
       const wantFormula = change.formula ?? entry.formula;
       // 展示参数也要参与「是否已达标」的判断，否则数值没变时新字段永远写不进去
       const samePresentation = PRESENTATION_FIELDS
-        .every((field) => change[field] === undefined || change[field] === entry[field]);
+        .every((field) => change[field] === undefined || samePresentationValue(change[field], entry[field]));
       // 标题和来源也要比：只改名或只换来源（例如 Wiki 值被客户端读数确认）时数值不变，
       // 不比的话这类变更永远写不进去。
       const sameTitle = change.title === undefined || change.title === entry.title;
       const sameSource = change.source === undefined || change.source === entry.source;
+      // 官方原文与说明同理：数值没动、只是补一句来源说明时也要能写进去。
+      const sameCoefficientText = !change.coefficientText || change.coefficientText === entry.coefficientText;
+      const sameSourceNote = composeSourceNote(patch, change) === entry.sourceNote;
       const atTarget = String(entry.bases) === String(wantBases)
         && String(entry.formula) === String(wantFormula)
-        && samePresentation && sameTitle && sameSource;
+        && samePresentation && sameTitle && sameSource
+        && sameCoefficientText && sameSourceNote;
 
       if (atTarget) {
         if (entry.patchOrder === undefined && !dryRun) { entry.patchVersion = patch.version; entry.patchOrder = patch.order; }
@@ -202,10 +220,7 @@ async function main() {
         entry.source = change.source || 'official-patch-note';
         entry.authority = change.authority ?? (change.source ? undefined : 80);
         if (entry.authority === undefined) delete entry.authority;
-        const origin = change.source === 'in-game-client'
-          ? `客户端读数 ${patch.version}`
-          : `官方公告 ${patch.version}`;
-        entry.sourceNote = [`${origin} 数值：${change.coefficientText || ''}`, change.note].filter(Boolean).join(' ');
+        entry.sourceNote = composeSourceNote(patch, change);
         stamp(entry);
       }
       log.applied.push(`skill ${entry.hero} ${entry.title}`);

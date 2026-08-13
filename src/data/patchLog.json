@@ -1,7 +1,7 @@
 {
   "_comment": "官方补丁变更日志。每条记录的是「该补丁之后应该是什么值」（目标态），不是增量。",
   "_usage": "新版本上线：在 patches 末尾追加一段，然后跑 node scripts/apply-patch-log.mjs。脚本幂等，重跑只会跳过已达标的条目，不需要还原任何数据。",
-  "updatedAt": "2026-08-11T15:08:42.533Z",
+  "updatedAt": "2026-08-12T21:43:32.159Z",
   "patches": [
     {
       "version": "sweep-2023-07-19",
@@ -4941,6 +4941,1139 @@
           "source": "in-game-client",
           "coefficientText": "额外伤害 30/50/70(+技能增幅的30%)",
           "note": "被赋予 5 叠层的目标结算一次并重置叠层。客户端读数与原值一致。"
+        }
+      ],
+      "equipment": [],
+      "characters": [],
+      "mastery": []
+    },
+    {
+      "version": "client-12.0b-chloe",
+      "order": 20260811,
+      "date": "2026-08-11",
+      "url": "",
+      "title": "客户端读数：克洛伊（12.0b）",
+      "skills": [
+        {
+          "id": "augment-040-chloe-p-1040100-nina-enhanced-attack-damage-stat1",
+          "hero": "克洛伊",
+          "title": "P 人偶师 妮娜 普攻强化伤害",
+          "bases": "20,50,80",
+          "formula": "base + (attack * (0.62 + (heroLevel - 1) * 0.02)) * 0.5",
+          "source": "in-game-client",
+          "coefficientText": "[妮娜] 普攻强化伤害 20/50/80(+妮娜攻击力的50%)",
+          "note": "克洛伊连续普攻 2 次以上时妮娜跟着攻击。客户端读数修正：原 Wiki 直接按克洛伊攻击力算，实际吃的是妮娜攻击力（克洛伊攻击力的 62%，每升一级 +2%）。妮娜另有 P 等级给的固定攻击力 4/7/10，公式里引用不到 P 的等级，未计入。"
+        },
+        {
+          "create": true,
+          "id": "ingame-040-chloe-q-1040200-damage",
+          "hero": "克洛伊",
+          "slot": "Q",
+          "group": 1040200,
+          "skillId": "ChloeActive1",
+          "dataKey": "Damage",
+          "title": "Q 攻击指令 妮娜伤害",
+          "bases": "70,90,110,130,150",
+          "formula": "base + (attack * (0.62 + (heroLevel - 1) * 0.02)) * 0.75",
+          "source": "in-game-client",
+          "coefficientText": "[妮娜] 伤害 70/90/110/130/150(+妮娜攻击力的75%)",
+          "note": "妮娜用双刀刃腿攻击周围敌人，命中后目标 1.5 秒内移速 -10/15/20/25/30%。冷却 5 秒。"
+        },
+        {
+          "create": true,
+          "id": "ingame-040-chloe-w-1040300-spin-true-damage",
+          "hero": "克洛伊",
+          "slot": "W",
+          "group": 1040300,
+          "skillId": "ChloeActive2_1",
+          "dataKey": "SpinTrueDamage",
+          "title": "W 木偶戏 旋转真实伤害",
+          "bases": "15,15,15,15,15",
+          "formula": "base + attack * 0.06",
+          "damageType": "true",
+          "source": "in-game-client",
+          "coefficientText": "每秒 15(+攻击力的6%) 真实伤害",
+          "note": "操纵线旋转期间每秒结算一次，敌人移速 -35%。客户端底部数值表没有这一行（只列了恢复量、投掷伤害、下劈伤害），说明它不随技能等级变化，故五级同值。"
+        },
+        {
+          "create": true,
+          "id": "ingame-040-chloe-w-1040300-throw-damage",
+          "hero": "克洛伊",
+          "slot": "W",
+          "group": 1040300,
+          "skillId": "ChloeActive2_1",
+          "dataKey": "ThrowDamage",
+          "title": "W 木偶戏 投掷伤害",
+          "bases": "40,60,80,100,120",
+          "formula": "base + attack * 0.8",
+          "source": "in-game-client",
+          "coefficientText": "[克洛伊] 投掷伤害 40/60/80/100/120(+攻击力的80%)",
+          "note": "3 秒内再次使用时把十字提线插在指定位置，目标 1 秒内移速 -30/35/40/45/50%。蓄力中被取消或未使用时返还 50% 冷却。"
+        },
+        {
+          "create": true,
+          "id": "ingame-040-chloe-w-1040300-nina-slam-damage",
+          "hero": "克洛伊",
+          "slot": "W",
+          "group": 1040300,
+          "skillId": "ChloeActive2_1",
+          "dataKey": "NinaSlamDamage",
+          "title": "W 木偶戏 妮娜下劈伤害",
+          "bases": "40,80,120,160,200",
+          "formula": "base + (attack * (0.62 + (heroLevel - 1) * 0.02)) * 0.7",
+          "source": "in-game-client",
+          "coefficientText": "[妮娜] 下劈伤害 40/80/120/160/200(+妮娜攻击力的70%)",
+          "note": "妮娜瞬移到十字提线位置下劈，敌人悬空 0.5 秒。妮娜攻击结束后提线弹回克洛伊。"
+        },
+        {
+          "create": true,
+          "id": "ingame-040-chloe-e-1040400-damage",
+          "hero": "克洛伊",
+          "slot": "E",
+          "group": 1040400,
+          "skillId": "ChloeActive3_1",
+          "dataKey": "Damage",
+          "title": "E 扯线傀儡 克洛伊伤害",
+          "bases": "40,55,70,85,100",
+          "formula": "base + attack * 0.4",
+          "source": "in-game-client",
+          "coefficientText": "[克洛伊] 伤害 40/55/70/85/100(+攻击力的40%)",
+          "note": "朝指定方向快速移动，对路径上的敌人结算。冷却 14/13.5/13/12.5/12 秒。"
+        },
+        {
+          "create": true,
+          "id": "ingame-040-chloe-e-1040400-nina-damage",
+          "hero": "克洛伊",
+          "slot": "E",
+          "group": 1040400,
+          "skillId": "ChloeActive3_1",
+          "dataKey": "NinaDamage",
+          "title": "E 扯线傀儡 妮娜伤害",
+          "bases": "50,80,110,140,170",
+          "formula": "base + (attack * (0.62 + (heroLevel - 1) * 0.02)) * 0.6",
+          "source": "in-game-client",
+          "coefficientText": "[妮娜] 伤害 50/80/110/140/170(+妮娜攻击力的60%)",
+          "note": "1 秒后再次使用时妮娜飞向克洛伊并刺伤路径上的敌人；妮娜命中敌人时重置攻击指令(Q)的冷却。"
+        },
+        {
+          "create": true,
+          "id": "ingame-040-chloe-r-1040500-link-true-damage",
+          "hero": "克洛伊",
+          "slot": "R",
+          "group": 1040500,
+          "skillId": "ChloeActive4",
+          "dataKey": "LinkTrueDamage",
+          "title": "R 生命共享 连结线伤害",
+          "bases": "30,60,90",
+          "formula": "base",
+          "damageType": "true",
+          "source": "in-game-client",
+          "coefficientText": "连结线伤害(秒) 30/60/90 真实伤害",
+          "note": "连结状态持续 5 秒，敌人碰到连结线时每秒结算。接触越久伤害越高（1 级为 30~70），这里取的是下限；上限随接触时间递增，模型没有这一层。连结期间妮娜攻速 +20/25/30%、移速 +25/30/35%，W 与 E 冷却 -30%。冷却 80/70/60 秒。"
+        }
+      ],
+      "equipment": [],
+      "characters": [],
+      "mastery": []
+    },
+    {
+      "version": "client-12.0b-lidailin",
+      "order": 20260812,
+      "date": "2026-08-12",
+      "url": "",
+      "title": "客户端读数：李黛琳（12.0b）",
+      "skills": [
+        {
+          "create": true,
+          "id": "ingame-010-lidailin-q-1010200-damage",
+          "hero": "李黛琳",
+          "slot": "Q",
+          "group": 1010200,
+          "dataKey": "Damage",
+          "title": "Q 八卦回龙腿 伤害",
+          "bases": "20,40,60,80,100",
+          "formula": "base + attack * 0.7",
+          "source": "in-game-client",
+          "maxHits": 3,
+          "defaultHits": 1,
+          "hitLabel": "使用次数",
+          "hitNote": "短暂冲向敌人，可再次使用两次，共 3 段；只有最后一次能穿越墙壁。",
+          "coefficientText": "伤害 20/40/60/80/100(+攻击力的70%)",
+          "note": "冷却 13/12.5/12/11.5/11 秒。"
+        },
+        {
+          "create": true,
+          "id": "ingame-010-lidailin-q-1010200-drunk-fist-damage",
+          "hero": "李黛琳",
+          "slot": "Q",
+          "group": 1010200,
+          "dataKey": "DrunkFistDamage",
+          "title": "Q 八卦回龙腿 醉拳强化伤害",
+          "bases": "40,65,90,115,140",
+          "formula": "base + attack * 0.85",
+          "source": "in-game-client",
+          "maxHits": 3,
+          "defaultHits": 1,
+          "hitLabel": "使用次数",
+          "hitNote": "醉拳状态下的强化版，同样可用 3 次。",
+          "coefficientText": "醉拳强化伤害 40/65/90/115/140(+攻击力的85%)",
+          "note": "酒醉值 40 以上时 Q 强化为醉拳状态，每次使用消耗 40 酒醉值，突进距离也会增加。"
+        },
+        {
+          "create": true,
+          "id": "ingame-010-lidailin-e-1010400-damage",
+          "hero": "李黛琳",
+          "slot": "E",
+          "group": 1010400,
+          "dataKey": "Damage",
+          "title": "E 醉蝶敬酒 伤害",
+          "bases": "50,100,150,200,250",
+          "formula": "base + attack * 0.9",
+          "source": "in-game-client",
+          "coefficientText": "伤害 50/100/150/200/250(+攻击力的90%)",
+          "note": "扇形洒出酒雨，命中的敌人 2 秒内移速 -25/27.5/30/32.5/35%。醉拳状态下消耗 40 酒醉值，减速提升到 45/50/55/60/65%，伤害不变。冷却 10/9.5/9/8.5/8 秒。"
+        },
+        {
+          "create": true,
+          "id": "ingame-010-lidailin-r-1010500-damage",
+          "hero": "李黛琳",
+          "slot": "R",
+          "group": 1010500,
+          "dataKey": "Damage",
+          "title": "R 猛虎穿心踢 单次伤害",
+          "bases": "20,70,120",
+          "formula": "(base + attack * 0.6 + stacks * 0.5) * (1 + 0.5 * targetLostHp / targetHp)",
+          "source": "in-game-client",
+          "maxHits": 4,
+          "defaultHits": 4,
+          "hitLabel": "命中次数",
+          "hitNote": "1.2 秒内压制冲撞的敌人，共 4 次攻击。",
+          "maxStacks": 100,
+          "stackLabel": "消耗酒醉值",
+          "stackStep": 10,
+          "coefficientText": "每次 20/70/120(+攻击力的60%)(+消耗酒醉值的50%) ~ 30/105/180(+攻击力的90%)(+消耗酒醉值的75%)",
+          "note": "伤害随目标已失体力在最小~最大之间变化，最大值恰好是最小值的 1.5 倍（基础值、攻击力系数、酒醉值系数三项都是 1.5 倍关系），因此用 (1 + 0.5 * 已失体力 / 体力上限) 插值成一条公式。施放时消耗全部酒醉值，消耗得越多伤害越高，用叠层选择器代表消耗量。该技能仅对实验体和终极野怪生效。冷却 80/70/60 秒。"
+        }
+      ],
+      "equipment": [],
+      "characters": [],
+      "mastery": []
+    },
+    {
+      "version": "client-12.0b-coraline",
+      "order": 20260812,
+      "date": "2026-08-12",
+      "url": "",
+      "title": "客户端校对：卡洛琳（12.0b）",
+      "skills": [
+        {
+          "id": "patch-coraline-1087200-black-mirror-damage",
+          "formula": "base + ap * 0.8 + targetLostHp * [0.03,0.06,0.09,0.12,0.15][level - 1]",
+          "source": "in-game-client",
+          "coefficientText": "黑镜伤害量 60/105/150/195/240(+技能增幅80%)(+目标失去体力3/6/9/12/15%)",
+          "note": "客户端校对：技能增幅系数由 85% 修正为 80%，与白镜同值。黑镜命中后目标 1 秒内移速 -60%。"
+        },
+        {
+          "id": "patch-coraline-1087100-damage",
+          "damageType": "true",
+          "source": "in-game-client",
+          "coefficientText": "伤害 20/40/60/80/100(+技能增幅10%)，真实伤害",
+          "note": "客户端校对：这段是真实伤害，此前漏标 damageType，一直在吃防御减伤。技能命中敌人留下持续 4 秒的镜子碎片标记，再次用技能命中带标记的敌人时消耗标记触发。持续伤害类技能每 0.5 秒判定一次。系数 12% 是 12.0b 读数，12.1 已下调至 10%，此处取公告目标态。"
+        },
+        {
+          "create": true,
+          "id": "ingame-087-coraline-e-1087400-white-mirror-shield",
+          "hero": "卡洛琳",
+          "slot": "E",
+          "group": 1087400,
+          "dataKey": "WhiteMirrorShield",
+          "title": "E 罪业枷锁 白镜护盾",
+          "bases": "60,85,110,135,160",
+          "formula": "base + ap * 0.35",
+          "kind": "shield",
+          "source": "in-game-client",
+          "coefficientText": "护盾吸收 60/85/110/135/160(+技能增幅35%)",
+          "note": "白镜强化的球体命中敌人时，卡洛琳获得该护盾，持续 2.5 秒。此前整段缺失。"
+        }
+      ],
+      "equipment": [],
+      "characters": [],
+      "mastery": []
+    },
+    {
+      "version": "client-12.0b-bianca",
+      "order": 20260812,
+      "date": "2026-08-12",
+      "url": "",
+      "title": "客户端读数：比安卡（12.0b）",
+      "skills": [
+        {
+          "create": true,
+          "id": "ingame-042-bianca-q-1042200-damage",
+          "hero": "比安卡",
+          "slot": "Q",
+          "group": 1042200,
+          "dataKey": "Damage",
+          "title": "Q 血之枪 伤害",
+          "bases": "40,80,120,160,200",
+          "formula": "base + ap * 0.5",
+          "source": "in-game-client",
+          "coefficientText": "伤害 40/80/120/160/200(+技能增幅的50%)",
+          "note": "向指定地点投射血之枪，命中的敌人承受该伤害。消耗当前体力 4%，冷却 10/9/8/7/6 秒。"
+        },
+        {
+          "id": "augment-042-bianca-q-1042200-extra-damage-stat2",
+          "title": "Q 血之枪 血滩额外伤害",
+          "bases": "10,40,70,100,130",
+          "formula": "base + ap * 0.5 + targetHp * 0.1",
+          "source": "in-game-client",
+          "coefficientText": "额外伤害 10/40/70/100/130(+技能增幅的50%)(+目标体力上限的10%)",
+          "note": "血之枪落点形成圆形血滩，对第一个命中的敌人结算后消失。客户端校对：原先漏了技能增幅 50% 这一项，目标体力上限系数也由 8% 修正为 10%。处于缓血状态的目标被血之枪命中时会被束缚 1 秒。"
+        },
+        {
+          "create": true,
+          "id": "ingame-042-bianca-w-1042300-heal",
+          "hero": "比安卡",
+          "slot": "W",
+          "group": 1042300,
+          "dataKey": "Heal",
+          "title": "W 安息 每跳恢复",
+          "bases": "0,0,0,0,0",
+          "formula": "maxHp * 0.04",
+          "kind": "heal",
+          "source": "in-game-client",
+          "maxHits": 6,
+          "defaultHits": 6,
+          "hitLabel": "恢复跳数",
+          "hitNote": "棺材中每 0.5 秒回一次，最多 3 秒共 6 跳。",
+          "coefficientText": "每 0.5 秒恢复体力上限的 4%",
+          "note": "隐身于棺材中最多 3 秒，期间承受伤害减少 60/65/70/75/80%。恢复量不随技能等级变化（客户端数值表里只有减伤和冷却两行）。血液累积达 50% 以上时可消耗全部血液按比例追加恢复量，该部分未建模。"
+        },
+        {
+          "create": true,
+          "id": "ingame-042-bianca-e-1042400-damage",
+          "hero": "比安卡",
+          "slot": "E",
+          "group": 1042400,
+          "dataKey": "Damage",
+          "title": "E 血循环 突进伤害",
+          "bases": "30,55,80,105,130",
+          "formula": "base + ap * 0.6",
+          "source": "in-game-client",
+          "progressiveDamage": {
+            "id": "charge",
+            "label": "蓄力档位",
+            "unit": "档",
+            "selectedLabel": "蓄力",
+            "min": 0,
+            "max": 5,
+            "default": 0,
+            "base": {
+              "fromMultiplier": 1,
+              "toMultiplier": 2
+            },
+            "coefficient": {
+              "variable": "ap",
+              "from": 0.6,
+              "to": 1.2
+            },
+            "note": "每档 0.2 秒，满 1 秒（5 档）时伤害与技能增幅系数都翻倍；每蓄力 0.2 秒额外消耗当前体力 1%，蓄力状态最长维持 3 秒。"
+          },
+          "coefficientText": "最小伤害 30/55/80/105/130(+技能增幅60%) ~ 最大伤害 60/110/160/210/260(+技能增幅120%)",
+          "note": "蓄力越久突进距离和伤害范围越大。最大值恰好是最小值的 2 倍，基础值与技能增幅系数同步翻倍，所以用蓄力档位做线性插值。消耗当前体力 2%，冷却 12/11/10/9/8 秒。"
+        },
+        {
+          "create": true,
+          "id": "ingame-042-bianca-e-1042400-heal",
+          "hero": "比安卡",
+          "slot": "E",
+          "group": 1042400,
+          "dataKey": "Heal",
+          "title": "E 血循环 体力恢复",
+          "bases": "25,35,45,55,65",
+          "formula": "base + ap * 0.3",
+          "kind": "heal",
+          "source": "in-game-client",
+          "coefficientText": "体力恢复 25/35/45/55/65(+技能增幅的30%)",
+          "note": "蓄力超过 1 秒时触发。命中多个敌人时每个敌人额外增加 40% 恢复量，该部分未建模。"
+        },
+        {
+          "id": "augment-042-bianca-r-1042500-extra-damage-stat2",
+          "title": "R 星芒血阵 落地伤害",
+          "bases": "50,100,150",
+          "formula": "base + ap * 0.4 + targetHp * 0.11",
+          "source": "in-game-client",
+          "coefficientText": "伤害 50/100/150(+技能增幅的40%)(+目标体力上限的11%)",
+          "note": "血咒结束后星芒血阵固定于地面，范围内敌人承受该伤害并在 2 秒内移速 -60%。客户端校对：数值本来就对，只是原标题「额外伤害」和结束伤害那条搞混了，改名区分。比安卡站在血阵上方时吸血-所有伤害 +14/22/30%，该部分未建模。"
+        },
+        {
+          "id": "augment-042-bianca-r-1042500-maximum-extra-damage-stat3",
+          "title": "R 星芒血阵 结束伤害",
+          "bases": "50,100,150",
+          "formula": "(base + ap * 0.7) * (1 + targetLostHp / targetHp)",
+          "source": "in-game-client",
+          "coefficientText": "额外伤害 50/100/150(+技能增幅70%) ~ 上限 100/200/300(+技能增幅140%)，按目标已失体力取值",
+          "note": "星芒血阵持续时间结束时按范围内敌人的已失体力按比例结算。上限恰好是下限的 2 倍（基础值与技能增幅系数同步翻倍），所以用 (1 + 已失体力 / 体力上限) 插值成一条。客户端校对：原先这条只记了上限那一半，改成完整的插值公式。"
+        },
+        {
+          "create": true,
+          "id": "ingame-042-bianca-r-1042500-heal",
+          "hero": "比安卡",
+          "slot": "R",
+          "group": 1042500,
+          "dataKey": "Heal",
+          "title": "R 星芒血阵 体力恢复",
+          "bases": "70,110,150",
+          "formula": "base + ap * 0.35",
+          "kind": "heal",
+          "source": "in-game-client",
+          "coefficientText": "体力恢复 70/110/150(+技能增幅的35%)(+已失体力的8%)",
+          "note": "血阵结束时与结束伤害同时触发。官方还写了「+已失体力的8%」，模型没有自身当前/已失体力这两个量，这一项未计入，实际恢复量会更高。命中多个敌人时每个敌人额外增加 40% 恢复量，同样未建模。"
+        },
+        {
+          "create": true,
+          "id": "ingame-042-bianca-p-1042100-slow-blood-damage",
+          "hero": "比安卡",
+          "slot": "P",
+          "group": 1042100,
+          "dataKey": "SlowBloodDamage",
+          "title": "P 嗜血术 缓血 普攻额外伤害",
+          "bases": "30,70,110",
+          "formula": "base + ap * 0.4 + targetHp * 0.05",
+          "kind": "basicAttack",
+          "source": "in-game-client",
+          "coefficientText": "伤害 30/70/110(+技能增幅的40%)(+目标体力上限的5%)",
+          "note": "每隔 9/7/5 秒，下一次普攻附带该技能伤害（本身仍是技能伤害，吃技能增幅，走技能减伤）。承受比安卡技能伤害的目标 2 秒内移速 -5/10/15%。血袋部分（按技能伤害 12%、体力消耗值与承受伤害 20% 累积血液，上限为自身体力上限 35%）只影响资源，无伤害。"
+        }
+      ],
+      "equipment": [],
+      "characters": [],
+      "mastery": []
+    },
+    {
+      "version": "client-12.0b-sua",
+      "order": 20260812,
+      "date": "2026-08-12",
+      "url": "",
+      "title": "客户端读数：秀雅（12.0b）",
+      "skills": [
+        {
+          "create": true,
+          "id": "ingame-028-sua-q-1028200-damage",
+          "hero": "秀雅",
+          "slot": "Q",
+          "group": 1028200,
+          "dataKey": "Damage",
+          "title": "Q 奥德赛 伤害",
+          "bases": "60,100,140,180,220",
+          "formula": "base + ap * 0.65",
+          "source": "in-game-client",
+          "coefficientText": "伤害 60/100/140/180/220(+技能增幅65%)",
+          "note": "召唤两本书籍在中心互撞，给范围内敌人结算并留下 5 秒书签标识。冲撞地点的敌人承受伤害 +30%、1 秒内移速 -50/55/60/65/70%（这两项未建模）。冷却 12/11/10/9/8 秒。"
+        },
+        {
+          "id": "patch-120b-sua-1028200-bookmark-damage",
+          "title": "Q 奥德赛 书签伤害",
+          "bases": "20,40,60,80,100",
+          "formula": "base + ap * 0.4",
+          "source": "in-game-client",
+          "coefficientText": "书签伤害 20/40/60/80/100(+技能增幅40%)",
+          "note": "对已有书签的目标留下新书签时触发，附带 0.6 秒晕厥。客户端校对：技能增幅系数由 35% 修正为 40%。"
+        },
+        {
+          "create": true,
+          "id": "ingame-028-sua-w-1028300-shield",
+          "hero": "秀雅",
+          "slot": "W",
+          "group": 1028300,
+          "dataKey": "Shield",
+          "title": "W 青鸟 护盾",
+          "bases": "80,110,140,170,200",
+          "formula": "base + ap * 0.4",
+          "kind": "shield",
+          "source": "in-game-client",
+          "coefficientText": "护盾吸收 80/110/140/170/200(+技能增幅40%)",
+          "note": "对自身使用时给 2.5 秒护盾，并免疫负面效果。"
+        },
+        {
+          "create": true,
+          "id": "ingame-028-sua-w-1028300-damage",
+          "hero": "秀雅",
+          "slot": "W",
+          "group": 1028300,
+          "dataKey": "Damage",
+          "title": "W 青鸟 伤害",
+          "bases": "30,65,100,135,170",
+          "formula": "base + ap * 0.4",
+          "source": "in-game-client",
+          "coefficientText": "伤害 30/65/100/135/170(+技能增幅40%)",
+          "note": "对敌人使用时的伤害，附带 1.1/1.15/1.2/1.25/1.3 秒失明。冷却 19/18.5/18/17.5/17 秒。"
+        },
+        {
+          "create": true,
+          "id": "ingame-028-sua-e-1028400-damage",
+          "hero": "秀雅",
+          "slot": "E",
+          "group": 1028400,
+          "dataKey": "Damage",
+          "title": "E 堂吉诃德 伤害",
+          "bases": "110,140,170,200,230",
+          "formula": "base + ap * 0.65",
+          "source": "in-game-client",
+          "coefficientText": "伤害 110/140/170/200/230(+技能增幅65%)",
+          "note": "武器变枪向前突进，对首个命中的敌人结算并附加 5 秒书签，1 秒内移速 -50%。命中目标时本技能冷却缩减 20%。冷却 16/15/14/13/12 秒。"
+        },
+        {
+          "id": "augment-028-sua-e-1028400-enhanced-damage-stat3",
+          "title": "E 堂吉诃德 强化伤害",
+          "bases": "150,190,230,270,310",
+          "formula": "base + ap * 0.85",
+          "source": "in-game-client",
+          "coefficientText": "强化伤害 150/190/230/270/310(+技能增幅85%)",
+          "note": "对已有书签标识的敌人改判这段并将目标撞至悬空。客户端校对：技能增幅系数由 80% 修正为 85%。"
+        },
+        {
+          "create": true,
+          "id": "ingame-028-sua-e-1028400-heal",
+          "hero": "秀雅",
+          "slot": "E",
+          "group": 1028400,
+          "dataKey": "Heal",
+          "title": "E 堂吉诃德 体力恢复",
+          "bases": "20,30,40,50,60",
+          "formula": "base + ap * 0.2",
+          "kind": "heal",
+          "source": "in-game-client",
+          "coefficientText": "体力恢复 20/30/40/50/60(+技能增幅20%) ~ 30/45/60/75/90(+技能增幅30%)",
+          "note": "命中时按秀雅自身已失体力在最小~最大之间取值，体力剩 40% 时到达上限（上限恰为下限的 1.5 倍）。模型没有自身当前/已失体力这两个量，这里取下限，残血时实际恢复更高。"
+        },
+        {
+          "id": "augment-028-sua-r-1028500-memory-of-odyssey-damage-stat1",
+          "title": "R 记忆力-奥德赛 伤害",
+          "bases": "180,230,280",
+          "formula": "base + ap * 0.8",
+          "source": "in-game-client",
+          "coefficientText": "记忆力-奥德赛 伤害 180/230/280(+技能增幅80%)",
+          "note": "重放奥德赛，书本向中心碰撞时结算并留下 5 秒书签。"
+        },
+        {
+          "id": "patch-120b-sua-1028500-memory-of-odyssey-bookmark-damage",
+          "title": "R 记忆力-奥德赛 书签伤害",
+          "bases": "50,100,150",
+          "formula": "base + ap * 0.5",
+          "source": "in-game-client",
+          "coefficientText": "对已有书签的目标造成 50(+技能增幅50%)，晕厥 5 秒",
+          "note": "客户端校对：技能增幅系数由 45% 修正为 50%。客户端数值表没有这一行，1 级读数与原公告的 50/100/150 一致，故沿用公告的分级值。"
+        },
+        {
+          "id": "augment-028-sua-r-1028500-memory-of-the-curious-case-damage-stat2",
+          "title": "R 记忆力-青鸟 伤害",
+          "bases": "50,110,170",
+          "formula": "base + ap * 0.4",
+          "source": "in-game-client",
+          "coefficientText": "记忆力-青鸟 伤害 50/110/170(+技能增幅40%)",
+          "note": "客户端校对：基础值由 50/100/150 修正为 50/110/170。"
+        },
+        {
+          "create": true,
+          "id": "ingame-028-sua-r-1028500-memory-of-the-curious-case-shield",
+          "hero": "秀雅",
+          "slot": "R",
+          "group": 1028500,
+          "dataKey": "MemoryCuriousCaseShield",
+          "title": "R 记忆力-青鸟 护盾",
+          "bases": "100,100,100",
+          "formula": "base + ap * 0.4",
+          "kind": "shield",
+          "source": "in-game-client",
+          "coefficientText": "自身吸收 100(+技能增幅40%) 的护盾",
+          "note": "客户端数值表没有这一行，只能读到 R 1 级的 100。2/3 级是否递增未核对，这里按不随等级变化处理，实际可能更高。需要 R 2/3 级的技能提示框才能确认。"
+        },
+        {
+          "id": "augment-028-sua-r-1028500-memory-of-don-quixote-damage-stat3",
+          "title": "R 记忆力-堂吉诃德 伤害",
+          "bases": "125,190,255",
+          "formula": "base + ap * 0.65",
+          "source": "in-game-client",
+          "coefficientText": "记忆力-堂吉诃德 伤害 125/190/255(+技能增幅65%)",
+          "note": "对首个命中的敌人结算并附加 5 秒书签，1 秒内移速 -50%。"
+        },
+        {
+          "id": "augment-028-sua-r-1028500-memory-of-don-quixote-damage-enhanced-stat4",
+          "title": "R 记忆力-堂吉诃德 强化伤害",
+          "bases": "170,260,350",
+          "formula": "base + ap * 0.85",
+          "source": "in-game-client",
+          "coefficientText": "记忆力-堂吉诃德 强化伤害 170/260/350(+技能增幅85%)",
+          "note": "对已有书签的敌人改判这段并使其悬空。客户端校对：技能增幅系数由 80% 修正为 85%。"
+        },
+        {
+          "create": true,
+          "id": "ingame-028-sua-r-1028500-memory-of-don-quixote-heal",
+          "hero": "秀雅",
+          "slot": "R",
+          "group": 1028500,
+          "dataKey": "MemoryDonQuixoteHeal",
+          "title": "R 记忆力-堂吉诃德 体力恢复",
+          "bases": "50,50,50",
+          "formula": "base + ap * 0.2",
+          "kind": "heal",
+          "source": "in-game-client",
+          "coefficientText": "按已失体力恢复 50(+技能增幅20%) ~ 75(+技能增幅30%)",
+          "note": "同样按秀雅自身已失体力在最小~最大之间取值，这里取下限。客户端数值表没有这一行，只能读到 R 1 级的 50~75，2/3 级是否递增未核对。"
+        },
+        {
+          "create": true,
+          "id": "ingame-028-sua-p-1028100-damage",
+          "hero": "秀雅",
+          "slot": "P",
+          "group": 1028100,
+          "dataKey": "Damage",
+          "title": "P 精神食粮 普攻额外伤害",
+          "bases": "100,160,220",
+          "formula": "base + ap * 0.5",
+          "kind": "basicAttack",
+          "source": "in-game-client",
+          "coefficientText": "伤害 100/160/220(+技能增幅50%)",
+          "note": "使用技能后获得精神食粮（上限 3 层），下一次普攻改判这段技能伤害。官方注明「此普攻也被视为技能攻击」，所以按技能伤害结算、吃技能增幅，不走普攻减伤。造成伤害时所有技能冷却缩减 1.2 秒（与命中目标数无关，只作用一次）。"
+        },
+        {
+          "create": true,
+          "id": "ingame-028-sua-p-1028100-splash-damage",
+          "hero": "秀雅",
+          "slot": "P",
+          "group": 1028100,
+          "dataKey": "SplashDamage",
+          "title": "P 精神食粮 普攻射程内伤害",
+          "bases": "50,80,110",
+          "formula": "base + ap * 0.25",
+          "kind": "basicAttack",
+          "source": "in-game-client",
+          "coefficientText": "射程内伤害 50/80/110(+技能增幅25%)",
+          "note": "同一次普攻对周围 2m 内的其它敌人结算这段。"
+        },
+        {
+          "create": true,
+          "id": "ingame-028-sua-p-1028100-heal",
+          "hero": "秀雅",
+          "slot": "P",
+          "group": 1028100,
+          "dataKey": "Heal",
+          "title": "P 精神食粮 恢复",
+          "bases": "100,160,220",
+          "formula": "(base + ap * 0.5) * 0.35",
+          "kind": "heal",
+          "source": "in-game-client",
+          "coefficientText": "恢复精神食粮伤害量 35% 的体力",
+          "note": "按主目标那段伤害的 35% 折算。官方只说「精神食粮伤害量」，是否把射程内伤害也算进去没写明，这里只按主目标那段算，多目标时实际恢复可能更高。"
+        }
+      ],
+      "equipment": [],
+      "characters": [],
+      "mastery": []
+    },
+    {
+      "version": "client-12.0b-coraline-w-buff",
+      "order": 20260812,
+      "date": "2026-08-12",
+      "url": "",
+      "title": "客户端读数：卡洛琳 W 镜子技能增幅（12.0b）",
+      "skills": [
+        {
+          "create": true,
+          "id": "ingame-087-coraline-w-1087300-mirror-amp",
+          "hero": "卡洛琳",
+          "slot": "W",
+          "group": 1087300,
+          "dataKey": "MirrorSkillAmp",
+          "title": "W 真实之镜/虚伪之镜 镜子技能增幅",
+          "bases": "5,7,9",
+          "formula": "base",
+          "kind": "buff",
+          "buffKey": "apPct",
+          "maxStacks": 2,
+          "stackLabel": "叠层",
+          "hitNote": "镜子触碰到断罪之光或罪业枷锁时触发，持续 4 秒，最多叠 2 层。",
+          "source": "in-game-client",
+          "coefficientText": "技能增幅(%) 5/7/9，最多叠加 2 次",
+          "note": "W 本身没有伤害段，这条只用来承载技能增幅加成，让 W 这一槽有自己的等级选择器。数值按技能等级取（5/7/9%），乘上选中的层数后加进技能增幅百分比那个桶。W 还会让经镜子强化的断罪之光在命中时冷却缩减 20/25/30%，冷却类未建模。"
+        }
+      ],
+      "equipment": [],
+      "characters": [],
+      "mastery": []
+    },
+    {
+      "version": "12.1",
+      "order": 20260813,
+      "date": "2026-08-13",
+      "url": "https://playeternalreturn.com/posts/news/3769?hl=zh-CN",
+      "title": "12.1 更新日志",
+      "skills": [
+        {
+          "id": "external-laura-q-1047200-damage-stat1",
+          "formula": "base + ap * 0.5",
+          "source": "official-patch-note",
+          "coefficientText": "50/75/100/125/150(+技能增幅的50%)",
+          "note": "12.1：因鞭子武器技能调整导致伤害大幅提升，系数由 55% 下调至 50%。"
+        },
+        {
+          "id": "ingame-022-luke-w-1022300-damage",
+          "formula": "base + attack * 0.9",
+          "source": "official-patch-note",
+          "coefficientText": "50/80/110/140/170(+攻击力的90%)",
+          "note": "12.1：卢克数据持续偏低，攻击力系数由 85% 上调至 90%。"
+        },
+        {
+          "id": "external-justyna-q-1079200-damage-stat1",
+          "formula": "base + ap * 0.4",
+          "source": "official-patch-note",
+          "coefficientText": "连环炮击(Q1) 50/75/100/125/150(+技能增幅的40%)",
+          "note": "12.1：弩武器技能调整与 P 修复后伤害过高，Q1 系数由 45% 下调至 40%。"
+        },
+        {
+          "id": "005-zahir-w-1005300-damage-by-level",
+          "bases": "60,85,110,135,160",
+          "formula": "base + ap * 0.5",
+          "source": "official-patch-note",
+          "coefficientText": "60/85/110/135/160(+技能增幅的50%)",
+          "note": "12.1：基础伤害由 70/95/120/145/170 下调。原先这条是解包表的旧值（40/60/80/100/120，系数 60%），一并按公告修正。同时 W 的持续伤害独立判定间隔由 0.4 秒改为 3 秒，本模型不涉及判定频率。"
+        },
+        {
+          "id": "augment-023-cathy-w-1023300-enhanced-damage-stat2",
+          "formula": "base + ap * 0.9",
+          "source": "official-patch-note",
+          "coefficientText": "外围伤害 50/100/150/200/250(+技能增幅的90%)",
+          "note": "12.1：凯希武器技能调整后交战能力提升，W 外圈系数由 95% 下调至 90%。"
+        },
+        {
+          "id": "patch-coraline-1087100-damage",
+          "formula": "base + ap * 0.1",
+          "source": "official-patch-note",
+          "coefficientText": "伤害 20/40/60/80/100(+技能增幅的10%)，真实伤害",
+          "note": "12.1：圣器武器技能可触发 P 后消耗能力增强，系数由 12% 下调至 10%。这段是真实伤害（damageType: true 由 12.0b 客户端校对补上，此前漏标、一直在吃防御减伤）。技能命中敌人留下持续 4 秒的镜子碎片标记，再用技能命中带标记的敌人时消耗标记触发；持续伤害类技能每 0.5 秒判定一次。"
+        },
+        {
+          "id": "patch-coraline-1087400-damage",
+          "formula": "base + ap * 0.7",
+          "source": "official-patch-note",
+          "coefficientText": "60/90/120/150/180(+技能增幅的70%)",
+          "note": "12.1：系数由 65% 上调至 70%。公告只列了基础那条，黑镜/白镜强化版（80/110/140/170/200）没有点名，暂按原系数 65% 保留。"
+        },
+        {
+          "id": "ingame-012-hyejin-r-1012500-talisman-damage",
+          "bases": "80,100,120",
+          "source": "official-patch-note",
+          "coefficientText": "符咒 80/100/120(+技能增幅的50%)",
+          "note": "12.1：慧珍武器技能适用判定后强度上升，符咒伤害由 80/105/130 下调至 80/100/120。"
+        },
+        {
+          "id": "external-shoichi-p-1018100-damage-stat1",
+          "title": "P 骗局 普攻额外伤害",
+          "bases": "10,20,30",
+          "formula": "base + ap * 0.35 + targetHp * [0.02,0.03,0.04][level - 1]",
+          "kind": "basicAttack",
+          "source": "official-patch-note",
+          "coefficientText": "普攻额外伤害 10/20/30(+技能增幅的35%)(+目标体力上限的 2/3/4%)",
+          "note": "12.1：技能增幅系数由 45% 下调至 35%。原先这条是 Wiki 旧值（20/50/80，系数 40%，目标体力固定 2%），按公告改成分级的 2/3/4% 并标为强化普攻。"
+        },
+        {
+          "create": true,
+          "id": "patch-121-nathapon-q-1034200-damage",
+          "hero": "纳塔朋",
+          "slot": "Q",
+          "group": 1034200,
+          "dataKey": "Damage",
+          "title": "Q 快拍",
+          "bases": "60,100,140,180,220",
+          "formula": "base + ap * 0.8",
+          "source": "official-patch-note",
+          "coefficientText": "60/100/140/180/220(+技能增幅的80%)",
+          "note": "12.1：平均伤害偏低，基础伤害由 50/90/130/170/210 上调。"
+        },
+        {
+          "create": true,
+          "id": "patch-121-mai-p-1045100-damage",
+          "hero": "梅",
+          "slot": "P",
+          "group": 1045100,
+          "dataKey": "Damage",
+          "title": "P 高级订制",
+          "bases": "30,30,30",
+          "formula": "base + extraHp * [0.06,0.09,0.12][level - 1]",
+          "source": "official-patch-note",
+          "coefficientText": "30(+额外体力 6/9/12%)",
+          "note": "12.1：交战贡献不足，额外体力系数由 5/8/11% 上调至 6/9/12%。"
+        },
+        {
+          "create": true,
+          "id": "patch-121-lidailin-p-1010100-drunk-second-damage",
+          "hero": "李黛琳",
+          "slot": "P",
+          "group": 1010100,
+          "dataKey": "DrunkSecondDamage",
+          "title": "P 酒醉值 醉仙模式 普攻2段伤害",
+          "bases": "0,0,0",
+          "formula": "attack * [0.35,0.45,0.55][level - 1]",
+          "kind": "basicAttack",
+          "source": "official-patch-note",
+          "coefficientText": "总攻击力比率 35/45/55，(+攻击力的35/45/55%) * (普攻增幅)",
+          "note": "醉仙模式下普攻变成两连击，第二段按「总攻击力比率」结算，官方明写要再乘一次普攻增幅。12.1 把系数由 30/40/50 上调至 35/45/55（客户端 12.0b 截图读到的仍是改版前的 30/40/50）。酒醉值 40 以上进入微醺，Q 与 E 强化为醉拳状态；100 以上进入酒醉状态，5 秒内无法使用技能。"
+        },
+        {
+          "create": true,
+          "id": "patch-121-irem-r-1061510-shield",
+          "hero": "爱琳",
+          "slot": "R",
+          "group": 1061510,
+          "dataKey": "Shield",
+          "title": "R 爱琳登场！ 护盾",
+          "bases": "20,45,70,95",
+          "formula": "base + ap * 0.35",
+          "kind": "shield",
+          "source": "official-patch-note",
+          "coefficientText": "护盾 20/45/70/95(+技能增幅的35%)",
+          "note": "12.1：爱琳数据长期偏低，猫咪 R 护盾系数由 30% 上调至 35%。"
+        }
+      ],
+      "equipment": [
+        {
+          "name": "苍野荆棘",
+          "stat": "skillAmp",
+          "value": 82
+        },
+        {
+          "name": "棒棒糖",
+          "stat": "maxHp",
+          "value": 120
+        },
+        {
+          "name": "月水晶",
+          "stat": "skillAmp",
+          "value": 97
+        },
+        {
+          "name": "倒吊人",
+          "stat": "skillAmp",
+          "value": 88
+        },
+        {
+          "name": "炼狱 - 绯红",
+          "stat": "skillAmp",
+          "value": 117
+        },
+        {
+          "name": "均衡之刃",
+          "stat": "attackPower",
+          "value": 64
+        }
+      ],
+      "characters": [
+        {
+          "hero": "米尔卡",
+          "path": "growth.defense",
+          "value": 3.1
+        }
+      ],
+      "mastery": [
+        {
+          "hero": "里昂",
+          "type": "Glove",
+          "stat": "SkillAmpRatio",
+          "value": 0.042
+        },
+        {
+          "hero": "希瑟拉",
+          "type": "DirectFire",
+          "stat": "SkillAmpRatio",
+          "value": 0.04
+        }
+      ]
+    },
+    {
+      "version": "model-basic-attack-amp",
+      "order": 20260814,
+      "date": "2026-08-14",
+      "url": "",
+      "title": "建模：普攻伤害结算线（普攻增幅 + 普攻减伤）",
+      "skills": [
+        {
+          "id": "patch-121-lidailin-p-1010100-drunk-second-damage",
+          "formula": "attack * [0.35,0.45,0.55][level - 1]",
+          "note": "醉仙模式下普攻变成两连击，第二段按「总攻击力比率」结算，官方明写要再乘一次普攻增幅，该乘区已建模（basicAttackAmp）。12.1 把系数由 30/40/50 上调至 35/45/55（客户端 12.0b 截图读到的仍是改版前的 30/40/50）。酒醉值 40 以上进入微醺，Q 与 E 强化为醉拳状态；100 以上进入酒醉状态，5 秒内无法使用技能。 该段按普攻伤害结算：吃普攻增幅，减伤走目标的普攻减伤而不是技能减伤。",
+          "coefficientText": "总攻击力比率 35/45/55，(+攻击力的35/45/55%) * (普攻增幅)",
+          "damageType": "basicAttack"
+        },
+        {
+          "id": "ingame-031-rio-q-1031200-short-bow-basic-attack",
+          "formula": "attack * 0.37",
+          "note": "替弓状态下的单弓普攻主箭，本身就是普攻，吃普攻增幅乘区。 该段按普攻伤害结算：吃普攻增幅，减伤走目标的普攻减伤而不是技能减伤。",
+          "damageType": "basicAttack"
+        },
+        {
+          "id": "ingame-031-rio-q-1031200-short-bow-extra-arrow",
+          "formula": "attack * 0.33",
+          "note": "替弓状态下的单弓普攻副箭，本身就是普攻，吃普攻增幅乘区。 该段按普攻伤害结算：吃普攻增幅，减伤走目标的普攻减伤而不是技能减伤。",
+          "damageType": "basicAttack"
+        },
+        {
+          "id": "ingame-031-rio-q-1031200-long-bow-basic-attack",
+          "formula": "attack * 1.02",
+          "note": "替弓状态下的和弓普攻，本身就是普攻，吃普攻增幅乘区。 该段按普攻伤害结算：吃普攻增幅，减伤走目标的普攻减伤而不是技能减伤。",
+          "damageType": "basicAttack"
+        },
+        {
+          "id": "ingame-046-aiden-q-1046200-damage",
+          "formula": "base + attack * 0.75",
+          "note": "客户端把雷击标为普攻伤害，除技能系数外还额外乘一次普攻增幅，该乘区已建模（basicAttackAmp）。 该段按普攻伤害结算：吃普攻增幅，减伤走目标的普攻减伤而不是技能减伤。",
+          "damageType": "basicAttack"
+        },
+        {
+          "id": "ingame-046-aiden-q-1046200-electron-cannon-damage",
+          "formula": "base + attack * 0.75",
+          "note": "客户端把电子炮标为普攻伤害，除技能系数外还额外乘一次普攻增幅，该乘区已建模（basicAttackAmp）。 该段按普攻伤害结算：吃普攻增幅，减伤走目标的普攻减伤而不是技能减伤。",
+          "damageType": "basicAttack"
+        }
+      ],
+      "equipment": [],
+      "characters": [],
+      "mastery": []
+    },
+    {
+      "version": "client-12.1-jenny",
+      "order": 20260815,
+      "date": "2026-08-15",
+      "url": "",
+      "title": "客户端读数：珍妮（12.1）",
+      "skills": [
+        {
+          "create": true,
+          "id": "ingame-038-jenny-q-1038200-damage",
+          "hero": "珍妮",
+          "slot": "Q",
+          "group": 1038200,
+          "dataKey": "Damage",
+          "title": "Q 聚光灯",
+          "bases": "70,80,90,100,110",
+          "formula": "base + ap * 0.4",
+          "maxHits": 3,
+          "defaultHits": 3,
+          "hitLabel": "照亮次数",
+          "hitNote": "聚光灯照亮目标点 3 次，每次独立结算一段伤害。",
+          "source": "in-game-client",
+          "coefficientText": "伤害 70/80/90/100/110(+技能增幅的40%)",
+          "note": "照到敌人时该技能冷却 -0.5 秒；照到自己时按扮演角色给增益（红酒攻速+6%／红茶移速+2%，各上限 3 层）。冷却 9/8.5/8/7.5/7 秒。"
+        },
+        {
+          "create": true,
+          "id": "ingame-038-jenny-w-1038300-damage",
+          "hero": "珍妮",
+          "slot": "W",
+          "group": 1038300,
+          "dataKey": "Damage",
+          "title": "W 红毯 铺设伤害",
+          "bases": "30,55,80,105,130",
+          "formula": "base + ap * 0.4",
+          "source": "in-game-client",
+          "coefficientText": "伤害 30/55/80/105/130(+技能增幅的40%)",
+          "note": "朝指定方向铺红毯，命中的敌人 0.25 秒内移速 -30%。冷却 15 秒。"
+        },
+        {
+          "create": true,
+          "id": "ingame-038-jenny-w-1038300-reactivation-damage",
+          "hero": "珍妮",
+          "slot": "W",
+          "group": 1038300,
+          "dataKey": "ReactivationDamage",
+          "title": "W 红毯 再使用伤害",
+          "bases": "30,55,80,105,130",
+          "formula": "base + ap * 0.4",
+          "source": "in-game-client",
+          "coefficientText": "再使用伤害 30/55/80/105/130(+技能增幅的40%)",
+          "note": "再次使用时对红毯上的敌人结算第二段。红酒把敌人拉向自己，红茶把敌人推离。"
+        },
+        {
+          "id": "augment-038-jenny-e-1038400-extra-damage-stat3",
+          "slot": "E",
+          "title": "E 演员的修养 第3次普攻额外伤害",
+          "bases": "60,95,130,165,200",
+          "kind": "basicAttack",
+          "source": "in-game-client",
+          "coefficientText": "额外伤害 60/95/130/165/200",
+          "note": "被动：每发起一次普攻该技能冷却 -1 秒，第 3 次普攻附带这段额外伤害；官方注明「此普攻也被视为技能攻击」。主动：向指定方向位移一小段并切换扮演角色，同时激活额外伤害。冷却 13/12/11/10/9 秒且固定，不吃冷却缩减。技能增幅系数 58% 沿用官方公告，客户端提示框没把伤害内联进描述所以看不到系数，未能核对。"
+        },
+        {
+          "create": true,
+          "id": "ingame-038-jenny-r-1038500-damage",
+          "hero": "珍妮",
+          "slot": "R",
+          "group": 1038500,
+          "dataKey": "Damage",
+          "title": "R 最佳女主角",
+          "bases": "150,240,330",
+          "formula": "base + ap * 0.7",
+          "source": "in-game-client",
+          "coefficientText": "伤害 150/240/330(+技能增幅的70%)",
+          "note": "设置颁奖舞台，范围内敌人移速 -25/30/35% 并重置演员的修养(E)冷却；舞台 2 秒后消失时才结算伤害并使敌人迷惑 0.8 秒。冷却 80/65/60 秒。"
+        },
+        {
+          "create": true,
+          "id": "ingame-038-jenny-p-1038100-revive-heal",
+          "hero": "珍妮",
+          "slot": "P",
+          "group": 1038100,
+          "dataKey": "ReviveHeal",
+          "title": "P 死亡演技 复活恢复量",
+          "bases": "100,100,100",
+          "formula": "base + maxHp * [0.02,0.11,0.2][level - 1]",
+          "kind": "heal",
+          "source": "in-game-client",
+          "coefficientText": "体力恢复 100(+体力上限的 2/11/20%)",
+          "note": "体力归零时进入死亡演技状态：3 秒进入隐身、无敌、不可被指定，但移速大幅降低，之后按这个量恢复体力并复活。期间只能吃食物，不能用其他物品或技能。冷却 70 秒。演技值：用 E 切换扮演角色时红酒攻速 +30/45/60%、红茶移速 +4%，持续 6 秒。"
+        }
+      ],
+      "equipment": [],
+      "characters": [],
+      "mastery": []
+    },
+    {
+      "version": "client-12.1-bernice",
+      "order": 20260816,
+      "date": "2026-08-16",
+      "url": "",
+      "title": "客户端读数：伯尼斯（12.1）",
+      "skills": [
+        {
+          "create": true,
+          "id": "ingame-025-bernice-q-1025200-damage",
+          "hero": "伯尼斯",
+          "slot": "Q",
+          "group": 1025200,
+          "dataKey": "Damage",
+          "title": "Q 致瘫射击 伤害",
+          "bases": "60,90,120,150,180",
+          "formula": "base + attack * 1",
+          "source": "in-game-client",
+          "coefficientText": "伤害 60/90/120/150/180(+攻击力的100%)",
+          "note": "发射穿透性子弹，命中的敌人 1.5 秒内移速 -20/25/30/35/40%。冷却 7/6.5/6/5.5/5 秒。"
+        },
+        {
+          "id": "augment-025-bernice-q-1025200-enhanced-damage-stat3",
+          "title": "Q 致瘫射击 强化伤害（对束缚目标）",
+          "bases": "90,130,170,210,250",
+          "formula": "base + attack * 1",
+          "source": "in-game-client",
+          "coefficientText": "强化伤害 90/130/170/210/250(+攻击力的100%)",
+          "note": "子弹打在处于束缚状态的敌人身上时改为这一段，移速改为 -30/35/40/45/50%。束缚主要来自 W 捕兽夹和 R 星锤。与普通段互斥，不是叠加。"
+        },
+        {
+          "create": true,
+          "id": "ingame-025-bernice-w-1025300-bleed-damage",
+          "hero": "伯尼斯",
+          "slot": "W",
+          "group": 1025300,
+          "dataKey": "BleedDamage",
+          "title": "W 捕兽夹 流血伤害",
+          "bases": "40,70,100,130,160",
+          "formula": "base + attack * 0.6",
+          "source": "in-game-client",
+          "coefficientText": "流血伤害 40/70/100/130/160(+攻击力的60%)",
+          "note": "安装一个持续 20/25/30/35/40 秒的捕兽夹，踩中的敌人 0.75 秒内陷入束缚，并在 3 秒内承受这一段持续伤害（这里是 3 秒总量，不是每跳）。一次可设置 2/2/2/3/3 个，最多持有 2/2/3/3/4 个，蓄能 18/17/16/15/14 秒，冷却 1 秒。"
+        },
+        {
+          "create": true,
+          "id": "ingame-025-bernice-r-1025500-first-damage",
+          "hero": "伯尼斯",
+          "slot": "R",
+          "group": 1025500,
+          "dataKey": "FirstDamage",
+          "title": "R 奥尔加米·星锤 1段伤害",
+          "bases": "150,200,250",
+          "formula": "base + attack * 0.85",
+          "source": "in-game-client",
+          "coefficientText": "1段伤害 150/200/250(+攻击力的85%)",
+          "note": "朝指定方向发射星锤，命中的敌人被束缚 1.4 秒。冷却 90/75/60 秒。"
+        },
+        {
+          "create": true,
+          "id": "ingame-025-bernice-r-1025500-second-damage",
+          "hero": "伯尼斯",
+          "slot": "R",
+          "group": 1025500,
+          "dataKey": "SecondDamage",
+          "title": "R 奥尔加米·星锤 2段伤害",
+          "bases": "80,120,160",
+          "formula": "base + attack * 0.45",
+          "source": "in-game-client",
+          "coefficientText": "2段伤害 80/120/160(+攻击力的45%)",
+          "note": "束缚时间结束后爆发结算。爆发会把相同效果转移给 2m 内最近的敌人，最多转移 3 次；转移打的是别的目标，所以单个目标只吃一次，多目标情况用「命中目标」那栏调。"
+        },
+        {
+          "create": true,
+          "id": "ingame-025-bernice-p-1025100-first-bullet",
+          "hero": "伯尼斯",
+          "slot": "P",
+          "group": 1025100,
+          "dataKey": "FirstBulletDamage",
+          "title": "P 散弹 第一发子弹",
+          "bases": "0,0,0",
+          "formula": "attack * 1",
+          "damageType": "basicAttack",
+          "source": "in-game-client",
+          "coefficientText": "攻击力100% * (普攻增幅) 普攻伤害",
+          "note": "伯尼斯每次普攻发射 4 发子弹，第一发按这个系数结算。官方明确标为普攻伤害并额外乘普攻增幅。每 2 秒填装 3 发，装弹上限 3/4/5，重载 1.3/1.1/0.9 秒。"
+        },
+        {
+          "create": true,
+          "id": "ingame-025-bernice-p-1025100-extra-bullet",
+          "hero": "伯尼斯",
+          "slot": "P",
+          "group": 1025100,
+          "dataKey": "ExtraBulletDamage",
+          "title": "P 散弹 后续子弹（每发）",
+          "bases": "0,0,0",
+          "formula": "attack * 0.1",
+          "damageType": "basicAttack",
+          "maxHits": 3,
+          "defaultHits": 3,
+          "hitLabel": "后续子弹命中数",
+          "hitNote": "一次普攻的 4 发子弹里，第一发之外的 3 发各按 10% 攻击力结算。",
+          "source": "in-game-client",
+          "coefficientText": "攻击力10% * (普攻增幅) 普攻伤害（每发）",
+          "note": "4 发全中时一次普攻合计 攻击力的 130%。暴击不走一般的暴击倍率，而是额外发射一发相当于普攻伤害 75% 的子弹，这一层未建模。"
+        }
+      ],
+      "equipment": [],
+      "characters": [],
+      "mastery": []
+    },
+    {
+      "version": "model-self-hp",
+      "order": 20260817,
+      "date": "2026-08-17",
+      "url": "",
+      "title": "建模：自身当前 / 已失体力",
+      "skills": [
+        {
+          "id": "ingame-042-bianca-r-1042500-heal",
+          "formula": "base + ap * 0.35 + selfLostHp * 0.08",
+          "source": "in-game-client",
+          "coefficientText": "体力恢复 70/110/150(+技能增幅的35%)(+已失体力的8%)",
+          "note": "血阵结束时与结束伤害同时触发。「+已失体力的8%」已按自身已失体力建模。命中多个敌人时每个敌人额外增加 40% 恢复量，这一层仍未建模。"
+        },
+        {
+          "id": "ingame-028-sua-e-1028400-heal",
+          "formula": "(base + ap * 0.2) * (1 + 0.5 * Math.min(1, selfLostHp / (maxHp * 0.6)))",
+          "source": "in-game-client",
+          "coefficientText": "体力恢复 20/30/40/50/60(+技能增幅20%) ~ 30/45/60/75/90(+技能增幅30%)",
+          "note": "命中时按秀雅自身已失体力在最小~最大之间取值，体力剩 40%（已失 60%）时到达上限，上限恰为下限的 1.5 倍，所以用 (1 + 0.5 × min(1, 已失体力 / (体力上限 × 60%))) 插值。"
+        },
+        {
+          "id": "ingame-028-sua-r-1028500-memory-of-don-quixote-heal",
+          "formula": "(base + ap * 0.2) * (1 + 0.5 * Math.min(1, selfLostHp / (maxHp * 0.6)))",
+          "source": "in-game-client",
+          "coefficientText": "按已失体力恢复 50(+技能增幅20%) ~ 75(+技能增幅30%)",
+          "note": "与 E 堂吉诃德同一套插值口径。客户端数值表没有这一行，只能读到 R 1 级的 50~75，按不随 R 等级变化处理。"
         }
       ],
       "equipment": [],

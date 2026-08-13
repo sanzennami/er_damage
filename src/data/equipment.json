@@ -12587,9 +12587,9 @@
       "effect": "",
       "stats": {
         "attackPower": 40,
-        "skillAmp": 95
+        "skillAmp": 97
       },
-      "ap": 95,
+      "ap": 97,
       "attackPower": 40,
       "cd": 0,
       "pen": 0,
@@ -12598,7 +12598,9 @@
       "defense": 0,
       "maxHp": 0,
       "sightRange": 0,
-      "dmgAmp": 0
+      "dmgAmp": 0,
+      "patchVersion": "12.1",
+      "patchOrder": 20260813
     },
     {
       "code": 130501,
@@ -12717,10 +12719,10 @@
       "effect": "",
       "stats": {
         "attackPower": 40,
-        "skillAmp": 114,
+        "skillAmp": 117,
         "penetrationDefenseRatio": 0.07
       },
-      "ap": 114,
+      "ap": 117,
       "attackPower": 40,
       "cd": 0,
       "pen": 0,
@@ -12729,7 +12731,9 @@
       "defense": 0,
       "maxHp": 0,
       "sightRange": 0,
-      "dmgAmp": 0
+      "dmgAmp": 0,
+      "patchVersion": "12.1",
+      "patchOrder": 20260813
     },
     {
       "code": 130702,
@@ -21295,13 +21299,13 @@
       "tooltip": "惩恶：4秒内用普攻或独立技能命中同一敌人3次时，造成 50(+技能增幅的20%)(+实验体等级*2) 技能伤害，并获得 100(+技能增幅的30%)(+实验体等级*5) 护盾、持续2.5秒。冷却 12秒。",
       "stats": {
         "attackPower": 32,
-        "skillAmp": 86,
+        "skillAmp": 82,
         "maxHp": 120
       },
       "sourceVersion": "12.0",
       "sourceUrl": "https://playeternalreturn.com/posts/news/3743?hl=zh-CN",
       "sourceTitle": "[修正] 12.0 更新日志 Part.2 - 实验体和物品",
-      "ap": 86,
+      "ap": 82,
       "attackPower": 32,
       "cd": 0,
       "pen": 0,
@@ -21310,7 +21314,9 @@
       "defense": 0,
       "maxHp": 120,
       "sightRange": 0,
-      "dmgAmp": 0
+      "dmgAmp": 0,
+      "patchVersion": "12.1",
+      "patchOrder": 20260813
     },
     {
       "source": "official-patch-note",
@@ -21330,7 +21336,7 @@
       "stats": {
         "attackPower": 30,
         "skillAmp": 86,
-        "maxHp": 150
+        "maxHp": 120
       },
       "sourceVersion": "12.0",
       "sourceUrl": "https://playeternalreturn.com/posts/news/3743?hl=zh-CN",
@@ -21342,9 +21348,11 @@
       "penPct": 0,
       "apPct": 0,
       "defense": 0,
-      "maxHp": 150,
+      "maxHp": 120,
       "sightRange": 0,
-      "dmgAmp": 0
+      "dmgAmp": 0,
+      "patchVersion": "12.1",
+      "patchOrder": 20260813
     },
     {
       "source": "official-patch-note",
@@ -21363,13 +21371,13 @@
       "tooltip": "瘟疫蝴蝶：用独立技能对敌方实验体造成伤害时，飞出一只蝴蝶造成 40(+技能增幅的30%)(+实验体等级*3) 伤害，可在 4m 内最多弹射 5 次，每次弹射伤害降低 10%。冷却 10秒。",
       "stats": {
         "attackPower": 40,
-        "skillAmp": 92,
+        "skillAmp": 88,
         "cooldownReduction": 10
       },
       "sourceVersion": "12.0",
       "sourceUrl": "https://playeternalreturn.com/posts/news/3743?hl=zh-CN",
       "sourceTitle": "[修正] 12.0 更新日志 Part.2 - 实验体和物品",
-      "ap": 92,
+      "ap": 88,
       "attackPower": 40,
       "cd": 10,
       "pen": 0,
@@ -21378,7 +21386,9 @@
       "defense": 0,
       "maxHp": 0,
       "sightRange": 0,
-      "dmgAmp": 0
+      "dmgAmp": 0,
+      "patchVersion": "12.1",
+      "patchOrder": 20260813
     },
     {
       "source": "official-patch-note",
@@ -21396,7 +21406,7 @@
       "recipe": "铁锈剑 + 秘银",
       "tooltip": "惩恶：4秒内用普攻或独立技能命中同一敌人3次时，造成 40(+额外攻击力50%)(+实验体等级*5) 技能伤害，并获得 100(+攻击力的55%)(+实验体等级*5) 护盾、持续2.5秒。冷却 12秒。",
       "stats": {
-        "attackPower": 67,
+        "attackPower": 64,
         "attackSpeedRatio": 0.3,
         "maxHp": 150
       },
@@ -21404,7 +21414,7 @@
       "sourceUrl": "https://playeternalreturn.com/posts/news/3743?hl=zh-CN",
       "sourceTitle": "[修正] 12.0 更新日志 Part.2 - 实验体和物品",
       "ap": 0,
-      "attackPower": 67,
+      "attackPower": 64,
       "cd": 0,
       "pen": 0,
       "penPct": 0,
@@ -21412,7 +21422,9 @@
       "defense": 0,
       "maxHp": 150,
       "sightRange": 0,
-      "dmgAmp": 0
+      "dmgAmp": 0,
+      "patchVersion": "12.1",
+      "patchOrder": 20260813
     },
     {
       "source": "official-patch-note",
