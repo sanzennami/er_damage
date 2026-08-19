@@ -9127,11 +9127,11 @@
       "makeMaterial2": 401108,
       "effect": "",
       "stats": {
-        "attackPower": 61,
+        "attackPower": 63,
         "attackSpeedRatio": 0.2
       },
       "ap": 0,
-      "attackPower": 61,
+      "attackPower": 63,
       "cd": 0,
       "pen": 0,
       "penPct": 0,
@@ -9139,7 +9139,9 @@
       "defense": 0,
       "maxHp": 0,
       "sightRange": 0,
-      "dmgAmp": 0
+      "dmgAmp": 0,
+      "patchVersion": "12.2",
+      "patchOrder": 20260820
     },
     {
       "code": 117405,
@@ -9350,11 +9352,11 @@
       "makeMaterial2": 401208,
       "effect": "",
       "stats": {
-        "attackPower": 76,
+        "attackPower": 78,
         "attackSpeedRatio": 0.3
       },
       "ap": 0,
-      "attackPower": 76,
+      "attackPower": 78,
       "cd": 0,
       "pen": 0,
       "penPct": 0,
@@ -9362,7 +9364,9 @@
       "defense": 0,
       "maxHp": 0,
       "sightRange": 0,
-      "dmgAmp": 0
+      "dmgAmp": 0,
+      "patchVersion": "12.2",
+      "patchOrder": 20260820
     },
     {
       "code": 117505,
@@ -18217,12 +18221,12 @@
       "makeMaterial2": 401209,
       "effect": "",
       "stats": {
-        "attackPower": 18,
+        "attackPower": 15,
         "attackSpeedRatio": 0.35,
         "criticalStrikeChance": 0.35
       },
       "ap": 0,
-      "attackPower": 18,
+      "attackPower": 15,
       "cd": 0,
       "pen": 0,
       "penPct": 0,
@@ -18230,7 +18234,9 @@
       "defense": 0,
       "maxHp": 0,
       "sightRange": 0,
-      "dmgAmp": 0
+      "dmgAmp": 0,
+      "patchVersion": "12.2",
+      "patchOrder": 20260820
     },
     {
       "code": 203409,
@@ -20506,7 +20512,7 @@
       "stats": {
         "attackPower": 26,
         "attackSpeedRatio": 0.3,
-        "maxHp": 200
+        "maxHp": 220
       },
       "ap": 0,
       "attackPower": 26,
@@ -20515,9 +20521,11 @@
       "penPct": 0,
       "apPct": 0,
       "defense": 0,
-      "maxHp": 200,
+      "maxHp": 220,
       "sightRange": 0,
-      "dmgAmp": 0
+      "dmgAmp": 0,
+      "patchVersion": "12.2",
+      "patchOrder": 20260820
     },
     {
       "code": 205308,
@@ -21299,13 +21307,13 @@
       "tooltip": "惩恶：4秒内用普攻或独立技能命中同一敌人3次时，造成 50(+技能增幅的20%)(+实验体等级*2) 技能伤害，并获得 100(+技能增幅的30%)(+实验体等级*5) 护盾、持续2.5秒。冷却 12秒。",
       "stats": {
         "attackPower": 32,
-        "skillAmp": 82,
+        "skillAmp": 79,
         "maxHp": 120
       },
       "sourceVersion": "12.0",
       "sourceUrl": "https://playeternalreturn.com/posts/news/3743?hl=zh-CN",
       "sourceTitle": "[修正] 12.0 更新日志 Part.2 - 实验体和物品",
-      "ap": 82,
+      "ap": 79,
       "attackPower": 32,
       "cd": 0,
       "pen": 0,
@@ -21315,8 +21323,8 @@
       "maxHp": 120,
       "sightRange": 0,
       "dmgAmp": 0,
-      "patchVersion": "12.1",
-      "patchOrder": 20260813
+      "patchVersion": "12.2",
+      "patchOrder": 20260820
     },
     {
       "source": "official-patch-note",

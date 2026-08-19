@@ -283,7 +283,7 @@
         "Bat"
       ],
       "base": {
-        "hp": 1070,
+        "hp": 1030,
         "attackPower": 44,
         "defense": 50,
         "skillAmp": 0,
@@ -336,7 +336,9 @@
       ],
       "playTip": "马格努斯是一位传奇的摩托车车手。即使要他一个人去17个人交战也丝毫不会犹豫。",
       "storyName": "马格努斯・斯科特",
-      "image": "/assets/characters/004-Magnus.png"
+      "image": "/assets/characters/004-Magnus.png",
+      "patchVersion": "12.2",
+      "patchOrder": 20260820
     },
     {
       "code": 5,
@@ -625,7 +627,7 @@
         "Pistol"
       ],
       "base": {
-        "hp": 900,
+        "hp": 920,
         "attackPower": 37,
         "defense": 53,
         "skillAmp": 0,
@@ -678,7 +680,9 @@
       ],
       "playTip": "埃索是少年游击队出身。非常擅长利用陷阱获得有利地形，远距离牵制敌人并摧毁其意志。",
       "storyName": "埃索 (马塞洛)",
-      "image": "/assets/characters/009-Isol.png"
+      "image": "/assets/characters/009-Isol.png",
+      "patchVersion": "12.2",
+      "patchOrder": 20260820
     },
     {
       "code": 10,
@@ -1171,7 +1175,7 @@
       "growth": {
         "code": 17,
         "name": "Adriana",
-        "maxHp": 76,
+        "maxHp": 74,
         "maxVp": 0,
         "attackPower": 4.9,
         "defense": 2.4,
@@ -1203,7 +1207,9 @@
       ],
       "playTip": "阿德瑞娜利用火焰喷射器慢慢燃烧敌人。越是封闭、越是狭小的空间，阿德瑞娜就更加能发挥其区域控制能力。",
       "storyName": "阿德瑞娜・里维拉",
-      "image": "/assets/characters/017-Adriana.png"
+      "image": "/assets/characters/017-Adriana.png",
+      "patchVersion": "12.2",
+      "patchOrder": 20260820
     },
     {
       "code": 18,
@@ -1782,7 +1788,7 @@
       "base": {
         "hp": 950,
         "attackPower": 28,
-        "defense": 49,
+        "defense": 51,
         "skillAmp": 0,
         "moveSpeed": 3.4499999999999997,
         "attackSpeed": 0.14
@@ -1855,7 +1861,9 @@
       ],
       "playTip": "亚历克斯是一位间谍特工。熟练掌握多种武器的使用，并擅长利用伪装战术移动迷惑敌人。",
       "storyName": "亚历克斯・帕基特诺夫",
-      "image": "/assets/characters/027-Alex.png"
+      "image": "/assets/characters/027-Alex.png",
+      "patchVersion": "gamedata-20260819-character-base-sync",
+      "patchOrder": 20260819
     },
     {
       "code": 28,
@@ -4102,7 +4110,7 @@
         "maxHp": 90,
         "maxVp": 0,
         "attackPower": 4.1,
-        "defense": 3,
+        "defense": 3.2,
         "skillAmp": 0,
         "adaptiveForce": 0,
         "criticalChance": 0,
@@ -4131,7 +4139,9 @@
       ],
       "playTip": "拥有特殊能力的双胞胎黛比&玛莲，一同作战时可以发挥惊人的威力。通过交替攻击积累伤害，互相配合掌握战斗的主导权。",
       "storyName": "黛比・卡尔森 & 玛莲・卡尔森",
-      "image": "/assets/characters/065-DebiMarlene.png"
+      "image": "/assets/characters/065-DebiMarlene.png",
+      "patchVersion": "12.2",
+      "patchOrder": 20260820
     },
     {
       "code": 66,
@@ -4335,7 +4345,7 @@
         "maxHp": 81,
         "maxVp": 0,
         "attackPower": 4.1,
-        "defense": 2.8,
+        "defense": 3,
         "skillAmp": 0,
         "adaptiveForce": 0,
         "criticalChance": 0,
@@ -4364,7 +4374,9 @@
       ],
       "playTip": "雷妮善于使用多种玩具打击敌人协助队友，是一位喜欢对他人做恶作剧的实验体。",
       "storyName": "海伦娜・罗森塔尔",
-      "image": "/assets/characters/069-Leni.png"
+      "image": "/assets/characters/069-Leni.png",
+      "patchVersion": "12.2",
+      "patchOrder": 20260820
     },
     {
       "code": 70,
@@ -4613,7 +4625,7 @@
       ],
       "base": {
         "hp": 960,
-        "attackPower": 42,
+        "attackPower": 40,
         "defense": 51,
         "skillAmp": 0,
         "moveSpeed": 3.55,
@@ -4654,7 +4666,9 @@
       ],
       "playTip": "达尔科将毫不留情地压制对手并掠夺资源，直至达成自己的目标。",
       "storyName": "达尔科・约万诺维奇",
-      "image": "/assets/characters/074-Darko.png"
+      "image": "/assets/characters/074-Darko.png",
+      "patchVersion": "12.2",
+      "patchOrder": 20260820
     },
     {
       "code": 75,
@@ -5204,7 +5218,7 @@
       "growth": {
         "code": 84,
         "name": "Blair",
-        "maxHp": 86,
+        "maxHp": 89,
         "maxVp": 0,
         "attackPower": 4.3,
         "defense": 3,
@@ -5236,7 +5250,9 @@
       ],
       "playTip": "布莱尔对VF觉醒者抱有深深的憎恶。她借助XMS-5提升自身的身体机能，并获得了探测VF觉醒者的能力，是一名擅长连贯施展技能、掌控战局的实验体。",
       "storyName": "布莱尔・阿什",
-      "image": "/assets/characters/084-Blair.png"
+      "image": "/assets/characters/084-Blair.png",
+      "patchVersion": "12.2",
+      "patchOrder": 20260820
     },
     {
       "code": 85,
@@ -5429,8 +5445,8 @@
         "Bat"
       ],
       "base": {
-        "hp": 960,
-        "attackPower": 34,
+        "hp": 930,
+        "attackPower": 30,
         "defense": 50,
         "skillAmp": 0,
         "moveSpeed": 3.55,
@@ -5471,7 +5487,9 @@
       ],
       "playTip": "鼻荆是一个喜欢利用鬼怪的强大力量，向遇到的每一个人发起赌约并进行恶作剧的实验体。 当戴上鬼怪假面后，鼻荆会变得巨大且充满力量，没有任何人能阻挡她的恶作剧。",
       "storyName": "鼻荊",
-      "image": "/assets/characters/088-Bihyung.png"
+      "image": "/assets/characters/088-Bihyung.png",
+      "patchVersion": "gamedata-20260819-character-base-sync",
+      "patchOrder": 20260819
     },
     {
       "code": 89,
@@ -5488,18 +5506,39 @@
         "Pistol"
       ],
       "base": {
-        "hp": 905,
-        "attackPower": 43,
-        "defense": 51,
+        "hp": 930,
+        "attackPower": 35,
+        "defense": 50,
         "skillAmp": 0,
-        "moveSpeed": 3.55,
-        "attackSpeed": 0.11
+        "moveSpeed": 3.5,
+        "attackSpeed": 0.1
       },
-      "growth": null,
+      "growth": {
+        "code": 89,
+        "name": "Craver",
+        "maxHp": 80,
+        "maxVp": 0,
+        "attackPower": 4.4,
+        "defense": 3,
+        "skillAmp": 0,
+        "adaptiveForce": 0,
+        "criticalChance": 0,
+        "hpRegen": 0.06,
+        "vpRegen": 0,
+        "attackSpeed": 0,
+        "moveSpeed": 0,
+        "attackSpeedRatio": 0,
+        "increaseBasicAttackDamageRatio": 0,
+        "skillAmpRatio": 0,
+        "preventBasicAttackDamagedRatio": 0,
+        "preventSkillDamagedRatio": 0
+      },
       "ratings": [],
       "playTip": "Craver 以固定攻击速度和 6 发弹药作战，普攻与基础技能都会消耗子弹，剩 1 发时进入必杀弹状态并需要装填。",
       "storyName": "克雷弗",
-      "image": "/assets/characters/089-Craver.png"
+      "image": "/assets/characters/089-Craver.png",
+      "patchVersion": "gamedata-20260819-character-base-sync",
+      "patchOrder": 20260819
     },
     {
       "code": 90,
@@ -5511,7 +5550,9 @@
         "Marksman"
       ],
       "weaponRangeType": "Range",
-      "weapons": [],
+      "weapons": [
+        "SniperRifle"
+      ],
       "base": {
         "hp": 910,
         "attackPower": 42,

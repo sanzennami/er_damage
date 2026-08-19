@@ -50,7 +50,7 @@ import {
   statConversionFor
 } from './lib/specialRules.js';
 
-const APP_VERSION = 'v0.2.035';
+const APP_VERSION = 'v0.2.039';
 
 const EXPORTED_LOCAL_CONFIG_MODULES = import.meta.glob('./data/localConfig.export.json', {
   eager: true,
@@ -1263,6 +1263,7 @@ function calc({
   masteryStat,
   attack,
   baseDefense = 0,
+  baseMaxHp = 0,
   talentAp,
   traitBonuses = {},
   selectedTraits = [],
@@ -1410,6 +1411,9 @@ function calc({
   // 自身当前 / 已失体力：和目标那两个对称，由界面「自身当前体力 %」推出
   const selfHpRatio = Math.max(0, Math.min(1, getNumber(selfHpPct) / 100));
   const selfDefense = getNumber(baseDefense) + equipDefense;
+  // 血量上限 = 实验体等级成长血量 + 装备/潜能的额外体力。这跟界面上手填的「自身血量」是两码事：
+  // 后者是公式里 maxHp 变量的取值，允许自己填一个假设值，这里显示的是当前配装真实算出来的上限。
+  const characterMaxHp = getNumber(baseMaxHp) + extraHp;
   const context = {
     ap,
     attack: attackPower,
@@ -1574,6 +1578,8 @@ function calc({
     // 公式上下文整体带出来，递增伤害等二次计算直接复用，不用逐个字段同步
     formulaContext: context,
     extraHp,
+    baseMaxHp: getNumber(baseMaxHp),
+    characterMaxHp,
     normalApPct,
     uniqueApPct,
     masteryApPct,
@@ -2371,6 +2377,11 @@ function characterDefenseAtLevel(character, level = 20) {
   return damageFloor(getNumber(character.base?.defense) + getNumber(character.growth?.defense) * Math.max(0, level - 1));
 }
 
+function characterMaxHpAtLevel(character, level = 20) {
+  if (!character) return 0;
+  return damageFloor(getNumber(character.base?.hp) + getNumber(character.growth?.maxHp) * Math.max(0, level - 1));
+}
+
 export default function App() {
   const initialWorkspaceState = loadWorkspaceState();
   const initialAppSettings = loadAppSettings();
@@ -2768,6 +2779,7 @@ export default function App() {
       masteryStat: selectedMasteryStat,
       attack,
       baseDefense: characterDefenseAtLevel(selectedCharacter, mastery),
+      baseMaxHp: characterMaxHpAtLevel(selectedCharacter, mastery),
       talentAp,
       traitBonuses,
       selectedTraits,
@@ -2810,6 +2822,9 @@ export default function App() {
     slot === '武器' ? weaponChoices : builderEquipment.filter((item) => item.type === slot)
   ]));
   const showBasicAttackAmp = Boolean(result.basicAttackAmp || result.basicAttackFlatBonus || heroUsesBasicAttackAmp);
+  // 「预计恢复与护盾」和「强化普攻」两张卡：都在时并列成两列，只有一张时照旧占满整行
+  const hasSupportPanel = result.supportSkills.length > 0;
+  const hasBasicAttackPanel = result.basicAttackSkills.length > 0;
   const displayEquipmentStatValue = (key) => (
     statValue(result.equipmentStats, key) + (key === 'cooldownReduction' ? result.stackCd : 0)
   );
@@ -4479,7 +4494,7 @@ export default function App() {
         <details className="currentStatsBlock buildTargetStatsBlock collapsibleStats">
           <summary className="panelSubhead">
             <strong>当前角色属性汇总</strong>
-            <span>{visibleEquipmentStats.length + 5} 项显示</span>
+            <span>{visibleEquipmentStats.length + 6} 项显示</span>
           </summary>
           <div className="attributePanel">
             <div>
@@ -4491,6 +4506,11 @@ export default function App() {
               <span>攻击力</span>
               <strong>{round(finalAttack, 1)}</strong>
               <small>基础 {round(result.baseAttackPower, 1)} + 额外 {round(result.extraAttackPower, 1)}</small>
+            </div>
+            <div>
+              <span>血量上限</span>
+              <strong>{round(result.characterMaxHp, 1)}</strong>
+              <small>等级成长 {round(result.baseMaxHp, 1)} + 装备与潜能 {round(result.extraHp, 1)}</small>
             </div>
             <div>
               <span>每发平A预估</span>
@@ -4839,7 +4859,9 @@ export default function App() {
         </div>
       </section>
 
-      {result.supportSkills.length ? (
+      {hasSupportPanel || hasBasicAttackPanel ? (
+      <div className={`supportBasicRow${hasSupportPanel && hasBasicAttackPanel ? ' twoUp' : ''}`}>
+      {hasSupportPanel ? (
       <section className="panel damagePanel">
         <div className="panelHead">
           <div>
@@ -4886,7 +4908,7 @@ export default function App() {
       </section>
       ) : null}
 
-      {result.basicAttackSkills.length ? (
+      {hasBasicAttackPanel ? (
       <section className="panel damagePanel">
         <div className="panelHead">
           <div>
@@ -4929,6 +4951,8 @@ export default function App() {
           </div>
         </div>
       </section>
+      ) : null}
+      </div>
       ) : null}
 
       {result.comboRows.length ? (

@@ -1,7 +1,7 @@
 {
   "_comment": "官方补丁变更日志。每条记录的是「该补丁之后应该是什么值」（目标态），不是增量。",
   "_usage": "新版本上线：在 patches 末尾追加一段，然后跑 node scripts/apply-patch-log.mjs。脚本幂等，重跑只会跳过已达标的条目，不需要还原任何数据。",
-  "updatedAt": "2026-08-17T22:29:42.060Z",
+  "updatedAt": "2026-08-19T15:13:47.009Z",
   "patches": [
     {
       "version": "sweep-2023-07-19",
@@ -7357,6 +7357,157 @@
       "mastery": []
     },
     {
+      "version": "gamedata-20260819-character-base-sync",
+      "order": 20260819,
+      "date": "2026-08-19",
+      "label": "解包对账",
+      "url": "https://github.com/Nowar1/EternalReturnData",
+      "title": "解包对账：characters.json 基础属性与成长补齐",
+      "skills": [],
+      "equipment": [],
+      "characters": [
+        {
+          "hero": "亚历克斯",
+          "path": "base.defense",
+          "value": 51,
+          "was": 49
+        },
+        {
+          "hero": "鼻荆",
+          "path": "base.hp",
+          "value": 930,
+          "was": 960
+        },
+        {
+          "hero": "鼻荆",
+          "path": "base.attackPower",
+          "value": 30,
+          "was": 34
+        },
+        {
+          "hero": "克雷弗",
+          "path": "base.hp",
+          "value": 930,
+          "was": 905
+        },
+        {
+          "hero": "克雷弗",
+          "path": "base.attackPower",
+          "value": 35,
+          "was": 43
+        },
+        {
+          "hero": "克雷弗",
+          "path": "base.defense",
+          "value": 50,
+          "was": 51
+        },
+        {
+          "hero": "克雷弗",
+          "path": "base.moveSpeed",
+          "value": 3.5,
+          "was": 3.55
+        },
+        {
+          "hero": "克雷弗",
+          "path": "base.attackSpeed",
+          "value": 0.1,
+          "was": 0.11
+        },
+        {
+          "hero": "克雷弗",
+          "path": "growth.code",
+          "value": 89
+        },
+        {
+          "hero": "克雷弗",
+          "path": "growth.name",
+          "value": "Craver"
+        },
+        {
+          "hero": "克雷弗",
+          "path": "growth.maxHp",
+          "value": 80
+        },
+        {
+          "hero": "克雷弗",
+          "path": "growth.maxVp",
+          "value": 0
+        },
+        {
+          "hero": "克雷弗",
+          "path": "growth.attackPower",
+          "value": 4.4
+        },
+        {
+          "hero": "克雷弗",
+          "path": "growth.defense",
+          "value": 3
+        },
+        {
+          "hero": "克雷弗",
+          "path": "growth.skillAmp",
+          "value": 0
+        },
+        {
+          "hero": "克雷弗",
+          "path": "growth.adaptiveForce",
+          "value": 0
+        },
+        {
+          "hero": "克雷弗",
+          "path": "growth.criticalChance",
+          "value": 0
+        },
+        {
+          "hero": "克雷弗",
+          "path": "growth.hpRegen",
+          "value": 0.06
+        },
+        {
+          "hero": "克雷弗",
+          "path": "growth.vpRegen",
+          "value": 0
+        },
+        {
+          "hero": "克雷弗",
+          "path": "growth.attackSpeed",
+          "value": 0
+        },
+        {
+          "hero": "克雷弗",
+          "path": "growth.moveSpeed",
+          "value": 0
+        },
+        {
+          "hero": "克雷弗",
+          "path": "growth.attackSpeedRatio",
+          "value": 0
+        },
+        {
+          "hero": "克雷弗",
+          "path": "growth.increaseBasicAttackDamageRatio",
+          "value": 0
+        },
+        {
+          "hero": "克雷弗",
+          "path": "growth.skillAmpRatio",
+          "value": 0
+        },
+        {
+          "hero": "克雷弗",
+          "path": "growth.preventBasicAttackDamagedRatio",
+          "value": 0
+        },
+        {
+          "hero": "克雷弗",
+          "path": "growth.preventSkillDamagedRatio",
+          "value": 0
+        }
+      ],
+      "mastery": []
+    },
+    {
       "version": "model-accumulated-damage",
       "order": 20260820,
       "date": "2026-08-20",
@@ -7382,6 +7533,467 @@
         {
           "id": "external-lyanh-r-1063510-damage-stat1",
           "remove": true
+        }
+      ],
+      "equipment": [],
+      "characters": [],
+      "mastery": []
+    },
+    {
+      "version": "12.2",
+      "order": 20260820,
+      "date": "2026-08-20",
+      "label": "12.2",
+      "url": "https://playeternalreturn.com/posts/news/3783?hl=zh-CN",
+      "title": "12.2 更新日志",
+      "skills": [
+        {
+          "id": "ingame-074-darko-w-1074300-shield",
+          "bases": "50,85,120,155,190",
+          "formula": "base + attack * 0.55",
+          "source": "official-patch-note",
+          "was": {
+            "bases": "50,90,130,170,210",
+            "formula": "base + attack * 0.55"
+          },
+          "coefficientText": "护盾 50/85/120/155/190(+攻击力的55%)",
+          "note": "12.2：达尔科前中期过强，W 护盾量下调。同批基础攻击力 42→40。"
+        },
+        {
+          "id": "external-debimarlene-w-1065300-damage-stat1",
+          "formula": "base + extraAttack * 0.75 + targetHp * 0.05",
+          "source": "official-patch-note",
+          "was": {
+            "formula": "base + extraAttack * 0.6 + targetHp * 0.05"
+          },
+          "coefficientText": "伤害 40/70/100/130/160(+额外攻击力75%)(+目标体力上限的5/5.5/6/6.5/7%)",
+          "note": "12.2：额外攻击力系数 60%→75%。注意目标体力上限那一项官方是分级的 5/5.5/6/6.5/7%，库里写死成固定 5%（1 级值），本次公告没动它所以保持原样，留待核对。"
+        },
+        {
+          "id": "ingame-020-lenox-p-1020100-shield",
+          "formula": "maxHp * [0.08,0.11,0.14][level - 1]",
+          "source": "official-patch-note",
+          "was": {
+            "formula": "maxHp * [0.07,0.1,0.13][level - 1]"
+          },
+          "coefficientText": "护盾吸收 体力上限的 8%/11%/14%",
+          "note": "12.2：伦诺克斯前排承伤不足，P 护盾量 7/10/13% → 8/11/14%。"
+        },
+        {
+          "id": "ingame-064-vanya-p-1064100-dream-shield",
+          "bases": "30,60,90",
+          "formula": "base + ap * 0.3",
+          "source": "official-patch-note",
+          "was": {
+            "bases": "30,65,100",
+            "formula": "base + ap * 0.3"
+          },
+          "coefficientText": "护盾 30/60/90(+技能增幅的30%)",
+          "note": "12.2：圣器武器技能可触发 P 后护盾生成频率提高，护盾量下调。"
+        },
+        {
+          "id": "ingame-028-sua-p-1028100-damage",
+          "bases": "70,120,170",
+          "formula": "base + ap * 0.5",
+          "source": "official-patch-note",
+          "was": {
+            "bases": "100,160,220",
+            "formula": "base + ap * 0.5"
+          },
+          "coefficientText": "伤害 70/120/170(+技能增幅的50%)",
+          "note": "12.2：秀雅调整后持续强势，P 精神食粮伤害下调。同批 Q/E 的减速也削了，但那两项没建模。"
+        },
+        {
+          "id": "ingame-028-sua-p-1028100-heal",
+          "bases": "70,120,170",
+          "formula": "(base + ap * 0.5) * 0.35",
+          "source": "official-patch-note",
+          "was": {
+            "bases": "100,160,220"
+          },
+          "coefficientText": "恢复精神食粮伤害量 35% 的体力",
+          "note": "12.2：恢复量按主目标那段伤害折算，跟随 P 伤害一起下调。"
+        },
+        {
+          "id": "release-66-w-01",
+          "formula": "base + ap * 0.5",
+          "source": "official-patch-note",
+          "was": {
+            "formula": "base + ap * 0.45"
+          },
+          "coefficientText": "1段伤害 60/80/100/120/140(+技能增幅的50%)",
+          "note": "12.2：阿尔达平均伤害下降，W 巴比伦魔方 1 段技能增幅系数 45%→50%。"
+        },
+        {
+          "id": "release-66-r-04",
+          "formula": "base + ap * 0.5",
+          "source": "official-patch-note",
+          "was": {
+            "formula": "base + ap * 0.45"
+          },
+          "coefficientText": "巴比伦骰子(RW) 区域伤害 60/80/100/120/140(+技能增幅的50%)",
+          "note": "12.2：公告注明「巴比伦骰子(RW)同样适用」，与 W 1 段同步上调。"
+        },
+        {
+          "id": "009-isol-q-1009200-base-damage",
+          "bases": "60,85,110,135,160",
+          "formula": "base + attack * 0.35 + ap * 0.7",
+          "source": "official-patch-note",
+          "was": {
+            "bases": "60,85,110,135,160",
+            "formula": "base + attack * 0.25 + ap * 0.7"
+          },
+          "coefficientText": "基础伤害 60/85/110/135/160(+攻击力的35%)(+技能增幅的70%)",
+          "note": "12.2：攻击力系数 25%→35%。库里原值是 50/75/100/125/150(+技能增幅50%)，与公告的改前状态完全对不上，说明那条是过期数据（缺攻击力项、基础值与系数都旧），本次一并推到当前值。"
+        },
+        {
+          "id": "patch-115-jan-1035400-damage",
+          "formula": "base + extraAttack * 1 + ap * 0.6 + targetHp * 0.05",
+          "source": "official-patch-note",
+          "was": {
+            "formula": "base + extraAttack * 1 + ap * 0.5 + targetHp * 0.05"
+          },
+          "coefficientText": "伤害 20/30/40/50/60(+额外攻击力100%)(+技能增幅的60%)(+敌人体力上限5%)",
+          "note": "12.2：旋棍扬数据偏低，E 闪烁技能增幅系数 50%→60%。"
+        },
+        {
+          "id": "ingame-036-eva-r-1036500-damage",
+          "bases": "6,10,14",
+          "formula": "base + ap * 0.05",
+          "source": "official-patch-note",
+          "was": {
+            "bases": "8,12,16"
+          },
+          "coefficientText": "伤害 6/10/14(+技能增幅的5%)",
+          "note": "12.2：伊娃胜率与得分偏高，R 后期强度下调。"
+        },
+        {
+          "id": "augment-036-eva-r-1036500-extra-damage-stat2",
+          "bases": "30,45,60",
+          "formula": "base + ap * 0.3",
+          "source": "official-patch-note",
+          "was": {
+            "bases": "30,50,70"
+          },
+          "coefficientText": "5叠层额外伤害 30/45/60(+技能增幅的30%)",
+          "note": "12.2：同上，满叠层额外伤害一并下调。"
+        },
+        {
+          "id": "augment-038-jenny-e-1038400-extra-damage-stat3",
+          "formula": "base + ap * 0.6",
+          "source": "official-patch-note",
+          "was": {
+            "formula": "base + ap * 0.58"
+          },
+          "coefficientText": "伤害 60/95/130/165/200(+技能增幅的60%)",
+          "note": "12.2：技能增幅系数 58%→60%。公告的改前值 58% 与库里完全一致 —— 反向证明了此前 caveat 里那条「客户端提示框没内联伤害、系数没能核对」的 58% 本来就是对的。"
+        },
+        {
+          "id": "external-camilo-w-1039300-damage-stat1",
+          "formula": "base + attack * 0.18",
+          "damageType": "basicAttack",
+          "source": "official-patch-note",
+          "was": {
+            "formula": "base + attack * 0.2"
+          },
+          "coefficientText": "伤害 5/15/25/35/45(+攻击力的18%) * (普攻增幅)",
+          "note": "12.2：卡米洛全分段过强，W 攻击力系数 20%→18%。公告写成「* (普攻增幅)」，说明这段按普攻伤害结算，本次一并补上 damageType: basicAttack。"
+        },
+        {
+          "id": "ingame-040-chloe-q-1040200-damage",
+          "formula": "base + (attack * (0.62 + (heroLevel - 1) * 0.02)) * 0.8",
+          "source": "official-patch-note",
+          "was": {
+            "formula": "base + (attack * (0.62 + (heroLevel - 1) * 0.02)) * 0.75"
+          },
+          "coefficientText": "伤害 70/90/110/130/150(+妮娜攻击力的80%)",
+          "note": "12.2：妮娜攻击力系数 75%→80%。同批还把 P 的妮娜额外防御力 15/30/45 提到 20/35/50，那是妮娜自身属性，模型里没有这一层。"
+        },
+        {
+          "id": "external-tazia-r-1060500-damage-stat1",
+          "bases": "70,120,170",
+          "formula": "base + ap * 0.45",
+          "source": "official-patch-note",
+          "was": {
+            "bases": "60,100,140",
+            "formula": "base + ap * 0.4"
+          },
+          "coefficientText": "长剑命中伤害 70/120/170(+技能增幅的45%)",
+          "note": "12.2：R 长剑命中相对操作难度收益不足，基础值与系数一起上调。"
+        },
+        {
+          "id": "external-priya-r-1051500-initial-damage-stat1",
+          "formula": "base + ap * 0.65",
+          "source": "official-patch-note",
+          "was": {
+            "formula": "base + ap * 0.6"
+          },
+          "coefficientText": "伤害 80/150/220(+技能增幅的65%)",
+          "note": "12.2：普里亚平均伤害过低，R 上调。"
+        },
+        {
+          "id": "external-priya-r-1051500-echo-damage-stat2",
+          "formula": "base + ap * 0.65",
+          "source": "official-patch-note",
+          "was": {
+            "formula": "base + ap * 0.6"
+          },
+          "coefficientText": "伤害 80/150/220(+技能增幅的65%)",
+          "note": "12.2：与一段同值同系数，一并上调。这两条的基础值和公式完全相同，疑似同一段被导入了两次，待核对。"
+        },
+        {
+          "id": "release-83-e-01",
+          "formula": "base + ap * 0.7",
+          "source": "official-patch-note",
+          "was": {
+            "formula": "base + ap * 0.6"
+          },
+          "coefficientText": "伤害 40/80/120/160/200(+技能增幅的70%)",
+          "note": "12.2：亨利伤害数据偏低，E 技能增幅系数 60%→70%。"
+        },
+        {
+          "id": "release-78-w-01",
+          "bases": "20,20,20,20,20",
+          "formula": "base + extraAttack * [0.15,0.2,0.25,0.3,0.35][level - 1]",
+          "source": "official-patch-note",
+          "was": {
+            "bases": "10"
+          },
+          "coefficientText": "日轮乱舞(W3) 伤害 20(+额外攻击力15/20/25/30/35%)",
+          "note": "12.2：W3 使用率低，基础值 10→20。原先 bases 只写了一个 10（maxLevel=1），但系数是按 5 级索引的，等级永远被夹到 1 只能取 15%，本次顺便补齐成 5 级。"
+        }
+      ],
+      "equipment": [
+        {
+          "name": "AK-12",
+          "stat": "attackPower",
+          "value": 63,
+          "was": 61
+        },
+        {
+          "name": "征服者AX",
+          "stat": "attackPower",
+          "value": 78,
+          "was": 76
+        },
+        {
+          "name": "苍野荆棘",
+          "stat": "skillAmp",
+          "value": 79,
+          "was": 82
+        },
+        {
+          "name": "召唤手表",
+          "stat": "attackPower",
+          "value": 15,
+          "was": 18
+        },
+        {
+          "name": "海盗印记",
+          "stat": "maxHp",
+          "value": 220,
+          "was": 200
+        }
+      ],
+      "characters": [
+        {
+          "hero": "达尔科",
+          "path": "base.attackPower",
+          "value": 40,
+          "was": 42
+        },
+        {
+          "hero": "黛比&玛莲",
+          "path": "growth.defense",
+          "value": 3.2,
+          "was": 3
+        },
+        {
+          "hero": "雷妮",
+          "path": "growth.defense",
+          "value": 3,
+          "was": 2.8
+        },
+        {
+          "hero": "马格努斯",
+          "path": "base.hp",
+          "value": 1030,
+          "was": 1070
+        },
+        {
+          "hero": "布莱尔",
+          "path": "growth.maxHp",
+          "value": 89,
+          "was": 86
+        },
+        {
+          "hero": "阿德瑞娜",
+          "path": "growth.maxHp",
+          "value": 74,
+          "was": 76
+        },
+        {
+          "hero": "埃索",
+          "path": "base.hp",
+          "value": 920,
+          "was": 900
+        }
+      ],
+      "mastery": [
+        {
+          "hero": "娜町",
+          "type": "CrossBow",
+          "stat": "IncreaseBasicAttackDamageRatio",
+          "value": 0.012,
+          "was": 0.013
+        },
+        {
+          "hero": "雷妮",
+          "type": "Pistol",
+          "stat": "SkillAmpRatio",
+          "value": 0.044,
+          "was": 0.042
+        },
+        {
+          "hero": "阿德拉",
+          "type": "Rapier",
+          "stat": "SkillAmpRatio",
+          "value": 0.047,
+          "was": 0.046
+        },
+        {
+          "hero": "扎希尔",
+          "type": "DirectFire",
+          "stat": "SkillAmpRatio",
+          "value": 0.04,
+          "was": 0.039
+        },
+        {
+          "hero": "杰琪",
+          "type": "OneHandSword",
+          "stat": "IncreaseBasicAttackDamageRatio",
+          "value": 0.024,
+          "was": 0.028
+        },
+        {
+          "hero": "杰琪",
+          "type": "TwoHandSword",
+          "stat": "IncreaseBasicAttackDamageRatio",
+          "value": 0.022,
+          "was": 0.023
+        },
+        {
+          "hero": "杰琪",
+          "type": "Axe",
+          "stat": "IncreaseBasicAttackDamageRatio",
+          "value": 0.021,
+          "was": 0.019
+        },
+        {
+          "hero": "菲欧娜",
+          "type": "Rapier",
+          "stat": "SkillAmpRatio",
+          "value": 0.041,
+          "was": 0.042
+        }
+      ]
+    },
+    {
+      "version": "12.2-lucia",
+      "order": 20260820,
+      "date": "2026-08-20",
+      "label": "12.2",
+      "url": "https://playeternalreturn.com/posts/news/3783?hl=zh-CN",
+      "title": "12.2 新实验体：露西娅",
+      "skills": [
+        {
+          "create": true,
+          "id": "patch-122-lucia-p-1090100-damage",
+          "hero": "露西娅",
+          "slot": "P",
+          "group": 1090100,
+          "dataKey": "Damage",
+          "title": "P 千金的自我修养 水晶普攻额外伤害",
+          "bases": "20,60,100",
+          "formula": "base + ap * 0.55",
+          "kind": "basicAttack",
+          "source": "official-patch-note",
+          "coefficientText": "额外技能伤害 20/60/100(+技能增幅的55%)",
+          "note": "露西娅的技能命中敌人时留下持续 4 秒的水晶标记；普攻移除水晶标记时结算这一段，同时自身移速在 0.75 秒内 +10/20/30%。对带水晶标记的敌人普攻时攻速 +60%。官方写的是「额外技能伤害」，所以按技能线结算（吃技能增幅、走技能减伤），只是挂在普攻上触发。"
+        },
+        {
+          "create": true,
+          "id": "patch-122-lucia-q-1090200-damage",
+          "hero": "露西娅",
+          "slot": "Q",
+          "group": 1090200,
+          "dataKey": "Damage",
+          "title": "Q 绮丽浪漫 伤害",
+          "bases": "70,105,140,175,210",
+          "formula": "base + ap * 0.75",
+          "source": "official-patch-note",
+          "coefficientText": "伤害 70/105/140/175/210(+技能增幅的75%)",
+          "note": "朝指定方向发射水晶弹，只对命中的**首个**敌人结算。射程 7m，投射体宽 1.2m、速度 20m/s。冷却 5/4.5/4/3.5/3 秒。"
+        },
+        {
+          "create": true,
+          "id": "patch-122-lucia-q-1090200-beam-damage",
+          "hero": "露西娅",
+          "slot": "Q",
+          "group": 1090200,
+          "dataKey": "BeamDamage",
+          "title": "Q 流光浪漫 伤害",
+          "bases": "80,115,150,185,220",
+          "formula": "base + ap * 0.8",
+          "source": "official-patch-note",
+          "coefficientText": "伤害 80/115/150/185/220(+技能增幅的80%)",
+          "note": "用 E 之后 4 秒内 Q 会被替换成流光浪漫：发射一道光束，对范围内**所有**敌人结算并使其移速 -40% 持续 1 秒。伤害范围 8m × 1.2m。与绮丽浪漫是替换关系，不能相加。"
+        },
+        {
+          "create": true,
+          "id": "patch-122-lucia-w-1090300-damage",
+          "hero": "露西娅",
+          "slot": "W",
+          "group": 1090300,
+          "dataKey": "Damage",
+          "title": "W 齐射 伤害",
+          "bases": "60,80,100,120,140",
+          "formula": "base + ap * 0.45",
+          "source": "official-patch-note",
+          "coefficientText": "伤害 60/80/100/120/140(+技能增幅的45%)",
+          "note": "召唤火枪对附近最多 4 名敌人开火，每名敌人首次被命中吃满额。射程 6.3m，冷却 8/7.5/7/6.5/6 秒。"
+        },
+        {
+          "create": true,
+          "id": "patch-122-lucia-w-1090300-repeat-damage",
+          "hero": "露西娅",
+          "slot": "W",
+          "group": 1090300,
+          "dataKey": "RepeatDamage",
+          "title": "W 齐射 重复命中伤害",
+          "bases": "60,80,100,120,140",
+          "formula": "(base + ap * 0.45) * 0.2",
+          "source": "official-patch-note",
+          "maxHits": 3,
+          "defaultHits": 3,
+          "hitLabel": "重复命中次数",
+          "hitNote": "总共 4 发，打在同一个目标身上时第 2~4 发各按 20% 结算。",
+          "coefficientText": "重复命中已被射击过的敌人时造成 20% 的伤害",
+          "note": "单个目标附近没有其它敌人时，4 发会全打在它身上：1 发满额（上一条）+ 3 发各 20%，合计约为满额的 1.6 倍。敌人多时这一条按实际重复数调。"
+        },
+        {
+          "create": true,
+          "id": "patch-122-lucia-r-1090500-damage",
+          "hero": "露西娅",
+          "slot": "R",
+          "group": 1090500,
+          "dataKey": "Damage",
+          "title": "R 枪士风范 伤害",
+          "bases": "140,230,320",
+          "formula": "base + ap * 0.8",
+          "source": "official-patch-note",
+          "coefficientText": "伤害 140/230/320(+技能增幅的80%)",
+          "note": "向前方发动强力射击。命中带水晶标记的敌人时会移除并重新施加标记，同时晕厥 0.6 秒。伤害范围 10m × 2m，冷却 70/60/50 秒。"
         }
       ],
       "equipment": [],

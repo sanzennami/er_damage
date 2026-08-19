@@ -168,5 +168,7 @@ function helpNotesEditorPlugin() {
 
 export default defineConfig({
   base: './',
-  plugins: [react(), helpNotesEditorPlugin()]
+  plugins: [react(), helpNotesEditorPlugin()],
+  // 端口交给 PORT 环境变量（预览服务器会分配一个空闲端口）；没设时仍是 Vite 默认的 5173。
+  server: { port: Number(process.env.PORT) || 5173 }
 });

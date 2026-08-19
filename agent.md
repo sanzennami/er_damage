@@ -249,3 +249,19 @@ and a slider that never rendered.
 - Remote: `https://github.com/sanzennami/er_damage.git`
 - `node_modules/`, `dist/`, `.vite/`, `.next/`, `.er-gamedata-cache/`, `.er-gamedata-tmp/` are ignored
 - Current app version constant: `APP_VERSION` in `src/App.jsx` — bump it with every batch of changes
+
+## characters.json 会悄悄过期
+
+`npm run update:gamedata` 只写 `src/data/sources/erGameData.json`；`src/data/characters.json`
+只被 `apply-patch-log.mjs` 改。两边从来不互相校验，所以最初导入时错掉的基础属性会一直躺着。
+2026-08-19 就是这样发现克雷弗整条记录停在旧值、`growth` 还是 `null`——而它是默认可见的英雄，
+Lv20 攻击力停在 43（应为 118）。
+
+刷完解包后跑一次：
+
+```bash
+npm run audit:character-drift
+```
+
+它会把差异分成「有公告背书」（补丁 order 比解包快照新，正常）和「没人背书」（多半是陈旧导入，
+要处理），并单独警告有解包成长数据、我们却还是 `null` 的实验体。

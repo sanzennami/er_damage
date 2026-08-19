@@ -3183,3 +3183,20 @@ body[data-theme='day'] .hpRatioSliderHead {
 body[data-theme='day'] .buffValue {
   color: #b26a00;
 }
+
+/* 「预计恢复与护盾」和「强化普攻」：两张都在时并列两列，只有一张时占满整行。
+   两张卡原本是紧贴的（彼此没有外边距），并列后由这里的 gap 统一给间距。 */
+.supportBasicRow {
+  display: grid;
+  gap: 16px;
+}
+
+.supportBasicRow.twoUp {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+@media (max-width: 900px) {
+  .supportBasicRow.twoUp {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
