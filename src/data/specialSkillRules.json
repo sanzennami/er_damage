@@ -95,6 +95,38 @@
           ]
         }
       ]
+    },
+    "席琳": {
+      "statConversion": {
+        "from": "cd",
+        "to": "ap",
+        "ratio": 1,
+        "note": "P 炸弹专家：席琳不受冷却缩减叠层影响，每 1 冷却缩减转换 1 技能增幅。所以她的冷却缩减恒为 0，那部分折算成技能增幅并进基础值。"
+      },
+      "display": {
+        "external-celine-q-1043200-damage-stat1": {
+          "secondaryScale": 0.75,
+          "showBreakdown": true
+        }
+      }
+    },
+    "玛蒂娜": {
+      "formSwitch": {
+        "id": "state",
+        "label": "状态",
+        "note": "玛蒂娜攒够录像叠层后会永久进入报道中，不像别的英雄那样来回切形态，所以默认就按报道中显示。切到采访中可以看前期的数值。",
+        "default": "报道中",
+        "options": [
+          {
+            "value": "采访中",
+            "label": "采访中"
+          },
+          {
+            "value": "报道中",
+            "label": "报道中"
+          }
+        ]
+      }
     }
   }
 }

@@ -3117,6 +3117,41 @@ td:last-child input {
   font-size: 12px;
 }
 
+/* 形态开关（玛蒂娜 采访中 / 报道中）：两个互斥按钮，比下拉更一眼看清当前在哪一态 */
+.heroFormButtons {
+  display: flex;
+  gap: 4px;
+}
+
+.heroFormButtons button {
+  padding: 6px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  color: #d9cfc3;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.heroFormButtons button.active {
+  border-color: #ffd56b;
+  background: rgba(255, 213, 107, 0.16);
+  color: #ffd56b;
+  font-weight: 600;
+}
+
+body[data-theme='day'] .heroFormButtons button {
+  border-color: rgba(45, 98, 166, 0.2);
+  background: #f2f6fc;
+  color: #26344a;
+}
+
+body[data-theme='day'] .heroFormButtons button.active {
+  border-color: #c2891f;
+  background: #fdf3dc;
+  color: #8a5d00;
+}
+
 /* 技能面板表头里并排的几个控件（叠层 / 自身体力 / 英雄专属修正）挤在一行时要能换行 */
 .skillDamagePanel > summary.effectToggle {
   flex-wrap: wrap;

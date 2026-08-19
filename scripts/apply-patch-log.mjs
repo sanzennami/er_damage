@@ -57,7 +57,7 @@ function getByPath(target, dottedPath) {
 }
 
 // 只影响界面呈现、不影响数值本身的字段（叠层选择器、命中次数、护盾/治疗标记）
-const PRESENTATION_FIELDS = ['maxStacks', 'stackLabel', 'stackStep', 'maxHits', 'defaultHits', 'hitLabel', 'hitNote', 'kind', 'buffKey', 'damageType', 'progressiveDamage'];
+const PRESENTATION_FIELDS = ['maxStacks', 'stackLabel', 'stackStep', 'defaultStacks', 'form', 'maxHits', 'defaultHits', 'hitLabel', 'hitNote', 'kind', 'buffKey', 'damageType', 'progressiveDamage'];
 
 /** progressiveDamage 是对象，不能用 === 比，否则每次都判定成没达标、反复重写。 */
 function samePresentationValue(a, b) {
@@ -105,7 +105,7 @@ async function main() {
   const equipByName = new Map(equipment.equipment.map((item) => [item.name, item]));
   const charByName = new Map(characters.characters.map((item) => [item.name, item]));
 
-  const stats = { applied: 0, already: 0, manualHeld: 0, missing: 0 };
+  const stats = { applied: 0, already: 0, manualHeld: 0, missing: 0, wasMismatch: 0 };
   const report = { generatedAt: new Date().toISOString(), dryRun, patches: [] };
 
   const ordered = [...(patchLog.patches || [])].sort((a, b) => a.order - b.order);
@@ -137,7 +137,26 @@ async function main() {
     .map((patch) => ({ ...patch, ...byPatch.get(patch.version) }));
 
   for (const patch of effective) {
-    const log = { version: patch.version, date: patch.date, applied: [], already: 0, manualHeld: [], missing: [] };
+    const log = { version: patch.version, date: patch.date, applied: [], already: 0, manualHeld: [], missing: [], wasMismatch: [] };
+
+    /**
+     * 「改前值」反查。
+     *
+     * 官方公告写的是「A → B」，我们只记 B（目标态）。但那个 A 是一份免费的校验数据：
+     * 如果补丁生效前我们记的值既不等于 B、也不等于 A，说明**我们某处录错了**。
+     *
+     * 这个检查抓到过真问题：秀雅四条系数我从截图读高了 5 个百分点，
+     * 12.1b 公告的「改前」值与库里原有的官方值完全吻合，一比就露馅了。
+     *
+     * 只在还没达标时比 —— 已经推到目标态的条目本来就不该等于改前值。
+     */
+    const checkWas = (kind, name, current, was, format = (v) => String(v)) => {
+      if (was === undefined || was === null) return;
+      const same = typeof was === 'number' ? sameNumber(current, was) : String(current) === String(was);
+      if (same) return;
+      log.wasMismatch.push(`${kind} ${name}：公告说改前是 ${format(was)}，我们记的却是 ${format(current)}`);
+      stats.wasMismatch += 1;
+    };
 
     const stamp = (entry) => {
       entry.patchVersion = patch.version;
@@ -150,6 +169,25 @@ async function main() {
     // --- 技能 ---
     for (const change of patch.skills || []) {
       let entry = skillById.get(change.id);
+      // "remove": true 用来删掉重复段（同一段伤害被两套导入各建了一条）。
+      // 条目已经不在了就算已达标，重跑不会报「未找到」。
+      if (change.remove) {
+        if (!entry) { log.already += 1; stats.already += 1; continue; }
+        if (entry.manual === true && change.overrideManual !== true) {
+          log.manualHeld.push({ id: change.id, hero: entry.hero, title: entry.title, keep: { bases: entry.bases, formula: entry.formula }, official: { bases: '(删除)', formula: '(删除)' } });
+          stats.manualHeld += 1;
+          continue;
+        }
+        if (!dryRun) {
+          const at = heroSkills.skills.indexOf(entry);
+          if (at >= 0) heroSkills.skills.splice(at, 1);
+          skillById.delete(change.id);
+        }
+        log.applied.push(`skill 删除 ${entry.hero} ${entry.title}`);
+        // 计数字段是 applied，写成 written 的话汇总行会变成 NaN
+        stats.applied += 1;
+        continue;
+      }
       if (!entry) {
         // 补丁公布了新实验体/新伤害段时，允许建条：需要带全身份字段
         if (change.create && change.hero && change.bases && change.formula) {
@@ -204,6 +242,11 @@ async function main() {
         stats.already += 1;
         continue;
       }
+      // 还没达标才比改前值：公告的 A 对不上我们的现值 → 我们录错了
+      if (change.was) {
+        checkWas('skill', `${entry.hero} ${entry.title}`, entry.bases, change.was.bases);
+        checkWas('skill', `${entry.hero} ${entry.title}`, entry.formula, change.was.formula);
+      }
       // "overrideManual": true 表示这条人工值本来就是脚本推导出来的待复核值，
       // 且已经有更晚的官方公告给出确定数值，允许公告压过去。
       // 俞岷 / 奇娅拉那种真正人工校对过的条目走 special-skill-rule，不在这里。
@@ -228,6 +271,12 @@ async function main() {
         entry.authority = change.authority ?? (change.source ? undefined : 80);
         if (entry.authority === undefined) delete entry.authority;
         entry.sourceNote = composeSourceNote(patch, change);
+        // sourceLabel / sourceVersion 是导入时冻结的展示文案，界面优先读它们。
+        // 换了来源却不清掉的话，页面会一直显示旧来路（例如已经是客户端读值却仍写着
+        // "Wiki / 2025-06-25"）。删掉让 App 按 source + updatedAt 现算。
+        delete entry.sourceLabel;
+        delete entry.sourceVersion;
+        delete entry.sourceDate;
         stamp(entry);
       }
       log.applied.push(`skill ${entry.hero} ${entry.title}`);
@@ -250,6 +299,7 @@ async function main() {
         stats.already += 1;
         continue;
       }
+      checkWas('equipment', `${change.name}.${change.stat}`, current, change.was);
       if (!dryRun) {
         if (change.remove) delete item.stats[change.stat];
         else item.stats[change.stat] = change.value;
@@ -275,6 +325,7 @@ async function main() {
         stats.already += 1;
         continue;
       }
+      checkWas('character', `${change.hero}.${change.path}`, getByPath(character, change.path), change.was);
       if (!dryRun) {
         setByPath(character, change.path, change.value);
         character.patchVersion = patch.version;
@@ -299,6 +350,7 @@ async function main() {
         stats.already += 1;
         continue;
       }
+      checkWas('mastery', `${change.hero}/${change.type} ${change.stat}`, option.value, change.was);
       if (!dryRun) option.value = change.value;
       log.applied.push(`mastery ${change.hero}/${change.type}/${change.stat}`);
       stats.applied += 1;
@@ -336,7 +388,14 @@ async function main() {
     });
   }
 
-  console.log(`\n合计：写入 ${stats.applied} / 已达标 ${stats.already} / 人工保留 ${stats.manualHeld} / 未找到 ${stats.missing}${dryRun ? '（dry-run，未写文件）' : ''}`);
+  const mismatches = report.patches.flatMap((log) => log.wasMismatch);
+  if (mismatches.length) {
+    console.log(`\n⚠ 有 ${mismatches.length} 处「改前值」对不上 —— 公告说改前应该是 A，我们记的却是别的值。`);
+    console.log('  这说明补丁生效前我们那条就已经录错了，请回查来源后修正：');
+    mismatches.forEach((line) => console.log(`  · ${line}`));
+  }
+
+  console.log(`\n合计：写入 ${stats.applied} / 已达标 ${stats.already} / 人工保留 ${stats.manualHeld} / 未找到 ${stats.missing}${stats.wasMismatch ? ` / ⚠ 改前值对不上 ${stats.wasMismatch}` : ''}${dryRun ? '（dry-run，未写文件）' : ''}`);
 }
 
 main().catch((error) => {

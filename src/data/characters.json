@@ -1873,7 +1873,7 @@
         "Bat"
       ],
       "base": {
-        "hp": 1020,
+        "hp": 980,
         "attackPower": 39,
         "defense": 54,
         "skillAmp": 0,
@@ -1926,7 +1926,9 @@
       ],
       "playTip": "秀雅是一位热爱书籍的图书管理员。她可以在短时间内使用技能，同时通过近距离交战减少技能冷却时间。",
       "storyName": "权秀雅",
-      "image": "/assets/characters/028-Sua.png"
+      "image": "/assets/characters/028-Sua.png",
+      "patchVersion": "12.1b",
+      "patchOrder": 20260815
     },
     {
       "code": 29,

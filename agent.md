@@ -108,7 +108,7 @@ names resolve to the canonical one); numbers are not.
 | `specialSkillRules.json` | Display/aggregation behaviour only (multi-hit, secondary scaling, stack selector, combos). **No formulas.** |
 | `masteryStats.json` | Per-level weapon mastery growth. |
 | `localConfig.json` | In-app config table defaults: `talents` / `combos`. `equipment`/`skills` stay empty. |
-| `patchLog.json` | **Official patch log in target-state form.** Applied by `scripts/apply-patch-log.mjs`, which is idempotent — never revert data to re-run it. Add a new patch by appending an entry. |
+| `patchLog.json` | **Official patch log in target-state form.** Applied by `scripts/apply-patch-log.mjs`, which is idempotent — never revert data to re-run it. Add a new patch by appending an entry. Changes support `was` (the note's before-value, see below), `remove`, `overrideManual`. |
 | `dataMigrations.json` | Rewrites stale names in old browser caches. |
 | `dakLoadoutAssets.json` | Augments/traits, tactical skills, icons. |
 | `sources/*.json` | Raw imports (er-gamedata, wiki/patch pipeline, in-game capture). App never reads these. |
@@ -125,8 +125,19 @@ defense mod     = 100 / (100 + final defense)
 damage mod      = 1 + self bonus + equipment amp + trait amp - target reduction - skill reduction
 final mod       = defense mod * damage mod
 skill damage    = floor(floor(formula) * final mod)
-basic attack    = floor(attack power * defense mod * damage mod); crit multiplier = 1.75 + crit damage
+
+basic attacks use a SEPARATE multiplier chain (official wiki wording):
+basic attack amp = equipment + mastery + effect "IncreaseBasicAttackDamageRatio"
+basic attack     = floor((attack * defense mod * crit mult + flat BA damage)
+                         * (1 + self bonus + BA amp - target BA reduction))
+                   crit mult = 1.75 + crit damage; the flat term is added AFTER defense and crit
 ```
+
+**Skill amp and basic-attack amp are two independent buckets.** Segments the game classifies as
+basic-attack damage (`damageType: "basicAttack"` on the entry) run through the basic-attack chain —
+they take basic-attack amp and the target's basic-attack reduction, not skill reduction.
+Target mastery gives `level * 0.8%` skill reduction (from level 2) and `level * 1%` basic-attack
+reduction (1% at level 1, 20% at level 20).
 
 - Unique stats (`unique: true` in `itemStatDefinitions`) take the **max** across items, not the sum.
 - Mastery AP% comes from `masteryStats.json` per `characterCode` + weapon type (e.g. 奇娅拉 Rapier
@@ -134,10 +145,83 @@ basic attack    = floor(attack power * defense mod * damage mod); crit multiplie
 - Target mastery adds `level * 0.8%` skill reduction and `level * 1%` basic-attack reduction.
 - All displayed results are floored (`damageFloor`, with a `1e-9` tolerance).
 
-Formula variables: `base`, `ap`, `attack`, `extraAttack`, `targetHp`, `stacks`, `level`
-(skill level) and `heroLevel` (character/mastery level 1-20, for patch notes' `(+实验体等级*N)` terms).
+Formula variables — `base`, `ap`, `attack`, `extraAttack`, `stacks`, `level` (skill level),
+`heroLevel` (character/mastery level 1-20, for patch notes' `(+实验体等级*N)` terms), plus:
+
+| Variable | Meaning |
+| --- | --- |
+| `targetHp` / `targetCurrentHp` / `targetLostHp` | target max / current / lost HP |
+| `maxHp` / `selfCurrentHp` / `selfLostHp` | **own** max / current / lost HP |
+| `extraHp` | own bonus HP (equipment + traits) |
+| `defense` / `shield` | own defense / shield |
+| `critChance` | crit chance, 0–1 |
+| `basicAttackAmp` | basic-attack amp, 0–1 |
+| `accumulatedDamage` | manually entered accumulated damage (Daniel W) |
+
+When a patch note says 「体力上限X%」 without 「目标」, it means **your own** max HP → `maxHp`.
+Only 「目标体力上限」 is `targetHp`. They often appear in the same sentence.
+
 `evaluateFormula` whitelists the expression; anything containing Chinese, `%`, or function names
-silently evaluates to `0`.
+silently evaluates to `0`. `Math.min` / `Math.max` are the only allowed calls (used for caps).
+
+## Modeling primitives (added after the 12.0b/12.1 client-capture pass)
+
+Everything below is data-driven — reach for these instead of branching in `App.jsx`.
+Full details in `src/data/README.md`.
+
+| Situation | How to model |
+| --- | --- |
+| Patch note writes `(攻击力X%) * (普攻增幅)` | `damageType: "basicAttack"` — do **not** also multiply `basicAttackAmp` in the formula, that double-counts |
+| True damage | `damageType: "true"` |
+| "Enhances your next basic attack" | `kind: "basicAttack"` — only picks the panel; the damage itself still settles as skill damage |
+| Shield / heal | `kind: "shield"` / `"heal"` |
+| No damage, only grants a stat | `kind: "buff"` + `buffKey` — gives that slot its own level selector |
+| Max is a fixed multiple of min, scaling with charge time | `progressiveDamage`; use the `coefficients` array when several coefficients scale together |
+| Scales with target's lost HP between min and max | `(min segment) * (1 + k * targetLostHp / targetHp)` |
+| Resource bar 0–100 rather than stacks | `maxStacks` + `stackStep` → slider + number box |
+| Hero-specific conditional buff | `modifiers` in `specialSkillRules.json` (dropdown feeding `apPct` / `damageBonus`) |
+| "Stat A converts into stat B" | `statConversion` in `specialSkillRules.json` (Celine: cooldown → skill amp) |
+
+**Mutually exclusive segments must differ in the first word of the title.** Grouping keys on the
+first space-delimited token after the slot prefix, so a base segment and its enhanced replacement
+sharing a first word get summed into one "全段合计" — which is wrong for exclusive variants.
+
+## Traps that have actually bitten (do not relearn these)
+
+**Encoding / escaping**
+
+- Edit `App.jsx` with the Edit tool. Running Python through a shell heredoc turned `\b` into a
+  literal **backspace byte (0x08)**, so the regex silently never matched — `sed` renders it
+  invisibly, only `od -c` shows it.
+- **Never** use PowerShell `Get-Content -Raw | Set-Content` on files containing Chinese: PS 5.1
+  reads as ANSI and writes UTF-8, mojibaking the whole file **irreversibly**. Recover from git.
+- Backticks inside bash heredocs get shell-expanded — write markdown with the Write tool.
+
+**`apply-patch-log` target-state comparison**
+
+The "already at target, skip" check has silently swallowed changes four separate times, each when a
+newly added field was not part of the comparison: `maxStacks` → presentation fields → `title`/`source`
+→ `coefficientText`/`sourceNote`. **Any new field that gets written onto an entry must also join the
+`atTarget` comparison**, or edits to it will never apply. `progressiveDamage` is an object — compare
+with JSON, not `===`.
+
+**Counter names** — `stats` only has `applied / already / manualHeld / missing / wasMismatch`.
+Using any other name (a `stats.written` once slipped in) makes the summary line print `NaN` and the
+whole category vanish from the report.
+
+**React declaration order** — `result` and several memos are declared midway through the component.
+Referencing them earlier throws a TDZ error at runtime while `npm run build` still succeeds.
+
+**Patch ordering** — `order` decides who writes last, not authority. Client screenshots read on
+12.0b must sort **before** the 12.1 patch note, otherwise the older reading overwrites the newer
+official value. Keep one hero per client/model patch: `version` is the internal key
+(`client-12.0b-sua`) but `label` (`12.0b`) is what gets printed on the entry, and a patch covering
+two heroes prints the wrong hero's name on both.
+
+**Verify numbers in the browser.** Hand-check a few segments after every data change. That step is
+what caught basic-attack amp being counted twice (`aggregateEquipmentStats` already folds the
+`*ByLv` stats into the base key — do **not** multiply by level again), stacks not reaching `calc`,
+and a slider that never rendered.
 
 ## Maintenance Guidance
 
@@ -148,12 +232,20 @@ silently evaluates to `0`.
   fallback for when `equipment.json` ships no equipment at all — do not add items there.
 - Record provenance on any value you change: `sourceUrl`, `sourceNote`, `updatedAt`.
 - When correcting a published Chinese name, append a migration entry to `dataMigrations.json`.
-- Patch migration scripts (`scripts/apply-official-patch-updates*.mjs`) are one-shot: they validate
-  the "before" value and must be re-run from a clean `git checkout -- src/data`.
-- Run `npm run build` before committing.
+- The one-shot migration scripts in `scripts/archive/` are historical. **Current data changes all go
+  through `patchLog.json` + `apply-patch-log.mjs`**, which is idempotent — write a throwaway script
+  that appends a patch entry, run it, then run the applier twice and confirm the second says 写入 0.
+- **Record the note's before-value in `was`.** Patch notes read "A → B"; we only store B, but A is
+  free verification: if our value before the patch matches neither A nor B, we recorded something
+  wrong earlier. This caught four Sua coefficients I had misread off screenshots by +5 points each.
+  It only warns, never blocks.
+- After a data change: `node scripts/export-hero-caveats.mjs` regenerates `docs/hero-caveats.md`
+  (never hand-edit that file), then `npm run build`, then bump `APP_VERSION`.
+- **Only `git add` — do not commit.** The user pushes manually, and `push.cmd` ships the whole
+  working tree, so never leave scratch data under `src/data/`.
 
 ## Git Notes
 
 - Remote: `https://github.com/sanzennami/er_damage.git`
 - `node_modules/`, `dist/`, `.vite/`, `.next/`, `.er-gamedata-cache/`, `.er-gamedata-tmp/` are ignored
-- Current app version constant: `APP_VERSION` in `src/App.jsx` (`v0.1.061`)
+- Current app version constant: `APP_VERSION` in `src/App.jsx` — bump it with every batch of changes

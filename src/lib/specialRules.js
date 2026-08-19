@@ -49,6 +49,33 @@ export function stackSelectorRule(hero) {
 }
 
 /**
+ * 形态开关（玛蒂娜的「采访中 / 报道中」）。
+ *
+ * 和一般英雄的形态不同：玛蒂娜攒够录像叠层后**永久**进入报道中，不会来回切，
+ * 所以两套技能同时列出来反而碍事，用一个开关整体切换。
+ * 条目上写 `"form": "报道中"` 表示只在该形态下显示；不写 form 的条目两个形态都显示。
+ */
+export function formSwitchFor(hero) {
+  return heroRule(hero)?.formSwitch || null;
+}
+
+/** 按当前形态过滤技能条目；没配形态开关的英雄原样返回。 */
+export function filterSkillsByForm(hero, skills = [], form) {
+  const rule = formSwitchFor(hero);
+  if (!rule) return skills;
+  const active = form ?? rule.default;
+  return skills.filter((skill) => !skill.form || skill.form === active);
+}
+
+/**
+ * 属性转换（席琳的「不受冷却缩减影响，每 1 冷却缩减转换 1 技能增幅」这类）。
+ * 返回 { from, to, ratio }；from 那一档会被清零，按 ratio 折算后加进 to。
+ */
+export function statConversionFor(hero) {
+  return heroRule(hero)?.statConversion || null;
+}
+
+/**
  * 英雄专属的条件修正（卡洛琳 W 的镜子技能增幅、秀雅 Q 冲撞点的承受伤害提升这类）。
  * 每条是一个下拉，选项自带要加进哪个桶：
  *   apPct       → 技能增幅百分比，和熟练度/独有增幅同一个桶

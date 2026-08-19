@@ -489,7 +489,7 @@
       },
       {
         "stat": "IncreaseBasicAttackDamageRatio",
-        "value": 0.03
+        "value": 0.028
       }
     ]
   },

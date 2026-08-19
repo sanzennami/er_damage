@@ -84,13 +84,15 @@ export function clampLevel(skill, level) {
  *   basicAttackAmp 普攻增幅（0~1 的小数）。官方独立乘区，只作用于普攻伤害。
  *                  公告里写成「* (普攻增幅)」的段落（李黛琳醉仙2段、莉央替弓、
  *                  艾登 Q 这类被判定为普攻伤害的技能）写成 `... * (1 + basicAttackAmp)`。
+ *   accumulatedDamage 累计伤害。给「按一段时间内造成的总伤害折算」的技能用
+ *                  （丹尼尔 W 灵感引爆的真伤）。界面上是个手填框，只在有技能引用时出现。
  */
 const FORMULA_VARIABLES = [
   'base', 'ap', 'attack', 'extraAttack',
   'targetHp', 'targetCurrentHp', 'targetLostHp',
   'maxHp', 'selfCurrentHp', 'selfLostHp',
   'extraHp', 'defense', 'shield', 'critChance',
-  'basicAttackAmp', 'stacks', 'level', 'heroLevel'
+  'basicAttackAmp', 'accumulatedDamage', 'stacks', 'level', 'heroLevel'
 ];
 
 export function evaluateFormula(formula, context) {
@@ -133,9 +135,76 @@ export function coefficientAtLevel(formula, variableName, level) {
   return null;
 }
 
+/**
+ * 「累计伤害 × 比例」这类技能（丹尼尔 W 灵感）单独渲染。
+ * 累计伤害是乘数不是加项，套用通用的逐项拆解会显示成
+ * 「0 + 额外攻击力0.1%」——既看不懂又容易误读成攻击力系数。
+ */
+function accumulatedDamageDescription(formula, level) {
+  const source = String(formula || '');
+  const rate = [];
+  const byLevel = source.match(/accumulatedDamage\s*\*\s*\(?\s*(\[[^\]]+\])\s*\[\s*level\s*-\s*1\s*\]/);
+  const flat = source.match(/accumulatedDamage\s*\*\s*\(?\s*(-?\d+(?:\.\d+)?)/);
+  if (byLevel) {
+    try {
+      const values = JSON.parse(byLevel[1]);
+      const value = finiteDamageValue(values[Math.max(0, getNumber(level) - 1)]);
+      if (value !== null) rate.push(pct(value));
+    } catch { /* 数组写坏了就只显示别的项 */ }
+  } else if (flat) {
+    rate.push(pct(Number(flat[1])));
+  }
+  // 官方把额外攻击力那项写成「(+额外攻击力8%)%」，整体再除以 100，展示时乘回去
+  const extraAd = source.match(/extraAttack\s*\*\s*(-?\d+(?:\.\d+)?)/);
+  if (extraAd) rate.push(`额外攻击力${pct(Number(extraAd[1]) * 100)}`);
+  return `累计伤害 × (${rate.join(' + ')})`;
+}
+
+
+/**
+ * 「按已失体力在下限~上限之间插值」这种写法：
+ *   (下限) * (1 + Math.min(1, 已失体力 / (体力上限 * k)))
+ * 分母里的「体力上限 * k」会被通用的系数提取当成加项，显示成「目标体力70%」这种
+ * 看不懂又容易误读的东西。这里把它认出来，分母变量不进加项列表，改成一句人话。
+ */
+function interpolationInfo(formula) {
+  const src = String(formula || '');
+  const at = src.indexOf('Math.min(1,');
+  if (at < 0) return null;
+  // 取 Math.min(1, 已失体力 / (体力上限 * k)) 里的三个部分
+  const body = src.slice(at + 'Math.min(1,'.length);
+  const close = body.indexOf(')');
+  if (close < 0) return null;
+  const parts = body.slice(0, close).split('/');
+  if (parts.length !== 2) return null;
+  const lostVar = parts[0].trim();
+  const den = parts[1].replace('(', '').trim().split('*');
+  if (den.length !== 2) return null;
+  const denomVar = den[0].trim();
+  const denomK = Number(den[1].trim());
+  if (!Number.isFinite(denomK)) return null;
+  // Math.min 前面可能有个倍率（秀雅那两条是 1 + 0.5 * Math.min(...)）
+  const head = src.slice(0, at);
+  const plus = head.lastIndexOf('1 +');
+  const between = plus < 0 ? '' : head.slice(plus + 3).replace('*', '').trim();
+  const scale = between === '' ? 1 : Number(between);
+  if (!Number.isFinite(scale)) return null;
+  const LOST = { targetLostHp: '目标已失体力', selfLostHp: '自身已失体力' };
+  const CAP = { targetHp: '目标', maxHp: '自身' };
+  return {
+    denomVar,
+    text: `按${LOST[lostVar] || lostVar}在 1~${round(1 + scale, 2)} 倍之间插值（${CAP[denomVar] || denomVar}体力剩 ${pct(1 - denomK)} 时封顶）`
+  };
+}
+
 export function skillFormulaDescription(skill, level) {
   const nextLevel = clampLevel(skill, level);
   const base = skillBaseAtLevel(skill, nextLevel);
+  if (formulaUsesVariable(skill.formula, 'accumulatedDamage')) {
+    const rawFormula = String(skill.formula || '').trim();
+    return `${accumulatedDamageDescription(skill.formula, nextLevel)}\n原始公式：${rawFormula}`;
+  }
+  const interpolation = interpolationInfo(skill.formula);
   const pieces = [`${round(base, 1)}`];
   [
     ['ap', '技能增幅'],
@@ -151,18 +220,24 @@ export function skillFormulaDescription(skill, level) {
     ['defense', '防御力'],
     ['shield', '护盾'],
     ['critChance', '暴击率'],
+    ['accumulatedDamage', '累计伤害'],
     ['stacks', '叠层'],
     ['heroLevel', '实验体等级']
   ].forEach(([variable, label]) => {
+    // 插值分母里的体力上限不是加项，跳过
+    if (interpolation && variable === interpolation.denomVar) return;
     const coefficient = coefficientAtLevel(skill.formula, variable, nextLevel);
     if (coefficient === null) return;
     // 实验体等级是「等级 * 系数」的线性项，按倍数显示比百分比更直观
     pieces.push(variable === 'heroLevel' ? `${label}×${round(coefficient, 2)}` : `${label}${pct(coefficient)}`);
   });
   // 普攻类伤害段走的是另一条结算线，系数表里看不出来，单独缀一句说明
-  const compactFormula = skill.damageType === 'basicAttack' || formulaUsesVariable(skill.formula, 'basicAttackAmp')
-    ? `${pieces.join(' + ')}　→ 按普攻结算（吃普攻增幅 / 普攻减伤）`
+  const joined = interpolation
+    ? `${pieces.join(' + ')}　${interpolation.text}`
     : pieces.join(' + ');
+  const compactFormula = skill.damageType === 'basicAttack' || formulaUsesVariable(skill.formula, 'basicAttackAmp')
+    ? `${joined}　→ 按普攻结算（吃普攻增幅 / 普攻减伤）`
+    : joined;
   const rawFormula = String(skill.formula || '').trim();
   return rawFormula
     ? `${compactFormula}\n原始公式：${rawFormula}`
@@ -258,21 +333,30 @@ export function progressiveDamageValue(skill, context, stepValue) {
     maxBase,
     progress
   );
-  const coefficientRule = rule?.coefficient || {};
-  const coefficient = progressiveLinearValue(
-    coefficientRule.from ?? coefficientRule.min ?? 0,
-    coefficientRule.to ?? coefficientRule.max ?? coefficientRule.from ?? coefficientRule.min ?? 0,
-    progress
-  );
-  const variable = coefficientRule.variable || 'ap';
-  const raw = damageFloor(baseAtStep + getNumber(context[variable]) * coefficient);
+  // 多数技能只有一个系数随档位变（爱琳跳跳球的技能增幅）；
+  // 盖瑞特 W 这种技能增幅和体力上限同时变的，写成 coefficients 数组。
+  const coefficientRules = Array.isArray(rule?.coefficients)
+    ? rule.coefficients
+    : [rule?.coefficient || {}];
+  const parts = coefficientRules.map((item) => {
+    const value = progressiveLinearValue(
+      item.from ?? item.min ?? 0,
+      item.to ?? item.max ?? item.from ?? item.min ?? 0,
+      progress
+    );
+    return { variable: item.variable || 'ap', coefficient: value };
+  });
+  const scaled = parts.reduce((sum, item) => sum + getNumber(context[item.variable]) * item.coefficient, 0);
+  const raw = damageFloor(baseAtStep + scaled);
 
   return {
     step,
     raw,
     final: damageFloor(raw * context.finalMod),
-    coefficient,
-    variable,
+    // 首个系数保留在原字段上，界面那行「技增 X%」照旧显示
+    coefficient: parts[0]?.coefficient ?? 0,
+    variable: parts[0]?.variable ?? 'ap',
+    coefficients: parts,
     base: baseAtStep
   };
 }

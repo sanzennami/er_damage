@@ -41,6 +41,9 @@ export const SKILL_SOURCE_AUTHORITY = HERO_SKILLS.authority || {
 
 const DEFAULT_SOURCE_AUTHORITY = 30;
 
+// 只能跟随随包数据的字段：随包删掉了，缓存里的旧值也必须跟着清掉，不能靠展开合并留存。
+const CANONICAL_ONLY_FIELDS = ['sourceLabel', 'sourceVersion', 'sourceDate'];
+
 export function skillAuthority(skill) {
   if (skill?.manual === true) return SKILL_SOURCE_AUTHORITY.manual;
   if (Number.isFinite(skill?.authority)) return skill.authority;
@@ -189,6 +192,14 @@ export function mergeSkills(savedSkills) {
         || (skillAuthority(canonical) === skillAuthority(skill)
           && skillVersionTime(canonical) > skillVersionTime(skill));
       const merged = preferCanonical ? { ...skill, ...canonical } : { ...initialSkill, ...skill };
+      // sourceLabel / sourceVersion 是导入时冻结的展示文案。随包数据把它们删掉时
+      // （来源改了，让界面按 source + updatedAt 现算），展开合并会把缓存里的旧值留下来，
+      // 于是数值已经更新成客户端读值、标签却还写着「Wiki / 2025-06-25」。
+      if (preferCanonical) {
+        for (const field of CANONICAL_ONLY_FIELDS) {
+          if (canonical[field] === undefined) delete merged[field];
+        }
+      }
       return {
         ...merged,
         hero: migrateHeroName(skill, initialSkill),

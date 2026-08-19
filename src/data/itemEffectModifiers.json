@@ -97,7 +97,10 @@
       "modifiers": {
         "damageBonus": 0.06
       },
-      "note": "终极技能命中后目标承受伤害 +6%，持续 5 秒。伤害部分另见 itemEffectDamage.json。"
+      "note": "终极技能命中后目标承受伤害 +6%，持续 5 秒。伤害部分另见 itemEffectDamage.json。",
+      "toggle": {
+        "label": "次元裂痕已触发（终极命中后 5 秒）"
+      }
     },
     {
       "name": "粉碎",
@@ -116,7 +119,10 @@
       "modifiers": {
         "targetDefensePct": 0.12
       },
-      "note": "区域内敌人防御力 -12%。伤害部分另见 itemEffectDamage.json。"
+      "note": "区域内敌人防御力 -12%。伤害部分另见 itemEffectDamage.json。",
+      "toggle": {
+        "label": "邪恶之雾（目标在区域内）"
+      }
     },
     {
       "name": "雷鸣裁决",
@@ -124,15 +130,21 @@
       "modifiers": {
         "pen": 12
       },
-      "note": "5 秒内命中 2 次后进入状态，防御穿透 +12，持续 8 秒。"
+      "note": "5 秒内命中 2 次后进入状态，防御穿透 +12，持续 8 秒。",
+      "toggle": {
+        "label": "雷鸣裁决已触发（5 秒内命中 2 次）"
+      }
     },
     {
       "name": "神速 - 鲁德拉的短剑",
       "label": "神速 - 鲁德拉的短剑",
       "modifiers": {
-        "attackPowerPct": 0.12
+        "attackPowerPct": 0.14
       },
-      "note": "4 秒内造成 3 次伤害后触发，攻击力 +12%，持续 3 秒。"
+      "note": "4 秒内造成 3 次普攻或独立技能伤害后触发，3 秒内攻击力 +14%、移速 +24%，冷却 10 秒。这是传说级噬灵短剑的数值；英雄级摩诃罗阇同名效果只有 12%，修正表按效果名索引区分不了，统一按 14% 算。未触发时它不进面板攻击力，所以默认关闭。",
+      "toggle": {
+        "label": "神速已触发（4 秒内造成 3 次伤害）"
+      }
     },
     {
       "name": "双重假面",
@@ -140,7 +152,10 @@
       "modifiers": {
         "attackPowerPct": 0.1
       },
-      "note": "体力低于 50% 时受伤触发，攻击力 +10%、吸血 +8%（吸血不影响伤害）。"
+      "note": "体力低于 50% 时受伤触发，攻击力 +10%、吸血 +8%（吸血不影响伤害）。",
+      "toggle": {
+        "label": "双重假面已转化为「内心的愤怒」"
+      }
     },
     {
       "name": "专注力",
@@ -159,7 +174,10 @@
       "modifiers": {
         "targetDefensePct": 0.08
       },
-      "note": "强化普攻命中后目标防御力 4 秒内 -8%。伤害部分见 itemEffectDamage.json。"
+      "note": "强化普攻命中后目标防御力 4 秒内 -8%。伤害部分见 itemEffectDamage.json。",
+      "toggle": {
+        "label": "泰瑟电击减防已生效"
+      }
     },
     {
       "name": "逆流 - 血之契约",

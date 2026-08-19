@@ -1,7 +1,7 @@
 {
   "_comment": "官方补丁变更日志。每条记录的是「该补丁之后应该是什么值」（目标态），不是增量。",
   "_usage": "新版本上线：在 patches 末尾追加一段，然后跑 node scripts/apply-patch-log.mjs。脚本幂等，重跑只会跳过已达标的条目，不需要还原任何数据。",
-  "updatedAt": "2026-08-13T08:27:00.633Z",
+  "updatedAt": "2026-08-17T22:29:42.060Z",
   "patches": [
     {
       "version": "sweep-2023-07-19",
@@ -5767,7 +5767,7 @@
           "slot": "Q",
           "group": 1025200,
           "dataKey": "Damage",
-          "title": "Q 致瘫射击 伤害",
+          "title": "Q 致瘸射击 伤害",
           "bases": "60,90,120,150,180",
           "formula": "base + attack * 1",
           "source": "in-game-client",
@@ -5776,7 +5776,7 @@
         },
         {
           "id": "augment-025-bernice-q-1025200-enhanced-damage-stat3",
-          "title": "Q 致瘫射击 强化伤害（对束缚目标）",
+          "title": "Q 致瘸射击 强化伤害（对束缚目标）",
           "bases": "90,130,170,210,250",
           "formula": "base + attack * 1",
           "source": "in-game-client",
@@ -6135,6 +6135,835 @@
       "mastery": []
     },
     {
+      "version": "client-12.1-theodore",
+      "order": 20260814,
+      "date": "2026-08-14",
+      "url": "",
+      "label": "12.1",
+      "title": "客户端截图读值：西奥多（12.1）",
+      "skills": [
+        {
+          "create": true,
+          "id": "ingame-062-theodore-q-1062200-damage",
+          "hero": "西奥多",
+          "slot": "Q",
+          "group": 1062200,
+          "dataKey": "Damage",
+          "title": "Q 聚能磁轨炮 伤害",
+          "bases": "50,90,130,170,210",
+          "formula": "base + ap * 0.75",
+          "source": "in-game-client",
+          "coefficientText": "伤害 50/90/130/170/210(+技能增幅的75%)",
+          "note": "先充能 1.5 秒（期间移速逐渐降至 20%），再次使用时朝指定方向发射光线。射程按充能时间的比例增加。蓄力中取消或未使用时返还 50% 冷却。冷却 13/12/11/10/9 秒。"
+        },
+        {
+          "create": true,
+          "id": "ingame-062-theodore-q-1062200-heal",
+          "hero": "西奥多",
+          "slot": "Q",
+          "group": 1062200,
+          "dataKey": "Heal",
+          "title": "Q 聚能磁轨炮 体力恢复",
+          "bases": "20,40,60,80,100",
+          "formula": "base + ap * 0.15",
+          "kind": "heal",
+          "source": "in-game-client",
+          "coefficientText": "体力恢复 20/40/60/80/100(+技能增幅的15%)",
+          "note": "发射的同时给队友 2.5 秒的体力恢复。"
+        },
+        {
+          "id": "patch-116-theodore-1062200-screen-projectile-damage",
+          "title": "Q 聚能磁轨炮 能源屏发射伤害",
+          "bases": "70,110,150,190,230",
+          "formula": "base + ap * 0.8",
+          "source": "in-game-client",
+          "coefficientText": "能源屏发射伤害 70/110/150/190/230(+技能增幅的80%)",
+          "note": "聚能磁轨炮击中裂变能源屏片刻后，能源屏前会再发射一道光束。数值与原公告一致，只把标题改成客户端的说法（原来叫「屏幕穿透伤害」）。"
+        },
+        {
+          "create": true,
+          "id": "ingame-062-theodore-q-1062200-screen-heal",
+          "hero": "西奥多",
+          "slot": "Q",
+          "group": 1062200,
+          "dataKey": "ScreenHeal",
+          "title": "Q 聚能磁轨炮 能源屏发射体力恢复",
+          "bases": "40,60,80,100,120",
+          "formula": "base + ap * 0.15",
+          "kind": "heal",
+          "source": "in-game-client",
+          "coefficientText": "能源屏发射体力恢复 40/60/80/100/120(+技能增幅的15%)",
+          "note": "能源屏那道光束同时给队友 2.5 秒的体力恢复，比直射那段更高。"
+        },
+        {
+          "id": "augment-062-theodore-w-1062300-extra-damage-stat1",
+          "title": "W 裂变能源屏 普攻额外伤害",
+          "bases": "40,50,60,70,80",
+          "formula": "base + ap * 0.26",
+          "kind": "basicAttack",
+          "source": "in-game-client",
+          "coefficientText": "额外伤害 40/50/60/70/80(+技能增幅的26%)",
+          "note": "生成持续 7 秒的能源屏，普攻子弹穿过时附带这段额外伤害（本身吃技能增幅，走技能减伤），并扩散到命中目标周围。磁力手雷穿过时只增加投射体速度和射程，不加伤害。客户端截图确认数值无误，补上强化普攻标记。冷却 12/11.5/11/10.5/10 秒。"
+        },
+        {
+          "create": true,
+          "id": "ingame-062-theodore-e-1062400-damage",
+          "hero": "西奥多",
+          "slot": "E",
+          "group": 1062400,
+          "dataKey": "Damage",
+          "title": "E 磁力手雷 额外伤害",
+          "bases": "30,60,90,120,150",
+          "formula": "base + ap * 0.6",
+          "source": "in-game-client",
+          "coefficientText": "伤害 30/60/90/120/150(+技能增幅的60%)",
+          "note": "手雷命中的敌人 2 秒内移速 -2/4/6/8/10%，并被标记 4 秒（西奥多获得其视野）。对被标记的目标用普攻或技能命中时结算这段额外伤害，并束缚 0.9/0.95/1/1.05/1.1 秒。普攻和技能都能触发，所以没标成强化普攻。被动：聚能磁轨炮或磁力手雷命中时，下一次普攻射程 +1。冷却 14/13/12/11/10 秒。"
+        },
+        {
+          "create": true,
+          "id": "ingame-062-theodore-r-1062500-damage",
+          "hero": "西奥多",
+          "slot": "R",
+          "group": 1062500,
+          "dataKey": "Damage",
+          "title": "R 能源飓风 伤害",
+          "bases": "100,230,360",
+          "formula": "base + ap * 0.9",
+          "source": "in-game-client",
+          "coefficientText": "伤害 100/230/360(+技能增幅的90%)",
+          "note": "向指定方向生成持续 4 秒的能源飓风。同向移动的队友移速 +50/70/90%（另加技能增幅的 2%）。发射后西奥多进入过充状态，8 秒内攻速 +40/60/80%，聚能磁轨炮的充能时间上限降到 0.5 秒。这些增益都不影响本段伤害，未建模。冷却 80/70/60 秒。"
+        },
+        {
+          "create": true,
+          "id": "ingame-062-theodore-p-1062100-shield",
+          "hero": "西奥多",
+          "slot": "P",
+          "group": 1062100,
+          "dataKey": "Shield",
+          "title": "P 蓝宝石协议 护盾",
+          "bases": "0,0,0",
+          "formula": "maxHp * [0.1,0.15,0.2][level - 1]",
+          "kind": "shield",
+          "source": "in-game-client",
+          "coefficientText": "和体力上限成比例的护盾获得量 10%/15%/20%",
+          "note": "穿越草丛时隐身 2.5 秒（移速 +10/15/20%），同时获得这个护盾，同样持续 2.5 秒。除移动外的任何行动都会解除隐身。普攻命中时聚能磁轨炮冷却 -20/40/60%、其它基本技能 -2/6/10%，冷却类未建模。冷却 10/8/6 秒。"
+        }
+      ],
+      "equipment": [],
+      "characters": [],
+      "mastery": []
+    },
+    {
+      "version": "client-12.1-aya",
+      "order": 20260814,
+      "date": "2026-08-14",
+      "url": "",
+      "label": "12.1",
+      "title": "客户端截图读值：阿雅（12.1）",
+      "skills": [
+        {
+          "create": true,
+          "id": "ingame-002-aya-q-1002200-first-shot",
+          "hero": "阿雅",
+          "slot": "Q",
+          "group": 1002200,
+          "dataKey": "FirstShot",
+          "title": "Q 二连射 第一发（普攻伤害）",
+          "bases": "0,0,0,0,0",
+          "formula": "attack * 1",
+          "damageType": "basicAttack",
+          "source": "in-game-client",
+          "coefficientText": "第一次造成 攻击力的100% * (普攻增幅) 普攻伤害",
+          "note": "官方明写这一发是普攻伤害并额外乘普攻增幅，所以标 damageType: basicAttack，走普攻增幅与普攻减伤那条线，不吃技能增幅。基础值随等级不变（客户端数值表只列了第二发）。"
+        },
+        {
+          "id": "002-aya-q-1002200-damage-by-level",
+          "title": "Q 二连射 第二发",
+          "bases": "40,70,100,130,160",
+          "formula": "base + attack * 0.3 + ap * 0.65",
+          "source": "in-game-client",
+          "coefficientText": "伤害 40/70/100/130/160(+攻击力的30%)(+技能增幅65%)",
+          "note": "客户端截图读值修正：原解包表值 20/60/100/140/180 且系数写成技能增幅 100%，实际是 40/70/100/130/160(+攻击力30%)(+技能增幅65%)。施放后阿雅攻速在 5 秒内 +40/45/50/55/60%（未建模）。冷却 10/9/8/7/6 秒。"
+        },
+        {
+          "id": "002-aya-w-1002300-damage-by-level",
+          "title": "W 稳定射击 单发伤害",
+          "bases": "30,40,50,60,70",
+          "formula": "base + attack * 0.5 + ap * [0.3,0.35,0.4,0.45,0.5][level - 1]",
+          "source": "in-game-client",
+          "maxHits": 10,
+          "defaultHits": 6,
+          "hitLabel": "命中发数",
+          "hitNote": "2.2 秒内基础打 6 发；每多 20% 额外攻速多一发，最多 10 发。",
+          "coefficientText": "伤害 30/40/50/60/70(+攻击力的50%)(+技能增幅的30/35/40/45/50%)",
+          "note": "客户端截图读值修正：原解包表值 20/40/60/80/100 且系数写成技能增幅 140%，实际是 30/40/50/60/70(+攻击力50%)，技能增幅系数按等级取 30~50%（客户端叫「总技能增幅系数」）。这一条是单发数值，用命中发数步进器算总量。冷却 10/9/8/7/6 秒。"
+        },
+        {
+          "id": "002-aya-r-1002500-damage-by-level",
+          "title": "R 空弹 伤害",
+          "bases": "120,240,360",
+          "formula": "base + attack * 0.2 + ap * 0.95",
+          "source": "in-game-client",
+          "coefficientText": "伤害 120/240/360(+攻击力的20%)(+技能增幅95%)",
+          "note": "客户端截图读值修正：原解包表值 200/350/500 且系数写成技能增幅 80%，实际是 120/240/360(+攻击力20%)(+技能增幅95%)。命中后敌人陷入 1.25 秒恐惧。冷却 80/65/50 秒。"
+        },
+        {
+          "create": true,
+          "id": "ingame-002-aya-p-1002100-shield",
+          "hero": "阿雅",
+          "slot": "P",
+          "group": 1002100,
+          "dataKey": "Shield",
+          "title": "P 阿雅之正义 护盾",
+          "bases": "50,85,120",
+          "formula": "base + attack * 0.5 + ap * 0.35",
+          "kind": "shield",
+          "source": "in-game-client",
+          "coefficientText": "护盾吸收 50/85/120(+攻击力的50%)(+技能增幅35%)",
+          "note": "遇到攻击时自动生成，持续 1.5 秒。每次攻击敌人可让本技能冷却 -1 秒（冷却类未建模）。冷却 25 秒。"
+        }
+      ],
+      "equipment": [],
+      "characters": [],
+      "mastery": []
+    },
+    {
+      "version": "client-12.1-lenox",
+      "order": 20260814,
+      "date": "2026-08-14",
+      "url": "",
+      "label": "12.1",
+      "title": "客户端截图读值：伦诺克斯（12.1）",
+      "skills": [
+        {
+          "create": true,
+          "id": "ingame-020-lenox-q-1020200-damage",
+          "hero": "伦诺克斯",
+          "slot": "Q",
+          "group": 1020200,
+          "dataKey": "Damage",
+          "title": "Q 蛇影舞 伤害",
+          "bases": "80,115,150,185,220",
+          "formula": "base + ap * 0.5",
+          "source": "in-game-client",
+          "coefficientText": "伤害 80/115/150/185/220(+技能增幅的50%)",
+          "note": "舞动鱼竿形成一个圆圈，范围内敌人结算这一段。击中一个敌人得 1 层，每层让本技能冷却 -0.5 秒（上限 2 层，冷却类未建模）。冷却 3 秒。"
+        },
+        {
+          "create": true,
+          "id": "ingame-020-lenox-q-1020200-edge-damage",
+          "hero": "伦诺克斯",
+          "slot": "Q",
+          "group": 1020200,
+          "dataKey": "EdgeDamage",
+          "title": "Q 蛇影舞 边缘额外伤害",
+          "bases": "0,0,0,0,0",
+          "formula": "maxHp * [0.04,0.06,0.08,0.1,0.12][level - 1]",
+          "source": "in-game-client",
+          "coefficientText": "体力上限伤害 4/6/8/10/12%",
+          "note": "只有站在圆圈边缘的敌人额外吃这一段。官方文案写的是「体力上限4%」没带「目标」二字，按项目约定按伦诺克斯自身体力上限算；同一技能组里 E 明确写了「目标体力上限7%」，两者措辞不同。"
+        },
+        {
+          "create": true,
+          "id": "ingame-020-lenox-w-1020300-first-damage",
+          "hero": "伦诺克斯",
+          "slot": "W",
+          "group": 1020300,
+          "dataKey": "FirstDamage",
+          "title": "W 蔓藤毒牙 1段伤害",
+          "bases": "20,35,50,65,80",
+          "formula": "base + ap * 0.35",
+          "source": "in-game-client",
+          "coefficientText": "1段伤害 20/35/50/65/80(+技能增幅的35%)",
+          "note": "第一次挥杆，命中的敌人 1.5 秒内移速 -20%。冷却 16/15/14/13/12 秒。"
+        },
+        {
+          "create": true,
+          "id": "ingame-020-lenox-w-1020300-second-damage",
+          "hero": "伦诺克斯",
+          "slot": "W",
+          "group": 1020300,
+          "dataKey": "SecondDamage",
+          "title": "W 蔓藤毒牙 2段伤害",
+          "bases": "50,75,100,125,150",
+          "formula": "base + ap * 0.6",
+          "source": "in-game-client",
+          "coefficientText": "2段伤害 50/75/100/125/150(+技能增幅的60%)",
+          "note": "第二次挥杆，命中后把敌人拉向自己。"
+        },
+        {
+          "id": "patch-115-lenox-1020400-damage",
+          "title": "E 反向双钓 伤害",
+          "bases": "60,100,140,180,220",
+          "formula": "base + ap * 0.5 + targetHp * 0.07",
+          "source": "in-game-client",
+          "coefficientText": "伤害 60/100/140/180/220(+技能增幅50%)(+目标体力上限7%)",
+          "note": "客户端截图核对：数值与原公告完全一致，未改动。命中后击退敌人并使其移速 -30/35/40/45/50%，持续 1.25 秒。冷却 9 秒。"
+        },
+        {
+          "create": true,
+          "id": "ingame-020-lenox-r-1020500-swing-damage",
+          "hero": "伦诺克斯",
+          "slot": "R",
+          "group": 1020500,
+          "dataKey": "SwingDamage",
+          "title": "R 青蛇 挥动伤害",
+          "bases": "70,135,200",
+          "formula": "base + ap * 0.4",
+          "source": "in-game-client",
+          "maxHits": 2,
+          "defaultHits": 2,
+          "hitLabel": "挥动命中次数",
+          "hitNote": "以 X 形快速挥动两次鱼竿，每次各结算一遍。",
+          "coefficientText": "伤害 70/135/200(+技能增幅的40%)",
+          "note": "施放后在地面留下持续 4/4.5/5 秒的青蛇痕迹。冷却 80/70/60 秒。"
+        },
+        {
+          "id": "patch-114-lenox-1020500-grounded-damage",
+          "title": "R 青蛇效果 真实伤害",
+          "bases": "15,20,25",
+          "formula": "base",
+          "damageType": "true",
+          "source": "in-game-client",
+          "maxHits": 21,
+          "defaultHits": 1,
+          "hitLabel": "结算跳数",
+          "hitNote": "青蛇留下的痕迹每 0.23 秒结算一次，持续 4/4.5/5 秒（最多约 17/19/21 跳），实际跳数取决于沿痕迹移动的距离，这里用命中次数步进器自己调。",
+          "coefficientText": "真实伤害 15/20/25，每 0.23 秒一跳",
+          "note": "客户端截图读值修正：数值本来就对，但原先没标 damageType，一直在吃防御减伤。原标题「落地伤害」改成客户端的说法。"
+        },
+        {
+          "id": "augment-020-lenox-r-1020500-enhanced-true-damage-stat3",
+          "title": "R 青蛇效果 强化真实伤害",
+          "bases": "30,40,50",
+          "formula": "base",
+          "damageType": "true",
+          "source": "in-game-client",
+          "maxHits": 21,
+          "defaultHits": 1,
+          "hitLabel": "结算跳数",
+          "hitNote": "青蛇留下的痕迹每 0.23 秒结算一次，持续 4/4.5/5 秒（最多约 17/19/21 跳），实际跳数取决于沿痕迹移动的距离，这里用命中次数步进器自己调。",
+          "coefficientText": "强化真实伤害 30/40/50，两次挥动都命中同一目标时改判这一档",
+          "note": "客户端截图读值修正：原先写成 base + 技能增幅40%，实际是纯真实伤害没有系数，而且漏标了 damageType。两次挥动都命中同一目标时，痕迹伤害从 15/20/25 提升到这一档。"
+        },
+        {
+          "create": true,
+          "id": "ingame-020-lenox-p-1020100-shield",
+          "hero": "伦诺克斯",
+          "slot": "P",
+          "group": 1020100,
+          "dataKey": "Shield",
+          "title": "P 神钓手的直觉 护盾",
+          "bases": "0,0,0",
+          "formula": "maxHp * [0.07,0.1,0.13][level - 1]",
+          "kind": "shield",
+          "source": "in-game-client",
+          "coefficientText": "护盾吸收 体力上限的 7%/10%/13%",
+          "note": "对敌方实验体造成普攻或技能伤害时获得，持续 3 秒。用技能对敌人造成伤害时技能冷却 -10%（冷却类未建模）。冷却 16/14/12 秒。「神钓手」那半（钓鱼多得 1 件物品）与战斗无关。"
+        }
+      ],
+      "equipment": [],
+      "characters": [],
+      "mastery": []
+    },
+    {
+      "version": "client-12.1-celine",
+      "order": 20260814,
+      "date": "2026-08-14",
+      "url": "",
+      "label": "12.1",
+      "title": "客户端截图读值：席琳（12.1）",
+      "skills": [
+        {
+          "id": "external-celine-q-1043200-damage-stat1",
+          "title": "Q 等离子炸弹 伤害",
+          "bases": "80,105,130,155,180",
+          "formula": "base + ap * 0.42",
+          "source": "in-game-client",
+          "coefficientText": "伤害 80/105/130/155/180(+技能增幅的42%)",
+          "note": "客户端截图核对：数值与原公告完全一致，未改动。在目标位置埋雷，用 W 引爆才触发。命中多个对象时从第二个起只吃 75% 伤害（已按次要目标建模）。设置上限 4 颗、最多充能 3 次，蓄能 7/6.5/6/5.5/5 秒。本技能冷却固定，不吃冷却缩减。"
+        },
+        {
+          "id": "external-celine-e-1043400-damage-stat1",
+          "title": "E 闪爆弹 伤害",
+          "bases": "60,80,100,120,140",
+          "formula": "base + ap * 0.6",
+          "source": "in-game-client",
+          "coefficientText": "伤害 60/80/100/120/140(+技能增幅的60%)",
+          "note": "客户端截图核对：数值与原公告完全一致，未改动。击退范围内的敌人和席琳自己。冷却 12/11/10/9/8 秒，固定不吃冷却缩减。"
+        },
+        {
+          "id": "external-celine-r-1043500-damage-stat1",
+          "title": "R 磁力融合 伤害",
+          "bases": "60,80,100,120,140",
+          "formula": "(base + ap * 0.37) * stacks",
+          "source": "in-game-client",
+          "maxStacks": 4,
+          "stackLabel": "炸弹等级",
+          "coefficientText": "伤害 60/80/100/120/140(+技能增幅的37%) × (炸弹等级)",
+          "note": "客户端截图读值修正：基础值与系数本来就对，但漏了「× 炸弹等级」这个倍率，现用叠层选择器代表炸弹等级（1~4 级）。融合会把附近的等离子炸弹和空弹并起来，每级多 1.25 秒冷却，最多设 3 个、上限 5 发。4 级时命中的敌人 2 秒内移速 -75%。持续时间结束或被 W 引爆时结算。"
+        },
+        {
+          "create": true,
+          "id": "ingame-043-celine-p-1043100-damage",
+          "hero": "席琳",
+          "slot": "P",
+          "group": 1043100,
+          "dataKey": "Damage",
+          "title": "P 炸弹专家 普攻额外伤害",
+          "bases": "50,50",
+          "formula": "base + ap * [0.4,0.55][level - 1]",
+          "kind": "basicAttack",
+          "source": "in-game-client",
+          "coefficientText": "50(+技能增幅的40%)，每个技能增幅增加伤害 40%/55%",
+          "note": "使用 3 次技能后，下一次普攻附带这段额外伤害。官方注明「此普攻也被视为技能攻击」，所以按技能伤害结算、吃技能增幅，不走普攻减伤。客户端数值表只列出了 40%/55% 两档，基础值 50 没有分级行，按不随等级变化处理。"
+        }
+      ],
+      "equipment": [],
+      "characters": [],
+      "mastery": []
+    },
+    {
+      "version": "client-12.1-nicky",
+      "order": 20260814,
+      "date": "2026-08-14",
+      "url": "",
+      "label": "12.1",
+      "title": "客户端截图读值：妮琪（12.1）",
+      "skills": [
+        {
+          "id": "patch-114-nicky-1033200-min-damage",
+          "title": "Q 格斗动作 冲撞伤害",
+          "bases": "40,60,80,100,120",
+          "formula": "base + ap * 0.7",
+          "source": "in-game-client",
+          "progressiveDamage": {
+            "id": "charge",
+            "label": "蓄能档位",
+            "unit": "档",
+            "selectedLabel": "蓄能",
+            "min": 0,
+            "max": 4,
+            "default": 0,
+            "base": {
+              "fromMultiplier": 1,
+              "toMultiplier": 2
+            },
+            "coefficient": {
+              "variable": "ap",
+              "from": 0.7,
+              "to": 1.4
+            },
+            "note": "官方只写「根据蓄能时间成比例增加伤害量和突进距离」，没给档位粒度，这里按 0~4 档线性插值；满档时基础值与技能增幅系数都翻倍。"
+          },
+          "coefficientText": "最小伤害 40/60/80/100/120(+技能增幅70%) ~ 最大伤害 80/120/160/200/240(+技能增幅140%)",
+          "note": "蓄力期间移速 -15%，再次使用时击退第一个冲撞到的敌人。命中时冷却 -55% 并解锁特技动作。客户端把最小/最大分成两行列，这里合成一条按蓄能档位递增。冷却 14/13/12/11/10 秒。"
+        },
+        {
+          "id": "patch-114-nicky-1033200-max-damage",
+          "remove": true
+        },
+        {
+          "create": true,
+          "id": "ingame-033-nicky-q-1033200-stunt-damage",
+          "hero": "妮琪",
+          "slot": "Q",
+          "group": 1033200,
+          "dataKey": "StuntDamage",
+          "title": "Q 特技动作 范围伤害",
+          "bases": "30,55,80,105,130",
+          "formula": "base + ap * 0.65",
+          "source": "in-game-client",
+          "coefficientText": "范围伤害 30/55/80/105/130(+技能增幅的65%)",
+          "note": "格斗动作命中后才能接的后续段，对前方范围内的敌人结算。每命中一个敌人充能 100(+技能增幅40%) 愤怒值（愤怒值不影响伤害，未建模）。"
+        },
+        {
+          "create": true,
+          "id": "ingame-033-nicky-w-1033300-counter-damage",
+          "hero": "妮琪",
+          "slot": "W",
+          "group": 1033300,
+          "dataKey": "CounterDamage",
+          "title": "W 反击 伤害",
+          "bases": "100,125,150,175,200",
+          "formula": "base + ap * 0.7",
+          "source": "in-game-client",
+          "coefficientText": "反击伤害 100/125/150/175/200(+技能增幅的70%)",
+          "note": "格挡 0.75 秒内承受伤害 -65/70/75/80/85% 并免疫负面效果；格挡持续时间结束后自动激活反击突进，对周围敌人结算这一段并使其 2 秒内移速 -65%。格挡成功还会解锁 7 秒内可用的「愤怒重拳！」。无法移动时不会激活反击。冷却 8/7.5/7/6.5/6 秒。"
+        },
+        {
+          "id": "patch-113-nicky-1033400-damage",
+          "title": "E 重拳 伤害",
+          "bases": "60,95,130,165,200",
+          "formula": "base + ap * 0.95",
+          "source": "in-game-client",
+          "coefficientText": "伤害 60/95/130/165/200(+技能增幅的95%)",
+          "note": "客户端截图核对：数值与原公告完全一致，未改动。命中的敌人 2 秒内移速 -40%。冷却 12/10.5/9/7.5/6 秒。"
+        },
+        {
+          "id": "augment-033-nicky-e-1033400-enhanced-damage-stat2",
+          "title": "E 愤怒重拳！ 强化伤害",
+          "bases": "70,110,150,190,230",
+          "formula": "base + ap * 1",
+          "source": "in-game-client",
+          "coefficientText": "强化伤害 70/110/150/190/230(+技能增幅的100%)",
+          "note": "客户端截图核对：数值与原 Wiki 值一致。格挡成功后才能使用，命中时移速 -40% 并晕厥 0.7 秒。与重拳不共享冷却。"
+        },
+        {
+          "create": true,
+          "id": "ingame-033-nicky-r-1033500-damage",
+          "hero": "妮琪",
+          "slot": "R",
+          "group": 1033500,
+          "dataKey": "Damage",
+          "title": "R 愤怒的上勾拳！ 目标伤害",
+          "bases": "100,180,260",
+          "formula": "base + ap * 0.35",
+          "source": "in-game-client",
+          "coefficientText": "目标伤害 100/180/260(+技能增幅的35%)",
+          "note": "以敌方实验体为目标突进，突进过程无法被阻止，命中后目标悬空 1.1 秒。狂躁状态下改判强化伤害那一段。冷却 80/70/60 秒。"
+        },
+        {
+          "id": "augment-033-nicky-r-1033500-enhanced-damage-stat2",
+          "title": "R 愤怒的上勾拳！ 狂躁强化伤害",
+          "bases": "100,200,300",
+          "formula": "base + ap * 1",
+          "source": "in-game-client",
+          "coefficientText": "强化伤害 100/200/300(+技能增幅的100%)",
+          "note": "客户端截图核对：数值与原 Wiki 值一致。处于狂躁状态时改判这一段，和目标伤害是互斥关系不是叠加。"
+        },
+        {
+          "id": "patch-113-nicky-1033100-damage",
+          "title": "P 狂躁 普攻额外伤害（目标）",
+          "bases": "60,85,110",
+          "formula": "base + ap * 0.35",
+          "kind": "basicAttack",
+          "source": "in-game-client",
+          "coefficientText": "目标伤害 60/85/110(+技能增幅的35%)",
+          "note": "客户端截图核对：数值与原公告一致，补上强化普攻标记。狂躁状态下普攻会附带这一段，同时攻速 +40/45/50%。愤怒值来自承受敌方实验体的伤害，上限为妮琪体力上限的 20%；满值后进入狂躁 5 秒，期间普攻或技能命中实验体会重置持续时间。愤怒值本身不影响伤害，未建模。"
+        },
+        {
+          "create": true,
+          "id": "ingame-033-nicky-p-1033100-splash-damage",
+          "hero": "妮琪",
+          "slot": "P",
+          "group": 1033100,
+          "dataKey": "SplashDamage",
+          "title": "P 狂躁 普攻射程内伤害",
+          "bases": "60,85,110",
+          "formula": "base + ap * 0.35",
+          "kind": "basicAttack",
+          "source": "in-game-client",
+          "coefficientText": "射程内伤害 60/85/110(+技能增幅的35%)",
+          "note": "同一次普攻对目标周围的敌人也结算一份，数值与目标那段相同。"
+        }
+      ],
+      "equipment": [],
+      "characters": [],
+      "mastery": []
+    },
+    {
+      "version": "client-12.1-garnet",
+      "order": 20260814,
+      "date": "2026-08-14",
+      "url": "",
+      "label": "12.1",
+      "title": "客户端截图读值：盖瑞特（12.1）",
+      "skills": [
+        {
+          "id": "external-garnet-q-1076200-damage-stat1",
+          "title": "Q 重击 伤害",
+          "bases": "40,65,90,115,140",
+          "formula": "base + ap * 0.5 + maxHp * 0.06",
+          "source": "in-game-client",
+          "coefficientText": "伤害 40/65/90/115/140(+技能增幅50%)(+体力上限6%)",
+          "note": "客户端截图读值修正：基础值由 40/60/80/100/120 改为 40/65/90/115/140，技能增幅系数 45%→50%，并补上漏掉的体力上限 6%。举起武器向下猛击，命中的敌人 1 秒内移速 -40%；命中后 4 秒内可接尖刺。消耗当前体力 2%。"
+        },
+        {
+          "id": "external-garnet-q-1076200-recast-damage-stat2",
+          "title": "Q 尖刺 再使用伤害",
+          "bases": "50,75,100,125,150",
+          "formula": "base + ap * 0.5 + maxHp * 0.07",
+          "source": "in-game-client",
+          "coefficientText": "再使用伤害 50/75/100/125/150(+技能增幅50%)(+体力上限7%)",
+          "note": "客户端截图核对：数值与原公告完全一致，未改动。在地面指定位置生成尖刺再结算一段。"
+        },
+        {
+          "id": "external-garnet-w-1076300-minimum-damage-stat1",
+          "title": "W 压抑之痛 蓄能伤害",
+          "bases": "80,110,140,170,200",
+          "formula": "base + ap * 0.5 + maxHp * 0.08",
+          "source": "in-game-client",
+          "progressiveDamage": {
+            "id": "charge",
+            "label": "蓄能档位",
+            "unit": "档",
+            "selectedLabel": "蓄能",
+            "min": 0,
+            "max": 4,
+            "default": 0,
+            "base": {
+              "fromMultiplier": 1,
+              "toMultiplier": 1.5
+            },
+            "coefficients": [
+              {
+                "variable": "ap",
+                "from": 0.5,
+                "to": 0.75
+              },
+              {
+                "variable": "maxHp",
+                "from": 0.08,
+                "to": 0.12
+              }
+            ],
+            "note": "蓄能期间无法移动、承受伤害 -50%，满档时基础值、技能增幅、体力上限三项系数都 ×1.5，并额外给 0.8 秒束缚。官方没给档位粒度，这里按 0~4 档线性插值。"
+          },
+          "coefficientText": "最小 80/110/140/170/200(+技能增幅50%)(+体力上限8%) ~ 最大 120/165/210/255/300(+技能增幅75%)(+体力上限12%)",
+          "note": "客户端截图读值修正：原先最小/最大分成两条且都漏了体力上限那一项，现合成一条按蓄能档位递增。蓄能结束时对范围内敌人结算，命中者 1 秒内移速 -50%。冷却 14/13/12/11/10 秒。"
+        },
+        {
+          "id": "external-garnet-w-1076300-maximum-damage-stat2",
+          "remove": true
+        },
+        {
+          "create": true,
+          "id": "ingame-076-garnet-w-1076300-heal",
+          "hero": "盖瑞特",
+          "slot": "W",
+          "group": 1076300,
+          "dataKey": "Heal",
+          "title": "W 压抑之痛 体力恢复",
+          "bases": "20,40,60,80,100",
+          "formula": "base + ap * 0.3 + maxHp * 0.06 + stacks * [8,11,14,17,20][level - 1]",
+          "kind": "heal",
+          "source": "in-game-client",
+          "maxStacks": 5,
+          "stackLabel": "痛苦叠层",
+          "coefficientText": "体力恢复 20/40/60/80/100(+技能增幅30%)(+体力上限6%)(+每消耗一个痛苦叠层 8/11/14/17/20)",
+          "note": "蓄能结束时回体。痛苦叠层来自「使用除压抑之痛以外的基本技能」，用叠层选择器代表结算时消耗掉的层数。官方没写叠层上限，这里给到 5 层。每层还会让重击&尖刺、扭曲的执念冷却各 -0.8 秒（冷却类未建模）。"
+        },
+        {
+          "id": "external-garnet-e-1076400-damage-stat1",
+          "title": "E 扭曲的执念 伤害",
+          "bases": "60,85,110,135,160",
+          "formula": "base + ap * 0.55 + maxHp * 0.06",
+          "source": "in-game-client",
+          "coefficientText": "伤害 60/85/110/135/160(+技能增幅55%)(+体力上限6%)",
+          "note": "客户端截图读值修正：基础值与技能增幅系数本来就对，补上漏掉的体力上限 6%。向指定方向冲出，对首个冲撞目标结算并晕厥 0.6 秒。官方注明本技能同时适用普攻和技能判定，可以触发命中效果。消耗当前体力 2%。"
+        },
+        {
+          "id": "external-garnet-r-1076500-damage-stat1",
+          "title": "R 处刑式 伤害",
+          "bases": "75,150,225",
+          "formula": "base + ap * 0.4 + targetCurrentHp * 0.15",
+          "source": "in-game-client",
+          "coefficientText": "伤害 75/150/225(+技能增幅40%)(+目标当前体力15%)",
+          "note": "客户端截图核对：数值与原公告完全一致，未改动。投掷铁链，首个命中的敌人实验体束缚 0.8 秒并被标记 6 秒；标记期间目标体力降到 25% 以下时可再次施法进行处决（处决本身没有独立伤害数值）。"
+        },
+        {
+          "id": "external-garnet-p-1076100-damage-stat1",
+          "remove": true
+        }
+      ],
+      "equipment": [],
+      "characters": [],
+      "mastery": []
+    },
+    {
+      "version": "client-12.1-jan",
+      "order": 20260814,
+      "date": "2026-08-14",
+      "url": "",
+      "label": "12.1",
+      "title": "客户端截图读值：扬（12.1）",
+      "skills": [
+        {
+          "id": "patch-113-jan-1035200-damage",
+          "title": "Q 膝踢 伤害",
+          "bases": "100,120,140,160,180",
+          "formula": "base + extraAttack * 0.65 + ap * 0.55 + targetHp * 0.06",
+          "source": "in-game-client",
+          "coefficientText": "伤害 100/120/140/160/180(+额外攻击力65%)(+技能增幅55%)(+敌人体力上限6%)",
+          "note": "客户端截图核对：数值与原公告完全一致，未改动。命中的敌人 1 秒内移速 -50%，命中后可接飞膝踢。强化效果（消耗狂热意志叠层）让承受伤害的敌人 4 秒内防御力 -15%，减益未建模。冷却 12/11/10/9/8 秒。"
+        },
+        {
+          "id": "augment-035-jan-q-1035200-enhancement-damage-stat2",
+          "title": "Q 飞膝踢 伤害",
+          "bases": "65,90,115,140,165",
+          "formula": "base + extraAttack * 0.9 + ap * 0.7 + targetHp * 0.06",
+          "source": "in-game-client",
+          "coefficientText": "强化伤害量 65/90/115/140/165(+额外攻击力90%)(+技能增幅70%)(+敌人体力上限6%)",
+          "note": "客户端截图读值修正：原先只有技能增幅 70%，漏了额外攻击力 90% 和敌人体力上限 6% 两项。这是膝踢命中后可接的第二段，命中使目标悬空 0.65 秒；强化状态下飞膝踢命中还会重置闪烁的冷却。原标题「膝踢 强化伤害」改成客户端的说法「飞膝踢」。"
+        },
+        {
+          "create": true,
+          "id": "ingame-035-jan-w-1035300-damage",
+          "hero": "扬",
+          "slot": "W",
+          "group": 1035300,
+          "dataKey": "Damage",
+          "title": "W 战斧飞踢 伤害",
+          "bases": "50,80,110,140,170",
+          "formula": "base + extraAttack * 0.65 + ap * 0.85",
+          "source": "in-game-client",
+          "coefficientText": "伤害 50/80/110/140/170(+额外攻击力65%)(+技能增幅85%)",
+          "note": "基础段此前整段缺失。被外围命中的敌人会被击退。冷却 15 秒。"
+        },
+        {
+          "id": "augment-035-jan-w-1035300-enhanced-damage-stat2",
+          "title": "W 战斧飞踢 强化追加伤害",
+          "bases": "80,115,150,185,220",
+          "formula": "base + extraAttack * 0.95 + ap * 1",
+          "source": "in-game-client",
+          "coefficientText": "强化伤害 80/115/150/185/220(+额外攻击力95%)(+技能增幅100%)",
+          "note": "客户端截图读值修正：基础值由 100/135/170/205/240 改为 80/115/150/185/220，并补上漏掉的额外攻击力 95%；原标题还把「踢」写成了「踼」。官方原文是「伤害量增加 X」，所以这是叠在基础段之上的追加伤害，不是替换。强化状态下还会击退范围内所有敌人（基础段只击退外围）。"
+        },
+        {
+          "create": true,
+          "id": "ingame-035-jan-w-1035300-wall-damage",
+          "hero": "扬",
+          "slot": "W",
+          "group": 1035300,
+          "dataKey": "WallDamage",
+          "title": "W 战斧飞踢 撞墙额外伤害",
+          "bases": "20,30,40,50,60",
+          "formula": "base + extraAttack * 0.2 + ap * 0.15",
+          "source": "in-game-client",
+          "coefficientText": "撞至墙壁伤害量 20/30/40/50/60(+额外攻击力20%)(+技能增幅15%)",
+          "note": "被击退的敌人如果撞到墙，额外结算这一段并晕厥 0.8 秒。基础段与强化段都有这个判定。此前整段缺失。"
+        },
+        {
+          "id": "patch-115-jan-1035400-damage",
+          "title": "E 闪烁 普攻额外伤害",
+          "bases": "20,30,40,50,60",
+          "formula": "base + extraAttack * 1 + ap * 0.5 + targetHp * 0.05",
+          "kind": "basicAttack",
+          "source": "in-game-client",
+          "coefficientText": "伤害 20/30/40/50/60(+额外攻击力100%)(+技能增幅50%)(+敌人体力上限5%)",
+          "note": "客户端截图核对：数值与原公告完全一致，只补上强化普攻标记 —— 它是突进后强化下一次普攻的额外技能伤害，本身吃技能增幅、走技能减伤。可以在使用战斧飞踢的同时施放。强化状态下本技能冷却 -40%。冷却 10/9.5/9/8.5/8 秒。"
+        },
+        {
+          "create": true,
+          "id": "ingame-035-jan-r-1035500-damage",
+          "hero": "扬",
+          "slot": "R",
+          "group": 1035500,
+          "dataKey": "Damage",
+          "title": "R 擂台之魂 绳圈伤害",
+          "bases": "100,200,300",
+          "formula": "base + extraAttack * 0.8 + ap * 0.45",
+          "source": "in-game-client",
+          "coefficientText": "伤害 100/200/300(+额外攻击力80%)(+技能增幅45%)",
+          "note": "召唤维持 6.5 秒的方形擂台，触碰绳圈的敌人结算这一段并在 1 秒内移速 -40%，被击退到绳圈的敌人会反弹回擂台中心；绳索触碰后立即消失，所以同一条绳索只结算一次。施放时立即获得 5 个狂热意志叠层，在擂台内参与击杀还会再得 5 层并让移速 3 秒 +45%。该技能仅作用于实验体和终极野怪。冷却 70/60/50 秒。此前整段缺失。"
+        }
+      ],
+      "equipment": [],
+      "characters": [],
+      "mastery": []
+    },
+    {
+      "version": "12.1b",
+      "order": 20260815,
+      "date": "2026-08-13",
+      "label": "12.1b",
+      "url": "https://playeternalreturn.com/posts/news/3780?hl=zh-CN",
+      "title": "12.1b不停机维护",
+      "skills": [
+        {
+          "id": "external-laura-r-1047500-second-damage-stat2",
+          "bases": "140,220,300",
+          "formula": "base + ap * 0.9",
+          "source": "official-patch-note",
+          "coefficientText": "2段伤害 140/220/300(+技能增幅的90%)",
+          "note": "12.1b：由 180/260/340 下调至 140/220/300。库里原先是更早的 170/250/330(+技能增幅80%)，一并推到当前值。",
+          "was": {
+            "formula": "base + ap * 0.9",
+            "bases": "180,260,340"
+          }
+        },
+        {
+          "id": "patch-120b-sua-1028200-bookmark-damage",
+          "formula": "base + ap * 0.3",
+          "source": "official-patch-note",
+          "coefficientText": "书签伤害 20/40/60/80/100(+技能增幅的30%)",
+          "note": "12.1b：技能增幅系数由 35% 下调至 30%。",
+          "was": {
+            "formula": "base + ap * 0.35"
+          }
+        },
+        {
+          "id": "augment-028-sua-e-1028400-enhanced-damage-stat3",
+          "formula": "base + ap * 0.75",
+          "source": "official-patch-note",
+          "coefficientText": "书签目标伤害 150/190/230/270/310(+技能增幅的75%)",
+          "note": "12.1b：技能增幅系数由 80% 下调至 75%。",
+          "was": {
+            "formula": "base + ap * 0.8"
+          }
+        },
+        {
+          "id": "patch-120b-sua-1028500-memory-of-odyssey-bookmark-damage",
+          "formula": "base + ap * 0.4",
+          "source": "official-patch-note",
+          "coefficientText": "记忆力-奥德赛 书签伤害 50/100/150(+技能增幅的40%)",
+          "note": "12.1b：技能增幅系数由 45% 下调至 40%。",
+          "was": {
+            "formula": "base + ap * 0.45"
+          }
+        },
+        {
+          "id": "augment-028-sua-r-1028500-memory-of-don-quixote-damage-enhanced-stat4",
+          "formula": "base + ap * 0.75",
+          "source": "official-patch-note",
+          "coefficientText": "记忆力-堂吉诃德 书签目标伤害 170/260/350(+技能增幅的75%)",
+          "note": "12.1b：技能增幅系数由 80% 下调至 75%。",
+          "was": {
+            "formula": "base + ap * 0.8"
+          }
+        },
+        {
+          "id": "001-jackie-q-1001200-damage-by-level-2",
+          "formula": "base + attack * 0.4 + targetCurrentHp * 0.06",
+          "source": "official-patch-note",
+          "coefficientText": "伤害 30/50/70/90/110(+攻击力的40%)(+目标当前体力的6%)",
+          "note": "12.1b：攻击力系数 50%→40%、目标当前体力 7%→6%。"
+        },
+        {
+          "id": "ingame-001-jackie-q-1001200-max-bleed-damage",
+          "formula": "(base + attack * 0.4 + targetCurrentHp * 0.06) * 1.3",
+          "source": "official-patch-note",
+          "coefficientText": "满流血时伤害提升 30%，基础同 12.1b 的 40% 攻击力 / 6% 目标当前体力",
+          "note": "12.1b：跟随连斩基础段一起下调。"
+        },
+        {
+          "id": "external-karla-p-1054100-fully-charged-damage-stat2",
+          "title": "P 水手的较量 蓄能上限伤害",
+          "formula": "base + attack * 1 + ap * 0.25 + targetHp * [0.04,0.07,0.1][level - 1]",
+          "source": "official-patch-note",
+          "coefficientText": "蓄能上限伤害 10/25/40(+攻击力的100%)(+技能增幅的25%)(+目标体力上限的 4/7/10%)",
+          "note": "12.1b：目标体力上限系数由 4/8/12% 下调至 4/7/10%。库里原先写死成固定 4%（那是 1 级的值），一并改成按等级取。"
+        }
+      ],
+      "equipment": [],
+      "characters": [
+        {
+          "hero": "秀雅",
+          "path": "base.hp",
+          "value": 980
+        }
+      ],
+      "mastery": [
+        {
+          "hero": "杰琪",
+          "type": "OneHandSword",
+          "stat": "IncreaseBasicAttackDamageRatio",
+          "value": 0.028
+        }
+      ]
+    },
+    {
       "version": "model-self-hp-bianca",
       "order": 20260817,
       "date": "2026-08-17",
@@ -6175,6 +7004,907 @@
           "source": "in-game-client",
           "coefficientText": "按已失体力恢复 50(+技能增幅20%) ~ 75(+技能增幅30%)",
           "note": "与 E 堂吉诃德同一套插值口径。客户端数值表没有这一行，只能读到 R 1 级的 50~75，按不随 R 等级变化处理。"
+        }
+      ],
+      "equipment": [],
+      "characters": [],
+      "mastery": []
+    },
+    {
+      "version": "client-12.1-darko",
+      "order": 20260817,
+      "date": "2026-08-17",
+      "url": "",
+      "title": "客户端截图读值：达尔科（12.1）",
+      "skills": [
+        {
+          "id": "external-darko-q-1074200-damage-stat1",
+          "overrideManual": true,
+          "bases": "20,40,60,80,100",
+          "formula": "base + attack * 0.4 + targetHp * [0.02,0.03,0.04,0.05,0.06][level - 1]",
+          "kind": "basicAttack",
+          "source": "in-game-client",
+          "coefficientText": "伤害 20/40/60/80/100(+攻击力40%)(+目标体力上限 2/3/4/5/6%)",
+          "note": "施法后下一次普攻附带这段额外技能伤害，并给目标挂 5 秒标记。原先那条人工值把目标体力上限系数写死成 5%（那是 4 级的值），按客户端改成分级。向敌人实验体移动时另有 2 秒 +15% 移速，与伤害无关。冷却 3 秒。",
+          "title": "Q 天价利息 强化普攻额外伤害"
+        },
+        {
+          "create": true,
+          "id": "ingame-074-darko-q-1074200-marked-damage",
+          "hero": "达尔科",
+          "slot": "Q",
+          "group": 1074200,
+          "dataKey": "MarkedDamage",
+          "title": "Q 天价利息 强化普攻额外伤害（对带标记目标）",
+          "bases": "20,40,60,80,100",
+          "formula": "(base + attack * 0.4 + targetHp * [0.02,0.03,0.04,0.05,0.06][level - 1]) * (1 + [0.1,0.2,0.3,0.4,0.5][level - 1])",
+          "kind": "basicAttack",
+          "source": "in-game-client",
+          "coefficientText": "对带标记的目标施法时伤害增加 10/20/30/40/50%",
+          "note": "对已经带标记的目标再次施法时走这一段，与普通段互斥不是叠加。标记持续 5 秒。"
+        },
+        {
+          "create": true,
+          "id": "ingame-074-darko-w-1074300-shield",
+          "hero": "达尔科",
+          "slot": "W",
+          "group": 1074300,
+          "dataKey": "Shield",
+          "title": "W 催缴 护盾",
+          "bases": "50,90,130,170,210",
+          "formula": "base + attack * 0.55",
+          "kind": "shield",
+          "source": "in-game-client",
+          "coefficientText": "护盾吸收 50/90/130/170/210(+攻击力55%)",
+          "note": "获得护盾的同时使周围敌人实验体 1.5 秒内移速 -25/27.5/30/32.5/35%。冷却 9 秒。"
+        },
+        {
+          "create": true,
+          "id": "ingame-074-darko-w-1074300-per-hit-shield",
+          "hero": "达尔科",
+          "slot": "W",
+          "group": 1074300,
+          "dataKey": "PerHitShield",
+          "title": "W 催缴 每命中一名敌人的额外护盾",
+          "bases": "0,0,0,0,0",
+          "formula": "maxHp * 0.06",
+          "kind": "shield",
+          "maxHits": 4,
+          "defaultHits": 1,
+          "hitLabel": "命中敌人实验体数",
+          "hitNote": "只对距离达尔科最近的 4 名敌人实验体生效。",
+          "source": "in-game-client",
+          "coefficientText": "每命中一名敌人实验体额外获得 体力上限6% 护盾",
+          "note": "同时窃取目标 1/2/3/4/5 攻击力，持续 4 秒。客户端数值表里没有这个 6% 的分级行，按不随技能等级变化处理。窃取的攻击力未建模。"
+        },
+        {
+          "id": "external-darko-e-1074400-damage-stat1",
+          "bases": "70,115,160,205,250",
+          "formula": "base + attack * 0.85",
+          "source": "in-game-client",
+          "coefficientText": "伤害 70/115/160/205/250(+攻击力85%)",
+          "note": "突进后猛击地面，命中的敌人悬空 0.7 秒。冷却 14/13/12/11/10 秒。"
+        },
+        {
+          "id": "external-darko-r-1074500-damage-stat1",
+          "bases": "50,125,200",
+          "formula": "base + attack * 0.3 + targetHp * 0.25",
+          "source": "in-game-client",
+          "coefficientText": "伤害 50/125/200(+攻击力30%)(+被拖拽目标的体力上限25%)",
+          "note": "抓住并压制敌人实验体后拖拽摔倒，对周围敌人结算，命中者 0.5 秒内移速 -80%。体力上限那一项取的是「被拖拽目标」的上限，模型里用目标体力上限代替，所以算周围其他敌人时这一项会跟着主目标走。冷却 90/75/60 秒。"
+        }
+      ],
+      "equipment": [],
+      "characters": [],
+      "mastery": []
+    },
+    {
+      "version": "client-12.1-daniel",
+      "order": 20260818,
+      "date": "2026-08-18",
+      "url": "",
+      "title": "客户端截图读值：丹尼尔（12.1）",
+      "skills": [
+        {
+          "id": "augment-037-daniel-q-1037200-enhanced-damage-stat3",
+          "remove": true
+        },
+        {
+          "create": true,
+          "id": "ingame-037-daniel-q-1037200-damage",
+          "hero": "丹尼尔",
+          "slot": "Q",
+          "group": 1037200,
+          "skillId": "DanielActive1",
+          "dataKey": "Damage",
+          "title": "Q 剪影 伤害",
+          "bases": "30,40,50,60,70",
+          "formula": "base + attack * 1.1",
+          "source": "in-game-client",
+          "coefficientText": "伤害 30/40/50/60/70(+攻击力110%)",
+          "note": "在指定位置召唤剪影，命中后之后 3 回普攻在 3 秒内攻速 +80/110/140/170/200%。冷却 10/9/8/7/6 秒。"
+        },
+        {
+          "id": "patch-114-daniel-1037200-center-hit-damage",
+          "title": "Q 剪影 中心强化伤害",
+          "bases": "40,60,80,100,120",
+          "formula": "base + attack * 1.4",
+          "source": "in-game-client",
+          "coefficientText": "强化伤害 40/60/80/100/120(+攻击力140%)",
+          "note": "处于剪刀中心的敌人改吃这一段，并在 1.5 秒内移速 -35%。与普通段互斥，不是叠加。"
+        },
+        {
+          "create": true,
+          "id": "ingame-037-daniel-w-1037300-detonate-damage",
+          "hero": "丹尼尔",
+          "slot": "W",
+          "group": 1037300,
+          "skillId": "DanielActive2",
+          "dataKey": "DetonateDamage",
+          "title": "W 灵感 引爆技能伤害",
+          "bases": "20,40,60,80,100",
+          "formula": "base + attack * 0.6",
+          "source": "in-game-client",
+          "coefficientText": "伤害 20/40/60/80/100(+攻击力60%)",
+          "note": "给敌人实验体挂灵感标识，维持 4 秒后目标成为灵感来源；2.5 秒内攻击灵感来源即可引爆，命中者 1 秒内移速 -50%。可以用在终极野怪身上。冷却 7 秒。引爆同时还有一段「等同于累计伤害量」的真实伤害，见 caveat。"
+        },
+        {
+          "id": "patch-120p2-danielactive3-damage",
+          "title": "E 暗影刺客 传送普攻伤害",
+          "bases": "20,40,60,80,100",
+          "formula": "base + extraAttack * 0.5",
+          "kind": "basicAttack",
+          "source": "in-game-client",
+          "coefficientText": "伤害 20/40/60/80/100(+额外攻击力50%)",
+          "note": "1 秒内隐身突进，之后 1/1.2/1.4/1.6/1.8 秒化作黑影。黑影状态下普攻射程固定 3m，普攻时瞬移到目标身后并附带这一段。官方注明「此普攻也被视为技能攻击」，所以按技能伤害结算，不走普攻减伤那条线。冷却 11/10/9/8/7 秒。"
+        },
+        {
+          "create": true,
+          "id": "ingame-037-daniel-r-1037510-damage-over-time",
+          "hero": "丹尼尔",
+          "slot": "R",
+          "group": 1037510,
+          "skillId": "DanielActive4_1",
+          "dataKey": "DamageOverTime",
+          "title": "R 完美杰作 持续伤害",
+          "bases": "10,30,50",
+          "formula": "base + attack * 0.3",
+          "maxHits": 4,
+          "defaultHits": 4,
+          "hitLabel": "持续伤害跳数",
+          "hitNote": "在影子中最多停留 2 秒，期间最多结算 4 次。",
+          "source": "in-game-client",
+          "coefficientText": "持续伤害 10/30/50(+攻击力30%)",
+          "note": "对敌人造成伤害后的 4 秒内可化身为该敌人的影子，化身瞬间目标沉默 0.5 秒。冷却 70/60/50 秒。"
+        },
+        {
+          "create": true,
+          "id": "ingame-037-daniel-r-1037510-final-damage",
+          "hero": "丹尼尔",
+          "slot": "R",
+          "group": 1037510,
+          "skillId": "DanielActive4_1",
+          "dataKey": "FinalDamage",
+          "title": "R 完美杰作 最终伤害",
+          "bases": "40,105,170",
+          "formula": "base + attack * 0.9",
+          "source": "in-game-client",
+          "coefficientText": "最终伤害 40/105/170(+攻击力90%)",
+          "note": "持续时间结束或再次使用技能时从影子里走出来，结算这一段。"
+        }
+      ],
+      "equipment": [],
+      "characters": [],
+      "mastery": []
+    },
+    {
+      "version": "client-12.1-lyanh",
+      "order": 20260819,
+      "date": "2026-08-19",
+      "url": "",
+      "title": "客户端截图读值：伊安（12.1）",
+      "skills": [
+        {
+          "id": "external-lyanh-q-1063200-damage-stat1",
+          "title": "Q 躲避！/ 地狱鬼手 人类状态",
+          "bases": "40,70,100,130,160",
+          "formula": "base + attack * 0.6",
+          "source": "in-game-client",
+          "coefficientText": "伤害 40/70/100/130/160(+攻击力60%)",
+          "note": "人类状态：向前挥短剑。命中目标时冷却直接缩到 1 秒。冷却 4/3.5/3/2.5/2 秒，耗体力 4。使用时获得 30 点侵蚀。"
+        },
+        {
+          "id": "external-lyanh-q-1063200-ghastly-grip-damage-stat2",
+          "title": "Q 地狱鬼手 噬身状态",
+          "bases": "40,75,110,145,180",
+          "formula": "base + attack * 0.7",
+          "source": "in-game-client",
+          "coefficientText": "[地狱鬼手] 伤害量 40/75/110/145/180(+攻击力70%)",
+          "note": "噬身状态：对指定区域内的对象结算，命中者束缚 0.7 秒。原先系数记成 60%（那是人类状态那段的值），按客户端改为 70%。"
+        },
+        {
+          "id": "external-lyanh-w-1063300-damage-stat1",
+          "title": "W 对不起.. / 血染之指 人类状态",
+          "bases": "5,45,85,125,165",
+          "formula": "base + attack * 0.5",
+          "source": "in-game-client",
+          "coefficientText": "伤害 5/45/85/125/165(+攻击力50%)",
+          "note": "人类状态：向前挥短剑，命中者移速 -55%，1.5 秒后复原。冷却 11/10/9/8/7 秒。"
+        },
+        {
+          "id": "external-lyanh-w-1063300-phantom-ripper-damage-stat2",
+          "title": "W 血染之指 噬身状态",
+          "bases": "30,60,90,120,150",
+          "formula": "base + attack * 0.65",
+          "source": "in-game-client",
+          "coefficientText": "[血染之指] 伤害量 30/60/90/120/150(+攻击力65%)",
+          "note": "噬身状态：向前舞动鬼手。命中时获得[蚕噬]叠层（移速 +40%，最多 3 层），每层使地狱鬼手与鬼灵利爪冷却 -1 秒，同时施法体力消耗随层数上升。"
+        },
+        {
+          "id": "external-lyanh-e-1063400-damage-stat1",
+          "title": "E 闪开！/ 鬼灵利爪 人类状态",
+          "bases": "20,40,60,80,100",
+          "formula": "base + attack * 0.65",
+          "source": "in-game-client",
+          "coefficientText": "伤害 20/40/60/80/100(+攻击力65%)",
+          "note": "人类状态：被短剑拖拽，对路径上的敌人结算，命中后可再次使用。冷却 16/15/14/13/12 秒。"
+        },
+        {
+          "id": "external-lyanh-e-1063400-razor-claws-slam-damage-stat2",
+          "title": "E 鬼灵利爪 噬身状态 猛击",
+          "bases": "30,55,80,105,130",
+          "formula": "base + attack * 0.25",
+          "source": "in-game-client",
+          "coefficientText": "[鬼灵利爪] 猛击伤害量 30/55/80/105/130(+攻击力25%)",
+          "note": "噬身状态：鬼手向下猛击，随后把对方拉过来再结算一次拖曳伤害。"
+        },
+        {
+          "id": "external-lyanh-e-1063400-razor-claws-drag-damage-stat3",
+          "title": "E 鬼灵利爪 噬身状态 拖曳",
+          "bases": "20,50,80,110,140",
+          "formula": "base + attack * 0.35",
+          "source": "in-game-client",
+          "coefficientText": "[鬼灵利爪] 拖曳伤害 20/50/80/110/140(+攻击力35%)",
+          "note": "噬身状态猛击之后的第二段，与猛击是连续结算可以相加。原先系数记成 65%（那是人类状态那段的值），按客户端改为 35%。"
+        },
+        {
+          "id": "external-lyanh-r-1063500-damage-stat1",
+          "title": "R 解放肉身 恶灵跳跃伤害",
+          "bases": "200,300,400",
+          "formula": "base + attack * 0.6",
+          "source": "in-game-client",
+          "coefficientText": "伤害 200/300/400(+攻击力60%)",
+          "note": "需噬身状态且侵蚀 ≥100 才能使用。恶灵跳向指定方向结算这一段，伊安本体留在施法位置。恶灵状态下体力上限 +222/333/444、移速 +25%、攻速 +20/25/30%(+攻击力10%)，侵蚀每秒 -25，离开施法点 16m 或侵蚀归零即结束。冷却 70/60/50 秒。原先记的是 20/25/30(+攻击力10%)，与客户端差了一个量级，已按客户端改。"
+        },
+        {
+          "create": true,
+          "id": "ingame-063-lyanh-r-1063500-spirit-basic-attack",
+          "hero": "伊安",
+          "slot": "R",
+          "group": 1063500,
+          "skillId": "LyanhActive4_1",
+          "dataKey": "SpiritBasicAttackDamage",
+          "title": "R 解放肉身 恶灵状态普攻",
+          "bases": "0,0,0",
+          "formula": "attack * 1",
+          "source": "in-game-client",
+          "coefficientText": "普攻对敌人造成 攻击力100% 的技能伤害",
+          "note": "恶灵状态的普攻按技能伤害结算（官方原文就写的技能伤害），所以走技能减伤不走普攻减伤。第 4 次普攻使目标恐惧 0.9/1.1/1.3 秒，目标周围 2m 内的敌人一同恐惧。这一段是替换普攻，不要和面板上的「普通攻击」相加。"
+        },
+        {
+          "create": true,
+          "id": "ingame-063-lyanh-p-1063100-human-basic-attack",
+          "hero": "伊安",
+          "slot": "P",
+          "group": 1063100,
+          "dataKey": "HumanBasicAttackDamage",
+          "title": "P 被禁锢的肉身 人类状态普攻",
+          "bases": "0,0,0",
+          "formula": "attack * 0.8",
+          "damageType": "basicAttack",
+          "source": "in-game-client",
+          "coefficientText": "人类状态：造成 攻击力80% 的伤害",
+          "note": "伊安的普攻按所处状态打折：人类 80%、噬身 90%、恶灵 100%。这三段都是替换普攻，不要和面板上的「普通攻击」相加。"
+        },
+        {
+          "create": true,
+          "id": "ingame-063-lyanh-p-1063100-possession-basic-attack",
+          "hero": "伊安",
+          "slot": "P",
+          "group": 1063100,
+          "dataKey": "PossessionBasicAttackDamage",
+          "title": "P 被禁锢的肉身 噬身状态普攻",
+          "bases": "0,0,0",
+          "formula": "attack * 0.9",
+          "damageType": "basicAttack",
+          "source": "in-game-client",
+          "coefficientText": "噬身状态：造成 攻击力90% 的伤害",
+          "note": "侵蚀累积到 100 点进入噬身状态。非战斗状态下侵蚀每秒 -50。"
+        },
+        {
+          "create": true,
+          "id": "ingame-063-lyanh-p-1063100-extra-true-damage",
+          "hero": "伊安",
+          "slot": "P",
+          "group": 1063100,
+          "dataKey": "ExtraTrueDamage",
+          "title": "P 被禁锢的肉身 技能附带真实伤害",
+          "bases": "0,0,0",
+          "formula": "attack * [0.08,0.16,0.24][level - 1]",
+          "damageType": "true",
+          "source": "in-game-client",
+          "coefficientText": "额外真实伤害 攻击力 8/16/24%",
+          "note": "噬身状态与恶灵状态下每造成一次技能伤害都附带这一段真实伤害，不吃防御与减伤。同时按真伤的 100%（噬身）/140%（恶灵）恢复体力，恢复部分未建模。人类状态下没有这一段。"
+        },
+        {
+          "create": true,
+          "id": "ingame-063-lyanh-p-1063100-corruption-heal",
+          "hero": "伊安",
+          "slot": "P",
+          "group": 1063100,
+          "dataKey": "CorruptionHeal",
+          "title": "P 被禁锢的肉身 侵蚀满层体力恢复",
+          "bases": "0,0,0",
+          "formula": "selfLostHp * 0.2",
+          "kind": "heal",
+          "source": "in-game-client",
+          "coefficientText": "恢复已失体力 20% 的体力",
+          "note": "侵蚀累积到 100 点进入噬身状态时触发一次。客户端数值表里没有这一行，按不随技能等级变化处理。"
+        }
+      ],
+      "equipment": [],
+      "characters": [],
+      "mastery": []
+    },
+    {
+      "version": "model-accumulated-damage",
+      "order": 20260820,
+      "date": "2026-08-20",
+      "url": "",
+      "title": "建模：累计伤害（丹尼尔 W 引爆真伤）",
+      "skills": [
+        {
+          "create": true,
+          "id": "ingame-037-daniel-w-1037300-detonate-true-damage",
+          "hero": "丹尼尔",
+          "slot": "W",
+          "group": 1037300,
+          "skillId": "DanielActive2",
+          "dataKey": "DetonateTrueDamage",
+          "title": "W 灵感 引爆累计真实伤害",
+          "bases": "0,0,0,0,0",
+          "formula": "accumulatedDamage * ([0.04,0.06,0.08,0.1,0.12][level - 1] + extraAttack * 0.0008)",
+          "damageType": "true",
+          "source": "in-game-client",
+          "coefficientText": "伤害累积(%) 4/6/8/10/12(+额外攻击力8%)%",
+          "note": "灵感标识存在的 4 秒内，丹尼尔造成的伤害按这个比例存进标识；2.5 秒内攻击灵感来源引爆时打出等同于累计量的真实伤害，不吃防御与减伤。累计量取决于这 4 秒实际打出多少伤害，模型推不出来，改用技能面板上的「累计伤害」手填框。与同时结算的那段技能伤害（20/40/60/80/100+攻击力60%）是两段，可以相加。"
+        },
+        {
+          "id": "external-lyanh-r-1063510-damage-stat1",
+          "remove": true
+        }
+      ],
+      "equipment": [],
+      "characters": [],
+      "mastery": []
+    },
+    {
+      "version": "client-12.1-arda",
+      "order": 20260821,
+      "date": "2026-08-21",
+      "url": "",
+      "title": "客户端截图读值：阿尔达（12.1）",
+      "skills": [
+        {
+          "id": "patch-117-arda-1066200-damage",
+          "title": "Q 沙玛什卷轴",
+          "bases": "70,110,150,190,230",
+          "formula": "base + ap * 0.8",
+          "source": "in-game-client",
+          "coefficientText": "伤害 70/110/150/190/230(+技能增幅80%)",
+          "note": "向指定方向展开卷轴，对与卷轴冲撞的敌人结算。冷却 8/7/6/5/4 秒。"
+        },
+        {
+          "id": "release-66-w-01",
+          "title": "W 巴比伦魔方 召唤伤害",
+          "bases": "60,80,100,120,140",
+          "formula": "base + ap * 0.45",
+          "source": "in-game-client",
+          "coefficientText": "伤害 60/80/100/120/140(+技能增幅45%)",
+          "note": "召唤时对区域内敌人结算，命中者 0.3 秒内移速 -50%。冷却 13/12.5/12/11.5/11 秒。原先记的是 10/30/50/70/90(+技能增幅20%)，与客户端差很多，已按客户端改。"
+        },
+        {
+          "id": "augment-066-arda-w-1066300-extra-damage-stat2",
+          "title": "W 巴比伦魔方 消失伤害",
+          "bases": "50,80,110,140,170",
+          "formula": "base + ap * 0.65",
+          "source": "in-game-client",
+          "coefficientText": "额外伤害 50/80/110/140/170(+技能增幅65%)",
+          "note": "1 秒后魔方消失时再结算一次，命中者晕厥 1 秒。与召唤伤害是两段，可以相加。"
+        },
+        {
+          "id": "release-66-e-01",
+          "title": "E 尼姆鲁德石碑",
+          "bases": "80,110,140,170,200",
+          "formula": "base + ap * 0.55",
+          "source": "in-game-client",
+          "coefficientText": "伤害 80/110/140/170/200(+技能增幅55%)",
+          "note": "在指定位置掉落石碑，对范围内敌人结算并推离。冷却 14/13/12/11/10 秒。原先记的是 40/70/100/130/160(+技能增幅30%)，已按客户端改。"
+        },
+        {
+          "id": "release-66-r-01",
+          "title": "R 沉睡之力-沙玛什法典 冲撞伤害",
+          "bases": "70,110,150,190,230",
+          "formula": "base + ap * 0.8",
+          "source": "in-game-client",
+          "coefficientText": "对法典冲撞的敌人 70(+技能增幅80%)",
+          "note": "强化版的冲撞段沿用沙玛什卷轴(Q)自己的数值表，所以跟着 Q 的等级走（5 级）。使用沙玛什法典时沉睡之力冷却恢复 60%。原先记的是 50/90/130/170/210(+技能增幅70%)，已按客户端改。"
+        },
+        {
+          "id": "release-66-r-02",
+          "title": "R 沉睡之力-沙玛什法典 符文伤害",
+          "bases": "160,240,320",
+          "formula": "base + ap * 0.8",
+          "source": "in-game-client",
+          "coefficientText": "[沙玛什法典] 符文伤害量 160/240/320(+技能增幅80%)",
+          "note": "法典留下符文区域，0.5 秒后对路径上的敌人再结算这一段。这是 R 自己的新段，跟 R 等级走（3 级）。"
+        },
+        {
+          "id": "release-66-r-03",
+          "title": "R 沉睡之力-巴比伦骰子 屏障伤害",
+          "bases": "100,140,180",
+          "formula": "base + ap * 0.4",
+          "source": "in-game-client",
+          "coefficientText": "[巴比伦骰子] 屏障伤害量 100/140/180(+技能增幅40%)",
+          "note": "四周结界在 5 秒内按顺序依次被摧毁，每次摧毁结算一段。碰到结界的敌人束缚 0.9/1/1.1 秒。这是 R 自己的新段，跟 R 等级走（3 级）。"
+        },
+        {
+          "id": "release-66-r-04",
+          "title": "R 沉睡之力-巴比伦骰子 区域伤害",
+          "bases": "60,80,100,120,140",
+          "formula": "base + ap * 0.45",
+          "source": "in-game-client",
+          "coefficientText": "对区域范围内的敌人 60(+技能增幅45%)",
+          "note": "沿用巴比伦魔方(W)的召唤伤害数值表，跟 W 的等级走（5 级）。命中者 0.3 秒内移速 -50%。原先记的是 10/30/50/70/90(+技能增幅20%)，已按客户端改。"
+        },
+        {
+          "id": "release-66-r-05",
+          "title": "R 沉睡之力-巴比伦骰子 消失伤害",
+          "bases": "50,80,110,140,170",
+          "formula": "base + ap * 0.65",
+          "source": "in-game-client",
+          "coefficientText": "所有边缘被破坏后消失时 50(+技能增幅65%)",
+          "note": "沿用巴比伦魔方(W)的消失伤害数值表，跟 W 的等级走（5 级）。命中者晕厥 1 秒。原先系数记成 60%，已按客户端改为 65%。"
+        },
+        {
+          "id": "release-66-r-06",
+          "title": "R 沉睡之力-尼姆鲁德之门 石碑伤害",
+          "bases": "80,110,140,170,200",
+          "formula": "base + ap * 0.55",
+          "source": "in-game-client",
+          "coefficientText": "对敌人 80(+技能增幅55%)并推离",
+          "note": "沿用尼姆鲁德石碑(E)的数值表，跟 E 的等级走（5 级）。强化版使用距离 +4/4.5/5m，并在指定位置和自身位置各掉一块石碑，两块之间形成可移动 1 次、维持 5 秒的次元门。原先记的是 40/70/100/130/160(+技能增幅30%)，已按客户端改。"
+        },
+        {
+          "create": true,
+          "id": "ingame-066-arda-p-1066100-essence-heal",
+          "hero": "阿尔达",
+          "slot": "P",
+          "group": 1066100,
+          "skillId": "ArdaPassive",
+          "dataKey": "EssenceHeal",
+          "title": "P 文物探索 考古分析 体力恢复",
+          "bases": "50,85,120",
+          "formula": "base + ap * 0.1",
+          "kind": "heal",
+          "source": "in-game-client",
+          "coefficientText": "体力恢复 50/85/120(+技能增幅10%)",
+          "note": "用文物对敌人造成伤害时获得远古精髓，叠满 5/4/3 层时使阿尔达和周围队友恢复这么多体力。每个独立技能只能获得一次远古精髓。文物保护那部分只有沉默区域，没有伤害。"
+        }
+      ],
+      "equipment": [],
+      "characters": [],
+      "mastery": []
+    },
+    {
+      "version": "client-12.1-charlotte",
+      "order": 20260822,
+      "date": "2026-08-22",
+      "url": "",
+      "label": "12.1",
+      "title": "客户端截图读值：夏洛特（12.1）",
+      "skills": [
+        {
+          "id": "external-charlotte-q-1073200-damage-stat1",
+          "title": "Q 幻影流光",
+          "bases": "120,150,180,210,240",
+          "formula": "base + ap * 1",
+          "source": "in-game-client",
+          "coefficientText": "伤害 120/150/180/210/240(+技能增幅100%)",
+          "note": "在指定位置放一个持续 2 秒的光球，光球飞向范围内最近的敌人并附着其上，一段时间后爆炸结算。命中者 1.5 秒内移速 -65%，之后 1.5 秒逐渐恢复。冷却 8/7.5/7/6.5/6 秒。"
+        },
+        {
+          "create": true,
+          "id": "ingame-073-charlotte-w-1073300-heal",
+          "hero": "夏洛特",
+          "slot": "W",
+          "group": 1073300,
+          "skillId": "CharlotteActive2",
+          "dataKey": "Heal",
+          "title": "W 月光祈愿 体力恢复",
+          "bases": "30,50,70,90,110",
+          "formula": "base + ap * 0.15",
+          "kind": "heal",
+          "source": "in-game-client",
+          "coefficientText": "体力恢复 30/50/70/90/110(+技能增幅15%)",
+          "note": "释放治愈之光，使体力百分比最低的队友和自身各恢复这么多体力。冷却 7.27 秒。"
+        },
+        {
+          "create": true,
+          "id": "ingame-073-charlotte-e-1073400-shield",
+          "hero": "夏洛特",
+          "slot": "E",
+          "group": 1073400,
+          "skillId": "CharlotteActive3",
+          "dataKey": "Shield",
+          "title": "E 希望的轨迹 护盾",
+          "bases": "50,80,110,140,170",
+          "formula": "base + ap * 0.3",
+          "kind": "shield",
+          "source": "in-game-client",
+          "coefficientText": "护盾吸收 50/80/110/140/170(+技能增幅30%)",
+          "note": "以无法被指定的状态移动到指定队友身边，给自身和该队友各一层护盾，持续 2.5 秒。对自己施法时无需移动，立即获得护盾。冷却 9/8.5/8/7.5/7 秒。"
+        },
+        {
+          "create": true,
+          "id": "ingame-073-charlotte-r-1073500-passive-ap",
+          "hero": "夏洛特",
+          "slot": "R",
+          "group": 1073500,
+          "skillId": "CharlotteActive4Passive",
+          "dataKey": "PassiveSkillAmp",
+          "title": "R 奇迹降临 被动技能增幅",
+          "bases": "10,20,30",
+          "formula": "base",
+          "kind": "buff",
+          "buffKey": "ap",
+          "source": "in-game-client",
+          "coefficientText": "技能增幅 10/20/30",
+          "note": "被动常驻，直接加技能增幅点数（不是百分比）。主动部分是 1.5 秒后使周围队友进入 1.5 秒无敌，没有伤害。冷却 80/70/60 秒。",
+          "defaultStacks": 1
+        },
+        {
+          "create": true,
+          "id": "ingame-073-charlotte-p-1073100-heal-shield-amp",
+          "hero": "夏洛特",
+          "slot": "P",
+          "group": 1073100,
+          "skillId": "CharlottePassive",
+          "dataKey": "HealShieldAmp",
+          "title": "P 圣洁之心 恢复与护盾增幅",
+          "bases": "1,3,5",
+          "formula": "base",
+          "kind": "buff",
+          "buffKey": "healShieldAmp",
+          "maxStacks": 3,
+          "stackLabel": "圣洁之心叠层",
+          "source": "in-game-client",
+          "coefficientText": "给予恢复和护盾增加(%) 1/3/5% 每层，叠层上限 3",
+          "note": "每当周围队友因敌人攻击导致体力减少 30% 时获得一层，最多 3 层。加成作用在 W 的恢复量和 E 的护盾量上。"
+        }
+      ],
+      "equipment": [],
+      "characters": [],
+      "mastery": []
+    },
+    {
+      "version": "client-12.1-martina",
+      "order": 20260823,
+      "date": "2026-08-23",
+      "url": "",
+      "label": "12.1",
+      "title": "客户端截图读值：玛蒂娜（12.1）",
+      "skills": [
+        {
+          "id": "external-martina-q-1057200-damage-stat1",
+          "title": "Q 快进 - 采访中",
+          "bases": "60,75,90,105,120",
+          "formula": "base + attack * 0.7",
+          "form": "采访中",
+          "source": "in-game-client",
+          "coefficientText": "伤害 60/75/90/105/120(+攻击力的70%)",
+          "note": "朝指定方向拍摄。技能命中时缩减 35% 冷却；消耗标识时移速在 1.8/1.9/2/2.1/2.2 秒内 +15/20/25/30/35%。冷却 7/6.5/6/5.5/5 秒。原先系数记成 80%，已按客户端改为 70%。"
+        },
+        {
+          "id": "external-martina-w-1057300-damage-stat1",
+          "title": "W 暂停 - 采访中",
+          "bases": "90,120,150,180,210",
+          "formula": "base + attack * 0.7",
+          "form": "采访中",
+          "source": "in-game-client",
+          "coefficientText": "伤害 90/120/150/180/210(+攻击力的70%)",
+          "note": "设置维持 12 秒的微型相机，用快进(Q)命中相机时相机朝玛蒂娜方向拍摄并结算，命中者 1 秒内移速 -99%。最多持有 2 个、一次最多设置 2 个。蓄能 14/13/12/11/10 秒。"
+        },
+        {
+          "id": "external-martina-p-1057100-interview-mark-damage-stat1",
+          "title": "P 播放 标识消耗伤害 - 采访中",
+          "bases": "50,50,50",
+          "formula": "base + attack * [0.55,0.65,0.75][level - 1]",
+          "form": "采访中",
+          "source": "in-game-client",
+          "coefficientText": "[采访中] 50(+攻击力的55/65/75%)",
+          "note": "普攻连续造成 4 次伤害后给敌人挂标识，用技能命中被标识的敌人时消耗标识并结算这一段。原先记的是 60/65/70(+攻击力20%)，基础值和系数都不对，已按客户端改成固定 50 + 分级系数。"
+        },
+        {
+          "create": true,
+          "id": "ingame-057-martina-p-1057100-basic-attack-interview",
+          "hero": "玛蒂娜",
+          "slot": "P",
+          "group": 1057100,
+          "skillId": "MartinaPassive",
+          "dataKey": "BasicAttackInterview",
+          "title": "P 播放 4K相机普攻 - 采访中",
+          "bases": "0,0,0",
+          "formula": "attack * 0.2",
+          "damageType": "basicAttack",
+          "form": "采访中",
+          "source": "in-game-client",
+          "coefficientText": "(攻击力的20%) * (普攻增幅)",
+          "note": "4K 高清相机每次普攻都消耗电力，充满电（0.5 秒）之前无法再次普攻。这是替换普攻，不要和面板上的「普通攻击」相加。普攻还能获得目标视野；攻击速度每 +1%，攻击力 +0.2%（该转换未建模）。"
+        },
+        {
+          "id": "external-martina-q-1057210-damage-stat1",
+          "title": "Q 快进 - 报道中",
+          "bases": "50,80,110,140,170",
+          "formula": "base + attack * 0.9",
+          "form": "报道中",
+          "source": "in-game-client",
+          "coefficientText": "伤害 50/80/110/140/170(+攻击力的90%)",
+          "note": "报道中强化版：射程与伤害提升。消耗标识时移速 +15~35%、攻速在 3 秒内 +30/35/40/45/50%。冷却 7/6.5/6/5.5/5 秒。原先和采访中记成同一份数值，已按客户端分开。"
+        },
+        {
+          "id": "external-martina-w-1057310-damage-stat1",
+          "title": "W 暂停 - 报道中",
+          "bases": "110,140,170,200,230",
+          "formula": "base + attack * 0.85",
+          "form": "报道中",
+          "source": "in-game-client",
+          "coefficientText": "伤害 110/140/170/200/230(+攻击力的85%)",
+          "note": "报道中拍摄会束缚敌人 1.2 秒，相机最多持有 3 个、一次最多设置 3 个。蓄能 14/13/12/11/10 秒。原先和采访中记成同一份数值，已按客户端分开。"
+        },
+        {
+          "create": true,
+          "id": "ingame-057-martina-e-1057410-return-damage",
+          "hero": "玛蒂娜",
+          "slot": "E",
+          "group": 1057410,
+          "skillId": "MartinaActive3_1",
+          "dataKey": "ReturnDamage",
+          "title": "E 倒带 - 报道中 返回伤害",
+          "bases": "50,80,110,140,170",
+          "formula": "base + attack * 0.4",
+          "form": "报道中",
+          "source": "in-game-client",
+          "coefficientText": "伤害 50/80/110/140/170(+攻击力的40%)",
+          "note": "结束倒带后免疫负面状态快速返回录像带，路上碰到的敌人结算这一段并晕厥 1 秒。冷却 17/16/15/14/13 秒。采访中的倒带只有减速没有伤害，所以那一态没有这条。"
+        },
+        {
+          "id": "patch-116-martina-1057500-recording-edge-damage",
+          "title": "R 录像-外围 拍摄中伤害",
+          "bases": "10,15,20",
+          "formula": "base + attack * 0.15",
+          "form": "报道中",
+          "source": "in-game-client",
+          "coefficientText": "拍摄中外围伤害量 10/15/20(+攻击力15%)",
+          "note": "朝指定方向拍摄，1.5 秒间对范围内敌人结算，同时敌人防御力 -15%。冷却 80/70/60 秒。"
+        },
+        {
+          "id": "patch-116-martina-1057500-recording-center-damage",
+          "title": "R 录像-内围 拍摄中伤害",
+          "bases": "20,25,30",
+          "formula": "base + attack * 0.2",
+          "form": "报道中",
+          "source": "in-game-client",
+          "coefficientText": "拍摄中内围伤害量 20/25/30(+攻击力20%)",
+          "note": "处于中心位置的敌人改吃这一段，与外围段互斥。"
+        },
+        {
+          "id": "patch-116-martina-1057500-recording-complete-edge-damage",
+          "title": "R 录像-外围 结束拍摄伤害",
+          "bases": "100,200,300",
+          "formula": "base + attack * 0.9",
+          "form": "报道中",
+          "source": "in-game-client",
+          "coefficientText": "结束拍摄时外围伤害量 100/200/300(+攻击力90%)",
+          "note": "录像持续时间结束时结算，命中者晕厥 0.7 秒。"
+        },
+        {
+          "id": "patch-116-martina-1057500-recording-complete-center-damage",
+          "title": "R 录像-内围 结束拍摄伤害",
+          "bases": "200,325,450",
+          "formula": "base + attack * 1.3",
+          "form": "报道中",
+          "source": "in-game-client",
+          "coefficientText": "结束拍摄时内围伤害量 200/325/450(+攻击力130%)",
+          "note": "处于中心位置的敌人改吃这一段，与外围段互斥。"
+        },
+        {
+          "create": true,
+          "id": "ingame-057-martina-p-1057100-report-mark-damage",
+          "hero": "玛蒂娜",
+          "slot": "P",
+          "group": 1057100,
+          "skillId": "MartinaPassive",
+          "dataKey": "ReportMarkDamage",
+          "title": "P 播放 标识消耗伤害 - 报道中",
+          "bases": "100,100,100",
+          "formula": "base + attack * [0.7,0.85,1][level - 1]",
+          "form": "报道中",
+          "source": "in-game-client",
+          "coefficientText": "[报道中] 100(+攻击力的70/85/100%)",
+          "note": "报道中用技能命中被标识的敌人时消耗标识并结算这一段。"
+        },
+        {
+          "create": true,
+          "id": "ingame-057-martina-p-1057100-basic-attack-report",
+          "hero": "玛蒂娜",
+          "slot": "P",
+          "group": 1057100,
+          "skillId": "MartinaPassive",
+          "dataKey": "BasicAttackReport",
+          "title": "P 播放 4K相机普攻 - 报道中",
+          "bases": "0,0,0",
+          "formula": "attack * 0.55",
+          "damageType": "basicAttack",
+          "form": "报道中",
+          "source": "in-game-client",
+          "coefficientText": "(攻击力55%) * (普攻增幅)",
+          "note": "报道中普攻系数由 20% 提升到 55%。同样是替换普攻，不要和面板上的「普通攻击」相加。"
+        }
+      ],
+      "equipment": [],
+      "characters": [],
+      "mastery": []
+    },
+    {
+      "version": "client-12.1-jackie",
+      "order": 20260824,
+      "date": "2026-08-24",
+      "url": "",
+      "label": "12.1",
+      "title": "客户端截图读值：杰琪（12.1）",
+      "skills": [
+        {
+          "id": "001-jackie-q-1001200-damage-by-level",
+          "remove": true
+        },
+        {
+          "id": "001-jackie-q-1001200-dfs-damage-by-level",
+          "remove": true
+        },
+        {
+          "id": "001-jackie-r-1001500-dfs-damage-by-level",
+          "remove": true
+        },
+        {
+          "id": "001-jackie-r-1001500-finish-damage-by-level",
+          "remove": true
+        },
+        {
+          "id": "001-jackie-r-1001510-dfs-damage-by-level",
+          "remove": true
+        },
+        {
+          "id": "001-jackie-r-1001510-finish-damage-by-level",
+          "remove": true
+        },
+        {
+          "id": "001-jackie-q-1001200-damage-by-level-2",
+          "title": "Q 连斩 伤害",
+          "bases": "30,50,70,90,110",
+          "formula": "base + attack * 0.4 + targetCurrentHp * 0.06",
+          "source": "in-game-client",
+          "coefficientText": "伤害 30/50/70/90/110(+攻击力40%)(+目标当前体力6%)",
+          "note": "朝指定方向突进并挥动武器。命中敌人时可在 3 秒内再次使用。冷却 12/11/10/9/8 秒。原先系数记成 攻击力50% + 目标当前体力7%，已按客户端改为 40% / 6%。「恢复所造成伤害 30% 的体力」取决于实际打出多少，模型里没有这个量，未建。"
+        },
+        {
+          "create": true,
+          "id": "ingame-001-jackie-q-1001200-max-bleed-damage",
+          "hero": "杰琪",
+          "slot": "Q",
+          "group": 1001200,
+          "skillId": "JackieActive1",
+          "dataKey": "MaxBleedDamage",
+          "title": "Q 连斩-满流血 伤害",
+          "bases": "30,50,70,90,110",
+          "formula": "(base + attack * 0.4 + targetCurrentHp * 0.06) * 1.3",
+          "source": "in-game-client",
+          "coefficientText": "对达到流血叠层上限的目标伤害 +30%",
+          "note": "目标身上流血叠满 5 层时改吃这一段，与普通段互斥不是叠加。"
+        },
+        {
+          "id": "augment-001-jackie-w-1001300-damage-stat1",
+          "title": "W 断筋 强化普攻额外伤害",
+          "bases": "10,20,30,40,50",
+          "formula": "base + extraAttack * [0.2,0.3,0.4,0.5,0.6][level - 1]",
+          "kind": "basicAttack",
+          "source": "in-game-client",
+          "coefficientText": "伤害 10/20/30/40/50(+额外攻击力的 20/30/40/50/60%)",
+          "note": "强化下一次普攻，命中者 0.85 秒内移速 -60/65/70/75/80%。冷却 5.71 秒。原先系数记成固定的攻击力 20%，已按客户端改成分级的额外攻击力系数。注意：用双剑武器组时官方改为「+攻击力120%」，那是替换不是叠加，模型按通用（额外攻击力）那一档算。"
+        },
+        {
+          "id": "001-jackie-e-1001400-damage-by-level",
+          "title": "E 袭击 伤害",
+          "bases": "50,90,130,170,210",
+          "formula": "base + attack * 0.8",
+          "source": "in-game-client",
+          "coefficientText": "伤害 50/90/130/170/210(+攻击力80%)",
+          "note": "跃向指定位置，对周围敌人结算。冷却 16/15/14/13/12 秒。被动：参与击杀实验体时重置冷却；普攻命中流血满层的目标时冷却 -0.5 秒。原先记的是 10/80/150/220/290 + 分级系数 50~90%，已按客户端改。"
+        },
+        {
+          "create": true,
+          "id": "ingame-001-jackie-r-1001510-slaughter-damage",
+          "hero": "杰琪",
+          "slot": "R",
+          "group": 1001510,
+          "skillId": "JackieActive4",
+          "dataKey": "SlaughterDamage",
+          "title": "R 屠杀 伤害",
+          "bases": "50,125,200",
+          "formula": "(base + attack * 0.4) * (1 + Math.min(1, targetLostHp / (targetHp * 0.7)))",
+          "source": "in-game-client",
+          "coefficientText": "[屠杀] 伤害量 50/125/200，按敌人已失体力在 50(+攻击力40%) ~ 100(+攻击力80%) 之间变化",
+          "note": "电锯激活期间再次使用即可屠杀。目标当前体力降到体力上限 30% 时伤害达到最大值，所以插值分母取「体力上限 × 70%」。参与击杀实验体时可以再次使用屠杀。电锯杀人狂本体只给 8/9/10 秒的移速 +8/10/12%、攻速 +20/30/40%，没有伤害。冷却 70/65/60 秒。「恢复所造成伤害 25% 的体力」取决于实际打出多少，未建模。"
+        },
+        {
+          "create": true,
+          "id": "ingame-001-jackie-p-1001100-bleed-damage",
+          "hero": "杰琪",
+          "slot": "P",
+          "group": 1001100,
+          "skillId": "JackiePassive",
+          "dataKey": "BleedDamage",
+          "title": "P 鲜血盛宴 流血伤害（每层）",
+          "bases": "10,20,30",
+          "formula": "base + attack * 0.25",
+          "maxHits": 5,
+          "defaultHits": 5,
+          "hitLabel": "流血叠层",
+          "hitNote": "普攻或技能造成伤害时挂 6 秒流血，最多叠 5 层，逐层独立结算。",
+          "source": "in-game-client",
+          "coefficientText": "流血伤害 10/20/30(+攻击力25%)",
+          "note": "造成持续伤害的独立技能每 0.3 秒适用一次判定。"
+        },
+        {
+          "create": true,
+          "id": "ingame-001-jackie-p-1001100-adrenaline-damage",
+          "hero": "杰琪",
+          "slot": "P",
+          "group": 1001100,
+          "skillId": "JackiePassive",
+          "dataKey": "AdrenalineDamage",
+          "title": "P 鲜血盛宴 分泌肾上腺素 额外伤害",
+          "bases": "10,25,40",
+          "formula": "base + attack * [0.14,0.16,0.18][level - 1]",
+          "source": "in-game-client",
+          "coefficientText": "额外伤害 10/25/40(+攻击力 14/16/18%)",
+          "note": "流血叠满或参与击杀实验体时进入持续 5 秒的分泌肾上腺素状态，期间每次普攻或技能命中都直接给敌人挂满流血叠层并附带这一段额外技能伤害。该状态只有对实验体和终极野怪叠满流血才会触发。"
+        },
+        {
+          "create": true,
+          "id": "ingame-001-jackie-p-1001100-adrenaline-heal",
+          "hero": "杰琪",
+          "slot": "P",
+          "group": 1001100,
+          "skillId": "JackiePassive",
+          "dataKey": "AdrenalineHeal",
+          "title": "P 鲜血盛宴 分泌肾上腺素 体力恢复",
+          "bases": "10,15,20",
+          "formula": "(base + attack * 0.1) * (1 + Math.min(1, selfLostHp / (maxHp * 0.6)))",
+          "kind": "heal",
+          "source": "in-game-client",
+          "coefficientText": "体力恢复 10/15/20，按自身已失体力在 10(+攻击力10%) ~ 20(+攻击力20%) 之间变化",
+          "note": "分泌肾上腺素状态下每次造成普攻或技能伤害时恢复一次。杰琪体力低于 40% 时恢复量达到最大，所以插值分母取「体力上限 × 60%」。"
         }
       ],
       "equipment": [],
