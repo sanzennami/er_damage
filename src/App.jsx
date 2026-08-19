@@ -4152,7 +4152,7 @@ export default function App() {
               </button>
             </div>
           </div>
-          <p className="intro">选择英雄、装备和潜能后即时计算法强、防穿、防御修正、原始伤害与最终伤害。</p>
+          <p className="intro">一个配装/伤害计算器，预览不同配装下的技能伤害、打在敌人身上的理论伤害。可以拉表对比不同配装的属性。</p>
           <div className={`heroPicker compactHeroPicker ${useHeroAvatarPicker ? 'avatarHeroPickerMode' : ''}`}>
             <div className="heroPickerTop">
               <label className="selectBlock">
@@ -4195,7 +4195,7 @@ export default function App() {
                           checked={showDamageTestHeroes}
                           onChange={(event) => setShowDamageTestHeroes(event.target.checked)}
                         />
-                        <span>显示技能伤害统计测试英雄</span>
+                        <span>显示未校对的其他英雄（意思是公式没校对完，有些能用，有些技能伤害公式有问题）</span>
                       </label>
                     ) : null}
                     <label className="toggle">
@@ -4431,7 +4431,7 @@ export default function App() {
 
         <details className="currentStatsBlock buildTargetStatsBlock collapsibleStats">
           <summary className="panelSubhead">
-            <strong>当前属性汇总</strong>
+            <strong>当前角色属性汇总</strong>
             <span>{visibleEquipmentStats.length + 5} 项显示</span>
           </summary>
           <div className="attributePanel">
@@ -4469,12 +4469,12 @@ export default function App() {
       </section>
 
       <section className="stats">
-        <StatCard label="最终法强" value={result.ap} hint={`${round(result.totalBaseAp, 1)} * (1 + ${pct(result.totalApPct)})`} note={help('stat.equipAp')} />
-        <StatCard label="最终攻击" value={round(finalAttack, 1)} hint={attackBreakdownHint} note={help('stat.finalAttack')} />
-        <StatCard label="最终防御" value={round(result.finalDefense, 1)} hint={`防御修正 ${pct(result.defenseMod)}`} note={help('stat.finalDefense')} />
-        <StatCard label="防穿" value={`${result.pen} / ${pct(result.penPct)}`} hint="数值 / 百分比" note={help('stat.pen')} />
-        <StatCard label="伤害提升" value={pct(result.totalDamageBonus)} hint={`装备 ${pct(result.equipDamageBonus)} / 潜能 ${pct(result.talentDamageBonus)} / 手动 ${pct(damageBonus)}`} note={help('stat.damageBonus')} />
-        <StatCard label="技能减伤" value={pct(result.totalSkillReduction)} hint={`目标熟练 ${pct(result.targetMasterySkillReduction)} / 手动 ${pct(skillReduction)}，平A熟练减伤 ${pct(result.targetMasteryBasicReduction)}`} note={help('field.targetMastery')} />
+        <StatCard label="自身最终法强" value={result.ap} hint={`${round(result.totalBaseAp, 1)} * (1 + ${pct(result.totalApPct)})`} note={help('stat.equipAp')} />
+        <StatCard label="自身最终攻击力" value={round(finalAttack, 1)} hint={attackBreakdownHint} note={help('stat.finalAttack')} />
+        <StatCard label="对目标：目标最终防御" value={round(result.finalDefense, 1)} hint={`防御修正 ${pct(result.defenseMod)}`} note={help('stat.finalDefense')} />
+        <StatCard label="防御穿透" value={`${result.pen} / ${pct(result.penPct)}`} hint="数值 / 百分比" note={help('stat.pen')} />
+        <StatCard label="自身伤害提升" value={pct(result.totalDamageBonus)} hint={`装备 ${pct(result.equipDamageBonus)} / 潜能 ${pct(result.talentDamageBonus)} / 手动 ${pct(damageBonus)}`} note={help('stat.damageBonus')} />
+        <StatCard label="目标身上的技能减伤" value={pct(result.totalSkillReduction)} hint={`目标熟练 ${pct(result.targetMasterySkillReduction)} / 手动 ${pct(skillReduction)}，平A熟练减伤 ${pct(result.targetMasteryBasicReduction)}`} note={help('field.targetMastery')} />
         <StatCard label="增减伤合算" value={pct(result.damageMod - 1)} hint={`最终倍率 ${round(result.damageMod, 3)}`} note={help('stat.damageMod')} />
         {showBasicAttackAmp ? (
           <StatCard
