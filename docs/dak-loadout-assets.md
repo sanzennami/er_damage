@@ -6,7 +6,7 @@
 - https://er.dakgg.io/api/v1/data/trait-skills?hl=zh-CN
 - https://er.dakgg.io/api/v1/data/tactical-skills?hl=zh-CN
 
-生成时间：2026-05-21T19:37:53.336Z
+生成时间：2026-08-19T07:38:43.726Z
 
 ## 命名规范
 
@@ -22,8 +22,8 @@
 | --- | --- | --- | --- | --- |
 | Havoc | 破坏型 | 强化攻击 & 持续性伤害 | /assets/loadout/trait-groups/group-havoc.png | 绝对武力 (核心, 7000201)<br>吸血鬼 (核心, 7000401)<br>肾上腺素 (核心, 7000601)<br>加速度 (核心, 7000701)<br>爆发力 (辅助 1, 7010501)<br>狂乱 (辅助 1, 7010901)<br>弱肉强食 (辅助 1, 7011001)<br>伤痕 (辅助 1, 7011501)<br>猎魂・熊 (辅助 2, 7011101)<br>猎魂・野猪 (辅助 2, 7011201)<br>猎魂・狼 (辅助 2, 7011301)<br>猎魂・野狗 (辅助 2, 7011401) |
 | Fortification | 抵抗型 | 耐久性 & 负面效果 | /assets/loadout/trait-groups/group-fortification.png | 金刚碎片 (核心, 7100101)<br>铁匠的觉悟 (核心, 7100201)<br>天使护翼 (核心, 7100401)<br>惩戒 (核心, 7100501)<br>无惧感 (辅助 1, 7110101)<br>镇痛剂 (辅助 1, 7111001)<br>不屈 (辅助 1, 7110701)<br>警戒心 (辅助 1, 7111101)<br>钢化 (辅助 2, 7110401)<br>贪吃蛇 (辅助 2, 7110601)<br>特工队 (辅助 2, 7110201)<br>淬火 (辅助 2, 7111201) |
-| Support | 支援型 | 创新式的战斗辅助 | /assets/loadout/trait-groups/group-support.png | 超再生 (核心, 7200101)<br>强化装置 (核心, 7200201)<br>治愈装置 (核心, 7200301)<br>无私 (核心, 7200501)<br>狩猎的快感 (辅助 1, 7211001)<br>荆棘丛 (辅助 1, 7210101)<br>压迫感 (辅助 1, 7211401)<br>爆炸仙人掌 (辅助 1, 7211301)<br>补给员 (辅助 2, 7210401)<br>金币法则 (辅助 2, 7211101)<br>优惠券 (辅助 2, 7210801)<br>露营指南 (辅助 2, 7110801) |
-| Chaos | 混沌型 | 巨大的额外伤害&辅助技能 | /assets/loadout/trait-groups/group-chaos.png | 星尘蓄势 (核心, 7300101)<br>鬼火 (核心, 7300201)<br>霹雳 (核心, 7000501)<br>涡流 (核心, 7300301)<br>循环系统 (辅助 1, 7310201)<br>伤口撕裂 (辅助 1, 7010701)<br>制动力 (辅助 1, 7310401)<br>急速射击 (辅助 1, 7310601)<br>凝力 (辅助 2, 7310101)<br>超频 (辅助 2, 7310301)<br>R_echarger (辅助 2, 7310501) |
+| Support | 支援型 | 创新式的战斗辅助 | /assets/loadout/trait-groups/group-support.png | 爆炸仙人掌 (核心, 7211301)<br>强化装置 (核心, 7200201)<br>治愈装置 (核心, 7200301)<br>无私 (核心, 7200501)<br>狩猎的快感 (辅助 1, 7211001)<br>荆棘丛 (辅助 1, 7210101)<br>压迫感 (辅助 1, 7211401)<br>超再生 (辅助 1, 7200101)<br>补给员 (辅助 2, 7210401)<br>金币法则 (辅助 2, 7211101)<br>优惠券 (辅助 2, 7210801)<br>露营指南 (辅助 2, 7110801) |
+| Chaos | 混沌型 | 巨大的额外伤害&辅助技能 | /assets/loadout/trait-groups/group-chaos.png | 星尘蓄势 (核心, 7300101)<br>鬼火 (核心, 7300201)<br>霹雳 (核心, 7000501)<br>涡流 (核心, 7300301)<br>循环系统 (辅助 1, 7310201)<br>伤口撕裂 (辅助 1, 7010701)<br>制动力 (辅助 1, 7310401)<br>急速射击 (辅助 1, 7310601)<br>凝力 (辅助 2, 7310101)<br>超频 (辅助 2, 7310301)<br>R_echarger (辅助 2, 7310501)<br>天界典藏 (辅助 2, 7310701) |
 
 ## 未启用/旧潜能
 
@@ -58,7 +58,7 @@
 | 150 | 治愈之风 | 恢复范围内盟友的体力。 强化效果 : 被风扫过的队友，在一定时间内将额外恢复体力。 | /assets/loadout/tactical-skills/tactical-150.png |
 | 160 | 斥力弹 | 使用时，短距离进行位移，并对到达位置周围距离最近的敌方实验体发射导弹，对命中的敌人造成真实伤害。 强化效果：额外发射导弹。 | /assets/loadout/tactical-skills/tactical-160.png |
 | 170 | 等离子冲击 | 使用时向前方短距离冲刺，并发射等离子能量，对命中的敌人造成技能伤害并降低其移动速度。 即使被多个投射物命中，也仅触发一次伤害。 强化效果： 降低被投射物命中的敌人的防御力。 | /assets/loadout/tactical-skills/tactical-170.png |
-| 190 | 光之翼 | 使用时，移除自身承受的移动速度降低效果，并在一定时间内提升移动速度与攻击速度。普攻命中敌方实验体时，降低目标移动速度。 强化效果：普攻命中敌方实验体时，增加持续时间。 | /assets/loadout/tactical-skills/tactical-190.png |
+| 190 | 光之翼 | 使用时，移除自身承受的移动速度降低效果，并在一定时间内提升移动速度与攻击速度。 强化效果：普攻命中敌方实验体时，增加持续时间。 | /assets/loadout/tactical-skills/tactical-190.png |
 | 500010 | 未命名战术技能 500010 |  | /assets/loadout/tactical-skills/tactical-500010.png |
 | 500020 | 重力场 | 稍后将敌人拉至自身周围，并使其陷入晕厥。 | /assets/loadout/tactical-skills/tactical-500020.png |
 | 500030 | 滚雷 | 大幅增加自身一段时间内的移动速度。 | /assets/loadout/tactical-skills/tactical-500030.png |
@@ -86,11 +86,11 @@
 | 500250 | 斥力弹 | 使用时，短距离进行位移，并对到达位置周围距离最近的敌方实验体发射导弹，对命中的敌人造成真实伤害。 强化效果：额外发射导弹。 | /assets/loadout/tactical-skills/tactical-500250.png |
 | 500260 | 等离子冲击 | 使用时向前方短距离冲刺，并发射等离子能量，对命中的敌人造成技能伤害并降低其移动速度。 即使被多个投射物命中，也仅触发一次伤害。 强化效果： 降低被投射物命中的敌人的防御力。 | /assets/loadout/tactical-skills/tactical-500260.png |
 | 500270 | 衰弱 | 降低指定敌方实验体的移动速度及其造成的伤害。 强化效果：赋予更强的效果。 | /assets/loadout/tactical-skills/tactical-500270.png |
-| 500280 | 光之翼 | 使用时，移除自身承受的移动速度降低效果，并在一定时间内提升移动速度与攻击速度。普攻命中敌方实验体时，降低目标移动速度。 强化效果：普攻命中敌方实验体时，增加持续时间。 | /assets/loadout/tactical-skills/tactical-500280.png |
-| 1000000 | 未命名战术技能 1000000 |  | 缺失：https://cdn.dak.gg/assets/er/game-assets/11.2.0/SkillIcon_1060000.png |
+| 500280 | 光之翼 | 使用时，移除自身承受的移动速度降低效果，并在一定时间内提升移动速度与攻击速度。 强化效果：普攻命中敌方实验体时，增加持续时间。 | /assets/loadout/tactical-skills/tactical-500280.png |
+| 1000000 | 未命名战术技能 1000000 |  | 缺失：https://cdn.dak.gg/assets/er/game-assets/12.1.0/SkillIcon_1060000.png |
 
 ## 缺失图片
 
 | id/key | 名称 | 原始 URL | 错误 |
 | --- | --- | --- | --- |
-| 1000000 | 未命名战术技能 1000000 | https://cdn.dak.gg/assets/er/game-assets/11.2.0/SkillIcon_1060000.png | Failed to download https://cdn.dak.gg/assets/er/game-assets/11.2.0/SkillIcon_1060000.png: 403 Forbidden |
+| 1000000 | 未命名战术技能 1000000 | https://cdn.dak.gg/assets/er/game-assets/12.1.0/SkillIcon_1060000.png | Failed to download https://cdn.dak.gg/assets/er/game-assets/12.1.0/SkillIcon_1060000.png: 403 Forbidden |

@@ -2,7 +2,7 @@
   "sourcePage": "https://dak.gg/er/routes/simulator/YuMin",
   "apiBase": "https://er.dakgg.io/api/v1/data",
   "locale": "zh-CN",
-  "generatedAt": "2026-05-21T19:37:53.336Z",
+  "generatedAt": "2026-08-19T07:38:43.726Z",
   "naming": {
     "traitGroups": "assets/loadout/trait-groups/group-{groupKey}.png",
     "traits": "assets/loadout/traits/trait-{id}-{groupKey}-{type}.png",
@@ -10,8 +10,8 @@
   },
   "counts": {
     "traitGroups": 4,
-    "traits": 139,
-    "activeTraits": 131,
+    "traits": 140,
+    "activeTraits": 132,
     "tacticalSkills": 44,
     "missingImages": 1
   },
@@ -21,9 +21,9 @@
       "name": "破坏型",
       "tooltip": "强化攻击 & 持续性伤害",
       "image": "/assets/loadout/trait-groups/group-havoc.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/TraitSkillIcon_Havoc02.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/TraitSkillIcon_Havoc02.png",
       "imageAvailable": true,
-      "byteSize": 7459,
+      "byteSize": 5666,
       "imageDownloadError": null
     },
     {
@@ -31,9 +31,9 @@
       "name": "抵抗型",
       "tooltip": "耐久性 & 负面效果",
       "image": "/assets/loadout/trait-groups/group-fortification.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/TraitSkillIcon_Fortification02.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/TraitSkillIcon_Fortification02.png",
       "imageAvailable": true,
-      "byteSize": 8472,
+      "byteSize": 7485,
       "imageDownloadError": null
     },
     {
@@ -41,9 +41,9 @@
       "name": "支援型",
       "tooltip": "创新式的战斗辅助",
       "image": "/assets/loadout/trait-groups/group-support.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/TraitSkillIcon_Support02.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/TraitSkillIcon_Support02.png",
       "imageAvailable": true,
-      "byteSize": 9069,
+      "byteSize": 6392,
       "imageDownloadError": null
     },
     {
@@ -51,9 +51,9 @@
       "name": "混沌型",
       "tooltip": "巨大的额外伤害&辅助技能",
       "image": "/assets/loadout/trait-groups/group-chaos.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/TraitSkillIcon_Chaos02.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/TraitSkillIcon_Chaos02.png",
       "imageAvailable": true,
-      "byteSize": 8881,
+      "byteSize": 8986,
       "imageDownloadError": null
     }
   ],
@@ -69,9 +69,9 @@
       "active": true,
       "sortOrder": 101,
       "image": "/assets/loadout/traits/trait-7000201-havoc-core.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/TraitSkillIcon_7000200.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/TraitSkillIcon_7000200.png",
       "imageAvailable": true,
-      "byteSize": 8689,
+      "byteSize": 8778,
       "imageDownloadError": null
     },
     {
@@ -85,9 +85,9 @@
       "active": true,
       "sortOrder": 102,
       "image": "/assets/loadout/traits/trait-7000401-havoc-core.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/TraitSkillIcon_7000400.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/TraitSkillIcon_7000400.png",
       "imageAvailable": true,
-      "byteSize": 8511,
+      "byteSize": 8435,
       "imageDownloadError": null
     },
     {
@@ -101,9 +101,9 @@
       "active": true,
       "sortOrder": 403,
       "image": "/assets/loadout/traits/trait-7000501-chaos-core.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/TraitSkillIcon_7000500.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/TraitSkillIcon_7000500.png",
       "imageAvailable": true,
-      "byteSize": 9191,
+      "byteSize": 9129,
       "imageDownloadError": null
     },
     {
@@ -117,9 +117,9 @@
       "active": true,
       "sortOrder": 103,
       "image": "/assets/loadout/traits/trait-7000601-havoc-core.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/TraitSkillIcon_7000600.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/TraitSkillIcon_7000600.png",
       "imageAvailable": true,
-      "byteSize": 9189,
+      "byteSize": 9276,
       "imageDownloadError": null
     },
     {
@@ -133,9 +133,9 @@
       "active": true,
       "sortOrder": 104,
       "image": "/assets/loadout/traits/trait-7000701-havoc-core.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/TraitSkillIcon_7000700.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/TraitSkillIcon_7000700.png",
       "imageAvailable": true,
-      "byteSize": 9211,
+      "byteSize": 9419,
       "imageDownloadError": null
     },
     {
@@ -149,9 +149,9 @@
       "active": false,
       "sortOrder": 1,
       "image": "/assets/loadout/traits/trait-7010101-none-none.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/TraitSkillIcon_7310400.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/TraitSkillIcon_7310400.png",
       "imageAvailable": true,
-      "byteSize": 10859,
+      "byteSize": 10969,
       "imageDownloadError": null
     },
     {
@@ -165,9 +165,9 @@
       "active": false,
       "sortOrder": 1,
       "image": "/assets/loadout/traits/trait-7010301-none-none.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/TraitSkillIcon_7010300.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/TraitSkillIcon_7010300.png",
       "imageAvailable": true,
-      "byteSize": 8679,
+      "byteSize": 8820,
       "imageDownloadError": null
     },
     {
@@ -181,9 +181,9 @@
       "active": false,
       "sortOrder": 1,
       "image": "/assets/loadout/traits/trait-7010311-havoc-none.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/TraitSkillIcon_7010310.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/TraitSkillIcon_7010310.png",
       "imageAvailable": true,
-      "byteSize": 8006,
+      "byteSize": 8010,
       "imageDownloadError": null
     },
     {
@@ -197,9 +197,9 @@
       "active": false,
       "sortOrder": 1,
       "image": "/assets/loadout/traits/trait-7010401-none-none.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/TraitSkillIcon_7010400.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/TraitSkillIcon_7010400.png",
       "imageAvailable": true,
-      "byteSize": 9227,
+      "byteSize": 9294,
       "imageDownloadError": null
     },
     {
@@ -213,9 +213,9 @@
       "active": true,
       "sortOrder": 111,
       "image": "/assets/loadout/traits/trait-7010501-havoc-sub1.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/TraitSkillIcon_7010500.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/TraitSkillIcon_7010500.png",
       "imageAvailable": true,
-      "byteSize": 8041,
+      "byteSize": 8003,
       "imageDownloadError": null
     },
     {
@@ -229,9 +229,9 @@
       "active": false,
       "sortOrder": 1,
       "image": "/assets/loadout/traits/trait-7010601-havoc-none.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/TraitSkillIcon_7010600.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/TraitSkillIcon_7010600.png",
       "imageAvailable": true,
-      "byteSize": 9383,
+      "byteSize": 9305,
       "imageDownloadError": null
     },
     {
@@ -245,9 +245,9 @@
       "active": true,
       "sortOrder": 412,
       "image": "/assets/loadout/traits/trait-7010701-chaos-sub1.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/TraitSkillIcon_7010700.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/TraitSkillIcon_7010700.png",
       "imageAvailable": true,
-      "byteSize": 9912,
+      "byteSize": 9816,
       "imageDownloadError": null
     },
     {
@@ -261,9 +261,9 @@
       "active": true,
       "sortOrder": 112,
       "image": "/assets/loadout/traits/trait-7010901-havoc-sub1.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/TraitSkillIcon_7010900.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/TraitSkillIcon_7010900.png",
       "imageAvailable": true,
-      "byteSize": 8675,
+      "byteSize": 8726,
       "imageDownloadError": null
     },
     {
@@ -277,9 +277,9 @@
       "active": true,
       "sortOrder": 113,
       "image": "/assets/loadout/traits/trait-7011001-havoc-sub1.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/TraitSkillIcon_7011000.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/TraitSkillIcon_7011000.png",
       "imageAvailable": true,
-      "byteSize": 9141,
+      "byteSize": 9083,
       "imageDownloadError": null
     },
     {
@@ -293,9 +293,9 @@
       "active": true,
       "sortOrder": 121,
       "image": "/assets/loadout/traits/trait-7011101-havoc-sub2.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/TraitSkillIcon_7011100.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/TraitSkillIcon_7011100.png",
       "imageAvailable": true,
-      "byteSize": 8911,
+      "byteSize": 8861,
       "imageDownloadError": null
     },
     {
@@ -309,9 +309,9 @@
       "active": true,
       "sortOrder": 122,
       "image": "/assets/loadout/traits/trait-7011201-havoc-sub2.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/TraitSkillIcon_7011200.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/TraitSkillIcon_7011200.png",
       "imageAvailable": true,
-      "byteSize": 9829,
+      "byteSize": 9847,
       "imageDownloadError": null
     },
     {
@@ -325,9 +325,9 @@
       "active": true,
       "sortOrder": 123,
       "image": "/assets/loadout/traits/trait-7011301-havoc-sub2.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/TraitSkillIcon_7011300.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/TraitSkillIcon_7011300.png",
       "imageAvailable": true,
-      "byteSize": 9010,
+      "byteSize": 9024,
       "imageDownloadError": null
     },
     {
@@ -341,9 +341,9 @@
       "active": true,
       "sortOrder": 124,
       "image": "/assets/loadout/traits/trait-7011401-havoc-sub2.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/TraitSkillIcon_7011400.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/TraitSkillIcon_7011400.png",
       "imageAvailable": true,
-      "byteSize": 8081,
+      "byteSize": 8205,
       "imageDownloadError": null
     },
     {
@@ -357,9 +357,9 @@
       "active": true,
       "sortOrder": 114,
       "image": "/assets/loadout/traits/trait-7011501-havoc-sub1.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/TraitSkillIcon_7011500.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/TraitSkillIcon_7011500.png",
       "imageAvailable": true,
-      "byteSize": 7879,
+      "byteSize": 8637,
       "imageDownloadError": null
     },
     {
@@ -373,9 +373,9 @@
       "active": true,
       "sortOrder": 201,
       "image": "/assets/loadout/traits/trait-7100101-fortification-core.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/TraitSkillIcon_7100100.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/TraitSkillIcon_7100100.png",
       "imageAvailable": true,
-      "byteSize": 10353,
+      "byteSize": 10346,
       "imageDownloadError": null
     },
     {
@@ -389,9 +389,9 @@
       "active": true,
       "sortOrder": 202,
       "image": "/assets/loadout/traits/trait-7100201-fortification-core.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/TraitSkillIcon_7100200.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/TraitSkillIcon_7100200.png",
       "imageAvailable": true,
-      "byteSize": 9684,
+      "byteSize": 9506,
       "imageDownloadError": null
     },
     {
@@ -405,9 +405,9 @@
       "active": true,
       "sortOrder": 203,
       "image": "/assets/loadout/traits/trait-7100401-fortification-core.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/TraitSkillIcon_7100400.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/TraitSkillIcon_7100400.png",
       "imageAvailable": true,
-      "byteSize": 9876,
+      "byteSize": 9773,
       "imageDownloadError": null
     },
     {
@@ -421,9 +421,9 @@
       "active": true,
       "sortOrder": 204,
       "image": "/assets/loadout/traits/trait-7100501-fortification-core.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/TraitSkillIcon_7100500.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/TraitSkillIcon_7100500.png",
       "imageAvailable": true,
-      "byteSize": 9593,
+      "byteSize": 9649,
       "imageDownloadError": null
     },
     {
@@ -437,9 +437,9 @@
       "active": true,
       "sortOrder": 211,
       "image": "/assets/loadout/traits/trait-7110101-fortification-sub1.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/TraitSkillIcon_7110100.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/TraitSkillIcon_7110100.png",
       "imageAvailable": true,
-      "byteSize": 9597,
+      "byteSize": 9645,
       "imageDownloadError": null
     },
     {
@@ -453,9 +453,9 @@
       "active": true,
       "sortOrder": 223,
       "image": "/assets/loadout/traits/trait-7110201-fortification-sub2.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/TraitSkillIcon_7110200.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/TraitSkillIcon_7110200.png",
       "imageAvailable": true,
-      "byteSize": 9493,
+      "byteSize": 9447,
       "imageDownloadError": null
     },
     {
@@ -469,9 +469,9 @@
       "active": true,
       "sortOrder": 221,
       "image": "/assets/loadout/traits/trait-7110401-fortification-sub2.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/TraitSkillIcon_7110400.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/TraitSkillIcon_7110400.png",
       "imageAvailable": true,
-      "byteSize": 7827,
+      "byteSize": 7980,
       "imageDownloadError": null
     },
     {
@@ -485,9 +485,9 @@
       "active": true,
       "sortOrder": 222,
       "image": "/assets/loadout/traits/trait-7110601-fortification-sub2.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/TraitSkillIcon_7110600.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/TraitSkillIcon_7110600.png",
       "imageAvailable": true,
-      "byteSize": 9502,
+      "byteSize": 9447,
       "imageDownloadError": null
     },
     {
@@ -501,9 +501,9 @@
       "active": true,
       "sortOrder": 213,
       "image": "/assets/loadout/traits/trait-7110701-fortification-sub1.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/TraitSkillIcon_7110700.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/TraitSkillIcon_7110700.png",
       "imageAvailable": true,
-      "byteSize": 9440,
+      "byteSize": 9445,
       "imageDownloadError": null
     },
     {
@@ -517,9 +517,9 @@
       "active": true,
       "sortOrder": 324,
       "image": "/assets/loadout/traits/trait-7110801-support-sub2.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/TraitSkillIcon_7110800.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/TraitSkillIcon_7110800.png",
       "imageAvailable": true,
-      "byteSize": 8775,
+      "byteSize": 8672,
       "imageDownloadError": null
     },
     {
@@ -533,9 +533,9 @@
       "active": false,
       "sortOrder": 123,
       "image": "/assets/loadout/traits/trait-7110901-havoc-none.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/TraitSkillIcon_7110900.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/TraitSkillIcon_7110900.png",
       "imageAvailable": true,
-      "byteSize": 9546,
+      "byteSize": 9496,
       "imageDownloadError": null
     },
     {
@@ -549,9 +549,9 @@
       "active": true,
       "sortOrder": 212,
       "image": "/assets/loadout/traits/trait-7111001-fortification-sub1.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/TraitSkillIcon_7111000.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/TraitSkillIcon_7111000.png",
       "imageAvailable": true,
-      "byteSize": 10522,
+      "byteSize": 10275,
       "imageDownloadError": null
     },
     {
@@ -565,9 +565,9 @@
       "active": true,
       "sortOrder": 214,
       "image": "/assets/loadout/traits/trait-7111101-fortification-sub1.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/TraitSkillIcon_7111100.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/TraitSkillIcon_7111100.png",
       "imageAvailable": true,
-      "byteSize": 8313,
+      "byteSize": 7753,
       "imageDownloadError": null
     },
     {
@@ -581,25 +581,25 @@
       "active": true,
       "sortOrder": 223,
       "image": "/assets/loadout/traits/trait-7111201-fortification-sub2.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/TraitSkillIcon_7111200.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/TraitSkillIcon_7111200.png",
       "imageAvailable": true,
-      "byteSize": 7666,
+      "byteSize": 8419,
       "imageDownloadError": null
     },
     {
       "id": 7200101,
       "name": "超再生",
-      "tooltip": "自身技能或潜能生成的护盾和体力恢复量持续增加。 因自身获得护盾或体力恢复效果的目标，增加攻击力或技能增幅。",
+      "tooltip": "持续增加自身技能或潜能生成的护盾和体力恢复量。",
       "group": "Support",
       "groupName": "支援型",
-      "type": "Core",
-      "typeName": "核心",
+      "type": "Sub1",
+      "typeName": "辅助 1",
       "active": true,
-      "sortOrder": 301,
-      "image": "/assets/loadout/traits/trait-7200101-support-core.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/TraitSkillIcon_7200100.png",
+      "sortOrder": 314,
+      "image": "/assets/loadout/traits/trait-7200101-support-sub1.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/TraitSkillIcon_7200100.png",
       "imageAvailable": true,
-      "byteSize": 9035,
+      "byteSize": 9043,
       "imageDownloadError": null
     },
     {
@@ -613,9 +613,9 @@
       "active": true,
       "sortOrder": 302,
       "image": "/assets/loadout/traits/trait-7200201-support-core.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/TraitSkillIcon_7200200.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/TraitSkillIcon_7200200.png",
       "imageAvailable": true,
-      "byteSize": 9359,
+      "byteSize": 9469,
       "imageDownloadError": null
     },
     {
@@ -629,9 +629,9 @@
       "active": true,
       "sortOrder": 303,
       "image": "/assets/loadout/traits/trait-7200301-support-core.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/TraitSkillIcon_7200300.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/TraitSkillIcon_7200300.png",
       "imageAvailable": true,
-      "byteSize": 10057,
+      "byteSize": 9993,
       "imageDownloadError": null
     },
     {
@@ -645,9 +645,9 @@
       "active": false,
       "sortOrder": 1,
       "image": "/assets/loadout/traits/trait-7200401-none-none.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/TraitSkillIcon_7200400.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/TraitSkillIcon_7200400.png",
       "imageAvailable": true,
-      "byteSize": 9507,
+      "byteSize": 9522,
       "imageDownloadError": null
     },
     {
@@ -661,7 +661,7 @@
       "active": true,
       "sortOrder": 304,
       "image": "/assets/loadout/traits/trait-7200501-support-core.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/TraitSkillIcon_7200500.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/TraitSkillIcon_7200500.png",
       "imageAvailable": true,
       "byteSize": 9777,
       "imageDownloadError": null
@@ -677,9 +677,9 @@
       "active": true,
       "sortOrder": 312,
       "image": "/assets/loadout/traits/trait-7210101-support-sub1.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/TraitSkillIcon_7210100.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/TraitSkillIcon_7210100.png",
       "imageAvailable": true,
-      "byteSize": 8101,
+      "byteSize": 8179,
       "imageDownloadError": null
     },
     {
@@ -693,9 +693,9 @@
       "active": true,
       "sortOrder": 321,
       "image": "/assets/loadout/traits/trait-7210401-support-sub2.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/TraitSkillIcon_7210400.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/TraitSkillIcon_7210400.png",
       "imageAvailable": true,
-      "byteSize": 9473,
+      "byteSize": 9471,
       "imageDownloadError": null
     },
     {
@@ -709,9 +709,9 @@
       "active": false,
       "sortOrder": 1,
       "image": "/assets/loadout/traits/trait-7210501-support-none.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/TraitSkillIcon_7210500.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/TraitSkillIcon_7210500.png",
       "imageAvailable": true,
-      "byteSize": 8922,
+      "byteSize": 8837,
       "imageDownloadError": null
     },
     {
@@ -725,9 +725,9 @@
       "active": true,
       "sortOrder": 323,
       "image": "/assets/loadout/traits/trait-7210801-support-sub2.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/TraitSkillIcon_7210800.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/TraitSkillIcon_7210800.png",
       "imageAvailable": true,
-      "byteSize": 9566,
+      "byteSize": 9544,
       "imageDownloadError": null
     },
     {
@@ -741,9 +741,9 @@
       "active": true,
       "sortOrder": 311,
       "image": "/assets/loadout/traits/trait-7211001-support-sub1.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/TraitSkillIcon_7211000.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/TraitSkillIcon_7211000.png",
       "imageAvailable": true,
-      "byteSize": 9068,
+      "byteSize": 8977,
       "imageDownloadError": null
     },
     {
@@ -757,25 +757,25 @@
       "active": true,
       "sortOrder": 322,
       "image": "/assets/loadout/traits/trait-7211101-support-sub2.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/TraitSkillIcon_7211100.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/TraitSkillIcon_7211100.png",
       "imageAvailable": true,
-      "byteSize": 9860,
+      "byteSize": 9918,
       "imageDownloadError": null
     },
     {
       "id": 7211301,
       "name": "爆炸仙人掌",
-      "tooltip": "对敌人造成伤害时，将为目标附着持续一段时间的仙人掌。 当该敌人承受我方队友普攻或者独立技能造成的伤害时，仙人掌将爆炸并造成伤害。 持续时间内未触发时，仙人掌将自动爆炸，造成较低的伤害。",
+      "tooltip": "使用普攻或独立技能对敌人实验体造成伤害时，会为其附着仙人掌。 队友使用普攻或独立技能攻击附着仙人掌的敌人时，仙人掌将爆炸并造成伤害 ，同时提高攻击者的移动速度。 若经过一段时间仍未触发，仙人掌会自行爆炸，造成较低的伤害。",
       "group": "Support",
       "groupName": "支援型",
-      "type": "Sub1",
-      "typeName": "辅助 1",
+      "type": "Core",
+      "typeName": "核心",
       "active": true,
-      "sortOrder": 314,
-      "image": "/assets/loadout/traits/trait-7211301-support-sub1.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/TraitSkillIcon_7211300.png",
+      "sortOrder": 301,
+      "image": "/assets/loadout/traits/trait-7211301-support-core.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/TraitSkillIcon_7211300.png",
       "imageAvailable": true,
-      "byteSize": 9229,
+      "byteSize": 9041,
       "imageDownloadError": null
     },
     {
@@ -789,9 +789,9 @@
       "active": true,
       "sortOrder": 313,
       "image": "/assets/loadout/traits/trait-7211401-support-sub1.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/TraitSkillIcon_7211400.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/TraitSkillIcon_7211400.png",
       "imageAvailable": true,
-      "byteSize": 9509,
+      "byteSize": 9446,
       "imageDownloadError": null
     },
     {
@@ -805,9 +805,9 @@
       "active": true,
       "sortOrder": 401,
       "image": "/assets/loadout/traits/trait-7300101-chaos-core.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/TraitSkillIcon_7300100.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/TraitSkillIcon_7300100.png",
       "imageAvailable": true,
-      "byteSize": 9234,
+      "byteSize": 9328,
       "imageDownloadError": null
     },
     {
@@ -821,9 +821,9 @@
       "active": true,
       "sortOrder": 402,
       "image": "/assets/loadout/traits/trait-7300201-chaos-core.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/TraitSkillIcon_7300200.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/TraitSkillIcon_7300200.png",
       "imageAvailable": true,
-      "byteSize": 8825,
+      "byteSize": 8882,
       "imageDownloadError": null
     },
     {
@@ -837,9 +837,9 @@
       "active": true,
       "sortOrder": 403,
       "image": "/assets/loadout/traits/trait-7300301-chaos-core.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/TraitSkillIcon_7300300.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/TraitSkillIcon_7300300.png",
       "imageAvailable": true,
-      "byteSize": 8189,
+      "byteSize": 8152,
       "imageDownloadError": null
     },
     {
@@ -853,9 +853,9 @@
       "active": true,
       "sortOrder": 421,
       "image": "/assets/loadout/traits/trait-7310101-chaos-sub2.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/TraitSkillIcon_7310100.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/TraitSkillIcon_7310100.png",
       "imageAvailable": true,
-      "byteSize": 9795,
+      "byteSize": 9742,
       "imageDownloadError": null
     },
     {
@@ -869,9 +869,9 @@
       "active": true,
       "sortOrder": 411,
       "image": "/assets/loadout/traits/trait-7310201-chaos-sub1.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/TraitSkillIcon_7310200.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/TraitSkillIcon_7310200.png",
       "imageAvailable": true,
-      "byteSize": 9705,
+      "byteSize": 9746,
       "imageDownloadError": null
     },
     {
@@ -885,9 +885,9 @@
       "active": true,
       "sortOrder": 422,
       "image": "/assets/loadout/traits/trait-7310301-chaos-sub2.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/TraitSkillIcon_7310300.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/TraitSkillIcon_7310300.png",
       "imageAvailable": true,
-      "byteSize": 10283,
+      "byteSize": 10273,
       "imageDownloadError": null
     },
     {
@@ -901,9 +901,9 @@
       "active": true,
       "sortOrder": 413,
       "image": "/assets/loadout/traits/trait-7310401-chaos-sub1.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/TraitSkillIcon_7310400.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/TraitSkillIcon_7310400.png",
       "imageAvailable": true,
-      "byteSize": 10859,
+      "byteSize": 10969,
       "imageDownloadError": null
     },
     {
@@ -917,9 +917,9 @@
       "active": true,
       "sortOrder": 423,
       "image": "/assets/loadout/traits/trait-7310501-chaos-sub2.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/TraitSkillIcon_7310500.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/TraitSkillIcon_7310500.png",
       "imageAvailable": true,
-      "byteSize": 10149,
+      "byteSize": 10203,
       "imageDownloadError": null
     },
     {
@@ -933,9 +933,25 @@
       "active": true,
       "sortOrder": 414,
       "image": "/assets/loadout/traits/trait-7310601-chaos-sub1.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/TraitSkillIcon_7310600.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/TraitSkillIcon_7310600.png",
       "imageAvailable": true,
-      "byteSize": 8404,
+      "byteSize": 7689,
+      "imageDownloadError": null
+    },
+    {
+      "id": 7310701,
+      "name": "天界典藏",
+      "tooltip": "装备物品等级越高，属性提升越多。",
+      "group": "Chaos",
+      "groupName": "混沌型",
+      "type": "Sub2",
+      "typeName": "辅助 2",
+      "active": true,
+      "sortOrder": 424,
+      "image": "/assets/loadout/traits/trait-7310701-chaos-sub2.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/TraitSkillIcon_7310700.png",
+      "imageAvailable": true,
+      "byteSize": 9663,
       "imageDownloadError": null
     },
     {
@@ -949,9 +965,9 @@
       "active": true,
       "sortOrder": 1,
       "image": "/assets/loadout/traits/trait-7910101-cobalt-cobalt.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/InfusionSkillIcon_790010120.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/InfusionSkillIcon_790010120.png",
       "imageAvailable": true,
-      "byteSize": 4521,
+      "byteSize": 4592,
       "imageDownloadError": null
     },
     {
@@ -965,9 +981,9 @@
       "active": true,
       "sortOrder": 1,
       "image": "/assets/loadout/traits/trait-7910111-cobalt-cobalt.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/InfusionSkillIcon_790010220.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/InfusionSkillIcon_790010220.png",
       "imageAvailable": true,
-      "byteSize": 4673,
+      "byteSize": 4714,
       "imageDownloadError": null
     },
     {
@@ -981,9 +997,9 @@
       "active": true,
       "sortOrder": 1,
       "image": "/assets/loadout/traits/trait-7910121-cobalt-cobalt.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/InfusionSkillIcon_790010320.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/InfusionSkillIcon_790010320.png",
       "imageAvailable": true,
-      "byteSize": 5088,
+      "byteSize": 5039,
       "imageDownloadError": null
     },
     {
@@ -997,9 +1013,9 @@
       "active": true,
       "sortOrder": 1,
       "image": "/assets/loadout/traits/trait-7910201-cobalt-cobalt.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/InfusionSkillIcon_790020120.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/InfusionSkillIcon_790020120.png",
       "imageAvailable": true,
-      "byteSize": 4762,
+      "byteSize": 4723,
       "imageDownloadError": null
     },
     {
@@ -1013,9 +1029,9 @@
       "active": true,
       "sortOrder": 1,
       "image": "/assets/loadout/traits/trait-7910211-cobalt-cobalt.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/InfusionSkillIcon_790020220.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/InfusionSkillIcon_790020220.png",
       "imageAvailable": true,
-      "byteSize": 4880,
+      "byteSize": 4769,
       "imageDownloadError": null
     },
     {
@@ -1029,9 +1045,9 @@
       "active": true,
       "sortOrder": 1,
       "image": "/assets/loadout/traits/trait-7910221-cobalt-cobalt.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/InfusionSkillIcon_790020320.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/InfusionSkillIcon_790020320.png",
       "imageAvailable": true,
-      "byteSize": 4977,
+      "byteSize": 5222,
       "imageDownloadError": null
     },
     {
@@ -1045,9 +1061,9 @@
       "active": true,
       "sortOrder": 1,
       "image": "/assets/loadout/traits/trait-7910301-cobalt-cobalt.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/InfusionSkillIcon_790030120.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/InfusionSkillIcon_790030120.png",
       "imageAvailable": true,
-      "byteSize": 4887,
+      "byteSize": 4734,
       "imageDownloadError": null
     },
     {
@@ -1061,9 +1077,9 @@
       "active": true,
       "sortOrder": 1,
       "image": "/assets/loadout/traits/trait-7910311-cobalt-cobalt.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/InfusionSkillIcon_790030220.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/InfusionSkillIcon_790030220.png",
       "imageAvailable": true,
-      "byteSize": 4926,
+      "byteSize": 4943,
       "imageDownloadError": null
     },
     {
@@ -1077,9 +1093,9 @@
       "active": true,
       "sortOrder": 1,
       "image": "/assets/loadout/traits/trait-7910321-cobalt-cobalt.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/InfusionSkillIcon_790030320.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/InfusionSkillIcon_790030320.png",
       "imageAvailable": true,
-      "byteSize": 5150,
+      "byteSize": 5222,
       "imageDownloadError": null
     },
     {
@@ -1093,9 +1109,9 @@
       "active": true,
       "sortOrder": 1,
       "image": "/assets/loadout/traits/trait-7910401-cobalt-cobalt.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/InfusionSkillIcon_790040120.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/InfusionSkillIcon_790040120.png",
       "imageAvailable": true,
-      "byteSize": 4948,
+      "byteSize": 4873,
       "imageDownloadError": null
     },
     {
@@ -1109,9 +1125,9 @@
       "active": true,
       "sortOrder": 1,
       "image": "/assets/loadout/traits/trait-7910411-cobalt-cobalt.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/InfusionSkillIcon_790040220.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/InfusionSkillIcon_790040220.png",
       "imageAvailable": true,
-      "byteSize": 4999,
+      "byteSize": 4987,
       "imageDownloadError": null
     },
     {
@@ -1125,9 +1141,9 @@
       "active": true,
       "sortOrder": 1,
       "image": "/assets/loadout/traits/trait-7910421-cobalt-cobalt.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/InfusionSkillIcon_790040320.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/InfusionSkillIcon_790040320.png",
       "imageAvailable": true,
-      "byteSize": 5304,
+      "byteSize": 5264,
       "imageDownloadError": null
     },
     {
@@ -1141,9 +1157,9 @@
       "active": true,
       "sortOrder": 1,
       "image": "/assets/loadout/traits/trait-7910501-cobalt-cobalt.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/InfusionSkillIcon_790050120.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/InfusionSkillIcon_790050120.png",
       "imageAvailable": true,
-      "byteSize": 4873,
+      "byteSize": 4891,
       "imageDownloadError": null
     },
     {
@@ -1157,9 +1173,9 @@
       "active": true,
       "sortOrder": 1,
       "image": "/assets/loadout/traits/trait-7910511-cobalt-cobalt.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/InfusionSkillIcon_790050220.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/InfusionSkillIcon_790050220.png",
       "imageAvailable": true,
-      "byteSize": 4995,
+      "byteSize": 5083,
       "imageDownloadError": null
     },
     {
@@ -1173,9 +1189,9 @@
       "active": true,
       "sortOrder": 1,
       "image": "/assets/loadout/traits/trait-7910521-cobalt-cobalt.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/InfusionSkillIcon_790050320.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/InfusionSkillIcon_790050320.png",
       "imageAvailable": true,
-      "byteSize": 5248,
+      "byteSize": 5327,
       "imageDownloadError": null
     },
     {
@@ -1189,9 +1205,9 @@
       "active": true,
       "sortOrder": 1,
       "image": "/assets/loadout/traits/trait-7910601-cobalt-cobalt.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/InfusionSkillIcon_790080120.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/InfusionSkillIcon_790080120.png",
       "imageAvailable": true,
-      "byteSize": 5315,
+      "byteSize": 5342,
       "imageDownloadError": null
     },
     {
@@ -1205,9 +1221,9 @@
       "active": true,
       "sortOrder": 1,
       "image": "/assets/loadout/traits/trait-7910611-cobalt-cobalt.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/InfusionSkillIcon_790080220.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/InfusionSkillIcon_790080220.png",
       "imageAvailable": true,
-      "byteSize": 5452,
+      "byteSize": 5423,
       "imageDownloadError": null
     },
     {
@@ -1221,9 +1237,9 @@
       "active": true,
       "sortOrder": 1,
       "image": "/assets/loadout/traits/trait-7910621-cobalt-cobalt.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/InfusionSkillIcon_790080320.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/InfusionSkillIcon_790080320.png",
       "imageAvailable": true,
-      "byteSize": 5730,
+      "byteSize": 5700,
       "imageDownloadError": null
     },
     {
@@ -1237,9 +1253,9 @@
       "active": true,
       "sortOrder": 1,
       "image": "/assets/loadout/traits/trait-7910701-cobalt-cobalt.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/InfusionSkillIcon_792070120.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/InfusionSkillIcon_792070120.png",
       "imageAvailable": true,
-      "byteSize": 5965,
+      "byteSize": 5756,
       "imageDownloadError": null
     },
     {
@@ -1253,9 +1269,9 @@
       "active": true,
       "sortOrder": 1,
       "image": "/assets/loadout/traits/trait-7910711-cobalt-cobalt.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/InfusionSkillIcon_792070220.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/InfusionSkillIcon_792070220.png",
       "imageAvailable": true,
-      "byteSize": 5954,
+      "byteSize": 5919,
       "imageDownloadError": null
     },
     {
@@ -1269,9 +1285,9 @@
       "active": true,
       "sortOrder": 1,
       "image": "/assets/loadout/traits/trait-7910721-cobalt-cobalt.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/InfusionSkillIcon_792070320.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/InfusionSkillIcon_792070320.png",
       "imageAvailable": true,
-      "byteSize": 6212,
+      "byteSize": 6285,
       "imageDownloadError": null
     },
     {
@@ -1285,9 +1301,9 @@
       "active": true,
       "sortOrder": 1,
       "image": "/assets/loadout/traits/trait-7920101-cobalt-cobalt.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/InfusionSkillIcon_792010120.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/InfusionSkillIcon_792010120.png",
       "imageAvailable": true,
-      "byteSize": 5451,
+      "byteSize": 5467,
       "imageDownloadError": null
     },
     {
@@ -1301,9 +1317,9 @@
       "active": true,
       "sortOrder": 1,
       "image": "/assets/loadout/traits/trait-7920102-cobalt-cobalt.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/InfusionSkillIcon_792010120.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/InfusionSkillIcon_792010120.png",
       "imageAvailable": true,
-      "byteSize": 5451,
+      "byteSize": 5467,
       "imageDownloadError": null
     },
     {
@@ -1317,9 +1333,9 @@
       "active": true,
       "sortOrder": 1,
       "image": "/assets/loadout/traits/trait-7920103-cobalt-cobalt.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/InfusionSkillIcon_792010120.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/InfusionSkillIcon_792010120.png",
       "imageAvailable": true,
-      "byteSize": 5451,
+      "byteSize": 5467,
       "imageDownloadError": null
     },
     {
@@ -1333,9 +1349,9 @@
       "active": true,
       "sortOrder": 1,
       "image": "/assets/loadout/traits/trait-7920301-cobalt-cobalt.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/InfusionSkillIcon_792030120.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/InfusionSkillIcon_792030120.png",
       "imageAvailable": true,
-      "byteSize": 5273,
+      "byteSize": 5194,
       "imageDownloadError": null
     },
     {
@@ -1349,9 +1365,9 @@
       "active": true,
       "sortOrder": 1,
       "image": "/assets/loadout/traits/trait-7920302-cobalt-cobalt.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/InfusionSkillIcon_792030120.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/InfusionSkillIcon_792030120.png",
       "imageAvailable": true,
-      "byteSize": 5273,
+      "byteSize": 5194,
       "imageDownloadError": null
     },
     {
@@ -1365,9 +1381,9 @@
       "active": true,
       "sortOrder": 1,
       "image": "/assets/loadout/traits/trait-7920303-cobalt-cobalt.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/InfusionSkillIcon_792030120.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/InfusionSkillIcon_792030120.png",
       "imageAvailable": true,
-      "byteSize": 5273,
+      "byteSize": 5194,
       "imageDownloadError": null
     },
     {
@@ -1381,9 +1397,9 @@
       "active": true,
       "sortOrder": 1,
       "image": "/assets/loadout/traits/trait-7920401-cobalt-cobalt.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/InfusionSkillIcon_792040120.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/InfusionSkillIcon_792040120.png",
       "imageAvailable": true,
-      "byteSize": 6151,
+      "byteSize": 6373,
       "imageDownloadError": null
     },
     {
@@ -1397,9 +1413,9 @@
       "active": true,
       "sortOrder": 1,
       "image": "/assets/loadout/traits/trait-7920402-cobalt-cobalt.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/InfusionSkillIcon_792040120.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/InfusionSkillIcon_792040120.png",
       "imageAvailable": true,
-      "byteSize": 6151,
+      "byteSize": 6373,
       "imageDownloadError": null
     },
     {
@@ -1413,9 +1429,9 @@
       "active": true,
       "sortOrder": 1,
       "image": "/assets/loadout/traits/trait-7920403-cobalt-cobalt.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/InfusionSkillIcon_792040120.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/InfusionSkillIcon_792040120.png",
       "imageAvailable": true,
-      "byteSize": 6151,
+      "byteSize": 6373,
       "imageDownloadError": null
     },
     {
@@ -1429,9 +1445,9 @@
       "active": true,
       "sortOrder": 1,
       "image": "/assets/loadout/traits/trait-7920501-cobalt-cobalt.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/InfusionSkillIcon_792050120.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/InfusionSkillIcon_792050120.png",
       "imageAvailable": true,
-      "byteSize": 5801,
+      "byteSize": 5850,
       "imageDownloadError": null
     },
     {
@@ -1445,9 +1461,9 @@
       "active": true,
       "sortOrder": 1,
       "image": "/assets/loadout/traits/trait-7920502-cobalt-cobalt.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/InfusionSkillIcon_792050120.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/InfusionSkillIcon_792050120.png",
       "imageAvailable": true,
-      "byteSize": 5801,
+      "byteSize": 5850,
       "imageDownloadError": null
     },
     {
@@ -1461,9 +1477,9 @@
       "active": true,
       "sortOrder": 1,
       "image": "/assets/loadout/traits/trait-7920503-cobalt-cobalt.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/InfusionSkillIcon_792050120.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/InfusionSkillIcon_792050120.png",
       "imageAvailable": true,
-      "byteSize": 5801,
+      "byteSize": 5850,
       "imageDownloadError": null
     },
     {
@@ -1477,9 +1493,9 @@
       "active": true,
       "sortOrder": 1,
       "image": "/assets/loadout/traits/trait-7920603-cobalt-cobalt.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/InfusionSkillIcon_792060320.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/InfusionSkillIcon_792060320.png",
       "imageAvailable": true,
-      "byteSize": 5731,
+      "byteSize": 5811,
       "imageDownloadError": null
     },
     {
@@ -1493,9 +1509,9 @@
       "active": true,
       "sortOrder": 1,
       "image": "/assets/loadout/traits/trait-7920701-cobalt-cobalt.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/InfusionSkillIcon_792070120.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/InfusionSkillIcon_792070120.png",
       "imageAvailable": true,
-      "byteSize": 5965,
+      "byteSize": 5756,
       "imageDownloadError": null
     },
     {
@@ -1509,9 +1525,9 @@
       "active": true,
       "sortOrder": 1,
       "image": "/assets/loadout/traits/trait-7920702-cobalt-cobalt.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/InfusionSkillIcon_792070120.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/InfusionSkillIcon_792070120.png",
       "imageAvailable": true,
-      "byteSize": 5965,
+      "byteSize": 5756,
       "imageDownloadError": null
     },
     {
@@ -1525,9 +1541,9 @@
       "active": true,
       "sortOrder": 1,
       "image": "/assets/loadout/traits/trait-7920703-cobalt-cobalt.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/InfusionSkillIcon_792070120.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/InfusionSkillIcon_792070120.png",
       "imageAvailable": true,
-      "byteSize": 5965,
+      "byteSize": 5756,
       "imageDownloadError": null
     },
     {
@@ -1541,9 +1557,9 @@
       "active": true,
       "sortOrder": 1,
       "image": "/assets/loadout/traits/trait-7920801-cobalt-cobalt.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/InfusionSkillIcon_792080120.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/InfusionSkillIcon_792080120.png",
       "imageAvailable": true,
-      "byteSize": 6026,
+      "byteSize": 6030,
       "imageDownloadError": null
     },
     {
@@ -1557,9 +1573,9 @@
       "active": true,
       "sortOrder": 1,
       "image": "/assets/loadout/traits/trait-7920802-cobalt-cobalt.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/InfusionSkillIcon_792080120.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/InfusionSkillIcon_792080120.png",
       "imageAvailable": true,
-      "byteSize": 6026,
+      "byteSize": 6030,
       "imageDownloadError": null
     },
     {
@@ -1573,9 +1589,9 @@
       "active": true,
       "sortOrder": 1,
       "image": "/assets/loadout/traits/trait-7920803-cobalt-cobalt.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/InfusionSkillIcon_792080120.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/InfusionSkillIcon_792080120.png",
       "imageAvailable": true,
-      "byteSize": 6026,
+      "byteSize": 6030,
       "imageDownloadError": null
     },
     {
@@ -1589,9 +1605,9 @@
       "active": true,
       "sortOrder": 1,
       "image": "/assets/loadout/traits/trait-7920903-cobalt-cobalt.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/InfusionSkillIcon_792090320.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/InfusionSkillIcon_792090320.png",
       "imageAvailable": true,
-      "byteSize": 5917,
+      "byteSize": 5852,
       "imageDownloadError": null
     },
     {
@@ -1605,9 +1621,9 @@
       "active": true,
       "sortOrder": 1,
       "image": "/assets/loadout/traits/trait-7921003-cobalt-cobalt.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/InfusionSkillIcon_792100320.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/InfusionSkillIcon_792100320.png",
       "imageAvailable": true,
-      "byteSize": 6918,
+      "byteSize": 6895,
       "imageDownloadError": null
     },
     {
@@ -1621,9 +1637,9 @@
       "active": true,
       "sortOrder": 1,
       "image": "/assets/loadout/traits/trait-7921101-cobalt-cobalt.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/InfusionSkillIcon_792110120.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/InfusionSkillIcon_792110120.png",
       "imageAvailable": true,
-      "byteSize": 6053,
+      "byteSize": 5935,
       "imageDownloadError": null
     },
     {
@@ -1637,9 +1653,9 @@
       "active": true,
       "sortOrder": 1,
       "image": "/assets/loadout/traits/trait-7921102-cobalt-cobalt.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/InfusionSkillIcon_792110120.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/InfusionSkillIcon_792110120.png",
       "imageAvailable": true,
-      "byteSize": 6053,
+      "byteSize": 5935,
       "imageDownloadError": null
     },
     {
@@ -1653,9 +1669,9 @@
       "active": true,
       "sortOrder": 1,
       "image": "/assets/loadout/traits/trait-7921103-cobalt-cobalt.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/InfusionSkillIcon_792110120.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/InfusionSkillIcon_792110120.png",
       "imageAvailable": true,
-      "byteSize": 6053,
+      "byteSize": 5935,
       "imageDownloadError": null
     },
     {
@@ -1669,9 +1685,9 @@
       "active": true,
       "sortOrder": 1,
       "image": "/assets/loadout/traits/trait-7921203-cobalt-cobalt.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/InfusionSkillIcon_792120320.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/InfusionSkillIcon_792120320.png",
       "imageAvailable": true,
-      "byteSize": 6206,
+      "byteSize": 6154,
       "imageDownloadError": null
     },
     {
@@ -1685,9 +1701,9 @@
       "active": true,
       "sortOrder": 1,
       "image": "/assets/loadout/traits/trait-7921301-cobalt-cobalt.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/InfusionSkillIcon_792130120.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/InfusionSkillIcon_792130120.png",
       "imageAvailable": true,
-      "byteSize": 5984,
+      "byteSize": 6006,
       "imageDownloadError": null
     },
     {
@@ -1701,9 +1717,9 @@
       "active": true,
       "sortOrder": 1,
       "image": "/assets/loadout/traits/trait-7921302-cobalt-cobalt.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/InfusionSkillIcon_792130120.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/InfusionSkillIcon_792130120.png",
       "imageAvailable": true,
-      "byteSize": 5984,
+      "byteSize": 6006,
       "imageDownloadError": null
     },
     {
@@ -1717,9 +1733,9 @@
       "active": true,
       "sortOrder": 1,
       "image": "/assets/loadout/traits/trait-7921303-cobalt-cobalt.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/InfusionSkillIcon_792130120.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/InfusionSkillIcon_792130120.png",
       "imageAvailable": true,
-      "byteSize": 5984,
+      "byteSize": 6006,
       "imageDownloadError": null
     },
     {
@@ -1733,9 +1749,9 @@
       "active": true,
       "sortOrder": 1,
       "image": "/assets/loadout/traits/trait-7921401-cobalt-cobalt.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/InfusionSkillIcon_792140120.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/InfusionSkillIcon_792140120.png",
       "imageAvailable": true,
-      "byteSize": 4923,
+      "byteSize": 4815,
       "imageDownloadError": null
     },
     {
@@ -1749,9 +1765,9 @@
       "active": true,
       "sortOrder": 1,
       "image": "/assets/loadout/traits/trait-7921402-cobalt-cobalt.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/InfusionSkillIcon_792140120.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/InfusionSkillIcon_792140120.png",
       "imageAvailable": true,
-      "byteSize": 4923,
+      "byteSize": 4815,
       "imageDownloadError": null
     },
     {
@@ -1765,9 +1781,9 @@
       "active": true,
       "sortOrder": 1,
       "image": "/assets/loadout/traits/trait-7921403-cobalt-cobalt.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/InfusionSkillIcon_792140120.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/InfusionSkillIcon_792140120.png",
       "imageAvailable": true,
-      "byteSize": 4923,
+      "byteSize": 4815,
       "imageDownloadError": null
     },
     {
@@ -1781,9 +1797,9 @@
       "active": true,
       "sortOrder": 1,
       "image": "/assets/loadout/traits/trait-7921501-cobalt-cobalt.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/InfusionSkillIcon_792150120.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/InfusionSkillIcon_792150120.png",
       "imageAvailable": true,
-      "byteSize": 6079,
+      "byteSize": 6052,
       "imageDownloadError": null
     },
     {
@@ -1797,9 +1813,9 @@
       "active": true,
       "sortOrder": 1,
       "image": "/assets/loadout/traits/trait-7921502-cobalt-cobalt.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/InfusionSkillIcon_792150120.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/InfusionSkillIcon_792150120.png",
       "imageAvailable": true,
-      "byteSize": 6079,
+      "byteSize": 6052,
       "imageDownloadError": null
     },
     {
@@ -1813,9 +1829,9 @@
       "active": true,
       "sortOrder": 1,
       "image": "/assets/loadout/traits/trait-7921503-cobalt-cobalt.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/InfusionSkillIcon_792150120.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/InfusionSkillIcon_792150120.png",
       "imageAvailable": true,
-      "byteSize": 6079,
+      "byteSize": 6052,
       "imageDownloadError": null
     },
     {
@@ -1829,9 +1845,9 @@
       "active": true,
       "sortOrder": 1,
       "image": "/assets/loadout/traits/trait-7921602-cobalt-cobalt.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/InfusionSkillIcon_792160220.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/InfusionSkillIcon_792160220.png",
       "imageAvailable": true,
-      "byteSize": 6883,
+      "byteSize": 6885,
       "imageDownloadError": null
     },
     {
@@ -1845,9 +1861,9 @@
       "active": true,
       "sortOrder": 1,
       "image": "/assets/loadout/traits/trait-7921701-cobalt-cobalt.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/InfusionSkillIcon_792170120.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/InfusionSkillIcon_792170120.png",
       "imageAvailable": true,
-      "byteSize": 5871,
+      "byteSize": 5867,
       "imageDownloadError": null
     },
     {
@@ -1861,9 +1877,9 @@
       "active": true,
       "sortOrder": 1,
       "image": "/assets/loadout/traits/trait-7921702-cobalt-cobalt.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/InfusionSkillIcon_792170120.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/InfusionSkillIcon_792170120.png",
       "imageAvailable": true,
-      "byteSize": 5871,
+      "byteSize": 5867,
       "imageDownloadError": null
     },
     {
@@ -1877,9 +1893,9 @@
       "active": true,
       "sortOrder": 1,
       "image": "/assets/loadout/traits/trait-7921703-cobalt-cobalt.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/InfusionSkillIcon_792170120.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/InfusionSkillIcon_792170120.png",
       "imageAvailable": true,
-      "byteSize": 5871,
+      "byteSize": 5867,
       "imageDownloadError": null
     },
     {
@@ -1893,9 +1909,9 @@
       "active": true,
       "sortOrder": 1,
       "image": "/assets/loadout/traits/trait-7921903-cobalt-cobalt.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/InfusionSkillIcon_792190220.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/InfusionSkillIcon_792190220.png",
       "imageAvailable": true,
-      "byteSize": 6929,
+      "byteSize": 6960,
       "imageDownloadError": null
     },
     {
@@ -1909,9 +1925,9 @@
       "active": true,
       "sortOrder": 1,
       "image": "/assets/loadout/traits/trait-7922003-cobalt-cobalt.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/InfusionSkillIcon_792200320.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/InfusionSkillIcon_792200320.png",
       "imageAvailable": true,
-      "byteSize": 6110,
+      "byteSize": 6097,
       "imageDownloadError": null
     },
     {
@@ -1925,9 +1941,9 @@
       "active": true,
       "sortOrder": 1,
       "image": "/assets/loadout/traits/trait-7922102-cobalt-cobalt.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/InfusionSkillIcon_792210220.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/InfusionSkillIcon_792210220.png",
       "imageAvailable": true,
-      "byteSize": 6029,
+      "byteSize": 6033,
       "imageDownloadError": null
     },
     {
@@ -1941,9 +1957,9 @@
       "active": true,
       "sortOrder": 1,
       "image": "/assets/loadout/traits/trait-7922201-cobalt-cobalt.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/InfusionSkillIcon_792220120.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/InfusionSkillIcon_792220120.png",
       "imageAvailable": true,
-      "byteSize": 6379,
+      "byteSize": 6298,
       "imageDownloadError": null
     },
     {
@@ -1957,9 +1973,9 @@
       "active": true,
       "sortOrder": 1,
       "image": "/assets/loadout/traits/trait-7922202-cobalt-cobalt.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/InfusionSkillIcon_792220120.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/InfusionSkillIcon_792220120.png",
       "imageAvailable": true,
-      "byteSize": 6379,
+      "byteSize": 6298,
       "imageDownloadError": null
     },
     {
@@ -1973,9 +1989,9 @@
       "active": true,
       "sortOrder": 1,
       "image": "/assets/loadout/traits/trait-7922203-cobalt-cobalt.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/InfusionSkillIcon_792220120.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/InfusionSkillIcon_792220120.png",
       "imageAvailable": true,
-      "byteSize": 6379,
+      "byteSize": 6298,
       "imageDownloadError": null
     },
     {
@@ -1989,9 +2005,9 @@
       "active": true,
       "sortOrder": 1,
       "image": "/assets/loadout/traits/trait-7922302-cobalt-cobalt.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/InfusionSkillIcon_792230220.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/InfusionSkillIcon_792230220.png",
       "imageAvailable": true,
-      "byteSize": 6114,
+      "byteSize": 6175,
       "imageDownloadError": null
     },
     {
@@ -2005,9 +2021,9 @@
       "active": true,
       "sortOrder": 1,
       "image": "/assets/loadout/traits/trait-7922402-cobalt-cobalt.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/InfusionSkillIcon_792240220.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/InfusionSkillIcon_792240220.png",
       "imageAvailable": true,
-      "byteSize": 6761,
+      "byteSize": 6832,
       "imageDownloadError": null
     },
     {
@@ -2021,9 +2037,9 @@
       "active": true,
       "sortOrder": 1,
       "image": "/assets/loadout/traits/trait-7922502-cobalt-cobalt.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/InfusionSkillIcon_792250220.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/InfusionSkillIcon_792250220.png",
       "imageAvailable": true,
-      "byteSize": 6110,
+      "byteSize": 6173,
       "imageDownloadError": null
     },
     {
@@ -2037,9 +2053,9 @@
       "active": true,
       "sortOrder": 1,
       "image": "/assets/loadout/traits/trait-7922602-cobalt-cobalt.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/InfusionSkillIcon_792260220.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/InfusionSkillIcon_792260220.png",
       "imageAvailable": true,
-      "byteSize": 7413,
+      "byteSize": 7502,
       "imageDownloadError": null
     },
     {
@@ -2053,9 +2069,9 @@
       "active": true,
       "sortOrder": 1,
       "image": "/assets/loadout/traits/trait-7922702-cobalt-cobalt.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/InfusionSkillIcon_792270220.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/InfusionSkillIcon_792270220.png",
       "imageAvailable": true,
-      "byteSize": 6765,
+      "byteSize": 6867,
       "imageDownloadError": null
     },
     {
@@ -2069,9 +2085,9 @@
       "active": true,
       "sortOrder": 1,
       "image": "/assets/loadout/traits/trait-7922803-cobalt-cobalt.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/InfusionSkillIcon_792280320.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/InfusionSkillIcon_792280320.png",
       "imageAvailable": true,
-      "byteSize": 8333,
+      "byteSize": 8199,
       "imageDownloadError": null
     },
     {
@@ -2085,9 +2101,9 @@
       "active": true,
       "sortOrder": 1,
       "image": "/assets/loadout/traits/trait-7922903-cobalt-cobalt.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/InfusionSkillIcon_792290320.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/InfusionSkillIcon_792290320.png",
       "imageAvailable": true,
-      "byteSize": 7518,
+      "byteSize": 7536,
       "imageDownloadError": null
     },
     {
@@ -2101,9 +2117,9 @@
       "active": true,
       "sortOrder": 1,
       "image": "/assets/loadout/traits/trait-7923101-cobalt-cobalt.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/InfusionSkillIcon_792310320.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/InfusionSkillIcon_792310320.png",
       "imageAvailable": true,
-      "byteSize": 7999,
+      "byteSize": 7876,
       "imageDownloadError": null
     },
     {
@@ -2117,9 +2133,9 @@
       "active": true,
       "sortOrder": 1,
       "image": "/assets/loadout/traits/trait-7923102-cobalt-cobalt.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/InfusionSkillIcon_792310320.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/InfusionSkillIcon_792310320.png",
       "imageAvailable": true,
-      "byteSize": 7999,
+      "byteSize": 7876,
       "imageDownloadError": null
     },
     {
@@ -2133,9 +2149,9 @@
       "active": true,
       "sortOrder": 1,
       "image": "/assets/loadout/traits/trait-7923103-cobalt-cobalt.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/InfusionSkillIcon_792310320.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/InfusionSkillIcon_792310320.png",
       "imageAvailable": true,
-      "byteSize": 7999,
+      "byteSize": 7876,
       "imageDownloadError": null
     },
     {
@@ -2149,9 +2165,9 @@
       "active": true,
       "sortOrder": 1,
       "image": "/assets/loadout/traits/trait-7923302-cobalt-cobalt.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/InfusionSkillIcon_792380220.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/InfusionSkillIcon_792380220.png",
       "imageAvailable": true,
-      "byteSize": 8659,
+      "byteSize": 8619,
       "imageDownloadError": null
     },
     {
@@ -2165,9 +2181,9 @@
       "active": true,
       "sortOrder": 1,
       "image": "/assets/loadout/traits/trait-7923401-cobalt-cobalt.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/InfusionSkillIcon_792600320.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/InfusionSkillIcon_792600320.png",
       "imageAvailable": true,
-      "byteSize": 7316,
+      "byteSize": 7341,
       "imageDownloadError": null
     },
     {
@@ -2181,9 +2197,9 @@
       "active": true,
       "sortOrder": 1,
       "image": "/assets/loadout/traits/trait-7923411-cobalt-cobalt.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/InfusionSkillIcon_792700320.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/InfusionSkillIcon_792700320.png",
       "imageAvailable": true,
-      "byteSize": 8506,
+      "byteSize": 8498,
       "imageDownloadError": null
     },
     {
@@ -2197,9 +2213,9 @@
       "active": true,
       "sortOrder": 1,
       "image": "/assets/loadout/traits/trait-7923421-cobalt-cobalt.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/InfusionSkillIcon_792800320.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/InfusionSkillIcon_792800320.png",
       "imageAvailable": true,
-      "byteSize": 7988,
+      "byteSize": 7886,
       "imageDownloadError": null
     },
     {
@@ -2213,9 +2229,9 @@
       "active": true,
       "sortOrder": 1,
       "image": "/assets/loadout/traits/trait-7923502-cobalt-cobalt.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/InfusionSkillIcon_792370220.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/InfusionSkillIcon_792370220.png",
       "imageAvailable": true,
-      "byteSize": 7037,
+      "byteSize": 7059,
       "imageDownloadError": null
     },
     {
@@ -2229,9 +2245,9 @@
       "active": true,
       "sortOrder": 1,
       "image": "/assets/loadout/traits/trait-7923602-cobalt-cobalt.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/InfusionSkillIcon_792360220.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/InfusionSkillIcon_792360220.png",
       "imageAvailable": true,
-      "byteSize": 5836,
+      "byteSize": 5721,
       "imageDownloadError": null
     },
     {
@@ -2245,9 +2261,9 @@
       "active": true,
       "sortOrder": 1,
       "image": "/assets/loadout/traits/trait-7923703-cobalt-cobalt.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/InfusionSkillIcon_792350320.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/InfusionSkillIcon_792350320.png",
       "imageAvailable": true,
-      "byteSize": 8997,
+      "byteSize": 9189,
       "imageDownloadError": null
     },
     {
@@ -2261,9 +2277,9 @@
       "active": true,
       "sortOrder": 1,
       "image": "/assets/loadout/traits/trait-7923803-cobalt-cobalt.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/InfusionSkillIcon_792340320.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/InfusionSkillIcon_792340320.png",
       "imageAvailable": true,
-      "byteSize": 8311,
+      "byteSize": 8233,
       "imageDownloadError": null
     },
     {
@@ -2277,9 +2293,9 @@
       "active": true,
       "sortOrder": 1,
       "image": "/assets/loadout/traits/trait-7923903-cobalt-cobalt.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/InfusionSkillIcon_792330320.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/InfusionSkillIcon_792330320.png",
       "imageAvailable": true,
-      "byteSize": 7886,
+      "byteSize": 7855,
       "imageDownloadError": null
     }
   ],
@@ -2289,9 +2305,9 @@
       "name": "闪灵",
       "tooltip": "使用后向指定位置移动一段距离。 强化效果 : 使用后，暂时增加移动速度且无视碰撞。",
       "image": "/assets/loadout/tactical-skills/tactical-30.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/VSkillIcon_4000000.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/VSkillIcon_4000000.png",
       "imageAvailable": true,
-      "byteSize": 19086,
+      "byteSize": 19152,
       "imageDownloadError": null
     },
     {
@@ -2299,9 +2315,9 @@
       "name": "震裂",
       "tooltip": "使用后对周围敌人造成技能伤害，并降低其移动速度。 强化效果 : 在一定时间内对周围的敌人造成伤害。",
       "image": "/assets/loadout/tactical-skills/tactical-40.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/VSkillIcon_4001000.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/VSkillIcon_4001000.png",
       "imageAvailable": true,
-      "byteSize": 17951,
+      "byteSize": 17911,
       "imageDownloadError": null
     },
     {
@@ -2309,9 +2325,9 @@
       "name": "违规者",
       "tooltip": "改装E.M.O.T.E爆炸时，能够增加盟友体力并对敌人造成真实伤害。 强化效果 : 赋予更强的效果。",
       "image": "/assets/loadout/tactical-skills/tactical-50.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/VSkillIcon_4101000.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/VSkillIcon_4101000.png",
       "imageAvailable": true,
-      "byteSize": 17371,
+      "byteSize": 17394,
       "imageDownloadError": null
     },
     {
@@ -2319,9 +2335,9 @@
       "name": "赤色风暴",
       "tooltip": "使用时短距离移动，暂时增加普攻射程。 强化效果 : 强化射程增加效果。",
       "image": "/assets/loadout/tactical-skills/tactical-60.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/VSkillIcon_4102000.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/VSkillIcon_4102000.png",
       "imageAvailable": true,
-      "byteSize": 15862,
+      "byteSize": 15938,
       "imageDownloadError": null
     },
     {
@@ -2329,9 +2345,9 @@
       "name": "超越",
       "tooltip": "能够提供强大的护盾并吸收爆发性的伤害。 强化效果 : 增加一段时间内的负面效果抵御。",
       "image": "/assets/loadout/tactical-skills/tactical-70.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/VSkillIcon_4103000.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/VSkillIcon_4103000.png",
       "imageAvailable": true,
-      "byteSize": 16827,
+      "byteSize": 16752,
       "imageDownloadError": null
     },
     {
@@ -2339,9 +2355,9 @@
       "name": "极光陀螺",
       "tooltip": "暂时陷入凝滞状态，不会受到任何干扰。 强化效果 : 凝滞状态下，快速缩减自身技能冷却。",
       "image": "/assets/loadout/tactical-skills/tactical-80.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/VSkillIcon_4104000.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/VSkillIcon_4104000.png",
       "imageAvailable": true,
-      "byteSize": 15678,
+      "byteSize": 15822,
       "imageDownloadError": null
     },
     {
@@ -2349,9 +2365,9 @@
       "name": "净化",
       "tooltip": "立即解除自身和周围盟友的负面状态，增加移动速度。 强化时：使用时，增加自身和周围盟友的负面效果抵御。",
       "image": "/assets/loadout/tactical-skills/tactical-90.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/VSkillIcon_4105000.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/VSkillIcon_4105000.png",
       "imageAvailable": true,
-      "byteSize": 14579,
+      "byteSize": 14752,
       "imageDownloadError": null
     },
     {
@@ -2359,9 +2375,9 @@
       "name": "羁绊者",
       "tooltip": "当周围实验体在战斗中失去体力时，根据已失体力获得成比例的能量。 使用后消耗所有能量，赋予周围盟友移动速度和吸血-所有伤害效果。 强化效果 : 获得更多能量。",
       "image": "/assets/loadout/tactical-skills/tactical-110.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/VSkillIcon_4107000.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/VSkillIcon_4107000.png",
       "imageAvailable": true,
-      "byteSize": 16059,
+      "byteSize": 16107,
       "imageDownloadError": null
     },
     {
@@ -2369,9 +2385,9 @@
       "name": "阔步者",
       "tooltip": "使用后，朝着敌人实验体移动时的移动速度增加，持续时间内对敌人实验体造成伤害时，将造成额外技能伤害，且暂时增加移动速度。 强化效果 : 阔步者对目标造成伤害时，目标的移动速度降低。",
       "image": "/assets/loadout/tactical-skills/tactical-120.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/VSkillIcon_4110000.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/VSkillIcon_4110000.png",
       "imageAvailable": true,
-      "byteSize": 17107,
+      "byteSize": 17136,
       "imageDownloadError": null
     },
     {
@@ -2379,9 +2395,9 @@
       "name": "实刃",
       "tooltip": "使用后对周围敌人造成伤害，并根据承受伤害的敌人数增加一定比例的移动速度。 强化效果 : 额外召唤实刃并造成额外伤害。",
       "image": "/assets/loadout/tactical-skills/tactical-130.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/VSkillIcon_4112000.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/VSkillIcon_4112000.png",
       "imageAvailable": true,
-      "byteSize": 16248,
+      "byteSize": 16061,
       "imageDownloadError": null
     },
     {
@@ -2389,9 +2405,9 @@
       "name": "虚言",
       "tooltip": "消耗体力并增加所有伤害。消耗的体力会慢慢恢复。 强化效果 : 参与击杀敌人时，更新效果。",
       "image": "/assets/loadout/tactical-skills/tactical-140.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/VSkillIcon_4113000.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/VSkillIcon_4113000.png",
       "imageAvailable": true,
-      "byteSize": 16286,
+      "byteSize": 16018,
       "imageDownloadError": null
     },
     {
@@ -2399,9 +2415,9 @@
       "name": "治愈之风",
       "tooltip": "恢复范围内盟友的体力。 强化效果 : 被风扫过的队友，在一定时间内将额外恢复体力。",
       "image": "/assets/loadout/tactical-skills/tactical-150.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/VSkillIcon_4108000.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/VSkillIcon_4108000.png",
       "imageAvailable": true,
-      "byteSize": 16282,
+      "byteSize": 16295,
       "imageDownloadError": null
     },
     {
@@ -2409,9 +2425,9 @@
       "name": "斥力弹",
       "tooltip": "使用时，短距离进行位移，并对到达位置周围距离最近的敌方实验体发射导弹，对命中的敌人造成真实伤害。 强化效果：额外发射导弹。",
       "image": "/assets/loadout/tactical-skills/tactical-160.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/VSkillIcon_4115000.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/VSkillIcon_4115000.png",
       "imageAvailable": true,
-      "byteSize": 19550,
+      "byteSize": 19333,
       "imageDownloadError": null
     },
     {
@@ -2419,19 +2435,19 @@
       "name": "等离子冲击",
       "tooltip": "使用时向前方短距离冲刺，并发射等离子能量，对命中的敌人造成技能伤害并降低其移动速度。 即使被多个投射物命中，也仅触发一次伤害。 强化效果： 降低被投射物命中的敌人的防御力。",
       "image": "/assets/loadout/tactical-skills/tactical-170.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/VSkillIcon_4116000.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/VSkillIcon_4116000.png",
       "imageAvailable": true,
-      "byteSize": 18793,
+      "byteSize": 18993,
       "imageDownloadError": null
     },
     {
       "id": 190,
       "name": "光之翼",
-      "tooltip": "使用时，移除自身承受的移动速度降低效果，并在一定时间内提升移动速度与攻击速度。普攻命中敌方实验体时，降低目标移动速度。 强化效果：普攻命中敌方实验体时，增加持续时间。",
+      "tooltip": "使用时，移除自身承受的移动速度降低效果，并在一定时间内提升移动速度与攻击速度。 强化效果：普攻命中敌方实验体时，增加持续时间。",
       "image": "/assets/loadout/tactical-skills/tactical-190.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/VSkillIcon_4118000.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/VSkillIcon_4118000.png",
       "imageAvailable": true,
-      "byteSize": 17985,
+      "byteSize": 17950,
       "imageDownloadError": null
     },
     {
@@ -2439,9 +2455,9 @@
       "name": "未命名战术技能 500010",
       "tooltip": "",
       "image": "/assets/loadout/tactical-skills/tactical-500010.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/VSkillIcon_4511000.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/VSkillIcon_4511000.png",
       "imageAvailable": true,
-      "byteSize": 13694,
+      "byteSize": 13729,
       "imageDownloadError": null
     },
     {
@@ -2449,9 +2465,9 @@
       "name": "重力场",
       "tooltip": "稍后将敌人拉至自身周围，并使其陷入晕厥。",
       "image": "/assets/loadout/tactical-skills/tactical-500020.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/VSkillIcon_4502000.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/VSkillIcon_4502000.png",
       "imageAvailable": true,
-      "byteSize": 17958,
+      "byteSize": 17964,
       "imageDownloadError": null
     },
     {
@@ -2459,9 +2475,9 @@
       "name": "滚雷",
       "tooltip": "大幅增加自身一段时间内的移动速度。",
       "image": "/assets/loadout/tactical-skills/tactical-500030.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/VSkillIcon_4503000.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/VSkillIcon_4503000.png",
       "imageAvailable": true,
-      "byteSize": 19521,
+      "byteSize": 19621,
       "imageDownloadError": null
     },
     {
@@ -2469,9 +2485,9 @@
       "name": "爆震",
       "tooltip": "爆发巨大的能量，并在短时间后攻击附近的敌人实验体，成功击中时将获得额外效果。 未能成功击中时，将会收到惩罚。",
       "image": "/assets/loadout/tactical-skills/tactical-500040.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/VSkillIcon_4504000.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/VSkillIcon_4504000.png",
       "imageAvailable": true,
-      "byteSize": 16044,
+      "byteSize": 16123,
       "imageDownloadError": null
     },
     {
@@ -2479,9 +2495,9 @@
       "name": "脉冲",
       "tooltip": "停止一段时间后，向指定方向突进。",
       "image": "/assets/loadout/tactical-skills/tactical-500050.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/VSkillIcon_4512000.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/VSkillIcon_4512000.png",
       "imageAvailable": true,
-      "byteSize": 16833,
+      "byteSize": 16465,
       "imageDownloadError": null
     },
     {
@@ -2489,9 +2505,9 @@
       "name": "祈愿",
       "tooltip": "为一定范围内的所有队友提供护盾。",
       "image": "/assets/loadout/tactical-skills/tactical-500060.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/VSkillIcon_4506000.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/VSkillIcon_4506000.png",
       "imageAvailable": true,
-      "byteSize": 16435,
+      "byteSize": 16397,
       "imageDownloadError": null
     },
     {
@@ -2499,9 +2515,9 @@
       "name": "地碎",
       "tooltip": "向指定方向的地面生成粉碎区域，造成伤害后附加晕厥和降低移动速度的效果。",
       "image": "/assets/loadout/tactical-skills/tactical-500070.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/VSkillIcon_4507000.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/VSkillIcon_4507000.png",
       "imageAvailable": true,
-      "byteSize": 18591,
+      "byteSize": 18954,
       "imageDownloadError": null
     },
     {
@@ -2509,9 +2525,9 @@
       "name": "梦幻拳",
       "tooltip": "向指定的方向打出梦幻拳。 被命中的目标将沿着出击的方向被击飞。",
       "image": "/assets/loadout/tactical-skills/tactical-500080.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/VSkillIcon_4508000.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/VSkillIcon_4508000.png",
       "imageAvailable": true,
-      "byteSize": 16048,
+      "byteSize": 16047,
       "imageDownloadError": null
     },
     {
@@ -2519,9 +2535,9 @@
       "name": "流星",
       "tooltip": "稍后陨石将坠落在指定的位置并造成巨大的伤害。 被陨石击中的敌人将暂时陷入晕厥。",
       "image": "/assets/loadout/tactical-skills/tactical-500090.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/VSkillIcon_4509000.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/VSkillIcon_4509000.png",
       "imageAvailable": true,
-      "byteSize": 17421,
+      "byteSize": 17285,
       "imageDownloadError": null
     },
     {
@@ -2529,9 +2545,9 @@
       "name": "闪电之盾",
       "tooltip": "给予指定的盟友闪电之盾，解除减益效果。 闪电之盾消失时将给周围造成伤害。",
       "image": "/assets/loadout/tactical-skills/tactical-500100.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/VSkillIcon_4510000.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/VSkillIcon_4510000.png",
       "imageAvailable": true,
-      "byteSize": 17595,
+      "byteSize": 17652,
       "imageDownloadError": null
     },
     {
@@ -2539,9 +2555,9 @@
       "name": "祝福：冥想",
       "tooltip": "立即恢复部分体力上限，此后在短时间内进行额外恢复。",
       "image": "/assets/loadout/tactical-skills/tactical-500110.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/VSkillIcon_4511000.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/VSkillIcon_4511000.png",
       "imageAvailable": true,
-      "byteSize": 13694,
+      "byteSize": 13729,
       "imageDownloadError": null
     },
     {
@@ -2549,9 +2565,9 @@
       "name": "闪灵",
       "tooltip": "使用后向指定位置移动一段距离。 强化效果 : 使用后，暂时增加移动速度且无视碰撞。",
       "image": "/assets/loadout/tactical-skills/tactical-500120.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/VSkillIcon_4000000.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/VSkillIcon_4000000.png",
       "imageAvailable": true,
-      "byteSize": 19086,
+      "byteSize": 19152,
       "imageDownloadError": null
     },
     {
@@ -2559,9 +2575,9 @@
       "name": "震裂",
       "tooltip": "使用后对周围敌人造成技能伤害，并降低其移动速度。 强化效果 : 在一定时间内对周围的敌人造成伤害。",
       "image": "/assets/loadout/tactical-skills/tactical-500130.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/VSkillIcon_4001000.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/VSkillIcon_4001000.png",
       "imageAvailable": true,
-      "byteSize": 17951,
+      "byteSize": 17911,
       "imageDownloadError": null
     },
     {
@@ -2569,9 +2585,9 @@
       "name": "违规者",
       "tooltip": "改装E.M.O.T.E爆炸时，能够增加盟友体力并对敌人造成真实伤害。 强化效果 : 赋予更强的效果。",
       "image": "/assets/loadout/tactical-skills/tactical-500140.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/VSkillIcon_4101000.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/VSkillIcon_4101000.png",
       "imageAvailable": true,
-      "byteSize": 17371,
+      "byteSize": 17394,
       "imageDownloadError": null
     },
     {
@@ -2579,9 +2595,9 @@
       "name": "赤色风暴",
       "tooltip": "使用时短距离移动，暂时增加普攻射程。 强化效果 : 强化射程增加效果。",
       "image": "/assets/loadout/tactical-skills/tactical-500150.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/VSkillIcon_4102000.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/VSkillIcon_4102000.png",
       "imageAvailable": true,
-      "byteSize": 15862,
+      "byteSize": 15938,
       "imageDownloadError": null
     },
     {
@@ -2589,9 +2605,9 @@
       "name": "超越",
       "tooltip": "能够提供强大的护盾并吸收爆发性的伤害。 强化效果 : 增加一段时间内的负面效果抵御。",
       "image": "/assets/loadout/tactical-skills/tactical-500160.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/VSkillIcon_4103000.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/VSkillIcon_4103000.png",
       "imageAvailable": true,
-      "byteSize": 16827,
+      "byteSize": 16752,
       "imageDownloadError": null
     },
     {
@@ -2599,9 +2615,9 @@
       "name": "极光陀螺",
       "tooltip": "暂时陷入凝滞状态，不会受到任何干扰。 强化效果 : 凝滞状态下，快速缩减自身技能冷却。",
       "image": "/assets/loadout/tactical-skills/tactical-500170.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/VSkillIcon_4104000.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/VSkillIcon_4104000.png",
       "imageAvailable": true,
-      "byteSize": 15678,
+      "byteSize": 15822,
       "imageDownloadError": null
     },
     {
@@ -2609,9 +2625,9 @@
       "name": "净化",
       "tooltip": "立即解除自身和周围盟友的负面状态，增加移动速度。 强化时：使用时，增加自身和周围盟友的负面效果抵御。",
       "image": "/assets/loadout/tactical-skills/tactical-500180.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/VSkillIcon_4105000.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/VSkillIcon_4105000.png",
       "imageAvailable": true,
-      "byteSize": 14579,
+      "byteSize": 14752,
       "imageDownloadError": null
     },
     {
@@ -2619,9 +2635,9 @@
       "name": "羁绊者",
       "tooltip": "当周围实验体在战斗中失去体力时，根据已失体力获得成比例的能量。 使用后消耗所有能量，赋予周围盟友移动速度和吸血-所有伤害效果。 强化效果 : 获得更多能量。",
       "image": "/assets/loadout/tactical-skills/tactical-500190.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/VSkillIcon_4107000.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/VSkillIcon_4107000.png",
       "imageAvailable": true,
-      "byteSize": 16059,
+      "byteSize": 16107,
       "imageDownloadError": null
     },
     {
@@ -2629,9 +2645,9 @@
       "name": "阔步者",
       "tooltip": "使用后，朝着敌人实验体移动时的移动速度增加，持续时间内对敌人实验体造成伤害时，将造成额外技能伤害，且暂时增加移动速度。 强化效果 : 阔步者对目标造成伤害时，目标的移动速度降低。",
       "image": "/assets/loadout/tactical-skills/tactical-500200.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/VSkillIcon_4110000.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/VSkillIcon_4110000.png",
       "imageAvailable": true,
-      "byteSize": 17107,
+      "byteSize": 17136,
       "imageDownloadError": null
     },
     {
@@ -2639,9 +2655,9 @@
       "name": "实刃",
       "tooltip": "使用后对周围敌人造成伤害，并根据承受伤害的敌人数增加一定比例的移动速度。 强化效果 : 额外召唤实刃并造成额外伤害。",
       "image": "/assets/loadout/tactical-skills/tactical-500210.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/VSkillIcon_4112000.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/VSkillIcon_4112000.png",
       "imageAvailable": true,
-      "byteSize": 16248,
+      "byteSize": 16061,
       "imageDownloadError": null
     },
     {
@@ -2649,9 +2665,9 @@
       "name": "虚言",
       "tooltip": "消耗体力并增加所有伤害。消耗的体力会慢慢恢复。 强化效果 : 参与击杀敌人时，更新效果。",
       "image": "/assets/loadout/tactical-skills/tactical-500220.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/VSkillIcon_4113000.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/VSkillIcon_4113000.png",
       "imageAvailable": true,
-      "byteSize": 16286,
+      "byteSize": 16018,
       "imageDownloadError": null
     },
     {
@@ -2659,9 +2675,9 @@
       "name": "治愈之风",
       "tooltip": "恢复范围内盟友的体力。 强化效果 : 被风扫过的队友，在一定时间内将额外恢复体力。",
       "image": "/assets/loadout/tactical-skills/tactical-500230.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/VSkillIcon_4108000.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/VSkillIcon_4108000.png",
       "imageAvailable": true,
-      "byteSize": 16282,
+      "byteSize": 16295,
       "imageDownloadError": null
     },
     {
@@ -2669,9 +2685,9 @@
       "name": "附着",
       "tooltip": "朝指定方向投掷投射体，将对首个命中的目标造成伤害，再次使用技能时向目标突进。",
       "image": "/assets/loadout/tactical-skills/tactical-500240.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/VSkillIcon_4524000.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/VSkillIcon_4524000.png",
       "imageAvailable": true,
-      "byteSize": 18530,
+      "byteSize": 18423,
       "imageDownloadError": null
     },
     {
@@ -2679,9 +2695,9 @@
       "name": "斥力弹",
       "tooltip": "使用时，短距离进行位移，并对到达位置周围距离最近的敌方实验体发射导弹，对命中的敌人造成真实伤害。 强化效果：额外发射导弹。",
       "image": "/assets/loadout/tactical-skills/tactical-500250.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/VSkillIcon_4115000.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/VSkillIcon_4115000.png",
       "imageAvailable": true,
-      "byteSize": 19550,
+      "byteSize": 19333,
       "imageDownloadError": null
     },
     {
@@ -2689,9 +2705,9 @@
       "name": "等离子冲击",
       "tooltip": "使用时向前方短距离冲刺，并发射等离子能量，对命中的敌人造成技能伤害并降低其移动速度。 即使被多个投射物命中，也仅触发一次伤害。 强化效果： 降低被投射物命中的敌人的防御力。",
       "image": "/assets/loadout/tactical-skills/tactical-500260.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/VSkillIcon_4116000.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/VSkillIcon_4116000.png",
       "imageAvailable": true,
-      "byteSize": 18793,
+      "byteSize": 18993,
       "imageDownloadError": null
     },
     {
@@ -2699,19 +2715,19 @@
       "name": "衰弱",
       "tooltip": "降低指定敌方实验体的移动速度及其造成的伤害。 强化效果：赋予更强的效果。",
       "image": "/assets/loadout/tactical-skills/tactical-500270.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/VSkillIcon_4117000.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/VSkillIcon_4117000.png",
       "imageAvailable": true,
-      "byteSize": 16818,
+      "byteSize": 16915,
       "imageDownloadError": null
     },
     {
       "id": 500280,
       "name": "光之翼",
-      "tooltip": "使用时，移除自身承受的移动速度降低效果，并在一定时间内提升移动速度与攻击速度。普攻命中敌方实验体时，降低目标移动速度。 强化效果：普攻命中敌方实验体时，增加持续时间。",
+      "tooltip": "使用时，移除自身承受的移动速度降低效果，并在一定时间内提升移动速度与攻击速度。 强化效果：普攻命中敌方实验体时，增加持续时间。",
       "image": "/assets/loadout/tactical-skills/tactical-500280.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/VSkillIcon_4118000.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/VSkillIcon_4118000.png",
       "imageAvailable": true,
-      "byteSize": 17985,
+      "byteSize": 17950,
       "imageDownloadError": null
     },
     {
@@ -2719,10 +2735,10 @@
       "name": "未命名战术技能 1000000",
       "tooltip": "",
       "image": "/assets/loadout/tactical-skills/tactical-1000000.png",
-      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/11.2.0/SkillIcon_1060000.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/12.1.0/SkillIcon_1060000.png",
       "imageAvailable": false,
       "byteSize": 0,
-      "imageDownloadError": "Failed to download https://cdn.dak.gg/assets/er/game-assets/11.2.0/SkillIcon_1060000.png: 403 Forbidden"
+      "imageDownloadError": "Failed to download https://cdn.dak.gg/assets/er/game-assets/12.1.0/SkillIcon_1060000.png: 403 Forbidden"
     }
   ]
 }

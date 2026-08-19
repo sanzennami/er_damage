@@ -4,7 +4,7 @@
   "generatedAt": "2026-08-09T07:48:01.569Z",
   "source": "https://github.com/pypy-vrc/er-gamedata.git",
   "counts": {
-    "characters": 89,
+    "characters": 91,
     "skillGroups": 435
   },
   "characters": [
@@ -5500,6 +5500,57 @@
       "playTip": "Craver 以固定攻击速度和 6 发弹药作战，普攻与基础技能都会消耗子弹，剩 1 发时进入必杀弹状态并需要装填。",
       "storyName": "克雷弗",
       "image": "/assets/characters/089-Craver.png"
+    },
+    {
+      "code": 90,
+      "id": "Lucia",
+      "name": "露西娅",
+      "englishName": "Lucia",
+      "resource": "Lucia",
+      "archetypes": [
+        "Marksman"
+      ],
+      "weaponRangeType": "Range",
+      "weapons": [],
+      "base": {
+        "hp": 910,
+        "attackPower": 42,
+        "defense": 53,
+        "skillAmp": 0,
+        "moveSpeed": 3.5,
+        "attackSpeed": 0.18
+      },
+      "growth": null,
+      "ratings": [],
+      "playTip": "",
+      "storyName": "",
+      "image": "/assets/characters/090-Lucia.png"
+    },
+    {
+      "code": 91,
+      "id": "Seres",
+      "name": "Seres",
+      "englishName": "Seres",
+      "resource": "Seres",
+      "archetypes": [
+        "Tanker",
+        "Supporter"
+      ],
+      "weaponRangeType": "Melee",
+      "weapons": [],
+      "base": {
+        "hp": 960,
+        "attackPower": 36,
+        "defense": 55,
+        "skillAmp": 0,
+        "moveSpeed": 3.6,
+        "attackSpeed": 0.12
+      },
+      "growth": null,
+      "ratings": [],
+      "playTip": "",
+      "storyName": "",
+      "image": "/assets/characters/091-Seres.png"
     }
   ],
   "skillGroups": [

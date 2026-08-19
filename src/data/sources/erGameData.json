@@ -1,13 +1,11 @@
 {
-  "_comment": "从 er-gamedata 导出的计算器基础数据，包含角色、原始技能组、自动生成技能、装备属性等。此文件偏数据源，不建议直接维护单个英雄公式。",
-  "_usage": "若只想改某个英雄技能伤害，优先改 localConfig.json 的 skills，或在 skillDamageAugments.json / externalSkillDamageFallback.json 中补充。",
   "source": "https://github.com/pypy-vrc/er-gamedata.git",
-  "generatedAt": "2026-05-21T18:54:23.871Z",
+  "generatedAt": "2026-08-19T07:36:30.001Z",
   "counts": {
-    "characters": 89,
-    "rawSkillGroups": 435,
+    "characters": 91,
+    "rawSkillGroups": 440,
     "calculableSkills": 85,
-    "equipment": 655
+    "equipment": 659
   },
   "characters": [
     {
@@ -43,7 +41,6 @@
         "defense": 2.9999999999999996,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.077,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -56,7 +53,7 @@
       },
       "ratings": [
         {
-          "character": "Jackie",
+          "##Character": "Jackie",
           "characterCode": 1,
           "mastery": "OneHandSword",
           "controlDifficulty": 1,
@@ -67,7 +64,7 @@
           "assistance": 1
         },
         {
-          "character": "Jackie",
+          "##Character": "Jackie",
           "characterCode": 1,
           "mastery": "TwoHandSword",
           "controlDifficulty": 1,
@@ -78,7 +75,7 @@
           "assistance": 1
         },
         {
-          "character": "Jackie",
+          "##Character": "Jackie",
           "characterCode": 1,
           "mastery": "Axe",
           "controlDifficulty": 1,
@@ -89,7 +86,7 @@
           "assistance": 1
         },
         {
-          "character": "Jackie",
+          "##Character": "Jackie",
           "characterCode": 1,
           "mastery": "DualSword",
           "controlDifficulty": 1,
@@ -137,7 +134,6 @@
         "defense": 2.3,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.06,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -150,7 +146,7 @@
       },
       "ratings": [
         {
-          "character": "Aya",
+          "##Character": "Aya",
           "characterCode": 2,
           "mastery": "Pistol",
           "controlDifficulty": 1,
@@ -161,7 +157,7 @@
           "assistance": 1
         },
         {
-          "character": "Aya",
+          "##Character": "Aya",
           "characterCode": 2,
           "mastery": "AssaultRifle",
           "controlDifficulty": 1,
@@ -172,7 +168,7 @@
           "assistance": 1
         },
         {
-          "character": "Aya",
+          "##Character": "Aya",
           "characterCode": 2,
           "mastery": "SniperRifle",
           "controlDifficulty": 1,
@@ -219,7 +215,6 @@
         "defense": 3.7,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.135,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -232,7 +227,7 @@
       },
       "ratings": [
         {
-          "character": "Fiora",
+          "##Character": "Fiora",
           "characterCode": 3,
           "mastery": "Rapier",
           "controlDifficulty": 4,
@@ -243,7 +238,7 @@
           "assistance": 1
         },
         {
-          "character": "Fiora",
+          "##Character": "Fiora",
           "characterCode": 3,
           "mastery": "TwoHandSword",
           "controlDifficulty": 4,
@@ -254,7 +249,7 @@
           "assistance": 1
         },
         {
-          "character": "Fiora",
+          "##Character": "Fiora",
           "characterCode": 3,
           "mastery": "Spear",
           "controlDifficulty": 4,
@@ -301,7 +296,6 @@
         "defense": 3.3,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.085,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -314,7 +308,7 @@
       },
       "ratings": [
         {
-          "character": "Magnus",
+          "##Character": "Magnus",
           "characterCode": 4,
           "mastery": "Hammer",
           "controlDifficulty": 1,
@@ -325,7 +319,7 @@
           "assistance": 1
         },
         {
-          "character": "Magnus",
+          "##Character": "Magnus",
           "characterCode": 4,
           "mastery": "Bat",
           "controlDifficulty": 1,
@@ -371,7 +365,6 @@
         "defense": 2.6999999999999997,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.045,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -384,7 +377,7 @@
       },
       "ratings": [
         {
-          "character": "Zahir",
+          "##Character": "Zahir",
           "characterCode": 5,
           "mastery": "HighAngleFire",
           "controlDifficulty": 5,
@@ -395,7 +388,7 @@
           "assistance": 1
         },
         {
-          "character": "Zahir",
+          "##Character": "Zahir",
           "characterCode": 5,
           "mastery": "DirectFire",
           "controlDifficulty": 5,
@@ -439,10 +432,9 @@
         "maxHp": 73,
         "maxVp": 0,
         "attackPower": 4.3,
-        "defense": 2.5,
+        "defense": 2.7,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.045,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -455,7 +447,7 @@
       },
       "ratings": [
         {
-          "character": "Nadine",
+          "##Character": "Nadine",
           "characterCode": 6,
           "mastery": "Bow",
           "controlDifficulty": 3,
@@ -466,7 +458,7 @@
           "assistance": 1
         },
         {
-          "character": "Nadine",
+          "##Character": "Nadine",
           "characterCode": 6,
           "mastery": "CrossBow",
           "controlDifficulty": 3,
@@ -512,7 +504,6 @@
         "defense": 3.3,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.09,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -525,7 +516,7 @@
       },
       "ratings": [
         {
-          "character": "Hyunwoo",
+          "##Character": "Hyunwoo",
           "characterCode": 7,
           "mastery": "Glove",
           "controlDifficulty": 1,
@@ -536,7 +527,7 @@
           "assistance": 1
         },
         {
-          "character": "Hyunwoo",
+          "##Character": "Hyunwoo",
           "characterCode": 7,
           "mastery": "Tonfa",
           "controlDifficulty": 1,
@@ -581,7 +572,6 @@
         "defense": 2.7,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.06,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -594,7 +584,7 @@
       },
       "ratings": [
         {
-          "character": "Hart",
+          "##Character": "Hart",
           "characterCode": 8,
           "mastery": "Guitar",
           "controlDifficulty": 4,
@@ -641,7 +631,6 @@
         "defense": 2.6,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.045,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -654,7 +643,7 @@
       },
       "ratings": [
         {
-          "character": "Isol",
+          "##Character": "Isol",
           "characterCode": 9,
           "mastery": "AssaultRifle",
           "controlDifficulty": 4,
@@ -665,7 +654,7 @@
           "assistance": 1
         },
         {
-          "character": "Isol",
+          "##Character": "Isol",
           "characterCode": 9,
           "mastery": "Pistol",
           "controlDifficulty": 4,
@@ -711,7 +700,6 @@
         "defense": 3.3,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.158,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -724,7 +712,7 @@
       },
       "ratings": [
         {
-          "character": "LIDailin",
+          "##Character": "LIDailin",
           "characterCode": 10,
           "mastery": "Glove",
           "controlDifficulty": 3,
@@ -735,7 +723,7 @@
           "assistance": 1
         },
         {
-          "character": "LIDailin",
+          "##Character": "LIDailin",
           "characterCode": 10,
           "mastery": "Nunchaku",
           "controlDifficulty": 3,
@@ -781,7 +769,6 @@
         "defense": 3.2,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.113,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -794,7 +781,7 @@
       },
       "ratings": [
         {
-          "character": "Yuki",
+          "##Character": "Yuki",
           "characterCode": 11,
           "mastery": "TwoHandSword",
           "controlDifficulty": 1,
@@ -805,7 +792,7 @@
           "assistance": 1
         },
         {
-          "character": "Yuki",
+          "##Character": "Yuki",
           "characterCode": 11,
           "mastery": "DualSword",
           "controlDifficulty": 1,
@@ -851,7 +838,6 @@
         "defense": 2.8,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.045,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -864,7 +850,7 @@
       },
       "ratings": [
         {
-          "character": "Hyejin",
+          "##Character": "Hyejin",
           "characterCode": 12,
           "mastery": "Bow",
           "controlDifficulty": 3,
@@ -875,7 +861,7 @@
           "assistance": 1
         },
         {
-          "character": "Hyejin",
+          "##Character": "Hyejin",
           "characterCode": 12,
           "mastery": "DirectFire",
           "controlDifficulty": 3,
@@ -921,7 +907,6 @@
         "defense": 3.4,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.135,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -934,7 +919,7 @@
       },
       "ratings": [
         {
-          "character": "Xiukai",
+          "##Character": "Xiukai",
           "characterCode": 13,
           "mastery": "OneHandSword",
           "controlDifficulty": 2,
@@ -945,7 +930,7 @@
           "assistance": 4
         },
         {
-          "character": "Xiukai",
+          "##Character": "Xiukai",
           "characterCode": 13,
           "mastery": "Spear",
           "controlDifficulty": 2,
@@ -990,7 +975,6 @@
         "defense": 2.8,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.06,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -1003,7 +987,7 @@
       },
       "ratings": [
         {
-          "character": "Chiara",
+          "##Character": "Chiara",
           "characterCode": 14,
           "mastery": "Rapier",
           "controlDifficulty": 2,
@@ -1014,7 +998,7 @@
           "assistance": 1
         }
       ],
-      "playTip": "奇娅拉是被仇恨吞噬的角色。她常常执着于给目标留下烙印，利用体力和护盾无情地骚扰敌人，之后审判陷入疲惫的敌人。",
+      "playTip": "奇娅拉是被仇恨吞噬的修女。她常常执着于给目标留下烙印，利用体力和护盾无情地骚扰敌人，之后审判陷入疲惫的敌人。",
       "storyName": "奇娅拉",
       "image": "/assets/characters/014-Chiara.png"
     },
@@ -1049,7 +1033,6 @@
         "defense": 2.4,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.03,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -1062,7 +1045,7 @@
       },
       "ratings": [
         {
-          "character": "Sissela",
+          "##Character": "Sissela",
           "characterCode": 15,
           "mastery": "HighAngleFire",
           "controlDifficulty": 3,
@@ -1073,7 +1056,7 @@
           "assistance": 2
         },
         {
-          "character": "Sissela",
+          "##Character": "Sissela",
           "characterCode": 15,
           "mastery": "DirectFire",
           "controlDifficulty": 3,
@@ -1119,7 +1102,6 @@
         "defense": 3.0999999999999996,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.045,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -1132,7 +1114,7 @@
       },
       "ratings": [
         {
-          "character": "Silvia",
+          "##Character": "Silvia",
           "characterCode": 16,
           "mastery": "Pistol",
           "controlDifficulty": 5,
@@ -1177,7 +1159,6 @@
         "defense": 2.4,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.045,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -1190,7 +1171,7 @@
       },
       "ratings": [
         {
-          "character": "Adriana",
+          "##Character": "Adriana",
           "characterCode": 17,
           "mastery": "HighAngleFire",
           "controlDifficulty": 4,
@@ -1235,7 +1216,6 @@
         "defense": 3.5,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.09,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -1248,7 +1228,7 @@
       },
       "ratings": [
         {
-          "character": "Shoichi",
+          "##Character": "Shoichi",
           "characterCode": 18,
           "mastery": "OneHandSword",
           "controlDifficulty": 5,
@@ -1294,7 +1274,6 @@
         "defense": 2.7,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.06,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -1307,7 +1286,7 @@
       },
       "ratings": [
         {
-          "character": "Emma",
+          "##Character": "Emma",
           "characterCode": 19,
           "mastery": "DirectFire",
           "controlDifficulty": 5,
@@ -1318,7 +1297,7 @@
           "assistance": 1
         },
         {
-          "character": "Emma",
+          "##Character": "Emma",
           "characterCode": 19,
           "mastery": "Arcana",
           "controlDifficulty": 5,
@@ -1363,7 +1342,6 @@
         "defense": 3.2,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.113,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -1376,7 +1354,7 @@
       },
       "ratings": [
         {
-          "character": "Lenox",
+          "##Character": "Lenox",
           "characterCode": 20,
           "mastery": "Whip",
           "controlDifficulty": 2,
@@ -1421,7 +1399,6 @@
         "defense": 2.8,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.03,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -1434,7 +1411,7 @@
       },
       "ratings": [
         {
-          "character": "Rozzi",
+          "##Character": "Rozzi",
           "characterCode": 21,
           "mastery": "Pistol",
           "controlDifficulty": 4,
@@ -1479,7 +1456,6 @@
         "defense": 3.1,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.135,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -1492,7 +1468,7 @@
       },
       "ratings": [
         {
-          "character": "Luke",
+          "##Character": "Luke",
           "characterCode": 22,
           "mastery": "Bat",
           "controlDifficulty": 2,
@@ -1538,7 +1514,6 @@
         "defense": 3.1999999999999997,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.135,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -1551,7 +1526,7 @@
       },
       "ratings": [
         {
-          "character": "Cathy",
+          "##Character": "Cathy",
           "characterCode": 23,
           "mastery": "OneHandSword",
           "controlDifficulty": 4,
@@ -1562,7 +1537,7 @@
           "assistance": 1
         },
         {
-          "character": "Cathy",
+          "##Character": "Cathy",
           "characterCode": 23,
           "mastery": "DualSword",
           "controlDifficulty": 4,
@@ -1608,7 +1583,6 @@
         "defense": 2.4,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.09,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -1621,7 +1595,7 @@
       },
       "ratings": [
         {
-          "character": "Adela",
+          "##Character": "Adela",
           "characterCode": 24,
           "mastery": "Rapier",
           "controlDifficulty": 5,
@@ -1632,7 +1606,7 @@
           "assistance": 1
         },
         {
-          "character": "Adela",
+          "##Character": "Adela",
           "characterCode": 24,
           "mastery": "Bat",
           "controlDifficulty": 5,
@@ -1677,7 +1651,6 @@
         "defense": 3.1,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.09,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -1690,7 +1663,7 @@
       },
       "ratings": [
         {
-          "character": "Bernice",
+          "##Character": "Bernice",
           "characterCode": 25,
           "mastery": "SniperRifle",
           "controlDifficulty": 1,
@@ -1735,7 +1708,6 @@
         "defense": 3.2,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.09,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -1748,7 +1720,7 @@
       },
       "ratings": [
         {
-          "character": "Barbara",
+          "##Character": "Barbara",
           "characterCode": 26,
           "mastery": "Pistol",
           "controlDifficulty": 3,
@@ -1782,7 +1754,7 @@
       "base": {
         "hp": 950,
         "attackPower": 28,
-        "defense": 49,
+        "defense": 51,
         "skillAmp": 0,
         "moveSpeed": 3.4499999999999997,
         "attackSpeed": 0.14
@@ -1796,7 +1768,6 @@
         "defense": 2.8,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.06,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -1809,7 +1780,7 @@
       },
       "ratings": [
         {
-          "character": "Alex",
+          "##Character": "Alex",
           "characterCode": 27,
           "mastery": "Tonfa",
           "controlDifficulty": 5,
@@ -1820,7 +1791,7 @@
           "assistance": 1
         },
         {
-          "character": "Alex",
+          "##Character": "Alex",
           "characterCode": 27,
           "mastery": "TwoHandSword",
           "controlDifficulty": 5,
@@ -1831,7 +1802,7 @@
           "assistance": 1
         },
         {
-          "character": "Alex",
+          "##Character": "Alex",
           "characterCode": 27,
           "mastery": "DirectFire",
           "controlDifficulty": 5,
@@ -1842,7 +1813,7 @@
           "assistance": 1
         },
         {
-          "character": "Alex",
+          "##Character": "Alex",
           "characterCode": 27,
           "mastery": "Pistol",
           "controlDifficulty": 5,
@@ -1873,7 +1844,7 @@
         "Bat"
       ],
       "base": {
-        "hp": 1020,
+        "hp": 980,
         "attackPower": 39,
         "defense": 54,
         "skillAmp": 0,
@@ -1889,7 +1860,6 @@
         "defense": 3.3,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.135,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -1902,7 +1872,7 @@
       },
       "ratings": [
         {
-          "character": "Sua",
+          "##Character": "Sua",
           "characterCode": 28,
           "mastery": "Hammer",
           "controlDifficulty": 2,
@@ -1913,7 +1883,7 @@
           "assistance": 3
         },
         {
-          "character": "Sua",
+          "##Character": "Sua",
           "characterCode": 28,
           "mastery": "Bat",
           "controlDifficulty": 2,
@@ -1959,7 +1929,6 @@
         "defense": 3.1999999999999997,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.158,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -1972,7 +1941,7 @@
       },
       "ratings": [
         {
-          "character": "Leon",
+          "##Character": "Leon",
           "characterCode": 29,
           "mastery": "Glove",
           "controlDifficulty": 1,
@@ -1983,7 +1952,7 @@
           "assistance": 3
         },
         {
-          "character": "Leon",
+          "##Character": "Leon",
           "characterCode": 29,
           "mastery": "Tonfa",
           "controlDifficulty": 1,
@@ -2028,7 +1997,6 @@
         "defense": 2.6999999999999997,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.105,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -2041,7 +2009,7 @@
       },
       "ratings": [
         {
-          "character": "Eleven",
+          "##Character": "Eleven",
           "characterCode": 30,
           "mastery": "Hammer",
           "controlDifficulty": 1,
@@ -2086,7 +2054,6 @@
         "defense": 2.6,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.06,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -2099,7 +2066,7 @@
       },
       "ratings": [
         {
-          "character": "Rio",
+          "##Character": "Rio",
           "characterCode": 31,
           "mastery": "Bow",
           "controlDifficulty": 2,
@@ -2129,7 +2096,7 @@
       ],
       "base": {
         "hp": 945,
-        "attackPower": 37,
+        "attackPower": 40,
         "defense": 52,
         "skillAmp": 0,
         "moveSpeed": 3.55,
@@ -2144,7 +2111,6 @@
         "defense": 2.7,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.06,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -2157,7 +2123,7 @@
       },
       "ratings": [
         {
-          "character": "William",
+          "##Character": "William",
           "characterCode": 32,
           "mastery": "HighAngleFire",
           "controlDifficulty": 5,
@@ -2202,7 +2168,6 @@
         "defense": 3.5,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.135,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -2215,7 +2180,7 @@
       },
       "ratings": [
         {
-          "character": "Nicky",
+          "##Character": "Nicky",
           "characterCode": 33,
           "mastery": "Glove",
           "controlDifficulty": 2,
@@ -2260,7 +2225,6 @@
         "defense": 2.9,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.045,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -2273,7 +2237,7 @@
       },
       "ratings": [
         {
-          "character": "Nathapon",
+          "##Character": "Nathapon",
           "characterCode": 34,
           "mastery": "Camera",
           "controlDifficulty": 5,
@@ -2319,7 +2283,6 @@
         "defense": 3.6,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.09,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -2332,7 +2295,7 @@
       },
       "ratings": [
         {
-          "character": "Jan",
+          "##Character": "Jan",
           "characterCode": 35,
           "mastery": "Glove",
           "controlDifficulty": 5,
@@ -2343,7 +2306,7 @@
           "assistance": 1
         },
         {
-          "character": "Jan",
+          "##Character": "Jan",
           "characterCode": 35,
           "mastery": "Tonfa",
           "controlDifficulty": 5,
@@ -2388,7 +2351,6 @@
         "defense": 2.8,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.045,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -2401,7 +2363,7 @@
       },
       "ratings": [
         {
-          "character": "Eva",
+          "##Character": "Eva",
           "characterCode": 36,
           "mastery": "HighAngleFire",
           "controlDifficulty": 1,
@@ -2446,7 +2408,6 @@
         "defense": 2.8,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.077,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -2459,7 +2420,7 @@
       },
       "ratings": [
         {
-          "character": "Daniel",
+          "##Character": "Daniel",
           "characterCode": 37,
           "mastery": "OneHandSword",
           "controlDifficulty": 3,
@@ -2504,7 +2465,6 @@
         "defense": 2.7,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.06,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -2517,7 +2477,7 @@
       },
       "ratings": [
         {
-          "character": "Jenny",
+          "##Character": "Jenny",
           "characterCode": 38,
           "mastery": "Pistol",
           "controlDifficulty": 3,
@@ -2563,7 +2523,6 @@
         "defense": 3.0999999999999996,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.113,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -2576,7 +2535,7 @@
       },
       "ratings": [
         {
-          "character": "Camilo",
+          "##Character": "Camilo",
           "characterCode": 39,
           "mastery": "DualSword",
           "controlDifficulty": 3,
@@ -2587,7 +2546,7 @@
           "assistance": 1
         },
         {
-          "character": "Camilo",
+          "##Character": "Camilo",
           "characterCode": 39,
           "mastery": "Rapier",
           "controlDifficulty": 3,
@@ -2632,7 +2591,6 @@
         "defense": 2.7,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.075,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -2645,7 +2603,7 @@
       },
       "ratings": [
         {
-          "character": "Chloe",
+          "##Character": "Chloe",
           "characterCode": 40,
           "mastery": "DirectFire",
           "controlDifficulty": 5,
@@ -2690,7 +2648,6 @@
         "defense": 2.7,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.075,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -2703,7 +2660,7 @@
       },
       "ratings": [
         {
-          "character": "Johann",
+          "##Character": "Johann",
           "characterCode": 41,
           "mastery": "Arcana",
           "controlDifficulty": 1,
@@ -2748,7 +2705,6 @@
         "defense": 2.8,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.03,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -2761,7 +2717,7 @@
       },
       "ratings": [
         {
-          "character": "Bianca",
+          "##Character": "Bianca",
           "characterCode": 42,
           "mastery": "Arcana",
           "controlDifficulty": 2,
@@ -2806,7 +2762,6 @@
         "defense": 2.8,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.045,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -2819,7 +2774,7 @@
       },
       "ratings": [
         {
-          "character": "Celine",
+          "##Character": "Celine",
           "characterCode": 43,
           "mastery": "HighAngleFire",
           "controlDifficulty": 5,
@@ -2864,7 +2819,6 @@
         "defense": 3.2,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.135,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -2877,7 +2831,7 @@
       },
       "ratings": [
         {
-          "character": "Echion",
+          "##Character": "Echion",
           "characterCode": 44,
           "mastery": "VFArm",
           "controlDifficulty": 4,
@@ -2923,7 +2877,6 @@
         "defense": 3.2,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.113,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -2936,7 +2889,7 @@
       },
       "ratings": [
         {
-          "character": "Mai",
+          "##Character": "Mai",
           "characterCode": 45,
           "mastery": "Whip",
           "controlDifficulty": 3,
@@ -2981,7 +2934,6 @@
         "defense": 3.4,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.077,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -2994,7 +2946,7 @@
       },
       "ratings": [
         {
-          "character": "Aiden",
+          "##Character": "Aiden",
           "characterCode": 46,
           "mastery": "TwoHandSword",
           "controlDifficulty": 5,
@@ -3039,7 +2991,6 @@
         "defense": 3.1,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.077,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -3052,7 +3003,7 @@
       },
       "ratings": [
         {
-          "character": "Laura",
+          "##Character": "Laura",
           "characterCode": 47,
           "mastery": "Whip",
           "controlDifficulty": 5,
@@ -3097,7 +3048,6 @@
         "defense": 2.9999999999999996,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.068,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -3110,7 +3060,7 @@
       },
       "ratings": [
         {
-          "character": "Tia",
+          "##Character": "Tia",
           "characterCode": 48,
           "mastery": "Bat",
           "controlDifficulty": 5,
@@ -3155,7 +3105,6 @@
         "defense": 3,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.06,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -3168,7 +3117,7 @@
       },
       "ratings": [
         {
-          "character": "Felix",
+          "##Character": "Felix",
           "characterCode": 49,
           "mastery": "Spear",
           "controlDifficulty": 4,
@@ -3213,7 +3162,6 @@
         "defense": 3.3,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.051,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -3226,7 +3174,7 @@
       },
       "ratings": [
         {
-          "character": "Elena",
+          "##Character": "Elena",
           "characterCode": 50,
           "mastery": "Rapier",
           "controlDifficulty": 3,
@@ -3272,7 +3220,6 @@
         "defense": 2.8,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.05,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -3285,7 +3232,7 @@
       },
       "ratings": [
         {
-          "character": "Priya",
+          "##Character": "Priya",
           "characterCode": 51,
           "mastery": "Guitar",
           "controlDifficulty": 3,
@@ -3331,7 +3278,6 @@
         "defense": 2.6,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.06,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -3344,7 +3290,7 @@
       },
       "ratings": [
         {
-          "character": "Adina",
+          "##Character": "Adina",
           "characterCode": 52,
           "mastery": "Arcana",
           "controlDifficulty": 5,
@@ -3391,7 +3337,6 @@
         "defense": 3.3,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.136,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -3404,7 +3349,7 @@
       },
       "ratings": [
         {
-          "character": "Markus",
+          "##Character": "Markus",
           "characterCode": 53,
           "mastery": "Axe",
           "controlDifficulty": 2,
@@ -3415,7 +3360,7 @@
           "assistance": 1
         },
         {
-          "character": "Markus",
+          "##Character": "Markus",
           "characterCode": 53,
           "mastery": "Hammer",
           "controlDifficulty": 2,
@@ -3460,7 +3405,6 @@
         "defense": 2.8,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.06,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -3473,7 +3417,7 @@
       },
       "ratings": [
         {
-          "character": "Karla",
+          "##Character": "Karla",
           "characterCode": 54,
           "mastery": "CrossBow",
           "controlDifficulty": 4,
@@ -3519,7 +3463,6 @@
         "defense": 3,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.099,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -3532,7 +3475,7 @@
       },
       "ratings": [
         {
-          "character": "Estelle",
+          "##Character": "Estelle",
           "characterCode": 55,
           "mastery": "Axe",
           "controlDifficulty": 3,
@@ -3577,7 +3520,6 @@
         "defense": 3.3,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.12,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -3590,7 +3532,7 @@
       },
       "ratings": [
         {
-          "character": "Piolo",
+          "##Character": "Piolo",
           "characterCode": 56,
           "mastery": "Nunchaku",
           "controlDifficulty": 4,
@@ -3635,7 +3577,6 @@
         "defense": 2.8,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.1,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -3648,7 +3589,7 @@
       },
       "ratings": [
         {
-          "character": "Martina",
+          "##Character": "Martina",
           "characterCode": 57,
           "mastery": "Camera",
           "controlDifficulty": 5,
@@ -3693,7 +3634,6 @@
         "defense": 2.5999999999999996,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.07,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -3706,7 +3646,7 @@
       },
       "ratings": [
         {
-          "character": "Haze",
+          "##Character": "Haze",
           "characterCode": 58,
           "mastery": "AssaultRifle",
           "controlDifficulty": 3,
@@ -3751,7 +3691,6 @@
         "defense": 3.1,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.12,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -3764,7 +3703,7 @@
       },
       "ratings": [
         {
-          "character": "Isaac",
+          "##Character": "Isaac",
           "characterCode": 59,
           "mastery": "Tonfa",
           "controlDifficulty": 1,
@@ -3809,7 +3748,6 @@
         "defense": 2.9,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.07,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -3822,7 +3760,7 @@
       },
       "ratings": [
         {
-          "character": "Tazia",
+          "##Character": "Tazia",
           "characterCode": 60,
           "mastery": "DirectFire",
           "controlDifficulty": 4,
@@ -3868,7 +3806,6 @@
         "defense": 3.0999999999999996,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.08,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -3881,7 +3818,7 @@
       },
       "ratings": [
         {
-          "character": "Irem",
+          "##Character": "Irem",
           "characterCode": 61,
           "mastery": "HighAngleFire",
           "controlDifficulty": 5,
@@ -3927,7 +3864,6 @@
         "defense": 3.1999999999999997,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.09,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -3940,7 +3876,7 @@
       },
       "ratings": [
         {
-          "character": "Theodore",
+          "##Character": "Theodore",
           "characterCode": 62,
           "mastery": "SniperRifle",
           "controlDifficulty": 2,
@@ -3985,7 +3921,6 @@
         "defense": 3.2,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.07,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -3998,7 +3933,7 @@
       },
       "ratings": [
         {
-          "character": "Lyanh",
+          "##Character": "Lyanh",
           "characterCode": 63,
           "mastery": "OneHandSword",
           "controlDifficulty": 2,
@@ -4043,7 +3978,6 @@
         "defense": 2.8,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.06,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -4056,7 +3990,7 @@
       },
       "ratings": [
         {
-          "character": "Vanya",
+          "##Character": "Vanya",
           "characterCode": 64,
           "mastery": "Arcana",
           "controlDifficulty": 2,
@@ -4101,7 +4035,6 @@
         "defense": 3,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.07,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -4114,7 +4047,7 @@
       },
       "ratings": [
         {
-          "character": "DebiMarlene",
+          "##Character": "DebiMarlene",
           "characterCode": 65,
           "mastery": "TwoHandSword",
           "controlDifficulty": 4,
@@ -4160,7 +4093,6 @@
         "defense": 2.7,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.07,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -4173,7 +4105,7 @@
       },
       "ratings": [
         {
-          "character": "Arda",
+          "##Character": "Arda",
           "characterCode": 66,
           "mastery": "Arcana",
           "controlDifficulty": 2,
@@ -4218,7 +4150,6 @@
         "defense": 3.0999999999999996,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.08,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -4231,7 +4162,7 @@
       },
       "ratings": [
         {
-          "character": "Abigail",
+          "##Character": "Abigail",
           "characterCode": 67,
           "mastery": "Axe",
           "controlDifficulty": 3,
@@ -4276,7 +4207,6 @@
         "defense": 3.4,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.12,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -4289,7 +4219,7 @@
       },
       "ratings": [
         {
-          "character": "Alonso",
+          "##Character": "Alonso",
           "characterCode": 68,
           "mastery": "Glove",
           "controlDifficulty": 1,
@@ -4334,7 +4264,6 @@
         "defense": 2.8,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.06,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -4347,7 +4276,7 @@
       },
       "ratings": [
         {
-          "character": "Leni",
+          "##Character": "Leni",
           "characterCode": 69,
           "mastery": "Pistol",
           "controlDifficulty": 4,
@@ -4392,7 +4321,6 @@
         "defense": 2.8,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.06,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -4405,7 +4333,7 @@
       },
       "ratings": [
         {
-          "character": "Tsubame",
+          "##Character": "Tsubame",
           "characterCode": 70,
           "mastery": "DirectFire",
           "controlDifficulty": 3,
@@ -4450,7 +4378,6 @@
         "defense": 2.6999999999999997,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.136,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -4463,7 +4390,7 @@
       },
       "ratings": [
         {
-          "character": "Kenneth",
+          "##Character": "Kenneth",
           "characterCode": 71,
           "mastery": "Axe",
           "controlDifficulty": 3,
@@ -4508,7 +4435,6 @@
         "defense": 2.6999999999999997,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.09,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -4521,7 +4447,7 @@
       },
       "ratings": [
         {
-          "character": "Katja",
+          "##Character": "Katja",
           "characterCode": 72,
           "mastery": "SniperRifle",
           "controlDifficulty": 1,
@@ -4566,7 +4492,6 @@
         "defense": 3.1999999999999997,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.09,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -4579,7 +4504,7 @@
       },
       "ratings": [
         {
-          "character": "Charlotte",
+          "##Character": "Charlotte",
           "characterCode": 73,
           "mastery": "Arcana",
           "controlDifficulty": 1,
@@ -4624,7 +4549,6 @@
         "defense": 3.5,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.136,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -4637,7 +4561,7 @@
       },
       "ratings": [
         {
-          "character": "Darko",
+          "##Character": "Darko",
           "characterCode": 74,
           "mastery": "Bat",
           "controlDifficulty": 2,
@@ -4682,7 +4606,6 @@
         "defense": 2.8,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.06,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -4695,7 +4618,7 @@
       },
       "ratings": [
         {
-          "character": "Lenore",
+          "##Character": "Lenore",
           "characterCode": 75,
           "mastery": "Guitar",
           "controlDifficulty": 2,
@@ -4741,7 +4664,6 @@
         "defense": 3.1,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.136,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -4754,7 +4676,7 @@
       },
       "ratings": [
         {
-          "character": "Garnet",
+          "##Character": "Garnet",
           "characterCode": 76,
           "mastery": "Bat",
           "controlDifficulty": 2,
@@ -4799,7 +4721,6 @@
         "defense": 2.8,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.08,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -4812,7 +4733,7 @@
       },
       "ratings": [
         {
-          "character": "YuMin",
+          "##Character": "YuMin",
           "characterCode": 77,
           "mastery": "Arcana",
           "controlDifficulty": 4,
@@ -4857,7 +4778,6 @@
         "defense": 3.7,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.07,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -4870,7 +4790,7 @@
       },
       "ratings": [
         {
-          "character": "Hisui",
+          "##Character": "Hisui",
           "characterCode": 78,
           "mastery": "TwoHandSword",
           "controlDifficulty": 4,
@@ -4915,7 +4835,6 @@
         "defense": 2.8,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.06,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -4928,7 +4847,7 @@
       },
       "ratings": [
         {
-          "character": "Justyna",
+          "##Character": "Justyna",
           "characterCode": 79,
           "mastery": "CrossBow",
           "controlDifficulty": 3,
@@ -4973,7 +4892,6 @@
         "defense": 3.2,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.135,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -4986,7 +4904,7 @@
       },
       "ratings": [
         {
-          "character": "Istvan",
+          "##Character": "Istvan",
           "characterCode": 80,
           "mastery": "Spear",
           "controlDifficulty": 2,
@@ -5031,7 +4949,6 @@
         "defense": 2.7,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.06,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -5044,7 +4961,7 @@
       },
       "ratings": [
         {
-          "character": "Niah",
+          "##Character": "Niah",
           "characterCode": 81,
           "mastery": "Pistol",
           "controlDifficulty": 3,
@@ -5090,7 +5007,6 @@
         "defense": 3,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.06,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -5103,7 +5019,7 @@
       },
       "ratings": [
         {
-          "character": "Xuelin",
+          "##Character": "Xuelin",
           "characterCode": 82,
           "mastery": "Rapier",
           "controlDifficulty": 2,
@@ -5148,7 +5064,6 @@
         "defense": 2.8,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.06,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -5161,7 +5076,7 @@
       },
       "ratings": [
         {
-          "character": "Henry",
+          "##Character": "Henry",
           "characterCode": 83,
           "mastery": "DirectFire",
           "controlDifficulty": 3,
@@ -5206,7 +5121,6 @@
         "defense": 3,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.113,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -5219,7 +5133,7 @@
       },
       "ratings": [
         {
-          "character": "Blair",
+          "##Character": "Blair",
           "characterCode": 84,
           "mastery": "DualSword",
           "controlDifficulty": 4,
@@ -5262,10 +5176,9 @@
         "maxHp": 92,
         "maxVp": 0,
         "attackPower": 3.8,
-        "defense": 2.9,
+        "defense": 3.1,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.135,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -5278,7 +5191,7 @@
       },
       "ratings": [
         {
-          "character": "Mirka",
+          "##Character": "Mirka",
           "characterCode": 85,
           "mastery": "Hammer",
           "controlDifficulty": 2,
@@ -5323,7 +5236,6 @@
         "defense": 3.3,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.113,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -5336,7 +5248,7 @@
       },
       "ratings": [
         {
-          "character": "Fenrir",
+          "##Character": "Fenrir",
           "characterCode": 86,
           "mastery": "Glove",
           "controlDifficulty": 2,
@@ -5381,7 +5293,6 @@
         "defense": 3,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.113,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -5394,7 +5305,7 @@
       },
       "ratings": [
         {
-          "character": "Coraline",
+          "##Character": "Coraline",
           "characterCode": 87,
           "mastery": "Arcana",
           "controlDifficulty": 4,
@@ -5423,8 +5334,8 @@
         "Bat"
       ],
       "base": {
-        "hp": 960,
-        "attackPower": 34,
+        "hp": 930,
+        "attackPower": 30,
         "defense": 50,
         "skillAmp": 0,
         "moveSpeed": 3.55,
@@ -5439,7 +5350,6 @@
         "defense": 2.9,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.135,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -5452,7 +5362,7 @@
       },
       "ratings": [
         {
-          "character": "Bihyung",
+          "##Character": "Bihyung",
           "characterCode": 88,
           "mastery": "Bat",
           "controlDifficulty": 2,
@@ -5464,7 +5374,7 @@
         }
       ],
       "playTip": "鼻荆是一个喜欢利用鬼怪的强大力量，向遇到的每一个人发起赌约并进行恶作剧的实验体。 当戴上鬼怪假面后，鼻荆会变得巨大且充满力量，没有任何人能阻挡她的恶作剧。",
-      "storyName": "鼻荊",
+      "storyName": "鼻荆",
       "image": "/assets/characters/088-Bihyung.png"
     },
     {
@@ -5482,18 +5392,99 @@
         "Pistol"
       ],
       "base": {
-        "hp": 905,
-        "attackPower": 43,
-        "defense": 51,
+        "hp": 930,
+        "attackPower": 35,
+        "defense": 50,
         "skillAmp": 0,
-        "moveSpeed": 3.55,
-        "attackSpeed": 0.11
+        "moveSpeed": 3.5,
+        "attackSpeed": 0.1
+      },
+      "growth": {
+        "code": 89,
+        "name": "Craver",
+        "maxHp": 80,
+        "maxVp": 0,
+        "attackPower": 4.4,
+        "defense": 3,
+        "skillAmp": 0,
+        "adaptiveForce": 0,
+        "hpRegen": 0.06,
+        "vpRegen": 0,
+        "attackSpeed": 0,
+        "moveSpeed": 0,
+        "attackSpeedRatio": 0,
+        "increaseBasicAttackDamageRatio": 0,
+        "skillAmpRatio": 0,
+        "preventBasicAttackDamagedRatio": 0,
+        "preventSkillDamagedRatio": 0
+      },
+      "ratings": [
+        {
+          "##Character": "Craver",
+          "characterCode": 89,
+          "mastery": "Pistol",
+          "controlDifficulty": 4,
+          "attack": 4,
+          "defense": 2,
+          "disruptor": 4,
+          "move": 3,
+          "assistance": 1
+        }
+      ],
+      "playTip": "克雷弗是一把沉淀着多个人类执念的手枪。它通过不断消耗子弹来压制敌人，并在剩下最后一发子弹时，通过强大的技能制服敌人。",
+      "storyName": "克雷弗",
+      "image": "/assets/characters/089-Craver.png"
+    },
+    {
+      "code": 90,
+      "id": "Lucia",
+      "name": "露西娅",
+      "englishName": "Lucia",
+      "resource": "Lucia",
+      "archetypes": [
+        "Marksman"
+      ],
+      "weaponRangeType": "Range",
+      "weapons": [],
+      "base": {
+        "hp": 910,
+        "attackPower": 42,
+        "defense": 53,
+        "skillAmp": 0,
+        "moveSpeed": 3.5,
+        "attackSpeed": 0.18
       },
       "growth": null,
       "ratings": [],
-      "playTip": "Craver 以固定攻击速度和 6 发弹药作战，普攻与基础技能都会消耗子弹，剩 1 发时进入必杀弹状态并需要装填。",
-      "storyName": "克雷弗",
-      "image": "/assets/characters/089-Craver.png"
+      "playTip": "",
+      "storyName": "",
+      "image": "/assets/characters/090-Lucia.png"
+    },
+    {
+      "code": 91,
+      "id": "Seres",
+      "name": "Seres",
+      "englishName": "Seres",
+      "resource": "Seres",
+      "archetypes": [
+        "Tanker",
+        "Supporter"
+      ],
+      "weaponRangeType": "Melee",
+      "weapons": [],
+      "base": {
+        "hp": 960,
+        "attackPower": 36,
+        "defense": 55,
+        "skillAmp": 0,
+        "moveSpeed": 3.6,
+        "attackSpeed": 0.12
+      },
+      "growth": null,
+      "ratings": [],
+      "playTip": "",
+      "storyName": "",
+      "image": "/assets/characters/091-Seres.png"
     }
   ],
   "rawSkillGroups": [
@@ -7149,8 +7140,8 @@
       "skillId": "SuaActive2",
       "passiveSkillId": "None",
       "name": "青鸟",
-      "description": "队友和自身 : 在{0}秒间吸收{1}技能伤害并赋予免疫负面效果的护盾。 敌人 : 造成{2}技能伤害并导致敌人失明{3}秒。",
-      "coefficientText": "队友和自身 : 在{0}秒间吸收{1}(+技能增幅{6})的技能伤害并赋予免疫负面效果的护盾。 敌人 : 对敌人造成{3}(+技能增幅{4})的技能伤害并使其失明{5}秒。",
+      "description": "用于自身 : 在{0}秒间吸收{1}技能伤害并赋予免疫负面效果的护盾。 用于敌人 : 造成{2}技能伤害并导致敌人失明{3}秒。",
+      "coefficientText": "用于自身 : 在{0}秒间吸收{1}(+技能增幅{6})的技能伤害并赋予免疫负面效果的护盾。 用于敌人 : 对敌人造成{3}(+技能增幅{4})的技能伤害并使其失明{5}秒。",
       "extensionName": ""
     },
     {
@@ -7161,8 +7152,8 @@
       "skillId": "SuaActive3",
       "passiveSkillId": "None",
       "name": "堂吉诃德",
-      "description": "秀雅将武器变成枪并向前方突进，对第一个被击中的敌人造成{0}技能伤害，{5}秒间移动速度减少{6}。 对有书签标识状态的敌人造成{1}技能伤害，将目标撞至悬空。 堂吉诃德命中时，根据秀雅已失体力恢复{2} ~ {3}的体力。 命中目标敌人时，堂吉诃德冷却缩减{4}。 秀雅在变更武器的期间不受任何负面效果的影响。",
-      "coefficientText": "秀雅将武器变成枪并向前方突进，对首个命中的敌人造成{0}(+技能增幅{2})的技能伤害，{13}秒间移动速度减少{14}。 对有书签标识状态的敌人造成{3}(+技能增幅{5})的技能伤害，将目标撞至悬空。 堂吉诃德命中时，秀雅根据已失体力恢复{6}(+技能增幅{8}) ~ {9}(+技能增幅{11})的体力。 命中目标敌人时，堂吉诃德冷却缩减{12}。 秀雅在更换武器的期间不受任何负面效果的影响。",
+      "description": "秀雅将武器变成枪并向前方突进，对第一个被击中的敌人造成{0}技能伤害，并附加持续{7}秒的书签，{5}秒间移动速度减少{6}。 对有书签标识状态的敌人造成{1}技能伤害，将目标撞至悬空。 堂吉诃德命中时，根据秀雅已失体力恢复{2} ~ {3}的体力。 命中目标敌人时，堂吉诃德冷却缩减{4}。 秀雅在变更武器的期间不受任何负面效果的影响。",
+      "coefficientText": "秀雅将武器变成枪并向前方突进，对首个命中的敌人造成{0}(+技能增幅{2})的技能伤害，并附加持续{15}秒的书签，{13}秒间移动速度减少{14}。 对有书签标识状态的敌人造成{3}(+技能增幅{5})的技能伤害，将目标撞至悬空。 堂吉诃德命中时，秀雅根据已失体力恢复{6}(+技能增幅{8}) ~ {9}(+技能增幅{11})的体力。 命中目标敌人时，堂吉诃德冷却缩减{12}。 秀雅在更换武器的期间不受任何负面效果的影响。",
       "extensionName": ""
     },
     {
@@ -7173,8 +7164,8 @@
       "skillId": "SuaActive4_1",
       "passiveSkillId": "None",
       "name": "记忆力",
-      "description": "秀雅拥有过目不忘的本领，可以马上掌握最后使用过的技能，并重新使用。 奥德赛 : 当书本向中心碰撞时，将会对范围内的敌人造成{0}的技能伤害，并留下书签标识{1}秒。 对已有书签的目标留下新书签时，将对目标造成{2}技能伤害，晕厥{3}秒。 书本冲撞中心地点的敌人承受伤害增加{11}，{12}秒间移动速度减少{13}。 青鸟: 队友和自身 : 吸收{4}技能伤害并形成免疫负面效果的护盾。 敌人 : 对敌人造成{5}伤害并导致敌人失明{6}秒。 堂吉诃德: 对第一次击中的敌人造成{7}的技能伤害，{14}秒间移动速度减少{15}。 对有书签标识的敌人造成{8}的技能伤害并使目标悬空。堂吉诃德命中时，秀雅根据已失体力恢复{9} ~ {10}的体力。 秀雅在更换武器的期间不受任何负面效果的影响。",
-      "coefficientText": "秀雅拥有过目不忘的本领，可以马上掌握最后使用过的技能，并重新使用。 奥德赛: 当书本向中心碰撞时，将会对范围内的敌人造成{0}(+技能增幅{2})的技能伤害，并留下书签标识{3}秒。 对已有书签的目标留下新书签时，将对目标造成{4}(+技能增幅{6})的技能伤害，晕厥{3}秒。 处于书本冲撞中心的敌人承受伤害增加{27}，{28}秒间移动速度减少{29}。 青鸟: 队友和自身 : 吸收{8}(+技能增幅{10})技能伤害并形成免疫负面效果的护盾。 敌人 : 对敌人造成{11}(+技能增幅{13})的伤害并使其失明{14}秒。 堂吉诃德 : 对首个命中的敌人造成{15}(+技能增幅{17})的技能伤害，{1}秒间移动速度减少{5}。 对有书签标识的敌人造成{18}(+技能增幅{20})的技能伤害并使目标悬空。堂吉诃德命中时，秀雅根据已失体力恢复{21}(+技能增幅{23}) ~ {24}(+技能增幅{26})的体力。 秀雅在变更武器的期间不受任何负面效果的影响。",
+      "description": "秀雅拥有过目不忘的本领，可以马上掌握最后使用过的技能，并重新使用。 奥德赛 : 当书本向中心碰撞时，将会对范围内的敌人造成{0}的技能伤害，并留下书签标识{1}秒。 对已有书签的目标留下新书签时，将对目标造成{2}技能伤害，晕厥{3}秒。 书本冲撞中心地点的敌人承受伤害增加{11}，{12}秒间移动速度减少{13}。 青鸟: 自身 : 吸收{4}技能伤害并形成免疫负面效果的护盾。 敌人 : 对敌人造成{5}伤害并导致敌人失明{6}秒。 堂吉诃德: 对第一次击中的敌人造成{7}的技能伤害，并附加持续{16}秒的书签，{14}秒间移动速度减少{15}。 对有书签标识的敌人造成{8}的技能伤害并使目标悬空。堂吉诃德命中时，秀雅根据已失体力恢复{9} ~ {10}的体力。 秀雅在更换武器的期间不受任何负面效果的影响。",
+      "coefficientText": "秀雅拥有过目不忘的本领，可以马上掌握最后使用过的技能，并重新使用。 奥德赛: 当书本向中心碰撞时，将会对范围内的敌人造成{0}(+技能增幅{2})的技能伤害，并留下书签标识{3}秒。 对已有书签的目标留下新书签时，将对目标造成{4}(+技能增幅{6})的技能伤害，晕厥{3}秒。 处于书本冲撞中心的敌人承受伤害增加{27}，{28}秒间移动速度减少{29}。 青鸟: 自身 : 吸收{8}(+技能增幅{10})技能伤害并形成免疫负面效果的护盾。 敌人 : 对敌人造成{11}(+技能增幅{13})的伤害并使其失明{14}秒。 堂吉诃德 : 对首个命中的敌人造成{15}(+技能增幅{17})的技能伤害，并附加持续{3}秒的书签，{1}秒间移动速度减少{5}。 对有书签标识的敌人造成{18}(+技能增幅{20})的技能伤害并使目标悬空。堂吉诃德命中时，秀雅根据已失体力恢复{21}(+技能增幅{23}) ~ {24}(+技能增幅{26})的体力。 秀雅在变更武器的期间不受任何负面效果的影响。",
       "extensionName": ""
     },
     {
@@ -7245,8 +7236,8 @@
       "skillId": "None",
       "passiveSkillId": "ElevenPassive",
       "name": "美食主播",
-      "description": "独有被动效果 : Eleven将面包和肉组合在一起制作成11号套餐。 根据基本技能命中的敌人数，最多将在地上掉落{3}个汉堡。Eleven踩中掉落在地上的汉堡时恢复{0}体力，汉堡被敌人踩中时会被摧毁。",
-      "coefficientText": "独有被动效果 : Eleven将面包和肉组合在一起制作成11号套餐。 根据基本技能命中的敌人数，最多将在地上掉落{2}个汉堡。Eleven踩中掉落在地上的汉堡时恢复体力上限{0}体力，汉堡被敌人踩中时会被摧毁。",
+      "description": "独有被动效果 : Eleven将面包和肉组合在一起制作成11号套餐。 根据技能命中的敌人数，最多将在地上掉落{3}个汉堡。Eleven踩中掉落在地上的汉堡时恢复{0}体力，汉堡被敌人踩中时会被摧毁。",
+      "coefficientText": "独有被动效果 : Eleven将面包和肉组合在一起制作成11号套餐。 根据技能命中的敌人数，最多将在地上掉落{2}个汉堡。Eleven踩中掉落在地上的汉堡时恢复体力上限{0}体力，汉堡被敌人踩中时会被摧毁。",
       "extensionName": ""
     },
     {
@@ -7701,8 +7692,8 @@
       "skillId": "DanielActive3",
       "passiveSkillId": "None",
       "name": "暗影刺客",
-      "description": "丹尼尔朝目标方向突进，{1}秒间化身一道黑影。黑影状态下普攻射程固定3m，下一个普攻会将丹尼尔瞬间传送到目标身后，造成{20}额外技能伤害。",
-      "coefficientText": "丹尼尔朝目标方向突进，{1}秒间化身一道黑影。黑影状态下普攻射程固定3m，{1}秒间下一个普攻会将丹尼尔瞬间传送到目标身后，造成{2}(+额外攻击力{3})的额外技能伤害。",
+      "description": "丹尼尔在{5}秒内以隐身状态向前快速突进，{1}秒间化作一团黑影。黑影状态下普攻射程固定3m，对敌人进行普攻时丹尼尔将瞬间传送到目标身后，对敌人造成{20}技能伤害。",
+      "coefficientText": "丹尼尔在{5}秒内以隐身状态向前快速突进，{1}秒间化作一团黑影。黑影状态下普攻射程固定3m，对敌人进行普攻时丹尼尔将瞬间传送到目标身后，对敌人造成{2}(+额外攻击力{3})技能伤害。",
       "extensionName": ""
     },
     {
@@ -8541,8 +8532,8 @@
       "skillId": "AdinaActive1",
       "passiveSkillId": "None",
       "name": "星芒万丈",
-      "description": "阿迪娜向指定的方向发射天体，给命中的敌人造成{20}技能伤害。 天体符号 太阳 : 伤害量增加{22}。 月亮 : 单独击中1名敌人时，使敌人晕厥{2}秒。 星星 : 行星迅速飞过，在路径上留下星迹，碰触星迹的队友在{3}秒间增加移动速度{4}。 太阳连接效果 : 连接2个太阳符号时施法， 将发射巨型太阳造成{21}技能伤害，{9}秒间造成目标体力上限{10}的持续伤害并燃烧敌人。",
-      "coefficientText": "阿迪娜向指定的方向发射天体，给命中的敌人造成{0}(+技能增幅的{7})技能伤害。 天体符号 太阳 : 伤害量增加{11}(+技能增幅的{12}) 月亮 : 单独击中1名敌人时，使敌人晕厥{2}秒。 星星 : 行星迅速飞过，在路径上留下星迹，碰触星迹的队友在{3}秒间增加移动速度{4}。 太阳连接效果 : 连接2个太阳符号时施法， 将发射巨型太阳造成{5}(+技能增幅的{8})技能伤害，{9}秒间造成目标体力上限{10}的持续伤害并燃烧敌人。",
+      "description": "阿迪娜向指定的方向发射天体，给命中的敌人造成{20}技能伤害。 天体符号 太阳 : 伤害量增加{22}。 月亮 : 单独击中1名敌人时，使敌人晕厥{2}秒。 星星 : 行星迅速飞过，在路径上留下星迹，碰触星迹的队友在{3}秒间增加移动速度{4}。 太阳连接效果 : 连接2个太阳符号时施法， 将发射巨型太阳造成{21}技能伤害，{9}秒间造成目标体力上限{10}的真实伤害。",
+      "coefficientText": "阿迪娜向指定的方向发射天体，给命中的敌人造成{0}(+技能增幅的{7})技能伤害。 天体符号 太阳 : 伤害量增加{11}(+技能增幅的{12}) 月亮 : 单独击中1名敌人时，使敌人晕厥{2}秒。 星星 : 行星迅速飞过，在路径上留下星迹，碰触星迹的队友在{3}秒间增加移动速度{4}。 太阳连接效果 : 连接2个太阳符号时施法， 将发射巨型太阳造成{5}(+技能增幅的{8})技能伤害，{9}秒间造成目标体力上限{10}的真实伤害。",
       "extensionName": ""
     },
     {
@@ -9165,8 +9156,8 @@
       "skillId": "None",
       "passiveSkillId": "LyanhPassive",
       "name": "被禁锢的肉身",
-      "description": "侵蚀 : 伊安使用普攻或基本技能时，会累积侵蚀值。当侵蚀值累积至100点时，伊安将进入噬身状态，并恢复已失体力{10}的体力。非战斗状态下，侵蚀值每秒减少{7}。 为使不被恶灵控制，伊安需要持续地抵抗。根据伊安所处状态，普攻伤害也会有所不同。 人类状态 : 造成攻击力{1}的伤害 噬身状态 : 造成攻击力{2}的伤害 恶灵状态 : 造成攻击力{3}的伤害 伊安受到体内恶灵的影响，不知不觉释放了潜在的残暴性。噬身状态・恶灵状态下造成技能伤害时，将增加{0}真实伤害。噬身状态下恢复真实伤害{8}体力，恶灵状态下恢复真实伤害{9}的体力。",
-      "coefficientText": "侵蚀 : 伊安使用普攻或基本技能时，会累积侵蚀值。当侵蚀值累积至100点时，伊安将进入噬身状态，并恢复已失体力{10}的体力。非战斗状态下，侵蚀值每秒减少{7}。 为使不被恶灵控制，伊安需要持续地抵抗。根据伊安所处状态，普攻伤害也会有所不同。 人类状态 : 造成攻击力{1}的伤害 噬身状态 : 造成攻击力{2}的伤害 恶灵状态 : 造成攻击力{3}的伤害 伊安受到体内恶灵的影响，不知不觉释放了潜在的残暴性。噬身状态・恶灵状态下造成技能伤害时，将增加攻击力{0}真实伤害。噬身状态下恢复真实伤害{8}的体力，恶灵状态下恢复真实伤害{9}的体力。",
+      "description": "侵蚀 : 伊安使用普攻或技能时，会累积侵蚀值。当侵蚀值累积至100点时，伊安将进入噬身状态，并恢复已失体力{10}的体力。非战斗状态下，侵蚀值每秒减少{7}。 为使不被恶灵控制，伊安需要持续地抵抗。根据伊安所处状态，普攻伤害也会有所不同。 人类状态 : 造成攻击力{1}的伤害 噬身状态 : 造成攻击力{2}的伤害 恶灵状态 : 造成攻击力{3}的伤害 伊安受到体内恶灵的影响，不知不觉释放了潜在的残暴性。噬身状态・恶灵状态下造成技能伤害时，将增加{0}真实伤害。噬身状态下恢复真实伤害{8}体力，恶灵状态下恢复真实伤害{9}的体力。",
+      "coefficientText": "侵蚀 : 伊安使用普攻或技能时，会累积侵蚀值。当侵蚀值累积至100点时，伊安将进入噬身状态，并恢复已失体力{10}的体力。非战斗状态下，侵蚀值每秒减少{7}。 为使不被恶灵控制，伊安需要持续地抵抗。根据伊安所处状态，普攻伤害也会有所不同。 人类状态 : 造成攻击力{1}的伤害 噬身状态 : 造成攻击力{2}的伤害 恶灵状态 : 造成攻击力{3}的伤害 伊安受到体内恶灵的影响，不知不觉释放了潜在的残暴性。噬身状态・恶灵状态下造成技能伤害时，将增加攻击力{0}真实伤害。噬身状态下恢复真实伤害{8}的体力，恶灵状态下恢复真实伤害{9}的体力。",
       "extensionName": ""
     },
     {
@@ -9526,7 +9517,7 @@
       "passiveSkillId": "LeniPassive",
       "name": "熊熊出动！",
       "description": "当雷妮技能作用于队友实验体时，将为目标生成小熊。小熊持续{0}秒。 队友攻击命中敌人时，小熊将会离开并造成{1}的额外技能伤害。 因小熊造成伤害时，将使雷妮的基本技能冷却时间缩减{2}秒。",
-      "coefficientText": "当雷妮技能作用于队友实验体时，将为目标生成小熊。小熊持续{0}秒。 队友攻击命中敌人时，小熊将会离开并造成{1}(+ 雷妮等级 * {2})的额外技能伤害。 因小熊造成伤害时，将使雷妮的基本技能冷却时间缩减{3}秒。",
+      "coefficientText": "当雷妮技能作用于队友实验体时，将为目标生成小熊。小熊持续{0}秒。 队友攻击命中敌人时，小熊将会离开并造成{1}(+ 雷妮等级 * {2})(+技能增幅{4})的额外技能伤害。 因小熊造成伤害时，将使雷妮的基本技能冷却时间缩减{3}秒。",
       "extensionName": ""
     },
     {
@@ -9550,7 +9541,7 @@
       "passiveSkillId": "None",
       "name": "咻~ 弹跳锤！",
       "description": "雷妮跳至指定位置，用锤子敲击地面。对敌人及队友激活不同的效果。 敌人 : 造成{0}技能伤害，{2}秒间的移动速度减少。中央范围内命中的敌人移速减少{3}，外围命中的敌人移速减少{4}。 队友 : 移动速度在{5}秒内减少{6}后，将于{7}秒内增加{8}移动速度。",
-      "coefficientText": "雷妮跳至指定位置，用锤子敲击地面。对敌人及队友激活不同的效果。 敌人 : 造成{0}(+ 雷妮等级 * {1})(+技能增幅{2})的技能伤害，{6}秒间的移动速度减少。中央范围内命中的敌人移速减少{7}，外围命中的敌人移速减少{8}。 队友 : 移动速度在{9}秒内减少{10}后，将于{11}秒内增加{12}(+ 雷妮等级 * {13})移动速度。",
+      "coefficientText": "雷妮跳至指定位置，用锤子敲击地面。对敌人及队友激活不同的效果。 敌人 : 造成{0}(+ 雷妮等级 * {1})(+技能增幅{2})的技能伤害，{6}秒间的移动速度减少。中央范围内命中的敌人移速减少{7}，外围命中的敌人移速减少{8}。 队友 : 移动速度在{9}秒内减少{10}后，将于{11}秒内增加{12}(+技能增幅{13})移动速度。",
       "extensionName": ""
     },
     {
@@ -10089,8 +10080,8 @@
       "skillId": "HisuiActive2_1",
       "passiveSkillId": "None",
       "name": "居合一闪",
-      "description": "被动 : 翡翠在技能命中时，可以获得居合叠层。根据居合叠层数，翡翠可以使用不同的技能，未持有居合叠层的情况下无法使用技能。 1叠层 - 一刀两断 : 翡翠拔刀对敌人造成{0}技能伤害，纳刀时对相同范围再次造成{1}(+目标体力上限{2})的技能伤害。拔刀命中敌人时，翡翠可以获得{3}的护盾，根据命中的实验体数护盾量增加{4}。 2叠层 - 一闪 : 翡翠对路径上的所有敌人造成{5}技能伤害，并移至路径上最后一位敌人身后，对其造成{6}技能伤害、使目标悬空{7}秒。 3叠层 - 日轮乱舞 : 翡翠进入无法被指定为目标的状态，并对范围内的敌人造成{8}技能伤害，共进行{9}次，自身体力恢复造成伤害量的{10}。随后以终结攻击对敌人造成{11}技能伤害，并恢复造成伤害量{12}的体力。",
-      "coefficientText": "被动 : 翡翠在技能命中时，可以获得居合叠层。根据居合叠层数，翡翠可以使用不同的技能，未持有居合叠层的情况下无法使用技能。 1叠层 - 一刀两断 : 翡翠拔刀对敌人造成{0}(+额外攻击力{1})技能伤害，纳刀时对相同范围再次造成{2}(+额外攻击力{3})(+目标体力上限{4})的技能伤害。拔刀命中敌人时，翡翠可以获得{5}(+额外攻击力{6})的护盾，根据命中的实验体数护盾量增加{7}。 2叠层 - 一闪 : 翡翠对路径上的所有敌人造成{8}(+额外攻击力{9})技能伤害，并移至路径上最后一位敌人身后，对其造成{10}(+额外攻击力{11})的技能伤害、使目标悬空{12}秒。 3叠层 - 日轮乱舞 : 翡翠进入无法被指定为目标的状态，并对范围内的敌人造成{13}(+额外攻击力{14})技能伤害，共进行{15}（和额外攻击速度成比例，最多{16}次）次，自身体力恢复造成伤害量的{17}。随后以终结攻击对敌人造成{18}(+额外攻击力{19})技能伤害，并恢复造成伤害量{20}的体力。",
+      "description": "被动 : 翡翠在技能命中时，可以获得居合叠层。根据居合叠层数，翡翠可以使用不同的技能，未持有居合叠层的情况下无法使用技能。 1叠层 - 一刀两断 : 翡翠拔刀对敌人造成{0}技能伤害，纳刀时对相同范围再次造成{1}(+目标体力上限{2})的技能伤害。拔刀命中敌人时，翡翠可以获得{3}的护盾，根据命中的实验体数护盾量增加{4}。 2叠层 - 一闪 : 翡翠对路径上的所有敌人造成{5}技能伤害，并移至路径上最后一位敌人身后，对其造成{6}技能伤害、使目标悬空{7}秒。 3叠层 - 日轮乱舞 : 翡翠进入无法被指定为目标的状态，对范围内的敌人造成{8}技能伤害，共进行{9}次，自身体力恢复造成伤害量的{10}。随后以终结攻击对敌人造成{11}技能伤害，并恢复造成伤害量{12}的体力。",
+      "coefficientText": "被动 : 翡翠在技能命中时，可以获得居合叠层。根据居合叠层数，翡翠可以使用不同的技能，未持有居合叠层的情况下无法使用技能。 1叠层 - 一刀两断 : 翡翠拔刀对敌人造成{0}(+额外攻击力{1})技能伤害，纳刀时对相同范围再次造成{2}(+额外攻击力{3})(+目标体力上限{4})的技能伤害。拔刀命中敌人时，翡翠可以获得{5}(+额外攻击力{6})的护盾，根据命中的实验体数护盾量增加{7}。 2叠层 - 一闪 : 翡翠对路径上的所有敌人造成{8}(+额外攻击力{9})技能伤害，并移至路径上最后一位敌人身后，对其造成{10}(+额外攻击力{11})的技能伤害、使目标悬空{12}秒。 3叠层 - 日轮乱舞 : 翡翠进入无法被指定为目标的状态，对范围内的敌人造成{13}(+额外攻击力{14})技能伤害，共进行{15}（和额外攻击速度成比例，最多{16}次）次，自身体力恢复造成伤害量的{17}。随后以终结攻击对敌人造成{18}(+额外攻击力{19})技能伤害，并恢复造成伤害量{20}的体力。",
       "extensionName": ""
     },
     {
@@ -10305,8 +10296,8 @@
       "skillId": "None",
       "passiveSkillId": "XuelinPassive",
       "name": "剑道",
-      "description": "雪琳的普攻和基本技能命中时，可以获得流云残影剑叠层。达到{0}层时，下一次普攻将得到强化，向目标发射飞剑并造成{1}额外技能伤害，同时使剑影回旋和飞闪步的冷却时间减少{2}秒，并恢复{3}体力。通过野生动物获得的恢复效果降低为{4}。",
-      "coefficientText": "雪琳的普攻和基本技能命中时，可以获得流云残影剑叠层。达到{0}层时，下一次普攻将得到强化，向目标发射飞剑并造成{1}(+攻击力{2})的额外技能伤害，同时使剑影回旋和飞闪步的冷却时间减少{3}秒，并恢复{4}(+攻击力{5})的体力。通过野生动物获得的恢复效果降低为{6}。",
+      "description": "雪琳的普攻和技能命中时，可以获得流云残影剑叠层。达到{0}层时，下一次普攻将得到强化，向目标发射飞剑并造成{1}额外技能伤害，同时使剑影回旋和飞闪步的冷却时间减少{2}秒，并恢复{3}体力。通过野生动物获得的恢复效果降低为{4}。",
+      "coefficientText": "雪琳的普攻和技能命中时，可以获得流云残影剑叠层。达到{0}层时，下一次普攻将得到强化，向目标发射飞剑并造成{1}(+攻击力{2})的额外技能伤害，同时使剑影回旋和飞闪步的冷却时间减少{3}秒，并恢复{4}(+攻击力{5})的体力。通过野生动物获得的恢复效果降低为{6}。",
       "extensionName": ""
     },
     {
@@ -10715,6 +10706,66 @@
       "name": "闹个痛快吧！",
       "description": "鼻荆进入负面效果免疫状态并跃向指定位置。使用技能期间，自身承受伤害降低{0}。 鼻荆戴上鬼怪假面，身体巨大化并获得{2}的额外体力，持续{1}秒。随后猛烈重击地面，造成{3}(+目标体力上限{4})的技能伤害，并使命中的敌人移动速度降低{6}，持续{5}秒。处于范围中心区域的目标承受伤害和移动速度减少效果增加{7}。",
       "coefficientText": "鼻荆进入负面效果免疫状态并跃向指定位置。使用技能期间，自身承受伤害降低{0}。 鼻荆戴上鬼怪假面，身体巨大化并获得{2}的额外体力，持续{1}秒。随后猛烈重击地面，造成{3}(+额外攻击力{4})(+目标体力上限{5})的技能伤害，并使命中的敌人移动速度降低{7}，持续{6}秒。处于范围中心区域的目标承受伤害和移动速度减少效果增加{8}。",
+      "extensionName": ""
+    },
+    {
+      "hero": "克雷弗",
+      "characterCode": 89,
+      "group": 1089100,
+      "slot": "P",
+      "skillId": "None",
+      "passiveSkillId": "CraverPassive",
+      "name": "亡命之徒",
+      "description": "克雷弗的攻击速度固定为{0}，普攻将造成{1}额外技能伤害。 克雷弗共有6发子弹，可通过普攻和基本技能消耗。剩1发子弹时，将激活魔弹且无法使用普攻。 使用魔弹技能或经过{2}秒后，将进入持续{3}秒的装弹状态。重新装弹状态下无法使用普攻、双重射击或横扫千军技能。",
+      "coefficientText": "克雷弗的攻击速度固定为{0}，普攻将造成{20}(+技能增幅{21})(+攻击速度{22})的额外技能伤害。 克雷弗共有6发子弹，可通过普攻和基本技能消耗。剩1发子弹时，将激活魔弹且无法使用普攻。 使用魔弹技能或经过{2}秒后，将进入持续{3}秒的装弹状态。重新装弹状态下无法使用普攻、双重射击或横扫千军技能。",
+      "extensionName": ""
+    },
+    {
+      "hero": "克雷弗",
+      "characterCode": 89,
+      "group": 1089200,
+      "slot": "Q",
+      "skillId": "CraverActive1_1",
+      "passiveSkillId": "None",
+      "name": "双重射击 / 聚焦射击",
+      "description": "双重射击：克雷弗向指定方向连续发射两枚子弹，分别造成{0}技能伤害。 聚焦射击：向指定方向发射一枚强化子弹。子弹飞到射程终点或命中敌人时，将对目标和其后方的敌人造成{1}技能伤害，并使其{2}秒内的移动速度减少{3}。被聚焦射击命中的目标将在{4}秒内承受{5}的技能伤害。",
+      "coefficientText": "双重射击：克雷弗向指定方向连续发射两枚子弹，分别造成{20}(+技能增幅{21})技能伤害。 聚焦射击：向指定方向发射一枚强化子弹。子弹飞到射程终点或命中敌人时，将对目标和其后方的敌人造成{22}(+技能增幅{23})技能伤害，并使其{2}秒内的移动速度减少{3}。被聚焦射击命中的目标将在{4}秒内承受{24}(+技能增幅{25})的技能伤害。",
+      "extensionName": ""
+    },
+    {
+      "hero": "克雷弗",
+      "characterCode": 89,
+      "group": 1089300,
+      "slot": "W",
+      "skillId": "CraverActive2_1",
+      "passiveSkillId": "None",
+      "name": "横扫千军 / 腾空后跃",
+      "description": "横扫千军：克雷弗旋转并对范围的敌人造成2次{0}技能伤害，同时使目标{1}秒内的移动速度降低{2}。克雷弗在旋转期间移动速度增加{3}且承受伤害降低{4}。横扫千军命中敌人时，冷却时间缩减{5}。 腾空后跃：克雷弗对范围内的敌人造成{6}技能伤害，使目标悬空{7}秒。",
+      "coefficientText": "横扫千军：克雷弗旋转并对范围的敌人造成2次{20}(+技能增幅{21})技能伤害，同时使目标{1}秒内的移动速度降低{2}。克雷弗在旋转期间移动速度增加{3}且承受伤害降低{4}。横扫千军命中敌人时，冷却时间缩减{5}。 腾空后跃：克雷弗对范围内的敌人造成{22}(+技能增幅{23})技能伤害，使目标悬空{7}秒。",
+      "extensionName": ""
+    },
+    {
+      "hero": "克雷弗",
+      "characterCode": 89,
+      "group": 1089400,
+      "slot": "E",
+      "skillId": "CraverActive3_1",
+      "passiveSkillId": "None",
+      "name": "战术翻滚 / 迅步",
+      "description": "战术翻滚：克雷弗朝指定方向突进造成{0}技能伤害。 战术翻滚技能命中敌人实验体时，冷却缩减{1}；命中野生动物时，冷却缩减{2}。 重新装弹期间使用战术翻滚时，可立即完成装弹。 迅步：克雷弗向后方撤退，同时发射一枚穿透子弹，造成{3}技能伤害。",
+      "coefficientText": "战术翻滚：克雷弗朝指定方向突进造成{20}(+技能增幅{21})技能伤害。 战术翻滚技能命中敌人实验体时，冷却缩减{1}；命中野生动物时，冷却缩减{2}。 重新装弹期间使用战术翻滚时，可立即完成装弹。 迅步：克雷弗向后方撤退，同时发射一枚穿透子弹，造成{22}(+技能增幅{23})技能伤害。",
+      "extensionName": ""
+    },
+    {
+      "hero": "克雷弗",
+      "characterCode": 89,
+      "group": 1089500,
+      "slot": "R",
+      "skillId": "CraverActive4",
+      "passiveSkillId": "CraverActive4Passive",
+      "name": "决战时刻！",
+      "description": "克雷弗瞬间移动至悬空的敌方实验体身边，将其悬空禁锢{0}秒并进行乱射，造成{1}技能伤害的同时，将伤害量的{2}转化为自身体力。在乱射期间，克雷弗处于无法阻止的状态，重置基本技能的冷却时间并重新装弹。",
+      "coefficientText": "克雷弗瞬间移动至悬空的敌方实验体身边，将其悬空禁锢{0}秒并进行乱射，造成{20}(+技能增幅{21})技能伤害的同时，将伤害量的{2}转化为自身体力。在乱射期间，克雷弗处于无法阻止的状态，重置基本技能的冷却时间并重新装弹。",
       "extensionName": ""
     }
   ],
@@ -11268,18 +11319,18 @@
     },
     {
       "id": "4-1004300-DamageByLevel",
-      "source": "official-patch-note",
+      "source": "er-gamedata",
       "hero": "马格努斯",
       "title": "W 17对1",
-      "bases": "22,28,34,40,46",
-      "formula": "base + extraAttack * 0.45 + ap * 0.2 + targetHp * 0.025",
+      "bases": "20,30,35,45,50",
+      "formula": "base + ap * [0.3,0.3,0.3,0.3,0.3][level - 1]",
       "maxLevel": 5,
       "group": 1004300,
       "skillId": "MagnusActive2",
       "dataKey": "DamageByLevel",
       "coefKey": "SkillApCoef",
       "description": "马格努斯挥动武器，{0}秒间对敌人造成{4}次{20}(+敌人体力上限{1})技能伤害。 技能每次命中，都会减少{6}秒冷却时间。使用技能期间，负面效果抵御增加{8}。",
-      "coefficientText": "22/28/34/40/46(+Extra Attack Power 45%)(+Skill Amplification 20%)(+Target's Max HP 2.5%)",
+      "coefficientText": "马格努斯挥动武器，{0}秒间对敌人造成{4}(每{10}额外防御力+{11})次{1}(+额外攻击力{3})(+技能增幅{7})(+敌人体力上限{9})的技能伤害。 每次技能命中，都会减少{6}秒冷却时间。使用技能期间，负面效果抵御增加{8}。",
       "rawData": {
         "AttackCountByLevel": {
           "1": 6,
@@ -11315,14 +11366,7 @@
           "13": 1004006
         },
         "MoveSpeedDown": 1004301
-      },
-      "updatedAt": "2026-06-11T02:00:00.000Z",
-      "sourceDate": "2026-06-11T02:00:00.000Z",
-      "sourceVersion": "11.4",
-      "sourceLabel": "11.4 / 2026-06-11",
-      "sourceUrl": "https://playeternalreturn.com/posts/news/3629?hl=en-US",
-      "sourceTitle": "PATCH NOTES 11.4 - JUNE 11TH, 2026",
-      "sourceNote": "官方补丁 11.4 数值：22/28/34/40/46(+Extra Attack Power 45%)(+Skill Amplification 20%)(+Target's Max HP 2.5%)"
+      }
     },
     {
       "id": "4-1004400-DamageByLevel",
@@ -11605,18 +11649,18 @@
     },
     {
       "id": "5-1005500-DamageByLevel_2",
-      "source": "official-patch-note",
+      "source": "er-gamedata",
       "hero": "扎希尔",
       "title": "R 跋尔伽婆 2",
-      "bases": "60,120,180",
-      "formula": "base + ap * 0.4",
+      "bases": "50,85,120",
+      "formula": "base + ap * 0.5",
       "maxLevel": 3,
       "group": 1005500,
       "skillId": "ZahirActive4",
       "dataKey": "DamageByLevel_2",
       "coefKey": "SkillApCoef_2",
       "description": "扎希尔凝聚精力，向指定的方向依次发射飞轮。最初可对敌人造成{6}的技能伤害，之后每0.45秒都能造成{7}的技能伤害。 如果敌人没有「死神之目」，跋尔伽婆则会对他们标记「死神之目」。",
-      "coefficientText": "Min Damage 60/120/180(+Skill Amplification 40%)",
+      "coefficientText": "扎希尔凝聚精力，向指定的方向依次发射飞轮。最初可对敌人造成{0}(+技能增幅的{4})的技能伤害，之后每0.45秒都能造成{1}(+技能增幅{5})的技能伤害。 如果敌人没有「死神之目」，跋尔伽婆则会对他们标记「死神之目」。",
       "rawData": {
         "ProjectileCode": 76,
         "DamageByLevel": {
@@ -11632,14 +11676,7 @@
         },
         "SkillApCoef_2": 0.5,
         "ProjectileSkillDelay": 0.29
-      },
-      "updatedAt": "2026-07-23T02:00:00.000Z",
-      "sourceDate": "2026-07-23T02:00:00.000Z",
-      "sourceVersion": "11.7",
-      "sourceLabel": "11.7 / 2026-07-23",
-      "sourceUrl": "https://playeternalreturn.com/posts/news/3713?hl=en-US",
-      "sourceTitle": "PATCH NOTES 11.7 - JULY 23RD, 2026",
-      "sourceNote": "官方补丁 11.7 数值：Min Damage 60/120/180(+Skill Amplification 40%)"
+      }
     },
     {
       "id": "6-1006200-MinDamageByLevel",
@@ -11733,18 +11770,18 @@
     },
     {
       "id": "6-1006500-DamageByLevel",
-      "source": "official-patch-note",
+      "source": "er-gamedata",
       "hero": "娜町",
       "title": "R 狼之猛袭",
-      "bases": "100,150,200",
-      "formula": "base + extraAttack * 0.8 + ap * 0.8",
+      "bases": "50,100,150",
+      "formula": "base + ap * 0",
       "maxLevel": 3,
       "group": 1006500,
       "skillId": "NadineActive4",
       "dataKey": "DamageByLevel",
       "coefKey": "SkillApCoef",
       "description": "每当在{8}秒内进行{0}次普攻可召唤狼一起进攻。召唤狼朝敌人扑去，造成{7}技能伤害，同时减少敌人的攻速{5}，移速{3}。参与击杀敌人实验体时，持续时间增加{9}秒。",
-      "coefficientText": "100/150/200(+额外攻击力80%)(+技能增幅的80%)(+野性叠层伤害)",
+      "coefficientText": "每当在{7}秒内进行{0}次普攻可召唤狼一起进攻。召唤狼朝敌人扑去，造成{1}(+额外攻击力{4})(+技能增幅{6})(+野性叠层伤害)的技能伤害，同时减少敌人的攻速{5}，移速{3}。参与击杀敌人实验体时，持续时间增加{9}秒。",
       "rawData": {
         "BuffState1": {
           "1": 1006501,
@@ -11765,14 +11802,7 @@
           "3": 150
         },
         "DamagePerPassiveStackCount": 1
-      },
-      "updatedAt": "2026-08-06T02:00:00.000Z",
-      "sourceDate": "2026-08-06T02:00:00.000Z",
-      "sourceVersion": "12.0",
-      "sourceLabel": "12.0 / 2026-08-06",
-      "sourceUrl": "https://playeternalreturn.com/posts/news/3743?hl=zh-CN",
-      "sourceTitle": "[修正] 12.0 更新日志 Part.2 - 实验体和物品",
-      "sourceNote": "官方公告 12.0 Part.2 数值：100/150/200(+额外攻击力80%)(+技能增幅的80%)(+野性叠层伤害) 野性叠层伤害未建模；原快照数值 50/100/150 已按官方公告覆盖。"
+      }
     },
     {
       "id": "7-1007200-DamageByLevel",
@@ -18975,14 +19005,13 @@
       "makeMaterial2": 401405,
       "effect": "",
       "stats": {
-        "attackPower": 27,
-        "adaptiveForce": 52,
+        "attackPower": 79,
         "attackSpeedRatio": 0.4,
         "moveSpeedRatio": 0.02,
         "penetrationDefenseRatio": 0.07
       },
-      "ap": 52,
-      "attackPower": 27,
+      "ap": 0,
+      "attackPower": 79,
       "cd": 0,
       "pen": 0,
       "penPct": 0.07,
@@ -19010,11 +19039,11 @@
       "effect": "",
       "stats": {
         "attackPower": 13,
-        "adaptiveForce": 57,
+        "skillAmp": 114,
         "moveSpeedRatio": 0.03,
         "penetrationDefenseRatio": 0.08
       },
-      "ap": 57,
+      "ap": 114,
       "attackPower": 13,
       "cd": 0,
       "pen": 0,
@@ -19560,6 +19589,38 @@
       "dmgAmp": 0
     },
     {
+      "code": 102504,
+      "source": "er-gamedata",
+      "type": "武器",
+      "itemType": "Weapon",
+      "weaponType": "双手剑 / TwoHandSword",
+      "weaponTypeRaw": "TwoHandSword",
+      "armorType": "",
+      "name": "均衡之刃",
+      "quality": "传说",
+      "itemGrade": "Legend",
+      "isCompletedItem": true,
+      "showInItemBook": true,
+      "makeMaterial1": 102101,
+      "makeMaterial2": 401304,
+      "effect": "",
+      "stats": {
+        "attackPower": 64,
+        "maxHp": 150,
+        "attackSpeedRatio": 0.3
+      },
+      "ap": 0,
+      "attackPower": 64,
+      "cd": 0,
+      "pen": 0,
+      "penPct": 0,
+      "apPct": 0,
+      "defense": 0,
+      "maxHp": 150,
+      "sightRange": 0,
+      "dmgAmp": 0
+    },
+    {
       "code": 102701,
       "source": "er-gamedata",
       "type": "武器",
@@ -19576,13 +19637,12 @@
       "makeMaterial2": 401405,
       "effect": "",
       "stats": {
-        "attackPower": 20,
-        "adaptiveForce": 50,
+        "attackPower": 82,
         "attackSpeedRatio": 0.4,
         "penetrationDefenseRatio": 0.07
       },
-      "ap": 50,
-      "attackPower": 20,
+      "ap": 0,
+      "attackPower": 82,
       "cd": 0,
       "pen": 0,
       "penPct": 0.07,
@@ -19610,10 +19670,10 @@
       "effect": "",
       "stats": {
         "attackPower": 22,
-        "adaptiveForce": 62,
+        "skillAmp": 124,
         "penetrationDefenseRatio": 0.08
       },
-      "ap": 62,
+      "ap": 124,
       "attackPower": 22,
       "cd": 0,
       "pen": 0,
@@ -19759,7 +19819,7 @@
       "isCompletedItem": true,
       "showInItemBook": true,
       "makeMaterial1": 103301,
-      "makeMaterial2": 113104,
+      "makeMaterial2": 302103,
       "effect": "",
       "stats": {
         "attackPower": 48,
@@ -20114,13 +20174,12 @@
       "makeMaterial2": 401405,
       "effect": "",
       "stats": {
-        "attackPower": 22,
-        "adaptiveForce": 50,
+        "attackPower": 72,
         "attackSpeedRatio": 0.3,
         "penetrationDefenseRatio": 0.07
       },
-      "ap": 50,
-      "attackPower": 22,
+      "ap": 0,
+      "attackPower": 72,
       "cd": 0,
       "pen": 0,
       "penPct": 0.07,
@@ -20148,10 +20207,10 @@
       "effect": "",
       "stats": {
         "attackPower": 16,
-        "adaptiveForce": 56,
+        "skillAmp": 112,
         "penetrationDefenseRatio": 0.08
       },
-      "ap": 56,
+      "ap": 112,
       "attackPower": 16,
       "cd": 0,
       "pen": 0,
@@ -20746,13 +20805,12 @@
       "makeMaterial2": 401405,
       "effect": "",
       "stats": {
-        "attackPower": 50,
-        "adaptiveForce": 52,
+        "attackPower": 102,
         "attackSpeedRatio": 0.3,
         "penetrationDefenseRatio": 0.07
       },
-      "ap": 52,
-      "attackPower": 50,
+      "ap": 0,
+      "attackPower": 102,
       "cd": 0,
       "pen": 0,
       "penPct": 0.07,
@@ -20780,10 +20838,10 @@
       "effect": "",
       "stats": {
         "attackPower": 48,
-        "adaptiveForce": 58,
+        "skillAmp": 116,
         "penetrationDefenseRatio": 0.08
       },
-      "ap": 58,
+      "ap": 116,
       "attackPower": 48,
       "cd": 0,
       "pen": 0,
@@ -20990,7 +21048,7 @@
       "isCompletedItem": true,
       "showInItemBook": true,
       "makeMaterial1": 105401,
-      "makeMaterial2": 401108,
+      "makeMaterial2": 401114,
       "effect": "",
       "stats": {
         "attackPower": 44,
@@ -21312,13 +21370,12 @@
       "makeMaterial2": 401405,
       "effect": "",
       "stats": {
-        "attackPower": 47,
-        "adaptiveForce": 52,
+        "attackPower": 99,
         "attackSpeedRatio": 0.3,
         "penetrationDefenseRatio": 0.07
       },
-      "ap": 52,
-      "attackPower": 47,
+      "ap": 0,
+      "attackPower": 99,
       "cd": 0,
       "pen": 0,
       "penPct": 0.07,
@@ -21346,10 +21403,10 @@
       "effect": "",
       "stats": {
         "attackPower": 50,
-        "adaptiveForce": 57,
+        "skillAmp": 114,
         "penetrationDefenseRatio": 0.08
       },
-      "ap": 57,
+      "ap": 114,
       "attackPower": 50,
       "cd": 0,
       "pen": 0,
@@ -21748,7 +21805,7 @@
       "isCompletedItem": true,
       "showInItemBook": true,
       "makeMaterial1": 107303,
-      "makeMaterial2": 113104,
+      "makeMaterial2": 401114,
       "effect": "",
       "stats": {
         "attackPower": 82,
@@ -21849,14 +21906,13 @@
       "makeMaterial2": 401405,
       "effect": "",
       "stats": {
-        "attackPower": 37,
+        "attackPower": 92,
         "defense": 8,
-        "adaptiveForce": 55,
         "attackSpeedRatio": 0.4,
         "penetrationDefenseRatio": 0.07
       },
-      "ap": 55,
-      "attackPower": 37,
+      "ap": 0,
+      "attackPower": 92,
       "cd": 0,
       "pen": 0,
       "penPct": 0.07,
@@ -21885,10 +21941,10 @@
       "stats": {
         "attackPower": 33,
         "defense": 8,
-        "adaptiveForce": 58,
+        "skillAmp": 116,
         "penetrationDefenseRatio": 0.08
       },
-      "ap": 58,
+      "ap": 116,
       "attackPower": 33,
       "cd": 0,
       "pen": 0,
@@ -22305,6 +22361,38 @@
       "dmgAmp": 0
     },
     {
+      "code": 108506,
+      "source": "er-gamedata",
+      "type": "武器",
+      "itemType": "Weapon",
+      "weaponType": "棍棒 / Bat",
+      "weaponTypeRaw": "Bat",
+      "armorType": "",
+      "name": "棒棒糖",
+      "quality": "传说",
+      "itemGrade": "Legend",
+      "isCompletedItem": true,
+      "showInItemBook": true,
+      "makeMaterial1": 112101,
+      "makeMaterial2": 401304,
+      "effect": "",
+      "stats": {
+        "attackPower": 30,
+        "skillAmp": 86,
+        "maxHp": 120
+      },
+      "ap": 86,
+      "attackPower": 30,
+      "cd": 0,
+      "pen": 0,
+      "penPct": 0,
+      "apPct": 0,
+      "defense": 0,
+      "maxHp": 120,
+      "sightRange": 0,
+      "dmgAmp": 0
+    },
+    {
       "code": 108701,
       "source": "er-gamedata",
       "type": "武器",
@@ -22321,13 +22409,12 @@
       "makeMaterial2": 401405,
       "effect": "",
       "stats": {
-        "attackPower": 49,
-        "adaptiveForce": 53,
+        "attackPower": 102,
         "attackSpeedRatio": 0.4,
         "penetrationDefenseRatio": 0.07
       },
-      "ap": 53,
-      "attackPower": 49,
+      "ap": 0,
+      "attackPower": 102,
       "cd": 0,
       "pen": 0,
       "penPct": 0.07,
@@ -22355,10 +22442,10 @@
       "effect": "",
       "stats": {
         "attackPower": 55,
-        "adaptiveForce": 57,
+        "skillAmp": 114,
         "penetrationDefenseRatio": 0.08
       },
-      "ap": 57,
+      "ap": 114,
       "attackPower": 55,
       "cd": 0,
       "pen": 0,
@@ -22770,11 +22857,11 @@
       "effect": "",
       "stats": {
         "attackPower": 25,
-        "adaptiveForce": 52,
+        "skillAmp": 104,
         "attackSpeedRatio": 0.3,
         "penetrationDefenseRatio": 0.07
       },
-      "ap": 52,
+      "ap": 104,
       "attackPower": 25,
       "cd": 0,
       "pen": 0,
@@ -22803,11 +22890,11 @@
       "effect": "",
       "stats": {
         "attackPower": 25,
-        "adaptiveForce": 58,
+        "skillAmp": 116,
         "attackSpeedRatio": 0.3,
         "penetrationDefenseRatio": 0.08
       },
-      "ap": 58,
+      "ap": 116,
       "attackPower": 25,
       "cd": 0,
       "pen": 0,
@@ -22862,7 +22949,7 @@
       "isCompletedItem": false,
       "showInItemBook": true,
       "makeMaterial1": 110102,
-      "makeMaterial2": 401103,
+      "makeMaterial2": 401105,
       "effect": "",
       "stats": {
         "attackPower": 18
@@ -23235,8 +23322,8 @@
       "itemGrade": "Epic",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 110404,
-      "makeMaterial2": 113104,
+      "makeMaterial1": 110201,
+      "makeMaterial2": 205204,
       "effect": "",
       "stats": {
         "attackPower": 59,
@@ -23432,13 +23519,12 @@
       "makeMaterial2": 401405,
       "effect": "",
       "stats": {
-        "attackPower": 38,
-        "adaptiveForce": 50,
+        "attackPower": 88,
         "attackSpeedRatio": 0.3,
         "penetrationDefenseRatio": 0.07
       },
-      "ap": 50,
-      "attackPower": 38,
+      "ap": 0,
+      "attackPower": 88,
       "cd": 0,
       "pen": 0,
       "penPct": 0.07,
@@ -23466,10 +23552,10 @@
       "effect": "",
       "stats": {
         "attackPower": 30,
-        "adaptiveForce": 56,
+        "skillAmp": 112,
         "penetrationDefenseRatio": 0.08
       },
-      "ap": 56,
+      "ap": 112,
       "attackPower": 30,
       "cd": 0,
       "pen": 0,
@@ -23553,8 +23639,8 @@
       "itemGrade": "Rare",
       "isCompletedItem": false,
       "showInItemBook": true,
-      "makeMaterial1": 111201,
-      "makeMaterial2": 113104,
+      "makeMaterial1": 108103,
+      "makeMaterial2": 401213,
       "effect": "",
       "stats": {
         "attackPower": 38,
@@ -23681,7 +23767,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 108101,
+      "makeMaterial1": 401307,
       "makeMaterial2": 401304,
       "effect": "",
       "stats": {
@@ -23882,14 +23968,13 @@
       "makeMaterial2": 401405,
       "effect": "",
       "stats": {
-        "attackPower": 23,
+        "attackPower": 74,
         "defense": 8,
-        "adaptiveForce": 51,
         "attackSpeedRatio": 0.35,
         "penetrationDefenseRatio": 0.07
       },
-      "ap": 51,
-      "attackPower": 23,
+      "ap": 0,
+      "attackPower": 74,
       "cd": 0,
       "pen": 0,
       "penPct": 0.07,
@@ -23918,10 +24003,10 @@
       "stats": {
         "attackPower": 20,
         "defense": 8,
-        "adaptiveForce": 57,
+        "skillAmp": 114,
         "penetrationDefenseRatio": 0.08
       },
-      "ap": 57,
+      "ap": 114,
       "attackPower": 20,
       "cd": 0,
       "pen": 0,
@@ -24066,8 +24151,8 @@
       "itemGrade": "Rare",
       "isCompletedItem": false,
       "showInItemBook": true,
-      "makeMaterial1": 112202,
-      "makeMaterial2": 113104,
+      "makeMaterial1": 112105,
+      "makeMaterial2": 401210,
       "effect": "",
       "stats": {
         "attackPower": 32,
@@ -24223,7 +24308,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 401121,
+      "makeMaterial1": 205109,
       "makeMaterial2": 401208,
       "effect": "",
       "stats": {
@@ -24484,13 +24569,12 @@
       "makeMaterial2": 401405,
       "effect": "",
       "stats": {
-        "attackPower": 41,
-        "adaptiveForce": 50,
+        "attackPower": 91,
         "attackSpeedRatio": 0.3,
         "penetrationDefenseRatio": 0.07
       },
-      "ap": 50,
-      "attackPower": 41,
+      "ap": 0,
+      "attackPower": 91,
       "cd": 0,
       "pen": 0,
       "penPct": 0.07,
@@ -24518,10 +24602,10 @@
       "effect": "",
       "stats": {
         "attackPower": 40,
-        "adaptiveForce": 54,
+        "skillAmp": 108,
         "penetrationDefenseRatio": 0.08
       },
-      "ap": 54,
+      "ap": 108,
       "attackPower": 40,
       "cd": 0,
       "pen": 0,
@@ -24606,7 +24690,7 @@
       "isCompletedItem": false,
       "showInItemBook": true,
       "makeMaterial1": 113203,
-      "makeMaterial2": 113104,
+      "makeMaterial2": 101102,
       "effect": "",
       "stats": {
         "attackPower": 24,
@@ -24728,7 +24812,7 @@
       "isCompletedItem": false,
       "showInItemBook": true,
       "makeMaterial1": 113201,
-      "makeMaterial2": 113104,
+      "makeMaterial2": 205101,
       "effect": "",
       "stats": {
         "attackPower": 26,
@@ -24948,7 +25032,7 @@
       "isCompletedItem": true,
       "showInItemBook": true,
       "makeMaterial1": 113404,
-      "makeMaterial2": 113104,
+      "makeMaterial2": 401309,
       "effect": "",
       "stats": {
         "attackPower": 56,
@@ -25142,13 +25226,12 @@
       "makeMaterial2": 401405,
       "effect": "",
       "stats": {
-        "attackPower": 28,
-        "adaptiveForce": 49,
+        "attackPower": 77,
         "attackSpeedRatio": 0.25,
         "penetrationDefenseRatio": 0.07
       },
-      "ap": 49,
-      "attackPower": 28,
+      "ap": 0,
+      "attackPower": 77,
       "cd": 0,
       "pen": 0,
       "penPct": 0.07,
@@ -25176,10 +25259,10 @@
       "effect": "",
       "stats": {
         "attackPower": 30,
-        "adaptiveForce": 57,
+        "skillAmp": 114,
         "penetrationDefenseRatio": 0.08
       },
-      "ap": 57,
+      "ap": 114,
       "attackPower": 30,
       "cd": 0,
       "pen": 0,
@@ -25710,13 +25793,12 @@
       "makeMaterial2": 401405,
       "effect": "",
       "stats": {
-        "attackPower": 26,
-        "adaptiveForce": 50,
+        "attackPower": 76,
         "attackSpeedRatio": 0.3,
         "penetrationDefenseRatio": 0.07
       },
-      "ap": 50,
-      "attackPower": 26,
+      "ap": 0,
+      "attackPower": 76,
       "cd": 0,
       "pen": 0,
       "penPct": 0.07,
@@ -25744,10 +25826,10 @@
       "effect": "",
       "stats": {
         "attackPower": 29,
-        "adaptiveForce": 56,
+        "skillAmp": 112,
         "penetrationDefenseRatio": 0.08
       },
-      "ap": 56,
+      "ap": 112,
       "attackPower": 29,
       "cd": 0,
       "pen": 0,
@@ -25862,7 +25944,7 @@
       "isCompletedItem": false,
       "showInItemBook": true,
       "makeMaterial1": 115202,
-      "makeMaterial2": 401108,
+      "makeMaterial2": 205110,
       "effect": "",
       "stats": {
         "attackPower": 35,
@@ -26240,13 +26322,12 @@
       "makeMaterial2": 401405,
       "effect": "",
       "stats": {
-        "attackPower": 41,
-        "adaptiveForce": 51,
+        "attackPower": 92,
         "attackSpeedRatio": 0.4,
         "penetrationDefenseRatio": 0.07
       },
-      "ap": 51,
-      "attackPower": 41,
+      "ap": 0,
+      "attackPower": 92,
       "cd": 0,
       "pen": 0,
       "penPct": 0.07,
@@ -26274,10 +26355,10 @@
       "effect": "",
       "stats": {
         "attackPower": 40,
-        "adaptiveForce": 56,
+        "skillAmp": 112,
         "penetrationDefenseRatio": 0.08
       },
-      "ap": 56,
+      "ap": 112,
       "attackPower": 40,
       "cd": 0,
       "pen": 0,
@@ -26363,7 +26444,7 @@
       "isCompletedItem": false,
       "showInItemBook": true,
       "makeMaterial1": 116101,
-      "makeMaterial2": 401103,
+      "makeMaterial2": 401121,
       "effect": "",
       "stats": {
         "attackPower": 23
@@ -26393,7 +26474,7 @@
       "isCompletedItem": false,
       "showInItemBook": true,
       "makeMaterial1": 116202,
-      "makeMaterial2": 401108,
+      "makeMaterial2": 205110,
       "effect": "",
       "stats": {
         "attackPower": 29
@@ -26737,7 +26818,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 205303,
+      "makeMaterial1": 401114,
       "makeMaterial2": 401304,
       "effect": "",
       "stats": {
@@ -26808,13 +26889,12 @@
       "makeMaterial2": 401405,
       "effect": "",
       "stats": {
-        "attackPower": 36,
-        "adaptiveForce": 50,
+        "attackPower": 86,
         "attackSpeedRatio": 0.35,
         "penetrationDefenseRatio": 0.07
       },
-      "ap": 50,
-      "attackPower": 36,
+      "ap": 0,
+      "attackPower": 86,
       "cd": 0,
       "pen": 0,
       "penPct": 0.07,
@@ -26842,10 +26922,10 @@
       "effect": "",
       "stats": {
         "attackPower": 28,
-        "adaptiveForce": 58,
+        "skillAmp": 116,
         "penetrationDefenseRatio": 0.08
       },
-      "ap": 58,
+      "ap": 116,
       "attackPower": 28,
       "cd": 0,
       "pen": 0,
@@ -27021,7 +27101,7 @@
       "isCompletedItem": true,
       "showInItemBook": true,
       "makeMaterial1": 117301,
-      "makeMaterial2": 113104,
+      "makeMaterial2": 401124,
       "effect": "",
       "stats": {
         "attackPower": 75,
@@ -27053,7 +27133,7 @@
       "isCompletedItem": true,
       "showInItemBook": true,
       "makeMaterial1": 117301,
-      "makeMaterial2": 401108,
+      "makeMaterial2": 205110,
       "effect": "",
       "stats": {
         "attackPower": 61,
@@ -27209,7 +27289,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 205303,
+      "makeMaterial1": 401121,
       "makeMaterial2": 401208,
       "effect": "",
       "stats": {
@@ -27342,13 +27422,12 @@
       "makeMaterial2": 401405,
       "effect": "",
       "stats": {
-        "attackPower": 40,
-        "adaptiveForce": 53,
+        "attackPower": 93,
         "attackSpeedRatio": 0.4,
         "penetrationDefenseRatio": 0.07
       },
-      "ap": 53,
-      "attackPower": 40,
+      "ap": 0,
+      "attackPower": 93,
       "cd": 0,
       "pen": 0,
       "penPct": 0.07,
@@ -27376,11 +27455,11 @@
       "effect": "",
       "stats": {
         "attackPower": 25,
-        "adaptiveForce": 53,
+        "skillAmp": 106,
         "attackSpeedRatio": 0.3,
         "penetrationDefenseRatio": 0.08
       },
-      "ap": 53,
+      "ap": 106,
       "attackPower": 25,
       "cd": 0,
       "pen": 0,
@@ -27435,7 +27514,7 @@
       "isCompletedItem": false,
       "showInItemBook": true,
       "makeMaterial1": 118101,
-      "makeMaterial2": 401108,
+      "makeMaterial2": 205110,
       "effect": "",
       "stats": {
         "attackPower": 30,
@@ -27592,7 +27671,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 401108,
+      "makeMaterial1": 401106,
       "makeMaterial2": 401304,
       "effect": "",
       "stats": {
@@ -27626,7 +27705,7 @@
       "isCompletedItem": true,
       "showInItemBook": true,
       "makeMaterial1": 118301,
-      "makeMaterial2": 401108,
+      "makeMaterial2": 205110,
       "effect": "",
       "stats": {
         "attackPower": 40,
@@ -27660,7 +27739,7 @@
       "isCompletedItem": true,
       "showInItemBook": true,
       "makeMaterial1": 118402,
-      "makeMaterial2": 113104,
+      "makeMaterial2": 401110,
       "effect": "",
       "stats": {
         "attackPower": 73,
@@ -27788,7 +27867,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 205303,
+      "makeMaterial1": 401121,
       "makeMaterial2": 401209,
       "effect": "",
       "stats": {
@@ -27893,14 +27972,13 @@
       "makeMaterial2": 401405,
       "effect": "",
       "stats": {
-        "attackPower": 33,
-        "adaptiveForce": 51,
+        "attackPower": 84,
         "attackSpeedRatio": 0.3,
         "sightRange": 1.5,
         "penetrationDefenseRatio": 0.07
       },
-      "ap": 51,
-      "attackPower": 33,
+      "ap": 0,
+      "attackPower": 84,
       "cd": 0,
       "pen": 0,
       "penPct": 0.07,
@@ -27928,12 +28006,12 @@
       "effect": "",
       "stats": {
         "attackPower": 22,
-        "adaptiveForce": 56,
+        "skillAmp": 112,
         "attackSpeedRatio": 0.4,
         "sightRange": 1.5,
         "penetrationDefenseRatio": 0.08
       },
-      "ap": 56,
+      "ap": 112,
       "attackPower": 22,
       "cd": 0,
       "pen": 0,
@@ -28337,13 +28415,12 @@
       "makeMaterial2": 401405,
       "effect": "",
       "stats": {
-        "attackPower": 33,
-        "adaptiveForce": 56,
+        "attackPower": 89,
         "attackSpeedRatio": 0.3,
         "penetrationDefenseRatio": 0.07
       },
-      "ap": 56,
-      "attackPower": 33,
+      "ap": 0,
+      "attackPower": 89,
       "cd": 0,
       "pen": 0,
       "penPct": 0.07,
@@ -28371,10 +28448,10 @@
       "effect": "",
       "stats": {
         "attackPower": 30,
-        "adaptiveForce": 56,
+        "skillAmp": 112,
         "penetrationDefenseRatio": 0.08
       },
-      "ap": 56,
+      "ap": 112,
       "attackPower": 30,
       "cd": 0,
       "pen": 0,
@@ -28552,7 +28629,7 @@
       "isCompletedItem": true,
       "showInItemBook": true,
       "makeMaterial1": 120301,
-      "makeMaterial2": 401108,
+      "makeMaterial2": 401110,
       "effect": "",
       "stats": {
         "attackPower": 57,
@@ -28897,6 +28974,38 @@
       "dmgAmp": 0
     },
     {
+      "code": 120504,
+      "source": "er-gamedata",
+      "type": "武器",
+      "itemType": "Weapon",
+      "weaponType": "刺剑 / Rapier",
+      "weaponTypeRaw": "Rapier",
+      "armorType": "",
+      "name": "苍野荆棘",
+      "quality": "传说",
+      "itemGrade": "Legend",
+      "isCompletedItem": true,
+      "showInItemBook": true,
+      "makeMaterial1": 302103,
+      "makeMaterial2": 401304,
+      "effect": "",
+      "stats": {
+        "attackPower": 32,
+        "skillAmp": 82,
+        "maxHp": 120
+      },
+      "ap": 82,
+      "attackPower": 32,
+      "cd": 0,
+      "pen": 0,
+      "penPct": 0,
+      "apPct": 0,
+      "defense": 0,
+      "maxHp": 120,
+      "sightRange": 0,
+      "dmgAmp": 0
+    },
+    {
       "code": 120701,
       "source": "er-gamedata",
       "type": "武器",
@@ -28913,15 +29022,14 @@
       "makeMaterial2": 401405,
       "effect": "",
       "stats": {
-        "attackPower": 12,
-        "adaptiveForce": 52,
+        "attackPower": 64,
         "attackSpeedRatio": 0.3,
         "criticalStrikeChance": 0.2,
         "criticalStrikeDamage": 0.1,
         "penetrationDefenseRatio": 0.07
       },
-      "ap": 52,
-      "attackPower": 12,
+      "ap": 0,
+      "attackPower": 64,
       "cd": 0,
       "pen": 0,
       "penPct": 0.07,
@@ -28949,10 +29057,10 @@
       "effect": "",
       "stats": {
         "attackPower": 5,
-        "adaptiveForce": 58,
+        "skillAmp": 116,
         "penetrationDefenseRatio": 0.08
       },
-      "ap": 58,
+      "ap": 116,
       "attackPower": 5,
       "cd": 0,
       "pen": 0,
@@ -29099,7 +29207,7 @@
       "isCompletedItem": false,
       "showInItemBook": true,
       "makeMaterial1": 121201,
-      "makeMaterial2": 401108,
+      "makeMaterial2": 502104,
       "effect": "",
       "stats": {
         "attackPower": 20,
@@ -29412,7 +29520,7 @@
       "isCompletedItem": true,
       "showInItemBook": true,
       "makeMaterial1": 121305,
-      "makeMaterial2": 113104,
+      "makeMaterial2": 401106,
       "effect": "",
       "stats": {
         "attackPower": 58,
@@ -29606,13 +29714,12 @@
       "makeMaterial2": 401405,
       "effect": "",
       "stats": {
-        "attackPower": 28,
-        "adaptiveForce": 47,
+        "attackPower": 75,
         "attackSpeedRatio": 0.3,
         "penetrationDefenseRatio": 0.07
       },
-      "ap": 47,
-      "attackPower": 28,
+      "ap": 0,
+      "attackPower": 75,
       "cd": 0,
       "pen": 0,
       "penPct": 0.07,
@@ -29640,10 +29747,10 @@
       "effect": "",
       "stats": {
         "attackPower": 25,
-        "adaptiveForce": 55,
+        "skillAmp": 110,
         "penetrationDefenseRatio": 0.08
       },
-      "ap": 55,
+      "ap": 110,
       "attackPower": 25,
       "cd": 0,
       "pen": 0,
@@ -29762,7 +29869,7 @@
       "isCompletedItem": false,
       "showInItemBook": true,
       "makeMaterial1": 122101,
-      "makeMaterial2": 401108,
+      "makeMaterial2": 205110,
       "effect": "",
       "stats": {
         "attackPower": 15,
@@ -29857,7 +29964,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 401108,
+      "makeMaterial1": 205110,
       "makeMaterial2": 401208,
       "effect": "",
       "stats": {
@@ -30023,7 +30130,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 401108,
+      "makeMaterial1": 205110,
       "makeMaterial2": 401209,
       "effect": "",
       "stats": {
@@ -30093,15 +30200,14 @@
       "makeMaterial2": 401405,
       "effect": "",
       "stats": {
-        "attackPower": 25,
-        "adaptiveForce": 52,
+        "attackPower": 77,
         "attackSpeedRatio": 0.4,
         "cooldownReduction": 10,
         "sightRange": 1,
         "penetrationDefenseRatio": 0.07
       },
-      "ap": 52,
-      "attackPower": 25,
+      "ap": 0,
+      "attackPower": 77,
       "cd": 10,
       "pen": 0,
       "penPct": 0.07,
@@ -30129,11 +30235,11 @@
       "effect": "",
       "stats": {
         "attackPower": 25,
-        "adaptiveForce": 55,
+        "skillAmp": 110,
         "sightRange": 1,
         "penetrationDefenseRatio": 0.08
       },
-      "ap": 55,
+      "ap": 110,
       "attackPower": 25,
       "cd": 0,
       "pen": 0,
@@ -30516,9 +30622,9 @@
       "effect": "",
       "stats": {
         "attackPower": 40,
-        "skillAmp": 95
+        "skillAmp": 97
       },
-      "ap": 95,
+      "ap": 97,
       "attackPower": 40,
       "cd": 0,
       "pen": 0,
@@ -30629,6 +30735,38 @@
       "dmgAmp": 0
     },
     {
+      "code": 130504,
+      "source": "er-gamedata",
+      "type": "武器",
+      "itemType": "Weapon",
+      "weaponType": "圣器 / Arcana",
+      "weaponTypeRaw": "Arcana",
+      "armorType": "",
+      "name": "倒吊人",
+      "quality": "传说",
+      "itemGrade": "Legend",
+      "isCompletedItem": true,
+      "showInItemBook": true,
+      "makeMaterial1": 130101,
+      "makeMaterial2": 401304,
+      "effect": "",
+      "stats": {
+        "attackPower": 40,
+        "skillAmp": 88,
+        "cooldownReduction": 10
+      },
+      "ap": 88,
+      "attackPower": 40,
+      "cd": 10,
+      "pen": 0,
+      "penPct": 0,
+      "apPct": 0,
+      "defense": 0,
+      "maxHp": 0,
+      "sightRange": 0,
+      "dmgAmp": 0
+    },
+    {
       "code": 130701,
       "source": "er-gamedata",
       "type": "武器",
@@ -30646,10 +30784,10 @@
       "effect": "",
       "stats": {
         "attackPower": 40,
-        "skillAmp": 114,
+        "skillAmp": 117,
         "penetrationDefenseRatio": 0.07
       },
-      "ap": 114,
+      "ap": 117,
       "attackPower": 40,
       "cd": 0,
       "pen": 0,
@@ -31669,7 +31807,7 @@
       "itemGrade": "Epic",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 401113,
+      "makeMaterial1": 201101,
       "makeMaterial2": 205312,
       "effect": "",
       "stats": {
@@ -31764,7 +31902,7 @@
       "itemGrade": "Rare",
       "isCompletedItem": false,
       "showInItemBook": true,
-      "makeMaterial1": 201101,
+      "makeMaterial1": 201201,
       "makeMaterial2": 401213,
       "effect": "",
       "stats": {
@@ -32147,8 +32285,8 @@
       "itemGrade": "Epic",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 201401,
-      "makeMaterial2": 205102,
+      "makeMaterial1": 201202,
+      "makeMaterial2": 401214,
       "effect": "",
       "stats": {
         "attackPower": 25,
@@ -32242,7 +32380,7 @@
       "itemGrade": "Epic",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 201203,
+      "makeMaterial1": 201202,
       "makeMaterial2": 401210,
       "effect": "",
       "stats": {
@@ -32338,7 +32476,7 @@
       "isCompletedItem": true,
       "showInItemBook": true,
       "makeMaterial1": 201202,
-      "makeMaterial2": 401210,
+      "makeMaterial2": 401218,
       "effect": "",
       "stats": {
         "skillAmp": 68,
@@ -32368,8 +32506,8 @@
       "itemGrade": "Epic",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 201202,
-      "makeMaterial2": 205211,
+      "makeMaterial1": 201201,
+      "makeMaterial2": 205312,
       "effect": "",
       "stats": {
         "attackPower": 10,
@@ -32400,7 +32538,7 @@
       "itemGrade": "Epic",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 201101,
+      "makeMaterial1": 201201,
       "makeMaterial2": 401303,
       "effect": "",
       "stats": {
@@ -33073,7 +33211,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 205110,
+      "makeMaterial1": 201201,
       "makeMaterial2": 401209,
       "effect": "",
       "stats": {
@@ -33144,8 +33282,8 @@
       "stats": {
         "defense": 15,
         "adaptiveForce": 35,
-        "attackSpeedRatio": 0.3,
-        "lifeSteal": 0.06
+        "attackSpeedRatio": 0.25,
+        "lifeSteal": 0.08
       },
       "ap": 35,
       "attackPower": 0,
@@ -33366,8 +33504,8 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 502401,
-      "makeMaterial2": 401403,
+      "makeMaterial1": 201201,
+      "makeMaterial2": 401304,
       "effect": "",
       "stats": {
         "skillAmp": 70,
@@ -33522,8 +33660,8 @@
       "itemGrade": "Epic",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 202206,
-      "makeMaterial2": 401307,
+      "makeMaterial1": 202301,
+      "makeMaterial2": 203102,
       "effect": "",
       "stats": {
         "defense": 25,
@@ -33616,7 +33754,7 @@
       "isCompletedItem": false,
       "showInItemBook": true,
       "makeMaterial1": 202106,
-      "makeMaterial2": 401103,
+      "makeMaterial2": 401307,
       "effect": "",
       "stats": {
         "defense": 16
@@ -33803,7 +33941,7 @@
       "isCompletedItem": false,
       "showInItemBook": true,
       "makeMaterial1": 202106,
-      "makeMaterial2": 401113,
+      "makeMaterial2": 205109,
       "effect": "",
       "stats": {
         "defense": 12,
@@ -35130,7 +35268,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 205303,
+      "makeMaterial1": 401121,
       "makeMaterial2": 401403,
       "effect": "",
       "stats": {
@@ -35163,8 +35301,8 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 205102,
-      "makeMaterial2": 401208,
+      "makeMaterial1": 108101,
+      "makeMaterial2": 401403,
       "effect": "",
       "stats": {
         "defense": 25,
@@ -35293,7 +35431,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 203102,
+      "makeMaterial1": 502104,
       "makeMaterial2": 401403,
       "effect": "",
       "stats": {
@@ -35574,6 +35712,38 @@
       "dmgAmp": 0
     },
     {
+      "code": 202531,
+      "source": "er-gamedata",
+      "type": "衣服",
+      "itemType": "Armor",
+      "weaponType": "",
+      "weaponTypeRaw": "",
+      "armorType": "Chest",
+      "name": "凛风铠甲",
+      "quality": "传说",
+      "itemGrade": "Legend",
+      "isCompletedItem": true,
+      "showInItemBook": true,
+      "makeMaterial1": 401307,
+      "makeMaterial2": 401403,
+      "effect": "",
+      "stats": {
+        "defense": 40,
+        "maxHpByLv": 24,
+        "cooldownReduction": 10
+      },
+      "ap": 0,
+      "attackPower": 0,
+      "cd": 10,
+      "pen": 0,
+      "penPct": 0,
+      "apPct": 0,
+      "defense": 40,
+      "maxHp": 0,
+      "sightRange": 0,
+      "dmgAmp": 0
+    },
+    {
       "code": 203101,
       "source": "er-gamedata",
       "type": "手部",
@@ -35677,7 +35847,7 @@
       "isCompletedItem": false,
       "showInItemBook": true,
       "makeMaterial1": 401104,
-      "makeMaterial2": 401103,
+      "makeMaterial2": 401307,
       "effect": "",
       "stats": {
         "defense": 6
@@ -35737,7 +35907,7 @@
       "isCompletedItem": false,
       "showInItemBook": true,
       "makeMaterial1": 203102,
-      "makeMaterial2": 401103,
+      "makeMaterial2": 401105,
       "effect": "",
       "stats": {
         "defense": 5
@@ -35797,7 +35967,7 @@
       "isCompletedItem": false,
       "showInItemBook": true,
       "makeMaterial1": 401213,
-      "makeMaterial2": 401103,
+      "makeMaterial2": 401307,
       "effect": "",
       "stats": {
         "attackPower": 18
@@ -36073,7 +36243,7 @@
       "itemGrade": "Epic",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 203201,
+      "makeMaterial1": 203203,
       "makeMaterial2": 203202,
       "effect": "",
       "stats": {
@@ -36489,7 +36659,7 @@
       "makeMaterial2": 401401,
       "effect": "",
       "stats": {
-        "defense": 16,
+        "defense": 15,
         "maxHpByLv": 21,
         "cooldownReduction": 20
       },
@@ -36499,7 +36669,7 @@
       "pen": 0,
       "penPct": 0,
       "apPct": 0,
-      "defense": 16,
+      "defense": 15,
       "maxHp": 0,
       "sightRange": 0,
       "dmgAmp": 0
@@ -36841,7 +37011,7 @@
         "adaptiveForce": 43,
         "cooldownReduction": 20
       },
-      "ap": 45,
+      "ap": 43,
       "attackPower": 0,
       "cd": 20,
       "pen": 0,
@@ -36985,7 +37155,7 @@
       "itemGrade": "Rare",
       "isCompletedItem": false,
       "showInItemBook": true,
-      "makeMaterial1": 204302,
+      "makeMaterial1": 204202,
       "makeMaterial2": 401105,
       "effect": "",
       "stats": {
@@ -37171,7 +37341,7 @@
       "isCompletedItem": false,
       "showInItemBook": true,
       "makeMaterial1": 204102,
-      "makeMaterial2": 401103,
+      "makeMaterial2": 401124,
       "effect": "",
       "stats": {
         "hpRegenRatio": 0.1,
@@ -37201,7 +37371,7 @@
       "itemGrade": "Epic",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 204301,
+      "makeMaterial1": 204404,
       "makeMaterial2": 401307,
       "effect": "",
       "stats": {
@@ -37780,7 +37950,7 @@
       "isCompletedItem": true,
       "showInItemBook": true,
       "makeMaterial1": 204202,
-      "makeMaterial2": 401307,
+      "makeMaterial2": 401202,
       "effect": "",
       "stats": {
         "attackPower": 18,
@@ -38269,9 +38439,9 @@
       "makeMaterial2": 401401,
       "effect": "",
       "stats": {
+        "skillAmp": 50,
         "cooldownReduction": 20,
-        "moveSpeed": 0.27,
-        "skillAmp": 50
+        "moveSpeed": 0.27
       },
       "ap": 50,
       "attackPower": 0,
@@ -38407,38 +38577,6 @@
       "apPct": 0,
       "defense": 0,
       "maxHp": 0,
-      "sightRange": 0,
-      "dmgAmp": 0
-    },
-    {
-      "code": 205306,
-      "source": "er-gamedata",
-      "type": "手部",
-      "itemType": "Armor",
-      "weaponType": "",
-      "weaponTypeRaw": "",
-      "armorType": "Arm",
-      "name": "海盗印记",
-      "quality": "传说",
-      "itemGrade": "Legend",
-      "isCompletedItem": true,
-      "showInItemBook": true,
-      "makeMaterial1": 401124,
-      "makeMaterial2": 401209,
-      "effect": "",
-      "stats": {
-        "attackPower": 26,
-        "attackSpeedRatio": 0.3,
-        "maxHp": 200
-      },
-      "ap": 0,
-      "attackPower": 26,
-      "cd": 0,
-      "pen": 0,
-      "penPct": 0,
-      "apPct": 0,
-      "defense": 0,
-      "maxHp": 200,
       "sightRange": 0,
       "dmgAmp": 0
     },
@@ -38932,7 +39070,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 401114,
+      "makeMaterial1": 112104,
       "makeMaterial2": 401304,
       "effect": "",
       "stats": {
@@ -38964,7 +39102,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 205110,
+      "makeMaterial1": 201201,
       "makeMaterial2": 401208,
       "effect": "",
       "stats": {
@@ -39059,8 +39197,8 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 203104,
-      "makeMaterial2": 401304,
+      "makeMaterial1": 401114,
+      "makeMaterial2": 401208,
       "effect": "",
       "stats": {
         "skillAmp": 55,
@@ -39187,7 +39325,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 201201,
+      "makeMaterial1": 205102,
       "makeMaterial2": 401304,
       "effect": "",
       "stats": {
@@ -39204,267 +39342,6 @@
       "maxHp": 0,
       "sightRange": 0,
       "dmgAmp": 0
-    },
-    {
-      "source": "official-patch-note",
-      "type": "武器",
-      "itemType": "Weapon",
-      "weaponType": "刺剑 / Rapier",
-      "weaponTypeRaw": "Rapier",
-      "armorType": "",
-      "name": "苍野荆棘",
-      "quality": "传说",
-      "itemGrade": "Legend",
-      "isCompletedItem": true,
-      "showInItemBook": true,
-      "effect": "惩恶",
-      "recipe": "冰块 + 秘银",
-      "tooltip": "惩恶：4秒内用普攻或独立技能命中同一敌人3次时，造成 50(+技能增幅的20%)(+实验体等级*2) 技能伤害，并获得 100(+技能增幅的30%)(+实验体等级*5) 护盾、持续2.5秒。冷却 12秒。",
-      "stats": {
-        "attackPower": 32,
-        "skillAmp": 86,
-        "maxHp": 120
-      },
-      "sourceVersion": "12.0",
-      "sourceUrl": "https://playeternalreturn.com/posts/news/3743?hl=zh-CN",
-      "sourceTitle": "[修正] 12.0 更新日志 Part.2 - 实验体和物品",
-      "ap": 86,
-      "attackPower": 32,
-      "cd": 0,
-      "pen": 0,
-      "penPct": 0,
-      "apPct": 0,
-      "defense": 0,
-      "maxHp": 120,
-      "sightRange": 0,
-      "dmgAmp": 0
-    },
-    {
-      "source": "official-patch-note",
-      "type": "武器",
-      "itemType": "Weapon",
-      "weaponType": "棍棒 / Bat",
-      "weaponTypeRaw": "Bat",
-      "armorType": "",
-      "name": "棒棒糖",
-      "quality": "传说",
-      "itemGrade": "Legend",
-      "isCompletedItem": true,
-      "showInItemBook": true,
-      "effect": "神速 - 微风",
-      "recipe": "石头 + 秘银",
-      "tooltip": "神速 - 微风：4秒内造成3次普攻或独立技能伤害时，2.5秒内移动速度增加15%，并获得 100(+技能增幅的30%)(+实验体等级*5) 护盾。冷却 12秒。",
-      "stats": {
-        "attackPower": 30,
-        "skillAmp": 86,
-        "maxHp": 150
-      },
-      "sourceVersion": "12.0",
-      "sourceUrl": "https://playeternalreturn.com/posts/news/3743?hl=zh-CN",
-      "sourceTitle": "[修正] 12.0 更新日志 Part.2 - 实验体和物品",
-      "ap": 86,
-      "attackPower": 30,
-      "cd": 0,
-      "pen": 0,
-      "penPct": 0,
-      "apPct": 0,
-      "defense": 0,
-      "maxHp": 150,
-      "sightRange": 0,
-      "dmgAmp": 0
-    },
-    {
-      "source": "official-patch-note",
-      "type": "武器",
-      "itemType": "Weapon",
-      "weaponType": "圣器 / Arcana",
-      "weaponTypeRaw": "Arcana",
-      "armorType": "",
-      "name": "倒吊人",
-      "quality": "传说",
-      "itemGrade": "Legend",
-      "isCompletedItem": true,
-      "showInItemBook": true,
-      "effect": "瘟疫蝴蝶",
-      "recipe": "琉璃球 + 秘银",
-      "tooltip": "瘟疫蝴蝶：用独立技能对敌方实验体造成伤害时，飞出一只蝴蝶造成 40(+技能增幅的30%)(+实验体等级*3) 伤害，可在 4m 内最多弹射 5 次，每次弹射伤害降低 10%。冷却 10秒。",
-      "stats": {
-        "attackPower": 40,
-        "skillAmp": 92,
-        "cooldownReduction": 10
-      },
-      "sourceVersion": "12.0",
-      "sourceUrl": "https://playeternalreturn.com/posts/news/3743?hl=zh-CN",
-      "sourceTitle": "[修正] 12.0 更新日志 Part.2 - 实验体和物品",
-      "ap": 92,
-      "attackPower": 40,
-      "cd": 10,
-      "pen": 0,
-      "penPct": 0,
-      "apPct": 0,
-      "defense": 0,
-      "maxHp": 0,
-      "sightRange": 0,
-      "dmgAmp": 0
-    },
-    {
-      "source": "official-patch-note",
-      "type": "武器",
-      "itemType": "Weapon",
-      "weaponType": "双手剑 / TwoHandSword",
-      "weaponTypeRaw": "TwoHandSword",
-      "armorType": "",
-      "name": "均衡之刃",
-      "quality": "传说",
-      "itemGrade": "Legend",
-      "isCompletedItem": true,
-      "showInItemBook": true,
-      "effect": "惩恶",
-      "recipe": "铁锈剑 + 秘银",
-      "tooltip": "惩恶：4秒内用普攻或独立技能命中同一敌人3次时，造成 40(+额外攻击力50%)(+实验体等级*5) 技能伤害，并获得 100(+攻击力的55%)(+实验体等级*5) 护盾、持续2.5秒。冷却 12秒。",
-      "stats": {
-        "attackPower": 67,
-        "attackSpeedRatio": 0.3,
-        "maxHp": 150
-      },
-      "sourceVersion": "12.0",
-      "sourceUrl": "https://playeternalreturn.com/posts/news/3743?hl=zh-CN",
-      "sourceTitle": "[修正] 12.0 更新日志 Part.2 - 实验体和物品",
-      "ap": 0,
-      "attackPower": 67,
-      "cd": 0,
-      "pen": 0,
-      "penPct": 0,
-      "apPct": 0,
-      "defense": 0,
-      "maxHp": 150,
-      "sightRange": 0,
-      "dmgAmp": 0
-    },
-    {
-      "source": "official-patch-note",
-      "type": "衣服",
-      "itemType": "Armor",
-      "weaponType": "",
-      "weaponTypeRaw": "",
-      "armorType": "Chest",
-      "name": "凛风铠甲",
-      "quality": "传说",
-      "itemGrade": "Legend",
-      "isCompletedItem": true,
-      "showInItemBook": true,
-      "effect": "疾风 - 寒气",
-      "recipe": "皮革补丁 + 能源晶石",
-      "tooltip": "疾风 - 寒气：对敌方实验体施加无法移动效果时释放持续5秒的旋涡，每0.5秒造成 20(+额外体力6%) 技能伤害并降低范围内敌人 25% 移动速度。冷却 10秒。",
-      "stats": {
-        "defense": 40,
-        "maxHpByLv": 24,
-        "cooldownReduction": 10
-      },
-      "sourceVersion": "12.0",
-      "sourceUrl": "https://playeternalreturn.com/posts/news/3743?hl=zh-CN",
-      "sourceTitle": "[修正] 12.0 更新日志 Part.2 - 实验体和物品",
-      "ap": 0,
-      "attackPower": 0,
-      "cd": 10,
-      "pen": 0,
-      "penPct": 0,
-      "apPct": 0,
-      "defense": 40,
-      "maxHp": 0,
-      "sightRange": 0,
-      "dmgAmp": 0
-    },
-    {
-      "source": "official-patch-note",
-      "type": "衣服",
-      "itemType": "Armor",
-      "weaponType": "",
-      "weaponTypeRaw": "",
-      "armorType": "Chest",
-      "name": "凛风铠甲・戴维德",
-      "quality": "传说",
-      "itemGrade": "Legend",
-      "isCompletedItem": true,
-      "showInItemBook": true,
-      "effect": "疾风 - 寒气",
-      "recipe": "皮革补丁 + 能源晶石",
-      "tooltip": "凛风铠甲的戴维德变体：防御力 +4、每级别体力上限 +3。",
-      "stats": {
-        "defense": 44,
-        "maxHpByLv": 27,
-        "cooldownReduction": 10
-      },
-      "sourceVersion": "12.0",
-      "sourceUrl": "https://playeternalreturn.com/posts/news/3743?hl=zh-CN",
-      "sourceTitle": "[修正] 12.0 更新日志 Part.2 - 实验体和物品",
-      "ap": 0,
-      "attackPower": 0,
-      "cd": 10,
-      "pen": 0,
-      "penPct": 0,
-      "apPct": 0,
-      "defense": 44,
-      "maxHp": 0,
-      "sightRange": 0,
-      "dmgAmp": 0
     }
-  ],
-  "officialPatchUpdates": {
-    "appliedAt": "2026-08-06T12:21:07.049Z",
-    "patches": [
-      {
-        "version": "11.3",
-        "date": "2026-05-28",
-        "url": "https://playeternalreturn.com/posts/news/3606?hl=en-US"
-      },
-      {
-        "version": "11.4",
-        "date": "2026-06-11",
-        "url": "https://playeternalreturn.com/posts/news/3629?hl=en-US"
-      },
-      {
-        "version": "11.5",
-        "date": "2026-06-25",
-        "url": "https://playeternalreturn.com/posts/news/3657?hl=en-US"
-      },
-      {
-        "version": "11.6",
-        "date": "2026-07-09",
-        "url": "https://playeternalreturn.com/posts/news/3690?hl=en-US"
-      },
-      {
-        "version": "11.7",
-        "date": "2026-07-23",
-        "url": "https://playeternalreturn.com/posts/news/3713?hl=en-US"
-      },
-      {
-        "version": "12.0",
-        "date": "2026-08-06",
-        "url": "https://playeternalreturn.com/posts/news/3742?hl=en-US"
-      }
-    ]
-  },
-  "officialPatchUpdatesZh": {
-    "appliedAt": "2026-08-06T13:02:58.285Z",
-    "locale": "zh-CN",
-    "sources": [
-      {
-        "version": "11.5",
-        "url": "https://playeternalreturn.com/posts/news/3657?hl=zh-CN"
-      },
-      {
-        "version": "11.5a",
-        "url": "https://playeternalreturn.com/posts/news/3687?hl=zh-CN"
-      },
-      {
-        "version": "12.0 Part.1",
-        "url": "https://playeternalreturn.com/posts/news/3742?hl=zh-CN"
-      },
-      {
-        "version": "12.0 Part.2",
-        "url": "https://playeternalreturn.com/posts/news/3743?hl=zh-CN"
-      }
-    ]
-  }
+  ]
 }

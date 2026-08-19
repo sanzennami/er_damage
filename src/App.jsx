@@ -50,7 +50,7 @@ import {
   statConversionFor
 } from './lib/specialRules.js';
 
-const APP_VERSION = 'v0.2.033';
+const APP_VERSION = 'v0.2.035';
 
 const EXPORTED_LOCAL_CONFIG_MODULES = import.meta.glob('./data/localConfig.export.json', {
   eager: true,
@@ -155,6 +155,7 @@ const TRAIT_EFFECTS = {
   7310301: { cd: 5, extraEffect: 'overclock', summary: '超频：冷却缩减 +5；冷却缩减超过 40 时攻击力 +5 或技能增幅 +10，按实验体主路径计入。' },
   7310401: { penPct: 0.06, summary: '制动力：对敌人实验体造成伤害后 4 秒内防御穿透 +6%，当前按已触发计入。' },
   7310501: { extraEffect: 'rCharger', summary: 'R_echarger：终极技能冷却缩减 +15；使用终极技能后 5 秒内攻击力 +5+等级*0.5 或技能增幅 +10+等级。' },
+  7310701: { extraEffect: 'celestialCollection', summary: '天界典藏：按装备的物品等级分档给属性。5 件英雄+ 攻击力+2 或技能增幅+4；1 件传说+ 攻击力+3 或技能增幅+6；2 件传说+ 防御力+2；3 件传说+ 体力+40；4 件传说+ 移速+1%；5 件传说+ 防御穿透+1%；1 件超凡+ 吸血+3%；2 件超凡+ 负面效果抵御+5%。移速/吸血/抵御三项不影响伤害。' },
   7310601: { extraEffect: 'rapidShot', summary: '急速射击：技能后普攻命中时，5 秒内攻击力 +2+等级*0.5 或技能增幅 +4+等级，并提升攻击速度 15%；按实验体主路径计入。' },
   7200101: { summary: '超再生（12.0）：转为副潜能；护盾与体力恢复量增加 5%；原“被护盾/治疗目标获得适应力”已移除，不再提供攻击力或技能增幅。' },
   7200201: { extraEffect: 'enhancementDevice', summary: '强化装置：使用终极技能时出现强化装置，4.5 秒内给 4m 范围内自身和队友移动速度 +10+等级*0.6%，技能伤害量 +8+等级*0.5%。' },
@@ -1025,6 +1026,45 @@ function selectedTraitsFrom(selection) {
   ].map((id) => TRAIT_BY_ID[String(id)]).filter(Boolean);
 }
 
+/**
+ * 天界典藏（潜能 7310701）：按当前装备的物品等级分档给属性。
+ *
+ * 官方文案的等级词与我们数据里的对应关系：英雄 = Epic，传说 = Legend，
+ * 超凡 = Mythic（equipment.json 沿用旧译名「神话」，所以按 itemGrade 判定而不是 quality）。
+ * 「攻击力+X 或 技能增幅+Y」跟其它潜能一样，按该实验体的主输出路线二选一。
+ */
+const ITEM_GRADE_RANK = { Common: 0, Uncommon: 1, Rare: 2, Epic: 3, Legend: 4, Mythic: 5 };
+
+function celestialCollectionBonus(items, usesAttackPath) {
+  const atLeast = (rank) => items.filter((item) => (ITEM_GRADE_RANK[item?.itemGrade] ?? -1) >= rank).length;
+  const epicPlus = atLeast(ITEM_GRADE_RANK.Epic);
+  const legendPlus = atLeast(ITEM_GRADE_RANK.Legend);
+  const mythicPlus = atLeast(ITEM_GRADE_RANK.Mythic);
+
+  const tiers = [];
+  let ap = 0;
+  let attackPower = 0;
+  if (epicPlus >= 5) {
+    if (usesAttackPath) attackPower += 2; else ap += 4;
+    tiers.push(`5 件英雄+：${usesAttackPath ? '攻击力 +2' : '技能增幅 +4'}`);
+  }
+  if (legendPlus >= 1) {
+    if (usesAttackPath) attackPower += 3; else ap += 6;
+    tiers.push(`1 件传说+：${usesAttackPath ? '攻击力 +3' : '技能增幅 +6'}`);
+  }
+  const defense = legendPlus >= 2 ? 2 : 0;
+  if (defense) tiers.push('2 件传说+：防御力 +2');
+  const maxHp = legendPlus >= 3 ? 40 : 0;
+  if (maxHp) tiers.push('3 件传说+：体力 +40');
+  if (legendPlus >= 4) tiers.push('4 件传说+：移动速度 +1%（不影响伤害）');
+  const penPct = legendPlus >= 5 ? 0.01 : 0;
+  if (penPct) tiers.push('5 件传说+：防御穿透 +1%');
+  if (mythicPlus >= 1) tiers.push('1 件超凡+：吸血-所有伤害 +3%（不影响伤害）');
+  if (mythicPlus >= 2) tiers.push('2 件超凡+：负面效果抵御 +5%（不影响伤害）');
+
+  return { ap, attackPower, defense, maxHp, penPct, tiers, epicPlus, legendPlus, mythicPlus };
+}
+
 function traitBonusesFor(traits, burstBonus = 0) {
   return traits.reduce((bonus, trait) => {
     const effect = TRAIT_EFFECTS[trait.id] || {};
@@ -1293,15 +1333,21 @@ function calc({
   const rChargerAttackPower = activeTraitEffectIds.has('rCharger') && usesAttackPath ? 5 + mastery * 0.5 : 0;
   const overclockAp = activeTraitEffectIds.has('overclock') && cd >= 40 && !usesAttackPath ? 10 : 0;
   const overclockAttackPower = activeTraitEffectIds.has('overclock') && cd >= 40 && usesAttackPath ? 5 : 0;
+  // 天界典藏：按当前装备的物品等级分档给属性。官方文案里的「超凡」就是 Mythic
+  // （我们数据里沿用旧译名「神话」），「英雄」=Epic、「传说」=Legend。
+  const celestial = activeTraitEffectIds.has('celestialCollection')
+    ? celestialCollectionBonus(selected, usesAttackPath)
+    : { ap: 0, attackPower: 0, defense: 0, maxHp: 0, penPct: 0, tiers: [] };
   // 12.0：超再生不再给予被护盾/治疗目标适应力，因此不再计入攻击力或技能增幅
-  const talentBonusAp = getNumber(traitBonuses.ap) + concentrationAp + huntBearAp + rapidShotAp + rChargerAp + overclockAp;
-  const talentBonusAttackPower = concentrationAttackPower + huntBearAttackPower + rapidShotAttackPower + rChargerAttackPower + overclockAttackPower;
+  const talentBonusAp = getNumber(traitBonuses.ap) + concentrationAp + huntBearAp + rapidShotAp + rChargerAp + overclockAp + celestial.ap;
+  const talentBonusAttackPower = concentrationAttackPower + huntBearAttackPower + rapidShotAttackPower + rChargerAttackPower + overclockAttackPower + celestial.attackPower;
   const pen = statValue(equipmentStats, 'penetrationDefense') + statValue(equipmentStats, 'uniquePenetrationDefense') + talentPen || selected.reduce((sum, item) => sum + getNumber(item.pen), 0) + talentPen;
-  const penPct = statValue(equipmentStats, 'penetrationDefenseRatio') + statValue(equipmentStats, 'uniquePenetrationDefenseRatio') + talentPenPct || selected.reduce((sum, item) => sum + getNumber(item.penPct), 0) + talentPenPct;
+  const basePenPct = statValue(equipmentStats, 'penetrationDefenseRatio') + statValue(equipmentStats, 'uniquePenetrationDefenseRatio') + talentPenPct || selected.reduce((sum, item) => sum + getNumber(item.penPct), 0) + talentPenPct;
+  const penPct = basePenPct + celestial.penPct;
   const dynamicTraitDefense = activeTraitEffectIds.has('diamondShard') ? 20 + mastery * 5 : 0;
-  const talentBonusDefense = getNumber(traitBonuses.defense) + dynamicTraitDefense;
+  const talentBonusDefense = getNumber(traitBonuses.defense) + dynamicTraitDefense + celestial.defense;
   const equipDefense = (statValue(equipmentStats, 'defense') || selected.reduce((sum, item) => sum + getNumber(item.defense), 0)) + talentBonusDefense;
-  const extraHp = statValue(equipmentStats, 'maxHp') + getNumber(traitBonuses.maxHp);
+  const extraHp = statValue(equipmentStats, 'maxHp') + getNumber(traitBonuses.maxHp) + celestial.maxHp;
   const normalApPct = 0;
   const uniqueApPct = Math.max(statValue(equipmentStats, 'uniqueSkillAmpRatio'), ...selected.filter((item) => item.uniqueApPct).map((item) => getNumber(item.apPct)));
   const equipDamageBonus = selected.reduce((sum, item) => (
@@ -1494,6 +1540,7 @@ function calc({
     extraAttackPower,
     attackPower,
     talentAp,
+    celestial,
     talentBonusAp,
     talentBonusAttackPower,
     talentBonusDefense,
