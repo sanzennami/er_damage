@@ -1686,5 +1686,19 @@
         "value": 0.042
       }
     ]
+  },
+  {
+    "characterCode": 90,
+    "type": "SniperRifle",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.04
+      },
+      {
+        "stat": "SkillAmpRatio",
+        "value": 0.042
+      }
+    ]
   }
 ]
