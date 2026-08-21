@@ -265,3 +265,28 @@ npm run audit:character-drift
 
 它会把差异分成「有公告背书」（补丁 order 比解包快照新，正常）和「没人背书」（多半是陈旧导入，
 要处理），并单独警告有解包成长数据、我们却还是 `null` 的实验体。
+
+## 官方武器路线推荐 → 装备预设
+
+`src/data/sources/weaponRoutesRecommend.json` 是官方接口返回的 100 条武器路线原始数据。
+
+```bash
+npm run build:weapon-presets
+```
+
+生成 `src/data/weaponRoutePresets.json`，键是「实验体名|武器类型」，54 份、覆盖 51 名实验体。
+一条路线里 `weaponCodes` 是英雄级过渡装、`lateGameItemCodes["0"]` 是成型装——取成型装，缺槽用过渡装补。
+（`lateGameItemCodes` 的 "2"/"3" 在源数据里本身就不完整，会出现两件头部、没有武器，别用。）
+
+App 侧的规则：
+
+- 换实验体时落在**第一把有配装可用的武器**上（用户存过的 > 官方预设 > `weapons[0]`）。
+  不能直接用 `weapons[0]`：秀雅默认是锤，官方只给了棍棒路线。
+- 用户改过的配装按 `heroLoadouts["实验体|武器类型"]` 存进 localStorage，盖过官方预设。
+- 判断「改没改过」不用标志位，而是把当前配装和预设逐项比（`loadoutFieldsEqual`）：
+  一致就删掉覆盖记录，这样以后预设更新了还能跟着更新。
+- 记录只在**组合键没变**的那一帧发生（`loadoutRecordKeyRef`）。刚切实验体的那一帧武器类型已经是
+  新的、装备还是上一个实验体的，那时候记下去会把旧配装错挂到新实验体名下。
+- 改 `[selectedHero]` 那个 effect 时注意：紧跟着的第二个 effect 看到的 `weaponTypeFilter`
+  还是切换前的值（同一次提交里 setState 尚未生效），它的兜底也必须走 `preferredWeaponRawFor`，
+  否则会把刚按推荐路线选好的武器顶掉。

@@ -11,6 +11,7 @@ import ITEM_EFFECT_MODIFIERS from './data/itemEffectModifiers.json';
 import HERO_STATUS from './data/heroStatus.json';
 import DAK_LOADOUT_ASSETS from './data/dakLoadoutAssets.json';
 import DAK_ITEM_SKILL_ICONS from './data/dakItemSkillIcons.json';
+import WEAPON_ROUTE_PRESETS from './data/weaponRoutePresets.json';
 import { CHARACTERS, findCharacterByName, masteryStatFor } from './lib/characterStats.js';
 import {
   adaptiveOffenseFormula,
@@ -50,7 +51,7 @@ import {
   statConversionFor
 } from './lib/specialRules.js';
 
-const APP_VERSION = 'v0.2.039';
+const APP_VERSION = 'v0.2.050';
 
 const EXPORTED_LOCAL_CONFIG_MODULES = import.meta.glob('./data/localConfig.export.json', {
   eager: true,
@@ -987,6 +988,25 @@ function weaponTypeFromFilter(type) {
 function weaponTypeLabelForRaw(rawType) {
   if (!rawType) return '全部类型';
   return WEAPON_TYPE_OPTIONS.find((type) => weaponTypeFromFilter(type) === rawType) || '全部类型';
+}
+
+// ---- 官方武器路线推荐做的装备预设 ----
+//
+// 键是「实验体名|武器类型」。换实验体或换武器类型时，如果用户没自己改过这个组合的配装，
+// 就套用预设；改过就用用户存下来的那套（heroLoadouts，落在 localStorage 里）。
+// 判断「改没改过」不用标志位：把当前配装和预设逐项比一遍，一致就说明还没动过。
+const ROUTE_PRESETS = WEAPON_ROUTE_PRESETS.presets || {};
+
+function loadoutKeyFor(hero, weaponRawType) {
+  return `${hero || ''}|${weaponRawType || ''}`;
+}
+
+function loadoutFieldsEqual(left, right) {
+  if (!left || !right) return false;
+  if (SLOTS.some((slot) => String(left.gear?.[slot] ?? '') !== String(right.gear?.[slot] ?? ''))) return false;
+  const traitKeys = ['group', 'core', 'sub1', 'sub2', 'secondaryGroup', 'secondarySub1', 'secondarySub2'];
+  if (traitKeys.some((key) => String(left.traitSelection?.[key] ?? '') !== String(right.traitSelection?.[key] ?? ''))) return false;
+  return String(left.tacticalSkill ?? '') === String(right.tacticalSkill ?? '');
 }
 
 function weaponTypeOfficialName(rawType) {
@@ -2332,12 +2352,44 @@ const MULTI_TARGET_MAX = 10;
 const MULTI_HIT_LADDER_MAX = 10;
 
 function skillMainSlot(skill) {
+  // 条目上显式写了 slot 就以它为准。R 强化其他技能的段（芭芭拉超时实验、阿尔达沉睡之力）
+  // 要挂到被强化的那个槽下面，标题以「（R强化）」开头，靠标题推导会落到 R。
+  if (skill?.slot) return String(skill.slot).toUpperCase();
   const title = String(skill?.title || '').toUpperCase().trim();
   if (title.startsWith('P')) return 'P';
   if (title.startsWith('EQ')) return 'Q';
   if (title.startsWith('EW')) return 'W';
   const match = title.match(/[QWER]/);
   return match?.[0] || 'Q';
+}
+
+/**
+ * 这一段的等级跟哪个技能槽走。
+ * 默认就是它显示在的那一槽；R 强化其他技能的段显示在 Q/W/E 下，但等级必须跟 R，
+ * 所以那些条目上写 levelSlot: "R"。
+ */
+function skillLevelSlot(skill) {
+  return String(skill?.levelSlot || skillMainSlot(skill)).toUpperCase();
+}
+
+/**
+ * 拨动开关。只有「在 / 不在某状态」这种二选一才用它，
+ * 三个及以上的选项仍然走下拉，硬塞成开关反而看不出选了哪个。
+ */
+function ToggleSwitch({ checked, onChange, label, title }) {
+  return (
+    <button
+      type="button"
+      role="switch"
+      aria-checked={checked}
+      title={title}
+      className={`toggleSwitch${checked ? ' on' : ''}`}
+      onClick={() => onChange(!checked)}
+    >
+      <span className="toggleSwitchTrack"><span className="toggleSwitchThumb" /></span>
+      <span className="toggleSwitchLabel">{label}</span>
+    </button>
+  );
 }
 
 function skillTargetCount(counts, key, maxTargets = MULTI_TARGET_MAX) {
@@ -2393,6 +2445,13 @@ export default function App() {
   const [mastery, setMastery] = useState(getNumber(initialWorkspaceState.mastery) || 20);
   const [talentAp, setTalentAp] = useState(getNumber(initialWorkspaceState.talentAp));
   const [traitSelection, setTraitSelection] = useState(() => normalizeTraitSelection(initialWorkspaceState.traitSelection || DEFAULT_TRAIT_SELECTION));
+  // 用户自己改过的配装，按「实验体|武器类型」存。有记录就盖过官方推荐路线的预设。
+  const [heroLoadouts, setHeroLoadouts] = useState(() => initialWorkspaceState.heroLoadouts || {});
+  // 上一次记录用的组合键，用来区分「用户改了装备」和「刚切换实验体」两种触发。
+  const loadoutRecordKeyRef = useRef(null);
+  // 浏览器缓存里已经有配装的老用户，首帧就把这套认成他自己的选择记下来，
+  // 否则他切走再切回来会被官方预设覆盖。全新用户没有缓存，直接吃预设。
+  const adoptSavedLoadoutRef = useRef(Boolean(initialWorkspaceState.gear));
   const [targetIndex, setTargetIndex] = useState(Number.isInteger(initialWorkspaceState.targetIndex) ? initialWorkspaceState.targetIndex : 0);
   const [target, setTarget] = useState(() => (initialWorkspaceState.target ? { ...TARGETS[0], ...initialWorkspaceState.target } : TARGETS[0]));
   const [targetMastery, setTargetMastery] = useState(getNumber(initialWorkspaceState.targetMastery) || 1);
@@ -2479,6 +2538,7 @@ export default function App() {
       mastery,
       talentAp,
       traitSelection,
+      heroLoadouts,
       targetIndex,
       target,
       targetMastery,
@@ -2507,7 +2567,7 @@ export default function App() {
       comparisonScenarios,
       selectedComparisonMastery
     }));
-  }, [activePage, gear, weaponTypeFilter, selectedHero, mastery, talentAp, traitSelection, targetIndex, target, targetMastery, targetHpPct, selfHpPct, heroModifierChoices, heroFormChoices, selfHp, selfShield, accumulatedDamage, damageBonus, skillReduction, r2Stacks, tacticalSkill, tacticalUpgraded, vampireFull, effectToggles, effectsCollapsed, skillTargetCounts, heroAvatarQuery, showLowerTierEquipment, visibleStatKeys, skillLevels, comparisonSettings, comparisonScenarios, selectedComparisonMastery]);
+  }, [activePage, gear, weaponTypeFilter, selectedHero, mastery, talentAp, traitSelection, heroLoadouts, targetIndex, target, targetMastery, targetHpPct, selfHpPct, heroModifierChoices, heroFormChoices, selfHp, selfShield, accumulatedDamage, damageBonus, skillReduction, r2Stacks, tacticalSkill, tacticalUpgraded, vampireFull, effectToggles, effectsCollapsed, skillTargetCounts, heroAvatarQuery, showLowerTierEquipment, visibleStatKeys, skillLevels, comparisonSettings, comparisonScenarios, selectedComparisonMastery]);
 
   useEffect(() => {
     window.localStorage.setItem(APP_SETTINGS_KEY, JSON.stringify({ useHeroAvatarPicker, editMode, showDamageTestHeroes, uiTheme }));
@@ -2993,11 +3053,15 @@ export default function App() {
   );
 
   useEffect(() => {
-    const nextRawType = selectedCharacter?.weapons?.[0];
+    const nextRawType = preferredWeaponRawFor(selectedHero, selectedCharacter);
     if (!nextRawType) return;
 
     const nextFilter = weaponTypeLabelForRaw(nextRawType);
     setWeaponTypeFilter(nextFilter);
+
+    // 换到这名实验体的默认武器上，套用用户存过的配装，没存过就用官方推荐路线的预设。
+    // 套上了就直接返回，别让下面「自动补一把武器」的兜底把预设武器换掉。
+    if (applyLoadoutFor(selectedHero, nextRawType)) return;
 
     // 空栏是明确选择的「不穿」，换英雄时也不要自动补一把武器回来
     if (isEmptyGear(gear['武器'])) return;
@@ -3018,7 +3082,10 @@ export default function App() {
 
   useEffect(() => {
     if (weaponTypeFilter !== '全部类型' && !heroWeaponOptions.includes(weaponTypeFilter)) {
-      setWeaponTypeFilter(weaponTypeLabelForRaw(selectedCharacter?.weapons?.[0]));
+      // 这里要和上面那个 effect 用同一套武器选择逻辑。这个 effect 看到的 weaponTypeFilter
+      // 还是切换前那个（同一次提交里 setState 尚未生效），直接取 weapons[0] 会把上面刚
+      // 按推荐路线选好的武器又顶掉。
+      setWeaponTypeFilter(weaponTypeLabelForRaw(preferredWeaponRawFor(selectedHero, selectedCharacter)));
       return;
     }
 
@@ -3047,13 +3114,81 @@ export default function App() {
     });
   }, [equipment, gear, showLowerTierEquipment]);
 
+  // 记录用户对当前「实验体|武器类型」的改动。和预设逐项一致时说明还没动过，
+  // 就把记录删掉——这样以后预设更新了还能跟着更新，不会被一份等价的旧快照钉死。
+  //
+  // 只在组合没变的那一帧记录。刚切换实验体时，武器类型已经是新的、装备还是上一个实验体的，
+  // 那一帧记下去就会把旧配装错挂到新实验体名下，所以要先让 applyLoadoutFor 把配装换过来。
+  useEffect(() => {
+    const key = loadoutKeyFor(selectedHero, selectedWeaponRaw);
+    if (!selectedWeaponRaw) return;
+    const previousKey = adoptSavedLoadoutRef.current ? key : loadoutRecordKeyRef.current;
+    adoptSavedLoadoutRef.current = false;
+    loadoutRecordKeyRef.current = key;
+    if (previousKey !== key) return;
+    const current = { gear, traitSelection, tacticalSkill };
+    const preset = ROUTE_PRESETS[key];
+    setHeroLoadouts((saved) => {
+      if (preset && loadoutFieldsEqual(current, preset)) {
+        if (!saved[key]) return saved;
+        const next = { ...saved };
+        delete next[key];
+        return next;
+      }
+      if (saved[key] && loadoutFieldsEqual(saved[key], current)) return saved;
+      return { ...saved, [key]: current };
+    });
+  }, [gear, traitSelection, tacticalSkill, selectedHero, selectedWeaponRaw]);
+
   function updateGear(slot, name) {
     setGear((current) => ({ ...current, [slot]: name }));
+  }
+
+  /**
+   * 换到这名实验体时落在哪把武器上。按 characters.json 的武器顺序找第一把「有配装可用」的：
+   * 用户自己存过的最优先，其次是官方推荐路线的预设，都没有才用第一把。
+   *
+   * 这样处理是因为有的实验体默认武器没有官方路线、第二把才有（秀雅默认是锤，官方只给了棍棒），
+   * 直接用第一把会落到空配装上，等于这个功能对他们没生效。
+   */
+  function preferredWeaponRawFor(hero, character) {
+    const weapons = character?.weapons || [];
+    if (!weapons.length) return '';
+    return weapons.find((raw) => heroLoadouts[loadoutKeyFor(hero, raw)])
+      || weapons.find((raw) => ROUTE_PRESETS[loadoutKeyFor(hero, raw)])
+      || weapons[0];
+  }
+
+  /**
+   * 套用某个「实验体|武器类型」的配装：用户存过的优先，否则用官方推荐路线的预设。
+   * 两者都没有就什么都不做，返回 false 让调用方走自己的兜底逻辑。
+   */
+  function applyLoadoutFor(hero, weaponRawType) {
+    const key = loadoutKeyFor(hero, weaponRawType);
+    const source = heroLoadouts[key] || ROUTE_PRESETS[key];
+    if (!source?.gear) return false;
+
+    setGear((current) => {
+      const next = { ...current };
+      SLOTS.forEach((slot) => {
+        const name = source.gear[slot];
+        if (name === undefined) return;
+        // 预设里查不到的道具（改版下架等）就保持原样，别把栏位清空
+        if (name && !byName(equipment, name)) return;
+        next[slot] = name;
+      });
+      return next;
+    });
+    if (source.traitSelection) setTraitSelection(normalizeTraitSelection(source.traitSelection));
+    if (source.tacticalSkill) setTacticalSkill(source.tacticalSkill);
+    return true;
   }
 
   function updateWeaponType(type) {
     setWeaponTypeFilter(type);
     if (type === '全部类型') return;
+    // 换武器类型 = 换一套预设；用户改过这个组合就用他自己那套
+    if (applyLoadoutFor(selectedHero, weaponTypeFromFilter(type))) return;
 
     const match = equipment.find((item) => (
       item.type === '武器'
@@ -3084,7 +3219,7 @@ export default function App() {
     setSkillLevels((current) => ({
       ...current,
       ...Object.fromEntries(result.skills
-        .filter((skill) => skillMainSlot(skill) === slot)
+        .filter((skill) => skillLevelSlot(skill) === slot)
         .map((skill) => [skill.id, level]))
     }));
   }
@@ -3420,16 +3555,17 @@ export default function App() {
     );
   }
 
-  function renderCountStepper(label, key, { min = 0, max = MULTI_TARGET_MAX, fallback } = {}) {
+  // step 是给上限很大的资源条用的（厄喀翁的 VF 值 0~100），一格一点要点一百下
+  function renderCountStepper(label, key, { min = 0, max = MULTI_TARGET_MAX, fallback, step = 1 } = {}) {
     const saved = skillTargetCounts[key];
     const raw = saved === undefined || saved === null || saved === '' ? getNumber(fallback) : getNumber(saved);
     const count = Math.max(min, Math.min(max, raw));
     return (
       <div className="targetStepper">
         <span>{label}</span>
-        <button type="button" onClick={() => updateSkillCount(key, count - 1, { min, max })}>-</button>
+        <button type="button" onClick={() => updateSkillCount(key, count - step, { min, max })}>-</button>
         <b>{count}</b>
-        <button type="button" onClick={() => updateSkillCount(key, count + 1, { min, max })}>+</button>
+        <button type="button" onClick={() => updateSkillCount(key, count + step, { min, max })}>+</button>
       </div>
     );
   }
@@ -3645,7 +3781,12 @@ export default function App() {
   function renderSkillMainColumn(slot) {
     // 强化普攻类不进技能栏，它们在下面的「强化普攻」面板里
     const slotSkills = result.skills.filter((skill) => skillMainSlot(skill) === slot && skill.kind !== 'basicAttack');
-    const levelValue = slotSkills[0] ? skillLevels[slotSkills[0].id] : 1;
+    // 等级归属可能和显示位置不同：R 强化段显示在 Q/W/E 下，等级仍由 R 这一槽的选择器控制。
+    // 所以 R 那一栏即使一条都不显示，也要保留它的等级选择器。
+    const levelSkills = result.skills.filter((skill) => skillLevelSlot(skill) === slot && skill.kind !== 'basicAttack');
+    const levelValue = levelSkills[0] ? skillLevels[levelSkills[0].id] : 1;
+    // 这一槽的伤害段被挪到别处显示时，给个说明，别让人以为没数据
+    const movedAway = levelSkills.filter((skill) => skillMainSlot(skill) !== slot);
     const slotDescription = slotSkills.length ? (
       <span className="skillDescriptionContent">
         <strong>{slot} Lv.{levelValue}</strong>
@@ -3669,11 +3810,11 @@ export default function App() {
           ) : (
             <strong>{slot}</strong>
           )}
-          {slotSkills.length ? (
+          {levelSkills.length ? (
             <div className="levelSelect">
               <span>Lv.</span>
               <select value={levelValue} onChange={(event) => updateSkillSlotLevel(slot, getNumber(event.target.value))}>
-                {Array.from({ length: slotSkills[0].maxLevel }, (_, index) => index + 1).map((level) => (
+                {Array.from({ length: Math.max(...levelSkills.map((item) => getNumber(item.maxLevel) || 1)) }, (_, index) => index + 1).map((level) => (
                   <option value={level} key={level}>{level}</option>
                 ))}
               </select>
@@ -3685,7 +3826,7 @@ export default function App() {
             {renderSlotLeaves(slotSkills)}
           </div>
         ) : (
-          <p className="note">暂无技能数据</p>
+          <p className="note">{movedAway.length ? `${movedAway.length} 段强化伤害显示在被强化的技能下（标题带「（R强化）」），这里只控制等级` : '暂无技能数据'}</p>
         )}
       </div>
     );
@@ -3823,7 +3964,9 @@ export default function App() {
             </PortalHovercard>
             <span className="nonDamageBadge">增益</span>
           </div>
-          {renderCountStepper(skill.stackLabel || '叠层', stackKey, { min: 0, max: maxStacks, fallback: skill.defaultStacks })}
+          {renderCountStepper(skill.stackLabel || '叠层', stackKey, {
+            min: 0, max: maxStacks, fallback: skill.defaultStacks, step: Math.max(1, getNumber(skill.stackStep) || 1)
+          })}
         </div>
         <div className="skillLeafValues">
           <div className="skillTotalValue">
@@ -4745,26 +4888,46 @@ export default function App() {
               </div>
             ) : null}
             {/* 英雄专属的条件修正（卡洛琳 W 镜子增幅、秀雅 Q 冲撞点） */}
-            {heroModifiers.map((modifier) => (
+            {heroModifiers.map((modifier) => {
+              const options = modifier.options || [];
+              const currentValue = heroModifierChoices[`${selectedHero}:${modifier.id}`] ?? modifier.default ?? 0;
+              // 「在 / 不在某状态」只有两个选项时用拨动开关：默认那项是关，另一项是开
+              const offOption = options.find((option) => option.value === (modifier.default ?? options[0]?.value)) || options[0];
+              const onOption = options.find((option) => option !== offOption);
+              const asSwitch = options.length === 2 && offOption && onOption;
+              return (
               <div className="stackSelector" key={modifier.id} onClick={(event) => event.preventDefault()}>
                 <div className="stackSelectorHead">
                   <span>{modifier.label}</span>
                   {modifier.note ? <HelpNote note={modifier.note} /> : null}
                 </div>
+                {asSwitch ? (
+                  <ToggleSwitch
+                    checked={currentValue === onOption.value}
+                    label={currentValue === onOption.value ? onOption.label : offOption.label}
+                    title={`${offOption.label} / ${onOption.label}`}
+                    onChange={(next) => setHeroModifierChoices((current) => ({
+                      ...current,
+                      [`${selectedHero}:${modifier.id}`]: next ? onOption.value : offOption.value
+                    }))}
+                  />
+                ) : (
                 <select
                   className="heroModifierSelect"
-                  value={heroModifierChoices[`${selectedHero}:${modifier.id}`] ?? modifier.default ?? 0}
+                  value={currentValue}
                   onChange={(event) => setHeroModifierChoices((current) => ({
                     ...current,
                     [`${selectedHero}:${modifier.id}`]: Number(event.target.value)
                   }))}
                 >
-                  {(modifier.options || []).map((option) => (
+                  {options.map((option) => (
                     <option value={option.value} key={option.value}>{option.label}</option>
                   ))}
                 </select>
+                )}
               </div>
-            ))}
+              );
+            })}
           </summary>
           {/* 这几项只有当前英雄的技能或身上装备的特效真的用到时才出现，平时不占地方 */}
           {contextFieldsInUse.length ? (

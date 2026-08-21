@@ -57,7 +57,7 @@ function getByPath(target, dottedPath) {
 }
 
 // 只影响界面呈现、不影响数值本身的字段（叠层选择器、命中次数、护盾/治疗标记）
-const PRESENTATION_FIELDS = ['maxStacks', 'stackLabel', 'stackStep', 'defaultStacks', 'form', 'maxHits', 'defaultHits', 'hitLabel', 'hitNote', 'kind', 'buffKey', 'damageType', 'progressiveDamage'];
+const PRESENTATION_FIELDS = ['slot', 'levelSlot', 'maxStacks', 'stackLabel', 'stackStep', 'defaultStacks', 'form', 'maxHits', 'defaultHits', 'hitLabel', 'hitNote', 'kind', 'buffKey', 'damageType', 'progressiveDamage'];
 
 /** progressiveDamage 是对象，不能用 === 比，否则每次都判定成没达标、反复重写。 */
 function samePresentationValue(a, b) {

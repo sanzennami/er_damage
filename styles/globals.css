@@ -3111,6 +3111,86 @@ td:last-child input {
   }
 }
 
+/* 拨动开关：给「在 / 不在某状态」这种二选一用（秀雅 Q 冲撞点） */
+.toggleSwitch {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  padding: 5px 10px 5px 6px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.05);
+  color: #a9a0a0;
+  font-size: 12px;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.toggleSwitchTrack {
+  position: relative;
+  flex: 0 0 auto;
+  width: 30px;
+  height: 17px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.16);
+  transition: background 0.15s ease;
+}
+
+.toggleSwitchThumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 13px;
+  height: 13px;
+  border-radius: 50%;
+  background: #d9cfc3;
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.toggleSwitch.on {
+  border-color: rgba(255, 213, 107, 0.55);
+  background: rgba(255, 213, 107, 0.14);
+  color: #ffd56b;
+}
+
+.toggleSwitch.on .toggleSwitchTrack {
+  background: #ffd56b;
+}
+
+.toggleSwitch.on .toggleSwitchThumb {
+  background: #2a2019;
+  transform: translateX(13px);
+}
+
+body[data-theme='day'] .toggleSwitch {
+  border-color: rgba(45, 98, 166, 0.2);
+  background: #f2f6fc;
+  color: #5a6980;
+}
+
+body[data-theme='day'] .toggleSwitchTrack {
+  background: rgba(45, 98, 166, 0.22);
+}
+
+body[data-theme='day'] .toggleSwitchThumb {
+  background: #ffffff;
+}
+
+body[data-theme='day'] .toggleSwitch.on {
+  border-color: #c2891f;
+  background: #fdf3dc;
+  color: #8a5d00;
+}
+
+body[data-theme='day'] .toggleSwitch.on .toggleSwitchTrack {
+  background: #d9a02e;
+}
+
+body[data-theme='day'] .toggleSwitch.on .toggleSwitchThumb {
+  background: #ffffff;
+}
+
 .heroModifierSelect {
   min-width: 168px;
   padding: 6px 8px;

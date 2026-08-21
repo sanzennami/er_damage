@@ -14,7 +14,9 @@
     "capture:stats": "node scripts/ingame-capture.mjs stats",
     "capture:status": "node scripts/ingame-capture.mjs status",
     "push": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/push.ps1",
-    "audit:character-drift": "node scripts/audit-character-base-drift.mjs"
+    "audit:character-drift": "node scripts/audit-character-base-drift.mjs",
+    "audit:skill-scaling": "node scripts/audit-skill-scaling.mjs",
+    "build:weapon-presets": "node scripts/build-weapon-route-presets.mjs"
   },
   "dependencies": {
     "react": "18.2.0",
