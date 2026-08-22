@@ -1,7 +1,7 @@
 {
   "_comment": "官方补丁变更日志。每条记录的是「该补丁之后应该是什么值」（目标态），不是增量。",
   "_usage": "新版本上线：在 patches 末尾追加一段，然后跑 node scripts/apply-patch-log.mjs。脚本幂等，重跑只会跳过已达标的条目，不需要还原任何数据。",
-  "updatedAt": "2026-08-22T03:23:31.474Z",
+  "updatedAt": "2026-08-22T03:28:56.937Z",
   "patches": [
     {
       "version": "sweep-2023-07-19",
@@ -10193,6 +10193,116 @@
           "source": "in-game-client",
           "coefficientText": "体力恢复 20/40/60(+技能增幅25%)",
           "note": "触发满层刺击时同时恢复，并使移速在 2 秒内 +15/20/25% 后逐渐减缓。"
+        }
+      ],
+      "equipment": [],
+      "characters": [],
+      "mastery": []
+    },
+    {
+      "version": "client-12.2-haze",
+      "order": 20260829,
+      "date": "2026-08-21",
+      "label": "12.2",
+      "url": "https://playeternalreturn.com/posts/news/3783?hl=zh-CN",
+      "title": "客户端截图读值：海因茨",
+      "skills": [
+        {
+          "id": "external-haze-p-1058100-damage-stat1",
+          "slot": "P",
+          "title": "P 武器箱-商人之死",
+          "source": "in-game-client",
+          "coefficientText": "伤害 60/90/120(+技能增幅60%)",
+          "note": "施放技能后 0.75 秒内从武器箱取出装满弹匣的突击步枪，之后发起的**首次**普攻附带这一段额外技能伤害，命中实验体还会 1 秒内 +6/18/30% 移速。⚠ 商人之死只在**突击步枪模式**下生效。P 这一槽是 3 级制。数值和原有的一致。"
+        },
+        {
+          "id": "external-haze-q-1058200-40mm-grenade-damage-stat1",
+          "slot": "Q",
+          "title": "Q 40mm手榴弹",
+          "source": "in-game-client",
+          "maxHits": 2,
+          "defaultHits": 1,
+          "coefficientText": "40mm 手榴弹伤害量 80/115/150/185/220(+技能增幅85%)",
+          "note": "突击步枪模式下的形态：引爆榴弹发射器。最多可填充 2 个手榴弹，充能 10/9/8/7/6 秒一个，页面按 1~2 发给阶梯。海因茨每个技能用不同武器，用完会自动解除上一把并从武器箱取出新的突击步枪（触发 P 商人之死）。数值和原有的一致。"
+        },
+        {
+          "id": "external-haze-q-1058210-40mm-grenade-damage-stat1",
+          "slot": "Q",
+          "title": "Q 冲锋枪连发",
+          "source": "in-game-client",
+          "bases": "40,80,120,160,200",
+          "formula": "base + ap * 0.65",
+          "was": {
+            "bases": "80,115,150,185,220",
+            "formula": "base + ap * 0.85"
+          },
+          "coefficientText": "冲锋枪连发伤害量 40/80/120/160/200(+技能增幅65%)",
+          "note": "冲锋枪模式(E)期间，40mm 手榴弹会转换成这个技能。原先库里这一条是直接抄了手榴弹的 80/115/150/185/220 + 技能增幅85%；真正的数值本来存在库里，只是被错挂在「E 冲锋枪」名下（基础值和客户端的冲锋枪连发伤害量完全吻合），这次把它挪回 Q 名下，技能增幅系数 65% 也一并沿用那条（它带官方公告背书）。"
+        },
+        {
+          "id": "external-haze-q-1058220-40mm-grenade-damage-stat1",
+          "slot": "Q",
+          "title": "Q 火箭加速器",
+          "source": "in-game-client",
+          "coefficientText": "火箭加速器伤害量 80/110/140/170/200(+技能增幅40%)",
+          "note": "火箭发射器模式(R)期间，40mm 手榴弹会转换成这个技能。基础值和客户端一致；技能增幅系数 40% 来自原有的官方公告条目，客户端这次的截图没有单独列出它，未能二次确认。"
+        },
+        {
+          "id": "external-haze-w-1058300-damage-stat1",
+          "slot": "W",
+          "title": "W 霰弹炮",
+          "source": "in-game-client",
+          "coefficientText": "伤害 80/120/160/200/240(+技能增幅75%)",
+          "note": "后退一步并向前发射霰弹炮，晕厥 0.65 秒。在冲锋枪或火箭发射器期间使用会解除武器模式，并让对应技能的冷却缩减 20%。无法穿越墙壁。数值和原有的一致。"
+        },
+        {
+          "id": "external-haze-e-1058400-damage-stat1",
+          "slot": "E",
+          "title": "E 冲锋枪",
+          "source": "in-game-client",
+          "bases": "8,11,14,17,20",
+          "formula": "base + ap * 0.04",
+          "was": {
+            "bases": "40,80,120,160,200",
+            "formula": "base + ap * 0.65"
+          },
+          "coefficientText": "伤害 8/11/14/17/20(+每 25 技能增幅加 1)",
+          "note": "⚠ 这是**单发**伤害。转换为 40 发弹匣的冲锋枪模式、持续 5 秒，期间可以边移动边攻击。官方写的「+每25技能增幅加1」换算成系数就是技能增幅 × 0.04。原先库里这一条挂的是 40/80/120/160/200 + 技能增幅65%，那实际是 Q 的冲锋枪连发数值（已挪回 Q）。⚠ 官方还写了「每 8 发子弹普攻命中时适用该效果」，措辞含糊——不清楚是每发都结算还是每 8 发算一次普攻判定，所以没建弹数阶梯，页面给的是单发值。"
+        },
+        {
+          "id": "external-haze-r-1058500-swing-damage-stat1",
+          "slot": "R",
+          "title": "R 火箭发射器-挥动伤害",
+          "source": "in-game-client",
+          "coefficientText": "挥动伤害量 30/60/90(+技能增幅30%)",
+          "note": "挥动武器箱，敌人移速 1 秒内减少 50%，然后进入 12 秒的火箭发射器模式。数值和原有的一致。"
+        },
+        {
+          "id": "external-haze-r-1058500-rocket-damage-stat2",
+          "slot": "R",
+          "title": "R 火箭发射器-火箭伤害",
+          "source": "in-game-client",
+          "bases": "80,130,180",
+          "formula": "base + ap * 0.4",
+          "maxHits": 4,
+          "defaultHits": 1,
+          "was": {
+            "bases": "60,110,160"
+          },
+          "coefficientText": "火箭伤害量 80/130/180(+技能增幅40%)",
+          "note": "火箭发射器模式期间，普攻伤害扩散至命中者后方并额外造成这一段。弹匣 4 发，页面按 1~4 发给阶梯。该模式下射程固定 6.5、攻速固定 1、移速 -0.3、视野 +2，普攻不适用暴击。原先从 wiki 抄来的基础值是 60/110/160，三级全部偏低。"
+        },
+        {
+          "id": "external-haze-e-1058410-damage-stat1",
+          "remove": true
+        },
+        {
+          "id": "external-haze-r-1058510-rocket-damage-stat2",
+          "remove": true
+        },
+        {
+          "id": "external-haze-r-1058510-swing-damage-stat1",
+          "remove": true
         }
       ],
       "equipment": [],

@@ -51,7 +51,7 @@ import {
   statConversionFor
 } from './lib/specialRules.js';
 
-const APP_VERSION = 'v0.2.063';
+const APP_VERSION = 'v0.2.065';
 
 const EXPORTED_LOCAL_CONFIG_MODULES = import.meta.glob('./data/localConfig.export.json', {
   eager: true,
@@ -407,6 +407,10 @@ const COMPARISON_STAT_METRICS = [
   { key: 'skillAmpPct', label: '技能增幅%' }
 ];
 const DEFAULT_COMPARISON_METRICS = ['ap', 'basicAttack'];
+// 差值面板在折叠记忆里用的键。带前缀是为了不和指标 key（ap / attackPower …）撞上，
+// 那些键同样存在 collapsedComparisonCharts 里。
+const DELTA_PANEL_KEY = '__deltaPanel';
+
 const DEFAULT_COMPARISON_SETTINGS = {
   masteryStart: 1,
   masteryEnd: 20,
@@ -418,7 +422,11 @@ const DEFAULT_COMPARISON_SETTINGS = {
   skillReduction: 0,
   includeSkills: true,
   groupRowsByMastery: false,
-  selectedMetrics: DEFAULT_COMPARISON_METRICS
+  selectedMetrics: DEFAULT_COMPARISON_METRICS,
+  // 差值面板：拿哪个方案当基准、比哪一项。空串表示「用第一个方案」，
+  // 这样方案被删掉或改名时不会卡在一个不存在的 id 上。
+  deltaBaselineId: '',
+  deltaMetric: 'ap'
 };
 
 function stripMarkup(value) {
@@ -871,7 +879,9 @@ function normalizeComparisonSettings(settings) {
       ? settings.selectedMetrics
       : DEFAULT_COMPARISON_METRICS,
     includeSkills: settings?.includeSkills ?? DEFAULT_COMPARISON_SETTINGS.includeSkills,
-    groupRowsByMastery: settings?.groupRowsByMastery ?? DEFAULT_COMPARISON_SETTINGS.groupRowsByMastery
+    groupRowsByMastery: settings?.groupRowsByMastery ?? DEFAULT_COMPARISON_SETTINGS.groupRowsByMastery,
+    deltaBaselineId: String(settings?.deltaBaselineId ?? DEFAULT_COMPARISON_SETTINGS.deltaBaselineId),
+    deltaMetric: String(settings?.deltaMetric || DEFAULT_COMPARISON_SETTINGS.deltaMetric)
   };
 }
 
@@ -1776,7 +1786,7 @@ function HelpNote({ note, editable, onChange, onSave, saveStatus, dirty }) {
             </>
           ) : (
             <>
-              <span>{note}</span>
+              <span className="helpNoteText">{note}</span>
               <small>发布版本只读。</small>
             </>
           )}
@@ -2716,6 +2726,9 @@ export default function App() {
   // 进站时判断一次：公告变过（或从没看过）就自动弹出来。
   // 依赖数组留空是有意的 —— 只看进站那一刻的状态，本地编辑时边打字边弹就烦了。
   useEffect(() => {
+    // 本地编辑时根本不自动弹：改公告的人每存一次就等于新公告，一刷新又糊到脸上。
+    // 要看的话点版本号旁边那个入口就行。
+    if (HELP_NOTES_EDITABLE) return;
     if (!announcement.title && !announcement.body) return;
     if (announcementSignature(announcement) === seenAnnouncement) return;
     setShowAnnouncement(true);
@@ -3137,22 +3150,42 @@ export default function App() {
       || (scenarioOrder.get(left.scenarioId) ?? 0) - (scenarioOrder.get(right.scenarioId) ?? 0)
     ));
   }, [comparisonRows, comparisonScenarios, comparisonSettings.groupRowsByMastery]);
-  const comparisonApDeltaRows = useMemo(() => {
-    const baselineScenario = comparisonScenarios[0];
-    if (!baselineScenario || comparisonScenarios.length < 2) return [];
+  // 差值面板的基准方案：设置里存的 id 还在就用它，否则退回第一个方案
+  // （方案被删掉时不至于整个面板空掉）。
+  const deltaBaselineScenario = useMemo(() => (
+    comparisonScenarios.find((scenario) => scenario.id === comparisonSettings.deltaBaselineId)
+      || comparisonScenarios[0]
+  ), [comparisonScenarios, comparisonSettings.deltaBaselineId]);
+  // 可选的对比项跟着表格的可用指标走，再补上单独拎出来的「装备特效伤害」
+  const deltaMetricOptions = useMemo(() => {
+    const standalone = COMPARISON_STAT_METRICS.filter((metric) => metric.standalone);
+    return [...availableComparisonMetrics, ...standalone];
+  }, [availableComparisonMetrics]);
+  const deltaMetric = useMemo(() => (
+    deltaMetricOptions.find((metric) => metric.key === comparisonSettings.deltaMetric)
+      || deltaMetricOptions.find((metric) => metric.key === 'ap')
+      || deltaMetricOptions[0]
+  ), [deltaMetricOptions, comparisonSettings.deltaMetric]);
+  const deltaMetricKey = deltaMetric?.key || 'ap';
+  // 折叠态复用图表那套记忆（collapsedComparisonCharts），键用一个不会和指标 key 撞的名字
+  const deltaPanelCollapsed = collapsedComparisonCharts.includes(DELTA_PANEL_KEY);
+  const comparisonDeltaRows = useMemo(() => {
+    const metricKey = deltaMetric?.key;
+    if (!deltaBaselineScenario || !metricKey || comparisonScenarios.length < 2) return [];
 
     const rowsByScenarioAndMastery = new Map(comparisonRows.map((row) => [`${row.scenarioId}:${row.mastery}`, row]));
-    return comparisonScenarios.slice(1).map((scenario) => {
+    // 基准方案自己不出现在对比列表里
+    return comparisonScenarios.filter((scenario) => scenario.id !== deltaBaselineScenario.id).map((scenario) => {
       const levelDeltas = comparisonMasteryLevels.map((level) => {
-        const baselineRow = rowsByScenarioAndMastery.get(`${baselineScenario.id}:${level}`);
+        const baselineRow = rowsByScenarioAndMastery.get(`${deltaBaselineScenario.id}:${level}`);
         const scenarioRow = rowsByScenarioAndMastery.get(`${scenario.id}:${level}`);
-        const baselineAp = getNumber(baselineRow?.values?.ap);
-        const scenarioAp = getNumber(scenarioRow?.values?.ap);
-        const delta = scenarioAp - baselineAp;
+        const baselineValue = getNumber(baselineRow?.values?.[metricKey]);
+        const scenarioValue = getNumber(scenarioRow?.values?.[metricKey]);
+        const delta = scenarioValue - baselineValue;
         return {
           level,
-          baselineAp,
-          scenarioAp,
+          baselineValue,
+          scenarioValue,
           delta,
           valid: Number.isFinite(delta)
         };
@@ -3165,7 +3198,7 @@ export default function App() {
       return {
         scenarioId: scenario.id,
         scenarioName: scenario.name,
-        baselineName: baselineScenario.name,
+        baselineName: deltaBaselineScenario.name,
         averageDelta,
         minDelta: validDeltas.length ? Math.min(...validDeltas.map((item) => item.delta)) : 0,
         maxDelta: validDeltas.length ? Math.max(...validDeltas.map((item) => item.delta)) : 0,
@@ -3173,7 +3206,7 @@ export default function App() {
         levelDeltas
       };
     });
-  }, [comparisonRows, comparisonScenarios, comparisonMasteryLevels, selectedComparisonMasteryLevel]);
+  }, [comparisonRows, comparisonScenarios, comparisonMasteryLevels, selectedComparisonMasteryLevel, deltaBaselineScenario, deltaMetric]);
   // 图表跟着勾选走：勾了几个属性指标就画几张，技能与特效明细只进表格不画图
   const comparisonChartMetrics = useMemo(() => {
     // 单独提出来的「装备特效伤害」不在上面那排里，但勾上了同样要出图
@@ -4229,8 +4262,13 @@ export default function App() {
     return round(numericValue, Math.abs(numericValue) < 10 ? 2 : 1);
   }
 
-  function formatSignedComparisonDelta(value) {
+  // 传 key 时按该指标自己的口径格式化：百分比类指标要显示成 +5%，
+  // 不然 totalDamageBonus 差 5% 会写成「+0.05」，看着像差了 0.05 点。
+  function formatSignedComparisonDelta(value, key) {
     if (!Number.isFinite(value)) return '-';
+    if (key && key !== 'finalMod' && formatComparisonValue(key, 1) === pct(1)) {
+      return `${value > 0 ? '+' : ''}${pct(value)}`;
+    }
     const next = round(value, Math.abs(value) < 10 ? 2 : 1);
     return `${next > 0 ? '+' : ''}${next}`;
   }
@@ -4320,9 +4358,18 @@ export default function App() {
                   {SLOTS.map((slot) => (
                     <label className="selectBlock" key={`${scenario.id}-${slot}`}>
                       <span>{slot}</span>
-                      <select value={scenario.gear[slot] || ''} onChange={(event) => updateComparisonScenarioGear(scenario.id, slot, event.target.value)}>
+                      <select
+                        className="qualitySelect"
+                        value={scenario.gear[slot] || ''}
+                        style={{ color: qualityColor(byName(equipment, scenario.gear[slot])?.quality, uiTheme) }}
+                        onChange={(event) => updateComparisonScenarioGear(scenario.id, slot, event.target.value)}
+                      >
                         <option value={EMPTY_GEAR_VALUE}>{EMPTY_GEAR_LABEL}</option>
-                        {comparisonChoicesForSlot(slot, scenario).map((item) => <option value={item.name} key={`${slot}-${item.name}`}>{item.name}</option>)}
+                        {comparisonChoicesForSlot(slot, scenario).map((item) => (
+                          <option value={item.name} key={`${slot}-${item.name}`} style={{ color: qualityColor(item.quality, uiTheme) }}>
+                            {item.name}
+                          </option>
+                        ))}
                       </select>
                     </label>
                   ))}
@@ -4363,23 +4410,57 @@ export default function App() {
               formatValue={formatComparisonValue}
             />
           ))}
-          {comparisonApDeltaRows.length ? (
-            <div className="comparisonDeltaBlock">
+          {comparisonDeltaRows.length ? (
+            <div className={`comparisonDeltaBlock ${deltaPanelCollapsed ? 'collapsed' : ''}`}>
               <div className="comparisonDeltaHead">
                 <div>
-                  <strong>法强差值</strong>
-                  <span>以 {comparisonApDeltaRows[0].baselineName} 为基准 / 图表选中熟练 {selectedComparisonMasteryLevel}</span>
+                  <strong>{deltaMetric?.label || '属性'}差值</strong>
+                  <span>以 {comparisonDeltaRows[0].baselineName} 为基准 / 图表选中熟练 {selectedComparisonMasteryLevel}</span>
+                </div>
+                <div className="comparisonDeltaControls">
+                  <label className="selectBlock">
+                    <span>基准方案</span>
+                    <select
+                      value={deltaBaselineScenario?.id || ''}
+                      onChange={(event) => updateComparisonSetting('deltaBaselineId', event.target.value)}
+                    >
+                      {comparisonScenarios.map((scenario) => (
+                        <option value={scenario.id} key={`delta-baseline-${scenario.id}`}>{scenario.name}</option>
+                      ))}
+                    </select>
+                  </label>
+                  <label className="selectBlock">
+                    <span>对比项</span>
+                    <select
+                      value={deltaMetric?.key || 'ap'}
+                      onChange={(event) => updateComparisonSetting('deltaMetric', event.target.value)}
+                    >
+                      {deltaMetricOptions.map((metric) => (
+                        <option value={metric.key} key={`delta-metric-${metric.key}`}>{metric.label}</option>
+                      ))}
+                    </select>
+                  </label>
+                  <button
+                    type="button"
+                    className="quietButton"
+                    onClick={() => toggleComparisonChart(DELTA_PANEL_KEY)}
+                    aria-expanded={!deltaPanelCollapsed}
+                  >
+                    {deltaPanelCollapsed ? '展开' : '折叠'}
+                  </button>
                 </div>
               </div>
+              {deltaPanelCollapsed ? null : (
+              <>
               <div className="comparisonDeltaSummary">
-                {comparisonApDeltaRows.map((row) => (
-                  <div className="comparisonDeltaCard" key={`${row.scenarioId}-ap-delta-card`}>
+                {comparisonDeltaRows.map((row) => (
+                  <div className="comparisonDeltaCard" key={`${row.scenarioId}-delta-card`}>
                     <span>{row.scenarioName}</span>
-                    <strong>{formatSignedComparisonDelta(row.selectedDelta?.delta)}</strong>
+                    <strong>{formatSignedComparisonDelta(row.selectedDelta?.delta, deltaMetricKey)}</strong>
                     <small>
-                      熟练 {selectedComparisonMasteryLevel} / {formatComparisonValue('ap', row.selectedDelta?.scenarioAp)} vs {formatComparisonValue('ap', row.selectedDelta?.baselineAp)}
+                      熟练 {selectedComparisonMasteryLevel} / {formatComparisonValue(deltaMetricKey, row.selectedDelta?.scenarioValue)} vs {formatComparisonValue(deltaMetricKey, row.selectedDelta?.baselineValue)}
                     </small>
-                    <small>平均 {formatSignedComparisonDelta(row.averageDelta)} / 最低 {formatSignedComparisonDelta(row.minDelta)} / 最高 {formatSignedComparisonDelta(row.maxDelta)}</small>
+                    <small>平均 {formatSignedComparisonDelta(row.averageDelta, deltaMetricKey)} / 最低 {formatSignedComparisonDelta(row.minDelta, deltaMetricKey)} / 最高 {formatSignedComparisonDelta(row.maxDelta, deltaMetricKey)}</small>
                   </div>
                 ))}
               </div>
@@ -4389,24 +4470,24 @@ export default function App() {
                     <tr>
                       <th>方案</th>
                       {comparisonMasteryLevels.map((level) => (
-                        <th className={level === selectedComparisonMasteryLevel ? 'selectedDeltaColumn' : ''} key={`ap-delta-level-${level}`}>熟练 {level}</th>
+                        <th className={level === selectedComparisonMasteryLevel ? 'selectedDeltaColumn' : ''} key={`delta-level-${level}`}>熟练 {level}</th>
                       ))}
                     </tr>
                   </thead>
                   <tbody>
-                    {comparisonApDeltaRows.map((row) => (
-                      <tr key={`${row.scenarioId}-ap-delta-row`}>
+                    {comparisonDeltaRows.map((row) => (
+                      <tr key={`${row.scenarioId}-delta-row`}>
                         <td>{row.scenarioName}</td>
                         {row.levelDeltas.map((item) => (
                           <td
-                            key={`${row.scenarioId}-ap-delta-${item.level}`}
+                            key={`${row.scenarioId}-delta-${item.level}`}
                             className={[
                               item.delta > 0 ? 'positiveDelta' : item.delta < 0 ? 'negativeDelta' : '',
                               item.level === selectedComparisonMasteryLevel ? 'selectedDeltaColumn' : ''
                             ].filter(Boolean).join(' ')}
-                            title={`${row.scenarioName} ${formatComparisonValue('ap', item.scenarioAp)} / ${row.baselineName} ${formatComparisonValue('ap', item.baselineAp)}`}
+                            title={`${row.scenarioName} ${formatComparisonValue(deltaMetricKey, item.scenarioValue)} / ${row.baselineName} ${formatComparisonValue(deltaMetricKey, item.baselineValue)}`}
                           >
-                            {item.valid ? formatSignedComparisonDelta(item.delta) : '-'}
+                            {item.valid ? formatSignedComparisonDelta(item.delta, deltaMetricKey) : '-'}
                           </td>
                         ))}
                       </tr>
@@ -4414,6 +4495,8 @@ export default function App() {
                   </tbody>
                 </table>
               </div>
+              </>
+              )}
             </div>
           ) : null}
           <div className="comparisonTableTools">

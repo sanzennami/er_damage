@@ -2721,6 +2721,36 @@ body[data-theme='day'] tr:nth-child(even) td {
   color: #a9a0a0;
 }
 
+/* 差值面板表头右侧的「基准方案 / 对比项 / 折叠」一排。
+   上面那条 .comparisonDeltaHead div 是 display:grid，会把这三个控件竖着摞起来，所以要盖掉。 */
+.comparisonDeltaControls {
+  display: flex;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.comparisonDeltaControls .selectBlock {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+
+.comparisonDeltaControls .selectBlock span {
+  font-size: 12px;
+}
+
+.comparisonDeltaControls select {
+  min-width: 116px;
+  max-width: 180px;
+  padding: 4px 8px;
+}
+
+/* 折叠时只剩表头，把下边距收掉免得留一条空白 */
+.comparisonDeltaBlock.collapsed {
+  padding-bottom: 10px;
+}
+
 .comparisonDeltaSummary {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -3367,4 +3397,12 @@ body[data-theme='day'] .comparisonChartSummary {
 
 body[data-theme='day'] .comparisonStandaloneMetric {
   border-left-color: rgba(45, 98, 166, 0.2);
+}
+
+/* 帮助气泡本身是 white-space: normal（按钮和脚注要正常折行），
+   但说明正文是用 \n 分段写的，只读时得把换行留住 —— 否则发布版会把段落全糊成一坨。
+   本地编辑时正文在 textarea 里，所以以前没暴露这个问题。 */
+.helpPopover .helpNoteText {
+  display: block;
+  white-space: pre-line;
 }
