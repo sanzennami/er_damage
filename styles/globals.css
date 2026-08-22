@@ -3280,3 +3280,91 @@ body[data-theme='day'] .buffValue {
     grid-template-columns: minmax(0, 1fr);
   }
 }
+
+/* 对比指标勾选栏前面的小标题，带说明气泡 */
+.comparisonMetricPickerHint {
+  display: inline-flex;
+  align-items: center;
+  margin-right: 4px;
+  color: #a9a0a0;
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+body[data-theme='day'] .comparisonMetricPickerHint {
+  color: #5a6980;
+}
+
+/* 对比图表的折叠 */
+.comparisonChartToggle {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  padding: 0;
+  border: none;
+  background: none;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.comparisonChartCaret {
+  color: #a9a0a0;
+  font-size: 11px;
+}
+
+.comparisonChartCollapsed {
+  padding-bottom: 10px;
+}
+
+.comparisonChartCollapsed .comparisonChartHead {
+  margin-bottom: 0;
+}
+
+.comparisonChartSummary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 12px;
+  align-items: center;
+  color: #d9cfc3;
+  font-size: 12px;
+}
+
+.comparisonChartSummary span {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.comparisonChartSummary span::before {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--legend-color);
+  content: '';
+}
+
+.comparisonChartSummary em {
+  color: #a9a0a0;
+  font-style: normal;
+}
+
+/* 单独提出来的常驻开关，和上面那排指标之间拉开一点 */
+.comparisonStandaloneMetric {
+  padding-left: 10px;
+  border-left: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+body[data-theme='day'] .comparisonChartCaret,
+body[data-theme='day'] .comparisonChartSummary em {
+  color: #5a6980;
+}
+
+body[data-theme='day'] .comparisonChartSummary {
+  color: #26344a;
+}
+
+body[data-theme='day'] .comparisonStandaloneMetric {
+  border-left-color: rgba(45, 98, 166, 0.2);
+}

@@ -51,7 +51,7 @@ import {
   statConversionFor
 } from './lib/specialRules.js';
 
-const APP_VERSION = 'v0.2.050';
+const APP_VERSION = 'v0.2.062';
 
 const EXPORTED_LOCAL_CONFIG_MODULES = import.meta.glob('./data/localConfig.export.json', {
   eager: true,
@@ -135,6 +135,7 @@ const HELP_NOTES_SAVE_ENDPOINT = '/api/help-notes';
 const CONFIG_SAVE_ENDPOINT = '/api/config';
 const CONFIG_EXPORT_ENDPOINT = '/api/config/export';
 const ANNOUNCEMENT_KEY = 'er-damage-announcement-v1';
+const ANNOUNCEMENT_SEEN_KEY = 'er-damage-announcement-seen-v1';
 const ANNOUNCEMENT_SAVE_ENDPOINT = '/api/announcement';
 const TRAIT_EFFECTS = {
   7000201: { extraEffect: 'absoluteForce', summary: '绝对武力：三次命中后追加真实伤害，并降低目标防御。' },
@@ -381,16 +382,29 @@ const TARGETS = [
   { name: '20级 T 血量4110 防御212', hp: 4110, defense: 212, defenseReduction: 0, reduction: 0, targetMastery: 1 }
 ];
 const TARGET_MASTERY_LEVELS = Array.from({ length: 20 }, (_, index) => index + 1);
+// core: true 的永远列在勾选栏里；其余只有当某个方案真的有这项数值时才出现，
+// 免得给不吃冷却缩减的配装也塞一堆恒为 0 的列。
 const COMPARISON_STAT_METRICS = [
-  { key: 'ap', label: '最终法强' },
-  { key: 'attackPower', label: '攻击力' },
-  { key: 'baseAttackPower', label: '基础攻击' },
-  { key: 'extraAttackPower', label: '额外攻击' },
+  { key: 'ap', label: '最终法强', core: true },
+  { key: 'attackPower', label: '攻击力', core: true },
+  { key: 'baseAttackPower', label: '基础攻击', core: true },
+  { key: 'extraAttackPower', label: '额外攻击', core: true },
+  { key: 'basicAttack', label: '每发平A预估', core: true },
+  { key: 'finalMod', label: '最终伤害倍率', core: true },
+  // 装备特效伤害不进上面那排勾选，单独常驻一个开关（勾上还会带出逐条特效明细）
+  { key: 'effectSubtotal', label: '装备特效伤害', standalone: true },
   { key: 'pen', label: '防穿数值' },
   { key: 'penPct', label: '防穿%' },
   { key: 'totalDamageBonus', label: '伤害提升%' },
-  { key: 'basicAttack', label: '每发平A预估' },
-  { key: 'finalMod', label: '最终伤害倍率' }
+  { key: 'cd', label: '冷却缩减' },
+  { key: 'basicAttackAmp', label: '普攻增幅' },
+  { key: 'extraHp', label: '额外体力' },
+  { key: 'defense', label: '防御力' },
+  { key: 'critChance', label: '暴击率' },
+  { key: 'critDamage', label: '暴击伤害' },
+  { key: 'attackSpeed', label: '攻击速度' },
+  { key: 'moveSpeed', label: '移动速度' },
+  { key: 'skillAmpPct', label: '技能增幅%' }
 ];
 const DEFAULT_COMPARISON_METRICS = ['ap', 'basicAttack'];
 const DEFAULT_COMPARISON_SETTINGS = {
@@ -468,11 +482,11 @@ function statValue(stats, key) {
 // 增益类条目把每级的百分点写在 bases 里（例如卡洛琳 W 的 "5,7,9" = 5%/7%/9%）
 const BUFF_KEY_LABELS = {
   apPct: '技能增幅百分比', damageBonus: '伤害提升', basicAttackAmp: '普攻增幅',
-  ap: '技能增幅', healShieldAmp: '恢复与护盾效果'
+  ap: '技能增幅', attackPower: '攻击力', healShieldAmp: '恢复与护盾效果'
 };
 // 大部分增益条目的 bases 写的是百分点（5 = 5%），但「技能增幅 +10」这种是实打实的点数，
 // 不能再除以 100。这里列出按原值取的 buffKey。
-const BUFF_FLAT_KEYS = new Set(['ap']);
+const BUFF_FLAT_KEYS = new Set(['ap', 'attackPower']);
 
 function buffValueAtLevel(skill, level) {
   const values = String(skill?.bases || '').split(',').map((value) => getNumber(value));
@@ -502,7 +516,7 @@ function buffTotals(skillRows, skillLevels = {}, stackCounts = {}) {
     const stacks = buffStackCount(skill, stackCounts);
     const key = skill.buffKey || 'apPct';
     return { ...totals, [key]: getNumber(totals[key]) + buffValueAtLevel(skill, level) * stacks };
-  }, { apPct: 0, damageBonus: 0, basicAttackAmp: 0, ap: 0, healShieldAmp: 0 });
+  }, { apPct: 0, damageBonus: 0, basicAttackAmp: 0, ap: 0, attackPower: 0, healShieldAmp: 0 });
 }
 
 /** 体力百分比控件：滑条 + 右侧数字框，和技能面板表头那个自身当前体力同一套。 */
@@ -905,6 +919,32 @@ function loadAnnouncement() {
     return normalizeAnnouncement({ ...DEFAULT_ANNOUNCEMENT, ...(saved || {}) });
   } catch {
     return normalizeAnnouncement(DEFAULT_ANNOUNCEMENT);
+  }
+}
+
+/**
+ * 公告的身份。版本号、日期、标题、正文任意一处变了就算一条新公告，
+ * 进站时会重新自动弹窗；没变则不再打扰。
+ */
+function announcementSignature(announcement) {
+  return [announcement?.version, announcement?.updatedAt, announcement?.title, announcement?.body]
+    .map((part) => String(part || ''))
+    .join('|');
+}
+
+function loadSeenAnnouncement() {
+  try {
+    return window.localStorage.getItem(ANNOUNCEMENT_SEEN_KEY) || '';
+  } catch {
+    return '';
+  }
+}
+
+function rememberSeenAnnouncement(signature) {
+  try {
+    window.localStorage.setItem(ANNOUNCEMENT_SEEN_KEY, signature);
+  } catch {
+    /* 隐私模式下写不进去就算了，大不了下次再弹一次 */
   }
 }
 
@@ -1335,7 +1375,7 @@ function calc({
     targetHpRatio: Math.max(0, Math.min(1, getNumber(targetHpPct) / 100))
   });
   const stackAp = vampireStackAp + effectMods.ap;
-  const stackAttackPower = vampireStackAttackPower + effectMods.attackPower;
+  const stackAttackPower = vampireStackAttackPower + effectMods.attackPower + buffs.attackPower;
   const stackCd = effectMods.cd;
   const rawCd = (statValue(equipmentStats, 'cooldownReduction') || selected.reduce((sum, item) => sum + getNumber(item.cd), 0)) + stackCd + getNumber(traitBonuses.cd);
   // 属性转换：席琳「不受冷却缩减影响，每 1 冷却缩减转换 1 技能增幅」。
@@ -2021,7 +2061,7 @@ function StatCard({ label, value, hint, note }) {
   );
 }
 
-function ComparisonChart({ rows, metricKey, metricLabel, selectedMastery, onSelectMastery }) {
+function ComparisonChart({ rows, metricKey, metricLabel, selectedMastery, onSelectMastery, collapsed, onToggleCollapsed, formatValue }) {
   const [zoom, setZoom] = useState(1);
   const [hoverMastery, setHoverMastery] = useState(null);
   const chartViewportRef = useRef(null);
@@ -2122,12 +2162,45 @@ function ComparisonChart({ rows, metricKey, metricLabel, selectedMastery, onSele
     return <div className="comparisonChartEmpty">选择至少一个可绘制指标后生成图表</div>;
   }
 
+  // 折叠态只显示「指标名 + 当前选中熟练度下各方案的值」，一眼看结论不占地方
+  const collapsedSummary = scenarios.map((name) => {
+    const hit = values.find((row) => row.scenarioName === name && row.mastery === selectedMastery)
+      || values.find((row) => row.scenarioName === name);
+    return { name, value: hit ? hit.value : null };
+  });
+  const head = (
+    <div className="comparisonChartHead">
+      <button
+        type="button"
+        className="comparisonChartToggle"
+        aria-expanded={!collapsed}
+        onClick={() => onToggleCollapsed?.(metricKey)}
+      >
+        <span className="comparisonChartCaret">{collapsed ? '▸' : '▾'}</span>
+        <strong>{metricLabel}</strong>
+      </button>
+      {collapsed ? (
+        <span className="comparisonChartSummary">
+          {collapsedSummary.map((item, index) => (
+            <span key={item.name} style={{ '--legend-color': colors[index % colors.length] }}>
+              {item.name} {item.value === null ? '-' : (formatValue ? formatValue(metricKey, item.value) : round(item.value, 1))}
+            </span>
+          ))}
+          <em>熟练 {selectedMastery}</em>
+        </span>
+      ) : (
+        <span>随熟练度变化 · Alt+滚轮缩放 · {round(zoom, 2)}x</span>
+      )}
+    </div>
+  );
+
+  if (collapsed) {
+    return <div className="comparisonChart comparisonChartCollapsed">{head}</div>;
+  }
+
   return (
     <div className="comparisonChart">
-      <div className="comparisonChartHead">
-        <strong>{metricLabel}</strong>
-        <span>随熟练度变化 · Alt+滚轮缩放 · {round(zoom, 2)}x</span>
-      </div>
+      {head}
       <div className="comparisonChartViewport" ref={chartViewportRef}>
       <svg
         viewBox={`0 0 ${width} ${height}`}
@@ -2514,12 +2587,23 @@ export default function App() {
       normalizeComparisonScenario({ id: 'variant-1', name: '对比方案', gear: initialWorkspaceState.gear || DEFAULT_GEAR }, DEFAULT_GEAR, 1)
     ];
   });
+  const [collapsedComparisonCharts, setCollapsedComparisonCharts] = useState(
+    () => (Array.isArray(initialWorkspaceState.collapsedComparisonCharts) ? initialWorkspaceState.collapsedComparisonCharts : [])
+  );
+  const toggleComparisonChart = (key) => setCollapsedComparisonCharts((current) => (
+    current.includes(key) ? current.filter((item) => item !== key) : [...current, key]
+  ));
   const [selectedComparisonMastery, setSelectedComparisonMastery] = useState(() => getNumber(initialWorkspaceState.selectedComparisonMastery) || null);
   const [helpNotes, setHelpNotes] = useState(loadHelpNotes);
   const [helpNotesDirty, setHelpNotesDirty] = useState(false);
   const [helpNotesSaveStatus, setHelpNotesSaveStatus] = useState('idle');
   const [announcement, setAnnouncement] = useState(loadAnnouncement);
   const [showAnnouncement, setShowAnnouncement] = useState(false);
+  // 上次看过的那条公告的身份；空串表示从没看过
+  const [seenAnnouncement, setSeenAnnouncement] = useState(loadSeenAnnouncement);
+  // 红点只在「这条公告开了提示」且「还没看过」时亮；关掉公告窗口就即时消失
+  const announcementUnread = Boolean(announcement.showBadge)
+    && announcementSignature(announcement) !== seenAnnouncement;
   const [announcementDirty, setAnnouncementDirty] = useState(false);
   const [announcementSaveStatus, setAnnouncementSaveStatus] = useState('idle');
   const [configDirty, setConfigDirty] = useState(false);
@@ -2565,9 +2649,10 @@ export default function App() {
       skillLevels,
       comparisonSettings,
       comparisonScenarios,
-      selectedComparisonMastery
+      selectedComparisonMastery,
+      collapsedComparisonCharts
     }));
-  }, [activePage, gear, weaponTypeFilter, selectedHero, mastery, talentAp, traitSelection, heroLoadouts, targetIndex, target, targetMastery, targetHpPct, selfHpPct, heroModifierChoices, heroFormChoices, selfHp, selfShield, accumulatedDamage, damageBonus, skillReduction, r2Stacks, tacticalSkill, tacticalUpgraded, vampireFull, effectToggles, effectsCollapsed, skillTargetCounts, heroAvatarQuery, showLowerTierEquipment, visibleStatKeys, skillLevels, comparisonSettings, comparisonScenarios, selectedComparisonMastery]);
+  }, [activePage, gear, weaponTypeFilter, selectedHero, mastery, talentAp, traitSelection, heroLoadouts, targetIndex, target, targetMastery, targetHpPct, selfHpPct, heroModifierChoices, heroFormChoices, selfHp, selfShield, accumulatedDamage, damageBonus, skillReduction, r2Stacks, tacticalSkill, tacticalUpgraded, vampireFull, effectToggles, effectsCollapsed, skillTargetCounts, heroAvatarQuery, showLowerTierEquipment, visibleStatKeys, skillLevels, comparisonSettings, comparisonScenarios, selectedComparisonMastery, collapsedComparisonCharts]);
 
   useEffect(() => {
     window.localStorage.setItem(APP_SETTINGS_KEY, JSON.stringify({ useHeroAvatarPicker, editMode, showDamageTestHeroes, uiTheme }));
@@ -2619,6 +2704,22 @@ export default function App() {
     setAnnouncementDirty(true);
     setAnnouncementSaveStatus('idle');
   }
+
+  /** 关掉公告窗口，并把当前这条记成「已看过」，之后不再自动弹。 */
+  function closeAnnouncement() {
+    setShowAnnouncement(false);
+    const signature = announcementSignature(announcement);
+    setSeenAnnouncement(signature);
+    rememberSeenAnnouncement(signature);
+  }
+
+  // 进站时判断一次：公告变过（或从没看过）就自动弹出来。
+  // 依赖数组留空是有意的 —— 只看进站那一刻的状态，本地编辑时边打字边弹就烦了。
+  useEffect(() => {
+    if (!announcement.title && !announcement.body) return;
+    if (announcementSignature(announcement) === seenAnnouncement) return;
+    setShowAnnouncement(true);
+  }, []);
 
   /** 创建新公告：把当前这条归档进历史，正文清空等着写新的（只在本地编辑时可用） */
   function startNewAnnouncement() {
@@ -2929,13 +3030,6 @@ export default function App() {
     ? selectedComparisonMastery
     : comparisonMasteryLevels[0];
   const comparisonSkillRows = useMemo(() => skills.filter((skill) => skill.hero === selectedHero), [skills, selectedHero]);
-  const comparisonMetricColumns = useMemo(() => {
-    const statColumns = COMPARISON_STAT_METRICS.filter((metric) => comparisonSettings.selectedMetrics.includes(metric.key));
-    const skillColumns = comparisonSettings.includeSkills
-      ? comparisonSkillRows.map((skill) => ({ key: `skill:${skill.id}`, label: skill.title }))
-      : [];
-    return [...statColumns, ...skillColumns];
-  }, [comparisonSettings.selectedMetrics, comparisonSettings.includeSkills, comparisonSkillRows]);
   const comparisonRows = useMemo(() => (
     comparisonScenarios.flatMap((scenario) => comparisonMasteryLevels.map((level) => {
       const scenarioWeaponRaw = weaponTypeRaw(byName(equipment, scenario.gear.武器));
@@ -2984,11 +3078,57 @@ export default function App() {
           totalDamageBonus: scenarioResult.totalDamageBonus,
           basicAttack: scenarioResult.basicAttackDamage.normal,
           finalMod: scenarioResult.finalMod,
-          ...Object.fromEntries(scenarioResult.skills.map((skill) => [`skill:${skill.id}`, skill.damage]))
+          // 装备独有效果（诅咒 / 腐化 / 疾风…）的伤害合计，以及逐条明细
+          effectSubtotal: scenarioResult.effectSubtotal,
+          cd: scenarioResult.cd,
+          basicAttackAmp: scenarioResult.basicAttackAmp,
+          extraHp: scenarioResult.extraHp,
+          defense: scenarioResult.selfDefense,
+          critChance: statValue(scenarioResult.equipmentStats, 'criticalStrikeChance'),
+          critDamage: statValue(scenarioResult.equipmentStats, 'criticalStrikeDamage'),
+          attackSpeed: statValue(scenarioResult.equipmentStats, 'attackSpeedRatio'),
+          moveSpeed: statValue(scenarioResult.equipmentStats, 'moveSpeed'),
+          skillAmpPct: scenarioResult.totalApPct,
+          ...Object.fromEntries(scenarioResult.skills.map((skill) => [`skill:${skill.id}`, skill.damage])),
+          ...Object.fromEntries((scenarioResult.effects || [])
+            .filter((effect) => effect && !effect.excludeFromSubtotal)
+            .map((effect) => [`effect:${effect.title}`, effect.value]))
         }
       };
     }))
   ), [comparisonScenarios, comparisonMasteryLevels, comparisonSettings, equipment, skills, skillLevels, selectedCharacter, selectedTraits, attack, talentAp, r2Stacks, tacticalSkill, tacticalUpgraded, selectedHero, combos]);
+  // 勾选栏里能出现哪些指标：核心项恒在，其余项要「至少有一个方案真的有这个数值」
+  const availableComparisonMetrics = useMemo(() => {
+    const nonZero = new Set();
+    for (const row of comparisonRows) {
+      for (const [key, value] of Object.entries(row.values || {})) {
+        if (getNumber(value)) nonZero.add(key);
+      }
+    }
+    return COMPARISON_STAT_METRICS
+      .filter((metric) => !metric.standalone)
+      .filter((metric) => metric.core || nonZero.has(metric.key));
+  }, [comparisonRows]);
+  // 装备特效逐条明细，勾了「装备特效伤害」时一并列进表格
+  const comparisonEffectColumns = useMemo(() => {
+    const names = new Map();
+    for (const row of comparisonRows) {
+      for (const key of Object.keys(row.values || {})) {
+        if (key.startsWith('effect:') && !names.has(key)) names.set(key, key.slice('effect:'.length));
+      }
+    }
+    return [...names.entries()].map(([key, label]) => ({ key, label }));
+  }, [comparisonRows]);
+  const comparisonMetricColumns = useMemo(() => {
+    const statColumns = COMPARISON_STAT_METRICS.filter((metric) => comparisonSettings.selectedMetrics.includes(metric.key));
+    const effectColumns = comparisonSettings.selectedMetrics.includes('effectSubtotal')
+      ? comparisonEffectColumns
+      : [];
+    const skillColumns = comparisonSettings.includeSkills
+      ? comparisonSkillRows.map((skill) => ({ key: `skill:${skill.id}`, label: skill.title }))
+      : [];
+    return [...statColumns, ...effectColumns, ...skillColumns];
+  }, [comparisonSettings.selectedMetrics, comparisonSettings.includeSkills, comparisonSkillRows, comparisonEffectColumns]);
   const displayedComparisonRows = useMemo(() => {
     if (!comparisonSettings.groupRowsByMastery) return comparisonRows;
     const scenarioOrder = new Map(comparisonScenarios.map((scenario, index) => [scenario.id, index]));
@@ -3034,7 +3174,15 @@ export default function App() {
       };
     });
   }, [comparisonRows, comparisonScenarios, comparisonMasteryLevels, selectedComparisonMasteryLevel]);
-  const comparisonChartMetric = comparisonMetricColumns[0] || COMPARISON_STAT_METRICS[0];
+  // 图表跟着勾选走：勾了几个属性指标就画几张，技能与特效明细只进表格不画图
+  const comparisonChartMetrics = useMemo(() => {
+    // 单独提出来的「装备特效伤害」不在上面那排里，但勾上了同样要出图
+    const usable = new Set([...availableComparisonMetrics.map((metric) => metric.key),
+      ...COMPARISON_STAT_METRICS.filter((metric) => metric.standalone).map((metric) => metric.key)]);
+    const picked = COMPARISON_STAT_METRICS
+      .filter((metric) => usable.has(metric.key) && comparisonSettings.selectedMetrics.includes(metric.key));
+    return picked.length ? picked : [COMPARISON_STAT_METRICS[0]];
+  }, [availableComparisonMetrics, comparisonSettings.selectedMetrics]);
   const renderEquipmentEffects = () => (
     <div className="equipmentEffectList">
       {selectedEquipmentEffects.length ? selectedEquipmentEffects.map((item, index) => (
@@ -3656,7 +3804,9 @@ export default function App() {
     const { min, max, defaultValue } = progressiveDamageBounds(rule);
     const ruleId = rule?.id || 'progressive';
     const stepKey = `${skill.id}-${ruleId}`;
-    const stepValue = Math.max(min, Math.min(max, getNumber(skillTargetCounts[stepKey]) || defaultValue));
+    const savedStep = skillTargetCounts[stepKey];
+    const stepValue = Math.max(min, Math.min(max,
+      savedStep === undefined || savedStep === null || savedStep === '' ? defaultValue : getNumber(savedStep)));
     const stepContext = result.formulaContext;
     const selectedStep = progressiveDamageValue(skill, stepContext, stepValue);
     const steps = Array.from({ length: max - min + 1 }, (_, index) => progressiveDamageValue(skill, stepContext, min + index));
@@ -3689,7 +3839,7 @@ export default function App() {
             </PortalHovercard>
             {sourceMeta ? <span className="skillSourceMeta" title={sourceMeta.title}>{sourceMeta.label}</span> : null}
           </div>
-          {renderCountStepper(stepLabel, stepKey, { min, max })}
+          {renderCountStepper(stepLabel, stepKey, { min, max, fallback: defaultValue })}
         </div>
         <div className="skillLeafValues">
           <div className="skillTotalValue">
@@ -4071,8 +4221,10 @@ export default function App() {
 
   function formatComparisonValue(key, value) {
     const numericValue = getNumber(value);
-    if (['penPct', 'totalDamageBonus', 'finalMod'].includes(key)) {
-      return key === 'finalMod' ? round(numericValue, 3) : pct(numericValue);
+    if (key === 'finalMod') return round(numericValue, 3);
+    if (['penPct', 'totalDamageBonus', 'basicAttackAmp', 'critChance', 'critDamage',
+      'attackSpeed', 'skillAmpPct'].includes(key)) {
+      return pct(numericValue);
     }
     return round(numericValue, Math.abs(numericValue) < 10 ? 2 : 1);
   }
@@ -4129,12 +4281,21 @@ export default function App() {
             <Field label="手动技能减免" value={comparisonSettings.skillReduction} step={0.01} suffix="小数" onChange={(value) => updateComparisonSetting('skillReduction', value)} />
           </div>
           <div className="comparisonMetricPicker">
-            {COMPARISON_STAT_METRICS.map((metric) => (
+            <span className="comparisonMetricPickerHint"><LabelWithHelp note={help('section.comparisonMetrics')}>对比指标</LabelWithHelp></span>
+            {availableComparisonMetrics.map((metric) => (
               <label className="toggle" key={metric.key}>
                 <input type="checkbox" checked={comparisonSettings.selectedMetrics.includes(metric.key)} onChange={() => toggleComparisonMetric(metric.key)} />
                 <span>{metric.label}</span>
               </label>
             ))}
+            <label className="toggle comparisonStandaloneMetric">
+              <input
+                type="checkbox"
+                checked={comparisonSettings.selectedMetrics.includes('effectSubtotal')}
+                onChange={() => toggleComparisonMetric('effectSubtotal')}
+              />
+              <span>装备特效伤害</span>
+            </label>
             <label className="toggle">
               <input type="checkbox" checked={comparisonSettings.includeSkills} onChange={(event) => updateComparisonSetting('includeSkills', event.target.checked)} />
               <span>输出各技能最终伤害</span>
@@ -4189,13 +4350,19 @@ export default function App() {
             </div>
             <span className="pill">{comparisonRows.length} 行 / {comparisonMetricColumns.length} 列</span>
           </div>
-          <ComparisonChart
-            rows={comparisonRows}
-            metricKey={comparisonChartMetric.key}
-            metricLabel={comparisonChartMetric.label}
-            selectedMastery={selectedComparisonMasteryLevel}
-            onSelectMastery={setSelectedComparisonMastery}
-          />
+          {comparisonChartMetrics.map((metric) => (
+            <ComparisonChart
+              key={metric.key}
+              rows={comparisonRows}
+              metricKey={metric.key}
+              metricLabel={metric.label}
+              selectedMastery={selectedComparisonMasteryLevel}
+              onSelectMastery={setSelectedComparisonMastery}
+              collapsed={collapsedComparisonCharts.includes(metric.key)}
+              onToggleCollapsed={toggleComparisonChart}
+              formatValue={formatComparisonValue}
+            />
+          ))}
           {comparisonApDeltaRows.length ? (
             <div className="comparisonDeltaBlock">
               <div className="comparisonDeltaHead">
@@ -4425,11 +4592,11 @@ export default function App() {
               <div className="announcementAnchor">
                 <button
                   type="button"
-                  className={`quietButton announcementButton ${announcement.showBadge ? 'hasUpdate' : ''}`}
+                  className={`quietButton announcementButton ${announcementUnread ? 'hasUpdate' : ''}`}
                   onClick={() => setShowAnnouncement(true)}
                 >
                   公告
-                  {announcement.showBadge ? <span aria-label="公告有更新">!</span> : null}
+                  {announcementUnread ? <span aria-label="公告有更新">!</span> : null}
                 </button>
               </div>
             </div>
@@ -4444,7 +4611,7 @@ export default function App() {
           dirty={announcementDirty}
           saveStatus={announcementSaveStatus}
           onChange={updateAnnouncement}
-          onClose={() => setShowAnnouncement(false)}
+          onClose={closeAnnouncement}
           onSave={saveAnnouncement}
           onCreate={startNewAnnouncement}
         />

@@ -1,7 +1,7 @@
 {
   "_comment": "官方补丁变更日志。每条记录的是「该补丁之后应该是什么值」（目标态），不是增量。",
   "_usage": "新版本上线：在 patches 末尾追加一段，然后跑 node scripts/apply-patch-log.mjs。脚本幂等，重跑只会跳过已达标的条目，不需要还原任何数据。",
-  "updatedAt": "2026-08-21T06:03:27.828Z",
+  "updatedAt": "2026-08-22T02:43:49.062Z",
   "patches": [
     {
       "version": "sweep-2023-07-19",
@@ -8987,6 +8987,148 @@
       "mastery": []
     },
     {
+      "version": "client-12.2-felix",
+      "order": 20260824,
+      "date": "2026-08-21",
+      "label": "12.2",
+      "url": "https://playeternalreturn.com/posts/news/3783?hl=zh-CN",
+      "title": "客户端截图读值：费利克斯",
+      "skills": [
+        {
+          "id": "external-felix-q-1049200-damage-stat1",
+          "slot": "Q",
+          "title": "Q 破风斩",
+          "source": "in-game-client",
+          "formula": "base + attack * 0.65",
+          "was": {
+            "formula": "base + attack * 0.85"
+          },
+          "coefficientText": "伤害 55/80/105/130/155(+攻击力65%)",
+          "note": "突进并在目标位置挥枪。基本技能冷却共享固定 11 秒，Q/W/E 可以混着连接使用 3 次，第 3 次那一下才是「最终施放」。这一段是前两次连接时的伤害。原先从 wiki 抄来的系数是 0.85，多算了两成。"
+        },
+        {
+          "id": "external-felix-q-1049200-final-cast-damage-stat2",
+          "slot": "Q",
+          "title": "Q 破风斩-最终施放",
+          "source": "in-game-client",
+          "formula": "base + attack * 0.65 + heroLevel * 3",
+          "was": {
+            "formula": "base + attack * 0.65"
+          },
+          "coefficientText": "最终施放伤害量 60/85/110/135/160(+攻击力65%)(+实验体级别 * 3)",
+          "note": "悬空 0.08 秒。原先漏了「+实验体级别 * 3」——20 级时这是白送的 60 点固定伤害。 标题里的连字符不加空格是有意的：页面按「槽位后第一个词」分组，三段若同为「破风斩」会被并成多段视图并给出「全段合计」，而普通段和最终施放是不同次施放，不能相加。"
+        },
+        {
+          "id": "external-felix-q-1049200-true-damage-based-on-spearweaving-stat3",
+          "slot": "Q",
+          "title": "Q 破风斩-连攻真实伤害",
+          "source": "in-game-client",
+          "formula": "base * stacks",
+          "damageType": "true",
+          "maxStacks": 8,
+          "defaultStacks": 8,
+          "stackLabel": "连攻叠层",
+          "was": {
+            "formula": "base + attack * 0.85"
+          },
+          "coefficientText": "连攻比例真实伤害量 每层 2/4/6/8/10 真实伤害",
+          "note": "最终施放时每消耗 1 个连攻叠层额外造成这么多真实伤害，并各增加 0.08 秒悬空时间。真实伤害不吃防御和减伤。原先抄成了 base + 攻击力85%，既不是真伤也不随叠层——整段都是错的。"
+        },
+        {
+          "id": "external-felix-w-1049300-damage-stat1",
+          "slot": "W",
+          "title": "W 疾风雷击",
+          "source": "in-game-client",
+          "coefficientText": "伤害 70/100/130/160/190(+攻击力50%)",
+          "note": "使用长枪刺向指定方向。基本技能冷却共享固定 11 秒，Q/W/E 可以混着连接使用 3 次，第 3 次那一下才是「最终施放」。数值和 wiki 原有的一致。"
+        },
+        {
+          "id": "external-felix-w-1049300-final-cast-damage-stat2",
+          "slot": "W",
+          "title": "W 疾风雷击-最终施放",
+          "source": "in-game-client",
+          "formula": "base + attack * 0.6 + heroLevel * 3",
+          "was": {
+            "formula": "base + attack * 0.6"
+          },
+          "coefficientText": "最终施放伤害量 80/120/160/200/240(+攻击力60%)(+实验体级别 * 3)",
+          "note": "束缚近处敌人 0.6 秒后突进，每消耗 1 层连攻增加 10% 束缚时间（束缚时长未建模）。原先漏了「+实验体级别 * 3」。"
+        },
+        {
+          "id": "external-felix-e-1049400-damage-stat1",
+          "slot": "E",
+          "title": "E 半月斩",
+          "source": "in-game-client",
+          "coefficientText": "伤害 19/38/57/76/95(+攻击力45%)",
+          "note": "退后一步横扫，并回避普攻。基本技能冷却共享固定 11 秒，Q/W/E 可以混着连接使用 3 次，第 3 次那一下才是「最终施放」。数值和 wiki 原有的一致。"
+        },
+        {
+          "id": "external-felix-e-1049400-final-cast-damage-stat2",
+          "slot": "E",
+          "title": "E 半月斩-最终施放",
+          "source": "in-game-client",
+          "formula": "base + attack * 0.45 + heroLevel * 3",
+          "was": {
+            "formula": "base + attack * 0.5"
+          },
+          "coefficientText": "最终施放伤害量 22/44/66/88/110(+攻击力45%)(+实验体等级 * 3)",
+          "note": "4 秒内每消耗 1 个叠层获得「吸血 - 所有伤害增加 1%(+攻击力2%)」（措辞含糊，未建模）。原先系数抄成了 0.5，且漏了「+实验体等级 * 3」。"
+        },
+        {
+          "id": "external-felix-r-1049500-minimum-damage-stat1",
+          "slot": "R",
+          "title": "R 雷龙一击 最小伤害",
+          "source": "in-game-client",
+          "coefficientText": "最小伤害 120/180/240(+攻击力100%)",
+          "note": "蓄力突进刺击，未蓄力时的下限值。使用时增加 4 个连攻叠层。数值和 wiki 原有的一致。"
+        },
+        {
+          "id": "external-felix-r-1049500-maximum-damage-stat2",
+          "slot": "R",
+          "title": "R 雷龙一击 最大伤害",
+          "source": "in-game-client",
+          "coefficientText": "最大伤害 360/540/720(+攻击力200%)",
+          "note": "蓄力至上限时的值，命中目标晕厥 1 秒。蓄力期间可转向、突进时免疫所有负面效果。实际伤害在最小和最大之间随蓄力时间线性变化，页面只给两端。数值和 wiki 原有的一致。"
+        },
+        {
+          "create": true,
+          "id": "ingame-049-felix-p-1049100-second-hit-basic-attack",
+          "hero": "费利克斯",
+          "slot": "P",
+          "group": 1049100,
+          "dataKey": "SecondHitBasicAttack",
+          "title": "P 连结枪 2段普攻伤害",
+          "bases": "0,0,0",
+          "formula": "attack * [0.15,0.2,0.25][level - 1]",
+          "damageType": "basicAttack",
+          "source": "in-game-client",
+          "coefficientText": "2段伤害 攻击力的 15/20/25%",
+          "note": "每次使用技能时，2 秒内对目标敌人发起两次连续攻击，第 2 次按这一段结算普攻伤害。注意这里的 15% 就是完整系数（和威廉那种「100% 基础 + 分级比率」的写法不同），所以取 0.15 而不是 1.15。判定为普攻伤害，吃普攻增幅和目标的普攻减伤。P 这一槽是 3 级制。"
+        },
+        {
+          "create": true,
+          "id": "ingame-049-felix-p-1049100-spearweaving-shield",
+          "hero": "费利克斯",
+          "slot": "P",
+          "group": 1049100,
+          "dataKey": "SpearweavingShield",
+          "title": "P 连结枪 连攻护盾",
+          "bases": "15,15,15",
+          "formula": "(base + attack * 0.45) * stacks",
+          "kind": "shield",
+          "source": "in-game-client",
+          "maxStacks": 8,
+          "defaultStacks": 8,
+          "stackLabel": "连攻叠层",
+          "coefficientText": "每消耗 1 个连攻叠层获得 15(+攻击力45%) 护盾",
+          "note": "第三次连接时消耗连攻叠层，每层缩减基本技能冷却 1 秒，并在 2.5 秒内每消耗 1 层获得这么多护盾。官方的数值表里没有护盾这一行，所以基础值按不随等级变化的 15 处理——如果之后发现它其实分级，这里要改。"
+        }
+      ],
+      "equipment": [],
+      "characters": [],
+      "mastery": []
+    },
+    {
       "version": "client-12.1-barbara",
       "order": 20260825,
       "date": "2026-08-25",
@@ -9109,6 +9251,107 @@
           "source": "in-game-client",
           "coefficientText": "高能闪光弹持续伤害 30/40/50(+技能增幅15%)",
           "note": "闪光弹爆炸后生成光磁场区域，每 0.5 秒对范围内的敌人结算一次并使其移速 -50%。客户端没写光磁场持续多久，所以没设跳数步进器，这里是单跳的量。"
+        }
+      ],
+      "equipment": [],
+      "characters": [],
+      "mastery": []
+    },
+    {
+      "version": "client-12.2-nathapon",
+      "order": 20260825,
+      "date": "2026-08-21",
+      "label": "12.2",
+      "url": "https://playeternalreturn.com/posts/news/3783?hl=zh-CN",
+      "title": "客户端截图读值：纳塔朋",
+      "skills": [
+        {
+          "id": "patch-121-nathapon-q-1034200-damage",
+          "slot": "Q",
+          "title": "Q 快拍",
+          "source": "in-game-client",
+          "coefficientText": "伤害 60/100/140/180/220(+技能增幅80%)",
+          "note": "在指定地点拍照。被赋予 3 个焦距叠层的敌人会短时间降低移动速度和攻击速度。数值和原有的一致。"
+        },
+        {
+          "create": true,
+          "id": "ingame-034-nathapon-w-1034300-tick-damage",
+          "hero": "纳塔朋",
+          "slot": "W",
+          "group": 1034300,
+          "dataKey": "TickDamage",
+          "title": "W 时间轨迹-每秒伤害",
+          "bases": "40,60,80,100,120",
+          "formula": "base + ap * 0.3",
+          "source": "in-game-client",
+          "maxHits": 5,
+          "defaultHits": 1,
+          "coefficientText": "伤害 40/60/80/100/120(+技能增幅30%)",
+          "note": "延时相机每秒对范围内的敌人结算一次，范围内敌人移动速度 -40%。官方没写相机持续几秒，页面给了 1~5 跳的阶梯，实战跳数取决于敌人在范围里待多久，别默认打满。"
+        },
+        {
+          "id": "augment-034-nathapon-w-1034300-extra-damage-stat2",
+          "slot": "W",
+          "title": "W 时间轨迹-最后一瞬额外伤害",
+          "source": "in-game-client",
+          "coefficientText": "额外伤害 50/85/120/155/190(+技能增幅75%)",
+          "note": "最后一瞬被拍到的敌人额外承受这一段并被束缚 1.6 秒。数值和原有的一致。"
+        },
+        {
+          "id": "patch-117-nathapon-1034400-damage",
+          "slot": "E",
+          "title": "E 时光倒影",
+          "source": "in-game-client",
+          "coefficientText": "伤害 30/50/70/90/110(+技能增幅40%)",
+          "note": "发射对焦框，命中的敌人减速 55% 持续 1 秒，并在该位置留下一个标识。数值和原有的一致。"
+        },
+        {
+          "create": true,
+          "id": "ingame-034-nathapon-e-1034400-recast-damage",
+          "hero": "纳塔朋",
+          "slot": "E",
+          "group": 1034400,
+          "dataKey": "RecastDamage",
+          "title": "E 时光倒影-再使用伤害",
+          "bases": "30,50,70,90,110",
+          "formula": "base + ap * 0.4",
+          "source": "in-game-client",
+          "coefficientText": "再使用伤害 30/50/70/90/110(+技能增幅40%)",
+          "note": "对焦命中 1.5 秒后，纳塔朋在接下来 3.5 秒内对该敌人发起普攻时结算这一段，并把对方传送回标识位置。数值和第一段完全相同。针对被对焦框命中的敌人，射程提升到 10m 并适用摄影技巧的额外伤害。敌人被击退或距离标识超过 8m 时标识消失，这一段就打不出来。"
+        },
+        {
+          "create": true,
+          "id": "ingame-034-nathapon-p-1034100-basic-attack-extra-damage",
+          "hero": "纳塔朋",
+          "slot": "P",
+          "group": 1034100,
+          "dataKey": "BasicAttackExtraDamage",
+          "title": "P 摄影技巧-普攻额外伤害",
+          "bases": "30,60,90",
+          "formula": "base + ap * 0.65",
+          "source": "in-game-client",
+          "coefficientText": "伤害 30/60/90(+攻击速度20%)(+技能增幅65%)",
+          "note": "⚠ 官方写的是「30(+攻击速度20%)(+技能增幅65%)的额外技能伤害」，这里只建了 base 和技能增幅两项，**「+攻击速度20%」没有建模**——计算器目前根本不聚合攻击速度（装备里的 attackSpeedRatio 只用来显示，没有进伤害上下文），而且官方这个写法的单位也不明确（攻速在游戏里显示成 1.35 这样的倍率，按倍率算 20% 只有 0.27 点伤害，显然应该是按百分数 135 算出 27，但这是推断不是实锤）。所以这一段的数值偏低，缺的就是攻速那一项。相机攻速固定、普攻无法暴击。P 这一槽是 3 级制。"
+        },
+        {
+          "create": true,
+          "id": "ingame-034-nathapon-p-1034100-focus-damage-bonus",
+          "hero": "纳塔朋",
+          "slot": "P",
+          "group": 1034100,
+          "dataKey": "FocusDamageBonus",
+          "title": "P 摄影技巧-焦距增伤",
+          "bases": "4,7,10",
+          "formula": "base",
+          "kind": "buff",
+          "buffKey": "damageBonus",
+          "source": "in-game-client",
+          "maxStacks": 3,
+          "defaultStacks": 3,
+          "stackLabel": "焦距叠层",
+          "coefficientText": "每个焦距叠层使技能伤害增加 4/7/10%",
+          "hitNote": "对敌人造成技能或普攻伤害时获得，最多 3 层；R 命中会直接给满 3 层。",
+          "note": "焦距最多叠 3 层，每层让纳塔朋技能造成的伤害增加 4/7/10%（随 P 等级）。满层时是 +12/21/30%。官方原文只说「技能造成的伤害」，这里落在和装备/潜能增伤同一个乘区里，会一并作用到普攻判定的段上（本英雄没有这类段，影响不大）。"
         }
       ],
       "equipment": [],
@@ -9262,6 +9505,158 @@
       "mastery": []
     },
     {
+      "version": "client-12.2-johann",
+      "order": 20260826,
+      "date": "2026-08-21",
+      "label": "12.2",
+      "url": "https://playeternalreturn.com/posts/news/3783?hl=zh-CN",
+      "title": "客户端截图读值：约翰",
+      "skills": [
+        {
+          "create": true,
+          "id": "ingame-041-johann-q-1041200-damage",
+          "hero": "约翰",
+          "slot": "Q",
+          "group": 1041200,
+          "dataKey": "Damage",
+          "title": "Q 圣光召唤",
+          "bases": "60,95,130,165,200",
+          "formula": "base + ap * 0.7",
+          "source": "in-game-client",
+          "coefficientText": "伤害 60/95/130/165/200(+技能增幅70%)",
+          "note": "向指定方向发射光球，达到射程上限或再次使用时爆炸。爆炸后光球会返回约翰身上并赋予相同效果。"
+        },
+        {
+          "id": "augment-041-johann-q-1041200-enhanced-damage-stat2",
+          "slot": "Q",
+          "title": "Q 圣光召唤-强化伤害",
+          "source": "in-game-client",
+          "bases": "100,150,200,250,300",
+          "formula": "base + ap * 1.1",
+          "was": {
+            "bases": "100,145,190,235,280",
+            "formula": "base + ap * 0.6"
+          },
+          "coefficientText": "强化伤害 100/150/200/250/300(+技能增幅110%)",
+          "note": "光球/目标触碰神圣的香炉(W)后才是强化版本。强化爆炸还会让承受伤害的目标束缚 1 秒。原先从 wiki 抄来的是 100/145/190/235/280 + 技能增幅60%——基础值从二级起就开始偏低，系数更是只有实际的一半多一点。"
+        },
+        {
+          "create": true,
+          "id": "ingame-041-johann-q-1041200-heal",
+          "hero": "约翰",
+          "slot": "Q",
+          "group": 1041200,
+          "dataKey": "Heal",
+          "title": "Q 圣光召唤-体力恢复",
+          "bases": "10,20,30,40,50",
+          "formula": "base + ap * 0.1",
+          "kind": "heal",
+          "source": "in-game-client",
+          "coefficientText": "体力恢复 10/20/30/40/50(+技能增幅10%)",
+          "note": "光球路径上的队友回复这么多体力。"
+        },
+        {
+          "create": true,
+          "id": "ingame-041-johann-q-1041200-enhanced-heal",
+          "hero": "约翰",
+          "slot": "Q",
+          "group": 1041200,
+          "dataKey": "EnhancedHeal",
+          "title": "Q 圣光召唤-强化恢复",
+          "bases": "25,35,45,55,65",
+          "formula": "base + ap * 0.15",
+          "kind": "heal",
+          "source": "in-game-client",
+          "coefficientText": "强化恢复 25/35/45/55/65(+技能增幅15%)",
+          "note": "光球/目标触碰神圣的香炉(W)后才是强化版本。和普通恢复二选一，不是叠加。"
+        },
+        {
+          "create": true,
+          "id": "ingame-041-johann-e-1041400-damage",
+          "hero": "约翰",
+          "slot": "E",
+          "group": 1041400,
+          "dataKey": "Damage",
+          "title": "E 指引的光芒",
+          "bases": "50,80,110,140,170",
+          "formula": "base + ap * 0.5",
+          "source": "in-game-client",
+          "coefficientText": "伤害 50/80/110/140/170(+技能增幅50%)",
+          "note": "赋予目标队友指引的光芒并移除其减速，2 秒后持续时间结束时对该队友周围的敌人结算这一段。"
+        },
+        {
+          "id": "augment-041-johann-e-1041400-enhanced-damage-stat2",
+          "slot": "E",
+          "title": "E 指引的光芒-强化伤害",
+          "source": "in-game-client",
+          "coefficientText": "强化伤害 80/115/150/185/220(+技能增幅65%)",
+          "note": "光球/目标触碰神圣的香炉(W)后才是强化版本。数值和原有的一致。"
+        },
+        {
+          "create": true,
+          "id": "ingame-041-johann-e-1041400-shield",
+          "hero": "约翰",
+          "slot": "E",
+          "group": 1041400,
+          "dataKey": "Shield",
+          "title": "E 指引的光芒-护盾",
+          "bases": "50,80,110,140,170",
+          "formula": "base + ap * 0.3",
+          "kind": "shield",
+          "source": "in-game-client",
+          "coefficientText": "护盾吸收 50/80/110/140/170(+技能增幅30%)",
+          "note": "光球/目标触碰神圣的香炉(W)后才是强化版本。强化时目标在 2.5 秒内获得这个护盾。"
+        },
+        {
+          "create": true,
+          "id": "ingame-041-johann-r-1041500-damage",
+          "hero": "约翰",
+          "slot": "R",
+          "group": 1041500,
+          "dataKey": "Damage",
+          "title": "R 救赎圣殿",
+          "bases": "180,240,300",
+          "formula": "base + ap * 0.7",
+          "source": "in-game-client",
+          "coefficientText": "1段伤害 180/240/300(+技能增幅70%)",
+          "note": "击退周围的敌人并造成这一段。再次使用可以取消技能。"
+        },
+        {
+          "create": true,
+          "id": "ingame-041-johann-r-1041500-initial-heal",
+          "hero": "约翰",
+          "slot": "R",
+          "group": 1041500,
+          "dataKey": "InitialHeal",
+          "title": "R 救赎圣殿-最初恢复",
+          "bases": "30,70,110",
+          "formula": "base + selfLostHp * [0.04,0.06,0.08][level - 1]",
+          "kind": "heal",
+          "source": "in-game-client",
+          "coefficientText": "最初体力恢复 30/70/110(+目标已失体力 4/6/8%)",
+          "note": "官方写的是「目标已失体力」，指被治疗的队友。计算器没有队友血量这一项，这里用界面上的自身已失体力(selfLostHp)代入——约翰给自己回血时准确，给队友时要按对方的已失体力另算。"
+        },
+        {
+          "create": true,
+          "id": "ingame-041-johann-r-1041500-sustained-heal",
+          "hero": "约翰",
+          "slot": "R",
+          "group": 1041500,
+          "dataKey": "SustainedHeal",
+          "title": "R 救赎圣殿-持续恢复",
+          "bases": "24,48,72",
+          "formula": "base + ap * 0.2",
+          "kind": "heal",
+          "source": "in-game-client",
+          "coefficientText": "持续恢复 24/48/72(+技能增幅20%)",
+          "note": "之后 4 秒在周围形成圣域，队友防御力 +16/22/28（未建模），并**每秒**回复这么多体力。页面给的是单跳值，站满 4 秒是 4 倍。"
+        }
+      ],
+      "equipment": [],
+      "characters": [],
+      "mastery": []
+    },
+    {
       "version": "client-12.1-rozzi",
       "order": 20260827,
       "date": "2026-08-27",
@@ -9352,6 +9747,415 @@
           "source": "in-game-client",
           "coefficientText": "2段 攻击力系数 50/55/60%",
           "note": "连发的第二枚子弹，系数随 P 等级提升。与第一发是同一次普攻打出的两段，可以相加。「摄取带巧克力成分的食物时 10 分钟内攻击力 +1」与技能伤害无关，未建模。"
+        }
+      ],
+      "equipment": [],
+      "characters": [],
+      "mastery": []
+    },
+    {
+      "version": "client-12.2-isol",
+      "order": 20260827,
+      "date": "2026-08-21",
+      "label": "12.2",
+      "url": "https://playeternalreturn.com/posts/news/3783?hl=zh-CN",
+      "title": "客户端截图读值：埃索",
+      "skills": [
+        {
+          "id": "009-isol-q-1009200-base-damage",
+          "slot": "Q",
+          "title": "Q 军事用炸药",
+          "source": "in-game-client",
+          "coefficientText": "伤害 60/85/110/135/160(+攻击力35%)(+技能增幅70%)",
+          "note": "投掷炸药。落在地面的 3 秒后爆炸，粘在敌人身上的 6 秒后爆炸，命中束缚 0.6 秒。此技能判定为「埃索设置的陷阱」，命中会触发 P 游击战术。数值和原有的一致。"
+        },
+        {
+          "id": "009-isol-q-1009200-additional-damage-per-hit",
+          "slot": "Q",
+          "title": "Q 军事用炸药-计时器追加伤害",
+          "source": "in-game-client",
+          "bases": "10,15,20,25,30",
+          "formula": "(base + attack * 0.09 + ap * 0.05) * stacks",
+          "maxStacks": 10,
+          "defaultStacks": 1,
+          "stackLabel": "攻击次数",
+          "was": {
+            "bases": "10,16,22,28,34",
+            "formula": "base + ap * 0.4"
+          },
+          "coefficientText": "额外伤害 10/15/20/25/30(+攻击力9%)(+技能增幅5%)，每次攻击累加",
+          "note": "粘在敌人身上时，每次对该敌人发出攻击都会让计时器提前 0.5 秒、爆炸伤害累加这么多、束缚时间 +0.1 秒，束缚最多加到 1 秒——所以累加次数上限按 10 次算。原先从 wiki 抄来的是 10/16/22/28/34 + 技能增幅40%，基础值从二级起就不对，系数更是完全另一回事（实际是攻击力9% + 技能增幅5%）。"
+        },
+        {
+          "id": "009-isol-w-1009300-damage",
+          "slot": "W",
+          "title": "W 叛军突击",
+          "source": "in-game-client",
+          "bases": "13,16,19,22,25",
+          "formula": "base + attack * 0.6 + ap * 0.24",
+          "maxHits": 6,
+          "defaultHits": 1,
+          "was": {
+            "bases": "20,40,60,80,100",
+            "formula": "base + ap * 0.5"
+          },
+          "coefficientText": "伤害 13/16/19/22/25(+攻击力60%)(+技能增幅24%)，每 0.33 秒一跳",
+          "note": "1.67 秒内向前方扫射，每 0.33 秒结算一次，每次让目标防御力减少 2/2/3/3/4（持续 4 秒，最多叠 6 次，减防未建模）。页面按 1~6 跳给阶梯——官方写「最多可以适用6次」，但 1.67÷0.33 只有 5 跳出头，所以满跳数到底是 5 还是 6 存疑，别默认打满。也能对其他敌人的设置物造成伤害。原先从 wiki 抄来的是 20/40/60/80/100 + 技能增幅50%，整段都不对——那更像是把多跳合计当成了单跳值。"
+        },
+        {
+          "create": true,
+          "id": "ingame-009-isol-e-1009400-damage",
+          "hero": "埃索",
+          "slot": "E",
+          "group": 1009400,
+          "dataKey": "Damage",
+          "title": "E 伪装潜行",
+          "bases": "60,90,120,150,180",
+          "formula": "base + ap * 0.65",
+          "source": "in-game-client",
+          "coefficientText": "伤害 60/90/120/150/180(+技能增幅65%)",
+          "note": "向前滚动进入伪装状态 1.2/1.4/1.6/1.8/2 秒，除移动外的任何动作都会解除伪装。解除后 5 秒内发起的**首次**普攻附带这一段额外技能伤害，只有一次。"
+        },
+        {
+          "id": "009-isol-r-1009500-damage",
+          "slot": "R",
+          "title": "R MOK 军用地雷",
+          "source": "in-game-client",
+          "bases": "100,200,300",
+          "formula": "base + attack * 0.4 + ap * 0.65 + targetCurrentHp * 0.12",
+          "was": {
+            "bases": "80,130,180",
+            "formula": "base + ap * 0.3"
+          },
+          "coefficientText": "伤害 100/200/300(+攻击力40%)(+技能增幅65%)(+目标当前体力12%)",
+          "note": "在地面设置地雷探测敌人 45 秒，敌人进入范围即爆炸。持有和设置上限各 2 个。判定为「埃索设置的陷阱」，命中会触发 P 游击战术。⚠ 吃**目标当前体力**的 12%，所以目标血量越满这一段越高——调界面上的目标当前体力百分比会直接影响它。原先从 wiki 抄来的是 80/130/180 + 技能增幅30%，基础值、攻击力项、当前体力项全是漏的或错的。"
+        },
+        {
+          "create": true,
+          "id": "ingame-009-isol-p-1009100-trap-attack-buff",
+          "hero": "埃索",
+          "slot": "P",
+          "group": 1009100,
+          "dataKey": "TrapAttackBuff",
+          "title": "P 游击战术-攻击力",
+          "bases": "8,13,18",
+          "formula": "base",
+          "kind": "buff",
+          "buffKey": "attackPower",
+          "source": "in-game-client",
+          "maxStacks": 1,
+          "defaultStacks": 0,
+          "stackLabel": "生效",
+          "coefficientText": "攻击力 +8/13/18",
+          "hitNote": "和下面的技能增幅二选一，只能开一个。",
+          "note": "埃索设置的陷阱（Q 炸药、R 地雷）命中敌人时，10 秒内增加 8/13/18 攻击力**或** 16/26/36 技能增幅。官方是二选一，页面拆成两条增益、默认都不开，按你的加点方向手动开一条。P 这一槽是 3 级制。"
+        },
+        {
+          "create": true,
+          "id": "ingame-009-isol-p-1009100-trap-ap-buff",
+          "hero": "埃索",
+          "slot": "P",
+          "group": 1009100,
+          "dataKey": "TrapApBuff",
+          "title": "P 游击战术-技能增幅",
+          "bases": "16,26,36",
+          "formula": "base",
+          "kind": "buff",
+          "buffKey": "ap",
+          "source": "in-game-client",
+          "maxStacks": 1,
+          "defaultStacks": 0,
+          "stackLabel": "生效",
+          "coefficientText": "技能增幅 +16/26/36",
+          "hitNote": "和上面的攻击力二选一，只能开一个。",
+          "note": "同上，陷阱命中后 10 秒内生效。两条增益不要同时打开。"
+        }
+      ],
+      "equipment": [],
+      "characters": [],
+      "mastery": []
+    },
+    {
+      "version": "client-12.1-hart",
+      "order": 20260828,
+      "date": "2026-08-28",
+      "url": "",
+      "label": "12.1",
+      "title": "客户端截图读值：哈特（12.1）",
+      "skills": [
+        {
+          "id": "008-hart-q-1008200-min-skill-damage",
+          "remove": true
+        },
+        {
+          "id": "008-hart-q-1008200-max-skill-damage",
+          "title": "Q 延音 声波伤害",
+          "bases": "20,40,60,80,100",
+          "formula": "base + attack * 0.4",
+          "source": "in-game-client",
+          "progressiveDamage": {
+            "id": "charge",
+            "label": "充电时间",
+            "unit": "秒",
+            "selectedLabel": "充电",
+            "min": 0,
+            "max": 4,
+            "default": 4,
+            "base": {
+              "fromMultiplier": 1,
+              "toMultiplier": 2
+            },
+            "coefficients": [
+              {
+                "variable": "attack",
+                "from": 0.4,
+                "to": 0.8
+              }
+            ],
+            "note": "20(+攻击力40%) ~ 40(+攻击力80%)，等待 4 秒后再次使用达到最大伤害。基础值与攻击力系数同时翻倍。"
+          },
+          "coefficientText": "最小伤害 20/40/60/80/100(+攻击力40%)，最大伤害 40/80/120/160/200(+攻击力80%)",
+          "note": "弹奏吉他为声波充电，之后可以再使用 2 次释放声波。被声波命中 2 次的敌人 1 秒内移速 -35%。冷却 4 秒。原先解包表把最小/最大记成两条独立伤害（70~150 和 210~450，系数 25%/75%），数值和结构都不对，已合并成一条按充电时间插值。"
+        },
+        {
+          "id": "008-hart-e-1008400-damage-by-level",
+          "title": "E 震音 伤害",
+          "bases": "70,90,110,130,150",
+          "formula": "base + attack * 0.6",
+          "source": "in-game-client",
+          "maxHits": 2,
+          "defaultHits": 2,
+          "hitLabel": "使用次数",
+          "hitNote": "此技能可以再次使用 1 次，共 2 段。最后一次使用时才能穿越墙壁。",
+          "coefficientText": "伤害 70/90/110/130/150(+攻击力60%)",
+          "note": "快速向指定方向移动一小段距离，对附近的敌人释放声波。冷却 14/13.5/13/12.5/12 秒。原先记的是 20/30/40/50/60(+攻击力40%)，已按客户端改。"
+        },
+        {
+          "create": true,
+          "id": "ingame-008-hart-w-1008300-attack-buff",
+          "hero": "哈特",
+          "slot": "W",
+          "group": 1008300,
+          "skillId": "HartActive2",
+          "dataKey": "AttackBuff",
+          "title": "W 破音 攻击力增益",
+          "bases": "5,10,15,20,25",
+          "formula": "base",
+          "kind": "buff",
+          "buffKey": "attackPower",
+          "defaultStacks": 1,
+          "source": "in-game-client",
+          "coefficientText": "攻击力 5/10/15/20/25，持续 5/5.5/6/6.5/7 秒",
+          "note": "弹奏吉他，持续时间内攻击力增加并使普攻射程 +0.4。射程与伤害无关。冷却 14 秒。这是固定点数不是百分比，直接加进额外攻击力那一档。"
+        },
+        {
+          "create": true,
+          "id": "ingame-008-hart-r-1008500-heal",
+          "hero": "哈特",
+          "slot": "R",
+          "group": 1008500,
+          "skillId": "HartActive4",
+          "dataKey": "Heal",
+          "title": "R Peacemaker 体力恢复",
+          "bases": "200,275,350",
+          "formula": "base",
+          "kind": "heal",
+          "source": "in-game-client",
+          "coefficientText": "体力恢复 200/275/350",
+          "note": "召唤放大器开始持续 4 秒的演出，区域内所有目标都不会死亡；目标体力降到 10% 以下时免疫伤害与体力恢复效果。演出结束后区域内所有目标恢复这么多体力（敌我都恢复）。哈特不能与区域内的物体相互作用。冷却 80/70/60 秒。官方没给技能增幅系数，是固定值。"
+        },
+        {
+          "create": true,
+          "id": "ingame-008-hart-p-1008100-sound-wave",
+          "hero": "哈特",
+          "slot": "P",
+          "group": 1008100,
+          "skillId": "HartPassive",
+          "dataKey": "SoundWaveDamage",
+          "title": "P 心灵治愈 声波伤害（每个）",
+          "bases": "0,0,0",
+          "formula": "attack * [0.03,0.06,0.09][level - 1]",
+          "damageType": "basicAttack",
+          "maxHits": 2,
+          "defaultHits": 2,
+          "hitLabel": "声波数",
+          "hitNote": "每次普攻额外释放 2 个声波，两个都命中就是 2 段。",
+          "source": "in-game-client",
+          "coefficientText": "声波的攻击力系数 3/6/9%，(攻击力X%) * (普攻增幅)",
+          "note": "官方标为普攻伤害，走普攻增幅与普攻减伤结算。这是普攻之外额外附带的，和面板上的「普通攻击」是相加关系，不是替换。"
+        }
+      ],
+      "equipment": [],
+      "characters": [],
+      "mastery": []
+    },
+    {
+      "version": "client-12.1-fiora",
+      "order": 20260829,
+      "date": "2026-08-29",
+      "url": "",
+      "label": "12.1",
+      "title": "客户端截图读值：菲欧娜（12.1）",
+      "skills": [
+        {
+          "id": "003-fiora-q-1003200-damage-by-level",
+          "title": "Q 长刺 伤害",
+          "bases": "80,110,140,170,200",
+          "formula": "base + ap * 0.75",
+          "source": "in-game-client",
+          "coefficientText": "伤害 80/110/140/170/200(+技能增幅的75%)",
+          "note": "朝指定方向进攻，命中的敌人吃这一段。冷却 8/7/6/5/4 秒。原先解包表记的是 75/150/225/300/375(+技能增幅35%)，数值和系数都不对，已按客户端改。"
+        },
+        {
+          "create": true,
+          "id": "ingame-003-fiora-q-1003200-tip-damage",
+          "hero": "菲欧娜",
+          "slot": "Q",
+          "group": 1003200,
+          "skillId": "FioraActive1",
+          "dataKey": "TipExtraDamage",
+          "title": "Q 长刺 末端额外伤害",
+          "bases": "50,95,140,185,230",
+          "formula": "base + ap * 0.15",
+          "source": "in-game-client",
+          "coefficientText": "末端额外伤害 50/95/140/185/230",
+          "note": "在范围末端被刺伤的敌人在基础那段之外再吃这一段，合计正好是官方写的 130(+技能增幅90%)：基础 80(+75%) + 末端 50(+15%)。命中者 1.5 秒内移速 -40% 并获得 2 个刺击标识。只有末端命中才有这一段，中间段的敌人不吃。"
+        },
+        {
+          "id": "patch-113-fiora-1003300-damage",
+          "title": "W 复杂进攻 伤害",
+          "bases": "30,65,100,135,170",
+          "formula": "base + ap * 0.3",
+          "source": "in-game-client",
+          "maxHits": 2,
+          "defaultHits": 2,
+          "hitLabel": "挥剑次数",
+          "hitNote": "快速向前挥剑两次，每次独立结算。",
+          "coefficientText": "伤害 30/65/100/135/170(+技能增幅30%)，挥剑两次",
+          "note": "冷却 7/6/5/4/3 秒。原有数值正确，只补上「挥剑两次」的段数。"
+        },
+        {
+          "id": "003-fiora-e-1003400-damage-by-level",
+          "title": "E 前进&后退 前进伤害",
+          "bases": "70,105,140,175,210",
+          "formula": "base + ap * 0.55",
+          "source": "in-game-client",
+          "coefficientText": "伤害 70/105/140/175/210(+技能增幅55%)",
+          "note": "前进：向指定方向突进，对碰撞的敌人结算。命中时 3 秒内可以使用后退。后退只是位移，没有伤害。前进无法翻越墙壁。冷却 8.5 秒。原先解包表记的是 100/150/200/250/300(+技能增幅80%)，已按客户端改。"
+        },
+        {
+          "create": true,
+          "id": "ingame-003-fiora-r-1003500-damage",
+          "hero": "菲欧娜",
+          "slot": "R",
+          "group": 1003500,
+          "skillId": "FioraActive4_1",
+          "dataKey": "Damage",
+          "title": "R 飞刺 1击&2击伤害",
+          "bases": "100,160,220",
+          "formula": "base + ap * 0.45",
+          "source": "in-game-client",
+          "maxHits": 2,
+          "defaultHits": 2,
+          "hitLabel": "前两击命中数",
+          "hitNote": "飞刺最多可以额外使用 2 次，前两击都走这一段。",
+          "coefficientText": "[飞刺] 1击&2击伤害量 100/160/220(+技能增幅45%)",
+          "note": "向指定方向短距离突进发起攻击，命中者 1 秒内移速 -70%。无法翻越墙壁；和敌人距离较近时会在原地施法。冷却 70/60/50 秒。"
+        },
+        {
+          "create": true,
+          "id": "ingame-003-fiora-r-1003500-third-damage",
+          "hero": "菲欧娜",
+          "slot": "R",
+          "group": 1003500,
+          "skillId": "FioraActive4_1",
+          "dataKey": "ThirdDamage",
+          "title": "R 飞刺 3击伤害",
+          "bases": "160,270,380",
+          "formula": "base + ap * 0.8",
+          "source": "in-game-client",
+          "coefficientText": "[飞刺] 3击伤害量 160/270/380(+技能增幅80%)",
+          "note": "第三次施法改吃这一段，并使敌人晕厥 0.75 秒。三击全中时与前两击相加。"
+        },
+        {
+          "create": true,
+          "id": "ingame-003-fiora-p-1003100-mark-damage",
+          "hero": "菲欧娜",
+          "slot": "P",
+          "group": 1003100,
+          "skillId": "FioraPassive",
+          "dataKey": "MarkDamage",
+          "title": "P 刺击 满层额外伤害",
+          "bases": "20,60,100",
+          "formula": "base + ap * 0.45",
+          "source": "in-game-client",
+          "coefficientText": "伤害 20/60/100(+技能增幅45%)",
+          "note": "每次用技能命中敌人叠一层刺击标识，对持有 4 层的敌人再用技能命中时打出这一段。同时长刺(Q)剩余冷却 -80%、其他基本技能剩余冷却 -50%，冷却缩减部分未建模。"
+        },
+        {
+          "create": true,
+          "id": "ingame-003-fiora-p-1003100-heal",
+          "hero": "菲欧娜",
+          "slot": "P",
+          "group": 1003100,
+          "skillId": "FioraPassive",
+          "dataKey": "Heal",
+          "title": "P 刺击 体力恢复",
+          "bases": "20,40,60",
+          "formula": "base + ap * 0.25",
+          "kind": "heal",
+          "source": "in-game-client",
+          "coefficientText": "体力恢复 20/40/60(+技能增幅25%)",
+          "note": "触发满层刺击时同时恢复，并使移速在 2 秒内 +15/20/25% 后逐渐减缓。"
+        }
+      ],
+      "equipment": [],
+      "characters": [],
+      "mastery": []
+    },
+    {
+      "version": "client-12.1-tsubame",
+      "order": 20260830,
+      "date": "2026-08-30",
+      "url": "",
+      "label": "12.1",
+      "title": "客户端截图读值：燕翼（12.1）",
+      "skills": [
+        {
+          "id": "external-tsubame-q-1070200-damage-stat1",
+          "title": "Q 螺旋手里剑 路径伤害",
+          "bases": "20,40,60,80,100",
+          "formula": "base + attack * 0.45",
+          "source": "in-game-client",
+          "coefficientText": "路径伤害 20/40/60/80/100(+攻击力的45%)",
+          "note": "向指定位置投掷三个手里剑，对路径上的敌人结算。被手里剑命中的敌人移速 -30%，持续 1 秒。冷却 7/6.5/6/5.5/5 秒。官方只写了一次路径伤害，没说三个手里剑各算一次，所以没设命中次数。"
+        },
+        {
+          "id": "external-tsubame-q-1070200-second-damage-stat2",
+          "title": "Q 螺旋手里剑 终点旋转伤害",
+          "bases": "40,60,80,100,120",
+          "formula": "base + attack * 0.55",
+          "source": "in-game-client",
+          "coefficientText": "伤害 40/60/80/100/120(+攻击力的55%)",
+          "note": "手里剑到达终点时旋转，对命中的敌人结算。若敌人带有奥义-生死印记，额外增加 2 个叠层。与路径伤害是两段，穿过后又被终点命中时可以相加。"
+        },
+        {
+          "id": "external-tsubame-r-1070500-damage-stat1",
+          "title": "R 日车流暗杀术",
+          "bases": "80,160,240",
+          "formula": "(base + attack * 0.8) * (1 + 0.5 * Math.min(1, targetLostHp / (targetHp * 0.6)))",
+          "source": "in-game-client",
+          "coefficientText": "伤害 80/160/240(+攻击力80%)，按目标已失体力最多再增加 50%（目标体力 40% 时适用）",
+          "note": "向目标所在位置快速移动，对路径上的所有敌人结算。对奥义-生死印记达到 3 叠层的目标造成伤害时会同时触发印记效果。冷却 50/40/30 秒且固定，不受冷却缩减影响；按印记叠层可减少 40%~80%，未建模。原先漏了「按已失体力最多 +50%」这一层，已补。"
+        },
+        {
+          "id": "external-tsubame-p-1070100-max-hp-damage-stat1",
+          "title": "P 奥义 - 生死印记 割裂伤害",
+          "bases": "30,30,30",
+          "formula": "base + extraAttack * 0.25 + targetHp * ([0.04,0.07,0.1][level - 1] + extraAttack * 0.0005)",
+          "source": "in-game-client",
+          "coefficientText": "30(+额外攻击力25%)(+目标体力上限 4(+额外攻击力5%)%)，体力上限伤害 4/7/10%",
+          "note": "普攻时留下印记叠层，持续 6 秒。叠层数为 3 时再发起攻击会割裂叠层打出这一段。燕翼最多只能给 1 位敌人施加叠层，给新目标施加时旧叠层消失。原先漏了体力上限那一项里的「(+额外攻击力5%)」，已补。"
         }
       ],
       "equipment": [],

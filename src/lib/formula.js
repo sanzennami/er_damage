@@ -114,7 +114,7 @@ export function formulaUsesVariable(formula, variableName) {
 /** 从公式文本里读出某个变量在指定等级的系数，用于展示。 */
 export function coefficientAtLevel(formula, variableName, level) {
   const source = String(formula || '');
-  const arrayAfterVariable = source.match(new RegExp(`${variableName}\\s*\\*\\s*(\\[[^\\]]+\\])\\s*\\[\\s*level\\s*-\\s*1\\s*\\]`));
+  const arrayAfterVariable = source.match(new RegExp(`${variableName}\\s*\\*\\s*\\(?\\s*(\\[[^\\]]+\\])\\s*\\[\\s*level\\s*-\\s*1\\s*\\]`));
   const arrayBeforeVariable = source.match(new RegExp(`(\\[[^\\]]+\\])\\s*\\[\\s*level\\s*-\\s*1\\s*\\]\\s*\\*\\s*${variableName}`));
   const arrayMatch = arrayAfterVariable || arrayBeforeVariable;
   if (arrayMatch) {
@@ -323,7 +323,10 @@ export function progressiveLinearValue(from, to, progress) {
 export function progressiveDamageValue(skill, context, stepValue) {
   const rule = progressiveDamageRule(skill);
   const { min, max, defaultValue } = progressiveDamageBounds(rule);
-  const step = Math.max(min, Math.min(max, getNumber(stepValue) || defaultValue));
+  // 0 档是合法选择（哈特 Q 不充电就放），不能用 || 当「未设置」判断 ——
+  // 那样 default 不等于 min 时选 0 会被弹回默认档。
+  const step = Math.max(min, Math.min(max,
+    stepValue === undefined || stepValue === null || stepValue === '' ? defaultValue : getNumber(stepValue)));
   const progress = max === min ? 0 : (step - min) / (max - min);
   const base = getNumber(skill.base);
   const baseRule = rule?.base || {};
