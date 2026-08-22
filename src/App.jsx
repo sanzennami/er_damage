@@ -51,7 +51,7 @@ import {
   statConversionFor
 } from './lib/specialRules.js';
 
-const APP_VERSION = 'v0.2.065';
+const APP_VERSION = 'v0.2.070';
 
 const EXPORTED_LOCAL_CONFIG_MODULES = import.meta.glob('./data/localConfig.export.json', {
   eager: true,
@@ -1033,6 +1033,25 @@ function weaponTypeRaw(item) {
 function weaponTypeFromFilter(type) {
   if (!type || type === '全部类型') return '';
   return String(type).split('/').pop()?.trim() || '';
+}
+
+/**
+ * 「只对自己某几段伤害生效」的增伤，直接在那一段下面多列一行增益后的值。
+ *
+ * 和易伤类区分开：像秀雅 Q 冲撞点那种「站在上面的敌人承受**全部**伤害 +30%」，
+ * 队友的伤害也会被放大，属于全局乘区，走 specialSkillRules 的 modifiers 开关。
+ * 而彰一 E 协商那种「被标识的敌人**因投掷的短剑**承受伤害 +25%」只影响他自己那两段短剑，
+ * 做成开关既容易误开、也没法只作用于部分段，所以直接写进受影响的技能条目：
+ *
+ *   "selfAmp": { "source": "协商", "multiplier": 1.25, "note": "……" }
+ *
+ * 页面会在总计那行下面多一行「受协商增伤时伤害」。
+ */
+function selfAmpRule(skill) {
+  const rule = skill?.selfAmp;
+  const multiplier = getNumber(rule?.multiplier);
+  if (!rule?.source || !Number.isFinite(multiplier) || multiplier <= 0) return null;
+  return { source: String(rule.source), multiplier, note: rule.note || '' };
 }
 
 function weaponTypeLabelForRaw(rawType) {
@@ -3766,6 +3785,7 @@ export default function App() {
       ? options.totalLabel(count)
       : options.totalLabel || (count > 1 ? `${count} 目标总计` : '单目标');
     const sourceMeta = skillSourceMeta(skill);
+    const selfAmp = selfAmpRule(skill);
     const skillLevel = skill.level || skillLevels[skill.id] || 1;
     const description = skill.coefficientText || skill.description || '';
 
@@ -3827,7 +3847,14 @@ export default function App() {
             <span>{totalLabel}</span>
             <DamageValue raw={totalRaw} final={totalFinal} />
           </div>
+          {selfAmp ? (
+            <div className="skillTotalValue selfAmpValue">
+              <span>受{selfAmp.source}增伤时{options.selfAmpLabel || '伤害'}</span>
+              <DamageValue raw={totalRaw * selfAmp.multiplier} final={totalFinal * selfAmp.multiplier} />
+            </div>
+          ) : null}
         </div>
+        {selfAmp?.note ? <p className="skillLeafNote">{selfAmp.note}</p> : null}
       </div>
     );
   }

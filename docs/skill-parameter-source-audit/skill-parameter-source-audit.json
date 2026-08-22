@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-21T23:23:24.595Z",
+  "generatedAt": "2026-08-22T08:22:27.253Z",
   "targets": [
     "Laura",
     "Justyna"
@@ -215,6 +215,11 @@
                   "damageLike": false
                 },
                 {
+                  "key": "itemCode",
+                  "value": 1047001,
+                  "damageLike": false
+                },
+                {
                   "key": "count",
                   "value": 1,
                   "damageLike": false
@@ -243,7 +248,7 @@
               "numericFields": [
                 {
                   "key": "id",
-                  "value": 391,
+                  "value": 400,
                   "damageLike": false
                 },
                 {
@@ -254,6 +259,11 @@
                 {
                   "key": "personalShopCode",
                   "value": 20410149,
+                  "damageLike": false
+                },
+                {
+                  "key": "itemCode",
+                  "value": 1047001,
                   "damageLike": false
                 },
                 {
@@ -816,7 +826,7 @@
               "numericFields": [
                 {
                   "key": "id",
-                  "value": 2317,
+                  "value": 2389,
                   "damageLike": false
                 },
                 {
@@ -843,7 +853,7 @@
               "numericFields": [
                 {
                   "key": "id",
-                  "value": 605,
+                  "value": 607,
                   "damageLike": false
                 },
                 {
@@ -3219,7 +3229,7 @@
                 },
                 {
                   "key": "sequenceTimeOverCooldown",
-                  "value": 4,
+                  "value": 0,
                   "damageLike": false
                 },
                 {
@@ -3316,7 +3326,7 @@
                 },
                 {
                   "key": "sequenceTimeOverCooldown",
-                  "value": 3.6,
+                  "value": 0,
                   "damageLike": false
                 },
                 {
@@ -3413,7 +3423,7 @@
                 },
                 {
                   "key": "sequenceTimeOverCooldown",
-                  "value": 3.2,
+                  "value": 0,
                   "damageLike": false
                 },
                 {
@@ -3510,7 +3520,7 @@
                 },
                 {
                   "key": "sequenceTimeOverCooldown",
-                  "value": 2.8,
+                  "value": 0,
                   "damageLike": false
                 },
                 {
@@ -3607,7 +3617,7 @@
                 },
                 {
                   "key": "sequenceTimeOverCooldown",
-                  "value": 2.4,
+                  "value": 0,
                   "damageLike": false
                 },
                 {
@@ -4667,7 +4677,7 @@
                 },
                 {
                   "key": "sequenceTimeOverCooldown",
-                  "value": 4,
+                  "value": 0,
                   "damageLike": false
                 },
                 {
@@ -4764,7 +4774,7 @@
                 },
                 {
                   "key": "sequenceTimeOverCooldown",
-                  "value": 3.6,
+                  "value": 0,
                   "damageLike": false
                 },
                 {
@@ -4861,7 +4871,7 @@
                 },
                 {
                   "key": "sequenceTimeOverCooldown",
-                  "value": 3.2,
+                  "value": 0,
                   "damageLike": false
                 },
                 {
@@ -4958,7 +4968,7 @@
                 },
                 {
                   "key": "sequenceTimeOverCooldown",
-                  "value": 2.8,
+                  "value": 0,
                   "damageLike": false
                 },
                 {
@@ -5055,7 +5065,7 @@
                 },
                 {
                   "key": "sequenceTimeOverCooldown",
-                  "value": 2.4,
+                  "value": 0,
                   "damageLike": false
                 },
                 {
@@ -7583,11 +7593,6 @@
                   "key": "localBaseHeight",
                   "value": 0,
                   "damageLike": false
-                },
-                {
-                  "key": "consumeBullet",
-                  "value": 0,
-                  "damageLike": false
                 }
               ],
               "damageLikeFields": [
@@ -7639,7 +7644,7 @@
                 },
                 {
                   "key": "sequenceTimeOverCooldown",
-                  "value": 10,
+                  "value": 0,
                   "damageLike": false
                 },
                 {
@@ -7736,7 +7741,7 @@
                 },
                 {
                   "key": "sequenceTimeOverCooldown",
-                  "value": 9.5,
+                  "value": 0,
                   "damageLike": false
                 },
                 {
@@ -7833,7 +7838,7 @@
                 },
                 {
                   "key": "sequenceTimeOverCooldown",
-                  "value": 9,
+                  "value": 0,
                   "damageLike": false
                 },
                 {
@@ -7930,7 +7935,7 @@
                 },
                 {
                   "key": "sequenceTimeOverCooldown",
-                  "value": 8.5,
+                  "value": 0,
                   "damageLike": false
                 },
                 {
@@ -8027,7 +8032,7 @@
                 },
                 {
                   "key": "sequenceTimeOverCooldown",
-                  "value": 8,
+                  "value": 0,
                   "damageLike": false
                 },
                 {
@@ -9034,11 +9039,6 @@
                   "key": "localBaseHeight",
                   "value": 0,
                   "damageLike": false
-                },
-                {
-                  "key": "consumeBullet",
-                  "value": 0,
-                  "damageLike": false
                 }
               ],
               "damageLikeFields": [
@@ -9090,7 +9090,7 @@
                 },
                 {
                   "key": "sequenceTimeOverCooldown",
-                  "value": 17,
+                  "value": 0,
                   "damageLike": false
                 },
                 {
@@ -9187,7 +9187,7 @@
                 },
                 {
                   "key": "sequenceTimeOverCooldown",
-                  "value": 16,
+                  "value": 0,
                   "damageLike": false
                 },
                 {
@@ -9284,7 +9284,7 @@
                 },
                 {
                   "key": "sequenceTimeOverCooldown",
-                  "value": 15,
+                  "value": 0,
                   "damageLike": false
                 },
                 {
@@ -9381,7 +9381,7 @@
                 },
                 {
                   "key": "sequenceTimeOverCooldown",
-                  "value": 14,
+                  "value": 0,
                   "damageLike": false
                 },
                 {
@@ -9478,7 +9478,7 @@
                 },
                 {
                   "key": "sequenceTimeOverCooldown",
-                  "value": 13,
+                  "value": 0,
                   "damageLike": false
                 },
                 {
@@ -10608,7 +10608,7 @@
                 },
                 {
                   "key": "sequenceTimeOverCooldown",
-                  "value": 17,
+                  "value": 0,
                   "damageLike": false
                 },
                 {
@@ -10705,7 +10705,7 @@
                 },
                 {
                   "key": "sequenceTimeOverCooldown",
-                  "value": 16,
+                  "value": 0,
                   "damageLike": false
                 },
                 {
@@ -10802,7 +10802,7 @@
                 },
                 {
                   "key": "sequenceTimeOverCooldown",
-                  "value": 15,
+                  "value": 0,
                   "damageLike": false
                 },
                 {
@@ -10899,7 +10899,7 @@
                 },
                 {
                   "key": "sequenceTimeOverCooldown",
-                  "value": 14,
+                  "value": 0,
                   "damageLike": false
                 },
                 {
@@ -10996,7 +10996,7 @@
                 },
                 {
                   "key": "sequenceTimeOverCooldown",
-                  "value": 13,
+                  "value": 0,
                   "damageLike": false
                 },
                 {
@@ -12612,7 +12612,7 @@
                 },
                 {
                   "key": "sequenceTimeOverCooldown",
-                  "value": 80,
+                  "value": 0,
                   "damageLike": false
                 },
                 {
@@ -12709,7 +12709,7 @@
                 },
                 {
                   "key": "sequenceTimeOverCooldown",
-                  "value": 70,
+                  "value": 0,
                   "damageLike": false
                 },
                 {
@@ -12806,7 +12806,7 @@
                 },
                 {
                   "key": "sequenceTimeOverCooldown",
-                  "value": 60,
+                  "value": 0,
                   "damageLike": false
                 },
                 {
@@ -13394,6 +13394,11 @@
                   "damageLike": false
                 },
                 {
+                  "key": "itemCode",
+                  "value": 1079001,
+                  "damageLike": false
+                },
+                {
                   "key": "count",
                   "value": 1,
                   "damageLike": false
@@ -13422,7 +13427,7 @@
               "numericFields": [
                 {
                   "key": "id",
-                  "value": 459,
+                  "value": 468,
                   "damageLike": false
                 },
                 {
@@ -13433,6 +13438,11 @@
                 {
                   "key": "personalShopCode",
                   "value": 20410217,
+                  "damageLike": false
+                },
+                {
+                  "key": "itemCode",
+                  "value": 1079001,
                   "damageLike": false
                 },
                 {
@@ -13574,11 +13584,6 @@
                 },
                 {
                   "key": "localBaseHeight",
-                  "value": 0,
-                  "damageLike": false
-                },
-                {
-                  "key": "consumeBullet",
                   "value": 0,
                   "damageLike": false
                 }
@@ -13748,12 +13753,12 @@
                 },
                 {
                   "key": "probability",
-                  "value": 3333,
+                  "value": 3200,
                   "damageLike": false
                 },
                 {
                   "key": "order",
-                  "value": 4,
+                  "value": 9,
                   "damageLike": false
                 }
               ],
@@ -13807,7 +13812,7 @@
               "numericFields": [
                 {
                   "key": "id",
-                  "value": 1636,
+                  "value": 1694,
                   "damageLike": false
                 },
                 {
@@ -13834,7 +13839,7 @@
               "numericFields": [
                 {
                   "key": "id",
-                  "value": 703,
+                  "value": 705,
                   "damageLike": false
                 },
                 {
@@ -17441,7 +17446,7 @@
           "candidates": [
             {
               "file": "AttackTypeTable.json",
-              "rowKey": "CharacterSkill - 유스티나 W 대상 마크 상태",
+              "rowKey": "",
               "numericFields": [
                 {
                   "key": "groupCode",

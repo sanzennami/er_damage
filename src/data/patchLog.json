@@ -1,7 +1,7 @@
 {
   "_comment": "官方补丁变更日志。每条记录的是「该补丁之后应该是什么值」（目标态），不是增量。",
   "_usage": "新版本上线：在 patches 末尾追加一段，然后跑 node scripts/apply-patch-log.mjs。脚本幂等，重跑只会跳过已达标的条目，不需要还原任何数据。",
-  "updatedAt": "2026-08-22T03:28:56.937Z",
+  "updatedAt": "2026-08-22T08:27:07.390Z",
   "patches": [
     {
       "version": "sweep-2023-07-19",
@@ -10352,6 +10352,240 @@
           "source": "in-game-client",
           "coefficientText": "30(+额外攻击力25%)(+目标体力上限 4(+额外攻击力5%)%)，体力上限伤害 4/7/10%",
           "note": "普攻时留下印记叠层，持续 6 秒。叠层数为 3 时再发起攻击会割裂叠层打出这一段。燕翼最多只能给 1 位敌人施加叠层，给新目标施加时旧叠层消失。原先漏了体力上限那一项里的「(+额外攻击力5%)」，已补。"
+        }
+      ],
+      "equipment": [],
+      "characters": [],
+      "mastery": []
+    },
+    {
+      "version": "client-12.2-shoichi",
+      "order": 20260830,
+      "date": "2026-08-21",
+      "label": "12.2",
+      "url": "https://playeternalreturn.com/posts/news/3783?hl=zh-CN",
+      "title": "客户端截图读值：彰一",
+      "skills": [
+        {
+          "id": "external-shoichi-q-1018200-damage-stat1",
+          "slot": "Q",
+          "title": "Q 双面人",
+          "source": "in-game-client",
+          "coefficientText": "伤害 50/85/120/155/190(+技能增幅65%)",
+          "note": "向指定方向戳刺。戳中时本技能冷却 -3 秒，并触发「笑里藏刀」扩大攻击范围、在正前方设置短剑，10 秒后笑里藏刀消失。数值和原有的一致。"
+        },
+        {
+          "id": "external-shoichi-w-1018300-damage-stat1",
+          "slot": "W",
+          "title": "W 提案",
+          "source": "in-game-client",
+          "coefficientText": "伤害 30/50/70/90/110(+技能增幅60%)",
+          "note": "快速冲向敌人或短剑投放位置，对路径中的敌人结算。**短剑被回收时重置本技能冷却**，所以实战里 W 的实际频率取决于捡短剑的节奏。数值和原有的一致。"
+        },
+        {
+          "id": "external-shoichi-e-1018400-damage-stat1",
+          "slot": "E",
+          "title": "E 协商",
+          "source": "in-game-client",
+          "coefficientText": "伤害 60/100/140/180/220(+技能增幅75%)",
+          "note": "后退并向前投掷短剑，减速 30/35/40/45/50% 持续 1.5 秒，并在敌人后方生成短剑。⚠ 被命中的敌人获得 5 秒「协商标识」，**因投掷的短剑承受的伤害 +25%**（这一项未建模，看短剑伤害时要自己乘上去）。短剑每命中标识对象一次，本技能冷却 -1 秒；标识对象死亡时冷却 -90%。数值和原有的一致。"
+        },
+        {
+          "id": "external-shoichi-r-1018500-damage-stat1",
+          "slot": "R",
+          "title": "R 无情杀戮-挥击",
+          "source": "in-game-client",
+          "coefficientText": "伤害 50/150/250(+技能增幅70%)",
+          "note": "挥动公文包对四方的敌人结算，减速 50% 持续 1 秒。数值和原有的一致。"
+        },
+        {
+          "id": "external-shoichi-r-1018500-dagger-damage-stat4",
+          "slot": "R",
+          "title": "R 无情杀戮-短剑",
+          "source": "in-game-client",
+          "coefficientText": "短剑伤害 10/40/70(+技能增幅25%)",
+          "note": "挥击的同时向四周投掷 4 把短剑，短剑在飞行中穿透敌人。⚠ 四把是朝**四个方向**散开的，单个敌人通常只吃到其中一把，所以没建 4 次阶梯。数值和原有的一致。",
+          "selfAmp": {
+            "source": "协商",
+            "multiplier": 1.25,
+            "note": "被 E 协商标识的敌人（5 秒）因投掷的短剑承受伤害 +25%，上面这一行就是加成后的值。标识只对彰一自己的短剑生效，不放大其他来源的伤害。"
+          }
+        },
+        {
+          "id": "external-shoichi-p-1018100-damage-stat1",
+          "slot": "P",
+          "title": "P 骗局-满层普攻额外伤害",
+          "source": "in-game-client",
+          "coefficientText": "伤害 10/20/30(+技能增幅35%)(+目标体力上限 2/3/4%)",
+          "note": "用技能击中敌人获得骗局叠层（上限 5 层、5 秒），满层时下一次普攻附带这一段并在敌人后方生成短剑。注意目标体力上限系数随等级变化（2/3/4%），不是固定值——公式里已经是 [..][level-1] 数组。短剑是这名实验体的核心资源：Q 命中会在正前方设置短剑，E 命中会在敌人后方生成短剑，P 满层普攻同样生成短剑；捡起短剑会重置 W 的冷却，5m 内有敌人时还会自动投掷。P 这一槽是 3 级制。数值和原有的一致。"
+        },
+        {
+          "id": "external-shoichi-p-1018100-dagger-damage-stat3",
+          "slot": "P",
+          "title": "P 骗局-短剑投掷",
+          "source": "in-game-client",
+          "coefficientText": "短剑伤害 50/80/110(+技能增幅30%)",
+          "note": "再次拾起短剑时，5m 内有敌人就自动投掷，优先投向距离内带协商标识(E)的目标。⚠ 因骗局效果投掷的短剑**不会**再产生骗局叠层。数值和原有的一致。",
+          "selfAmp": {
+            "source": "协商",
+            "multiplier": 1.25,
+            "note": "被 E 协商标识的敌人（5 秒）因投掷的短剑承受伤害 +25%，上面这一行就是加成后的值。标识只对彰一自己的短剑生效，不放大其他来源的伤害。"
+          }
+        }
+      ],
+      "equipment": [],
+      "characters": [],
+      "mastery": []
+    },
+    {
+      "version": "client-12.1-mai",
+      "order": 20260831,
+      "date": "2026-08-31",
+      "url": "",
+      "label": "12.1",
+      "title": "客户端截图读值：梅（12.1）",
+      "skills": [
+        {
+          "id": "external-mai-q-1045200-damage-stat1",
+          "title": "Q 垂缀 伤害",
+          "bases": "40,75,110,145,180",
+          "formula": "base + ap * 0.4 + maxHp * 0.07",
+          "source": "in-game-client",
+          "coefficientText": "伤害 40/75/110/145/180(+技能增幅40%)(+体力上限7%)",
+          "note": "展开披肩对范围内敌人结算，并赋予 5 秒图案。图案目标被垂缀再次命中时 1 秒内移速 -10/15/20/25/30%。冷却 5/4.5/4/3.5/3 秒。原先漏了「体力上限7%」这一项，已补。"
+        },
+        {
+          "id": "external-mai-w-1045300-damage-stat1",
+          "title": "W 披肩面纱 结束伤害",
+          "bases": "60,90,120,150,180",
+          "formula": "base + ap * 0.45 + extraHp * 0.1",
+          "source": "in-game-client",
+          "coefficientText": "伤害 60/90/120/150/180(+技能增幅45%)(+额外体力10%)",
+          "note": "用披肩包裹自己形成保护膜，1.25 秒内承受伤害 -25/28/31/34/37%、移速逐渐增加上限 10/14/18/22/26%；持续时间结束时才对范围内的敌人结算这一段。充能上限 2 次，每次普攻蓄能时间 -1.5 秒，蓄能 26/25/24/23/22 秒。原先记的是 80/115/150/185/220 且漏了「额外体力10%」，已按客户端改。"
+        },
+        {
+          "id": "external-mai-e-1045400-damage-stat1",
+          "title": "E 时装秀 再使用伤害",
+          "bases": "60,90,120,150,180",
+          "formula": "base + ap * 0.5 + extraHp * 0.1",
+          "source": "in-game-client",
+          "coefficientText": "伤害 60/90/120/150/180(+技能增幅50%)(+额外体力10%)",
+          "note": "3 秒内再次使用时朝指定方向快速移动，对路径上的敌人结算并使其挑衅 0.7/0.8/0.9/1/1.1 秒。命中敌人时梅攻速 +20/25/30/35/40%，持续 4 秒。冷却 18/17/16/15/14 秒。原先挂的是护盾那一档的系数（技能增幅40%），已改成伤害段自己的 50% 并补上额外体力。"
+        },
+        {
+          "create": true,
+          "id": "ingame-045-mai-e-1045400-shield",
+          "hero": "梅",
+          "slot": "E",
+          "group": 1045400,
+          "skillId": "MaiActive3_1",
+          "dataKey": "Shield",
+          "title": "E 时装秀 护盾",
+          "bases": "60,90,120,150,180",
+          "formula": "base + ap * 0.4 + maxHp * 0.08",
+          "kind": "shield",
+          "source": "in-game-client",
+          "coefficientText": "护盾吸收 60/90/120/150/180(+技能增幅40%)(+体力上限8%)",
+          "note": "朝指定的实验体、野生动物或监视器快速移动。对除监视器以外的目标使用时获得持续 2.5 秒的护盾；目标是队友时队友也获得同等护盾（界面显示的是单人量）。用于监视器时不会获得护盾。"
+        },
+        {
+          "create": true,
+          "id": "ingame-045-mai-r-1045500-heal",
+          "hero": "梅",
+          "slot": "R",
+          "group": 1045500,
+          "skillId": "MaiActive4",
+          "dataKey": "Heal",
+          "title": "R 最佳造型 体力恢复",
+          "bases": "50,100,150",
+          "formula": "base + ap * 0.35 + selfLostHp * 0.12",
+          "kind": "heal",
+          "source": "in-game-client",
+          "coefficientText": "体力恢复 50/100/150(+技能增幅35%)(+目标失去体力12%)",
+          "note": "用披肩绑住指定队友或自身，0.5 秒内不承受任何伤害但处于完全被压制状态，解除束缚时恢复体力。用于自身时激活披肩面纱(W)效果；用于队友时把目标拉向自己。冷却 90/75/60 秒。"
+        },
+        {
+          "id": "patch-121-mai-p-1045100-damage",
+          "title": "P 高级订制 强化普攻额外伤害",
+          "bases": "30,30,30",
+          "formula": "base + extraHp * [0.06,0.09,0.12][level - 1]",
+          "kind": "basicAttack",
+          "source": "in-game-client",
+          "coefficientText": "30(+额外体力 6/9/12%) 额外技能伤害",
+          "note": "普攻时附带这一段额外技能伤害。被动还能给自己和队友强化传说及以上的胸部护甲（6/11/16 级各一次，20 级起不限次数），与伤害无关。12.1 把额外体力系数由 5/8/11% 上调至 6/9/12%。"
+        }
+      ],
+      "equipment": [],
+      "characters": [],
+      "mastery": []
+    },
+    {
+      "version": "client-12.1-xiukai",
+      "order": 20260901,
+      "date": "2026-09-01",
+      "url": "",
+      "label": "12.1",
+      "title": "客户端截图读值：修凯（12.1）",
+      "skills": [
+        {
+          "id": "external-xiukai-q-1013200-damage-stat1",
+          "title": "Q 秘制酱油 伤害",
+          "bases": "80,120,160,200,240",
+          "formula": "base + ap * 0.7 + targetCurrentHp * 0.25",
+          "source": "in-game-client",
+          "coefficientText": "伤害 80/120/160/200/240(+技能增幅的70%)(+目标当前体力25%)",
+          "note": "朝指定方向投掷秘制酱油桶。命中位置生成酱油，范围内敌人移速 -30/35/40/45/50%。冷却 6 秒，无消耗。数值与 11.3 公告一致，本次只做客户端核对与正名。"
+        },
+        {
+          "create": true,
+          "id": "ingame-013-xiukai-w-1013300-heal",
+          "hero": "修凯",
+          "slot": "W",
+          "group": 1013300,
+          "skillId": "XiukaiActive2",
+          "dataKey": "Heal",
+          "title": "W 吃饭时间 体力恢复",
+          "bases": "40,60,80,100,120",
+          "formula": "base + maxHp * 0.04 + stacks",
+          "kind": "heal",
+          "maxStacks": 100,
+          "stackStep": 10,
+          "stackLabel": "料理师的热情叠层",
+          "defaultStacks": 0,
+          "source": "in-game-client",
+          "coefficientText": "体力恢复 40/60/80/100/120(+体力上限的4%)(+[料理师的热情]叠层数)",
+          "note": "向指定队友或自身投掷食物并恢复体力，同时 2.5 秒内防御力 +16/19/22/25/28。冷却 4 秒、蓄能 16/15/14/13/12 秒。此前整段缺失。"
+        },
+        {
+          "id": "external-xiukai-e-1013400-wok-it-off-damage-stat1",
+          "title": "E 翻滚吧！锅子！ 伤害",
+          "bases": "50,75,100,125,150",
+          "formula": "base + ap * 0.7 + maxHp * 0.07",
+          "source": "in-game-client",
+          "coefficientText": "伤害 50/75/100/125/150(+技能增幅的70%)(+体力上限的7%)",
+          "note": "坐在锅子上滑向目标方向突进，对首个碰撞目标及附近敌人结算，敌人被推离并悬空 1 秒。冷却 14/13/12/11/10 秒。原先漏了「体力上限7%」，已补。"
+        },
+        {
+          "id": "external-xiukai-e-1013400-heavy-meal-damage-stat4",
+          "title": "E 翻滚吧！锅子！ 盛宴伤害",
+          "bases": "60,95,130,165,200",
+          "formula": "base + ap * 0.7 + maxHp * 0.09",
+          "source": "in-game-client",
+          "coefficientText": "伤害 60/95/130/165/200(+技能增幅的70%)(+体力上限的9%)",
+          "note": "突进后 3 秒内可再使用：用锅子猛击地面，对周围敌人结算并使其 1.5 秒内移速 -30/32.5/35/37.5/40%。原先漏了「体力上限9%」，已补。"
+        },
+        {
+          "id": "external-xiukai-r-1013500-damage-stat1",
+          "title": "R 火冒三丈 伤害",
+          "bases": "60,95,130",
+          "formula": "base + ap * 0.5 + maxHp * 0.06",
+          "source": "in-game-client",
+          "maxHits": 6,
+          "defaultHits": 1,
+          "hitLabel": "喷火次数",
+          "hitNote": "3 秒内共喷 6 次火焰，站在范围里的目标每次都会结算一段。",
+          "coefficientText": "伤害 60/95/130(+技能增幅50%)(+体力上限6%)",
+          "note": "3 秒内从锅中喷出 6 次火焰，4 秒内目标治愈效果 -15%（叠层上限 2），并使敌人 0.4 秒内移速 -40/50/60%。冷却 80/70/60 秒。体力上限系数由 10.4 公告的 5% 上调为 6%。"
         }
       ],
       "equipment": [],

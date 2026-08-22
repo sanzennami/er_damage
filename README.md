@@ -110,7 +110,13 @@ er-gamedata 是玩家自发维护的解包内容，不保证准确（旧表把�
 同权威值再比 `updatedAt` 取新。**一段伤害同时有人工录入、官方公告、Wiki、客户端四份数据时，保留人工录入那条**，
 其余三条写进该条目的 `alternatives` 字段留档（只供核对，不参与计算）。
 
-当前分布：Wiki 241 条、官方公告 128 条、解包 186 条、人工 20 条、客户端 6 条，共 581 条 / 86 名英雄。
+当前分布：客户端读值 357 条、官方公告 223 条、Wiki 79 条、解包 20 条、人工校对 14 条，共 693 条 / 90 名英雄。
+其中 59 名英雄已完成客户端逐条核对（见 `heroStatus.json`）。
+
+> **`manual: true` 只留给俞岷和奇娅拉那 16 条。** 它是一把永久的权威 90 锁，会让 `apply-patch-log`
+> 拒绝更新这条数据，不是"有人改过"的标记。`consolidate-hero-skills.mjs` 曾经给任何与 `localConfig`
+> 不一致的条目自动打上这个标记，留下 22 个假锁；2026-08 已按真实来源逐条归位。
+> **自己改了一个值，就把 `source` 写成这个值真正的出处**（照客户端截图改就写 `in-game-client`），不要用 `manual`。
 
 #### 与浏览器缓存的关系
 
@@ -134,6 +140,10 @@ er-gamedata 是玩家自发维护的解包内容，不保证准确（旧表把�
 | `src/data/itemUniqueEffects.json` | 装备独有效果名映射（按 code / name） | ✅ |
 | `src/data/localConfig.json` | 页面配置表默认值：`talents` / `combos` | ✅ 天赋常改 |
 | `src/data/patchLog.json` | **官方补丁日志**（目标态），配合 `apply-patch-log.mjs` 跟版本更新 | ✅ 出新版本时追加 |
+| `src/data/heroStatus.json` | **每个实验体的核对状态**：`damageTestOnly: false` 才默认出现在实验体列表；`note` 记核对了什么，`caveat` 记"没建模的部分"（会显示给用户） | ✅ 核对完一个就加一条 |
+| `src/data/itemEffectDamage.json` | 会自己打伤害的装备/潜能特效（界面「特效与附加」那栏） | ✅ |
+| `src/data/itemEffectModifiers.json` | 只给属性的装备特效。`type: "toggle"` 表示"触发后几秒的临时增益"，界面出开关；常驻属性不写这里 | ✅ |
+| `src/data/weaponRoutePresets.json` | 官方武器路线生成的装备预设，键是 `实验体名｜武器类型` | ❌ 跑 `npm run build:weapon-presets` |
 | `src/data/dataMigrations.json` | 旧缓存译名迁移表 | 官方改译名时追加 |
 | `src/data/dakLoadoutAssets.json` | 潜能 / 战术技能及图标 | ⚠️ |
 | `src/data/dakItemSkillIcons.json` | 装备图标与 tooltip | ⚠️ 脚本生成 |
@@ -310,8 +320,15 @@ er-gamedata 是玩家自发维护的解包内容，不保证准确（旧表把�
 **限制**：只允许数字、英文变量名、`+ - * / ( ) , [ ] _`（`Math.min` / `Math.max` 例外，用于封顶）。不能写中文、百分号、其它函数名。`65% 技能增幅` 要写成 `ap * 0.65`。表达式非法或抛错时，伤害按 `0` 处理（不会报错，只会显示 0，排查时注意）。
 
 **条目上还有几个字段决定这一段走哪条结算线、显示在哪**，详见 `src/data/README.md`：
-`damageType`（`true` 真伤 / `basicAttack` 普攻伤害）、`kind`（`shield` / `heal` / `basicAttack` 强化普攻 / `buff` 纯增益）、
-`maxHits`（命中次数步进器）、`maxStacks` + `stackStep`（叠层选择器 / 滑条）、`progressiveDamage`（蓄力递增）。
+
+- `damageType`：`true` 真伤 / `basicAttack` 官方判定为普攻伤害的技能段（走普攻乘区）
+- `kind`：`shield` 护盾 / `heal` 恢复 / `basicAttack` 强化普攻 / `buff` 纯增益（配 `buffKey`）
+- `buffKey`：`apPct` / `damageBonus` / `basicAttackAmp` 是百分点（除以 100）；`ap` / `attackPower` 是**点数**（不除）；`healShieldAmp` 放大全部恢复与护盾段
+- `maxHits` + `hitLabel` / `hitNote`：命中次数步进器（"3 秒内喷 6 次火焰"这种）
+- `maxStacks` + `stackStep` + `stackLabel`：叠层选择器 / 0~100 资源条滑条
+- `slot` / `levelSlot`：`slot` 决定显示在哪一列，`levelSlot` 决定跟哪个技能的等级选择器走。R 强化 Q/W/E 的段落写进 Q/W/E 列、标题里备注 `（R强化）`；沿用基础技能数值表的（5 级）`levelSlot` 留在基础槽，R 自己的新段（3 级）写 `levelSlot: "R"`
+- `form`：配合 `specialSkillRules.json` 的 `formSwitch`，做"开局就永久进入某形态"的实验体（玛蒂娜）。战斗中来回切的形态（伊安、莉央）不要用这个，照常并列显示并在 `caveat` 里写清互斥
+- `progressiveDamage`：蓄力递增，见 6.3
 
 另外，公式里用 `attack` 还是 `ap`，会参与 `primaryOffensePath()`（`src/App.jsx:917`）判断该英雄走"攻击力路线"还是"技能增幅路线"——这个路线决定吸血鬼、凝力、急速射击等潜能给的是攻击力还是法强。熟练度成长属性优先级更高。
 
@@ -487,7 +504,39 @@ raw   = floor(base + context[coefficient.variable] * coef)
 
 ---
 
-## 9. 数据再生成脚本
+## 9. 数据落到界面的哪一块
+
+写一条数据之前先想清楚它该出现在哪个面板——面板是由字段决定的，不是由代码里的英雄判断决定的。
+
+| 面板 | 由什么喂 |
+| --- | --- |
+| **技能伤害**（P/Q/W/E/R 分槽） | 普通条目。槽位取 `slot`，没写就取标题开头的字母 |
+| **预计恢复与护盾** | `kind: "heal"` / `kind: "shield"`。这两类**不吃防御、不吃减伤**，直接按面板属性算给予量 |
+| **强化普攻** | `kind: "basicAttack"`。显示成"普通攻击 + 各额外段 = 强化后一次普攻合计" |
+| **特效与附加** | `itemEffectDamage.json` 里会自己打伤害的装备/潜能特效 |
+| **计算过程** | 派生属性卡片，含最终法强与**最终攻击力**（`attackBreakdownHint` 是它的拆解说明） |
+| **拉表对比** | `App.jsx` 的 `COMPARISON_STAT_METRICS` |
+
+对比页的指标分三类：
+
+- `core`——恒定显示：最终法强、攻击力、基础/额外攻击力、每发平A预估、最终伤害倍率
+- `standalone`——装备特效伤害，单独一个常驻勾选框
+- 其余按需出现：只有当某个方案的装备真的提供了这项属性时才出现在勾选列表里（冷却缩减、伤害提升% 等）
+
+图表跟着勾选框走，每个图都能折叠成"表名 + 数字"。
+
+**两态判定一律做成拨动开关。** `specialSkillRules.json` 里的 `modifiers` 只有两个选项时，
+界面自动渲染成 `ToggleSwitch`，不需要额外字段。
+
+**每个装备栏都有「（空）」这个选项**（`EMPTY_GEAR_VALUE`），配装页和对比方案页都有。
+自动补装备的那两个 effect 会用 `isEmptyGear` 跳过，所以选了空位不会被武器路线预设立刻填回去。
+
+**公告只在内容变过时自动弹。** `announcementSignature()` 和 localStorage 里的
+`er-damage-announcement-seen-v1` 比对，不一样就在打开网站时弹一次；弹过之后未读小红点自动消失。
+
+---
+
+## 10. 数据再生成脚本
 
 需要联网；`update:gamedata` 会克隆/更新 `.er-gamedata-cache`（`pypy-vrc/er-gamedata`）。
 
@@ -511,6 +560,11 @@ npm run update:gamedata
 | `scripts/build-external-skill-damage-fallback.mjs` | 生成前端兜底表 | `src/data/externalSkillDamageFallback.json` |
 | `scripts/fetch-dak-loadout-assets.mjs` | 抓潜能/战术技能及图标 | `src/data/dakLoadoutAssets.json`、`assets/loadout/` |
 | `scripts/fetch-dak-item-skill-icons.mjs` | 抓装备图标与 tooltip | `src/data/dakItemSkillIcons.json` |
+| `scripts/export-hero-caveats.mjs` | 汇总 `heroStatus.json` 的 `caveat`，**改完数据必跑** | `docs/hero-caveats.md`（不要手改） |
+| `scripts/build-weapon-route-presets.mjs` | 官方武器路线 → 装备预设 | `src/data/weaponRoutePresets.json` |
+| `scripts/fetch-dak-character-avatars.mjs` | 抓实验体头像 | `assets/characters/` |
+| `scripts/audit-skill-scaling.mjs` | 公告文本里有分级百分比、公式里却没有 `[..][level-1]` | 打印到 stdout |
+| `scripts/audit-character-base-drift.mjs` | `characters.json` 相对解包快照是否悄悄过期 | 打印到 stdout |
 | `scripts/audit-*.mjs` | 来源、参数、优先级审计 | `docs/*-audit/` |
 | `scripts/apply-official-patch-updates.mjs` | 一次性迁移：把官方补丁 11.3~12.0 Part.1 的数值写入各数据文件 | `docs/official-patch-updates/` |
 | `scripts/apply-official-patch-updates-zh.mjs` | 一次性迁移：按中文公告修正译名，并补上 12.0 Part.2 | `docs/official-patch-updates/` |
@@ -531,7 +585,7 @@ npm run update:gamedata
 
 ---
 
-## 10. 本地编辑模式与写盘
+## 11. 本地编辑模式与写盘
 
 在 `localhost` 打开时：
 
@@ -548,10 +602,11 @@ localStorage 键：
 | `er-damage-workspace-state-v1` | 当前配装、英雄、目标、技能等级、对比方案等 |
 | `er-damage-global-settings-v1` | 主题、编辑模式、英雄显示开关 |
 | `er-damage-help-notes-v1` / `er-damage-announcement-v1` | 仅本地编辑时使用 |
+| `er-damage-announcement-seen-v1` | 上次看过的公告签名，决定公告要不要自动弹 |
 
 ---
 
-## 11. 常见坑
+## 12. 常见坑
 
 1. **改了 `localConfig.json` 没生效** → `localConfig.export.json` 存在，或 localStorage 里有旧配置。
 2. **改了装备数值没生效** → 官方装备会覆盖用户保存值（3.2），改 `equipment.json`；或浏览器 `localStorage` 里有旧缓存，清一次 `er-damage-config-v1`。
@@ -562,10 +617,19 @@ localStorage 键：
 6. **`bases` 个数和 `maxLevel` 不一致** → 等级选择器和实际取值会错位。
 7. **百分比字段** → 一律写小数（`0.15` 表示 15%），不要写 `15`。
 8. **`import.meta.glob` 静态资源** → 新增角色/装备图片后需要重启 dev server。
+9. **改了数据浏览器还是旧的** → Vite 不一定会重新导入变过的 JSON，先刷新页面再看；确认数字之前一定要刷一次。
+10. **面板攻击力比游戏里高** → 多半是把"触发几秒的临时增益"当成常驻属性建模了。这类特效在
+    `itemEffectModifiers.json` 里要写 `type: "toggle"`（伊安那次 384 被算成 430.1 就是这个原因）。
+11. **`*ByLv` 属性别再乘等级** → `aggregateEquipmentStats` 已经把它折进基础键了，再乘一次会翻倍。
+12. **改了新字段却不生效** → `apply-patch-log.mjs` 的"已达标就跳过"比较表里没有这个字段。
+    **任何会被写到条目上的新字段都必须同时加进 `atTarget` 比较**，否则这个字段的改动永远应用不了。
+13. **`sourceLabel` 和实际来源对不上** → `sourceLabel` / `sourceVersion` / `sourceDate` 是跟着条目走的
+    展示字段，来源变了必须**删掉**而不是留着。`apply-patch-log.mjs` 和 `mergeSkills` 的
+    `CANONICAL_ONLY_FIELDS` 都会清，别改坏。
 
 ---
 
-## 12. 维护约定
+## 13. 维护约定
 
 - 改动尽量小、聚焦公式；不要随意引入新依赖（当前只有 react / react-dom + vite）。
 - 改公式时对照工作簿或官方来源，并在 `sourceNote` / `sourceUrl` 里留出处。
@@ -575,5 +639,13 @@ localStorage 键：
 - **技能只有一张表**：不要再往 `sources/` 里手改数据，那里是脚本产物；重新抓取后跑 `node scripts/consolidate-hero-skills.mjs` 并进 `heroSkills.json`。
 - 英雄的专属计算/展示逻辑一律写进 `specialSkillRules.json`，不要再往 `App.jsx` 里加 `selectedHero === 'xxx'` 这类特判。
 - 纯计算函数放 `src/lib/formula.js`，数据装配放 `src/lib/skillSources.js`，`App.jsx` 只留 React 与 UI。
+- **技能名不要照着截图读。** 名字一律取 `characters.json` / 现有条目里的官方译名，截图只用来读数值。
+- 核对完一个实验体，在 `heroStatus.json` 里补一条：`note` 写改了哪些值、`caveat` 写哪些东西没建模、
+  哪几段互斥。`caveat` 是给玩家看的，用玩家的话写。写完跑 `node scripts/export-hero-caveats.mjs`。
+- 改完数据的固定收尾：`node scripts/apply-patch-log.mjs`（跑两遍，第二遍必须是 写入 0）→
+  `npm run audit:skill-scaling` → `node scripts/export-hero-caveats.mjs` → `npm run build` →
+  浏览器里核对几段数字 → 升 `src/App.jsx` 的 `APP_VERSION` → `git add`。
+- **只 `git add`，不要 commit。** 由用户手动推送，而 `push` 脚本会把整个工作区一起推上去，
+  所以临时验证数据千万不要留在 `src/data/` 下面。
 - 提交前跑 `npm run build`。
 - 远程仓库：`https://github.com/sanzennami/er_damage.git`，部署走 Cloudflare Pages（`wrangler.toml`，输出目录 `dist`）。

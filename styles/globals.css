@@ -1684,6 +1684,16 @@ input:focus {
   border: 1px solid rgba(255, 196, 87, 0.2);
 }
 
+/* 「受某技能增伤时」那一行：和总计并排，但用冷色边框区分开，
+   免得被当成这一段本身的伤害——它是带前置条件的加成值。 */
+.skillTotalValue.selfAmpValue {
+  border-color: rgba(120, 190, 255, 0.34);
+}
+
+.skillTotalValue.selfAmpValue > span {
+  color: #8fb9e0;
+}
+
 /* 多段结算技能：段数多的时候一段一个方块会把栏目撑得很高，压成窄行逐段列出 */
 .segmentedDamageLeaf {
   gap: 8px;
@@ -2722,8 +2732,10 @@ body[data-theme='day'] tr:nth-child(even) td {
 }
 
 /* 差值面板表头右侧的「基准方案 / 对比项 / 折叠」一排。
-   上面那条 .comparisonDeltaHead div 是 display:grid，会把这三个控件竖着摞起来，所以要盖掉。 */
-.comparisonDeltaControls {
+   上面那条 .comparisonDeltaHead div 是 display:grid，会把这三个控件竖着摞起来。
+   那条选择器是「类+元素」(0,1,1)，比单独一个类名 (0,1,0) 更强，所以这里也要带上
+   .comparisonDeltaHead 前缀才盖得住。 */
+.comparisonDeltaHead .comparisonDeltaControls {
   display: flex;
   align-items: flex-end;
   flex-wrap: wrap;

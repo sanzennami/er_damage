@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-21T23:26:10.903Z",
+  "generatedAt": "2026-08-22T08:22:15.522Z",
   "targets": [
     "Laura",
     "Justyna"
@@ -26,13 +26,13 @@
       "sourceOrder": [
         {
           "file": "Skill.json",
-          "commitDate": "2026-05-21T12:00:17+09:00",
+          "commitDate": "2026-08-13T11:10:08+09:00",
           "priority": 0,
           "deprioritized": false
         },
         {
           "file": "SkillGroup.json",
-          "commitDate": "2026-05-21T12:00:17+09:00",
+          "commitDate": "2026-08-06T11:10:08+09:00",
           "priority": 1,
           "deprioritized": false
         },
@@ -43,224 +43,224 @@
           "deprioritized": false
         },
         {
-          "file": "#MatchingQueueTier의 시즌 안정화.json",
-          "commitDate": "2026-05-21T12:00:17+09:00",
+          "file": "hash.json",
+          "commitDate": "2026-08-14T17:10:07+09:00",
           "priority": 100,
           "deprioritized": false
         },
         {
-          "file": "Achievement.json",
-          "commitDate": "2026-05-21T12:00:17+09:00",
-          "priority": 100,
-          "deprioritized": false
-        },
-        {
-          "file": "Achievements.json",
-          "commitDate": "2026-05-21T12:00:17+09:00",
-          "priority": 100,
-          "deprioritized": false
-        },
-        {
-          "file": "ActionCost_Light.json",
-          "commitDate": "2026-05-21T12:00:17+09:00",
-          "priority": 100,
-          "deprioritized": false
-        },
-        {
-          "file": "ActionCost.json",
-          "commitDate": "2026-05-21T12:00:17+09:00",
-          "priority": 100,
-          "deprioritized": false
-        },
-        {
-          "file": "ArcheTypeIdealStatValue.json",
-          "commitDate": "2026-05-21T12:00:17+09:00",
-          "priority": 100,
-          "deprioritized": false
-        },
-        {
-          "file": "ArchiveCharacterContentOpen.json",
-          "commitDate": "2026-05-21T12:00:17+09:00",
-          "priority": 100,
-          "deprioritized": false
-        },
-        {
-          "file": "ArchiveEpisode.json",
-          "commitDate": "2026-05-21T12:00:17+09:00",
-          "priority": 100,
-          "deprioritized": false
-        },
-        {
-          "file": "ArchiveScenario.json",
-          "commitDate": "2026-05-21T12:00:17+09:00",
-          "priority": 100,
-          "deprioritized": false
-        },
-        {
-          "file": "Area.json",
-          "commitDate": "2026-05-21T12:00:17+09:00",
-          "priority": 100,
-          "deprioritized": false
-        },
-        {
-          "file": "AreaAttributes_V2.json",
-          "commitDate": "2026-05-21T12:00:17+09:00",
-          "priority": 100,
-          "deprioritized": false
-        },
-        {
-          "file": "AreaAttributes.json",
-          "commitDate": "2026-05-21T12:00:17+09:00",
-          "priority": 100,
-          "deprioritized": false
-        },
-        {
-          "file": "AreaSound.json",
-          "commitDate": "2026-05-21T12:00:17+09:00",
-          "priority": 100,
-          "deprioritized": false
-        },
-        {
-          "file": "AssetTrade.json",
-          "commitDate": "2026-05-21T12:00:17+09:00",
-          "priority": 100,
-          "deprioritized": false
-        },
-        {
-          "file": "AttackTypeTable.json",
-          "commitDate": "2026-05-21T12:00:17+09:00",
-          "priority": 100,
-          "deprioritized": false
-        },
-        {
-          "file": "Attendance.json",
-          "commitDate": "2026-05-21T12:00:17+09:00",
-          "priority": 100,
-          "deprioritized": false
-        },
-        {
-          "file": "AttendRewardList.json",
-          "commitDate": "2026-05-21T12:00:17+09:00",
-          "priority": 100,
-          "deprioritized": false
-        },
-        {
-          "file": "AutoExchangeToken.json",
-          "commitDate": "2026-05-21T12:00:17+09:00",
-          "priority": 100,
-          "deprioritized": false
-        },
-        {
-          "file": "BattlefieldArea.json",
-          "commitDate": "2026-05-21T12:00:17+09:00",
-          "priority": 100,
-          "deprioritized": false
-        },
-        {
-          "file": "BattlePassMission.json",
-          "commitDate": "2026-05-21T12:00:17+09:00",
-          "priority": 100,
-          "deprioritized": false
-        },
-        {
-          "file": "BattlePassReward.json",
-          "commitDate": "2026-05-21T12:00:17+09:00",
-          "priority": 100,
-          "deprioritized": false
-        },
-        {
-          "file": "BattlePassRewardItem.json",
-          "commitDate": "2026-05-21T12:00:17+09:00",
-          "priority": 100,
-          "deprioritized": false
-        },
-        {
-          "file": "BattleZoneReward.json",
-          "commitDate": "2026-05-21T12:00:17+09:00",
-          "priority": 100,
-          "deprioritized": false
-        },
-        {
-          "file": "Blueprint.json",
-          "commitDate": "2026-05-21T12:00:17+09:00",
-          "priority": 100,
-          "deprioritized": false
-        },
-        {
-          "file": "Booster.json",
-          "commitDate": "2026-05-21T12:00:17+09:00",
-          "priority": 100,
-          "deprioritized": false
-        },
-        {
-          "file": "BotAiModel.json",
-          "commitDate": "2026-05-21T12:00:17+09:00",
-          "priority": 100,
-          "deprioritized": false
-        },
-        {
-          "file": "BotCraft.json",
-          "commitDate": "2026-05-21T12:00:17+09:00",
-          "priority": 100,
-          "deprioritized": false
-        },
-        {
-          "file": "BotMastery.json",
-          "commitDate": "2026-05-21T12:00:17+09:00",
-          "priority": 100,
-          "deprioritized": false
-        },
-        {
-          "file": "BotNickName.json",
-          "commitDate": "2026-05-21T12:00:17+09:00",
-          "priority": 100,
-          "deprioritized": false
-        },
-        {
-          "file": "BotSkillBuild.json",
-          "commitDate": "2026-05-21T12:00:17+09:00",
-          "priority": 100,
-          "deprioritized": false
-        },
-        {
-          "file": "BulletCapacity_Light.json",
-          "commitDate": "2026-05-21T12:00:17+09:00",
-          "priority": 100,
-          "deprioritized": false
-        },
-        {
-          "file": "BulletCapacity.json",
-          "commitDate": "2026-05-21T12:00:17+09:00",
-          "priority": 100,
-          "deprioritized": false
-        },
-        {
-          "file": "Character_Light.json",
-          "commitDate": "2026-05-21T12:00:17+09:00",
+          "file": "ItemSpawn.json",
+          "commitDate": "2026-08-14T17:10:07+09:00",
           "priority": 100,
           "deprioritized": false
         },
         {
           "file": "Character.json",
-          "commitDate": "2026-05-21T12:00:17+09:00",
+          "commitDate": "2026-08-14T17:00:08+09:00",
           "priority": 100,
           "deprioritized": false
         },
         {
-          "file": "CharacterAttributes.json",
-          "commitDate": "2026-05-21T12:00:17+09:00",
+          "file": "MasteryStat.json",
+          "commitDate": "2026-08-14T17:00:08+09:00",
           "priority": 100,
           "deprioritized": false
         },
         {
-          "file": "CharacterAttributes의 사본.json",
-          "commitDate": "2026-05-21T12:00:17+09:00",
+          "file": "PreMadeTeamTierRestrict.json",
+          "commitDate": "2026-08-13T15:30:08+09:00",
+          "priority": 100,
+          "deprioritized": false
+        },
+        {
+          "file": "MatchingQueueTier.json",
+          "commitDate": "2026-08-13T12:45:08+09:00",
+          "priority": 100,
+          "deprioritized": false
+        },
+        {
+          "file": "ActionCost.json",
+          "commitDate": "2026-08-13T11:10:08+09:00",
+          "priority": 100,
+          "deprioritized": false
+        },
+        {
+          "file": "ArchiveCharacter.json",
+          "commitDate": "2026-08-13T11:10:08+09:00",
+          "priority": 100,
+          "deprioritized": false
+        },
+        {
+          "file": "AttackTypeTable.json",
+          "commitDate": "2026-08-13T11:10:08+09:00",
           "priority": 100,
           "deprioritized": false
         },
         {
           "file": "CharacterExp.json",
-          "commitDate": "2026-05-21T12:00:17+09:00",
+          "commitDate": "2026-08-13T11:10:08+09:00",
+          "priority": 100,
+          "deprioritized": false
+        },
+        {
+          "file": "CharacterLevelUpStat.json",
+          "commitDate": "2026-08-13T11:10:08+09:00",
+          "priority": 100,
+          "deprioritized": false
+        },
+        {
+          "file": "CharacterState.json",
+          "commitDate": "2026-08-13T11:10:08+09:00",
+          "priority": 100,
+          "deprioritized": false
+        },
+        {
+          "file": "CharacterStateGroup.json",
+          "commitDate": "2026-08-13T11:10:08+09:00",
+          "priority": 100,
+          "deprioritized": false
+        },
+        {
+          "file": "CreditShop.json",
+          "commitDate": "2026-08-13T11:10:08+09:00",
+          "priority": 100,
+          "deprioritized": false
+        },
+        {
+          "file": "DropGroup.json",
+          "commitDate": "2026-08-13T11:10:08+09:00",
+          "priority": 100,
+          "deprioritized": false
+        },
+        {
+          "file": "GameConstant.json",
+          "commitDate": "2026-08-13T11:10:08+09:00",
+          "priority": 100,
+          "deprioritized": false
+        },
+        {
+          "file": "ItemArmor.json",
+          "commitDate": "2026-08-13T11:10:08+09:00",
+          "priority": 100,
+          "deprioritized": false
+        },
+        {
+          "file": "ItemWeapon.json",
+          "commitDate": "2026-08-13T11:10:08+09:00",
+          "priority": 100,
+          "deprioritized": false
+        },
+        {
+          "file": "MasteryExp.json",
+          "commitDate": "2026-08-13T11:10:08+09:00",
+          "priority": 100,
+          "deprioritized": false
+        },
+        {
+          "file": "MasteryLevel.json",
+          "commitDate": "2026-08-13T11:10:08+09:00",
+          "priority": 100,
+          "deprioritized": false
+        },
+        {
+          "file": "ProjectileSetting.json",
+          "commitDate": "2026-08-13T11:10:08+09:00",
+          "priority": 100,
+          "deprioritized": false
+        },
+        {
+          "file": "Season.json",
+          "commitDate": "2026-08-13T11:10:08+09:00",
+          "priority": 100,
+          "deprioritized": false
+        },
+        {
+          "file": "TutorialGoalSetting.json",
+          "commitDate": "2026-08-13T11:10:08+09:00",
+          "priority": 100,
+          "deprioritized": false
+        },
+        {
+          "file": "VFCredit.json",
+          "commitDate": "2026-08-13T11:10:08+09:00",
+          "priority": 100,
+          "deprioritized": false
+        },
+        {
+          "file": "ProjectileSkinSetting.json",
+          "commitDate": "2026-08-07T19:50:07+09:00",
+          "priority": 100,
+          "deprioritized": false
+        },
+        {
+          "file": "RestrictedArea.json",
+          "commitDate": "2026-08-07T19:50:07+09:00",
+          "priority": 100,
+          "deprioritized": false
+        },
+        {
+          "file": "RewardItem.json",
+          "commitDate": "2026-08-06T14:50:07+09:00",
+          "priority": 100,
+          "deprioritized": false
+        },
+        {
+          "file": "EventRewardUser.json",
+          "commitDate": "2026-08-06T12:55:08+09:00",
+          "priority": 100,
+          "deprioritized": false
+        },
+        {
+          "file": "CharacterSkin.json",
+          "commitDate": "2026-08-06T11:45:08+09:00",
+          "priority": 100,
+          "deprioritized": false
+        },
+        {
+          "file": "Achievements.json",
+          "commitDate": "2026-08-06T11:10:08+09:00",
+          "priority": 100,
+          "deprioritized": false
+        },
+        {
+          "file": "ArchiveEpisode.json",
+          "commitDate": "2026-08-06T11:10:08+09:00",
+          "priority": 100,
+          "deprioritized": false
+        },
+        {
+          "file": "ArchiveScenario.json",
+          "commitDate": "2026-08-06T11:10:08+09:00",
+          "priority": 100,
+          "deprioritized": false
+        },
+        {
+          "file": "AreaSound.json",
+          "commitDate": "2026-08-06T11:10:08+09:00",
+          "priority": 100,
+          "deprioritized": false
+        },
+        {
+          "file": "Attendance.json",
+          "commitDate": "2026-08-06T11:10:08+09:00",
+          "priority": 100,
+          "deprioritized": false
+        },
+        {
+          "file": "AttendRewardList.json",
+          "commitDate": "2026-08-06T11:10:08+09:00",
+          "priority": 100,
+          "deprioritized": false
+        },
+        {
+          "file": "BattlePassMission.json",
+          "commitDate": "2026-08-06T11:10:08+09:00",
+          "priority": 100,
+          "deprioritized": false
+        },
+        {
+          "file": "BattlePassReward.json",
+          "commitDate": "2026-08-06T11:10:08+09:00",
           "priority": 100,
           "deprioritized": false
         }
@@ -281,8 +281,8 @@
           "primarySources": [
             {
               "file": "Skill.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-13T11:10:08+09:00",
+              "commitHash": "481c932b409ac701f9fd10338ba1931db30f60ae",
               "priority": 0,
               "deprioritized": false,
               "matchedRows": 1,
@@ -400,8 +400,8 @@
             },
             {
               "file": "SkillGroup.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-06T11:10:08+09:00",
+              "commitHash": "efb60918535ea8b0005ccadefe95233517bac967",
               "priority": 1,
               "deprioritized": false,
               "matchedRows": 1,
@@ -658,9 +658,103 @@
           ],
           "otherSources": [
             {
+              "file": "RewardItem.json",
+              "commitDate": "2026-08-06T14:50:07+09:00",
+              "commitHash": "87159ed7918a55d700e9848489fadac0fffb7fd5",
+              "priority": 100,
+              "deprioritized": false,
+              "matchedRows": 1,
+              "numericFields": [
+                {
+                  "rowKey": "",
+                  "key": "id",
+                  "value": 2389,
+                  "damageLike": false
+                },
+                {
+                  "rowKey": "",
+                  "key": "rewardId",
+                  "value": 99999,
+                  "damageLike": false
+                },
+                {
+                  "rowKey": "",
+                  "key": "itemId",
+                  "value": 1047001,
+                  "damageLike": false
+                },
+                {
+                  "rowKey": "",
+                  "key": "amount",
+                  "value": 1,
+                  "damageLike": false
+                }
+              ],
+              "damageLikeFields": []
+            },
+            {
+              "file": "CharacterSkin.json",
+              "commitDate": "2026-08-06T11:45:08+09:00",
+              "commitHash": "eff58f4ac61df4ba96ca09fd555cd760a923febe",
+              "priority": 100,
+              "deprioritized": false,
+              "matchedRows": 2,
+              "numericFields": [
+                {
+                  "rowKey": 1047000,
+                  "key": "code",
+                  "value": 1047000,
+                  "damageLike": false
+                },
+                {
+                  "rowKey": 1047000,
+                  "key": "characterCode",
+                  "value": 47,
+                  "damageLike": false
+                },
+                {
+                  "rowKey": 1047000,
+                  "key": "index",
+                  "value": 0,
+                  "damageLike": false
+                },
+                {
+                  "rowKey": 1047000,
+                  "key": "grade",
+                  "value": 1,
+                  "damageLike": false
+                },
+                {
+                  "rowKey": 1047001,
+                  "key": "code",
+                  "value": 1047001,
+                  "damageLike": false
+                },
+                {
+                  "rowKey": 1047001,
+                  "key": "characterCode",
+                  "value": 47,
+                  "damageLike": false
+                },
+                {
+                  "rowKey": 1047001,
+                  "key": "index",
+                  "value": 1,
+                  "damageLike": false
+                },
+                {
+                  "rowKey": 1047001,
+                  "key": "grade",
+                  "value": 2,
+                  "damageLike": false
+                }
+              ],
+              "damageLikeFields": []
+            },
+            {
               "file": "Achievements.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-06T11:10:08+09:00",
+              "commitHash": "efb60918535ea8b0005ccadefe95233517bac967",
               "priority": 100,
               "deprioritized": false,
               "matchedRows": 2,
@@ -753,68 +847,9 @@
               "damageLikeFields": []
             },
             {
-              "file": "CharacterSkin.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
-              "priority": 100,
-              "deprioritized": false,
-              "matchedRows": 2,
-              "numericFields": [
-                {
-                  "rowKey": 1047000,
-                  "key": "code",
-                  "value": 1047000,
-                  "damageLike": false
-                },
-                {
-                  "rowKey": 1047000,
-                  "key": "characterCode",
-                  "value": 47,
-                  "damageLike": false
-                },
-                {
-                  "rowKey": 1047000,
-                  "key": "index",
-                  "value": 0,
-                  "damageLike": false
-                },
-                {
-                  "rowKey": 1047000,
-                  "key": "grade",
-                  "value": 1,
-                  "damageLike": false
-                },
-                {
-                  "rowKey": 1047001,
-                  "key": "code",
-                  "value": 1047001,
-                  "damageLike": false
-                },
-                {
-                  "rowKey": 1047001,
-                  "key": "characterCode",
-                  "value": 47,
-                  "damageLike": false
-                },
-                {
-                  "rowKey": 1047001,
-                  "key": "index",
-                  "value": 1,
-                  "damageLike": false
-                },
-                {
-                  "rowKey": 1047001,
-                  "key": "grade",
-                  "value": 2,
-                  "damageLike": false
-                }
-              ],
-              "damageLikeFields": []
-            },
-            {
               "file": "EffectAndSound.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-06T11:10:08+09:00",
+              "commitHash": "efb60918535ea8b0005ccadefe95233517bac967",
               "priority": 100,
               "deprioritized": false,
               "matchedRows": 1,
@@ -841,223 +876,9 @@
               "damageLikeFields": []
             },
             {
-              "file": "PersonalShop.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
-              "priority": 100,
-              "deprioritized": false,
-              "matchedRows": 2,
-              "numericFields": [
-                {
-                  "rowKey": "",
-                  "key": "id",
-                  "value": 149,
-                  "damageLike": false
-                },
-                {
-                  "rowKey": "",
-                  "key": "personalShopGroupId",
-                  "value": 40200,
-                  "damageLike": false
-                },
-                {
-                  "rowKey": "",
-                  "key": "personalShopCode",
-                  "value": 10400149,
-                  "damageLike": false
-                },
-                {
-                  "rowKey": "",
-                  "key": "count",
-                  "value": 1,
-                  "damageLike": false
-                },
-                {
-                  "rowKey": "",
-                  "key": "conditionCountAcoin",
-                  "value": 18900,
-                  "damageLike": false
-                },
-                {
-                  "rowKey": "",
-                  "key": "conditionCountNP",
-                  "value": 0,
-                  "damageLike": false
-                },
-                {
-                  "rowKey": "",
-                  "key": "probability",
-                  "value": 10000,
-                  "damageLike": false
-                },
-                {
-                  "rowKey": "",
-                  "key": "id",
-                  "value": 391,
-                  "damageLike": false
-                },
-                {
-                  "rowKey": "",
-                  "key": "personalShopGroupId",
-                  "value": 40201,
-                  "damageLike": false
-                },
-                {
-                  "rowKey": "",
-                  "key": "personalShopCode",
-                  "value": 20410149,
-                  "damageLike": false
-                },
-                {
-                  "rowKey": "",
-                  "key": "count",
-                  "value": 1,
-                  "damageLike": false
-                },
-                {
-                  "rowKey": "",
-                  "key": "conditionCountAcoin",
-                  "value": 7090,
-                  "damageLike": false
-                },
-                {
-                  "rowKey": "",
-                  "key": "conditionCountNP",
-                  "value": 0,
-                  "damageLike": false
-                },
-                {
-                  "rowKey": "",
-                  "key": "probability",
-                  "value": 10000,
-                  "damageLike": false
-                }
-              ],
-              "damageLikeFields": []
-            },
-            {
-              "file": "RandomBoxItem.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
-              "priority": 100,
-              "deprioritized": false,
-              "matchedRows": 3,
-              "numericFields": [
-                {
-                  "rowKey": "",
-                  "key": "randomBoxId",
-                  "value": 100004,
-                  "damageLike": false
-                },
-                {
-                  "rowKey": "",
-                  "key": "groupItemId",
-                  "value": 0,
-                  "damageLike": false
-                },
-                {
-                  "rowKey": "",
-                  "key": "itemId",
-                  "value": 1047001,
-                  "damageLike": false
-                },
-                {
-                  "rowKey": "",
-                  "key": "minAmount",
-                  "value": 1,
-                  "damageLike": false
-                },
-                {
-                  "rowKey": "",
-                  "key": "maxAmount",
-                  "value": 1,
-                  "damageLike": false
-                },
-                {
-                  "rowKey": "",
-                  "key": "probability",
-                  "value": 100000,
-                  "damageLike": false
-                },
-                {
-                  "rowKey": "",
-                  "key": "randomBoxId",
-                  "value": 102000,
-                  "damageLike": false
-                },
-                {
-                  "rowKey": "",
-                  "key": "groupItemId",
-                  "value": 0,
-                  "damageLike": false
-                },
-                {
-                  "rowKey": "",
-                  "key": "itemId",
-                  "value": 1047001,
-                  "damageLike": false
-                },
-                {
-                  "rowKey": "",
-                  "key": "minAmount",
-                  "value": 1,
-                  "damageLike": false
-                },
-                {
-                  "rowKey": "",
-                  "key": "maxAmount",
-                  "value": 1,
-                  "damageLike": false
-                },
-                {
-                  "rowKey": "",
-                  "key": "probability",
-                  "value": 10000,
-                  "damageLike": false
-                },
-                {
-                  "rowKey": "",
-                  "key": "randomBoxId",
-                  "value": 102005,
-                  "damageLike": false
-                },
-                {
-                  "rowKey": "",
-                  "key": "groupItemId",
-                  "value": 0,
-                  "damageLike": false
-                },
-                {
-                  "rowKey": "",
-                  "key": "itemId",
-                  "value": 1047001,
-                  "damageLike": false
-                },
-                {
-                  "rowKey": "",
-                  "key": "minAmount",
-                  "value": 1,
-                  "damageLike": false
-                },
-                {
-                  "rowKey": "",
-                  "key": "maxAmount",
-                  "value": 1,
-                  "damageLike": false
-                },
-                {
-                  "rowKey": "",
-                  "key": "probability",
-                  "value": 100000,
-                  "damageLike": false
-                }
-              ],
-              "damageLikeFields": []
-            },
-            {
               "file": "RandomBoxItems.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-06T11:10:08+09:00",
+              "commitHash": "efb60918535ea8b0005ccadefe95233517bac967",
               "priority": 100,
               "deprioritized": false,
               "matchedRows": 10,
@@ -1426,44 +1247,9 @@
               "damageLikeFields": []
             },
             {
-              "file": "RewardItem.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
-              "priority": 100,
-              "deprioritized": false,
-              "matchedRows": 1,
-              "numericFields": [
-                {
-                  "rowKey": "",
-                  "key": "id",
-                  "value": 2317,
-                  "damageLike": false
-                },
-                {
-                  "rowKey": "",
-                  "key": "rewardId",
-                  "value": 99999,
-                  "damageLike": false
-                },
-                {
-                  "rowKey": "",
-                  "key": "itemId",
-                  "value": 1047001,
-                  "damageLike": false
-                },
-                {
-                  "rowKey": "",
-                  "key": "amount",
-                  "value": 1,
-                  "damageLike": false
-                }
-              ],
-              "damageLikeFields": []
-            },
-            {
               "file": "ShopProduct.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-06T11:10:08+09:00",
+              "commitHash": "efb60918535ea8b0005ccadefe95233517bac967",
               "priority": 100,
               "deprioritized": false,
               "matchedRows": 1,
@@ -1471,7 +1257,7 @@
                 {
                   "rowKey": 1047001,
                   "key": "id",
-                  "value": 605,
+                  "value": 607,
                   "damageLike": false
                 },
                 {
@@ -1503,8 +1289,8 @@
             },
             {
               "file": "ShopProductItem.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-06T11:10:08+09:00",
+              "commitHash": "efb60918535ea8b0005ccadefe95233517bac967",
               "priority": 100,
               "deprioritized": false,
               "matchedRows": 3,
@@ -1615,6 +1401,232 @@
                   "rowKey": "",
                   "key": "bonusItem",
                   "value": 0,
+                  "damageLike": false
+                }
+              ],
+              "damageLikeFields": []
+            },
+            {
+              "file": "PersonalShop.json",
+              "commitDate": "2026-06-11T11:10:08+09:00",
+              "commitHash": "61144dd8f37332f8e5fe913c251e2a41fa5c4aa5",
+              "priority": 100,
+              "deprioritized": false,
+              "matchedRows": 2,
+              "numericFields": [
+                {
+                  "rowKey": "",
+                  "key": "id",
+                  "value": 149,
+                  "damageLike": false
+                },
+                {
+                  "rowKey": "",
+                  "key": "personalShopGroupId",
+                  "value": 40200,
+                  "damageLike": false
+                },
+                {
+                  "rowKey": "",
+                  "key": "personalShopCode",
+                  "value": 10400149,
+                  "damageLike": false
+                },
+                {
+                  "rowKey": "",
+                  "key": "itemCode",
+                  "value": 1047001,
+                  "damageLike": false
+                },
+                {
+                  "rowKey": "",
+                  "key": "count",
+                  "value": 1,
+                  "damageLike": false
+                },
+                {
+                  "rowKey": "",
+                  "key": "conditionCountAcoin",
+                  "value": 18900,
+                  "damageLike": false
+                },
+                {
+                  "rowKey": "",
+                  "key": "conditionCountNP",
+                  "value": 0,
+                  "damageLike": false
+                },
+                {
+                  "rowKey": "",
+                  "key": "probability",
+                  "value": 10000,
+                  "damageLike": false
+                },
+                {
+                  "rowKey": "",
+                  "key": "id",
+                  "value": 400,
+                  "damageLike": false
+                },
+                {
+                  "rowKey": "",
+                  "key": "personalShopGroupId",
+                  "value": 40201,
+                  "damageLike": false
+                },
+                {
+                  "rowKey": "",
+                  "key": "personalShopCode",
+                  "value": 20410149,
+                  "damageLike": false
+                },
+                {
+                  "rowKey": "",
+                  "key": "itemCode",
+                  "value": 1047001,
+                  "damageLike": false
+                },
+                {
+                  "rowKey": "",
+                  "key": "count",
+                  "value": 1,
+                  "damageLike": false
+                },
+                {
+                  "rowKey": "",
+                  "key": "conditionCountAcoin",
+                  "value": 7090,
+                  "damageLike": false
+                },
+                {
+                  "rowKey": "",
+                  "key": "conditionCountNP",
+                  "value": 0,
+                  "damageLike": false
+                },
+                {
+                  "rowKey": "",
+                  "key": "probability",
+                  "value": 10000,
+                  "damageLike": false
+                }
+              ],
+              "damageLikeFields": []
+            },
+            {
+              "file": "RandomBoxItem.json",
+              "commitDate": "2026-05-21T12:00:17+09:00",
+              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "priority": 100,
+              "deprioritized": false,
+              "matchedRows": 3,
+              "numericFields": [
+                {
+                  "rowKey": "",
+                  "key": "randomBoxId",
+                  "value": 100004,
+                  "damageLike": false
+                },
+                {
+                  "rowKey": "",
+                  "key": "groupItemId",
+                  "value": 0,
+                  "damageLike": false
+                },
+                {
+                  "rowKey": "",
+                  "key": "itemId",
+                  "value": 1047001,
+                  "damageLike": false
+                },
+                {
+                  "rowKey": "",
+                  "key": "minAmount",
+                  "value": 1,
+                  "damageLike": false
+                },
+                {
+                  "rowKey": "",
+                  "key": "maxAmount",
+                  "value": 1,
+                  "damageLike": false
+                },
+                {
+                  "rowKey": "",
+                  "key": "probability",
+                  "value": 100000,
+                  "damageLike": false
+                },
+                {
+                  "rowKey": "",
+                  "key": "randomBoxId",
+                  "value": 102000,
+                  "damageLike": false
+                },
+                {
+                  "rowKey": "",
+                  "key": "groupItemId",
+                  "value": 0,
+                  "damageLike": false
+                },
+                {
+                  "rowKey": "",
+                  "key": "itemId",
+                  "value": 1047001,
+                  "damageLike": false
+                },
+                {
+                  "rowKey": "",
+                  "key": "minAmount",
+                  "value": 1,
+                  "damageLike": false
+                },
+                {
+                  "rowKey": "",
+                  "key": "maxAmount",
+                  "value": 1,
+                  "damageLike": false
+                },
+                {
+                  "rowKey": "",
+                  "key": "probability",
+                  "value": 10000,
+                  "damageLike": false
+                },
+                {
+                  "rowKey": "",
+                  "key": "randomBoxId",
+                  "value": 102005,
+                  "damageLike": false
+                },
+                {
+                  "rowKey": "",
+                  "key": "groupItemId",
+                  "value": 0,
+                  "damageLike": false
+                },
+                {
+                  "rowKey": "",
+                  "key": "itemId",
+                  "value": 1047001,
+                  "damageLike": false
+                },
+                {
+                  "rowKey": "",
+                  "key": "minAmount",
+                  "value": 1,
+                  "damageLike": false
+                },
+                {
+                  "rowKey": "",
+                  "key": "maxAmount",
+                  "value": 1,
+                  "damageLike": false
+                },
+                {
+                  "rowKey": "",
+                  "key": "probability",
+                  "value": 100000,
                   "damageLike": false
                 }
               ],
@@ -1765,8 +1777,8 @@
           "primarySources": [
             {
               "file": "Skill.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-13T11:10:08+09:00",
+              "commitHash": "481c932b409ac701f9fd10338ba1931db30f60ae",
               "priority": 0,
               "deprioritized": false,
               "matchedRows": 3,
@@ -2100,8 +2112,8 @@
             },
             {
               "file": "SkillGroup.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-06T11:10:08+09:00",
+              "commitHash": "efb60918535ea8b0005ccadefe95233517bac967",
               "priority": 1,
               "deprioritized": false,
               "matchedRows": 2,
@@ -2700,32 +2712,9 @@
           ],
           "otherSources": [
             {
-              "file": "CharacterSkillVideos.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
-              "priority": 100,
-              "deprioritized": false,
-              "matchedRows": 1,
-              "numericFields": [
-                {
-                  "rowKey": 1047100,
-                  "key": "code",
-                  "value": 1047100,
-                  "damageLike": false
-                },
-                {
-                  "rowKey": 1047100,
-                  "key": "volume",
-                  "value": 0.7,
-                  "damageLike": false
-                }
-              ],
-              "damageLikeFields": []
-            },
-            {
               "file": "CharacterState.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-13T11:10:08+09:00",
+              "commitHash": "481c932b409ac701f9fd10338ba1931db30f60ae",
               "priority": 100,
               "deprioritized": false,
               "matchedRows": 1,
@@ -2826,8 +2815,8 @@
             },
             {
               "file": "CharacterStateGroup.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-13T11:10:08+09:00",
+              "commitHash": "481c932b409ac701f9fd10338ba1931db30f60ae",
               "priority": 100,
               "deprioritized": false,
               "matchedRows": 2,
@@ -2916,8 +2905,8 @@
             },
             {
               "file": "EffectAndSound.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-06T11:10:08+09:00",
+              "commitHash": "efb60918535ea8b0005ccadefe95233517bac967",
               "priority": 100,
               "deprioritized": false,
               "matchedRows": 1,
@@ -2942,6 +2931,29 @@
                 }
               ],
               "damageLikeFields": []
+            },
+            {
+              "file": "CharacterSkillVideos.json",
+              "commitDate": "2026-05-21T12:00:17+09:00",
+              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "priority": 100,
+              "deprioritized": false,
+              "matchedRows": 1,
+              "numericFields": [
+                {
+                  "rowKey": 1047100,
+                  "key": "code",
+                  "value": 1047100,
+                  "damageLike": false
+                },
+                {
+                  "rowKey": 1047100,
+                  "key": "volume",
+                  "value": 0.7,
+                  "damageLike": false
+                }
+              ],
+              "damageLikeFields": []
             }
           ],
           "deprioritizedSources": []
@@ -2961,8 +2973,8 @@
           "primarySources": [
             {
               "file": "Skill.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-13T11:10:08+09:00",
+              "commitHash": "481c932b409ac701f9fd10338ba1931db30f60ae",
               "priority": 0,
               "deprioritized": false,
               "matchedRows": 1,
@@ -3080,8 +3092,8 @@
             },
             {
               "file": "SkillGroup.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-06T11:10:08+09:00",
+              "commitHash": "efb60918535ea8b0005ccadefe95233517bac967",
               "priority": 1,
               "deprioritized": false,
               "matchedRows": 1,
@@ -3339,8 +3351,8 @@
           "otherSources": [
             {
               "file": "CharacterState.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-13T11:10:08+09:00",
+              "commitHash": "481c932b409ac701f9fd10338ba1931db30f60ae",
               "priority": 100,
               "deprioritized": false,
               "matchedRows": 1,
@@ -3441,8 +3453,8 @@
             },
             {
               "file": "CharacterStateGroup.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-13T11:10:08+09:00",
+              "commitHash": "481c932b409ac701f9fd10338ba1931db30f60ae",
               "priority": 100,
               "deprioritized": false,
               "matchedRows": 1,
@@ -3495,8 +3507,8 @@
             },
             {
               "file": "SkillTargetMask.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-06T11:10:08+09:00",
+              "commitHash": "efb60918535ea8b0005ccadefe95233517bac967",
               "priority": 100,
               "deprioritized": false,
               "matchedRows": 1,
@@ -3540,8 +3552,8 @@
           "primarySources": [
             {
               "file": "Skill.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-13T11:10:08+09:00",
+              "commitHash": "481c932b409ac701f9fd10338ba1931db30f60ae",
               "priority": 0,
               "deprioritized": false,
               "matchedRows": 5,
@@ -3591,7 +3603,7 @@
                 {
                   "rowKey": 1047201,
                   "key": "sequenceTimeOverCooldown",
-                  "value": 4,
+                  "value": 0,
                   "damageLike": false
                 },
                 {
@@ -3699,7 +3711,7 @@
                 {
                   "rowKey": 1047202,
                   "key": "sequenceTimeOverCooldown",
-                  "value": 3.6,
+                  "value": 0,
                   "damageLike": false
                 },
                 {
@@ -3807,7 +3819,7 @@
                 {
                   "rowKey": 1047203,
                   "key": "sequenceTimeOverCooldown",
-                  "value": 3.2,
+                  "value": 0,
                   "damageLike": false
                 },
                 {
@@ -3911,8 +3923,8 @@
             },
             {
               "file": "SkillGroup.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-06T11:10:08+09:00",
+              "commitHash": "efb60918535ea8b0005ccadefe95233517bac967",
               "priority": 1,
               "deprioritized": false,
               "matchedRows": 2,
@@ -4547,32 +4559,9 @@
           ],
           "otherSources": [
             {
-              "file": "CharacterSkillVideos.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
-              "priority": 100,
-              "deprioritized": false,
-              "matchedRows": 1,
-              "numericFields": [
-                {
-                  "rowKey": 1047200,
-                  "key": "code",
-                  "value": 1047200,
-                  "damageLike": false
-                },
-                {
-                  "rowKey": 1047200,
-                  "key": "volume",
-                  "value": 0.7,
-                  "damageLike": false
-                }
-              ],
-              "damageLikeFields": []
-            },
-            {
               "file": "CharacterStateGroup.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-13T11:10:08+09:00",
+              "commitHash": "481c932b409ac701f9fd10338ba1931db30f60ae",
               "priority": 100,
               "deprioritized": false,
               "matchedRows": 2,
@@ -4661,8 +4650,8 @@
             },
             {
               "file": "CharacterVoiceRandomCount.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-06T11:10:08+09:00",
+              "commitHash": "efb60918535ea8b0005ccadefe95233517bac967",
               "priority": 100,
               "deprioritized": false,
               "matchedRows": 1,
@@ -4714,8 +4703,8 @@
             },
             {
               "file": "EffectAndSound.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-06T11:10:08+09:00",
+              "commitHash": "efb60918535ea8b0005ccadefe95233517bac967",
               "priority": 100,
               "deprioritized": false,
               "matchedRows": 5,
@@ -4812,6 +4801,29 @@
                 }
               ],
               "damageLikeFields": []
+            },
+            {
+              "file": "CharacterSkillVideos.json",
+              "commitDate": "2026-05-21T12:00:17+09:00",
+              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "priority": 100,
+              "deprioritized": false,
+              "matchedRows": 1,
+              "numericFields": [
+                {
+                  "rowKey": 1047200,
+                  "key": "code",
+                  "value": 1047200,
+                  "damageLike": false
+                },
+                {
+                  "rowKey": 1047200,
+                  "key": "volume",
+                  "value": 0.7,
+                  "damageLike": false
+                }
+              ],
+              "damageLikeFields": []
             }
           ],
           "deprioritizedSources": []
@@ -4843,8 +4855,8 @@
           "primarySources": [
             {
               "file": "Skill.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-13T11:10:08+09:00",
+              "commitHash": "481c932b409ac701f9fd10338ba1931db30f60ae",
               "priority": 0,
               "deprioritized": false,
               "matchedRows": 10,
@@ -4894,7 +4906,7 @@
                 {
                   "rowKey": 1047201,
                   "key": "sequenceTimeOverCooldown",
-                  "value": 4,
+                  "value": 0,
                   "damageLike": false
                 },
                 {
@@ -5002,7 +5014,7 @@
                 {
                   "rowKey": 1047202,
                   "key": "sequenceTimeOverCooldown",
-                  "value": 3.6,
+                  "value": 0,
                   "damageLike": false
                 },
                 {
@@ -5110,7 +5122,7 @@
                 {
                   "rowKey": 1047203,
                   "key": "sequenceTimeOverCooldown",
-                  "value": 3.2,
+                  "value": 0,
                   "damageLike": false
                 },
                 {
@@ -5214,8 +5226,8 @@
             },
             {
               "file": "SkillGroup.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-06T11:10:08+09:00",
+              "commitHash": "efb60918535ea8b0005ccadefe95233517bac967",
               "priority": 1,
               "deprioritized": false,
               "matchedRows": 2,
@@ -5850,32 +5862,9 @@
           ],
           "otherSources": [
             {
-              "file": "CharacterSkillVideos.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
-              "priority": 100,
-              "deprioritized": false,
-              "matchedRows": 1,
-              "numericFields": [
-                {
-                  "rowKey": 1047200,
-                  "key": "code",
-                  "value": 1047200,
-                  "damageLike": false
-                },
-                {
-                  "rowKey": 1047200,
-                  "key": "volume",
-                  "value": 0.7,
-                  "damageLike": false
-                }
-              ],
-              "damageLikeFields": []
-            },
-            {
               "file": "CharacterState.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-13T11:10:08+09:00",
+              "commitHash": "481c932b409ac701f9fd10338ba1931db30f60ae",
               "priority": 100,
               "deprioritized": false,
               "matchedRows": 1,
@@ -5976,8 +5965,8 @@
             },
             {
               "file": "CharacterStateGroup.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-13T11:10:08+09:00",
+              "commitHash": "481c932b409ac701f9fd10338ba1931db30f60ae",
               "priority": 100,
               "deprioritized": false,
               "matchedRows": 1,
@@ -6024,8 +6013,8 @@
             },
             {
               "file": "CharacterVoiceRandomCount.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-06T11:10:08+09:00",
+              "commitHash": "efb60918535ea8b0005ccadefe95233517bac967",
               "priority": 100,
               "deprioritized": false,
               "matchedRows": 2,
@@ -6116,6 +6105,29 @@
                 }
               ],
               "damageLikeFields": []
+            },
+            {
+              "file": "CharacterSkillVideos.json",
+              "commitDate": "2026-05-21T12:00:17+09:00",
+              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "priority": 100,
+              "deprioritized": false,
+              "matchedRows": 1,
+              "numericFields": [
+                {
+                  "rowKey": 1047200,
+                  "key": "code",
+                  "value": 1047200,
+                  "damageLike": false
+                },
+                {
+                  "rowKey": 1047200,
+                  "key": "volume",
+                  "value": 0.7,
+                  "damageLike": false
+                }
+              ],
+              "damageLikeFields": []
             }
           ],
           "deprioritizedSources": []
@@ -6151,8 +6163,8 @@
           "primarySources": [
             {
               "file": "Skill.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-13T11:10:08+09:00",
+              "commitHash": "481c932b409ac701f9fd10338ba1931db30f60ae",
               "priority": 0,
               "deprioritized": false,
               "matchedRows": 5,
@@ -6202,7 +6214,7 @@
                 {
                   "rowKey": 1047301,
                   "key": "sequenceTimeOverCooldown",
-                  "value": 10,
+                  "value": 0,
                   "damageLike": false
                 },
                 {
@@ -6310,7 +6322,7 @@
                 {
                   "rowKey": 1047302,
                   "key": "sequenceTimeOverCooldown",
-                  "value": 9.5,
+                  "value": 0,
                   "damageLike": false
                 },
                 {
@@ -6418,7 +6430,7 @@
                 {
                   "rowKey": 1047303,
                   "key": "sequenceTimeOverCooldown",
-                  "value": 9,
+                  "value": 0,
                   "damageLike": false
                 },
                 {
@@ -6522,8 +6534,8 @@
             },
             {
               "file": "SkillGroup.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-06T11:10:08+09:00",
+              "commitHash": "efb60918535ea8b0005ccadefe95233517bac967",
               "priority": 1,
               "deprioritized": false,
               "matchedRows": 1,
@@ -7032,32 +7044,9 @@
           ],
           "otherSources": [
             {
-              "file": "CharacterSkillVideos.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
-              "priority": 100,
-              "deprioritized": false,
-              "matchedRows": 1,
-              "numericFields": [
-                {
-                  "rowKey": 1047300,
-                  "key": "code",
-                  "value": 1047300,
-                  "damageLike": false
-                },
-                {
-                  "rowKey": 1047300,
-                  "key": "volume",
-                  "value": 0.7,
-                  "damageLike": false
-                }
-              ],
-              "damageLikeFields": []
-            },
-            {
               "file": "CharacterState.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-13T11:10:08+09:00",
+              "commitHash": "481c932b409ac701f9fd10338ba1931db30f60ae",
               "priority": 100,
               "deprioritized": false,
               "matchedRows": 5,
@@ -7488,8 +7477,8 @@
             },
             {
               "file": "CharacterStateGroup.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-13T11:10:08+09:00",
+              "commitHash": "481c932b409ac701f9fd10338ba1931db30f60ae",
               "priority": 100,
               "deprioritized": false,
               "matchedRows": 3,
@@ -7613,92 +7602,9 @@
               ]
             },
             {
-              "file": "EffectAndSound.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
-              "priority": 100,
-              "deprioritized": false,
-              "matchedRows": 4,
-              "numericFields": [
-                {
-                  "rowKey": 1047301,
-                  "key": "code",
-                  "value": 1047301,
-                  "damageLike": false
-                },
-                {
-                  "rowKey": 1047301,
-                  "key": "soundMaxDistance",
-                  "value": 15,
-                  "damageLike": false
-                },
-                {
-                  "rowKey": 1047301,
-                  "key": "cameraShakingIndex",
-                  "value": 0,
-                  "damageLike": false
-                },
-                {
-                  "rowKey": 1047302,
-                  "key": "code",
-                  "value": 1047302,
-                  "damageLike": false
-                },
-                {
-                  "rowKey": 1047302,
-                  "key": "soundMaxDistance",
-                  "value": 15,
-                  "damageLike": false
-                },
-                {
-                  "rowKey": 1047302,
-                  "key": "cameraShakingIndex",
-                  "value": 0,
-                  "damageLike": false
-                },
-                {
-                  "rowKey": 1047303,
-                  "key": "code",
-                  "value": 1047303,
-                  "damageLike": false
-                },
-                {
-                  "rowKey": 1047303,
-                  "key": "soundMaxDistance",
-                  "value": 15,
-                  "damageLike": false
-                },
-                {
-                  "rowKey": 1047303,
-                  "key": "cameraShakingIndex",
-                  "value": 0,
-                  "damageLike": false
-                },
-                {
-                  "rowKey": 1047304,
-                  "key": "code",
-                  "value": 1047304,
-                  "damageLike": false
-                },
-                {
-                  "rowKey": 1047304,
-                  "key": "soundMaxDistance",
-                  "value": 15,
-                  "damageLike": false
-                },
-                {
-                  "rowKey": 1047304,
-                  "key": "cameraShakingIndex",
-                  "value": 0,
-                  "damageLike": false
-                }
-              ],
-              "damageLikeFields": []
-            },
-            {
               "file": "ProjectileSetting.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-13T11:10:08+09:00",
+              "commitHash": "481c932b409ac701f9fd10338ba1931db30f60ae",
               "priority": 100,
               "deprioritized": false,
               "matchedRows": 1,
@@ -7840,12 +7746,6 @@
                   "key": "localBaseHeight",
                   "value": 0,
                   "damageLike": false
-                },
-                {
-                  "rowKey": 104731,
-                  "key": "consumeBullet",
-                  "value": 0,
-                  "damageLike": false
                 }
               ],
               "damageLikeFields": [
@@ -7856,6 +7756,112 @@
                   "damageLike": true
                 }
               ]
+            },
+            {
+              "file": "EffectAndSound.json",
+              "commitDate": "2026-08-06T11:10:08+09:00",
+              "commitHash": "efb60918535ea8b0005ccadefe95233517bac967",
+              "priority": 100,
+              "deprioritized": false,
+              "matchedRows": 4,
+              "numericFields": [
+                {
+                  "rowKey": 1047301,
+                  "key": "code",
+                  "value": 1047301,
+                  "damageLike": false
+                },
+                {
+                  "rowKey": 1047301,
+                  "key": "soundMaxDistance",
+                  "value": 15,
+                  "damageLike": false
+                },
+                {
+                  "rowKey": 1047301,
+                  "key": "cameraShakingIndex",
+                  "value": 0,
+                  "damageLike": false
+                },
+                {
+                  "rowKey": 1047302,
+                  "key": "code",
+                  "value": 1047302,
+                  "damageLike": false
+                },
+                {
+                  "rowKey": 1047302,
+                  "key": "soundMaxDistance",
+                  "value": 15,
+                  "damageLike": false
+                },
+                {
+                  "rowKey": 1047302,
+                  "key": "cameraShakingIndex",
+                  "value": 0,
+                  "damageLike": false
+                },
+                {
+                  "rowKey": 1047303,
+                  "key": "code",
+                  "value": 1047303,
+                  "damageLike": false
+                },
+                {
+                  "rowKey": 1047303,
+                  "key": "soundMaxDistance",
+                  "value": 15,
+                  "damageLike": false
+                },
+                {
+                  "rowKey": 1047303,
+                  "key": "cameraShakingIndex",
+                  "value": 0,
+                  "damageLike": false
+                },
+                {
+                  "rowKey": 1047304,
+                  "key": "code",
+                  "value": 1047304,
+                  "damageLike": false
+                },
+                {
+                  "rowKey": 1047304,
+                  "key": "soundMaxDistance",
+                  "value": 15,
+                  "damageLike": false
+                },
+                {
+                  "rowKey": 1047304,
+                  "key": "cameraShakingIndex",
+                  "value": 0,
+                  "damageLike": false
+                }
+              ],
+              "damageLikeFields": []
+            },
+            {
+              "file": "CharacterSkillVideos.json",
+              "commitDate": "2026-05-21T12:00:17+09:00",
+              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "priority": 100,
+              "deprioritized": false,
+              "matchedRows": 1,
+              "numericFields": [
+                {
+                  "rowKey": 1047300,
+                  "key": "code",
+                  "value": 1047300,
+                  "damageLike": false
+                },
+                {
+                  "rowKey": 1047300,
+                  "key": "volume",
+                  "value": 0.7,
+                  "damageLike": false
+                }
+              ],
+              "damageLikeFields": []
             }
           ],
           "deprioritizedSources": []
@@ -7888,8 +7894,8 @@
           "primarySources": [
             {
               "file": "Skill.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-13T11:10:08+09:00",
+              "commitHash": "481c932b409ac701f9fd10338ba1931db30f60ae",
               "priority": 0,
               "deprioritized": false,
               "matchedRows": 5,
@@ -7939,7 +7945,7 @@
                 {
                   "rowKey": 1047401,
                   "key": "sequenceTimeOverCooldown",
-                  "value": 17,
+                  "value": 0,
                   "damageLike": false
                 },
                 {
@@ -8047,7 +8053,7 @@
                 {
                   "rowKey": 1047402,
                   "key": "sequenceTimeOverCooldown",
-                  "value": 16,
+                  "value": 0,
                   "damageLike": false
                 },
                 {
@@ -8155,7 +8161,7 @@
                 {
                   "rowKey": 1047403,
                   "key": "sequenceTimeOverCooldown",
-                  "value": 15,
+                  "value": 0,
                   "damageLike": false
                 },
                 {
@@ -8259,8 +8265,8 @@
             },
             {
               "file": "SkillGroup.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-06T11:10:08+09:00",
+              "commitHash": "efb60918535ea8b0005ccadefe95233517bac967",
               "priority": 1,
               "deprioritized": false,
               "matchedRows": 2,
@@ -8895,32 +8901,9 @@
           ],
           "otherSources": [
             {
-              "file": "CharacterSkillVideos.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
-              "priority": 100,
-              "deprioritized": false,
-              "matchedRows": 1,
-              "numericFields": [
-                {
-                  "rowKey": 1047400,
-                  "key": "code",
-                  "value": 1047400,
-                  "damageLike": false
-                },
-                {
-                  "rowKey": 1047400,
-                  "key": "volume",
-                  "value": 0.7,
-                  "damageLike": false
-                }
-              ],
-              "damageLikeFields": []
-            },
-            {
               "file": "CharacterState.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-13T11:10:08+09:00",
+              "commitHash": "481c932b409ac701f9fd10338ba1931db30f60ae",
               "priority": 100,
               "deprioritized": false,
               "matchedRows": 1,
@@ -9021,8 +9004,8 @@
             },
             {
               "file": "CharacterStateGroup.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-13T11:10:08+09:00",
+              "commitHash": "481c932b409ac701f9fd10338ba1931db30f60ae",
               "priority": 100,
               "deprioritized": false,
               "matchedRows": 1,
@@ -9068,74 +9051,9 @@
               ]
             },
             {
-              "file": "EffectAndSound.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
-              "priority": 100,
-              "deprioritized": false,
-              "matchedRows": 3,
-              "numericFields": [
-                {
-                  "rowKey": 1047401,
-                  "key": "code",
-                  "value": 1047401,
-                  "damageLike": false
-                },
-                {
-                  "rowKey": 1047401,
-                  "key": "soundMaxDistance",
-                  "value": 15,
-                  "damageLike": false
-                },
-                {
-                  "rowKey": 1047401,
-                  "key": "cameraShakingIndex",
-                  "value": 0,
-                  "damageLike": false
-                },
-                {
-                  "rowKey": 1047402,
-                  "key": "code",
-                  "value": 1047402,
-                  "damageLike": false
-                },
-                {
-                  "rowKey": 1047402,
-                  "key": "soundMaxDistance",
-                  "value": 15,
-                  "damageLike": false
-                },
-                {
-                  "rowKey": 1047402,
-                  "key": "cameraShakingIndex",
-                  "value": 0,
-                  "damageLike": false
-                },
-                {
-                  "rowKey": 1047403,
-                  "key": "code",
-                  "value": 1047403,
-                  "damageLike": false
-                },
-                {
-                  "rowKey": 1047403,
-                  "key": "soundMaxDistance",
-                  "value": 15,
-                  "damageLike": false
-                },
-                {
-                  "rowKey": 1047403,
-                  "key": "cameraShakingIndex",
-                  "value": 0,
-                  "damageLike": false
-                }
-              ],
-              "damageLikeFields": []
-            },
-            {
               "file": "ProjectileSetting.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-13T11:10:08+09:00",
+              "commitHash": "481c932b409ac701f9fd10338ba1931db30f60ae",
               "priority": 100,
               "deprioritized": false,
               "matchedRows": 1,
@@ -9277,12 +9195,6 @@
                   "key": "localBaseHeight",
                   "value": 0,
                   "damageLike": false
-                },
-                {
-                  "rowKey": 104741,
-                  "key": "consumeBullet",
-                  "value": 0,
-                  "damageLike": false
                 }
               ],
               "damageLikeFields": [
@@ -9293,6 +9205,94 @@
                   "damageLike": true
                 }
               ]
+            },
+            {
+              "file": "EffectAndSound.json",
+              "commitDate": "2026-08-06T11:10:08+09:00",
+              "commitHash": "efb60918535ea8b0005ccadefe95233517bac967",
+              "priority": 100,
+              "deprioritized": false,
+              "matchedRows": 3,
+              "numericFields": [
+                {
+                  "rowKey": 1047401,
+                  "key": "code",
+                  "value": 1047401,
+                  "damageLike": false
+                },
+                {
+                  "rowKey": 1047401,
+                  "key": "soundMaxDistance",
+                  "value": 15,
+                  "damageLike": false
+                },
+                {
+                  "rowKey": 1047401,
+                  "key": "cameraShakingIndex",
+                  "value": 0,
+                  "damageLike": false
+                },
+                {
+                  "rowKey": 1047402,
+                  "key": "code",
+                  "value": 1047402,
+                  "damageLike": false
+                },
+                {
+                  "rowKey": 1047402,
+                  "key": "soundMaxDistance",
+                  "value": 15,
+                  "damageLike": false
+                },
+                {
+                  "rowKey": 1047402,
+                  "key": "cameraShakingIndex",
+                  "value": 0,
+                  "damageLike": false
+                },
+                {
+                  "rowKey": 1047403,
+                  "key": "code",
+                  "value": 1047403,
+                  "damageLike": false
+                },
+                {
+                  "rowKey": 1047403,
+                  "key": "soundMaxDistance",
+                  "value": 15,
+                  "damageLike": false
+                },
+                {
+                  "rowKey": 1047403,
+                  "key": "cameraShakingIndex",
+                  "value": 0,
+                  "damageLike": false
+                }
+              ],
+              "damageLikeFields": []
+            },
+            {
+              "file": "CharacterSkillVideos.json",
+              "commitDate": "2026-05-21T12:00:17+09:00",
+              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "priority": 100,
+              "deprioritized": false,
+              "matchedRows": 1,
+              "numericFields": [
+                {
+                  "rowKey": 1047400,
+                  "key": "code",
+                  "value": 1047400,
+                  "damageLike": false
+                },
+                {
+                  "rowKey": 1047400,
+                  "key": "volume",
+                  "value": 0.7,
+                  "damageLike": false
+                }
+              ],
+              "damageLikeFields": []
             }
           ],
           "deprioritizedSources": []
@@ -9319,8 +9319,8 @@
           "primarySources": [
             {
               "file": "Skill.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-13T11:10:08+09:00",
+              "commitHash": "481c932b409ac701f9fd10338ba1931db30f60ae",
               "priority": 0,
               "deprioritized": false,
               "matchedRows": 10,
@@ -9370,7 +9370,7 @@
                 {
                   "rowKey": 1047401,
                   "key": "sequenceTimeOverCooldown",
-                  "value": 17,
+                  "value": 0,
                   "damageLike": false
                 },
                 {
@@ -9478,7 +9478,7 @@
                 {
                   "rowKey": 1047402,
                   "key": "sequenceTimeOverCooldown",
-                  "value": 16,
+                  "value": 0,
                   "damageLike": false
                 },
                 {
@@ -9586,7 +9586,7 @@
                 {
                   "rowKey": 1047403,
                   "key": "sequenceTimeOverCooldown",
-                  "value": 15,
+                  "value": 0,
                   "damageLike": false
                 },
                 {
@@ -9690,8 +9690,8 @@
             },
             {
               "file": "SkillGroup.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-06T11:10:08+09:00",
+              "commitHash": "efb60918535ea8b0005ccadefe95233517bac967",
               "priority": 1,
               "deprioritized": false,
               "matchedRows": 2,
@@ -10326,32 +10326,9 @@
           ],
           "otherSources": [
             {
-              "file": "CharacterSkillVideos.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
-              "priority": 100,
-              "deprioritized": false,
-              "matchedRows": 1,
-              "numericFields": [
-                {
-                  "rowKey": 1047400,
-                  "key": "code",
-                  "value": 1047400,
-                  "damageLike": false
-                },
-                {
-                  "rowKey": 1047400,
-                  "key": "volume",
-                  "value": 0.7,
-                  "damageLike": false
-                }
-              ],
-              "damageLikeFields": []
-            },
-            {
               "file": "CharacterState.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-13T11:10:08+09:00",
+              "commitHash": "481c932b409ac701f9fd10338ba1931db30f60ae",
               "priority": 100,
               "deprioritized": false,
               "matchedRows": 2,
@@ -10542,8 +10519,8 @@
             },
             {
               "file": "CharacterStateGroup.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-13T11:10:08+09:00",
+              "commitHash": "481c932b409ac701f9fd10338ba1931db30f60ae",
               "priority": 100,
               "deprioritized": false,
               "matchedRows": 3,
@@ -10659,6 +10636,29 @@
                   "damageLike": true
                 }
               ]
+            },
+            {
+              "file": "CharacterSkillVideos.json",
+              "commitDate": "2026-05-21T12:00:17+09:00",
+              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "priority": 100,
+              "deprioritized": false,
+              "matchedRows": 1,
+              "numericFields": [
+                {
+                  "rowKey": 1047400,
+                  "key": "code",
+                  "value": 1047400,
+                  "damageLike": false
+                },
+                {
+                  "rowKey": 1047400,
+                  "key": "volume",
+                  "value": 0.7,
+                  "damageLike": false
+                }
+              ],
+              "damageLikeFields": []
             }
           ],
           "deprioritizedSources": []
@@ -10693,8 +10693,8 @@
           "primarySources": [
             {
               "file": "Skill.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-13T11:10:08+09:00",
+              "commitHash": "481c932b409ac701f9fd10338ba1931db30f60ae",
               "priority": 0,
               "deprioritized": false,
               "matchedRows": 3,
@@ -10744,7 +10744,7 @@
                 {
                   "rowKey": 1047501,
                   "key": "sequenceTimeOverCooldown",
-                  "value": 80,
+                  "value": 0,
                   "damageLike": false
                 },
                 {
@@ -10852,7 +10852,7 @@
                 {
                   "rowKey": 1047502,
                   "key": "sequenceTimeOverCooldown",
-                  "value": 70,
+                  "value": 0,
                   "damageLike": false
                 },
                 {
@@ -10960,7 +10960,7 @@
                 {
                   "rowKey": 1047503,
                   "key": "sequenceTimeOverCooldown",
-                  "value": 60,
+                  "value": 0,
                   "damageLike": false
                 },
                 {
@@ -11028,8 +11028,8 @@
             },
             {
               "file": "SkillGroup.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-06T11:10:08+09:00",
+              "commitHash": "efb60918535ea8b0005ccadefe95233517bac967",
               "priority": 1,
               "deprioritized": false,
               "matchedRows": 1,
@@ -11502,32 +11502,9 @@
           ],
           "otherSources": [
             {
-              "file": "CharacterSkillVideos.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
-              "priority": 100,
-              "deprioritized": false,
-              "matchedRows": 1,
-              "numericFields": [
-                {
-                  "rowKey": 1047500,
-                  "key": "code",
-                  "value": 1047500,
-                  "damageLike": false
-                },
-                {
-                  "rowKey": 1047500,
-                  "key": "volume",
-                  "value": 0.7,
-                  "damageLike": false
-                }
-              ],
-              "damageLikeFields": []
-            },
-            {
               "file": "CharacterState.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-13T11:10:08+09:00",
+              "commitHash": "481c932b409ac701f9fd10338ba1931db30f60ae",
               "priority": 100,
               "deprioritized": false,
               "matchedRows": 1,
@@ -11628,8 +11605,8 @@
             },
             {
               "file": "CharacterStateGroup.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-13T11:10:08+09:00",
+              "commitHash": "481c932b409ac701f9fd10338ba1931db30f60ae",
               "priority": 100,
               "deprioritized": false,
               "matchedRows": 3,
@@ -11760,8 +11737,8 @@
             },
             {
               "file": "EffectAndSound.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-06T11:10:08+09:00",
+              "commitHash": "efb60918535ea8b0005ccadefe95233517bac967",
               "priority": 100,
               "deprioritized": false,
               "matchedRows": 2,
@@ -11807,8 +11784,8 @@
             },
             {
               "file": "HookLineProjectile.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-06T11:10:08+09:00",
+              "commitHash": "efb60918535ea8b0005ccadefe95233517bac967",
               "priority": 100,
               "deprioritized": false,
               "matchedRows": 1,
@@ -11833,6 +11810,29 @@
                 }
               ],
               "damageLikeFields": []
+            },
+            {
+              "file": "CharacterSkillVideos.json",
+              "commitDate": "2026-05-21T12:00:17+09:00",
+              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "priority": 100,
+              "deprioritized": false,
+              "matchedRows": 1,
+              "numericFields": [
+                {
+                  "rowKey": 1047500,
+                  "key": "code",
+                  "value": 1047500,
+                  "damageLike": false
+                },
+                {
+                  "rowKey": 1047500,
+                  "key": "volume",
+                  "value": 0.7,
+                  "damageLike": false
+                }
+              ],
+              "damageLikeFields": []
             }
           ],
           "deprioritizedSources": []
@@ -11852,13 +11852,13 @@
       "sourceOrder": [
         {
           "file": "Skill.json",
-          "commitDate": "2026-05-21T12:00:17+09:00",
+          "commitDate": "2026-08-13T11:10:08+09:00",
           "priority": 0,
           "deprioritized": false
         },
         {
           "file": "SkillGroup.json",
-          "commitDate": "2026-05-21T12:00:17+09:00",
+          "commitDate": "2026-08-06T11:10:08+09:00",
           "priority": 1,
           "deprioritized": false
         },
@@ -11869,224 +11869,224 @@
           "deprioritized": false
         },
         {
-          "file": "#MatchingQueueTier의 시즌 안정화.json",
-          "commitDate": "2026-05-21T12:00:17+09:00",
+          "file": "hash.json",
+          "commitDate": "2026-08-14T17:10:07+09:00",
           "priority": 100,
           "deprioritized": false
         },
         {
-          "file": "Achievement.json",
-          "commitDate": "2026-05-21T12:00:17+09:00",
-          "priority": 100,
-          "deprioritized": false
-        },
-        {
-          "file": "Achievements.json",
-          "commitDate": "2026-05-21T12:00:17+09:00",
-          "priority": 100,
-          "deprioritized": false
-        },
-        {
-          "file": "ActionCost_Light.json",
-          "commitDate": "2026-05-21T12:00:17+09:00",
-          "priority": 100,
-          "deprioritized": false
-        },
-        {
-          "file": "ActionCost.json",
-          "commitDate": "2026-05-21T12:00:17+09:00",
-          "priority": 100,
-          "deprioritized": false
-        },
-        {
-          "file": "ArcheTypeIdealStatValue.json",
-          "commitDate": "2026-05-21T12:00:17+09:00",
-          "priority": 100,
-          "deprioritized": false
-        },
-        {
-          "file": "ArchiveCharacterContentOpen.json",
-          "commitDate": "2026-05-21T12:00:17+09:00",
-          "priority": 100,
-          "deprioritized": false
-        },
-        {
-          "file": "ArchiveEpisode.json",
-          "commitDate": "2026-05-21T12:00:17+09:00",
-          "priority": 100,
-          "deprioritized": false
-        },
-        {
-          "file": "ArchiveScenario.json",
-          "commitDate": "2026-05-21T12:00:17+09:00",
-          "priority": 100,
-          "deprioritized": false
-        },
-        {
-          "file": "Area.json",
-          "commitDate": "2026-05-21T12:00:17+09:00",
-          "priority": 100,
-          "deprioritized": false
-        },
-        {
-          "file": "AreaAttributes_V2.json",
-          "commitDate": "2026-05-21T12:00:17+09:00",
-          "priority": 100,
-          "deprioritized": false
-        },
-        {
-          "file": "AreaAttributes.json",
-          "commitDate": "2026-05-21T12:00:17+09:00",
-          "priority": 100,
-          "deprioritized": false
-        },
-        {
-          "file": "AreaSound.json",
-          "commitDate": "2026-05-21T12:00:17+09:00",
-          "priority": 100,
-          "deprioritized": false
-        },
-        {
-          "file": "AssetTrade.json",
-          "commitDate": "2026-05-21T12:00:17+09:00",
-          "priority": 100,
-          "deprioritized": false
-        },
-        {
-          "file": "AttackTypeTable.json",
-          "commitDate": "2026-05-21T12:00:17+09:00",
-          "priority": 100,
-          "deprioritized": false
-        },
-        {
-          "file": "Attendance.json",
-          "commitDate": "2026-05-21T12:00:17+09:00",
-          "priority": 100,
-          "deprioritized": false
-        },
-        {
-          "file": "AttendRewardList.json",
-          "commitDate": "2026-05-21T12:00:17+09:00",
-          "priority": 100,
-          "deprioritized": false
-        },
-        {
-          "file": "AutoExchangeToken.json",
-          "commitDate": "2026-05-21T12:00:17+09:00",
-          "priority": 100,
-          "deprioritized": false
-        },
-        {
-          "file": "BattlefieldArea.json",
-          "commitDate": "2026-05-21T12:00:17+09:00",
-          "priority": 100,
-          "deprioritized": false
-        },
-        {
-          "file": "BattlePassMission.json",
-          "commitDate": "2026-05-21T12:00:17+09:00",
-          "priority": 100,
-          "deprioritized": false
-        },
-        {
-          "file": "BattlePassReward.json",
-          "commitDate": "2026-05-21T12:00:17+09:00",
-          "priority": 100,
-          "deprioritized": false
-        },
-        {
-          "file": "BattlePassRewardItem.json",
-          "commitDate": "2026-05-21T12:00:17+09:00",
-          "priority": 100,
-          "deprioritized": false
-        },
-        {
-          "file": "BattleZoneReward.json",
-          "commitDate": "2026-05-21T12:00:17+09:00",
-          "priority": 100,
-          "deprioritized": false
-        },
-        {
-          "file": "Blueprint.json",
-          "commitDate": "2026-05-21T12:00:17+09:00",
-          "priority": 100,
-          "deprioritized": false
-        },
-        {
-          "file": "Booster.json",
-          "commitDate": "2026-05-21T12:00:17+09:00",
-          "priority": 100,
-          "deprioritized": false
-        },
-        {
-          "file": "BotAiModel.json",
-          "commitDate": "2026-05-21T12:00:17+09:00",
-          "priority": 100,
-          "deprioritized": false
-        },
-        {
-          "file": "BotCraft.json",
-          "commitDate": "2026-05-21T12:00:17+09:00",
-          "priority": 100,
-          "deprioritized": false
-        },
-        {
-          "file": "BotMastery.json",
-          "commitDate": "2026-05-21T12:00:17+09:00",
-          "priority": 100,
-          "deprioritized": false
-        },
-        {
-          "file": "BotNickName.json",
-          "commitDate": "2026-05-21T12:00:17+09:00",
-          "priority": 100,
-          "deprioritized": false
-        },
-        {
-          "file": "BotSkillBuild.json",
-          "commitDate": "2026-05-21T12:00:17+09:00",
-          "priority": 100,
-          "deprioritized": false
-        },
-        {
-          "file": "BulletCapacity_Light.json",
-          "commitDate": "2026-05-21T12:00:17+09:00",
-          "priority": 100,
-          "deprioritized": false
-        },
-        {
-          "file": "BulletCapacity.json",
-          "commitDate": "2026-05-21T12:00:17+09:00",
-          "priority": 100,
-          "deprioritized": false
-        },
-        {
-          "file": "Character_Light.json",
-          "commitDate": "2026-05-21T12:00:17+09:00",
+          "file": "ItemSpawn.json",
+          "commitDate": "2026-08-14T17:10:07+09:00",
           "priority": 100,
           "deprioritized": false
         },
         {
           "file": "Character.json",
-          "commitDate": "2026-05-21T12:00:17+09:00",
+          "commitDate": "2026-08-14T17:00:08+09:00",
           "priority": 100,
           "deprioritized": false
         },
         {
-          "file": "CharacterAttributes.json",
-          "commitDate": "2026-05-21T12:00:17+09:00",
+          "file": "MasteryStat.json",
+          "commitDate": "2026-08-14T17:00:08+09:00",
           "priority": 100,
           "deprioritized": false
         },
         {
-          "file": "CharacterAttributes의 사본.json",
-          "commitDate": "2026-05-21T12:00:17+09:00",
+          "file": "PreMadeTeamTierRestrict.json",
+          "commitDate": "2026-08-13T15:30:08+09:00",
+          "priority": 100,
+          "deprioritized": false
+        },
+        {
+          "file": "MatchingQueueTier.json",
+          "commitDate": "2026-08-13T12:45:08+09:00",
+          "priority": 100,
+          "deprioritized": false
+        },
+        {
+          "file": "ActionCost.json",
+          "commitDate": "2026-08-13T11:10:08+09:00",
+          "priority": 100,
+          "deprioritized": false
+        },
+        {
+          "file": "ArchiveCharacter.json",
+          "commitDate": "2026-08-13T11:10:08+09:00",
+          "priority": 100,
+          "deprioritized": false
+        },
+        {
+          "file": "AttackTypeTable.json",
+          "commitDate": "2026-08-13T11:10:08+09:00",
           "priority": 100,
           "deprioritized": false
         },
         {
           "file": "CharacterExp.json",
-          "commitDate": "2026-05-21T12:00:17+09:00",
+          "commitDate": "2026-08-13T11:10:08+09:00",
+          "priority": 100,
+          "deprioritized": false
+        },
+        {
+          "file": "CharacterLevelUpStat.json",
+          "commitDate": "2026-08-13T11:10:08+09:00",
+          "priority": 100,
+          "deprioritized": false
+        },
+        {
+          "file": "CharacterState.json",
+          "commitDate": "2026-08-13T11:10:08+09:00",
+          "priority": 100,
+          "deprioritized": false
+        },
+        {
+          "file": "CharacterStateGroup.json",
+          "commitDate": "2026-08-13T11:10:08+09:00",
+          "priority": 100,
+          "deprioritized": false
+        },
+        {
+          "file": "CreditShop.json",
+          "commitDate": "2026-08-13T11:10:08+09:00",
+          "priority": 100,
+          "deprioritized": false
+        },
+        {
+          "file": "DropGroup.json",
+          "commitDate": "2026-08-13T11:10:08+09:00",
+          "priority": 100,
+          "deprioritized": false
+        },
+        {
+          "file": "GameConstant.json",
+          "commitDate": "2026-08-13T11:10:08+09:00",
+          "priority": 100,
+          "deprioritized": false
+        },
+        {
+          "file": "ItemArmor.json",
+          "commitDate": "2026-08-13T11:10:08+09:00",
+          "priority": 100,
+          "deprioritized": false
+        },
+        {
+          "file": "ItemWeapon.json",
+          "commitDate": "2026-08-13T11:10:08+09:00",
+          "priority": 100,
+          "deprioritized": false
+        },
+        {
+          "file": "MasteryExp.json",
+          "commitDate": "2026-08-13T11:10:08+09:00",
+          "priority": 100,
+          "deprioritized": false
+        },
+        {
+          "file": "MasteryLevel.json",
+          "commitDate": "2026-08-13T11:10:08+09:00",
+          "priority": 100,
+          "deprioritized": false
+        },
+        {
+          "file": "ProjectileSetting.json",
+          "commitDate": "2026-08-13T11:10:08+09:00",
+          "priority": 100,
+          "deprioritized": false
+        },
+        {
+          "file": "Season.json",
+          "commitDate": "2026-08-13T11:10:08+09:00",
+          "priority": 100,
+          "deprioritized": false
+        },
+        {
+          "file": "TutorialGoalSetting.json",
+          "commitDate": "2026-08-13T11:10:08+09:00",
+          "priority": 100,
+          "deprioritized": false
+        },
+        {
+          "file": "VFCredit.json",
+          "commitDate": "2026-08-13T11:10:08+09:00",
+          "priority": 100,
+          "deprioritized": false
+        },
+        {
+          "file": "ProjectileSkinSetting.json",
+          "commitDate": "2026-08-07T19:50:07+09:00",
+          "priority": 100,
+          "deprioritized": false
+        },
+        {
+          "file": "RestrictedArea.json",
+          "commitDate": "2026-08-07T19:50:07+09:00",
+          "priority": 100,
+          "deprioritized": false
+        },
+        {
+          "file": "RewardItem.json",
+          "commitDate": "2026-08-06T14:50:07+09:00",
+          "priority": 100,
+          "deprioritized": false
+        },
+        {
+          "file": "EventRewardUser.json",
+          "commitDate": "2026-08-06T12:55:08+09:00",
+          "priority": 100,
+          "deprioritized": false
+        },
+        {
+          "file": "CharacterSkin.json",
+          "commitDate": "2026-08-06T11:45:08+09:00",
+          "priority": 100,
+          "deprioritized": false
+        },
+        {
+          "file": "Achievements.json",
+          "commitDate": "2026-08-06T11:10:08+09:00",
+          "priority": 100,
+          "deprioritized": false
+        },
+        {
+          "file": "ArchiveEpisode.json",
+          "commitDate": "2026-08-06T11:10:08+09:00",
+          "priority": 100,
+          "deprioritized": false
+        },
+        {
+          "file": "ArchiveScenario.json",
+          "commitDate": "2026-08-06T11:10:08+09:00",
+          "priority": 100,
+          "deprioritized": false
+        },
+        {
+          "file": "AreaSound.json",
+          "commitDate": "2026-08-06T11:10:08+09:00",
+          "priority": 100,
+          "deprioritized": false
+        },
+        {
+          "file": "Attendance.json",
+          "commitDate": "2026-08-06T11:10:08+09:00",
+          "priority": 100,
+          "deprioritized": false
+        },
+        {
+          "file": "AttendRewardList.json",
+          "commitDate": "2026-08-06T11:10:08+09:00",
+          "priority": 100,
+          "deprioritized": false
+        },
+        {
+          "file": "BattlePassMission.json",
+          "commitDate": "2026-08-06T11:10:08+09:00",
+          "priority": 100,
+          "deprioritized": false
+        },
+        {
+          "file": "BattlePassReward.json",
+          "commitDate": "2026-08-06T11:10:08+09:00",
           "priority": 100,
           "deprioritized": false
         }
@@ -12105,8 +12105,8 @@
           "primarySources": [
             {
               "file": "Skill.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-13T11:10:08+09:00",
+              "commitHash": "481c932b409ac701f9fd10338ba1931db30f60ae",
               "priority": 0,
               "deprioritized": false,
               "matchedRows": 1,
@@ -12224,8 +12224,8 @@
             },
             {
               "file": "SkillGroup.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-06T11:10:08+09:00",
+              "commitHash": "efb60918535ea8b0005ccadefe95233517bac967",
               "priority": 1,
               "deprioritized": false,
               "matchedRows": 1,
@@ -12363,192 +12363,9 @@
           ],
           "otherSources": [
             {
-              "file": "CharacterSkin.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
-              "priority": 100,
-              "deprioritized": false,
-              "matchedRows": 2,
-              "numericFields": [
-                {
-                  "rowKey": 1079000,
-                  "key": "code",
-                  "value": 1079000,
-                  "damageLike": false
-                },
-                {
-                  "rowKey": 1079000,
-                  "key": "characterCode",
-                  "value": 79,
-                  "damageLike": false
-                },
-                {
-                  "rowKey": 1079000,
-                  "key": "index",
-                  "value": 0,
-                  "damageLike": false
-                },
-                {
-                  "rowKey": 1079000,
-                  "key": "grade",
-                  "value": 1,
-                  "damageLike": false
-                },
-                {
-                  "rowKey": 1079001,
-                  "key": "code",
-                  "value": 1079001,
-                  "damageLike": false
-                },
-                {
-                  "rowKey": 1079001,
-                  "key": "characterCode",
-                  "value": 79,
-                  "damageLike": false
-                },
-                {
-                  "rowKey": 1079001,
-                  "key": "index",
-                  "value": 1,
-                  "damageLike": false
-                },
-                {
-                  "rowKey": 1079001,
-                  "key": "grade",
-                  "value": 3,
-                  "damageLike": false
-                }
-              ],
-              "damageLikeFields": []
-            },
-            {
-              "file": "EffectAndSound.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
-              "priority": 100,
-              "deprioritized": false,
-              "matchedRows": 1,
-              "numericFields": [
-                {
-                  "rowKey": 1079001,
-                  "key": "code",
-                  "value": 1079001,
-                  "damageLike": false
-                },
-                {
-                  "rowKey": 1079001,
-                  "key": "soundMaxDistance",
-                  "value": 15,
-                  "damageLike": false
-                },
-                {
-                  "rowKey": 1079001,
-                  "key": "cameraShakingIndex",
-                  "value": 0,
-                  "damageLike": false
-                }
-              ],
-              "damageLikeFields": []
-            },
-            {
-              "file": "PersonalShop.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
-              "priority": 100,
-              "deprioritized": false,
-              "matchedRows": 2,
-              "numericFields": [
-                {
-                  "rowKey": "",
-                  "key": "id",
-                  "value": 217,
-                  "damageLike": false
-                },
-                {
-                  "rowKey": "",
-                  "key": "personalShopGroupId",
-                  "value": 40300,
-                  "damageLike": false
-                },
-                {
-                  "rowKey": "",
-                  "key": "personalShopCode",
-                  "value": 10400217,
-                  "damageLike": false
-                },
-                {
-                  "rowKey": "",
-                  "key": "count",
-                  "value": 1,
-                  "damageLike": false
-                },
-                {
-                  "rowKey": "",
-                  "key": "conditionCountAcoin",
-                  "value": 26110,
-                  "damageLike": false
-                },
-                {
-                  "rowKey": "",
-                  "key": "conditionCountNP",
-                  "value": 0,
-                  "damageLike": false
-                },
-                {
-                  "rowKey": "",
-                  "key": "probability",
-                  "value": 10000,
-                  "damageLike": false
-                },
-                {
-                  "rowKey": "",
-                  "key": "id",
-                  "value": 459,
-                  "damageLike": false
-                },
-                {
-                  "rowKey": "",
-                  "key": "personalShopGroupId",
-                  "value": 40301,
-                  "damageLike": false
-                },
-                {
-                  "rowKey": "",
-                  "key": "personalShopCode",
-                  "value": 20410217,
-                  "damageLike": false
-                },
-                {
-                  "rowKey": "",
-                  "key": "count",
-                  "value": 1,
-                  "damageLike": false
-                },
-                {
-                  "rowKey": "",
-                  "key": "conditionCountAcoin",
-                  "value": 9800,
-                  "damageLike": false
-                },
-                {
-                  "rowKey": "",
-                  "key": "conditionCountNP",
-                  "value": 0,
-                  "damageLike": false
-                },
-                {
-                  "rowKey": "",
-                  "key": "probability",
-                  "value": 10000,
-                  "damageLike": false
-                }
-              ],
-              "damageLikeFields": []
-            },
-            {
               "file": "ProjectileSetting.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-13T11:10:08+09:00",
+              "commitHash": "481c932b409ac701f9fd10338ba1931db30f60ae",
               "priority": 100,
               "deprioritized": false,
               "matchedRows": 1,
@@ -12690,12 +12507,6 @@
                   "key": "localBaseHeight",
                   "value": 0,
                   "damageLike": false
-                },
-                {
-                  "rowKey": 107901,
-                  "key": "consumeBullet",
-                  "value": 0,
-                  "damageLike": false
                 }
               ],
               "damageLikeFields": [
@@ -12708,9 +12519,132 @@
               ]
             },
             {
+              "file": "RewardItem.json",
+              "commitDate": "2026-08-06T14:50:07+09:00",
+              "commitHash": "87159ed7918a55d700e9848489fadac0fffb7fd5",
+              "priority": 100,
+              "deprioritized": false,
+              "matchedRows": 1,
+              "numericFields": [
+                {
+                  "rowKey": "",
+                  "key": "id",
+                  "value": 1694,
+                  "damageLike": false
+                },
+                {
+                  "rowKey": "",
+                  "key": "rewardId",
+                  "value": 21614,
+                  "damageLike": false
+                },
+                {
+                  "rowKey": "",
+                  "key": "itemId",
+                  "value": 1079001,
+                  "damageLike": false
+                },
+                {
+                  "rowKey": "",
+                  "key": "amount",
+                  "value": 1,
+                  "damageLike": false
+                }
+              ],
+              "damageLikeFields": []
+            },
+            {
+              "file": "CharacterSkin.json",
+              "commitDate": "2026-08-06T11:45:08+09:00",
+              "commitHash": "eff58f4ac61df4ba96ca09fd555cd760a923febe",
+              "priority": 100,
+              "deprioritized": false,
+              "matchedRows": 2,
+              "numericFields": [
+                {
+                  "rowKey": 1079000,
+                  "key": "code",
+                  "value": 1079000,
+                  "damageLike": false
+                },
+                {
+                  "rowKey": 1079000,
+                  "key": "characterCode",
+                  "value": 79,
+                  "damageLike": false
+                },
+                {
+                  "rowKey": 1079000,
+                  "key": "index",
+                  "value": 0,
+                  "damageLike": false
+                },
+                {
+                  "rowKey": 1079000,
+                  "key": "grade",
+                  "value": 1,
+                  "damageLike": false
+                },
+                {
+                  "rowKey": 1079001,
+                  "key": "code",
+                  "value": 1079001,
+                  "damageLike": false
+                },
+                {
+                  "rowKey": 1079001,
+                  "key": "characterCode",
+                  "value": 79,
+                  "damageLike": false
+                },
+                {
+                  "rowKey": 1079001,
+                  "key": "index",
+                  "value": 1,
+                  "damageLike": false
+                },
+                {
+                  "rowKey": 1079001,
+                  "key": "grade",
+                  "value": 3,
+                  "damageLike": false
+                }
+              ],
+              "damageLikeFields": []
+            },
+            {
+              "file": "EffectAndSound.json",
+              "commitDate": "2026-08-06T11:10:08+09:00",
+              "commitHash": "efb60918535ea8b0005ccadefe95233517bac967",
+              "priority": 100,
+              "deprioritized": false,
+              "matchedRows": 1,
+              "numericFields": [
+                {
+                  "rowKey": 1079001,
+                  "key": "code",
+                  "value": 1079001,
+                  "damageLike": false
+                },
+                {
+                  "rowKey": 1079001,
+                  "key": "soundMaxDistance",
+                  "value": 15,
+                  "damageLike": false
+                },
+                {
+                  "rowKey": 1079001,
+                  "key": "cameraShakingIndex",
+                  "value": 0,
+                  "damageLike": false
+                }
+              ],
+              "damageLikeFields": []
+            },
+            {
               "file": "RandomBoxItems.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-06T11:10:08+09:00",
+              "commitHash": "efb60918535ea8b0005ccadefe95233517bac967",
               "priority": 100,
               "deprioritized": false,
               "matchedRows": 5,
@@ -12874,13 +12808,13 @@
                 {
                   "rowKey": "",
                   "key": "probability",
-                  "value": 3333,
+                  "value": 3200,
                   "damageLike": false
                 },
                 {
                   "rowKey": "",
                   "key": "order",
-                  "value": 4,
+                  "value": 9,
                   "damageLike": false
                 },
                 {
@@ -12929,44 +12863,9 @@
               "damageLikeFields": []
             },
             {
-              "file": "RewardItem.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
-              "priority": 100,
-              "deprioritized": false,
-              "matchedRows": 1,
-              "numericFields": [
-                {
-                  "rowKey": "",
-                  "key": "id",
-                  "value": 1636,
-                  "damageLike": false
-                },
-                {
-                  "rowKey": "",
-                  "key": "rewardId",
-                  "value": 21614,
-                  "damageLike": false
-                },
-                {
-                  "rowKey": "",
-                  "key": "itemId",
-                  "value": 1079001,
-                  "damageLike": false
-                },
-                {
-                  "rowKey": "",
-                  "key": "amount",
-                  "value": 1,
-                  "damageLike": false
-                }
-              ],
-              "damageLikeFields": []
-            },
-            {
               "file": "ShopProduct.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-06T11:10:08+09:00",
+              "commitHash": "efb60918535ea8b0005ccadefe95233517bac967",
               "priority": 100,
               "deprioritized": false,
               "matchedRows": 1,
@@ -12974,7 +12873,7 @@
                 {
                   "rowKey": 1079001,
                   "key": "id",
-                  "value": 703,
+                  "value": 705,
                   "damageLike": false
                 },
                 {
@@ -13006,8 +12905,8 @@
             },
             {
               "file": "ShopProductItem.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-06T11:10:08+09:00",
+              "commitHash": "efb60918535ea8b0005ccadefe95233517bac967",
               "priority": 100,
               "deprioritized": false,
               "matchedRows": 1,
@@ -13046,6 +12945,113 @@
                   "rowKey": "",
                   "key": "bonusItem",
                   "value": 0,
+                  "damageLike": false
+                }
+              ],
+              "damageLikeFields": []
+            },
+            {
+              "file": "PersonalShop.json",
+              "commitDate": "2026-06-11T11:10:08+09:00",
+              "commitHash": "61144dd8f37332f8e5fe913c251e2a41fa5c4aa5",
+              "priority": 100,
+              "deprioritized": false,
+              "matchedRows": 2,
+              "numericFields": [
+                {
+                  "rowKey": "",
+                  "key": "id",
+                  "value": 217,
+                  "damageLike": false
+                },
+                {
+                  "rowKey": "",
+                  "key": "personalShopGroupId",
+                  "value": 40300,
+                  "damageLike": false
+                },
+                {
+                  "rowKey": "",
+                  "key": "personalShopCode",
+                  "value": 10400217,
+                  "damageLike": false
+                },
+                {
+                  "rowKey": "",
+                  "key": "itemCode",
+                  "value": 1079001,
+                  "damageLike": false
+                },
+                {
+                  "rowKey": "",
+                  "key": "count",
+                  "value": 1,
+                  "damageLike": false
+                },
+                {
+                  "rowKey": "",
+                  "key": "conditionCountAcoin",
+                  "value": 26110,
+                  "damageLike": false
+                },
+                {
+                  "rowKey": "",
+                  "key": "conditionCountNP",
+                  "value": 0,
+                  "damageLike": false
+                },
+                {
+                  "rowKey": "",
+                  "key": "probability",
+                  "value": 10000,
+                  "damageLike": false
+                },
+                {
+                  "rowKey": "",
+                  "key": "id",
+                  "value": 468,
+                  "damageLike": false
+                },
+                {
+                  "rowKey": "",
+                  "key": "personalShopGroupId",
+                  "value": 40301,
+                  "damageLike": false
+                },
+                {
+                  "rowKey": "",
+                  "key": "personalShopCode",
+                  "value": 20410217,
+                  "damageLike": false
+                },
+                {
+                  "rowKey": "",
+                  "key": "itemCode",
+                  "value": 1079001,
+                  "damageLike": false
+                },
+                {
+                  "rowKey": "",
+                  "key": "count",
+                  "value": 1,
+                  "damageLike": false
+                },
+                {
+                  "rowKey": "",
+                  "key": "conditionCountAcoin",
+                  "value": 9800,
+                  "damageLike": false
+                },
+                {
+                  "rowKey": "",
+                  "key": "conditionCountNP",
+                  "value": 0,
+                  "damageLike": false
+                },
+                {
+                  "rowKey": "",
+                  "key": "probability",
+                  "value": 10000,
                   "damageLike": false
                 }
               ],
@@ -13127,8 +13133,8 @@
           "primarySources": [
             {
               "file": "Skill.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-13T11:10:08+09:00",
+              "commitHash": "481c932b409ac701f9fd10338ba1931db30f60ae",
               "priority": 0,
               "deprioritized": false,
               "matchedRows": 3,
@@ -13462,8 +13468,8 @@
             },
             {
               "file": "SkillGroup.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-06T11:10:08+09:00",
+              "commitHash": "efb60918535ea8b0005ccadefe95233517bac967",
               "priority": 1,
               "deprioritized": false,
               "matchedRows": 1,
@@ -13602,8 +13608,8 @@
           "otherSources": [
             {
               "file": "CharacterState.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-13T11:10:08+09:00",
+              "commitHash": "481c932b409ac701f9fd10338ba1931db30f60ae",
               "priority": 100,
               "deprioritized": false,
               "matchedRows": 1,
@@ -13704,8 +13710,8 @@
             },
             {
               "file": "CharacterStateGroup.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-13T11:10:08+09:00",
+              "commitHash": "481c932b409ac701f9fd10338ba1931db30f60ae",
               "priority": 100,
               "deprioritized": false,
               "matchedRows": 4,
@@ -13860,8 +13866,8 @@
             },
             {
               "file": "EffectAndSound.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-06T11:10:08+09:00",
+              "commitHash": "efb60918535ea8b0005ccadefe95233517bac967",
               "priority": 100,
               "deprioritized": false,
               "matchedRows": 1,
@@ -13916,8 +13922,8 @@
           "primarySources": [
             {
               "file": "Skill.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-13T11:10:08+09:00",
+              "commitHash": "481c932b409ac701f9fd10338ba1931db30f60ae",
               "priority": 0,
               "deprioritized": false,
               "matchedRows": 5,
@@ -14287,8 +14293,8 @@
             },
             {
               "file": "SkillGroup.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-06T11:10:08+09:00",
+              "commitHash": "efb60918535ea8b0005ccadefe95233517bac967",
               "priority": 1,
               "deprioritized": false,
               "matchedRows": 2,
@@ -14553,8 +14559,8 @@
           "otherSources": [
             {
               "file": "CharacterVoiceRandomCount.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-06T11:10:08+09:00",
+              "commitHash": "efb60918535ea8b0005ccadefe95233517bac967",
               "priority": 100,
               "deprioritized": false,
               "matchedRows": 1,
@@ -14606,8 +14612,8 @@
             },
             {
               "file": "EffectAndSound.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-06T11:10:08+09:00",
+              "commitHash": "efb60918535ea8b0005ccadefe95233517bac967",
               "priority": 100,
               "deprioritized": false,
               "matchedRows": 2,
@@ -14671,8 +14677,8 @@
           "primarySources": [
             {
               "file": "Skill.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-13T11:10:08+09:00",
+              "commitHash": "481c932b409ac701f9fd10338ba1931db30f60ae",
               "priority": 0,
               "deprioritized": false,
               "matchedRows": 10,
@@ -15042,8 +15048,8 @@
             },
             {
               "file": "SkillGroup.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-06T11:10:08+09:00",
+              "commitHash": "efb60918535ea8b0005ccadefe95233517bac967",
               "priority": 1,
               "deprioritized": false,
               "matchedRows": 2,
@@ -15308,8 +15314,8 @@
           "otherSources": [
             {
               "file": "CharacterState.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-13T11:10:08+09:00",
+              "commitHash": "481c932b409ac701f9fd10338ba1931db30f60ae",
               "priority": 100,
               "deprioritized": false,
               "matchedRows": 5,
@@ -15740,8 +15746,8 @@
             },
             {
               "file": "CharacterStateGroup.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-13T11:10:08+09:00",
+              "commitHash": "481c932b409ac701f9fd10338ba1931db30f60ae",
               "priority": 100,
               "deprioritized": false,
               "matchedRows": 1,
@@ -15788,8 +15794,8 @@
             },
             {
               "file": "CharacterVoiceRandomCount.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-06T11:10:08+09:00",
+              "commitHash": "efb60918535ea8b0005ccadefe95233517bac967",
               "priority": 100,
               "deprioritized": false,
               "matchedRows": 2,
@@ -15907,8 +15913,8 @@
           "primarySources": [
             {
               "file": "Skill.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-13T11:10:08+09:00",
+              "commitHash": "481c932b409ac701f9fd10338ba1931db30f60ae",
               "priority": 0,
               "deprioritized": false,
               "matchedRows": 5,
@@ -16278,8 +16284,8 @@
             },
             {
               "file": "SkillGroup.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-06T11:10:08+09:00",
+              "commitHash": "efb60918535ea8b0005ccadefe95233517bac967",
               "priority": 1,
               "deprioritized": false,
               "matchedRows": 2,
@@ -16544,20 +16550,20 @@
           "otherSources": [
             {
               "file": "AttackTypeTable.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-13T11:10:08+09:00",
+              "commitHash": "481c932b409ac701f9fd10338ba1931db30f60ae",
               "priority": 100,
               "deprioritized": false,
               "matchedRows": 1,
               "numericFields": [
                 {
-                  "rowKey": "CharacterSkill - 유스티나 W 대상 마크 상태",
+                  "rowKey": "",
                   "key": "groupCode",
                   "value": 1079300,
                   "damageLike": false
                 },
                 {
-                  "rowKey": "CharacterSkill - 유스티나 W 대상 마크 상태",
+                  "rowKey": "",
                   "key": "internalCooldown",
                   "value": 0,
                   "damageLike": false
@@ -16567,8 +16573,8 @@
             },
             {
               "file": "CharacterState.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-13T11:10:08+09:00",
+              "commitHash": "481c932b409ac701f9fd10338ba1931db30f60ae",
               "priority": 100,
               "deprioritized": false,
               "matchedRows": 5,
@@ -16999,8 +17005,8 @@
             },
             {
               "file": "CharacterStateGroup.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-13T11:10:08+09:00",
+              "commitHash": "481c932b409ac701f9fd10338ba1931db30f60ae",
               "priority": 100,
               "deprioritized": false,
               "matchedRows": 3,
@@ -17125,8 +17131,8 @@
             },
             {
               "file": "CharacterVoiceRandomCount.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-06T11:10:08+09:00",
+              "commitHash": "efb60918535ea8b0005ccadefe95233517bac967",
               "priority": 100,
               "deprioritized": false,
               "matchedRows": 1,
@@ -17178,8 +17184,8 @@
             },
             {
               "file": "EffectAndSound.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-06T11:10:08+09:00",
+              "commitHash": "efb60918535ea8b0005ccadefe95233517bac967",
               "priority": 100,
               "deprioritized": false,
               "matchedRows": 2,
@@ -17250,8 +17256,8 @@
           "primarySources": [
             {
               "file": "Skill.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-13T11:10:08+09:00",
+              "commitHash": "481c932b409ac701f9fd10338ba1931db30f60ae",
               "priority": 0,
               "deprioritized": false,
               "matchedRows": 5,
@@ -17621,8 +17627,8 @@
             },
             {
               "file": "SkillGroup.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-06T11:10:08+09:00",
+              "commitHash": "efb60918535ea8b0005ccadefe95233517bac967",
               "priority": 1,
               "deprioritized": false,
               "matchedRows": 3,
@@ -18013,8 +18019,8 @@
           "otherSources": [
             {
               "file": "CharacterState.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-13T11:10:08+09:00",
+              "commitHash": "481c932b409ac701f9fd10338ba1931db30f60ae",
               "priority": 100,
               "deprioritized": false,
               "matchedRows": 1,
@@ -18115,8 +18121,8 @@
             },
             {
               "file": "CharacterStateGroup.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-13T11:10:08+09:00",
+              "commitHash": "481c932b409ac701f9fd10338ba1931db30f60ae",
               "priority": 100,
               "deprioritized": false,
               "matchedRows": 2,
@@ -18199,8 +18205,8 @@
             },
             {
               "file": "CharacterVoiceRandomCount.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-06T11:10:08+09:00",
+              "commitHash": "efb60918535ea8b0005ccadefe95233517bac967",
               "priority": 100,
               "deprioritized": false,
               "matchedRows": 1,
@@ -18252,8 +18258,8 @@
             },
             {
               "file": "EffectAndSound.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-06T11:10:08+09:00",
+              "commitHash": "efb60918535ea8b0005ccadefe95233517bac967",
               "priority": 100,
               "deprioritized": false,
               "matchedRows": 1,
@@ -18299,8 +18305,8 @@
           "primarySources": [
             {
               "file": "Skill.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-13T11:10:08+09:00",
+              "commitHash": "481c932b409ac701f9fd10338ba1931db30f60ae",
               "priority": 0,
               "deprioritized": false,
               "matchedRows": 10,
@@ -18670,8 +18676,8 @@
             },
             {
               "file": "SkillGroup.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-06T11:10:08+09:00",
+              "commitHash": "efb60918535ea8b0005ccadefe95233517bac967",
               "priority": 1,
               "deprioritized": false,
               "matchedRows": 3,
@@ -19062,8 +19068,8 @@
           "otherSources": [
             {
               "file": "CharacterState.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-13T11:10:08+09:00",
+              "commitHash": "481c932b409ac701f9fd10338ba1931db30f60ae",
               "priority": 100,
               "deprioritized": false,
               "matchedRows": 2,
@@ -19254,8 +19260,8 @@
             },
             {
               "file": "CharacterStateGroup.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-13T11:10:08+09:00",
+              "commitHash": "481c932b409ac701f9fd10338ba1931db30f60ae",
               "priority": 100,
               "deprioritized": false,
               "matchedRows": 3,
@@ -19374,8 +19380,8 @@
             },
             {
               "file": "CharacterVoiceRandomCount.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-06T11:10:08+09:00",
+              "commitHash": "efb60918535ea8b0005ccadefe95233517bac967",
               "priority": 100,
               "deprioritized": false,
               "matchedRows": 2,
@@ -19483,8 +19489,8 @@
           "primarySources": [
             {
               "file": "Skill.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-13T11:10:08+09:00",
+              "commitHash": "481c932b409ac701f9fd10338ba1931db30f60ae",
               "priority": 0,
               "deprioritized": false,
               "matchedRows": 1,
@@ -19602,8 +19608,8 @@
             },
             {
               "file": "SkillGroup.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-06T11:10:08+09:00",
+              "commitHash": "efb60918535ea8b0005ccadefe95233517bac967",
               "priority": 1,
               "deprioritized": false,
               "matchedRows": 1,
@@ -19742,8 +19748,8 @@
           "otherSources": [
             {
               "file": "CharacterState.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-13T11:10:08+09:00",
+              "commitHash": "481c932b409ac701f9fd10338ba1931db30f60ae",
               "priority": 100,
               "deprioritized": false,
               "matchedRows": 1,
@@ -19844,8 +19850,8 @@
             },
             {
               "file": "CharacterStateGroup.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-13T11:10:08+09:00",
+              "commitHash": "481c932b409ac701f9fd10338ba1931db30f60ae",
               "priority": 100,
               "deprioritized": false,
               "matchedRows": 1,
@@ -19892,8 +19898,8 @@
             },
             {
               "file": "CharacterVoiceRandomCount.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-06T11:10:08+09:00",
+              "commitHash": "efb60918535ea8b0005ccadefe95233517bac967",
               "priority": 100,
               "deprioritized": false,
               "matchedRows": 1,
@@ -19945,8 +19951,8 @@
             },
             {
               "file": "SkillTargetMask.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-06T11:10:08+09:00",
+              "commitHash": "efb60918535ea8b0005ccadefe95233517bac967",
               "priority": 100,
               "deprioritized": false,
               "matchedRows": 1,
@@ -19984,8 +19990,8 @@
           "primarySources": [
             {
               "file": "Skill.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-13T11:10:08+09:00",
+              "commitHash": "481c932b409ac701f9fd10338ba1931db30f60ae",
               "priority": 0,
               "deprioritized": false,
               "matchedRows": 3,
@@ -20319,8 +20325,8 @@
             },
             {
               "file": "SkillGroup.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-06T11:10:08+09:00",
+              "commitHash": "efb60918535ea8b0005ccadefe95233517bac967",
               "priority": 1,
               "deprioritized": false,
               "matchedRows": 1,
@@ -20459,8 +20465,8 @@
           "otherSources": [
             {
               "file": "CharacterState.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-13T11:10:08+09:00",
+              "commitHash": "481c932b409ac701f9fd10338ba1931db30f60ae",
               "priority": 100,
               "deprioritized": false,
               "matchedRows": 1,
@@ -20561,8 +20567,8 @@
             },
             {
               "file": "CharacterStateGroup.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-13T11:10:08+09:00",
+              "commitHash": "481c932b409ac701f9fd10338ba1931db30f60ae",
               "priority": 100,
               "deprioritized": false,
               "matchedRows": 1,
@@ -20609,8 +20615,8 @@
             },
             {
               "file": "CharacterVoiceRandomCount.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-06T11:10:08+09:00",
+              "commitHash": "efb60918535ea8b0005ccadefe95233517bac967",
               "priority": 100,
               "deprioritized": false,
               "matchedRows": 1,
@@ -20662,8 +20668,8 @@
             },
             {
               "file": "EffectAndSound.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-06T11:10:08+09:00",
+              "commitHash": "efb60918535ea8b0005ccadefe95233517bac967",
               "priority": 100,
               "deprioritized": false,
               "matchedRows": 2,
@@ -20723,8 +20729,8 @@
           "primarySources": [
             {
               "file": "Skill.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-13T11:10:08+09:00",
+              "commitHash": "481c932b409ac701f9fd10338ba1931db30f60ae",
               "priority": 0,
               "deprioritized": false,
               "matchedRows": 1,
@@ -20842,8 +20848,8 @@
             },
             {
               "file": "SkillGroup.json",
-              "commitDate": "2026-05-21T12:00:17+09:00",
-              "commitHash": "257e632e3f15e255f5209b4fa4a3be12a7069e9d",
+              "commitDate": "2026-08-06T11:10:08+09:00",
+              "commitHash": "efb60918535ea8b0005ccadefe95233517bac967",
               "priority": 1,
               "deprioritized": false,
               "matchedRows": 1,
