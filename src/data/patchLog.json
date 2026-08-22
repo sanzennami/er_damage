@@ -1,7 +1,7 @@
 {
   "_comment": "官方补丁变更日志。每条记录的是「该补丁之后应该是什么值」（目标态），不是增量。",
   "_usage": "新版本上线：在 patches 末尾追加一段，然后跑 node scripts/apply-patch-log.mjs。脚本幂等，重跑只会跳过已达标的条目，不需要还原任何数据。",
-  "updatedAt": "2026-08-22T02:43:49.062Z",
+  "updatedAt": "2026-08-22T03:23:31.474Z",
   "patches": [
     {
       "version": "sweep-2023-07-19",
@@ -9983,6 +9983,92 @@
           "source": "in-game-client",
           "coefficientText": "声波的攻击力系数 3/6/9%，(攻击力X%) * (普攻增幅)",
           "note": "官方标为普攻伤害，走普攻增幅与普攻减伤结算。这是普攻之外额外附带的，和面板上的「普通攻击」是相加关系，不是替换。"
+        }
+      ],
+      "equipment": [],
+      "characters": [],
+      "mastery": []
+    },
+    {
+      "version": "client-12.2-emma",
+      "order": 20260828,
+      "date": "2026-08-21",
+      "label": "12.2",
+      "url": "https://playeternalreturn.com/posts/news/3783?hl=zh-CN",
+      "title": "客户端截图读值：艾玛",
+      "skills": [
+        {
+          "id": "external-emma-q-1019200-damage-stat1",
+          "slot": "Q",
+          "title": "Q 鸽子魔术秀",
+          "source": "in-game-client",
+          "maxHits": 2,
+          "defaultHits": 1,
+          "coefficientText": "伤害 60/100/140/180/220(+技能增幅80%)",
+          "note": "朝指定方向飞纸牌，并在自身位置释放鸽子 7 秒。飞纸牌时若附近有鸽子，鸽子会变成纸牌一起飞出、造成**同等伤害**，所以最多打两次——页面按 1~2 次给阶梯，没有鸽子在场时只有一次。两张牌都命中同一目标时减速 40% 持续 2 秒。命中会让本技能冷却减少 25%。数值和原有的一致。"
+        },
+        {
+          "id": "external-emma-w-1019300-damage-stat1",
+          "slot": "W",
+          "title": "W 不思议帽子",
+          "source": "in-game-client",
+          "coefficientText": "伤害 80/125/170/215/260(+技能增幅85%)",
+          "note": "扔出魔术帽，0.5 秒后闪爆。帽子留在原地 7 秒，可以作为 R 的传送锚点。击中敌人时冷却减少 25%。数值和原有的一致。"
+        },
+        {
+          "id": "external-emma-e-1019400-damage-stat1",
+          "slot": "E",
+          "title": "E 百变魔兔",
+          "source": "in-game-client",
+          "coefficientText": "伤害 30/55/80/105/130(+技能增幅30%)",
+          "note": "使目标变身兔子 0.8~1 秒，期间只能移动、移速降低 1.3。无法对濒死状态的敌人使用。兔子可以作为 R 的传送锚点。数值和原有的一致。"
+        },
+        {
+          "id": "external-emma-r-1019500-dove-damage-stat1",
+          "slot": "R",
+          "title": "R Change★-鸽子伤害",
+          "source": "in-game-client",
+          "coefficientText": "鸽子伤害 150/200/250(+技能增幅90%)",
+          "note": "鸽子传送到艾玛所处位置，对路径上的敌人结算并束缚 1.5 秒。标题里的连字符不加空格是有意的：页面按「槽位后第一个词」分组，三形态若同为「Change★」会被并成多段视图给出「全段合计」，而它们是三选一的。数值和原有的一致。"
+        },
+        {
+          "id": "external-emma-r-1019500-hat-damage-stat2",
+          "slot": "R",
+          "title": "R Change★-帽子伤害",
+          "source": "in-game-client",
+          "coefficientText": "帽子伤害 200/280/360(+技能增幅130%)",
+          "note": "帽子传送到艾玛所处位置，对范围内的敌人结算并把他们拉到帽子中心。三形态里伤害最高的一档。数值和原有的一致。"
+        },
+        {
+          "id": "external-emma-r-1019500-rabbit-damage-stat3",
+          "slot": "R",
+          "title": "R Change★-兔子伤害",
+          "source": "in-game-client",
+          "coefficientText": "兔子伤害 40/70/100(+技能增幅20%)",
+          "note": "对兔子周围的敌人施展魔术，1 秒内全部变身兔子、移速降低 1.3，并**重置 CheerUP♥(P) 的冷却**。伤害是三形态里最低的，但带控制和重置 P。数值和原有的一致。"
+        },
+        {
+          "id": "external-emma-p-1019100-damage-stat1",
+          "slot": "P",
+          "title": "P CheerUP♥-额外伤害",
+          "source": "in-game-client",
+          "coefficientText": "伤害 60/80/100，伤害量技能增幅系数 25/35/45%",
+          "note": "每 12/9/6 秒发动普攻时攻速 +40%，并附带这一段额外技能伤害。注意技能增幅系数本身随等级变化（25/35/45%），不是固定值——公式里已经是 [..][level-1] 数组。R 选兔子形态时会重置这个技能的冷却。P 这一槽是 3 级制。数值和原有的一致。"
+        },
+        {
+          "create": true,
+          "id": "ingame-019-emma-p-1019100-shield",
+          "hero": "艾玛",
+          "slot": "P",
+          "group": 1019100,
+          "dataKey": "Shield",
+          "title": "P CheerUP♥-魔术护盾",
+          "bases": "120,160,200",
+          "formula": "base + ap * [0.25,0.3,0.35][level - 1]",
+          "kind": "shield",
+          "source": "in-game-client",
+          "coefficientText": "护盾吸收 120/160/200，护盾技能增幅系数 25/30/35%",
+          "note": "和上面那段额外伤害同时触发。护盾的技能增幅系数是 25/30/35%，和伤害那段的 25/35/45% **不是同一组数**，别混用。"
         }
       ],
       "equipment": [],
