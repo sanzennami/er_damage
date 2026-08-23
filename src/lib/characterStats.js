@@ -24,7 +24,7 @@ const MASTERY_OVERRIDES = new Map(
   CAPTURED_MASTERY.filter((entry) => entry.override).map((entry) => [`${entry.heroCode}|${entry.weaponType}`, entry.override])
 );
 
-/** 实验体列表：解包数据为底，客户端截图读值只在对账冲突时覆盖。 */
+/** 实验体列表：解包数据为底，客户端手动截图录入只在对账冲突时覆盖。 */
 export const CHARACTERS = (CHARACTER_DATA.characters || []).map((character) => {
   const override = STATS_OVERRIDES.get(character.code);
   if (!override) return character;
@@ -40,7 +40,7 @@ export function findCharacterByName(name) {
   return CHARACTERS.find((character) => character.name === name) || null;
 }
 
-/** 某实验体用某武器的每级熟练度成长；冲突项由客户端截图读值覆盖。 */
+/** 某实验体用某武器的每级熟练度成长；冲突项由客户端手动截图录入覆盖。 */
 export function masteryStatFor(characterCode, weaponRawType) {
   const row = MASTERY_STATS.find((item) => item.characterCode === characterCode && item.type === weaponRawType) || null;
   const override = MASTERY_OVERRIDES.get(`${characterCode}|${weaponRawType}`);

@@ -51,7 +51,7 @@ import {
   statConversionFor
 } from './lib/specialRules.js';
 
-const APP_VERSION = 'v0.2.070';
+const APP_VERSION = 'v0.2.073';
 
 const EXPORTED_LOCAL_CONFIG_MODULES = import.meta.glob('./data/localConfig.export.json', {
   eager: true,
@@ -518,12 +518,26 @@ function buffStackCount(skill, stackCounts = {}) {
   return Math.max(0, Math.min(maxStacks, value));
 }
 
+/**
+ * 一条增益实际贡献多少。
+ *
+ * 默认是「每层 × 层数」。但有的效果是**攒够了才一次性给**，不是逐层累加——
+ * 西尔维娅 P 卢米亚越野赛探索满 10 个区域才 +5% 技能增幅，路上 9 个区域一点都没有。
+ * 这类条目写 "onlyAtMaxStacks": true，没到满层贡献 0，到了就给一份（不乘层数）。
+ */
+function buffContribution(skill, level, stacks) {
+  const perStack = buffValueAtLevel(skill, level);
+  if (!skill?.onlyAtMaxStacks) return perStack * stacks;
+  const maxStacks = Math.max(1, getNumber(skill.maxStacks) || 1);
+  return stacks >= maxStacks ? perStack : 0;
+}
+
 function buffTotals(skillRows, skillLevels = {}, stackCounts = {}) {
   return skillRows.filter((skill) => skill.kind === 'buff').reduce((totals, skill) => {
     const level = getNumber(skillLevels[skill.id]) || 1;
     const stacks = buffStackCount(skill, stackCounts);
     const key = skill.buffKey || 'apPct';
-    return { ...totals, [key]: getNumber(totals[key]) + buffValueAtLevel(skill, level) * stacks };
+    return { ...totals, [key]: getNumber(totals[key]) + buffContribution(skill, level, stacks) };
   }, { apPct: 0, damageBonus: 0, basicAttackAmp: 0, ap: 0, attackPower: 0, healShieldAmp: 0 });
 }
 
@@ -2359,13 +2373,35 @@ function TextCell({ value, onChange, type = 'text', step }) {
   return <input type={type} step={step} value={value ?? ''} onChange={(event) => onChange(event.target.value)} />;
 }
 
-function DamageValue({ raw, final }) {
+/**
+ * rangeFrom 有值时按区间显示（0~154 这样）。
+ *
+ * 给「随某个状态在两个数之间浮动」的段用 —— 西尔维娅 E 孤轮疾驰按车速追加 0~154，
+ * 官方只给了两端、没给换算曲线。写成单个数会被当成必然打出的伤害，区间才是实情。
+ */
+function DamageValue({ raw, final, rangeFrom }) {
+  const ranged = Number.isFinite(rangeFrom);
   return (
-    <div className="damageValue">
-      <b>{damageFloor(final)}</b>
-      <small>原始 {damageFloor(raw)}</small>
+    <div className={`damageValue ${ranged ? 'rangedValue' : ''}`.trim()}>
+      <b>{ranged ? `${damageFloor(rangeFrom)}~${damageFloor(final)}` : damageFloor(final)}</b>
+      <small>原始 {ranged ? `${damageFloor(rangeFrom)}~${damageFloor(raw)}` : damageFloor(raw)}</small>
     </div>
   );
+}
+
+/**
+ * 「这一段的伤害是个区间」的声明：
+ *
+ *   "damageRange": { "min": 0, "note": "根据摩托车当时的移动速度，在 0 和这个数之间变化" }
+ *
+ * min 不写时按 0 算。页面把总计那行显示成 min~计算值，note 挂在段落下方。
+ */
+function damageRangeRule(skill) {
+  const rule = skill?.damageRange;
+  if (!rule) return null;
+  const min = getNumber(rule.min);
+  if (!Number.isFinite(min)) return null;
+  return { min, note: rule.note || '' };
 }
 
 function hasChineseText(value) {
@@ -3786,6 +3822,7 @@ export default function App() {
       : options.totalLabel || (count > 1 ? `${count} 目标总计` : '单目标');
     const sourceMeta = skillSourceMeta(skill);
     const selfAmp = selfAmpRule(skill);
+    const damageRange = damageRangeRule(skill);
     const skillLevel = skill.level || skillLevels[skill.id] || 1;
     const description = skill.coefficientText || skill.description || '';
 
@@ -3845,15 +3882,20 @@ export default function App() {
           ) : null}
           <div className="skillTotalValue">
             <span>{totalLabel}</span>
-            <DamageValue raw={totalRaw} final={totalFinal} />
+            <DamageValue raw={totalRaw} final={totalFinal} rangeFrom={damageRange?.min} />
           </div>
           {selfAmp ? (
             <div className="skillTotalValue selfAmpValue">
               <span>受{selfAmp.source}增伤时{options.selfAmpLabel || '伤害'}</span>
-              <DamageValue raw={totalRaw * selfAmp.multiplier} final={totalFinal * selfAmp.multiplier} />
+              <DamageValue
+                raw={totalRaw * selfAmp.multiplier}
+                final={totalFinal * selfAmp.multiplier}
+                rangeFrom={Number.isFinite(damageRange?.min) ? damageRange.min * selfAmp.multiplier : undefined}
+              />
             </div>
           ) : null}
         </div>
+        {damageRange?.note ? <p className="skillLeafNote">{damageRange.note}</p> : null}
         {selfAmp?.note ? <p className="skillLeafNote">{selfAmp.note}</p> : null}
       </div>
     );
@@ -4164,7 +4206,9 @@ export default function App() {
                 <SkillDescriptionContent
                   title={label}
                   level={skillLevel}
-                  formula={`每层 ${showBuff(perStack)}　最多 ${maxStacks} 层`}
+                  formula={skill.onlyAtMaxStacks
+                    ? `满 ${maxStacks} 层时一次性 ${showBuff(perStack)}（不足不给）`
+                    : `每层 ${showBuff(perStack)}　最多 ${maxStacks} 层`}
                   description={skill.coefficientText || skill.description || ''}
                   source={sourceMeta?.title}
                 />
@@ -4174,14 +4218,43 @@ export default function App() {
             </PortalHovercard>
             <span className="nonDamageBadge">增益</span>
           </div>
-          {renderCountStepper(skill.stackLabel || '叠层', stackKey, {
+          {skill.stackMode === 'slider' ? (
+            <div className="buffStackSlider">
+              <span>{skill.stackLabel || '叠层'}</span>
+              <div className="stackSlider">
+                <input
+                  type="range"
+                  min={0}
+                  max={maxStacks}
+                  step={Math.max(1, getNumber(skill.stackStep) || 1)}
+                  value={stacks}
+                  onChange={(event) => updateSkillCount(stackKey, Number(event.target.value), { min: 0, max: maxStacks })}
+                  aria-label={skill.stackLabel || '叠层'}
+                />
+                <input
+                  type="number"
+                  min={0}
+                  max={maxStacks}
+                  value={stacks}
+                  onChange={(event) => updateSkillCount(stackKey, getNumber(event.target.value), { min: 0, max: maxStacks })}
+                  aria-label={`${skill.stackLabel || '叠层'}（手动输入）`}
+                />
+                <small>/ {maxStacks}</small>
+              </div>
+            </div>
+          ) : renderCountStepper(skill.stackLabel || '叠层', stackKey, {
             min: 0, max: maxStacks, fallback: skill.defaultStacks, step: Math.max(1, getNumber(skill.stackStep) || 1)
           })}
         </div>
         <div className="skillLeafValues">
           <div className="skillTotalValue">
-            <span>{BUFF_KEY_LABELS[skill.buffKey] || skill.buffKey}（Lv.{skillLevel} 每层 {showBuff(perStack)}）</span>
-            <span className="buffValue">{showBuff(perStack * stacks)}</span>
+            <span>
+              {BUFF_KEY_LABELS[skill.buffKey] || skill.buffKey}
+              {skill.onlyAtMaxStacks
+                ? `（Lv.${skillLevel} 满 ${maxStacks} 层时 ${showBuff(perStack)}）`
+                : `（Lv.${skillLevel} 每层 ${showBuff(perStack)}）`}
+            </span>
+            <span className="buffValue">{showBuff(buffContribution(skill, skillLevel, stacks))}</span>
           </div>
         </div>
         {skill.hitNote ? <p className="skillLeafNote">{skill.hitNote}</p> : null}

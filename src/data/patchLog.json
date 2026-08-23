@@ -1,13 +1,12 @@
 {
   "_comment": "官方补丁变更日志。每条记录的是「该补丁之后应该是什么值」（目标态），不是增量。",
   "_usage": "新版本上线：在 patches 末尾追加一段，然后跑 node scripts/apply-patch-log.mjs。脚本幂等，重跑只会跳过已达标的条目，不需要还原任何数据。",
-  "updatedAt": "2026-08-22T08:27:07.390Z",
+  "updatedAt": "2026-08-22T15:50:35.273Z",
   "patches": [
     {
       "version": "sweep-2023-07-19",
       "order": 20230719,
       "date": "2023-07-19",
-      "url": "https://playeternalreturn.com/posts/news/1286?hl=zh-CN",
       "title": "更新日志 1.0.0 (2023.07.20)",
       "skills": [
         {
@@ -76,13 +75,13 @@
       ],
       "equipment": [],
       "characters": [],
-      "mastery": []
+      "mastery": [],
+      "url": "https://playeternalreturn.com/posts/news/1286?hl=zh-CN"
     },
     {
       "version": "release-2023-08-16",
       "order": 20230816,
       "date": "2023-08-16",
-      "url": "https://playeternalreturn.com/posts/news/1354?hl=zh-CN",
       "title": "2023.08.17 - 1.2 更新日志",
       "skills": [
         {
@@ -176,13 +175,13 @@
       ],
       "equipment": [],
       "characters": [],
-      "mastery": []
+      "mastery": [],
+      "url": "https://playeternalreturn.com/posts/news/1354?hl=zh-CN"
     },
     {
       "version": "release-2023-08-30",
       "order": 20230830,
       "date": "2023-08-30",
-      "url": "https://playeternalreturn.com/posts/news/1381?hl=zh-CN",
       "title": "2023.08.31 - 1.3 更新日志",
       "skills": [
         {
@@ -210,13 +209,13 @@
       ],
       "equipment": [],
       "characters": [],
-      "mastery": []
+      "mastery": [],
+      "url": "https://playeternalreturn.com/posts/news/1381?hl=zh-CN"
     },
     {
       "version": "release-2023-10-11",
       "order": 20231011,
       "date": "2023-10-11",
-      "url": "https://playeternalreturn.com/posts/news/1480?hl=zh-CN",
       "title": "2023.10.12 - 1.6 更新日志",
       "skills": [
         {
@@ -244,13 +243,13 @@
       ],
       "equipment": [],
       "characters": [],
-      "mastery": []
+      "mastery": [],
+      "url": "https://playeternalreturn.com/posts/news/1480?hl=zh-CN"
     },
     {
       "version": "release-2024-01-17",
       "order": 20240117,
       "date": "2024-01-17",
-      "url": "https://playeternalreturn.com/posts/news/1673?hl=zh-CN",
       "title": "[更正] 2024.01.18 - 1.13 更新日志",
       "skills": [
         {
@@ -278,13 +277,13 @@
       ],
       "equipment": [],
       "characters": [],
-      "mastery": []
+      "mastery": [],
+      "url": "https://playeternalreturn.com/posts/news/1673?hl=zh-CN"
     },
     {
       "version": "release-2024-02-28",
       "order": 20240228,
       "date": "2024-02-28",
-      "url": "https://playeternalreturn.com/posts/news/1765?hl=zh-CN",
       "title": "2024.02.29 - 1.16 更新日志",
       "skills": [
         {
@@ -323,13 +322,13 @@
       ],
       "equipment": [],
       "characters": [],
-      "mastery": []
+      "mastery": [],
+      "url": "https://playeternalreturn.com/posts/news/1765?hl=zh-CN"
     },
     {
       "version": "sweep-2024-12-18",
       "order": 20241218,
       "date": "2024-12-18",
-      "url": "https://playeternalreturn.com/posts/news/2401?hl=zh-CN",
       "title": "2024.12.19 - 1.37 更新日志",
       "skills": [
         {
@@ -362,13 +361,13 @@
       ],
       "equipment": [],
       "characters": [],
-      "mastery": []
+      "mastery": [],
+      "url": "https://playeternalreturn.com/posts/news/2401?hl=zh-CN"
     },
     {
       "version": "release-2024-12-18",
       "order": 20241218,
       "date": "2024-12-18",
-      "url": "https://playeternalreturn.com/posts/news/2401?hl=zh-CN",
       "title": "2024.12.19 - 1.37 更新日志",
       "skills": [
         {
@@ -396,13 +395,13 @@
       ],
       "equipment": [],
       "characters": [],
-      "mastery": []
+      "mastery": [],
+      "url": "https://playeternalreturn.com/posts/news/2401?hl=zh-CN"
     },
     {
       "version": "sweep-2024-12-24",
       "order": 20241224,
       "date": "2024-12-24",
-      "url": "https://playeternalreturn.com/posts/news/2415?hl=zh-CN",
       "title": "1.37c不停机维护",
       "skills": [
         {
@@ -417,13 +416,13 @@
       ],
       "equipment": [],
       "characters": [],
-      "mastery": []
+      "mastery": [],
+      "url": "https://playeternalreturn.com/posts/news/2415?hl=zh-CN"
     },
     {
       "version": "sweep-2024-12-31",
       "order": 20241231,
       "date": "2024-12-31",
-      "url": "https://playeternalreturn.com/posts/news/2426?hl=zh-CN",
       "title": "2025.01.02 - 1.38 更新日志",
       "skills": [
         {
@@ -439,13 +438,13 @@
       ],
       "equipment": [],
       "characters": [],
-      "mastery": []
+      "mastery": [],
+      "url": "https://playeternalreturn.com/posts/news/2426?hl=zh-CN"
     },
     {
       "version": "release-2025-02-05",
       "order": 20250205,
       "date": "2025-02-05",
-      "url": "https://playeternalreturn.com/posts/news/2513?hl=zh-CN",
       "title": "2025.02.06 - 1.40 更新日志",
       "skills": [
         {
@@ -462,13 +461,13 @@
       ],
       "equipment": [],
       "characters": [],
-      "mastery": []
+      "mastery": [],
+      "url": "https://playeternalreturn.com/posts/news/2513?hl=zh-CN"
     },
     {
       "version": "release-2025-04-02",
       "order": 20250402,
       "date": "2025-04-02",
-      "url": "https://playeternalreturn.com/posts/news/2623?hl=zh-CN",
       "title": "2025.04.03 - 1.44 更新日志",
       "skills": [
         {
@@ -540,13 +539,13 @@
       ],
       "equipment": [],
       "characters": [],
-      "mastery": []
+      "mastery": [],
+      "url": "https://playeternalreturn.com/posts/news/2623?hl=zh-CN"
     },
     {
       "version": "release-2025-05-14",
       "order": 20250514,
       "date": "2025-05-14",
-      "url": "https://playeternalreturn.com/posts/news/2702?hl=zh-CN",
       "title": "2025.05.15 - 1.47 更新日志",
       "skills": [
         {
@@ -585,13 +584,13 @@
       ],
       "equipment": [],
       "characters": [],
-      "mastery": []
+      "mastery": [],
+      "url": "https://playeternalreturn.com/posts/news/2702?hl=zh-CN"
     },
     {
       "version": "sweep-2025-07-23",
       "order": 20250723,
       "date": "2025-07-23",
-      "url": "https://playeternalreturn.com/posts/news/2885?hl=zh-CN",
       "title": "[内容调整] 2025.07.24 - 8.2 更新日志",
       "skills": [
         {
@@ -625,13 +624,13 @@
       ],
       "equipment": [],
       "characters": [],
-      "mastery": []
+      "mastery": [],
+      "url": "https://playeternalreturn.com/posts/news/2885?hl=zh-CN"
     },
     {
       "version": "8.2",
       "order": 20250724,
       "date": "2025-07-24",
-      "url": "https://playeternalreturn.com/posts/news/2885?hl=zh-CN",
       "title": "8.2 更新日志 - 新实验体 雪琳",
       "skills": [
         {
@@ -764,13 +763,13 @@
       ],
       "equipment": [],
       "characters": [],
-      "mastery": []
+      "mastery": [],
+      "url": "https://playeternalreturn.com/posts/news/2885?hl=zh-CN"
     },
     {
       "version": "sweep-2025-08-06",
       "order": 20250806,
       "date": "2025-08-06",
-      "url": "https://playeternalreturn.com/posts/news/2916?hl=zh-CN",
       "title": "2025.08.07 - 8.3 更新日志",
       "skills": [
         {
@@ -794,13 +793,13 @@
       ],
       "equipment": [],
       "characters": [],
-      "mastery": []
+      "mastery": [],
+      "url": "https://playeternalreturn.com/posts/news/2916?hl=zh-CN"
     },
     {
       "version": "sweep-2025-08-20",
       "order": 20250820,
       "date": "2025-08-20",
-      "url": "https://playeternalreturn.com/posts/news/2952?hl=zh-CN",
       "title": "2025.08.21 - 8.4 更新日志 Part.1 - 主要更新",
       "skills": [
         {
@@ -815,13 +814,13 @@
       ],
       "equipment": [],
       "characters": [],
-      "mastery": []
+      "mastery": [],
+      "url": "https://playeternalreturn.com/posts/news/2952?hl=zh-CN"
     },
     {
       "version": "release-2025-09-03",
       "order": 20250903,
       "date": "2025-09-03",
-      "url": "https://playeternalreturn.com/posts/news/3000?hl=zh-CN",
       "title": "2025.09.04 - 8.5 更新日志",
       "skills": [
         {
@@ -893,13 +892,13 @@
       ],
       "equipment": [],
       "characters": [],
-      "mastery": []
+      "mastery": [],
+      "url": "https://playeternalreturn.com/posts/news/3000?hl=zh-CN"
     },
     {
       "version": "sweep-2025-09-17",
       "order": 20250917,
       "date": "2025-09-17",
-      "url": "https://playeternalreturn.com/posts/news/3030?hl=zh-CN",
       "title": "2025.09.18 - 8.6 更新日志",
       "skills": [
         {
@@ -933,13 +932,13 @@
       ],
       "equipment": [],
       "characters": [],
-      "mastery": []
+      "mastery": [],
+      "url": "https://playeternalreturn.com/posts/news/3030?hl=zh-CN"
     },
     {
       "version": "sweep-2025-09-30",
       "order": 20250930,
       "date": "2025-09-30",
-      "url": "https://playeternalreturn.com/posts/news/3055?hl=zh-CN",
       "title": "2025.10.01 - 8.7 更新日志",
       "skills": [
         {
@@ -954,13 +953,13 @@
       ],
       "equipment": [],
       "characters": [],
-      "mastery": []
+      "mastery": [],
+      "url": "https://playeternalreturn.com/posts/news/3055?hl=zh-CN"
     },
     {
       "version": "sweep-2025-10-22",
       "order": 20251022,
       "date": "2025-10-22",
-      "url": "https://playeternalreturn.com/posts/news/3111?hl=zh-CN",
       "title": "2025.10.23 - 9.1 更新日志",
       "skills": [
         {
@@ -984,13 +983,13 @@
       ],
       "equipment": [],
       "characters": [],
-      "mastery": []
+      "mastery": [],
+      "url": "https://playeternalreturn.com/posts/news/3111?hl=zh-CN"
     },
     {
       "version": "sweep-2025-10-29",
       "order": 20251029,
       "date": "2025-10-29",
-      "url": "https://playeternalreturn.com/posts/news/3127?hl=zh-CN",
       "title": "2025.10.30 - 9.2 更新日志",
       "skills": [
         {
@@ -1005,13 +1004,13 @@
       ],
       "equipment": [],
       "characters": [],
-      "mastery": []
+      "mastery": [],
+      "url": "https://playeternalreturn.com/posts/news/3127?hl=zh-CN"
     },
     {
       "version": "release-2025-10-29",
       "order": 20251029,
       "date": "2025-10-29",
-      "url": "https://playeternalreturn.com/posts/news/3127?hl=zh-CN",
       "title": "2025.10.30 - 9.2 更新日志",
       "skills": [
         {
@@ -1094,13 +1093,13 @@
       ],
       "equipment": [],
       "characters": [],
-      "mastery": []
+      "mastery": [],
+      "url": "https://playeternalreturn.com/posts/news/3127?hl=zh-CN"
     },
     {
       "version": "sweep-2025-11-26",
       "order": 20251126,
       "date": "2025-11-26",
-      "url": "https://playeternalreturn.com/posts/news/3182?hl=zh-CN",
       "title": "2025.11.27 - 9.4 更新日志",
       "skills": [
         {
@@ -1124,13 +1123,13 @@
       ],
       "equipment": [],
       "characters": [],
-      "mastery": []
+      "mastery": [],
+      "url": "https://playeternalreturn.com/posts/news/3182?hl=zh-CN"
     },
     {
       "version": "sweep-2025-12-10",
       "order": 20251210,
       "date": "2025-12-10",
-      "url": "https://playeternalreturn.com/posts/news/3209?hl=zh-CN",
       "title": "[内容调整]2025.12.11 - 9.5 更新日志",
       "skills": [
         {
@@ -1154,13 +1153,13 @@
       ],
       "equipment": [],
       "characters": [],
-      "mastery": []
+      "mastery": [],
+      "url": "https://playeternalreturn.com/posts/news/3209?hl=zh-CN"
     },
     {
       "version": "9.5",
       "order": 20251211,
       "date": "2025-12-11",
-      "url": "https://playeternalreturn.com/posts/news/3209?hl=zh-CN",
       "title": "9.5 更新日志 - 新实验体 米尔卡",
       "skills": [
         {
@@ -1209,13 +1208,13 @@
       ],
       "equipment": [],
       "characters": [],
-      "mastery": []
+      "mastery": [],
+      "url": "https://playeternalreturn.com/posts/news/3209?hl=zh-CN"
     },
     {
       "version": "9.5c",
       "order": 20251216,
       "date": "2025-12-16",
-      "url": "https://playeternalreturn.com/posts/news/3229?hl=zh-CN",
       "title": "9.5c 不停机维护",
       "skills": [
         {
@@ -1251,13 +1250,13 @@
       ],
       "equipment": [],
       "characters": [],
-      "mastery": []
+      "mastery": [],
+      "url": "https://playeternalreturn.com/posts/news/3229?hl=zh-CN"
     },
     {
       "version": "sweep-2026-01-07",
       "order": 20260107,
       "date": "2026-01-07",
-      "url": "https://playeternalreturn.com/posts/news/3275?hl=zh-CN",
       "title": "2026.01.08 - 9.7 更新日志",
       "skills": [
         {
@@ -1281,13 +1280,13 @@
       ],
       "equipment": [],
       "characters": [],
-      "mastery": []
+      "mastery": [],
+      "url": "https://playeternalreturn.com/posts/news/3275?hl=zh-CN"
     },
     {
       "version": "9.7",
       "order": 20260108,
       "date": "2026-01-08",
-      "url": "https://playeternalreturn.com/posts/news/3275?hl=zh-CN",
       "title": "9.7 更新日志",
       "skills": [
         {
@@ -1336,13 +1335,13 @@
       ],
       "equipment": [],
       "characters": [],
-      "mastery": []
+      "mastery": [],
+      "url": "https://playeternalreturn.com/posts/news/3275?hl=zh-CN"
     },
     {
       "version": "sweep-2026-01-21",
       "order": 20260121,
       "date": "2026-01-21",
-      "url": "https://playeternalreturn.com/posts/news/3306?hl=zh-CN",
       "title": "10.0 更新日志 Part.2 - 实验体和物品",
       "skills": [
         {
@@ -1358,13 +1357,13 @@
       ],
       "equipment": [],
       "characters": [],
-      "mastery": []
+      "mastery": [],
+      "url": "https://playeternalreturn.com/posts/news/3306?hl=zh-CN"
     },
     {
       "version": "sweep-2026-02-04",
       "order": 20260204,
       "date": "2026-02-04",
-      "url": "https://playeternalreturn.com/posts/news/3340?hl=zh-CN",
       "title": "[内容调整] 2026.02.05 - 10.2 更新日志",
       "skills": [
         {
@@ -1388,13 +1387,13 @@
       ],
       "equipment": [],
       "characters": [],
-      "mastery": []
+      "mastery": [],
+      "url": "https://playeternalreturn.com/posts/news/3340?hl=zh-CN"
     },
     {
       "version": "release-2026-02-04",
       "order": 20260204,
       "date": "2026-02-04",
-      "url": "https://playeternalreturn.com/posts/news/3340?hl=zh-CN",
       "title": "[内容调整] 2026.02.05 - 10.2 更新日志",
       "skills": [
         {
@@ -1466,13 +1465,13 @@
       ],
       "equipment": [],
       "characters": [],
-      "mastery": []
+      "mastery": [],
+      "url": "https://playeternalreturn.com/posts/news/3340?hl=zh-CN"
     },
     {
       "version": "sweep-2026-02-13",
       "order": 20260213,
       "date": "2026-02-13",
-      "url": "https://playeternalreturn.com/posts/news/3374?hl=zh-CN",
       "title": "2026.02.19 - 10.3 更新日志",
       "skills": [
         {
@@ -1487,13 +1486,13 @@
       ],
       "equipment": [],
       "characters": [],
-      "mastery": []
+      "mastery": [],
+      "url": "https://playeternalreturn.com/posts/news/3374?hl=zh-CN"
     },
     {
       "version": "sweep-2026-03-04",
       "order": 20260304,
       "date": "2026-03-04",
-      "url": "https://playeternalreturn.com/posts/news/3406?hl=zh-CN",
       "title": "[内容调整] 2026.03.05 - 10.4 更新日志",
       "skills": [
         {
@@ -1529,13 +1528,13 @@
       ],
       "equipment": [],
       "characters": [],
-      "mastery": []
+      "mastery": [],
+      "url": "https://playeternalreturn.com/posts/news/3406?hl=zh-CN"
     },
     {
       "version": "sweep-2026-03-18",
       "order": 20260318,
       "date": "2026-03-18",
-      "url": "https://playeternalreturn.com/posts/news/3444?hl=zh-CN",
       "title": "2026.03.19 - 10.5 更新日志",
       "skills": [
         {
@@ -1577,13 +1576,13 @@
       ],
       "equipment": [],
       "characters": [],
-      "mastery": []
+      "mastery": [],
+      "url": "https://playeternalreturn.com/posts/news/3444?hl=zh-CN"
     },
     {
       "version": "10.5",
       "order": 20260319,
       "date": "2026-03-19",
-      "url": "https://playeternalreturn.com/posts/news/3444?hl=zh-CN",
       "title": "10.5 更新日志 - 新实验体 卡洛琳",
       "skills": [
         {
@@ -1632,13 +1631,13 @@
       ],
       "equipment": [],
       "characters": [],
-      "mastery": []
+      "mastery": [],
+      "url": "https://playeternalreturn.com/posts/news/3444?hl=zh-CN"
     },
     {
       "version": "10.5a",
       "order": 20260324,
       "date": "2026-03-24",
-      "url": "https://playeternalreturn.com/posts/news/3457?hl=zh-CN",
       "title": "10.5a 不停机维护",
       "skills": [
         {
@@ -1659,13 +1658,13 @@
       ],
       "equipment": [],
       "characters": [],
-      "mastery": []
+      "mastery": [],
+      "url": "https://playeternalreturn.com/posts/news/3457?hl=zh-CN"
     },
     {
       "version": "10.6",
       "order": 20260402,
       "date": "2026-04-02",
-      "url": "https://playeternalreturn.com/posts/news/3480?hl=zh-CN",
       "title": "10.6 更新日志",
       "skills": [
         {
@@ -1713,13 +1712,13 @@
       ],
       "equipment": [],
       "characters": [],
-      "mastery": []
+      "mastery": [],
+      "url": "https://playeternalreturn.com/posts/news/3480?hl=zh-CN"
     },
     {
       "version": "sweep-2026-04-15",
       "order": 20260415,
       "date": "2026-04-15",
-      "url": "https://playeternalreturn.com/posts/news/3504?hl=zh-CN",
       "title": "2026.04.16 - 10.7 更新日志",
       "skills": [
         {
@@ -1743,13 +1742,13 @@
       ],
       "equipment": [],
       "characters": [],
-      "mastery": []
+      "mastery": [],
+      "url": "https://playeternalreturn.com/posts/news/3504?hl=zh-CN"
     },
     {
       "version": "11.1a",
       "order": 20260508,
       "date": "2026-05-08",
-      "url": "https://playeternalreturn.com/posts/news/3568?hl=zh-CN",
       "title": "11.1a 不停机维护",
       "skills": [
         {
@@ -1770,13 +1769,13 @@
       ],
       "equipment": [],
       "characters": [],
-      "mastery": []
+      "mastery": [],
+      "url": "https://playeternalreturn.com/posts/news/3568?hl=zh-CN"
     },
     {
       "version": "sweep-2026-05-13",
       "order": 20260513,
       "date": "2026-05-13",
-      "url": "https://playeternalreturn.com/posts/news/3572?hl=zh-CN",
       "title": "[内容调整] 2026.05.14 - 11.2 更新日志",
       "skills": [
         {
@@ -1809,13 +1808,13 @@
       ],
       "equipment": [],
       "characters": [],
-      "mastery": []
+      "mastery": [],
+      "url": "https://playeternalreturn.com/posts/news/3572?hl=zh-CN"
     },
     {
       "version": "release-2026-05-13",
       "order": 20260513,
       "date": "2026-05-13",
-      "url": "https://playeternalreturn.com/posts/news/3572?hl=zh-CN",
       "title": "[内容调整] 2026.05.14 - 11.2 更新日志",
       "skills": [
         {
@@ -1876,13 +1875,13 @@
       ],
       "equipment": [],
       "characters": [],
-      "mastery": []
+      "mastery": [],
+      "url": "https://playeternalreturn.com/posts/news/3572?hl=zh-CN"
     },
     {
       "version": "11.2",
       "order": 20260514,
       "date": "2026-05-14",
-      "url": "https://playeternalreturn.com/posts/news/3572?hl=zh-CN",
       "title": "11.2 更新日志",
       "skills": [
         {
@@ -1902,13 +1901,13 @@
       ],
       "equipment": [],
       "characters": [],
-      "mastery": []
+      "mastery": [],
+      "url": "https://playeternalreturn.com/posts/news/3572?hl=zh-CN"
     },
     {
       "version": "11.3",
       "order": 20260528,
       "date": "2026-05-28",
-      "url": "https://playeternalreturn.com/posts/news/3606?hl=zh-CN",
       "title": "11.3 更新日志",
       "skills": [
         {
@@ -2226,13 +2225,13 @@
           "stat": "SkillAmpRatio",
           "value": 0.039
         }
-      ]
+      ],
+      "url": "https://playeternalreturn.com/posts/news/3606?hl=zh-CN"
     },
     {
       "version": "11.4",
       "order": 20260611,
       "date": "2026-06-11",
-      "url": "https://playeternalreturn.com/posts/news/3629?hl=zh-CN",
       "title": "11.4 更新日志",
       "skills": [
         {
@@ -2441,13 +2440,13 @@
           "stat": "IncreaseBasicAttackDamageRatio",
           "value": 0.013
         }
-      ]
+      ],
+      "url": "https://playeternalreturn.com/posts/news/3629?hl=zh-CN"
     },
     {
       "version": "11.5",
       "order": 20260625,
       "date": "2026-06-25",
-      "url": "https://playeternalreturn.com/posts/news/3657?hl=zh-CN",
       "title": "11.5 更新日志",
       "skills": [
         {
@@ -2735,13 +2734,13 @@
           "stat": "SkillAmpRatio",
           "value": 0.042
         }
-      ]
+      ],
+      "url": "https://playeternalreturn.com/posts/news/3657?hl=zh-CN"
     },
     {
       "version": "11.6",
       "order": 20260709,
       "date": "2026-07-09",
-      "url": "https://playeternalreturn.com/posts/news/3690?hl=zh-CN",
       "title": "11.6 更新日志",
       "skills": [
         {
@@ -3025,13 +3024,13 @@
           "stat": "SkillAmpRatio",
           "value": 0.041
         }
-      ]
+      ],
+      "url": "https://playeternalreturn.com/posts/news/3690?hl=zh-CN"
     },
     {
       "version": "11.7",
       "order": 20260723,
       "date": "2026-07-23",
-      "url": "https://playeternalreturn.com/posts/news/3713?hl=zh-CN",
       "title": "11.7 更新日志",
       "skills": [
         {
@@ -3167,7 +3166,8 @@
           "stat": "SkillAmpRatio",
           "value": 0.041
         }
-      ]
+      ],
+      "url": "https://playeternalreturn.com/posts/news/3713?hl=zh-CN"
     },
     {
       "version": "12.0-part2",
@@ -3585,8 +3585,7 @@
       "version": "client-12.0b-vanya",
       "order": 20260811,
       "date": "2026-08-11",
-      "url": "",
-      "title": "客户端截图读值：万尼亚（12.0b）",
+      "title": "客户端手动截图录入：万尼亚（12.0b）",
       "skills": [
         {
           "create": true,
@@ -3745,8 +3744,7 @@
       "version": "client-12.0b-aiden",
       "order": 20260811,
       "date": "2026-08-11",
-      "url": "",
-      "title": "客户端截图读值：艾登（12.0b）",
+      "title": "客户端手动截图录入：艾登（12.0b）",
       "skills": [
         {
           "create": true,
@@ -3891,7 +3889,7 @@
           "formula": "base + attack * 0.5",
           "source": "in-game-client",
           "coefficientText": "额外伤害 50/80/110/140/170(+攻击力的50%)",
-          "note": "截图确认与原 Wiki 值完全一致，来源升级为客户端截图读值。蓄能至上限时生成电磁场，接触的敌人吃这一段并被束缚 0.7~1.1 秒。"
+          "note": "截图确认与原 Wiki 值完全一致，来源升级为客户端手动截图录入。蓄能至上限时生成电磁场，接触的敌人吃这一段并被束缚 0.7~1.1 秒。"
         }
       ],
       "equipment": [],
@@ -3903,9 +3901,8 @@
       "version": "client-12.0b-piolo",
       "order": 20260811,
       "date": "2026-08-11",
-      "url": "",
       "label": "12.0b",
-      "title": "客户端截图读值：皮奥洛（12.0b）",
+      "title": "客户端手动截图录入：皮奥洛（12.0b）",
       "skills": [
         {
           "create": true,
@@ -3950,7 +3947,7 @@
           "hitNote": "第 1、5、10 叠层各触发一次；命中 2 次强化伤害即激活下劈。",
           "coefficientText": "[狂龙乱舞] 强化伤害量 20/30/40/50/60(+技能增幅的25%)",
           "source": "in-game-client",
-          "note": "客户端截图读值修正：原 Wiki 条目是 30/40/50/60/70，整体高了一级。"
+          "note": "客户端手动截图录入修正：原 Wiki 条目是 30/40/50/60/70，整体高了一级。"
         },
         {
           "id": "patch-113-piolo-1056200-chokeslam-center-damage",
@@ -3960,7 +3957,7 @@
           "formula": "base + ap * 0.85",
           "coefficientText": "[下劈] 内围伤害量 50/80/110/140/170(+技能增幅的85%)",
           "source": "in-game-client",
-          "note": "客户端截图读值与 11.3 公告完全一致。位于范围中心的敌人吃这一段，移速减 55%。"
+          "note": "客户端手动截图录入与 11.3 公告完全一致。位于范围中心的敌人吃这一段，移速减 55%。"
         },
         {
           "create": true,
@@ -3985,7 +3982,7 @@
           "formula": "base + ap * 0.85",
           "coefficientText": "[翻转] 伤害量 70/115/160/205/250(+技能增幅的85%)",
           "source": "in-game-client",
-          "note": "客户端截图读值与 11.3 公告完全一致。流星赶月反弹投射体 0.8 秒后激活翻转。"
+          "note": "客户端手动截图录入与 11.3 公告完全一致。流星赶月反弹投射体 0.8 秒后激活翻转。"
         },
         {
           "create": true,
@@ -4102,9 +4099,8 @@
       "version": "client-12.0b-hyejin",
       "order": 20260811,
       "date": "2026-08-11",
-      "url": "",
       "label": "12.0b",
-      "title": "客户端截图读值：慧珍（12.0b）",
+      "title": "客户端手动截图录入：慧珍（12.0b）",
       "skills": [
         {
           "create": true,
@@ -4224,8 +4220,7 @@
       "version": "client-12.0b-sissela",
       "order": 20260811,
       "date": "2026-08-11",
-      "url": "",
-      "title": "客户端截图读值：希瑟拉 P（12.0b）",
+      "title": "客户端手动截图录入：希瑟拉 P（12.0b）",
       "skills": [
         {
           "create": true,
@@ -4253,8 +4248,7 @@
       "version": "client-12.0b-xuelin",
       "order": 20260811,
       "date": "2026-08-11",
-      "url": "",
-      "title": "客户端截图读值：雪琳（12.0b）",
+      "title": "客户端手动截图录入：雪琳（12.0b）",
       "skills": [
         {
           "id": "patch-xuelin-1082100-damage",
@@ -4265,7 +4259,7 @@
           "kind": "basicAttack",
           "source": "in-game-client",
           "coefficientText": "伤害 20/40/60，总攻击力比率 20%/30%/40%",
-          "note": "客户端截图读值修正：原公告推导值是 30/40/50%，客户端是 20/30/40%。流云残影剑叠满 3 层后强化下一次普攻，同时使剑影回旋和飞闪步冷却各减 1.5 秒、恢复 20/35/50(+攻击力40%) 体力。"
+          "note": "客户端手动截图录入修正：原公告推导值是 30/40/50%，客户端是 20/30/40%。流云残影剑叠满 3 层后强化下一次普攻，同时使剑影回旋和飞闪步冷却各减 1.5 秒、恢复 20/35/50(+攻击力40%) 体力。"
         },
         {
           "id": "patch-xuelin-1082200-damage",
@@ -4397,8 +4391,7 @@
       "version": "client-12.0b-luke",
       "order": 20260811,
       "date": "2026-08-11",
-      "url": "",
-      "title": "客户端截图读值：卢克（12.0b）",
+      "title": "客户端手动截图录入：卢克（12.0b）",
       "skills": [
         {
           "create": true,
@@ -4470,7 +4463,7 @@
           "stackLabel": "售后服务标记",
           "source": "in-game-client",
           "coefficientText": "额外伤害 20/45/70(+攻击力13%)(+目标体力上限2.0%)，每层",
-          "note": "客户端截图读值修正：叠层上限是 3 不是 4，且补上了此前缺的目标体力上限 2%。普攻命中施加标记，对标记目标造成技能伤害时按层数结算，每层还使目标 1.25 秒内移速 -6/7/8%。"
+          "note": "客户端手动截图录入修正：叠层上限是 3 不是 4，且补上了此前缺的目标体力上限 2%。普攻命中施加标记，对标记目标造成技能伤害时按层数结算，每层还使目标 1.25 秒内移速 -6/7/8%。"
         },
         {
           "create": true,
@@ -4497,9 +4490,8 @@
       "version": "client-12.0b-rio",
       "order": 20260811,
       "date": "2026-08-11",
-      "url": "",
       "label": "12.0b",
-      "title": "客户端截图读值：莉央（12.0b）",
+      "title": "客户端手动截图录入：莉央（12.0b）",
       "skills": [
         {
           "create": true,
@@ -4587,7 +4579,7 @@
           "formula": "base + attack * 0.45",
           "source": "in-game-client",
           "coefficientText": "和弓额外伤害 45/50/55/60/65(+攻击力的45%)",
-          "note": "和弓的箭对首位目标之后的敌人结算。客户端截图读值与原值一致。"
+          "note": "和弓的箭对首位目标之后的敌人结算。客户端手动截图录入与原值一致。"
         },
         {
           "create": true,
@@ -4630,7 +4622,7 @@
           "formula": "base + attack * 0.35",
           "source": "in-game-client",
           "coefficientText": "和弓额外伤害 20/40/60/80/100(+攻击力的35%)",
-          "note": "客户端截图读值修正：原 Wiki 系数是 30%，客户端是 35%。在敌人周围 2m 内的范围伤害。"
+          "note": "客户端手动截图录入修正：原 Wiki 系数是 30%，客户端是 35%。在敌人周围 2m 内的范围伤害。"
         },
         {
           "create": true,
@@ -4704,9 +4696,8 @@
       "version": "client-12.0b-cathy",
       "order": 20260811,
       "date": "2026-08-11",
-      "url": "",
       "label": "12.0b",
-      "title": "客户端截图读值：凯希（12.0b）",
+      "title": "客户端手动截图录入：凯希（12.0b）",
       "skills": [
         {
           "create": true,
@@ -4814,7 +4805,7 @@
           "formula": "base + ap * 0.95",
           "source": "in-game-client",
           "coefficientText": "强化伤害 50/100/150/200/250(+技能增幅的95%)",
-          "note": "外围命中，比内围更高，目标 2 秒内移速 -40%。客户端截图读值与公告值一致。"
+          "note": "外围命中，比内围更高，目标 2 秒内移速 -40%。客户端手动截图录入与公告值一致。"
         },
         {
           "create": true,
@@ -4869,9 +4860,8 @@
       "version": "client-12.0b-eva",
       "order": 20260811,
       "date": "2026-08-11",
-      "url": "",
       "label": "12.0b",
-      "title": "客户端截图读值：伊娃（12.0b）",
+      "title": "客户端手动截图录入：伊娃（12.0b）",
       "skills": [
         {
           "create": true,
@@ -4942,7 +4932,7 @@
           "formula": "base + ap * 0.4",
           "source": "in-game-client",
           "coefficientText": "额外伤害 40/70/100/130/160(+技能增幅的40%)",
-          "note": "旋涡持续 1 秒结束时再结算一次，位于中心的敌人悬空 1 秒。客户端截图读值与原值一致。"
+          "note": "旋涡持续 1 秒结束时再结算一次，位于中心的敌人悬空 1 秒。客户端手动截图录入与原值一致。"
         },
         {
           "create": true,
@@ -4986,7 +4976,7 @@
           "formula": "base + ap * 0.3",
           "source": "in-game-client",
           "coefficientText": "额外伤害 30/50/70(+技能增幅的30%)",
-          "note": "被赋予 5 叠层的目标结算一次并重置叠层。客户端截图读值与原值一致。"
+          "note": "被赋予 5 叠层的目标结算一次并重置叠层。客户端手动截图录入与原值一致。"
         }
       ],
       "equipment": [],
@@ -4997,8 +4987,7 @@
       "version": "client-12.0b-chloe",
       "order": 20260811,
       "date": "2026-08-11",
-      "url": "",
-      "title": "客户端截图读值：克洛伊（12.0b）",
+      "title": "客户端手动截图录入：克洛伊（12.0b）",
       "skills": [
         {
           "id": "augment-040-chloe-p-1040100-nina-enhanced-attack-damage-stat1",
@@ -5008,7 +4997,7 @@
           "formula": "base + (attack * (0.62 + (heroLevel - 1) * 0.02)) * 0.5",
           "source": "in-game-client",
           "coefficientText": "[妮娜] 普攻强化伤害 20/50/80(+妮娜攻击力的50%)",
-          "note": "克洛伊连续普攻 2 次以上时妮娜跟着攻击。客户端截图读值修正：原 Wiki 直接按克洛伊攻击力算，实际吃的是妮娜攻击力（克洛伊攻击力的 62%，每升一级 +2%）。妮娜另有 P 等级给的固定攻击力 4/7/10，公式里引用不到 P 的等级，未计入。"
+          "note": "克洛伊连续普攻 2 次以上时妮娜跟着攻击。客户端手动截图录入修正：原 Wiki 直接按克洛伊攻击力算，实际吃的是妮娜攻击力（克洛伊攻击力的 62%，每升一级 +2%）。妮娜另有 P 等级给的固定攻击力 4/7/10，公式里引用不到 P 的等级，未计入。"
         },
         {
           "create": true,
@@ -5127,8 +5116,7 @@
       "version": "client-12.0b-lidailin",
       "order": 20260812,
       "date": "2026-08-12",
-      "url": "",
-      "title": "客户端截图读值：李黛琳（12.0b）",
+      "title": "客户端手动截图录入：李黛琳（12.0b）",
       "skills": [
         {
           "create": true,
@@ -5253,8 +5241,7 @@
       "version": "client-12.0b-bianca",
       "order": 20260812,
       "date": "2026-08-12",
-      "url": "",
-      "title": "客户端截图读值：比安卡（12.0b）",
+      "title": "客户端手动截图录入：比安卡（12.0b）",
       "skills": [
         {
           "create": true,
@@ -5404,8 +5391,7 @@
       "version": "client-12.0b-sua",
       "order": 20260812,
       "date": "2026-08-12",
-      "url": "",
-      "title": "客户端截图读值：秀雅（12.0b）",
+      "title": "客户端手动截图录入：秀雅（12.0b）",
       "skills": [
         {
           "create": true,
@@ -5627,8 +5613,7 @@
       "version": "client-12.0b-coraline-w-buff",
       "order": 20260812,
       "date": "2026-08-12",
-      "url": "",
-      "title": "客户端截图读值：卡洛琳 W 镜子技能增幅（12.0b）",
+      "title": "客户端手动截图录入：卡洛琳 W 镜子技能增幅（12.0b）",
       "skills": [
         {
           "create": true,
@@ -5659,8 +5644,7 @@
       "version": "client-12.0b-jenny",
       "order": 20260812,
       "date": "2026-08-12",
-      "url": "",
-      "title": "客户端截图读值：珍妮（12.0b）",
+      "title": "客户端手动截图录入：珍妮（12.0b）",
       "skills": [
         {
           "create": true,
@@ -5757,8 +5741,7 @@
       "version": "client-12.0b-bernice",
       "order": 20260812,
       "date": "2026-08-12",
-      "url": "",
-      "title": "客户端截图读值：伯尼斯（12.0b）",
+      "title": "客户端手动截图录入：伯尼斯（12.0b）",
       "skills": [
         {
           "create": true,
@@ -6138,9 +6121,8 @@
       "version": "client-12.1-theodore",
       "order": 20260814,
       "date": "2026-08-14",
-      "url": "",
       "label": "12.1",
-      "title": "客户端截图读值：西奥多（12.1）",
+      "title": "客户端手动截图录入：西奥多（12.1）",
       "skills": [
         {
           "create": true,
@@ -6257,9 +6239,8 @@
       "version": "client-12.1-aya",
       "order": 20260814,
       "date": "2026-08-14",
-      "url": "",
       "label": "12.1",
-      "title": "客户端截图读值：阿雅（12.1）",
+      "title": "客户端手动截图录入：阿雅（12.1）",
       "skills": [
         {
           "create": true,
@@ -6283,7 +6264,7 @@
           "formula": "base + attack * 0.3 + ap * 0.65",
           "source": "in-game-client",
           "coefficientText": "伤害 40/70/100/130/160(+攻击力的30%)(+技能增幅65%)",
-          "note": "客户端截图读值修正：原解包表值 20/60/100/140/180 且系数写成技能增幅 100%，实际是 40/70/100/130/160(+攻击力30%)(+技能增幅65%)。施放后阿雅攻速在 5 秒内 +40/45/50/55/60%（未建模）。冷却 10/9/8/7/6 秒。"
+          "note": "客户端手动截图录入修正：原解包表值 20/60/100/140/180 且系数写成技能增幅 100%，实际是 40/70/100/130/160(+攻击力30%)(+技能增幅65%)。施放后阿雅攻速在 5 秒内 +40/45/50/55/60%（未建模）。冷却 10/9/8/7/6 秒。"
         },
         {
           "id": "002-aya-w-1002300-damage-by-level",
@@ -6296,7 +6277,7 @@
           "hitLabel": "命中发数",
           "hitNote": "2.2 秒内基础打 6 发；每多 20% 额外攻速多一发，最多 10 发。",
           "coefficientText": "伤害 30/40/50/60/70(+攻击力的50%)(+技能增幅的30/35/40/45/50%)",
-          "note": "客户端截图读值修正：原解包表值 20/40/60/80/100 且系数写成技能增幅 140%，实际是 30/40/50/60/70(+攻击力50%)，技能增幅系数按等级取 30~50%（客户端叫「总技能增幅系数」）。这一条是单发数值，用命中发数步进器算总量。冷却 10/9/8/7/6 秒。"
+          "note": "客户端手动截图录入修正：原解包表值 20/40/60/80/100 且系数写成技能增幅 140%，实际是 30/40/50/60/70(+攻击力50%)，技能增幅系数按等级取 30~50%（客户端叫「总技能增幅系数」）。这一条是单发数值，用命中发数步进器算总量。冷却 10/9/8/7/6 秒。"
         },
         {
           "id": "002-aya-r-1002500-damage-by-level",
@@ -6305,7 +6286,7 @@
           "formula": "base + attack * 0.2 + ap * 0.95",
           "source": "in-game-client",
           "coefficientText": "伤害 120/240/360(+攻击力的20%)(+技能增幅95%)",
-          "note": "客户端截图读值修正：原解包表值 200/350/500 且系数写成技能增幅 80%，实际是 120/240/360(+攻击力20%)(+技能增幅95%)。命中后敌人陷入 1.25 秒恐惧。冷却 80/65/50 秒。"
+          "note": "客户端手动截图录入修正：原解包表值 200/350/500 且系数写成技能增幅 80%，实际是 120/240/360(+攻击力20%)(+技能增幅95%)。命中后敌人陷入 1.25 秒恐惧。冷却 80/65/50 秒。"
         },
         {
           "create": true,
@@ -6331,9 +6312,8 @@
       "version": "client-12.1-lenox",
       "order": 20260814,
       "date": "2026-08-14",
-      "url": "",
       "label": "12.1",
-      "title": "客户端截图读值：伦诺克斯（12.1）",
+      "title": "客户端手动截图录入：伦诺克斯（12.1）",
       "skills": [
         {
           "create": true,
@@ -6430,7 +6410,7 @@
           "hitLabel": "结算跳数",
           "hitNote": "青蛇留下的痕迹每 0.23 秒结算一次，持续 4/4.5/5 秒（最多约 17/19/21 跳），实际跳数取决于沿痕迹移动的距离，这里用命中次数步进器自己调。",
           "coefficientText": "真实伤害 15/20/25，每 0.23 秒一跳",
-          "note": "客户端截图读值修正：数值本来就对，但原先没标 damageType，一直在吃防御减伤。原标题「落地伤害」改成客户端的说法。"
+          "note": "客户端手动截图录入修正：数值本来就对，但原先没标 damageType，一直在吃防御减伤。原标题「落地伤害」改成客户端的说法。"
         },
         {
           "id": "augment-020-lenox-r-1020500-enhanced-true-damage-stat3",
@@ -6444,7 +6424,7 @@
           "hitLabel": "结算跳数",
           "hitNote": "青蛇留下的痕迹每 0.23 秒结算一次，持续 4/4.5/5 秒（最多约 17/19/21 跳），实际跳数取决于沿痕迹移动的距离，这里用命中次数步进器自己调。",
           "coefficientText": "强化真实伤害 30/40/50，两次挥动都命中同一目标时改判这一档",
-          "note": "客户端截图读值修正：原先写成 base + 技能增幅40%，实际是纯真实伤害没有系数，而且漏标了 damageType。两次挥动都命中同一目标时，痕迹伤害从 15/20/25 提升到这一档。"
+          "note": "客户端手动截图录入修正：原先写成 base + 技能增幅40%，实际是纯真实伤害没有系数，而且漏标了 damageType。两次挥动都命中同一目标时，痕迹伤害从 15/20/25 提升到这一档。"
         },
         {
           "create": true,
@@ -6470,9 +6450,8 @@
       "version": "client-12.1-celine",
       "order": 20260814,
       "date": "2026-08-14",
-      "url": "",
       "label": "12.1",
-      "title": "客户端截图读值：席琳（12.1）",
+      "title": "客户端手动截图录入：席琳（12.1）",
       "skills": [
         {
           "id": "external-celine-q-1043200-damage-stat1",
@@ -6501,7 +6480,7 @@
           "maxStacks": 4,
           "stackLabel": "炸弹等级",
           "coefficientText": "伤害 60/80/100/120/140(+技能增幅的37%) × (炸弹等级)",
-          "note": "客户端截图读值修正：基础值与系数本来就对，但漏了「× 炸弹等级」这个倍率，现用叠层选择器代表炸弹等级（1~4 级）。融合会把附近的等离子炸弹和空弹并起来，每级多 1.25 秒冷却，最多设 3 个、上限 5 发。4 级时命中的敌人 2 秒内移速 -75%。持续时间结束或被 W 引爆时结算。"
+          "note": "客户端手动截图录入修正：基础值与系数本来就对，但漏了「× 炸弹等级」这个倍率，现用叠层选择器代表炸弹等级（1~4 级）。融合会把附近的等离子炸弹和空弹并起来，每级多 1.25 秒冷却，最多设 3 个、上限 5 发。4 级时命中的敌人 2 秒内移速 -75%。持续时间结束或被 W 引爆时结算。"
         },
         {
           "create": true,
@@ -6527,9 +6506,8 @@
       "version": "client-12.1-nicky",
       "order": 20260814,
       "date": "2026-08-14",
-      "url": "",
       "label": "12.1",
-      "title": "客户端截图读值：妮琪（12.1）",
+      "title": "客户端手动截图录入：妮琪（12.1）",
       "skills": [
         {
           "id": "patch-114-nicky-1033200-min-damage",
@@ -6666,9 +6644,8 @@
       "version": "client-12.1-garnet",
       "order": 20260814,
       "date": "2026-08-14",
-      "url": "",
       "label": "12.1",
-      "title": "客户端截图读值：盖瑞特（12.1）",
+      "title": "客户端手动截图录入：盖瑞特（12.1）",
       "skills": [
         {
           "id": "external-garnet-q-1076200-damage-stat1",
@@ -6677,7 +6654,7 @@
           "formula": "base + ap * 0.5 + maxHp * 0.06",
           "source": "in-game-client",
           "coefficientText": "伤害 40/65/90/115/140(+技能增幅50%)(+体力上限6%)",
-          "note": "客户端截图读值修正：基础值由 40/60/80/100/120 改为 40/65/90/115/140，技能增幅系数 45%→50%，并补上漏掉的体力上限 6%。举起武器向下猛击，命中的敌人 1 秒内移速 -40%；命中后 4 秒内可接尖刺。消耗当前体力 2%。"
+          "note": "客户端手动截图录入修正：基础值由 40/60/80/100/120 改为 40/65/90/115/140，技能增幅系数 45%→50%，并补上漏掉的体力上限 6%。举起武器向下猛击，命中的敌人 1 秒内移速 -40%；命中后 4 秒内可接尖刺。消耗当前体力 2%。"
         },
         {
           "id": "external-garnet-q-1076200-recast-damage-stat2",
@@ -6721,7 +6698,7 @@
             "note": "蓄能期间无法移动、承受伤害 -50%，满档时基础值、技能增幅、体力上限三项系数都 ×1.5，并额外给 0.8 秒束缚。官方没给档位粒度，这里按 0~4 档线性插值。"
           },
           "coefficientText": "最小 80/110/140/170/200(+技能增幅50%)(+体力上限8%) ~ 最大 120/165/210/255/300(+技能增幅75%)(+体力上限12%)",
-          "note": "客户端截图读值修正：原先最小/最大分成两条且都漏了体力上限那一项，现合成一条按蓄能档位递增。蓄能结束时对范围内敌人结算，命中者 1 秒内移速 -50%。冷却 14/13/12/11/10 秒。"
+          "note": "客户端手动截图录入修正：原先最小/最大分成两条且都漏了体力上限那一项，现合成一条按蓄能档位递增。蓄能结束时对范围内敌人结算，命中者 1 秒内移速 -50%。冷却 14/13/12/11/10 秒。"
         },
         {
           "id": "external-garnet-w-1076300-maximum-damage-stat2",
@@ -6751,7 +6728,7 @@
           "formula": "base + ap * 0.55 + maxHp * 0.06",
           "source": "in-game-client",
           "coefficientText": "伤害 60/85/110/135/160(+技能增幅55%)(+体力上限6%)",
-          "note": "客户端截图读值修正：基础值与技能增幅系数本来就对，补上漏掉的体力上限 6%。向指定方向冲出，对首个冲撞目标结算并晕厥 0.6 秒。官方注明本技能同时适用普攻和技能判定，可以触发命中效果。消耗当前体力 2%。"
+          "note": "客户端手动截图录入修正：基础值与技能增幅系数本来就对，补上漏掉的体力上限 6%。向指定方向冲出，对首个冲撞目标结算并晕厥 0.6 秒。官方注明本技能同时适用普攻和技能判定，可以触发命中效果。消耗当前体力 2%。"
         },
         {
           "id": "external-garnet-r-1076500-damage-stat1",
@@ -6775,9 +6752,8 @@
       "version": "client-12.1-jan",
       "order": 20260814,
       "date": "2026-08-14",
-      "url": "",
       "label": "12.1",
-      "title": "客户端截图读值：扬（12.1）",
+      "title": "客户端手动截图录入：扬（12.1）",
       "skills": [
         {
           "id": "patch-113-jan-1035200-damage",
@@ -6795,7 +6771,7 @@
           "formula": "base + extraAttack * 0.9 + ap * 0.7 + targetHp * 0.06",
           "source": "in-game-client",
           "coefficientText": "强化伤害量 65/90/115/140/165(+额外攻击力90%)(+技能增幅70%)(+敌人体力上限6%)",
-          "note": "客户端截图读值修正：原先只有技能增幅 70%，漏了额外攻击力 90% 和敌人体力上限 6% 两项。这是膝踢命中后可接的第二段，命中使目标悬空 0.65 秒；强化状态下飞膝踢命中还会重置闪烁的冷却。原标题「膝踢 强化伤害」改成客户端的说法「飞膝踢」。"
+          "note": "客户端手动截图录入修正：原先只有技能增幅 70%，漏了额外攻击力 90% 和敌人体力上限 6% 两项。这是膝踢命中后可接的第二段，命中使目标悬空 0.65 秒；强化状态下飞膝踢命中还会重置闪烁的冷却。原标题「膝踢 强化伤害」改成客户端的说法「飞膝踢」。"
         },
         {
           "create": true,
@@ -6818,7 +6794,7 @@
           "formula": "base + extraAttack * 0.95 + ap * 1",
           "source": "in-game-client",
           "coefficientText": "强化伤害 80/115/150/185/220(+额外攻击力95%)(+技能增幅100%)",
-          "note": "客户端截图读值修正：基础值由 100/135/170/205/240 改为 80/115/150/185/220，并补上漏掉的额外攻击力 95%；原标题还把「踢」写成了「踼」。官方原文是「伤害量增加 X」，所以这是叠在基础段之上的追加伤害，不是替换。强化状态下还会击退范围内所有敌人（基础段只击退外围）。"
+          "note": "客户端手动截图录入修正：基础值由 100/135/170/205/240 改为 80/115/150/185/220，并补上漏掉的额外攻击力 95%；原标题还把「踢」写成了「踼」。官方原文是「伤害量增加 X」，所以这是叠在基础段之上的追加伤害，不是替换。强化状态下还会击退范围内所有敌人（基础段只击退外围）。"
         },
         {
           "create": true,
@@ -7014,8 +6990,7 @@
       "version": "client-12.1-darko",
       "order": 20260817,
       "date": "2026-08-17",
-      "url": "",
-      "title": "客户端截图读值：达尔科（12.1）",
+      "title": "客户端手动截图录入：达尔科（12.1）",
       "skills": [
         {
           "id": "external-darko-q-1074200-damage-stat1",
@@ -7102,8 +7077,7 @@
       "version": "client-12.1-daniel",
       "order": 20260818,
       "date": "2026-08-18",
-      "url": "",
-      "title": "客户端截图读值：丹尼尔（12.1）",
+      "title": "客户端手动截图录入：丹尼尔（12.1）",
       "skills": [
         {
           "id": "augment-037-daniel-q-1037200-enhanced-damage-stat3",
@@ -7201,8 +7175,7 @@
       "version": "client-12.1-lyanh",
       "order": 20260819,
       "date": "2026-08-19",
-      "url": "",
-      "title": "客户端截图读值：伊安（12.1）",
+      "title": "客户端手动截图录入：伊安（12.1）",
       "skills": [
         {
           "id": "external-lyanh-q-1063200-damage-stat1",
@@ -7361,7 +7334,6 @@
       "order": 20260819,
       "date": "2026-08-19",
       "label": "解包对账",
-      "url": "https://github.com/Nowar1/EternalReturnData",
       "title": "解包对账：characters.json 基础属性与成长补齐",
       "skills": [],
       "equipment": [],
@@ -8004,8 +7976,7 @@
       "version": "client-12.1-arda",
       "order": 20260821,
       "date": "2026-08-21",
-      "url": "",
-      "title": "客户端截图读值：阿尔达（12.1）",
+      "title": "客户端手动截图录入：阿尔达（12.1）",
       "skills": [
         {
           "id": "patch-117-arda-1066200-damage",
@@ -8123,7 +8094,6 @@
       "order": 20260821,
       "date": "2026-08-20",
       "label": "自查修正",
-      "url": "https://playeternalreturn.com/posts/news/3783?hl=zh-CN",
       "title": "自查修正：公告写分级百分比、公式却写死常数的技能段",
       "skills": [
         {
@@ -8160,8 +8130,7 @@
       "order": 20260821,
       "date": "2026-08-20",
       "label": "12.2",
-      "url": "https://playeternalreturn.com/posts/news/3783?hl=zh-CN",
-      "title": "客户端截图读值：肯尼思",
+      "title": "客户端手动截图录入：肯尼思",
       "skills": [
         {
           "id": "release-71-p-01",
@@ -8241,8 +8210,7 @@
       "order": 20260821,
       "date": "2026-08-20",
       "label": "12.2",
-      "url": "https://playeternalreturn.com/posts/news/3783?hl=zh-CN",
-      "title": "客户端截图读值：蒂娅",
+      "title": "客户端手动截图录入：蒂娅",
       "skills": [
         {
           "create": true,
@@ -8321,8 +8289,7 @@
       "order": 20260821,
       "date": "2026-08-20",
       "label": "12.2",
-      "url": "https://playeternalreturn.com/posts/news/3783?hl=zh-CN",
-      "title": "客户端截图读值：厄喀翁",
+      "title": "客户端手动截图录入：厄喀翁",
       "skills": [
         {
           "id": "external-echion-q-1044200-initial-damage-stat1",
@@ -8455,9 +8422,8 @@
       "version": "client-12.1-charlotte",
       "order": 20260822,
       "date": "2026-08-22",
-      "url": "",
       "label": "12.1",
-      "title": "客户端截图读值：夏洛特（12.1）",
+      "title": "客户端手动截图录入：夏洛特（12.1）",
       "skills": [
         {
           "id": "external-charlotte-q-1073200-damage-stat1",
@@ -8547,8 +8513,7 @@
       "order": 20260822,
       "date": "2026-08-21",
       "label": "12.2",
-      "url": "https://playeternalreturn.com/posts/news/3783?hl=zh-CN",
-      "title": "客户端截图读值：威廉",
+      "title": "客户端手动截图录入：威廉",
       "skills": [
         {
           "create": true,
@@ -8604,9 +8569,8 @@
       "version": "client-12.1-martina",
       "order": 20260823,
       "date": "2026-08-23",
-      "url": "",
       "label": "12.1",
-      "title": "客户端截图读值：玛蒂娜（12.1）",
+      "title": "客户端手动截图录入：玛蒂娜（12.1）",
       "skills": [
         {
           "id": "external-martina-q-1057200-damage-stat1",
@@ -8774,8 +8738,7 @@
       "order": 20260823,
       "date": "2026-08-21",
       "label": "12.2",
-      "url": "https://playeternalreturn.com/posts/news/3783?hl=zh-CN",
-      "title": "客户端截图读值：马库斯",
+      "title": "客户端手动截图录入：马库斯",
       "skills": [
         {
           "id": "external-markus-q-1053200-damage-stat1",
@@ -8845,9 +8808,8 @@
       "version": "client-12.1-jackie",
       "order": 20260824,
       "date": "2026-08-24",
-      "url": "",
       "label": "12.1",
-      "title": "客户端截图读值：杰琪（12.1）",
+      "title": "客户端手动截图录入：杰琪（12.1）",
       "skills": [
         {
           "id": "001-jackie-q-1001200-damage-by-level",
@@ -8991,8 +8953,7 @@
       "order": 20260824,
       "date": "2026-08-21",
       "label": "12.2",
-      "url": "https://playeternalreturn.com/posts/news/3783?hl=zh-CN",
-      "title": "客户端截图读值：费利克斯",
+      "title": "客户端手动截图录入：费利克斯",
       "skills": [
         {
           "id": "external-felix-q-1049200-damage-stat1",
@@ -9132,9 +9093,8 @@
       "version": "client-12.1-barbara",
       "order": 20260825,
       "date": "2026-08-25",
-      "url": "",
       "label": "12.1",
-      "title": "客户端截图读值：芭芭拉（12.1）",
+      "title": "客户端手动截图录入：芭芭拉（12.1）",
       "skills": [
         {
           "id": "external-barbara-q-1026210-sentry-gun-basic-attack-damage-stat1",
@@ -9262,8 +9222,7 @@
       "order": 20260825,
       "date": "2026-08-21",
       "label": "12.2",
-      "url": "https://playeternalreturn.com/posts/news/3783?hl=zh-CN",
-      "title": "客户端截图读值：纳塔朋",
+      "title": "客户端手动截图录入：纳塔朋",
       "skills": [
         {
           "id": "patch-121-nathapon-q-1034200-damage",
@@ -9509,8 +9468,7 @@
       "order": 20260826,
       "date": "2026-08-21",
       "label": "12.2",
-      "url": "https://playeternalreturn.com/posts/news/3783?hl=zh-CN",
-      "title": "客户端截图读值：约翰",
+      "title": "客户端手动截图录入：约翰",
       "skills": [
         {
           "create": true,
@@ -9660,9 +9618,8 @@
       "version": "client-12.1-rozzi",
       "order": 20260827,
       "date": "2026-08-27",
-      "url": "",
       "label": "12.1",
-      "title": "客户端截图读值：洛兹（12.1）",
+      "title": "客户端手动截图录入：洛兹（12.1）",
       "skills": [
         {
           "id": "external-rozzi-q-1021200-damage-stat1",
@@ -9758,8 +9715,7 @@
       "order": 20260827,
       "date": "2026-08-21",
       "label": "12.2",
-      "url": "https://playeternalreturn.com/posts/news/3783?hl=zh-CN",
-      "title": "客户端截图读值：埃索",
+      "title": "客户端手动截图录入：埃索",
       "skills": [
         {
           "id": "009-isol-q-1009200-base-damage",
@@ -9879,9 +9835,8 @@
       "version": "client-12.1-hart",
       "order": 20260828,
       "date": "2026-08-28",
-      "url": "",
       "label": "12.1",
-      "title": "客户端截图读值：哈特（12.1）",
+      "title": "客户端手动截图录入：哈特（12.1）",
       "skills": [
         {
           "id": "008-hart-q-1008200-min-skill-damage",
@@ -9994,8 +9949,7 @@
       "order": 20260828,
       "date": "2026-08-21",
       "label": "12.2",
-      "url": "https://playeternalreturn.com/posts/news/3783?hl=zh-CN",
-      "title": "客户端截图读值：艾玛",
+      "title": "客户端手动截图录入：艾玛",
       "skills": [
         {
           "id": "external-emma-q-1019200-damage-stat1",
@@ -10079,9 +10033,8 @@
       "version": "client-12.1-fiora",
       "order": 20260829,
       "date": "2026-08-29",
-      "url": "",
       "label": "12.1",
-      "title": "客户端截图读值：菲欧娜（12.1）",
+      "title": "客户端手动截图录入：菲欧娜（12.1）",
       "skills": [
         {
           "id": "003-fiora-q-1003200-damage-by-level",
@@ -10204,8 +10157,7 @@
       "order": 20260829,
       "date": "2026-08-21",
       "label": "12.2",
-      "url": "https://playeternalreturn.com/posts/news/3783?hl=zh-CN",
-      "title": "客户端截图读值：海因茨",
+      "title": "客户端手动截图录入：海因茨",
       "skills": [
         {
           "id": "external-haze-p-1058100-damage-stat1",
@@ -10313,9 +10265,8 @@
       "version": "client-12.1-tsubame",
       "order": 20260830,
       "date": "2026-08-30",
-      "url": "",
       "label": "12.1",
-      "title": "客户端截图读值：燕翼（12.1）",
+      "title": "客户端手动截图录入：燕翼（12.1）",
       "skills": [
         {
           "id": "external-tsubame-q-1070200-damage-stat1",
@@ -10363,8 +10314,7 @@
       "order": 20260830,
       "date": "2026-08-21",
       "label": "12.2",
-      "url": "https://playeternalreturn.com/posts/news/3783?hl=zh-CN",
-      "title": "客户端截图读值：彰一",
+      "title": "客户端手动截图录入：彰一",
       "skills": [
         {
           "id": "external-shoichi-q-1018200-damage-stat1",
@@ -10441,9 +10391,8 @@
       "version": "client-12.1-mai",
       "order": 20260831,
       "date": "2026-08-31",
-      "url": "",
       "label": "12.1",
-      "title": "客户端截图读值：梅（12.1）",
+      "title": "客户端手动截图录入：梅（12.1）",
       "skills": [
         {
           "id": "external-mai-q-1045200-damage-stat1",
@@ -10520,12 +10469,158 @@
       "mastery": []
     },
     {
+      "version": "client-12.2-silvia",
+      "order": 20260831,
+      "date": "2026-08-21",
+      "label": "12.2",
+      "title": "客户端手动截图录入：西尔维娅",
+      "skills": [
+        {
+          "id": "external-silvia-q-1016200-damage-stat1",
+          "slot": "Q",
+          "title": "Q 【下车】雷达枪",
+          "source": "in-game-client",
+          "coefficientText": "伤害 60/95/130/165/200(+技能增幅60%)",
+          "note": "指定敌人发射雷达枪，对路径上的敌人结算。燃料是她的核心资源：不骑车时每秒 +1，Q 每命中一个目标 +20，W 每命中 +5，E 超过 3m 命中 +4~48；骑车时每秒烧 16，燃料 50 以上才能上车。数值和原有的一致。"
+        },
+        {
+          "create": true,
+          "id": "ingame-016-silvia-q-1016200-heal",
+          "hero": "西尔维娅",
+          "slot": "Q",
+          "group": 1016200,
+          "dataKey": "Heal",
+          "title": "Q 【下车】雷达枪-队友体力恢复",
+          "bases": "20,40,60,80,100",
+          "formula": "base + ap * 0.1",
+          "kind": "heal",
+          "source": "in-game-client",
+          "coefficientText": "体力恢复 20/40/60/80/100(+技能增幅10%)",
+          "note": "同一条弹道上的队友回复这么多体力——伤害和治疗是一次施放同时结算的，不是二选一。"
+        },
+        {
+          "id": "external-silvia-w-1016300-damage-stat1",
+          "slot": "W",
+          "title": "W 【下车】终点线",
+          "source": "in-game-client",
+          "coefficientText": "伤害 80/100/120/140/160(+技能增幅60%)",
+          "note": "在指定位置生成终点线，触及的敌人受伤并在 2 秒内移速降至 25%。⚠ 减速只在**第一次**触及时适用，反复穿过不会再减速。数值和原有的一致。"
+        },
+        {
+          "id": "external-silvia-e-1016400-minimum-damage-stat1",
+          "slot": "E",
+          "title": "E 【下车】备用轮-最小伤害",
+          "source": "in-game-client",
+          "coefficientText": "最小伤害 110/130/150/170/190(+技能增幅50%)",
+          "note": "滚动备用轮，伤害按飞行距离在最小和最大之间变化，这是近距离命中的下限值。3m 内命中还会把敌人击退。数值和原有的一致。"
+        },
+        {
+          "id": "external-silvia-e-1016400-maximum-damage-stat2",
+          "slot": "E",
+          "title": "E 【下车】备用轮-最大伤害",
+          "source": "in-game-client",
+          "coefficientText": "最大伤害 242/286/330/374/418(+技能增幅110%)",
+          "note": "滚满距离时的上限值。⚠ 注意最小段和最大段的技能增幅系数差很多（50% vs 110%），不是同一个系数按距离缩放，实际伤害在这两端之间。数值和原有的一致。"
+        },
+        {
+          "create": true,
+          "id": "ingame-016-silvia-q-1016210-bike-spin",
+          "hero": "西尔维娅",
+          "slot": "Q",
+          "group": 1016210,
+          "dataKey": "BikeSpin",
+          "title": "Q 【摩托】闪电旋转",
+          "bases": "50,80,110,140,170",
+          "formula": "base + ap * 0.65",
+          "source": "in-game-client",
+          "coefficientText": "伤害 50/80/110/140/170(+技能增幅65%)",
+          "note": "骑车状态下 Q 变成这个：在摩托车上旋转，对范围内的敌人结算。冷却 3.5→1.5 秒，是车上的主要输出手段。"
+        },
+        {
+          "id": "patch-117-silvia-1016300-on-bike-front-flip-damage",
+          "slot": "W",
+          "title": "W 【摩托】腾空飞跃",
+          "source": "in-game-client",
+          "coefficientText": "伤害 60/100/140/180/220(+技能增幅55%)",
+          "note": "骑车状态下 W 变成这个：向面朝方向跳跃，命中的敌人悬空 0.65 秒。数值和原有的「W 前空翻（摩托）」一致，本次只是把名字改成客户端里的正式名。"
+        },
+        {
+          "create": true,
+          "id": "ingame-016-silvia-e-1016410-bike-wheelie",
+          "hero": "西尔维娅",
+          "slot": "E",
+          "group": 1016410,
+          "dataKey": "BikeWheelie",
+          "title": "E 【摩托】孤轮疾驰",
+          "bases": "40,70,100,130,160",
+          "formula": "base + ap * 0.55",
+          "source": "in-game-client",
+          "coefficientText": "伤害 40/70/100/130/160(+技能增幅55%)",
+          "note": "骑车状态下 E 变成这个：抬前轮朝指定敌人冲去，命中并击退。"
+        },
+        {
+          "create": true,
+          "id": "ingame-016-silvia-e-1016410-speed-bonus",
+          "hero": "西尔维娅",
+          "slot": "E",
+          "group": 1016410,
+          "dataKey": "SpeedBonus",
+          "title": "E 【摩托】孤轮疾驰-移速追加伤害",
+          "bases": "42,70,98,126,154",
+          "formula": "base",
+          "source": "in-game-client",
+          "coefficientText": "移动速度比例伤害 42/70/98/126/154",
+          "damageRange": {
+            "min": 0
+          }
+        },
+        {
+          "create": true,
+          "id": "ingame-016-silvia-r-1016510-dismount-attack",
+          "hero": "西尔维娅",
+          "slot": "R",
+          "group": 1016510,
+          "dataKey": "DismountAttack",
+          "title": "R 【摩托】极限骑乘-下车强化普攻",
+          "bases": "50,90,130",
+          "formula": "base + ap * 0.4",
+          "source": "in-game-client",
+          "coefficientText": "伤害 50/90/130(+技能增幅40%)",
+          "note": "骑车状态下按 R 下车，5 秒内的**下一次**普通攻击附带这一段额外技能伤害，只有一次。⚠ 上车那一下（下车状态按 R）没有伤害，只给移速 +0.2/0.45/0.7、防御力 +14/18/22，所以不建段。"
+        },
+        {
+          "create": true,
+          "id": "ingame-016-silvia-p-1016100-exploration-ap",
+          "hero": "西尔维娅",
+          "slot": "P",
+          "group": 1016100,
+          "dataKey": "ExplorationAp",
+          "title": "P 卢米亚越野赛-探索满额技能增幅",
+          "bases": "5,5,5",
+          "formula": "base",
+          "kind": "buff",
+          "buffKey": "apPct",
+          "source": "in-game-client",
+          "maxStacks": 10,
+          "defaultStacks": 10,
+          "stackLabel": "已探索区域",
+          "stackMode": "slider",
+          "onlyAtMaxStacks": true,
+          "coefficientText": "成功探索 10 个区域时技能增幅 +5%、攻击速度 +10%",
+          "note": "每踏进研究中心以外的一个新区域，攻击速度 +0.3/0.65/1%、燃料上限 +1；探索满 10 个区域时额外给技能增幅 +5%、攻击速度 +10%。这里建的是**技能增幅那一档**（满层才给，所以标了 onlyAtMaxStacks）。⚠ 攻击速度那两项都没建模——计算器目前不把攻击速度纳入伤害上下文。P 这一槽是 3 级制。",
+          "hitNote": ""
+        }
+      ],
+      "equipment": [],
+      "characters": [],
+      "mastery": []
+    },
+    {
       "version": "client-12.1-xiukai",
       "order": 20260901,
       "date": "2026-09-01",
-      "url": "",
       "label": "12.1",
-      "title": "客户端截图读值：修凯（12.1）",
+      "title": "客户端手动截图录入：修凯（12.1）",
       "skills": [
         {
           "id": "external-xiukai-q-1013200-damage-stat1",

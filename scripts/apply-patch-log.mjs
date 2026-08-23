@@ -57,7 +57,7 @@ function getByPath(target, dottedPath) {
 }
 
 // 只影响界面呈现、不影响数值本身的字段（叠层选择器、命中次数、护盾/治疗标记）
-const PRESENTATION_FIELDS = ['slot', 'levelSlot', 'maxStacks', 'stackLabel', 'stackStep', 'defaultStacks', 'form', 'maxHits', 'defaultHits', 'hitLabel', 'hitNote', 'kind', 'buffKey', 'damageType', 'progressiveDamage', 'selfAmp'];
+const PRESENTATION_FIELDS = ['slot', 'levelSlot', 'maxStacks', 'stackLabel', 'stackStep', 'defaultStacks', 'form', 'maxHits', 'defaultHits', 'hitLabel', 'hitNote', 'kind', 'buffKey', 'damageType', 'progressiveDamage', 'selfAmp', 'onlyAtMaxStacks', 'stackMode', 'damageRange'];
 
 /** progressiveDamage 是对象，不能用 === 比，否则每次都判定成没达标、反复重写。 */
 function samePresentationValue(a, b) {
@@ -69,13 +69,13 @@ function samePresentationValue(a, b) {
  * 条目上那句来源说明。达标判断和实际写入必须用同一份，否则改说明永远写不进去。
  *
  * 印的是 patch.label（人看的版本号，例如「12.0b」），不是 patch.version（内部标识）。
- * 早期把几个英雄的客户端截图读值打包成一段时，version 是 client-12.0b-piolo-hyejin 这种，
+ * 早期把几个英雄的客户端手动截图录入打包成一段时，version 是 client-12.0b-piolo-hyejin 这种，
  * 直接印出来会让慧珍的条目上出现皮奥洛的名字。
  */
 function composeSourceNote(patch, change) {
   const label = patch.label || patch.version;
   const origin = change.source === 'in-game-client'
-    ? `客户端截图读值 ${label}`
+    ? `客户端手动截图录入 ${label}`
     : `官方公告 ${label}`;
   return [`${origin} 数值：${change.coefficientText || ''}`, change.note].filter(Boolean).join(' ');
 }
@@ -224,7 +224,7 @@ async function main() {
       // 展示参数也要参与「是否已达标」的判断，否则数值没变时新字段永远写不进去
       const samePresentation = PRESENTATION_FIELDS
         .every((field) => change[field] === undefined || samePresentationValue(change[field], entry[field]));
-      // 标题和来源也要比：只改名或只换来源（例如 Wiki 值被客户端截图读值确认）时数值不变，
+      // 标题和来源也要比：只改名或只换来源（例如 Wiki 值被客户端手动截图录入确认）时数值不变，
       // 不比的话这类变更永远写不进去。
       const sameTitle = change.title === undefined || change.title === entry.title;
       const sameSource = change.source === undefined || change.source === entry.source;
@@ -238,6 +238,16 @@ async function main() {
 
       if (atTarget) {
         if (entry.patchOrder === undefined && !dryRun) { entry.patchVersion = patch.version; entry.patchOrder = patch.order; }
+        // 补丁的标题和链接不参与「是否已达标」的判断（它们不影响数值），
+        // 但改了之后还是得同步下来——否则改补丁标题或撤掉链接时，
+        // 那些数值恰好没动的段会一直挂着旧的出处信息。
+        if (!dryRun && entry.patchVersion === patch.version) {
+          if (entry.sourceTitle !== patch.title) entry.sourceTitle = patch.title;
+          if (entry.sourceUrl !== patch.url) {
+            if (patch.url) entry.sourceUrl = patch.url;
+            else delete entry.sourceUrl;
+          }
+        }
         log.already += 1;
         stats.already += 1;
         continue;

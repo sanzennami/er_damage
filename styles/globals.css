@@ -1684,6 +1684,12 @@ input:focus {
   border: 1px solid rgba(255, 196, 87, 0.2);
 }
 
+/* 区间值（0~154 这种）比单个数字长，缩一点字号免得撑破格子 */
+.damageValue.rangedValue > b {
+  font-size: 0.82em;
+  letter-spacing: -0.01em;
+}
+
 /* 「受某技能增伤时」那一行：和总计并排，但用冷色边框区分开，
    免得被当成这一段本身的伤害——它是带前置条件的加成值。 */
 .skillTotalValue.selfAmpValue {
@@ -1692,6 +1698,23 @@ input:focus {
 
 .skillTotalValue.selfAmpValue > span {
   color: #8fb9e0;
+}
+
+/* 增益条目上的层数拉杆（西尔维娅 P 那种 1~10 层）。
+   步进器点十下太蠢，条目上写 "stackMode": "slider" 就换成滑块 + 数字框。 */
+.buffStackSlider {
+  display: grid;
+  gap: 4px;
+  min-width: 172px;
+}
+
+.buffStackSlider > span {
+  font-size: 12px;
+  color: #a9a0a0;
+}
+
+.buffStackSlider .stackSlider input[type='number'] {
+  width: 52px;
 }
 
 /* 多段结算技能：段数多的时候一段一个方块会把栏目撑得很高，压成窄行逐段列出 */
