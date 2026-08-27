@@ -1,7 +1,7 @@
 {
   "_comment": "官方补丁变更日志。每条记录的是「该补丁之后应该是什么值」（目标态），不是增量。",
   "_usage": "新版本上线：在 patches 末尾追加一段，然后跑 node scripts/apply-patch-log.mjs。脚本幂等，重跑只会跳过已达标的条目，不需要还原任何数据。",
-  "updatedAt": "2026-08-22T15:50:35.273Z",
+  "updatedAt": "2026-08-27T06:09:02.888Z",
   "patches": [
     {
       "version": "sweep-2023-07-19",
@@ -7973,6 +7973,91 @@
       "mastery": []
     },
     {
+      "version": "12.2-gaps",
+      "order": 20260820.5,
+      "date": "2026-08-20",
+      "label": "12.2",
+      "url": "https://playeternalreturn.com/posts/news/3783?hl=zh-CN",
+      "title": "12.2 更新日志补漏",
+      "skills": [
+        {
+          "create": true,
+          "id": "patch-122-laura-r-1047500-shield",
+          "hero": "劳拉",
+          "slot": "R",
+          "group": 1047500,
+          "dataKey": "Shield",
+          "title": "R 幻影神偷-护盾",
+          "bases": "80,110,140",
+          "formula": "base + ap * 0.15",
+          "kind": "shield",
+          "source": "official-patch-note",
+          "coefficientText": "护盾 80/110/140(+技能增幅15%)",
+          "note": "12.2 由 90/120/150(+技能增幅20%) 下调至此，用来提高劳拉进场时的风险。此前库里没有这一段。"
+        },
+        {
+          "create": true,
+          "id": "patch-122-adina-q-1052200-sun-extra-damage",
+          "hero": "阿迪娜",
+          "slot": "Q",
+          "group": 1052200,
+          "dataKey": "SunExtraDamage",
+          "title": "Q 星芒万丈-太阳天体额外伤害",
+          "bases": "30,30,30,30,30",
+          "formula": "base + ap * 0.25",
+          "source": "official-patch-note",
+          "coefficientText": "太阳天体 额外伤害 30(+技能增幅25%)",
+          "note": "12.2 由 20(+技能增幅15%) 上调至此。只有连接太阳天体时才结算，页面并列列出、不要和主伤害无条件相加。"
+        },
+        {
+          "create": true,
+          "id": "patch-122-adina-w-1052300-sun-extra-damage",
+          "hero": "阿迪娜",
+          "slot": "W",
+          "group": 1052300,
+          "dataKey": "SunExtraDamage",
+          "title": "W 日月星界-太阳天体额外伤害",
+          "bases": "30,30,30,30,30",
+          "formula": "base + ap * 0.25",
+          "source": "official-patch-note",
+          "coefficientText": "太阳天体 额外伤害 30(+技能增幅25%)",
+          "note": "12.2 由 20(+技能增幅15%) 上调至此。同样只在连接太阳天体时结算。"
+        },
+        {
+          "create": true,
+          "id": "patch-122-adina-e-1052400-sun-extra-damage",
+          "hero": "阿迪娜",
+          "slot": "E",
+          "group": 1052400,
+          "dataKey": "SunExtraDamage",
+          "title": "E 星体陷落-太阳天体额外伤害",
+          "bases": "20,20,20,20,20",
+          "formula": "base + ap * 0.15",
+          "source": "official-patch-note",
+          "coefficientText": "太阳天体 额外伤害 20(+技能增幅15%)",
+          "note": "12.2 由 10(+技能增幅10%) 上调至此。E 的这一档比 Q/W 低，不是同一组数。"
+        },
+        {
+          "create": true,
+          "id": "patch-122-hyunwoo-p-1007100-heal",
+          "hero": "玄佑",
+          "slot": "P",
+          "group": 1007100,
+          "dataKey": "Heal",
+          "title": "P 鏖战-体力恢复",
+          "bases": "0,0,0",
+          "formula": "maxHp * [0.06,0.09,0.12][level - 1]",
+          "kind": "heal",
+          "source": "official-patch-note",
+          "coefficientText": "体力恢复 体力上限的 6/9/12%",
+          "note": "12.2 由 5/8/11% 上调至此。按自身体力上限的百分比回复，所以堆血装收益直接体现在这一段。此前库里没有这一段。"
+        }
+      ],
+      "equipment": [],
+      "characters": [],
+      "mastery": []
+    },
+    {
       "version": "client-12.1-arda",
       "order": 20260821,
       "date": "2026-08-21",
@@ -9316,6 +9401,41 @@
       "equipment": [],
       "characters": [],
       "mastery": []
+    },
+    {
+      "version": "12.2b",
+      "order": 20260825,
+      "date": "2026-08-25",
+      "label": "12.2b",
+      "url": "https://playeternalreturn.com/posts/news/3801?hl=zh-CN",
+      "title": "12.2b 不停机维护",
+      "skills": [
+        {
+          "id": "patch-122-lucia-p-1090100-damage",
+          "slot": "P",
+          "source": "official-patch-note",
+          "bases": "30,70,110",
+          "formula": "base + ap * 0.5",
+          "was": {
+            "bases": "20,60,100",
+            "formula": "base + ap * 0.55"
+          },
+          "coefficientText": "伤害 30/70/110(+技能增幅50%)",
+          "note": "12.2b 把基础值整体上调 10、技能增幅系数由 55% 下调至 50%——低等级变强、高技增时略弱。同批还改了 Q 绮丽浪漫射程 7→7.5m 和 R 命中水晶目标的晕厥 0.6→0.7 秒，这两项不涉及伤害。"
+        }
+      ],
+      "equipment": [],
+      "characters": [],
+      "mastery": [
+        {
+          "hero": "杰琪",
+          "type": "OneHandSword",
+          "stat": "IncreaseBasicAttackDamageRatio",
+          "value": 0.021,
+          "was": 0.024,
+          "note": "12.2b 再次下调短剑杰琪。12.2 刚从 2.8% 降到 2.4%，这次继续降到 2.1%。"
+        }
+      ]
     },
     {
       "version": "model-r-enhanced-slotting",

@@ -51,7 +51,7 @@ import {
   statConversionFor
 } from './lib/specialRules.js';
 
-const APP_VERSION = 'v0.2.073';
+const APP_VERSION = 'v0.2.075';
 
 const EXPORTED_LOCAL_CONFIG_MODULES = import.meta.glob('./data/localConfig.export.json', {
   eager: true,
@@ -165,7 +165,7 @@ const TRAIT_EFFECTS = {
   7200501: { summary: '无私：独立技能造成伤害时，自身和周围 8m 队友获得 6 秒护盾；体力低于 30% 以下目标获得 1.5 倍护盾，上限 35%。' },
   7210101: { dmgAmp: 0.05, summary: '荆棘丛：目标无法移动状态时，5 秒内治疗效果降低 20%，承受的所有伤害增加 5%。' },
   7211001: { summary: '狩猎的快感：对野生动物造成伤害增加 20%；参与击杀野生动物时恢复体力并获得移动速度，随后逐渐下降。' },
-  7211301: { extraEffect: 'explosiveCactus', summary: '爆炸仙人掌（12.0）：转为核心潜能；对敌人造成伤害时附着 4 秒仙人掌，队友普攻或独立技能触发时造成 8~160+敌人体力上限 4% 的技能伤害；未触发时自动爆炸造成减少 70% 的伤害。' },
+  7211301: { extraEffect: 'explosiveCactus', summary: '爆炸仙人掌（12.0）：转为核心潜能；对敌人造成伤害时附着 4 秒仙人掌，队友普攻或独立技能触发时造成 8~160+敌人体力上限 5% 的技能伤害；未触发时自动爆炸造成减少 70% 的伤害。' },
   7211401: { dmgAmp: 0.04, summary: '压迫感：自身 3m 内敌方实验体承受伤害增加 4%；叠加时每层效果减少 25%，上限 3 层。' },
   7100101: { extraEffect: 'diamondShard', summary: '金刚碎片：定身成功后防御力 +20+等级*5，结束时造成等级*10 的技能伤害。' },
   7100401: { summary: '天使护翼：获得体力上限 18% 的护盾，护盾破裂时解除负面效果并增加移动速度；不直接计入伤害。' },
@@ -1566,7 +1566,8 @@ function calc({
   const thunderFormula = adaptiveOffenseFormula({ base: 30 + mastery * 2, extraAttack: extraAttackPower, attackRatio: 0.45, ap, apRatio: 0.26 });
   const vortexFormula = adaptiveOffenseFormula({ base: mastery * 5, extraAttack: extraAttackPower, attackRatio: 0.8, ap, apRatio: 0.4 });
   // 12.0：爆炸仙人掌 10~150(+体力上限5%) -> 8~160(+体力上限4%)，并转为核心潜能
-  const cactusBase = 8 + Math.max(0, mastery - 1) * (152 / 19) + target.hp * 0.04;
+  // 12.2：体力上限系数 4% -> 5%（基础的 8~160 没动）
+  const cactusBase = 8 + Math.max(0, mastery - 1) * (152 / 19) + target.hp * 0.05;
   const diamondShardBase = mastery * 10;
   const penanceBase = mastery * 15;
   const effects = [
@@ -1595,7 +1596,7 @@ function calc({
       ? { title: '伤口撕裂', raw: damageFloor(tearBase), value: damageFloor(damageFloor(tearBase) * finalMod), note: '10+等级*2+目标当前体力*8%' }
       : null,
     activeTraitEffectIds.has('explosiveCactus')
-      ? { title: '爆炸仙人掌(技)', raw: damageFloor(cactusBase), value: damageFloor(damageFloor(cactusBase) * finalMod), note: '队友普攻/独立技能触发：8~160+敌人体力上限4%；未触发自动爆炸为减少70%的伤害。' }
+      ? { title: '爆炸仙人掌(技)', raw: damageFloor(cactusBase), value: damageFloor(damageFloor(cactusBase) * finalMod), note: '队友普攻/独立技能触发：8~160+敌人体力上限5%；未触发自动爆炸为减少70%的伤害。' }
       : null
   ].filter(Boolean);
   const ghostFire = adaptiveOffenseFormula({ base: 50 + mastery * 10, extraAttack: extraAttackPower, attackRatio: 0.7, ap, apRatio: 0.2 });
