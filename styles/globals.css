@@ -163,6 +163,19 @@ button {
   color: #ffd56b;
 }
 
+/* 数据跟到哪一版公告。挨着页签放，但不做成按钮的样子——它不可点，只是说明。 */
+.pageSwitch .dataVersionTag {
+  align-self: center;
+  padding: 0 8px 0 10px;
+  border-left: 1px solid rgba(255, 255, 255, 0.12);
+  margin-left: 4px;
+  font-size: 12px;
+  line-height: 1.2;
+  color: #8d8578;
+  white-space: nowrap;
+  cursor: help;
+}
+
 .announcementOverlay {
   position: fixed;
   inset: 0;

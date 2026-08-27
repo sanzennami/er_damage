@@ -509,3 +509,9 @@ node -e "for(let i=3784;i<=3820;i++){/* fetch posts/news/i 读 <title> */}"
 ```
 
 同一个大版本里可能连着出 a/b/c，别抓到一条就停。
+
+## 页面上的「数据版本」
+
+`patchLog.json` 顶层的 `gameVersion.label` 决定页签栏右边显示什么版本号。
+**核完公告要手动更新它**，包括那些只有 bug 修复、不产生补丁条目的版本——
+显示的是「跟进到哪一版」，不是「最后一次改数值的是哪一版」（后者记在 `lastDataChange`）。

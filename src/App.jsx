@@ -12,6 +12,7 @@ import HERO_STATUS from './data/heroStatus.json';
 import DAK_LOADOUT_ASSETS from './data/dakLoadoutAssets.json';
 import DAK_ITEM_SKILL_ICONS from './data/dakItemSkillIcons.json';
 import WEAPON_ROUTE_PRESETS from './data/weaponRoutePresets.json';
+import PATCH_LOG from './data/patchLog.json';
 import { CHARACTERS, findCharacterByName, masteryStatFor } from './lib/characterStats.js';
 import {
   adaptiveOffenseFormula,
@@ -51,7 +52,7 @@ import {
   statConversionFor
 } from './lib/specialRules.js';
 
-const APP_VERSION = 'v0.2.075';
+const APP_VERSION = 'v0.2.076';
 
 const EXPORTED_LOCAL_CONFIG_MODULES = import.meta.glob('./data/localConfig.export.json', {
   eager: true,
@@ -1079,6 +1080,11 @@ function weaponTypeLabelForRaw(rawType) {
 // 就套用预设；改过就用用户存下来的那套（heroLoadouts，落在 localStorage 里）。
 // 判断「改没改过」不用标志位：把当前配装和预设逐项比一遍，一致就说明还没动过。
 const ROUTE_PRESETS = WEAPON_ROUTE_PRESETS.presets || {};
+
+// 数据跟到哪一版公告。刻意和 patches 里最后一条分开：
+// 只有 bug 修复、没动数值的版本（12.2a / 12.2c）不会产生补丁条目，
+// 但我们确实核对过它们了，页面上要如实显示跟进到的版本而不是最后一次改数值的版本。
+const GAME_VERSION = PATCH_LOG.gameVersion || {};
 
 function loadoutKeyFor(hero, weaponRawType) {
   return `${hero || ''}|${weaponRawType || ''}`;
@@ -4706,6 +4712,11 @@ export default function App() {
               <button type="button" className={activePage === 'compare' ? 'active' : ''} onClick={() => setActivePage('compare')}>
                 拉表对比
               </button>
+              {GAME_VERSION.label ? (
+                <span className="dataVersionTag" title={GAME_VERSION.note || ''}>
+                  数据版本 {GAME_VERSION.label}
+                </span>
+              ) : null}
             </div>
           </div>
           <p className="intro">一个配装/伤害计算器，预览不同配装下的技能伤害、打在敌人身上的理论伤害。可以拉表对比不同配装的属性。</p>

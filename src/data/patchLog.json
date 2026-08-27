@@ -1,6 +1,13 @@
 {
   "_comment": "官方补丁变更日志。每条记录的是「该补丁之后应该是什么值」（目标态），不是增量。",
   "_usage": "新版本上线：在 patches 末尾追加一段，然后跑 node scripts/apply-patch-log.mjs。脚本幂等，重跑只会跳过已达标的条目，不需要还原任何数据。",
+  "gameVersion": {
+    "label": "12.2c",
+    "date": "2026-08-26",
+    "url": "https://playeternalreturn.com/posts/news/3810?hl=zh-CN",
+    "note": "已核对到 12.2c 不停机维护。12.2c 与 12.2a 均只有 bug 修复、无数值改动，最后一次改数值的是 12.2b。",
+    "lastDataChange": "12.2b"
+  },
   "updatedAt": "2026-08-27T06:09:02.888Z",
   "patches": [
     {
