@@ -91,7 +91,7 @@ const FORMULA_VARIABLES = [
   'base', 'ap', 'attack', 'extraAttack',
   'targetHp', 'targetCurrentHp', 'targetLostHp',
   'maxHp', 'selfCurrentHp', 'selfLostHp',
-  'extraHp', 'defense', 'shield', 'critChance',
+  'extraHp', 'defense', 'shield', 'critChance', 'pen',
   'basicAttackAmp', 'accumulatedDamage', 'stacks', 'level', 'heroLevel'
 ];
 
@@ -220,6 +220,7 @@ export function skillFormulaDescription(skill, level) {
     ['defense', '防御力'],
     ['shield', '护盾'],
     ['critChance', '暴击率'],
+    ['pen', '防御穿透'],
     ['accumulatedDamage', '累计伤害'],
     ['stacks', '叠层'],
     ['heroLevel', '实验体等级']
@@ -352,10 +353,14 @@ export function progressiveDamageValue(skill, context, stepValue) {
   const scaled = parts.reduce((sum, item) => sum + getNumber(context[item.variable]) * item.coefficient, 0);
   const raw = damageFloor(baseAtStep + scaled);
 
+  const final = skill?.damageType === 'true'
+    ? raw
+    : damageFloor(raw * skillFinalMod(skill, context));
+
   return {
     step,
     raw,
-    final: damageFloor(raw * context.finalMod),
+    final,
     // 首个系数保留在原字段上，界面那行「技增 X%」照旧显示
     coefficient: parts[0]?.coefficient ?? 0,
     variable: parts[0]?.variable ?? 'ap',

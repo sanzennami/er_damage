@@ -1,0 +1,22 @@
+常用命令速查：
+
+只读体检（查缺哪些头像、哪些角色缺成长/武器）：
+node scripts/sync-er-data.mjs --check
+
+从 Fan Kit 网盘免 DAK.GG 精准只下缺失小头像（需公开只读 Google Drive API Key，自动跳过几百 MB 立绘）：
+node scripts/sync-er-data.mjs --fankit-url "<你的FanKit网盘链接>" --gdrive-key "<你的GoogleAPIKey>"
+
+不想配 API Key，手动把网盘里的 Mini_xxx_00.png 拖进本地文件夹自动识别归档：
+node scripts/sync-er-data.mjs --fankit-local "./fankit-drop"
+
+拉取最新底层解包（默认走 er-gamedata，也可传 --bser-key "<官方APIKey>" 直连官方接口）并安全补齐露西娅/塞莉丝缺失成长与熟练度：
+node scripts/sync-er-data.mjs --sync-gamedata --fill-missing
+
+顺号扫描官网 12.2c 之后全部简中更新日志与「不停机维护」存盘待审：
+node scripts/sync-er-data.mjs --scan-patches --start-id 3811 --end-id 3985
+
+
+
+AIzaSyC6XnBhexKWNOh81BzoCVnJ1mK9gv0yNX8
+
+GDRIVE_API_KEY="AIzaSyC6XnBhexKWNOh81BzoCVnJ1mK9gv0yNX8" node upgrade-to-13-1.mjs

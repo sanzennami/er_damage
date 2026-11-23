@@ -1,4 +1,6 @@
+import { existsSync, statSync } from 'node:fs';
 import { mkdir, writeFile } from 'node:fs/promises';
+const forceDownload = process.argv.includes('--force');
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -76,10 +78,18 @@ async function downloadFile(url, filePath) {
 }
 
 async function tryDownloadFile(url, filePath) {
+  if (!url) return { ok: false, byteSize: 0, error: 'Empty image URL' };
+  if (!forceDownload && existsSync(filePath)) {
+    const size = statSync(filePath).size;
+    if (size > 100) return { ok: true, byteSize: size };
+  }
   try {
-    const byteSize = await downloadFile(url, filePath);
+    const fixedUrl = url.startsWith('//') ? `https:${url}` : url;
+    console.log(`  [下载新图标] ${path.basename(filePath)}`);
+    const byteSize = await downloadFile(fixedUrl, filePath);
     return { ok: true, byteSize };
   } catch (error) {
+    console.warn(`  [图标跳过] ${path.basename(filePath)}: ${error.message}`);
     return {
       ok: false,
       byteSize: 0,

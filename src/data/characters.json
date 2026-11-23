@@ -4,8 +4,8 @@
   "generatedAt": "2026-08-09T07:48:01.569Z",
   "source": "https://github.com/pypy-vrc/er-gamedata.git",
   "counts": {
-    "characters": 91,
-    "skillGroups": 435
+    "characters": 92,
+    "skillGroups": 450
   },
   "characters": [
     {
@@ -41,7 +41,6 @@
         "defense": 2.9999999999999996,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.077,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -54,7 +53,6 @@
       },
       "ratings": [
         {
-          "character": "Jackie",
           "characterCode": 1,
           "mastery": "OneHandSword",
           "controlDifficulty": 1,
@@ -65,7 +63,6 @@
           "assistance": 1
         },
         {
-          "character": "Jackie",
           "characterCode": 1,
           "mastery": "TwoHandSword",
           "controlDifficulty": 1,
@@ -76,7 +73,6 @@
           "assistance": 1
         },
         {
-          "character": "Jackie",
           "characterCode": 1,
           "mastery": "Axe",
           "controlDifficulty": 1,
@@ -87,7 +83,6 @@
           "assistance": 1
         },
         {
-          "character": "Jackie",
           "characterCode": 1,
           "mastery": "DualSword",
           "controlDifficulty": 1,
@@ -135,7 +130,6 @@
         "defense": 2.3,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.06,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -148,7 +142,6 @@
       },
       "ratings": [
         {
-          "character": "Aya",
           "characterCode": 2,
           "mastery": "Pistol",
           "controlDifficulty": 1,
@@ -159,7 +152,6 @@
           "assistance": 1
         },
         {
-          "character": "Aya",
           "characterCode": 2,
           "mastery": "AssaultRifle",
           "controlDifficulty": 1,
@@ -170,7 +162,6 @@
           "assistance": 1
         },
         {
-          "character": "Aya",
           "characterCode": 2,
           "mastery": "SniperRifle",
           "controlDifficulty": 1,
@@ -217,7 +208,6 @@
         "defense": 3.7,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.135,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -230,7 +220,6 @@
       },
       "ratings": [
         {
-          "character": "Fiora",
           "characterCode": 3,
           "mastery": "Rapier",
           "controlDifficulty": 4,
@@ -241,7 +230,6 @@
           "assistance": 1
         },
         {
-          "character": "Fiora",
           "characterCode": 3,
           "mastery": "TwoHandSword",
           "controlDifficulty": 4,
@@ -252,7 +240,6 @@
           "assistance": 1
         },
         {
-          "character": "Fiora",
           "characterCode": 3,
           "mastery": "Spear",
           "controlDifficulty": 4,
@@ -299,7 +286,6 @@
         "defense": 3.3,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.085,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -312,7 +298,6 @@
       },
       "ratings": [
         {
-          "character": "Magnus",
           "characterCode": 4,
           "mastery": "Hammer",
           "controlDifficulty": 1,
@@ -323,7 +308,6 @@
           "assistance": 1
         },
         {
-          "character": "Magnus",
           "characterCode": 4,
           "mastery": "Bat",
           "controlDifficulty": 1,
@@ -365,13 +349,12 @@
       "growth": {
         "code": 5,
         "name": "Zahir",
-        "maxHp": 79,
+        "maxHp": 76,
         "maxVp": 0,
         "attackPower": 3.9,
         "defense": 2.6999999999999997,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.045,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -384,7 +367,6 @@
       },
       "ratings": [
         {
-          "character": "Zahir",
           "characterCode": 5,
           "mastery": "HighAngleFire",
           "controlDifficulty": 5,
@@ -395,7 +377,6 @@
           "assistance": 1
         },
         {
-          "character": "Zahir",
           "characterCode": 5,
           "mastery": "DirectFire",
           "controlDifficulty": 5,
@@ -408,7 +389,9 @@
       ],
       "playTip": "扎希尔是一位虔诚的信徒。每次技能命中后，速度将变得更快并且增加伤害，具有强大的爆发力。",
       "storyName": "扎希尔・辛格",
-      "image": "/assets/characters/005-Zahir.png"
+      "image": "/assets/characters/005-Zahir.png",
+      "patchVersion": "auto-12.4-stats",
+      "patchOrder": 20260917
     },
     {
       "code": 6,
@@ -442,7 +425,6 @@
         "defense": 2.7,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.045,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -455,7 +437,6 @@
       },
       "ratings": [
         {
-          "character": "Nadine",
           "characterCode": 6,
           "mastery": "Bow",
           "controlDifficulty": 3,
@@ -466,7 +447,6 @@
           "assistance": 1
         },
         {
-          "character": "Nadine",
           "characterCode": 6,
           "mastery": "CrossBow",
           "controlDifficulty": 3,
@@ -508,13 +488,12 @@
       "growth": {
         "code": 7,
         "name": "Hyunwoo",
-        "maxHp": 89,
+        "maxHp": 92,
         "maxVp": 0,
         "attackPower": 5.1,
         "defense": 3.3,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.09,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -527,7 +506,6 @@
       },
       "ratings": [
         {
-          "character": "Hyunwoo",
           "characterCode": 7,
           "mastery": "Glove",
           "controlDifficulty": 1,
@@ -538,7 +516,6 @@
           "assistance": 1
         },
         {
-          "character": "Hyunwoo",
           "characterCode": 7,
           "mastery": "Tonfa",
           "controlDifficulty": 1,
@@ -551,7 +528,9 @@
       ],
       "playTip": "玄佑是一位自负的叛逆者。在混乱的情况下使用强大的技能创造机会并制造伤害。",
       "storyName": "张玄佑",
-      "image": "/assets/characters/007-Hyunwoo.png"
+      "image": "/assets/characters/007-Hyunwoo.png",
+      "patchVersion": "auto-12.4-stats",
+      "patchOrder": 20260917
     },
     {
       "code": 8,
@@ -583,7 +562,6 @@
         "defense": 2.7,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.06,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -596,7 +574,6 @@
       },
       "ratings": [
         {
-          "character": "Hart",
           "characterCode": 8,
           "mastery": "Guitar",
           "controlDifficulty": 4,
@@ -643,7 +620,6 @@
         "defense": 2.6,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.045,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -656,7 +632,6 @@
       },
       "ratings": [
         {
-          "character": "Isol",
           "characterCode": 9,
           "mastery": "AssaultRifle",
           "controlDifficulty": 4,
@@ -667,7 +642,6 @@
           "assistance": 1
         },
         {
-          "character": "Isol",
           "characterCode": 9,
           "mastery": "Pistol",
           "controlDifficulty": 4,
@@ -715,7 +689,6 @@
         "defense": 3.3,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.158,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -728,7 +701,6 @@
       },
       "ratings": [
         {
-          "character": "LIDailin",
           "characterCode": 10,
           "mastery": "Glove",
           "controlDifficulty": 3,
@@ -739,7 +711,6 @@
           "assistance": 1
         },
         {
-          "character": "LIDailin",
           "characterCode": 10,
           "mastery": "Nunchaku",
           "controlDifficulty": 3,
@@ -785,7 +756,6 @@
         "defense": 3.2,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.113,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -798,7 +768,6 @@
       },
       "ratings": [
         {
-          "character": "Yuki",
           "characterCode": 11,
           "mastery": "TwoHandSword",
           "controlDifficulty": 1,
@@ -809,7 +778,6 @@
           "assistance": 1
         },
         {
-          "character": "Yuki",
           "characterCode": 11,
           "mastery": "DualSword",
           "controlDifficulty": 1,
@@ -855,7 +823,6 @@
         "defense": 2.8,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.045,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -868,7 +835,6 @@
       },
       "ratings": [
         {
-          "character": "Hyejin",
           "characterCode": 12,
           "mastery": "Bow",
           "controlDifficulty": 3,
@@ -879,7 +845,6 @@
           "assistance": 1
         },
         {
-          "character": "Hyejin",
           "characterCode": 12,
           "mastery": "DirectFire",
           "controlDifficulty": 3,
@@ -922,10 +887,9 @@
         "maxHp": 90,
         "maxVp": 0,
         "attackPower": 4.5,
-        "defense": 3.4,
+        "defense": 3.2,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.135,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -938,7 +902,6 @@
       },
       "ratings": [
         {
-          "character": "Xiukai",
           "characterCode": 13,
           "mastery": "OneHandSword",
           "controlDifficulty": 2,
@@ -949,7 +912,6 @@
           "assistance": 4
         },
         {
-          "character": "Xiukai",
           "characterCode": 13,
           "mastery": "Spear",
           "controlDifficulty": 2,
@@ -962,7 +924,9 @@
       ],
       "playTip": "修凯擅长使用料理师的能力帮助队友维持体力，拥有不错的体力值和广域人群控制能力。",
       "storyName": "左修凯",
-      "image": "/assets/characters/013-Xiukai.png"
+      "image": "/assets/characters/013-Xiukai.png",
+      "patchVersion": "auto-12.6-stats",
+      "patchOrder": 20261015
     },
     {
       "code": 14,
@@ -994,7 +958,6 @@
         "defense": 2.8,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.06,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -1007,7 +970,6 @@
       },
       "ratings": [
         {
-          "character": "Chiara",
           "characterCode": 14,
           "mastery": "Rapier",
           "controlDifficulty": 2,
@@ -1018,7 +980,7 @@
           "assistance": 1
         }
       ],
-      "playTip": "奇娅拉是被仇恨吞噬的角色。她常常执着于给目标留下烙印，利用体力和护盾无情地骚扰敌人，之后审判陷入疲惫的敌人。",
+      "playTip": "奇娅拉是被仇恨吞噬的修女。她常常执着于给目标留下烙印，利用体力和护盾无情地骚扰敌人，之后审判陷入疲惫的敌人。",
       "storyName": "奇娅拉",
       "image": "/assets/characters/014-Chiara.png"
     },
@@ -1053,7 +1015,6 @@
         "defense": 2.4,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.03,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -1066,7 +1027,6 @@
       },
       "ratings": [
         {
-          "character": "Sissela",
           "characterCode": 15,
           "mastery": "HighAngleFire",
           "controlDifficulty": 3,
@@ -1077,7 +1037,6 @@
           "assistance": 2
         },
         {
-          "character": "Sissela",
           "characterCode": 15,
           "mastery": "DirectFire",
           "controlDifficulty": 3,
@@ -1123,7 +1082,6 @@
         "defense": 3.0999999999999996,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.045,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -1136,7 +1094,6 @@
       },
       "ratings": [
         {
-          "character": "Silvia",
           "characterCode": 16,
           "mastery": "Pistol",
           "controlDifficulty": 5,
@@ -1181,7 +1138,6 @@
         "defense": 2.4,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.045,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -1194,7 +1150,6 @@
       },
       "ratings": [
         {
-          "character": "Adriana",
           "characterCode": 17,
           "mastery": "HighAngleFire",
           "controlDifficulty": 4,
@@ -1241,7 +1196,6 @@
         "defense": 3.5,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.09,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -1254,7 +1208,6 @@
       },
       "ratings": [
         {
-          "character": "Shoichi",
           "characterCode": 18,
           "mastery": "OneHandSword",
           "controlDifficulty": 5,
@@ -1300,7 +1253,6 @@
         "defense": 2.7,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.06,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -1313,7 +1265,6 @@
       },
       "ratings": [
         {
-          "character": "Emma",
           "characterCode": 19,
           "mastery": "DirectFire",
           "controlDifficulty": 5,
@@ -1324,7 +1275,6 @@
           "assistance": 1
         },
         {
-          "character": "Emma",
           "characterCode": 19,
           "mastery": "Arcana",
           "controlDifficulty": 5,
@@ -1369,7 +1319,6 @@
         "defense": 3.2,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.113,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -1382,7 +1331,6 @@
       },
       "ratings": [
         {
-          "character": "Lenox",
           "characterCode": 20,
           "mastery": "Whip",
           "controlDifficulty": 2,
@@ -1427,7 +1375,6 @@
         "defense": 2.8,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.03,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -1440,7 +1387,6 @@
       },
       "ratings": [
         {
-          "character": "Rozzi",
           "characterCode": 21,
           "mastery": "Pistol",
           "controlDifficulty": 4,
@@ -1485,7 +1431,6 @@
         "defense": 3.1,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.135,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -1498,7 +1443,6 @@
       },
       "ratings": [
         {
-          "character": "Luke",
           "characterCode": 22,
           "mastery": "Bat",
           "controlDifficulty": 2,
@@ -1544,7 +1488,6 @@
         "defense": 3.1999999999999997,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.135,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -1557,7 +1500,6 @@
       },
       "ratings": [
         {
-          "character": "Cathy",
           "characterCode": 23,
           "mastery": "OneHandSword",
           "controlDifficulty": 4,
@@ -1568,7 +1510,6 @@
           "assistance": 1
         },
         {
-          "character": "Cathy",
           "characterCode": 23,
           "mastery": "DualSword",
           "controlDifficulty": 4,
@@ -1614,7 +1555,6 @@
         "defense": 2.4,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.09,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -1627,7 +1567,6 @@
       },
       "ratings": [
         {
-          "character": "Adela",
           "characterCode": 24,
           "mastery": "Rapier",
           "controlDifficulty": 5,
@@ -1638,7 +1577,6 @@
           "assistance": 1
         },
         {
-          "character": "Adela",
           "characterCode": 24,
           "mastery": "Bat",
           "controlDifficulty": 5,
@@ -1668,7 +1606,7 @@
       ],
       "base": {
         "hp": 940,
-        "attackPower": 37,
+        "attackPower": 40,
         "defense": 52,
         "skillAmp": 0,
         "moveSpeed": 3.5999999999999996,
@@ -1683,7 +1621,6 @@
         "defense": 3.1,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.09,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -1696,7 +1633,6 @@
       },
       "ratings": [
         {
-          "character": "Bernice",
           "characterCode": 25,
           "mastery": "SniperRifle",
           "controlDifficulty": 1,
@@ -1741,7 +1677,6 @@
         "defense": 3.2,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.09,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -1754,7 +1689,6 @@
       },
       "ratings": [
         {
-          "character": "Barbara",
           "characterCode": 26,
           "mastery": "Pistol",
           "controlDifficulty": 3,
@@ -1802,7 +1736,6 @@
         "defense": 2.8,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.06,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -1815,7 +1748,6 @@
       },
       "ratings": [
         {
-          "character": "Alex",
           "characterCode": 27,
           "mastery": "Tonfa",
           "controlDifficulty": 5,
@@ -1826,7 +1758,6 @@
           "assistance": 1
         },
         {
-          "character": "Alex",
           "characterCode": 27,
           "mastery": "TwoHandSword",
           "controlDifficulty": 5,
@@ -1837,7 +1768,6 @@
           "assistance": 1
         },
         {
-          "character": "Alex",
           "characterCode": 27,
           "mastery": "DirectFire",
           "controlDifficulty": 5,
@@ -1848,7 +1778,6 @@
           "assistance": 1
         },
         {
-          "character": "Alex",
           "characterCode": 27,
           "mastery": "Pistol",
           "controlDifficulty": 5,
@@ -1897,7 +1826,6 @@
         "defense": 3.3,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.135,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -1910,7 +1838,6 @@
       },
       "ratings": [
         {
-          "character": "Sua",
           "characterCode": 28,
           "mastery": "Hammer",
           "controlDifficulty": 2,
@@ -1921,7 +1848,6 @@
           "assistance": 3
         },
         {
-          "character": "Sua",
           "characterCode": 28,
           "mastery": "Bat",
           "controlDifficulty": 2,
@@ -1969,7 +1895,6 @@
         "defense": 3.1999999999999997,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.158,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -1982,7 +1907,6 @@
       },
       "ratings": [
         {
-          "character": "Leon",
           "characterCode": 29,
           "mastery": "Glove",
           "controlDifficulty": 1,
@@ -1993,7 +1917,6 @@
           "assistance": 3
         },
         {
-          "character": "Leon",
           "characterCode": 29,
           "mastery": "Tonfa",
           "controlDifficulty": 1,
@@ -2038,7 +1961,6 @@
         "defense": 2.6999999999999997,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.105,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -2051,7 +1973,6 @@
       },
       "ratings": [
         {
-          "character": "Eleven",
           "characterCode": 30,
           "mastery": "Hammer",
           "controlDifficulty": 1,
@@ -2080,7 +2001,7 @@
         "Bow"
       ],
       "base": {
-        "hp": 930,
+        "hp": 900,
         "attackPower": 33,
         "defense": 51,
         "skillAmp": 0,
@@ -2096,7 +2017,6 @@
         "defense": 2.6,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.06,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -2109,7 +2029,6 @@
       },
       "ratings": [
         {
-          "character": "Rio",
           "characterCode": 31,
           "mastery": "Bow",
           "controlDifficulty": 2,
@@ -2122,7 +2041,9 @@
       ],
       "playTip": "莉央是一位基于普攻的远程实验体。根据情况可以在虽稍显笨重但射程较长的和弓，或相对来说射程较短但灵活的单弓之间切换。",
       "storyName": "南莉央",
-      "image": "/assets/characters/031-Rio.png"
+      "image": "/assets/characters/031-Rio.png",
+      "patchVersion": "auto-12.7-stats",
+      "patchOrder": 20261029
     },
     {
       "code": 32,
@@ -2154,7 +2075,6 @@
         "defense": 2.7,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.06,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -2167,7 +2087,6 @@
       },
       "ratings": [
         {
-          "character": "William",
           "characterCode": 32,
           "mastery": "HighAngleFire",
           "controlDifficulty": 5,
@@ -2214,7 +2133,6 @@
         "defense": 3.5,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.135,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -2227,7 +2145,6 @@
       },
       "ratings": [
         {
-          "character": "Nicky",
           "characterCode": 33,
           "mastery": "Glove",
           "controlDifficulty": 2,
@@ -2256,7 +2173,7 @@
         "Camera"
       ],
       "base": {
-        "hp": 905,
+        "hp": 930,
         "attackPower": 35,
         "defense": 53,
         "skillAmp": 0,
@@ -2272,7 +2189,6 @@
         "defense": 2.9,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.045,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -2285,7 +2201,6 @@
       },
       "ratings": [
         {
-          "character": "Nathapon",
           "characterCode": 34,
           "mastery": "Camera",
           "controlDifficulty": 5,
@@ -2298,7 +2213,9 @@
       ],
       "playTip": "纳塔朋想要记录每一个瞬间。就像拍照一样，纳塔朋能够将敌人定格在拍照的地点，然后使用技能连招。",
       "storyName": "纳塔朋・林莱",
-      "image": "/assets/characters/034-Nathapon.png"
+      "image": "/assets/characters/034-Nathapon.png",
+      "patchVersion": "auto-12.3-stats",
+      "patchOrder": 20260904
     },
     {
       "code": 35,
@@ -2331,7 +2248,6 @@
         "defense": 3.6,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.09,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -2344,7 +2260,6 @@
       },
       "ratings": [
         {
-          "character": "Jan",
           "characterCode": 35,
           "mastery": "Glove",
           "controlDifficulty": 5,
@@ -2355,7 +2270,6 @@
           "assistance": 1
         },
         {
-          "character": "Jan",
           "characterCode": 35,
           "mastery": "Tonfa",
           "controlDifficulty": 5,
@@ -2400,7 +2314,6 @@
         "defense": 2.8,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.045,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -2413,7 +2326,6 @@
       },
       "ratings": [
         {
-          "character": "Eva",
           "characterCode": 36,
           "mastery": "HighAngleFire",
           "controlDifficulty": 1,
@@ -2455,10 +2367,9 @@
         "maxHp": 90,
         "maxVp": 0,
         "attackPower": 4.7,
-        "defense": 2.8,
+        "defense": 3,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.077,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -2471,7 +2382,6 @@
       },
       "ratings": [
         {
-          "character": "Daniel",
           "characterCode": 37,
           "mastery": "OneHandSword",
           "controlDifficulty": 3,
@@ -2484,7 +2394,9 @@
       ],
       "playTip": "丹尼尔能够对灵感标识的目标造成巨大的伤害。尤其是在夜间，丹尼尔更容易找到并靠近敌人。",
       "storyName": "丹尼尔・莱文",
-      "image": "/assets/characters/037-Daniel.png"
+      "image": "/assets/characters/037-Daniel.png",
+      "patchVersion": "auto-12.4-stats",
+      "patchOrder": 20260917
     },
     {
       "code": 38,
@@ -2516,7 +2428,6 @@
         "defense": 2.7,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.06,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -2529,7 +2440,6 @@
       },
       "ratings": [
         {
-          "character": "Jenny",
           "characterCode": 38,
           "mastery": "Pistol",
           "controlDifficulty": 3,
@@ -2575,7 +2485,6 @@
         "defense": 3.0999999999999996,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.113,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -2588,7 +2497,6 @@
       },
       "ratings": [
         {
-          "character": "Camilo",
           "characterCode": 39,
           "mastery": "DualSword",
           "controlDifficulty": 3,
@@ -2599,7 +2507,6 @@
           "assistance": 1
         },
         {
-          "character": "Camilo",
           "characterCode": 39,
           "mastery": "Rapier",
           "controlDifficulty": 3,
@@ -2644,7 +2551,6 @@
         "defense": 2.7,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.075,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -2657,7 +2563,6 @@
       },
       "ratings": [
         {
-          "character": "Chloe",
           "characterCode": 40,
           "mastery": "DirectFire",
           "controlDifficulty": 5,
@@ -2702,7 +2607,6 @@
         "defense": 2.7,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.075,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -2715,7 +2619,6 @@
       },
       "ratings": [
         {
-          "character": "Johann",
           "characterCode": 41,
           "mastery": "Arcana",
           "controlDifficulty": 1,
@@ -2760,7 +2663,6 @@
         "defense": 2.8,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.03,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -2773,7 +2675,6 @@
       },
       "ratings": [
         {
-          "character": "Bianca",
           "characterCode": 42,
           "mastery": "Arcana",
           "controlDifficulty": 2,
@@ -2818,7 +2719,6 @@
         "defense": 2.8,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.045,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -2831,7 +2731,6 @@
       },
       "ratings": [
         {
-          "character": "Celine",
           "characterCode": 43,
           "mastery": "HighAngleFire",
           "controlDifficulty": 5,
@@ -2876,7 +2775,6 @@
         "defense": 3.2,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.135,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -2889,7 +2787,6 @@
       },
       "ratings": [
         {
-          "character": "Echion",
           "characterCode": 44,
           "mastery": "VFArm",
           "controlDifficulty": 4,
@@ -2935,7 +2832,6 @@
         "defense": 3.2,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.113,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -2948,7 +2844,6 @@
       },
       "ratings": [
         {
-          "character": "Mai",
           "characterCode": 45,
           "mastery": "Whip",
           "controlDifficulty": 3,
@@ -2993,7 +2888,6 @@
         "defense": 3.4,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.077,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -3006,7 +2900,6 @@
       },
       "ratings": [
         {
-          "character": "Aiden",
           "characterCode": 46,
           "mastery": "TwoHandSword",
           "controlDifficulty": 5,
@@ -3037,7 +2930,7 @@
       "base": {
         "hp": 960,
         "attackPower": 28,
-        "defense": 51,
+        "defense": 52,
         "skillAmp": 0,
         "moveSpeed": 3.5,
         "attackSpeed": 0.12
@@ -3051,7 +2944,6 @@
         "defense": 3.1,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.077,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -3064,7 +2956,6 @@
       },
       "ratings": [
         {
-          "character": "Laura",
           "characterCode": 47,
           "mastery": "Whip",
           "controlDifficulty": 5,
@@ -3077,7 +2968,9 @@
       ],
       "playTip": "怪盗劳拉善于使用鞭子接近敌人后，释放快速冷却的攻击技能压制敌人。",
       "storyName": "塞勒涅・尼利亚",
-      "image": "/assets/characters/047-Laura.png"
+      "image": "/assets/characters/047-Laura.png",
+      "patchVersion": "auto-12.6-stats",
+      "patchOrder": 20261015
     },
     {
       "code": 48,
@@ -3109,7 +3002,6 @@
         "defense": 2.9999999999999996,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.068,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -3122,7 +3014,6 @@
       },
       "ratings": [
         {
-          "character": "Tia",
           "characterCode": 48,
           "mastery": "Bat",
           "controlDifficulty": 5,
@@ -3167,7 +3058,6 @@
         "defense": 3,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.06,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -3180,7 +3070,6 @@
       },
       "ratings": [
         {
-          "character": "Felix",
           "characterCode": 49,
           "mastery": "Spear",
           "controlDifficulty": 4,
@@ -3222,10 +3111,9 @@
         "maxHp": 92,
         "maxVp": 0,
         "attackPower": 4.4,
-        "defense": 3.3,
+        "defense": 3.2,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.051,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -3238,7 +3126,6 @@
       },
       "ratings": [
         {
-          "character": "Elena",
           "characterCode": 50,
           "mastery": "Rapier",
           "controlDifficulty": 3,
@@ -3251,7 +3138,9 @@
       ],
       "playTip": "埃琳娜是一位花样滑冰运动员。通过自由滑行生成冰区，冻结并干扰冰区上的敌人。",
       "storyName": "埃琳娜・耶尔维宁",
-      "image": "/assets/characters/050-Elena.png"
+      "image": "/assets/characters/050-Elena.png",
+      "patchVersion": "auto-12.7-stats",
+      "patchOrder": 20261029
     },
     {
       "code": 51,
@@ -3284,7 +3173,6 @@
         "defense": 2.8,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.05,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -3297,7 +3185,6 @@
       },
       "ratings": [
         {
-          "character": "Priya",
           "characterCode": 51,
           "mastery": "Guitar",
           "controlDifficulty": 3,
@@ -3343,7 +3230,6 @@
         "defense": 2.6,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.06,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -3356,7 +3242,6 @@
       },
       "ratings": [
         {
-          "character": "Adina",
           "characterCode": 52,
           "mastery": "Arcana",
           "controlDifficulty": 5,
@@ -3403,7 +3288,6 @@
         "defense": 3.3,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.136,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -3416,7 +3300,6 @@
       },
       "ratings": [
         {
-          "character": "Markus",
           "characterCode": 53,
           "mastery": "Axe",
           "controlDifficulty": 2,
@@ -3427,7 +3310,6 @@
           "assistance": 1
         },
         {
-          "character": "Markus",
           "characterCode": 53,
           "mastery": "Hammer",
           "controlDifficulty": 2,
@@ -3472,7 +3354,6 @@
         "defense": 2.8,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.06,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -3485,7 +3366,6 @@
       },
       "ratings": [
         {
-          "character": "Karla",
           "characterCode": 54,
           "mastery": "CrossBow",
           "controlDifficulty": 4,
@@ -3531,7 +3411,6 @@
         "defense": 3,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.099,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -3544,7 +3423,6 @@
       },
       "ratings": [
         {
-          "character": "Estelle",
           "characterCode": 55,
           "mastery": "Axe",
           "controlDifficulty": 3,
@@ -3589,7 +3467,6 @@
         "defense": 3.3,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.12,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -3602,7 +3479,6 @@
       },
       "ratings": [
         {
-          "character": "Piolo",
           "characterCode": 56,
           "mastery": "Nunchaku",
           "controlDifficulty": 4,
@@ -3647,7 +3523,6 @@
         "defense": 2.8,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.1,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -3660,7 +3535,6 @@
       },
       "ratings": [
         {
-          "character": "Martina",
           "characterCode": 57,
           "mastery": "Camera",
           "controlDifficulty": 5,
@@ -3705,7 +3579,6 @@
         "defense": 2.5999999999999996,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.07,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -3718,7 +3591,6 @@
       },
       "ratings": [
         {
-          "character": "Haze",
           "characterCode": 58,
           "mastery": "AssaultRifle",
           "controlDifficulty": 3,
@@ -3763,7 +3635,6 @@
         "defense": 3.1,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.12,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -3776,7 +3647,6 @@
       },
       "ratings": [
         {
-          "character": "Isaac",
           "characterCode": 59,
           "mastery": "Tonfa",
           "controlDifficulty": 1,
@@ -3821,7 +3691,6 @@
         "defense": 2.9,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.07,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -3834,7 +3703,6 @@
       },
       "ratings": [
         {
-          "character": "Tazia",
           "characterCode": 60,
           "mastery": "DirectFire",
           "controlDifficulty": 4,
@@ -3880,7 +3748,6 @@
         "defense": 3.0999999999999996,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.08,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -3893,7 +3760,6 @@
       },
       "ratings": [
         {
-          "character": "Irem",
           "characterCode": 61,
           "mastery": "HighAngleFire",
           "controlDifficulty": 5,
@@ -3939,7 +3805,6 @@
         "defense": 3.1999999999999997,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.09,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -3952,7 +3817,6 @@
       },
       "ratings": [
         {
-          "character": "Theodore",
           "characterCode": 62,
           "mastery": "SniperRifle",
           "controlDifficulty": 2,
@@ -3991,13 +3855,12 @@
       "growth": {
         "code": 63,
         "name": "Lyanh",
-        "maxHp": 94,
+        "maxHp": 88,
         "maxVp": 0,
         "attackPower": 4.6,
         "defense": 3.2,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.07,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -4010,7 +3873,6 @@
       },
       "ratings": [
         {
-          "character": "Lyanh",
           "characterCode": 63,
           "mastery": "OneHandSword",
           "controlDifficulty": 2,
@@ -4023,7 +3885,9 @@
       ],
       "playTip": "被恶灵操控的少女伊安的持续交战能力令敌人恐惧。噬身后的技能将进一步得到强化，拥有强大的吸血能力。",
       "storyName": "伊安",
-      "image": "/assets/characters/063-Lyanh.png"
+      "image": "/assets/characters/063-Lyanh.png",
+      "patchVersion": "auto-12.7-stats",
+      "patchOrder": 20261029
     },
     {
       "code": 64,
@@ -4055,7 +3919,6 @@
         "defense": 2.8,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.06,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -4068,7 +3931,6 @@
       },
       "ratings": [
         {
-          "character": "Vanya",
           "characterCode": 64,
           "mastery": "Arcana",
           "controlDifficulty": 2,
@@ -4113,7 +3975,6 @@
         "defense": 3.2,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.07,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -4126,7 +3987,6 @@
       },
       "ratings": [
         {
-          "character": "DebiMarlene",
           "characterCode": 65,
           "mastery": "TwoHandSword",
           "controlDifficulty": 4,
@@ -4174,7 +4034,6 @@
         "defense": 2.7,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.07,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -4187,7 +4046,6 @@
       },
       "ratings": [
         {
-          "character": "Arda",
           "characterCode": 66,
           "mastery": "Arcana",
           "controlDifficulty": 2,
@@ -4232,7 +4090,6 @@
         "defense": 3.0999999999999996,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.08,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -4245,7 +4102,6 @@
       },
       "ratings": [
         {
-          "character": "Abigail",
           "characterCode": 67,
           "mastery": "Axe",
           "controlDifficulty": 3,
@@ -4290,7 +4146,6 @@
         "defense": 3.4,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.12,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -4303,7 +4158,6 @@
       },
       "ratings": [
         {
-          "character": "Alonso",
           "characterCode": 68,
           "mastery": "Glove",
           "controlDifficulty": 1,
@@ -4348,7 +4202,6 @@
         "defense": 3,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.06,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -4361,7 +4214,6 @@
       },
       "ratings": [
         {
-          "character": "Leni",
           "characterCode": 69,
           "mastery": "Pistol",
           "controlDifficulty": 4,
@@ -4402,13 +4254,12 @@
       "growth": {
         "code": 70,
         "name": "Tsubame",
-        "maxHp": 75,
+        "maxHp": 73,
         "maxVp": 0,
-        "attackPower": 4.6,
+        "attackPower": 4.4,
         "defense": 2.8,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.06,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -4421,7 +4272,6 @@
       },
       "ratings": [
         {
-          "character": "Tsubame",
           "characterCode": 70,
           "mastery": "DirectFire",
           "controlDifficulty": 3,
@@ -4434,7 +4284,9 @@
       ],
       "playTip": "燕翼曾受过严格的训练。她善于使用苦无刻上标记，并通过标记对敌人造成巨大的伤害。",
       "storyName": "橘燕翼",
-      "image": "/assets/characters/070-Tsubame.png"
+      "image": "/assets/characters/070-Tsubame.png",
+      "patchVersion": "auto-12.4-stats",
+      "patchOrder": 20260917
     },
     {
       "code": 71,
@@ -4451,7 +4303,7 @@
       ],
       "base": {
         "hp": 960,
-        "attackPower": 34,
+        "attackPower": 37,
         "defense": 52,
         "skillAmp": 0,
         "moveSpeed": 3.55,
@@ -4466,7 +4318,6 @@
         "defense": 2.6999999999999997,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.136,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -4479,7 +4330,6 @@
       },
       "ratings": [
         {
-          "character": "Kenneth",
           "characterCode": 71,
           "mastery": "Axe",
           "controlDifficulty": 3,
@@ -4524,7 +4374,6 @@
         "defense": 2.6999999999999997,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.09,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -4537,7 +4386,6 @@
       },
       "ratings": [
         {
-          "character": "Katja",
           "characterCode": 72,
           "mastery": "SniperRifle",
           "controlDifficulty": 1,
@@ -4579,10 +4427,9 @@
         "maxHp": 73,
         "maxVp": 0,
         "attackPower": 4.9,
-        "defense": 3.1999999999999997,
+        "defense": 2.6,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.09,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -4595,7 +4442,6 @@
       },
       "ratings": [
         {
-          "character": "Charlotte",
           "characterCode": 73,
           "mastery": "Arcana",
           "controlDifficulty": 1,
@@ -4608,7 +4454,9 @@
       ],
       "playTip": "夏洛特内心善良，擅长使用光的力量帮助队友并化解伤害。",
       "storyName": "夏洛特・罗伊斯",
-      "image": "/assets/characters/073-Charlotte.png"
+      "image": "/assets/characters/073-Charlotte.png",
+      "patchVersion": "auto-12.5-stats",
+      "patchOrder": 20261001
     },
     {
       "code": 74,
@@ -4640,7 +4488,6 @@
         "defense": 3.5,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.136,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -4653,7 +4500,6 @@
       },
       "ratings": [
         {
-          "character": "Darko",
           "characterCode": 74,
           "mastery": "Bat",
           "controlDifficulty": 2,
@@ -4700,7 +4546,6 @@
         "defense": 2.8,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.06,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -4713,7 +4558,6 @@
       },
       "ratings": [
         {
-          "character": "Lenore",
           "characterCode": 75,
           "mastery": "Guitar",
           "controlDifficulty": 2,
@@ -4759,7 +4603,6 @@
         "defense": 3.1,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.136,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -4772,7 +4615,6 @@
       },
       "ratings": [
         {
-          "character": "Garnet",
           "characterCode": 76,
           "mastery": "Bat",
           "controlDifficulty": 2,
@@ -4817,7 +4659,6 @@
         "defense": 2.8,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.08,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -4830,7 +4671,6 @@
       },
       "ratings": [
         {
-          "character": "YuMin",
           "characterCode": 77,
           "mastery": "Arcana",
           "controlDifficulty": 4,
@@ -4875,7 +4715,6 @@
         "defense": 3.7,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.07,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -4888,7 +4727,6 @@
       },
       "ratings": [
         {
-          "character": "Hisui",
           "characterCode": 78,
           "mastery": "TwoHandSword",
           "controlDifficulty": 4,
@@ -4927,13 +4765,12 @@
       "growth": {
         "code": 79,
         "name": "Justyna",
-        "maxHp": 79,
+        "maxHp": 76,
         "maxVp": 0,
         "attackPower": 4.3,
         "defense": 2.8,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.06,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -4946,7 +4783,6 @@
       },
       "ratings": [
         {
-          "character": "Justyna",
           "characterCode": 79,
           "mastery": "CrossBow",
           "controlDifficulty": 3,
@@ -4959,7 +4795,9 @@
       ],
       "playTip": "尤斯蒂娜是一位梦想成为正义英雄的活力少女。她善于利用能量不断地攻击和移动，并以强大的火力横扫敌人所在的区域。",
       "storyName": "尤斯蒂娜・伊斯克拉",
-      "image": "/assets/characters/079-Justyna.png"
+      "image": "/assets/characters/079-Justyna.png",
+      "patchVersion": "auto-12.5-stats",
+      "patchOrder": 20261001
     },
     {
       "code": 80,
@@ -4991,7 +4829,6 @@
         "defense": 3.2,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.135,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -5004,7 +4841,6 @@
       },
       "ratings": [
         {
-          "character": "Istvan",
           "characterCode": 80,
           "mastery": "Spear",
           "controlDifficulty": 2,
@@ -5049,7 +4885,6 @@
         "defense": 2.7,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.06,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -5062,7 +4897,6 @@
       },
       "ratings": [
         {
-          "character": "Niah",
           "characterCode": 81,
           "mastery": "Pistol",
           "controlDifficulty": 3,
@@ -5108,7 +4942,6 @@
         "defense": 3,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.06,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -5121,7 +4954,6 @@
       },
       "ratings": [
         {
-          "character": "Xuelin",
           "characterCode": 82,
           "mastery": "Rapier",
           "controlDifficulty": 2,
@@ -5160,13 +4992,12 @@
       "growth": {
         "code": 83,
         "name": "Henry",
-        "maxHp": 78,
+        "maxHp": 75,
         "maxVp": 0,
         "attackPower": 4.4,
         "defense": 2.8,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.06,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -5179,7 +5010,6 @@
       },
       "ratings": [
         {
-          "character": "Henry",
           "characterCode": 83,
           "mastery": "DirectFire",
           "controlDifficulty": 3,
@@ -5192,7 +5022,9 @@
       ],
       "playTip": "亨利是一名利用操纵时间的能力来干扰敌人行动，并为我方创造有利战斗环境的实验体。",
       "storyName": "亨利・康斯坦特",
-      "image": "/assets/characters/083-Henry.png"
+      "image": "/assets/characters/083-Henry.png",
+      "patchVersion": "auto-12.7-stats",
+      "patchOrder": 20261029
     },
     {
       "code": 84,
@@ -5210,7 +5042,7 @@
       "base": {
         "hp": 970,
         "attackPower": 34,
-        "defense": 47,
+        "defense": 50,
         "skillAmp": 0,
         "moveSpeed": 3.5,
         "attackSpeed": 0.11
@@ -5224,7 +5056,6 @@
         "defense": 3,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.113,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -5237,7 +5068,6 @@
       },
       "ratings": [
         {
-          "character": "Blair",
           "characterCode": 84,
           "mastery": "DualSword",
           "controlDifficulty": 4,
@@ -5251,8 +5081,8 @@
       "playTip": "布莱尔对VF觉醒者抱有深深的憎恶。她借助XMS-5提升自身的身体机能，并获得了探测VF觉醒者的能力，是一名擅长连贯施展技能、掌控战局的实验体。",
       "storyName": "布莱尔・阿什",
       "image": "/assets/characters/084-Blair.png",
-      "patchVersion": "12.2",
-      "patchOrder": 20260820
+      "patchVersion": "auto-12.5-stats",
+      "patchOrder": 20261001
     },
     {
       "code": 85,
@@ -5285,7 +5115,6 @@
         "defense": 3.1,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.135,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -5298,7 +5127,6 @@
       },
       "ratings": [
         {
-          "character": "Mirka",
           "characterCode": 85,
           "mastery": "Hammer",
           "controlDifficulty": 2,
@@ -5345,7 +5173,6 @@
         "defense": 3.3,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.113,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -5358,7 +5185,6 @@
       },
       "ratings": [
         {
-          "character": "Fenrir",
           "characterCode": 86,
           "mastery": "Glove",
           "controlDifficulty": 2,
@@ -5403,7 +5229,6 @@
         "defense": 3,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.113,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -5416,7 +5241,6 @@
       },
       "ratings": [
         {
-          "character": "Coraline",
           "characterCode": 87,
           "mastery": "Arcana",
           "controlDifficulty": 4,
@@ -5461,7 +5285,6 @@
         "defense": 2.9,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.135,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -5474,7 +5297,6 @@
       },
       "ratings": [
         {
-          "character": "Bihyung",
           "characterCode": 88,
           "mastery": "Bat",
           "controlDifficulty": 2,
@@ -5486,7 +5308,7 @@
         }
       ],
       "playTip": "鼻荆是一个喜欢利用鬼怪的强大力量，向遇到的每一个人发起赌约并进行恶作剧的实验体。 当戴上鬼怪假面后，鼻荆会变得巨大且充满力量，没有任何人能阻挡她的恶作剧。",
-      "storyName": "鼻荊",
+      "storyName": "鼻荆",
       "image": "/assets/characters/088-Bihyung.png",
       "patchVersion": "gamedata-20260819-character-base-sync",
       "patchOrder": 20260819
@@ -5522,7 +5344,6 @@
         "defense": 3,
         "skillAmp": 0,
         "adaptiveForce": 0,
-        "criticalChance": 0,
         "hpRegen": 0.06,
         "vpRegen": 0,
         "attackSpeed": 0,
@@ -5531,10 +5352,22 @@
         "increaseBasicAttackDamageRatio": 0,
         "skillAmpRatio": 0,
         "preventBasicAttackDamagedRatio": 0,
-        "preventSkillDamagedRatio": 0
+        "preventSkillDamagedRatio": 0,
+        "criticalChance": 0
       },
-      "ratings": [],
-      "playTip": "Craver 以固定攻击速度和 6 发弹药作战，普攻与基础技能都会消耗子弹，剩 1 发时进入必杀弹状态并需要装填。",
+      "ratings": [
+        {
+          "characterCode": 89,
+          "mastery": "Pistol",
+          "controlDifficulty": 4,
+          "attack": 4,
+          "defense": 2,
+          "disruptor": 4,
+          "move": 3,
+          "assistance": 1
+        }
+      ],
+      "playTip": "克雷弗是一把沉淀着多个人类执念的手枪。它通过不断消耗子弹来压制敌人，并在剩下最后一发子弹时，通过强大的技能制服敌人。",
       "storyName": "克雷弗",
       "image": "/assets/characters/089-Craver.png",
       "patchVersion": "gamedata-20260819-character-base-sync",
@@ -5555,22 +5388,53 @@
       ],
       "base": {
         "hp": 910,
-        "attackPower": 42,
-        "defense": 53,
+        "attackPower": 33,
+        "defense": 52,
         "skillAmp": 0,
         "moveSpeed": 3.5,
-        "attackSpeed": 0.18
+        "attackSpeed": 0.2
       },
-      "growth": null,
-      "ratings": [],
-      "playTip": "",
-      "storyName": "",
-      "image": "/assets/characters/090-Lucia.png"
+      "growth": {
+        "code": 90,
+        "name": "Lucia",
+        "maxHp": 78,
+        "maxVp": 0,
+        "attackPower": 4.3,
+        "defense": 2.9,
+        "skillAmp": 0,
+        "adaptiveForce": 0,
+        "hpRegen": 0.09,
+        "vpRegen": 0,
+        "attackSpeed": 0,
+        "moveSpeed": 0,
+        "attackSpeedRatio": 0,
+        "increaseBasicAttackDamageRatio": 0,
+        "skillAmpRatio": 0,
+        "preventBasicAttackDamagedRatio": 0,
+        "preventSkillDamagedRatio": 0
+      },
+      "ratings": [
+        {
+          "characterCode": 90,
+          "mastery": "SniperRifle",
+          "controlDifficulty": 2,
+          "attack": 4,
+          "defense": 1,
+          "disruptor": 2,
+          "move": 2,
+          "assistance": 1
+        }
+      ],
+      "playTip": "憧憬成为火枪手的千金小姐露西娅，以优雅的射击在敌人身上留下水晶，证明自己的风范。",
+      "storyName": "露西娅・杰玛・费兰特",
+      "image": "/assets/characters/090-Lucia.png",
+      "patchVersion": "auto-13.0-part2-stats",
+      "patchOrder": 20261112
     },
     {
       "code": 91,
       "id": "Seres",
-      "name": "Seres",
+      "name": "塞莉丝",
       "englishName": "Seres",
       "resource": "Seres",
       "archetypes": [
@@ -5578,20 +5442,76 @@
         "Supporter"
       ],
       "weaponRangeType": "Melee",
+      "weapons": [
+        "TwoHandSword"
+      ],
+      "base": {
+        "hp": 950,
+        "attackPower": 36,
+        "defense": 49,
+        "skillAmp": 0,
+        "moveSpeed": 3.55,
+        "attackSpeed": 0.12
+      },
+      "growth": {
+        "code": 91,
+        "name": "Seres",
+        "maxHp": 91,
+        "maxVp": 0,
+        "attackPower": 4.8,
+        "defense": 3.3,
+        "skillAmp": 0,
+        "adaptiveForce": 0,
+        "hpRegen": 0.12,
+        "vpRegen": 0,
+        "attackSpeed": 0,
+        "moveSpeed": 0,
+        "attackSpeedRatio": 0,
+        "increaseBasicAttackDamageRatio": 0,
+        "skillAmpRatio": 0,
+        "preventBasicAttackDamagedRatio": 0,
+        "preventSkillDamagedRatio": 0
+      },
+      "ratings": [
+        {
+          "characterCode": 91,
+          "mastery": "TwoHandSword",
+          "controlDifficulty": 3,
+          "attack": 1,
+          "defense": 4,
+          "disruptor": 4,
+          "move": 3,
+          "assistance": 3
+        }
+      ],
+      "playTip": "守护女仆塞莉丝面对威胁自己珍视之人的敌人时，会毫不留情地挥舞大剑。 为了保护珍视之人，塞莉丝能够发挥出更强大的力量。",
+      "storyName": "塞莉丝",
+      "image": "/assets/characters/091-Seres.png"
+    },
+    {
+      "code": 92,
+      "id": "Meissa",
+      "name": "Meissa",
+      "englishName": "Meissa",
+      "resource": "Meissa",
+      "archetypes": [
+        "Marksman"
+      ],
+      "weaponRangeType": "Range",
       "weapons": [],
       "base": {
-        "hp": 960,
-        "attackPower": 36,
-        "defense": 55,
+        "hp": 930,
+        "attackPower": 40,
+        "defense": 49,
         "skillAmp": 0,
-        "moveSpeed": 3.6,
-        "attackSpeed": 0.12
+        "moveSpeed": 3.5,
+        "attackSpeed": 0.08
       },
       "growth": null,
       "ratings": [],
       "playTip": "",
       "storyName": "",
-      "image": "/assets/characters/091-Seres.png"
+      "image": "/assets/characters/092-Meissa.png"
     }
   ],
   "skillGroups": [
@@ -10813,6 +10733,186 @@
       "name": "闹个痛快吧！",
       "description": "鼻荆进入负面效果免疫状态并跃向指定位置。使用技能期间，自身承受伤害降低{0}。 鼻荆戴上鬼怪假面，身体巨大化并获得{2}的额外体力，持续{1}秒。随后猛烈重击地面，造成{3}(+目标体力上限{4})的技能伤害，并使命中的敌人移动速度降低{6}，持续{5}秒。处于范围中心区域的目标承受伤害和移动速度减少效果增加{7}。",
       "coefficientText": "鼻荆进入负面效果免疫状态并跃向指定位置。使用技能期间，自身承受伤害降低{0}。 鼻荆戴上鬼怪假面，身体巨大化并获得{2}的额外体力，持续{1}秒。随后猛烈重击地面，造成{3}(+额外攻击力{4})(+目标体力上限{5})的技能伤害，并使命中的敌人移动速度降低{7}，持续{6}秒。处于范围中心区域的目标承受伤害和移动速度减少效果增加{8}。",
+      "extensionName": ""
+    },
+    {
+      "hero": "克雷弗",
+      "characterCode": 89,
+      "group": 1089100,
+      "slot": "P",
+      "skillId": "None",
+      "passiveSkillId": "CraverPassive",
+      "name": "亡命之徒",
+      "description": "克雷弗的攻击速度固定为{0}，普攻将造成{1}额外技能伤害。 克雷弗共有6发子弹，可通过普攻和基本技能消耗。剩1发子弹时，将激活魔弹且无法使用普攻。 使用魔弹技能或经过{2}秒后，将进入持续{3}秒的装弹状态。重新装弹状态下无法使用普攻、双重射击或横扫千军技能。",
+      "coefficientText": "克雷弗的攻击速度固定为{0}，普攻将造成{20}(+技能增幅{21})(+攻击速度{22})的额外技能伤害。 克雷弗共有6发子弹，可通过普攻和基本技能消耗。剩1发子弹时，将激活魔弹且无法使用普攻。 使用魔弹技能或经过{2}秒后，将进入持续{3}秒的装弹状态。重新装弹状态下无法使用普攻、双重射击或横扫千军技能。",
+      "extensionName": ""
+    },
+    {
+      "hero": "克雷弗",
+      "characterCode": 89,
+      "group": 1089200,
+      "slot": "Q",
+      "skillId": "CraverActive1_1",
+      "passiveSkillId": "None",
+      "name": "双重射击 / 聚焦射击",
+      "description": "双重射击：克雷弗向指定方向连续发射两枚子弹，分别造成{0}技能伤害。 聚焦射击：向指定方向发射一枚强化子弹。子弹飞到射程终点或命中敌人时，将对目标和其后方的敌人造成{1}技能伤害，并使其{2}秒内的移动速度减少{3}。被聚焦射击命中的目标将在{4}秒内承受{5}的技能伤害。",
+      "coefficientText": "双重射击：克雷弗向指定方向连续发射两枚子弹，分别造成{20}(+技能增幅{21})技能伤害。 聚焦射击：向指定方向发射一枚强化子弹。子弹飞到射程终点或命中敌人时，将对目标和其后方的敌人造成{22}(+技能增幅{23})技能伤害，并使其{2}秒内的移动速度减少{3}。被聚焦射击命中的目标将在{4}秒内承受{24}(+技能增幅{25})的技能伤害。",
+      "extensionName": ""
+    },
+    {
+      "hero": "克雷弗",
+      "characterCode": 89,
+      "group": 1089300,
+      "slot": "W",
+      "skillId": "CraverActive2_1",
+      "passiveSkillId": "None",
+      "name": "横扫千军 / 腾空后跃",
+      "description": "横扫千军：克雷弗旋转并对范围的敌人造成2次{0}技能伤害，同时使目标{1}秒内的移动速度降低{2}。克雷弗在旋转期间移动速度增加{3}且承受伤害降低{4}。横扫千军命中敌人时，冷却时间缩减{5}。 腾空后跃：克雷弗对范围内的敌人造成{6}技能伤害，使目标悬空{7}秒。",
+      "coefficientText": "横扫千军：克雷弗旋转并对范围的敌人造成2次{20}(+技能增幅{21})技能伤害，同时使目标{1}秒内的移动速度降低{2}。克雷弗在旋转期间移动速度增加{3}且承受伤害降低{4}。横扫千军命中敌人时，冷却时间缩减{5}。 腾空后跃：克雷弗对范围内的敌人造成{22}(+技能增幅{23})技能伤害，使目标悬空{7}秒。",
+      "extensionName": ""
+    },
+    {
+      "hero": "克雷弗",
+      "characterCode": 89,
+      "group": 1089400,
+      "slot": "E",
+      "skillId": "CraverActive3_1",
+      "passiveSkillId": "None",
+      "name": "战术翻滚 / 迅步",
+      "description": "战术翻滚：克雷弗朝指定方向突进造成{0}技能伤害。 战术翻滚技能命中敌人实验体时，冷却缩减{1}；命中野生动物时，冷却缩减{2}。 重新装弹期间使用战术翻滚时，可立即完成装弹。 迅步：克雷弗向后方撤退，同时发射一枚穿透子弹，造成{3}技能伤害。",
+      "coefficientText": "战术翻滚：克雷弗朝指定方向突进造成{20}(+技能增幅{21})技能伤害。 战术翻滚技能命中敌人实验体时，冷却缩减{1}；命中野生动物时，冷却缩减{2}。 重新装弹期间使用战术翻滚时，可立即完成装弹。 迅步：克雷弗向后方撤退，同时发射一枚穿透子弹，造成{22}(+技能增幅{23})技能伤害。",
+      "extensionName": ""
+    },
+    {
+      "hero": "克雷弗",
+      "characterCode": 89,
+      "group": 1089500,
+      "slot": "R",
+      "skillId": "CraverActive4",
+      "passiveSkillId": "CraverActive4Passive",
+      "name": "决战时刻！",
+      "description": "克雷弗瞬间移动至悬空的敌方实验体身边，将其悬空禁锢{0}秒并进行乱射，造成{1}技能伤害的同时，将伤害量的{2}转化为自身体力。在乱射期间，克雷弗处于无法阻止的状态，重置基本技能的冷却时间并重新装弹。",
+      "coefficientText": "克雷弗瞬间移动至悬空的敌方实验体身边，将其悬空禁锢{0}秒并进行乱射，造成{20}(+技能增幅{21})技能伤害的同时，将伤害量的{2}转化为自身体力。在乱射期间，克雷弗处于无法阻止的状态，重置基本技能的冷却时间并重新装弹。",
+      "extensionName": ""
+    },
+    {
+      "hero": "露西娅",
+      "characterCode": 90,
+      "group": 1090100,
+      "slot": "P",
+      "skillId": "None",
+      "passiveSkillId": "LuciaPassive",
+      "name": "千金的自我修养",
+      "description": "露西娅使用技能对敌人造成伤害时，会为目标留下持续{0}秒的水晶标记，。 露西娅使用普攻造成伤害时，移除水晶标记，对目标造成{1}的额外技能伤害，同时自身移动速度将在{3}秒内增加{2}。 对带有水晶标记的敌人进行普攻时，露西娅的攻击速度提升{4}。",
+      "coefficientText": "露西娅使用技能对敌人造成伤害时，会为目标留下持续{0}秒的水晶标记，。 露西娅使用普攻造成伤害时，移除水晶标记，对目标造成{20}(+技能增幅{21})的额外技能伤害，同时自身移动速度将在{3}秒内增加{2}。 对带有水晶标记的敌人进行普攻时，露西娅的攻击速度提升{4}。",
+      "extensionName": ""
+    },
+    {
+      "hero": "露西娅",
+      "characterCode": 90,
+      "group": 1090200,
+      "slot": "Q",
+      "skillId": "LuciaActive1_1",
+      "passiveSkillId": "None",
+      "name": "绮丽浪漫 / 流光浪漫",
+      "description": "露西娅朝指定方向发射水晶弹，对命中的首个敌人造成{0}技能伤害。 流光浪漫：露西娅向指定方向发射一道光束，对范围内所有敌人造成{1}技能伤害，并使其移动速度降低{3}，持续{2}秒。",
+      "coefficientText": "露西娅朝指定方向发射水晶弹，对命中的首个敌人造成{20}(+技能增幅{21})的技能伤害。 流光浪漫：露西娅向指定方向发射一道光束，对范围内所有敌人造成{22}(+스技能增幅{23})的技能伤害，并使其移动速度降低{3}，持续{2}秒。",
+      "extensionName": ""
+    },
+    {
+      "hero": "露西娅",
+      "characterCode": 90,
+      "group": 1090300,
+      "slot": "W",
+      "skillId": "LuciaActive2",
+      "passiveSkillId": "None",
+      "name": "‌齐射",
+      "description": "露西娅召唤火枪，对附近最多4名敌人开火，造成{0}技能伤害。 重复命中已被射击过的敌人时，造成{1}的伤害。",
+      "coefficientText": "露西娅召唤火枪，对附近最多4名敌人开火，造成{20}(+技能增幅{21})的技能伤害。 重复命中已被射击过的敌人时，造成{1}的伤害。",
+      "extensionName": ""
+    },
+    {
+      "hero": "露西娅",
+      "characterCode": 90,
+      "group": 1090400,
+      "slot": "E",
+      "skillId": "LuciaActive3",
+      "passiveSkillId": "None",
+      "name": "好大的胆子！",
+      "description": "持续效果：露西娅移除水晶时，好大的胆子！的冷却时间减少{0}。 露西娅朝指定方向移动。随后在{1}秒内，激活流光浪漫，可替代绮丽浪漫施放。",
+      "coefficientText": "持续效果：露西娅移除水晶时，好大的胆子！的冷却时间减少{0}。 露西娅朝指定方向移动。随后在{1}秒内，激活流光浪漫，可替代绮丽浪漫施放。",
+      "extensionName": ""
+    },
+    {
+      "hero": "露西娅",
+      "characterCode": 90,
+      "group": 1090500,
+      "slot": "R",
+      "skillId": "LuciaActive4",
+      "passiveSkillId": "None",
+      "name": "枪士风范",
+      "description": "露西娅向前方发动强力射击，对敌人造成{0}技能伤害。 命中带有水晶标记的敌人时，会移除其水晶标记并重新施加，同时使其晕厥{1}秒。",
+      "coefficientText": "露西娅向前方发动强力射击，对敌人造成{20}(+技能增幅{21})的技能伤害。 命中带有水晶标记的敌人时，会移除其水晶标记并重新施加，同时使其晕厥{1}秒。",
+      "extensionName": ""
+    },
+    {
+      "hero": "塞莉丝",
+      "characterCode": 91,
+      "group": 1091100,
+      "slot": "P",
+      "skillId": "None",
+      "passiveSkillId": "SeresPassive",
+      "name": "守护浪漫之剑",
+      "description": "塞莉丝普攻命中敌人时，将在目标身上留下持续{0}秒的黑曜石碎片，并在持续时间内造成{2}(+目标体力上限{3})技能伤害。伤害量最多可以叠加{1}次。",
+      "coefficientText": "塞莉丝普攻命中敌人时，将在目标身上留下持续{0}秒的黑曜石碎片，并在持续时间内造成{2}(+目标体力上限{3})技能伤害。伤害量最多可以叠加{1}次。",
+      "extensionName": ""
+    },
+    {
+      "hero": "塞莉丝",
+      "characterCode": 91,
+      "group": 1091200,
+      "slot": "Q",
+      "skillId": "SeresActive1_1",
+      "passiveSkillId": "None",
+      "name": "疾进 / 贯穿",
+      "description": "疾进：塞莉丝沿指定方向突进并获得{1}的护盾，护盾持续{0}秒。若护盾在持续时间内未被破坏，则会在消失时爆炸，对周围造成{2}技能伤害。突进后，{3}秒内可以使用贯穿。 贯穿：塞莉丝向前刺出剑，造成{5}技能伤害并使敌人晕厥{4}秒。",
+      "coefficientText": "疾进：塞莉丝沿指定方向突进并获得{20}(+技能增幅{21})(+体力上限{22})的护盾，护盾持续{0}秒。若护盾在持续时间内未被破坏，则会在消失时爆炸，对周围造成{23}(+技能增幅{24})(+体力上限{25})技能伤害。突进后，{3}秒内可以使用贯穿。 贯穿：塞莉丝向前刺出剑，造成{26}(+技能增幅{27})(+体力上限{28})技能伤害并使敌人晕厥{4}秒。",
+      "extensionName": ""
+    },
+    {
+      "hero": "塞莉丝",
+      "characterCode": 91,
+      "group": 1091300,
+      "slot": "W",
+      "skillId": "SeresActive2",
+      "passiveSkillId": "None",
+      "name": "破碎之阵",
+      "description": "塞莉丝挥舞大剑，造成{0}技能伤害并将周围敌人击退至攻击范围外，同时使其{1}秒内移动速度降低{2}。",
+      "coefficientText": "塞莉丝挥舞大剑，造成{20}(+技能增幅{21})(+额外体力{22})的技能伤害并将周围敌人击退至攻击范围外，同时使其{1}秒内移动速度降低{2}。",
+      "extensionName": ""
+    },
+    {
+      "hero": "塞莉丝",
+      "characterCode": 91,
+      "group": 1091400,
+      "slot": "E",
+      "skillId": "SeresActive3",
+      "passiveSkillId": "SeresActive3Passive",
+      "name": "贴身守护",
+      "description": "塞莉丝跃向指定队友所在的位置。到达后，将该队友指定为守护对象，持续{0}秒。塞莉丝会替守护对象承受来自敌方实验体的{1}减伤前伤害，并根据守护对象对敌方实验体造成的伤害，恢复相当于该伤害{2}的体力。 当守护对象为露西娅时，跃迁距离增加{3}m，塞莉丝将替露西娅承受其受到来自敌方实验体的{4}减伤前伤害，并根据露西娅对敌方实验体造成的伤害，恢复相当于该伤害{5}的体力。 当塞莉丝体力低于{6}时，不会替守护对象承受伤害。 对自身使用时，{7}秒内移动速度增加{8}。",
+      "coefficientText": "塞莉丝跃向指定队友所在的位置。到达后，将该队友指定为守护对象，持续{0}秒。塞莉丝会替守护对象承受来自敌方实验体的{20}(+额外体力{21})%减伤前伤害，并根据守护对象对敌方实验体造成的伤害，恢复相当于该伤害{2}的体力。 当守护对象为露西娅时，跃迁距离增加{3}m，塞莉丝将替露西娅承受其受到来自敌方实验体的{22}(+额外体力{23})%减伤前伤害，并根据露西娅对敌方实验体造成的伤害，恢复相当于该伤害{5}的体力。 当塞莉丝体力低于{6}时，不会替守护对象承受伤害。 对自身使用时，{7}秒内移动速度增加{8}。",
+      "extensionName": ""
+    },
+    {
+      "hero": "塞莉丝",
+      "characterCode": 91,
+      "group": 1091500,
+      "slot": "R",
+      "skillId": "SeresActive4",
+      "passiveSkillId": "None",
+      "name": "献予光明的誓言",
+      "description": "塞莉丝以无法阻止状态举起剑，最多持续{0}秒，为自己和周围队友提供{1}护盾。护盾每{2}秒叠加{3}，并在效果结束后维持{4}秒。塞莉丝可在施放{5}秒后再次使用技能取消施放。",
+      "coefficientText": "塞莉丝以无法阻止状态举起剑，最多持续{0}秒，为自己和周围队友提供{20}(+技能增幅{21})(+体力上限{22})护盾。护盾每{2}秒叠加{23}(+技能增幅{24})(+体力上限{25})，并在效果结束后维持{4}秒。塞莉丝可在施放{5}秒后再次使用技能取消施放。",
       "extensionName": ""
     }
   ]

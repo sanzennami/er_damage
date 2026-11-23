@@ -3454,3 +3454,12 @@ body[data-theme='day'] .comparisonStandaloneMetric {
   display: block;
   white-space: pre-line;
 }
+
+.heroIdentity .heroAvatarFallback {
+  width: 92px;
+  height: 92px;
+  margin-bottom: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 8px;
+  font-size: 32px;
+}

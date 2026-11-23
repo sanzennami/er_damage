@@ -186,7 +186,8 @@ export function mergeSkills(savedSkills) {
       // 缓存里没被用户改过的生成条目（有 source、没 manual）一律跟随随包数据。
       // 不这样的话，同一个补丁版本内改公式时权威值和 updatedAt 都相同，旧缓存会一直赢，
       // 用户必须清 localStorage 才看得到修正 —— 那就违背了「跟着版本更新」的目的。
-      const untouchedGenerated = Boolean(skill?.source) && skill?.manual !== true;
+      const retiredShippedManualLock = skill?.manual === true && skill?.userEdited !== true && canonical?.manual === false;
+      const untouchedGenerated = (Boolean(skill?.source) && skill?.manual !== true) || retiredShippedManualLock;
       const preferCanonical = untouchedGenerated
         || skillAuthority(canonical) > skillAuthority(skill)
         || (skillAuthority(canonical) === skillAuthority(skill)

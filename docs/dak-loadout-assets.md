@@ -6,7 +6,7 @@
 - https://er.dakgg.io/api/v1/data/trait-skills?hl=zh-CN
 - https://er.dakgg.io/api/v1/data/tactical-skills?hl=zh-CN
 
-生成时间：2026-08-19T07:38:43.726Z
+生成时间：2026-11-23T14:54:19.476Z
 
 ## 命名规范
 
@@ -87,10 +87,10 @@
 | 500260 | 等离子冲击 | 使用时向前方短距离冲刺，并发射等离子能量，对命中的敌人造成技能伤害并降低其移动速度。 即使被多个投射物命中，也仅触发一次伤害。 强化效果： 降低被投射物命中的敌人的防御力。 | /assets/loadout/tactical-skills/tactical-500260.png |
 | 500270 | 衰弱 | 降低指定敌方实验体的移动速度及其造成的伤害。 强化效果：赋予更强的效果。 | /assets/loadout/tactical-skills/tactical-500270.png |
 | 500280 | 光之翼 | 使用时，移除自身承受的移动速度降低效果，并在一定时间内提升移动速度与攻击速度。 强化效果：普攻命中敌方实验体时，增加持续时间。 | /assets/loadout/tactical-skills/tactical-500280.png |
-| 1000000 | 未命名战术技能 1000000 |  | 缺失：https://cdn.dak.gg/assets/er/game-assets/12.1.0/SkillIcon_1060000.png |
+| 1000000 | 未命名战术技能 1000000 |  | 缺失：https://cdn.dak.gg/assets/er/game-assets/13.1.0/SkillIcon_1060000.png |
 
 ## 缺失图片
 
 | id/key | 名称 | 原始 URL | 错误 |
 | --- | --- | --- | --- |
-| 1000000 | 未命名战术技能 1000000 | https://cdn.dak.gg/assets/er/game-assets/12.1.0/SkillIcon_1060000.png | Failed to download https://cdn.dak.gg/assets/er/game-assets/12.1.0/SkillIcon_1060000.png: 403 Forbidden |
+| 1000000 | 未命名战术技能 1000000 | https://cdn.dak.gg/assets/er/game-assets/13.1.0/SkillIcon_1060000.png | Failed to download https://cdn.dak.gg/assets/er/game-assets/13.1.0/SkillIcon_1060000.png: 403 Forbidden |

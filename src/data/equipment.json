@@ -4,7 +4,7 @@
   "generatedAt": "2026-08-09T07:48:01.569Z",
   "source": "https://github.com/pypy-vrc/er-gamedata.git",
   "counts": {
-    "items": 661,
+    "items": 666,
     "statDefinitions": 60
   },
   "itemStatDefinitions": [
@@ -756,11 +756,11 @@
       "makeMaterial2": 401211,
       "effect": "",
       "stats": {
-        "attackPower": 58,
-        "attackSpeedRatio": 0.3
+        "attackPower": 54,
+        "attackSpeedRatio": 0.25
       },
       "ap": 0,
-      "attackPower": 58,
+      "attackPower": 54,
       "cd": 0,
       "pen": 0,
       "penPct": 0,
@@ -788,7 +788,7 @@
       "effect": "",
       "stats": {
         "attackPower": 73,
-        "attackSpeedRatio": 0.5,
+        "attackSpeedRatio": 0.4,
         "moveSpeedRatio": 0.02
       },
       "ap": 0,
@@ -910,7 +910,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 101104,
+      "makeMaterial1": 401101,
       "makeMaterial2": 401209,
       "effect": "",
       "stats": {
@@ -1046,14 +1046,13 @@
       "makeMaterial2": 401405,
       "effect": "",
       "stats": {
-        "attackPower": 27,
-        "adaptiveForce": 52,
+        "attackPower": 79,
         "attackSpeedRatio": 0.4,
         "moveSpeedRatio": 0.02,
         "penetrationDefenseRatio": 0.07
       },
-      "ap": 52,
-      "attackPower": 27,
+      "ap": 0,
+      "attackPower": 79,
       "cd": 0,
       "pen": 0,
       "penPct": 0.07,
@@ -1081,11 +1080,11 @@
       "effect": "",
       "stats": {
         "attackPower": 13,
-        "adaptiveForce": 57,
+        "skillAmp": 114,
         "moveSpeedRatio": 0.03,
         "penetrationDefenseRatio": 0.08
       },
-      "ap": 57,
+      "ap": 114,
       "attackPower": 13,
       "cd": 0,
       "pen": 0,
@@ -1391,11 +1390,11 @@
       "makeMaterial2": 401208,
       "effect": "",
       "stats": {
-        "attackPower": 53,
+        "attackPower": 55,
         "attackSpeedRatio": 0.2
       },
       "ap": 0,
-      "attackPower": 53,
+      "attackPower": 55,
       "cd": 0,
       "pen": 0,
       "penPct": 0,
@@ -1486,12 +1485,12 @@
       "makeMaterial2": 401209,
       "effect": "",
       "stats": {
-        "attackPower": 69,
+        "attackPower": 71,
         "attackSpeedRatio": 0.38,
         "sightRange": 1
       },
       "ap": 0,
-      "attackPower": 69,
+      "attackPower": 71,
       "cd": 0,
       "pen": 0,
       "penPct": 0,
@@ -1580,7 +1579,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 302103,
+      "makeMaterial1": 401114,
       "makeMaterial2": 401208,
       "effect": "",
       "stats": {
@@ -1612,7 +1611,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 401106,
+      "makeMaterial1": 401114,
       "makeMaterial2": 401209,
       "effect": "",
       "stats": {
@@ -1627,6 +1626,38 @@
       "apPct": 0,
       "defense": 0,
       "maxHp": 0,
+      "sightRange": 0,
+      "dmgAmp": 0
+    },
+    {
+      "code": 102504,
+      "source": "er-gamedata",
+      "type": "武器",
+      "itemType": "Weapon",
+      "weaponType": "双手剑 / TwoHandSword",
+      "weaponTypeRaw": "TwoHandSword",
+      "armorType": "",
+      "name": "均衡之刃",
+      "quality": "传说",
+      "itemGrade": "Legend",
+      "isCompletedItem": true,
+      "showInItemBook": true,
+      "makeMaterial1": 102101,
+      "makeMaterial2": 401304,
+      "effect": "",
+      "stats": {
+        "attackPower": 64,
+        "maxHp": 150,
+        "attackSpeedRatio": 0.3
+      },
+      "ap": 0,
+      "attackPower": 64,
+      "cd": 0,
+      "pen": 0,
+      "penPct": 0,
+      "apPct": 0,
+      "defense": 0,
+      "maxHp": 150,
       "sightRange": 0,
       "dmgAmp": 0
     },
@@ -1647,13 +1678,12 @@
       "makeMaterial2": 401405,
       "effect": "",
       "stats": {
-        "attackPower": 20,
-        "adaptiveForce": 50,
+        "attackPower": 84,
         "attackSpeedRatio": 0.4,
         "penetrationDefenseRatio": 0.07
       },
-      "ap": 50,
-      "attackPower": 20,
+      "ap": 0,
+      "attackPower": 84,
       "cd": 0,
       "pen": 0,
       "penPct": 0.07,
@@ -1681,10 +1711,10 @@
       "effect": "",
       "stats": {
         "attackPower": 22,
-        "adaptiveForce": 62,
+        "skillAmp": 124,
         "penetrationDefenseRatio": 0.08
       },
-      "ap": 62,
+      "ap": 124,
       "attackPower": 22,
       "cd": 0,
       "pen": 0,
@@ -1830,7 +1860,7 @@
       "isCompletedItem": true,
       "showInItemBook": true,
       "makeMaterial1": 103301,
-      "makeMaterial2": 113104,
+      "makeMaterial2": 302103,
       "effect": "",
       "stats": {
         "attackPower": 48,
@@ -2185,13 +2215,12 @@
       "makeMaterial2": 401405,
       "effect": "",
       "stats": {
-        "attackPower": 22,
-        "adaptiveForce": 50,
+        "attackPower": 72,
         "attackSpeedRatio": 0.3,
         "penetrationDefenseRatio": 0.07
       },
-      "ap": 50,
-      "attackPower": 22,
+      "ap": 0,
+      "attackPower": 72,
       "cd": 0,
       "pen": 0,
       "penPct": 0.07,
@@ -2219,10 +2248,10 @@
       "effect": "",
       "stats": {
         "attackPower": 16,
-        "adaptiveForce": 56,
+        "skillAmp": 112,
         "penetrationDefenseRatio": 0.08
       },
-      "ap": 56,
+      "ap": 112,
       "attackPower": 16,
       "cd": 0,
       "pen": 0,
@@ -2492,7 +2521,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 104101,
+      "makeMaterial1": 112101,
       "makeMaterial2": 401209,
       "effect": "",
       "stats": {
@@ -2524,7 +2553,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 205103,
+      "makeMaterial1": 112104,
       "makeMaterial2": 401209,
       "effect": "",
       "stats": {
@@ -2750,7 +2779,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 112103,
+      "makeMaterial1": 112101,
       "makeMaterial2": 401304,
       "effect": "",
       "stats": {
@@ -2817,13 +2846,12 @@
       "makeMaterial2": 401405,
       "effect": "",
       "stats": {
-        "attackPower": 50,
-        "adaptiveForce": 52,
+        "attackPower": 102,
         "attackSpeedRatio": 0.3,
         "penetrationDefenseRatio": 0.07
       },
-      "ap": 52,
-      "attackPower": 50,
+      "ap": 0,
+      "attackPower": 102,
       "cd": 0,
       "pen": 0,
       "penPct": 0.07,
@@ -2851,10 +2879,10 @@
       "effect": "",
       "stats": {
         "attackPower": 48,
-        "adaptiveForce": 58,
+        "skillAmp": 116,
         "penetrationDefenseRatio": 0.08
       },
-      "ap": 58,
+      "ap": 116,
       "attackPower": 48,
       "cd": 0,
       "pen": 0,
@@ -3061,7 +3089,7 @@
       "isCompletedItem": true,
       "showInItemBook": true,
       "makeMaterial1": 105401,
-      "makeMaterial2": 401108,
+      "makeMaterial2": 401114,
       "effect": "",
       "stats": {
         "attackPower": 44,
@@ -3192,7 +3220,7 @@
       "effect": "",
       "stats": {
         "attackPower": 78,
-        "attackSpeedRatio": 0.25
+        "attackSpeedRatio": 0.3
       },
       "ap": 0,
       "attackPower": 78,
@@ -3383,13 +3411,12 @@
       "makeMaterial2": 401405,
       "effect": "",
       "stats": {
-        "attackPower": 47,
-        "adaptiveForce": 52,
+        "attackPower": 99,
         "attackSpeedRatio": 0.3,
         "penetrationDefenseRatio": 0.07
       },
-      "ap": 52,
-      "attackPower": 47,
+      "ap": 0,
+      "attackPower": 99,
       "cd": 0,
       "pen": 0,
       "penPct": 0.07,
@@ -3417,10 +3444,10 @@
       "effect": "",
       "stats": {
         "attackPower": 50,
-        "adaptiveForce": 57,
+        "skillAmp": 114,
         "penetrationDefenseRatio": 0.08
       },
-      "ap": 57,
+      "ap": 114,
       "attackPower": 50,
       "cd": 0,
       "pen": 0,
@@ -3689,7 +3716,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 107101,
+      "makeMaterial1": 101102,
       "makeMaterial2": 401209,
       "effect": "",
       "stats": {
@@ -3819,7 +3846,7 @@
       "isCompletedItem": true,
       "showInItemBook": true,
       "makeMaterial1": 107303,
-      "makeMaterial2": 113104,
+      "makeMaterial2": 401114,
       "effect": "",
       "stats": {
         "attackPower": 82,
@@ -3920,14 +3947,13 @@
       "makeMaterial2": 401405,
       "effect": "",
       "stats": {
-        "attackPower": 37,
+        "attackPower": 92,
         "defense": 8,
-        "adaptiveForce": 55,
         "attackSpeedRatio": 0.4,
         "penetrationDefenseRatio": 0.07
       },
-      "ap": 55,
-      "attackPower": 37,
+      "ap": 0,
+      "attackPower": 92,
       "cd": 0,
       "pen": 0,
       "penPct": 0.07,
@@ -3956,10 +3982,10 @@
       "stats": {
         "attackPower": 33,
         "defense": 8,
-        "adaptiveForce": 58,
+        "skillAmp": 116,
         "penetrationDefenseRatio": 0.08
       },
-      "ap": 58,
+      "ap": 116,
       "attackPower": 33,
       "cd": 0,
       "pen": 0,
@@ -4291,7 +4317,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 108102,
+      "makeMaterial1": 112104,
       "makeMaterial2": 401208,
       "effect": "",
       "stats": {
@@ -4376,6 +4402,38 @@
       "dmgAmp": 0
     },
     {
+      "code": 108506,
+      "source": "er-gamedata",
+      "type": "武器",
+      "itemType": "Weapon",
+      "weaponType": "棍棒 / Bat",
+      "weaponTypeRaw": "Bat",
+      "armorType": "",
+      "name": "棒棒糖",
+      "quality": "传说",
+      "itemGrade": "Legend",
+      "isCompletedItem": true,
+      "showInItemBook": true,
+      "makeMaterial1": 112104,
+      "makeMaterial2": 401304,
+      "effect": "",
+      "stats": {
+        "attackPower": 30,
+        "skillAmp": 86,
+        "maxHp": 120
+      },
+      "ap": 86,
+      "attackPower": 30,
+      "cd": 0,
+      "pen": 0,
+      "penPct": 0,
+      "apPct": 0,
+      "defense": 0,
+      "maxHp": 120,
+      "sightRange": 0,
+      "dmgAmp": 0
+    },
+    {
       "code": 108701,
       "source": "er-gamedata",
       "type": "武器",
@@ -4392,13 +4450,12 @@
       "makeMaterial2": 401405,
       "effect": "",
       "stats": {
-        "attackPower": 49,
-        "adaptiveForce": 53,
+        "attackPower": 102,
         "attackSpeedRatio": 0.4,
         "penetrationDefenseRatio": 0.07
       },
-      "ap": 53,
-      "attackPower": 49,
+      "ap": 0,
+      "attackPower": 102,
       "cd": 0,
       "pen": 0,
       "penPct": 0.07,
@@ -4426,10 +4483,10 @@
       "effect": "",
       "stats": {
         "attackPower": 55,
-        "adaptiveForce": 57,
+        "skillAmp": 114,
         "penetrationDefenseRatio": 0.08
       },
-      "ap": 57,
+      "ap": 114,
       "attackPower": 55,
       "cd": 0,
       "pen": 0,
@@ -4550,10 +4607,10 @@
       "effect": "",
       "stats": {
         "attackPower": 40,
-        "skillAmp": 65,
+        "skillAmp": 68,
         "cooldownReduction": 10
       },
-      "ap": 65,
+      "ap": 68,
       "attackPower": 40,
       "cd": 10,
       "pen": 0,
@@ -4614,10 +4671,10 @@
       "effect": "",
       "stats": {
         "attackPower": 40,
-        "skillAmp": 78,
+        "skillAmp": 82,
         "moveSpeedRatio": 0.02
       },
-      "ap": 78,
+      "ap": 82,
       "attackPower": 40,
       "cd": 0,
       "pen": 0,
@@ -4841,11 +4898,11 @@
       "effect": "",
       "stats": {
         "attackPower": 25,
-        "adaptiveForce": 52,
+        "skillAmp": 104,
         "attackSpeedRatio": 0.3,
         "penetrationDefenseRatio": 0.07
       },
-      "ap": 52,
+      "ap": 104,
       "attackPower": 25,
       "cd": 0,
       "pen": 0,
@@ -4874,11 +4931,11 @@
       "effect": "",
       "stats": {
         "attackPower": 25,
-        "adaptiveForce": 58,
+        "skillAmp": 116,
         "attackSpeedRatio": 0.3,
         "penetrationDefenseRatio": 0.08
       },
-      "ap": 58,
+      "ap": 116,
       "attackPower": 25,
       "cd": 0,
       "pen": 0,
@@ -4933,7 +4990,7 @@
       "isCompletedItem": false,
       "showInItemBook": true,
       "makeMaterial1": 110102,
-      "makeMaterial2": 401103,
+      "makeMaterial2": 401105,
       "effect": "",
       "stats": {
         "attackPower": 18
@@ -5306,16 +5363,16 @@
       "itemGrade": "Epic",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 110404,
-      "makeMaterial2": 113104,
+      "makeMaterial1": 110201,
+      "makeMaterial2": 205204,
       "effect": "",
       "stats": {
-        "attackPower": 59,
+        "attackPower": 60,
         "criticalStrikeChance": 0.2,
         "criticalStrikeDamage": 0.05
       },
       "ap": 0,
-      "attackPower": 59,
+      "attackPower": 60,
       "cd": 0,
       "pen": 0,
       "penPct": 0,
@@ -5338,7 +5395,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 502401,
+      "makeMaterial1": 110102,
       "makeMaterial2": 401304,
       "effect": "",
       "stats": {
@@ -5370,7 +5427,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 401103,
+      "makeMaterial1": 110102,
       "makeMaterial2": 401208,
       "effect": "",
       "stats": {
@@ -5401,7 +5458,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 110102,
+      "makeMaterial1": 112103,
       "makeMaterial2": 401208,
       "effect": "",
       "stats": {
@@ -5467,7 +5524,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 110102,
+      "makeMaterial1": 112103,
       "makeMaterial2": 401304,
       "effect": "",
       "stats": {
@@ -5503,13 +5560,12 @@
       "makeMaterial2": 401405,
       "effect": "",
       "stats": {
-        "attackPower": 38,
-        "adaptiveForce": 50,
+        "attackPower": 88,
         "attackSpeedRatio": 0.3,
         "penetrationDefenseRatio": 0.07
       },
-      "ap": 50,
-      "attackPower": 38,
+      "ap": 0,
+      "attackPower": 88,
       "cd": 0,
       "pen": 0,
       "penPct": 0.07,
@@ -5537,10 +5593,10 @@
       "effect": "",
       "stats": {
         "attackPower": 30,
-        "adaptiveForce": 56,
+        "skillAmp": 112,
         "penetrationDefenseRatio": 0.08
       },
-      "ap": 56,
+      "ap": 112,
       "attackPower": 30,
       "cd": 0,
       "pen": 0,
@@ -5624,8 +5680,8 @@
       "itemGrade": "Rare",
       "isCompletedItem": false,
       "showInItemBook": true,
-      "makeMaterial1": 111201,
-      "makeMaterial2": 113104,
+      "makeMaterial1": 108103,
+      "makeMaterial2": 401213,
       "effect": "",
       "stats": {
         "attackPower": 38,
@@ -5752,7 +5808,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 108101,
+      "makeMaterial1": 401112,
       "makeMaterial2": 401304,
       "effect": "",
       "stats": {
@@ -5785,7 +5841,7 @@
       "isCompletedItem": true,
       "showInItemBook": true,
       "makeMaterial1": 111301,
-      "makeMaterial2": 203101,
+      "makeMaterial2": 401105,
       "effect": "",
       "stats": {
         "attackPower": 53,
@@ -5816,7 +5872,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 108103,
+      "makeMaterial1": 401112,
       "makeMaterial2": 401209,
       "effect": "",
       "stats": {
@@ -5953,14 +6009,13 @@
       "makeMaterial2": 401405,
       "effect": "",
       "stats": {
-        "attackPower": 23,
+        "attackPower": 74,
         "defense": 8,
-        "adaptiveForce": 51,
         "attackSpeedRatio": 0.35,
         "penetrationDefenseRatio": 0.07
       },
-      "ap": 51,
-      "attackPower": 23,
+      "ap": 0,
+      "attackPower": 74,
       "cd": 0,
       "pen": 0,
       "penPct": 0.07,
@@ -5989,10 +6044,10 @@
       "stats": {
         "attackPower": 20,
         "defense": 8,
-        "adaptiveForce": 57,
+        "skillAmp": 114,
         "penetrationDefenseRatio": 0.08
       },
-      "ap": 57,
+      "ap": 114,
       "attackPower": 20,
       "cd": 0,
       "pen": 0,
@@ -6137,8 +6192,8 @@
       "itemGrade": "Rare",
       "isCompletedItem": false,
       "showInItemBook": true,
-      "makeMaterial1": 112202,
-      "makeMaterial2": 113104,
+      "makeMaterial1": 112105,
+      "makeMaterial2": 401210,
       "effect": "",
       "stats": {
         "attackPower": 32,
@@ -6237,7 +6292,7 @@
       "effect": "",
       "stats": {
         "attackPower": 76,
-        "attackSpeedRatio": 0.2
+        "attackSpeedRatio": 0.25
       },
       "ap": 0,
       "attackPower": 76,
@@ -6294,7 +6349,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 401121,
+      "makeMaterial1": 112105,
       "makeMaterial2": 401208,
       "effect": "",
       "stats": {
@@ -6325,7 +6380,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 112105,
+      "makeMaterial1": 401123,
       "makeMaterial2": 401208,
       "effect": "",
       "stats": {
@@ -6358,7 +6413,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 401110,
+      "makeMaterial1": 112105,
       "makeMaterial2": 401209,
       "effect": "",
       "stats": {
@@ -6389,7 +6444,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 112105,
+      "makeMaterial1": 401123,
       "makeMaterial2": 401304,
       "effect": "",
       "stats": {
@@ -6484,7 +6539,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 112105,
+      "makeMaterial1": 401123,
       "makeMaterial2": 401209,
       "effect": "",
       "stats": {
@@ -6555,13 +6610,12 @@
       "makeMaterial2": 401405,
       "effect": "",
       "stats": {
-        "attackPower": 41,
-        "adaptiveForce": 50,
+        "attackPower": 91,
         "attackSpeedRatio": 0.3,
         "penetrationDefenseRatio": 0.07
       },
-      "ap": 50,
-      "attackPower": 41,
+      "ap": 0,
+      "attackPower": 91,
       "cd": 0,
       "pen": 0,
       "penPct": 0.07,
@@ -6589,10 +6643,10 @@
       "effect": "",
       "stats": {
         "attackPower": 40,
-        "adaptiveForce": 54,
+        "skillAmp": 108,
         "penetrationDefenseRatio": 0.08
       },
-      "ap": 54,
+      "ap": 108,
       "attackPower": 40,
       "cd": 0,
       "pen": 0,
@@ -6677,7 +6731,7 @@
       "isCompletedItem": false,
       "showInItemBook": true,
       "makeMaterial1": 113203,
-      "makeMaterial2": 113104,
+      "makeMaterial2": 101102,
       "effect": "",
       "stats": {
         "attackPower": 24,
@@ -6799,7 +6853,7 @@
       "isCompletedItem": false,
       "showInItemBook": true,
       "makeMaterial1": 113201,
-      "makeMaterial2": 113104,
+      "makeMaterial2": 205101,
       "effect": "",
       "stats": {
         "attackPower": 26,
@@ -6954,7 +7008,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 113101,
+      "makeMaterial1": 113102,
       "makeMaterial2": 401208,
       "effect": "",
       "stats": {
@@ -6991,10 +7045,10 @@
       "effect": "",
       "stats": {
         "attackPower": 30,
-        "skillAmp": 64,
+        "skillAmp": 66,
         "cooldownReduction": 10
       },
-      "ap": 64,
+      "ap": 66,
       "attackPower": 30,
       "cd": 10,
       "pen": 0,
@@ -7019,7 +7073,7 @@
       "isCompletedItem": true,
       "showInItemBook": true,
       "makeMaterial1": 113404,
-      "makeMaterial2": 113104,
+      "makeMaterial2": 401309,
       "effect": "",
       "stats": {
         "attackPower": 56,
@@ -7050,7 +7104,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 113101,
+      "makeMaterial1": 113102,
       "makeMaterial2": 401304,
       "effect": "",
       "stats": {
@@ -7144,7 +7198,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 401101,
+      "makeMaterial1": 113101,
       "makeMaterial2": 401208,
       "effect": "",
       "stats": {
@@ -7213,13 +7267,12 @@
       "makeMaterial2": 401405,
       "effect": "",
       "stats": {
-        "attackPower": 28,
-        "adaptiveForce": 49,
+        "attackPower": 77,
         "attackSpeedRatio": 0.25,
         "penetrationDefenseRatio": 0.07
       },
-      "ap": 49,
-      "attackPower": 28,
+      "ap": 0,
+      "attackPower": 77,
       "cd": 0,
       "pen": 0,
       "penPct": 0.07,
@@ -7247,10 +7300,10 @@
       "effect": "",
       "stats": {
         "attackPower": 30,
-        "adaptiveForce": 57,
+        "skillAmp": 114,
         "penetrationDefenseRatio": 0.08
       },
-      "ap": 57,
+      "ap": 114,
       "attackPower": 30,
       "cd": 0,
       "pen": 0,
@@ -7522,13 +7575,14 @@
       "makeMaterial2": 401123,
       "effect": "",
       "stats": {
-        "attackPower": 63,
-        "attackSpeedRatio": 0.4,
-        "normalLifeSteal": 0.1
+        "attackPower": 65,
+        "attackSpeedRatio": 0.2,
+        "cooldownReduction": 10,
+        "normalLifeSteal": 0.08
       },
       "ap": 0,
-      "attackPower": 63,
-      "cd": 0,
+      "attackPower": 65,
+      "cd": 10,
       "pen": 0,
       "penPct": 0,
       "apPct": 0,
@@ -7554,12 +7608,12 @@
       "makeMaterial2": 205101,
       "effect": "",
       "stats": {
-        "attackPower": 70,
+        "attackPower": 72,
         "attackSpeedRatio": 0.3,
         "moveSpeedRatio": 0.02
       },
       "ap": 0,
-      "attackPower": 70,
+      "attackPower": 72,
       "cd": 0,
       "pen": 0,
       "penPct": 0,
@@ -7582,7 +7636,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 114101,
+      "makeMaterial1": 205101,
       "makeMaterial2": 401209,
       "effect": "",
       "stats": {
@@ -7680,7 +7734,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 114101,
+      "makeMaterial1": 205101,
       "makeMaterial2": 401304,
       "effect": "",
       "stats": {
@@ -7744,18 +7798,18 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 401105,
+      "makeMaterial1": 114101,
       "makeMaterial2": 401304,
       "effect": "",
       "stats": {
         "attackPower": 80,
-        "attackSpeedRatio": 0.4,
-        "normalLifeSteal": 0.1,
-        "moveSpeedRatio": 0.02
+        "attackSpeedRatio": 0.25,
+        "cooldownReduction": 15,
+        "normalLifeSteal": 0.1
       },
       "ap": 0,
       "attackPower": 80,
-      "cd": 0,
+      "cd": 15,
       "pen": 0,
       "penPct": 0,
       "apPct": 0,
@@ -7781,13 +7835,12 @@
       "makeMaterial2": 401405,
       "effect": "",
       "stats": {
-        "attackPower": 26,
-        "adaptiveForce": 50,
+        "attackPower": 76,
         "attackSpeedRatio": 0.3,
         "penetrationDefenseRatio": 0.07
       },
-      "ap": 50,
-      "attackPower": 26,
+      "ap": 0,
+      "attackPower": 76,
       "cd": 0,
       "pen": 0,
       "penPct": 0.07,
@@ -7815,10 +7868,10 @@
       "effect": "",
       "stats": {
         "attackPower": 29,
-        "adaptiveForce": 56,
+        "skillAmp": 112,
         "penetrationDefenseRatio": 0.08
       },
-      "ap": 56,
+      "ap": 112,
       "attackPower": 29,
       "cd": 0,
       "pen": 0,
@@ -7933,7 +7986,7 @@
       "isCompletedItem": false,
       "showInItemBook": true,
       "makeMaterial1": 115202,
-      "makeMaterial2": 401108,
+      "makeMaterial2": 205110,
       "effect": "",
       "stats": {
         "attackPower": 35,
@@ -8117,7 +8170,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 115101,
+      "makeMaterial1": 205109,
       "makeMaterial2": 401209,
       "effect": "",
       "stats": {
@@ -8276,7 +8329,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 502104,
+      "makeMaterial1": 205109,
       "makeMaterial2": 401304,
       "effect": "",
       "stats": {
@@ -8311,13 +8364,12 @@
       "makeMaterial2": 401405,
       "effect": "",
       "stats": {
-        "attackPower": 41,
-        "adaptiveForce": 51,
+        "attackPower": 92,
         "attackSpeedRatio": 0.4,
         "penetrationDefenseRatio": 0.07
       },
-      "ap": 51,
-      "attackPower": 41,
+      "ap": 0,
+      "attackPower": 92,
       "cd": 0,
       "pen": 0,
       "penPct": 0.07,
@@ -8345,10 +8397,10 @@
       "effect": "",
       "stats": {
         "attackPower": 40,
-        "adaptiveForce": 56,
+        "skillAmp": 112,
         "penetrationDefenseRatio": 0.08
       },
-      "ap": 56,
+      "ap": 112,
       "attackPower": 40,
       "cd": 0,
       "pen": 0,
@@ -8434,7 +8486,7 @@
       "isCompletedItem": false,
       "showInItemBook": true,
       "makeMaterial1": 116101,
-      "makeMaterial2": 401103,
+      "makeMaterial2": 401121,
       "effect": "",
       "stats": {
         "attackPower": 23
@@ -8464,7 +8516,7 @@
       "isCompletedItem": false,
       "showInItemBook": true,
       "makeMaterial1": 116202,
-      "makeMaterial2": 401108,
+      "makeMaterial2": 205110,
       "effect": "",
       "stats": {
         "attackPower": 29
@@ -8524,7 +8576,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 116101,
+      "makeMaterial1": 401107,
       "makeMaterial2": 401209,
       "effect": "",
       "stats": {
@@ -8808,7 +8860,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 205303,
+      "makeMaterial1": 401107,
       "makeMaterial2": 401304,
       "effect": "",
       "stats": {
@@ -8879,13 +8931,12 @@
       "makeMaterial2": 401405,
       "effect": "",
       "stats": {
-        "attackPower": 36,
-        "adaptiveForce": 50,
+        "attackPower": 86,
         "attackSpeedRatio": 0.35,
         "penetrationDefenseRatio": 0.07
       },
-      "ap": 50,
-      "attackPower": 36,
+      "ap": 0,
+      "attackPower": 86,
       "cd": 0,
       "pen": 0,
       "penPct": 0.07,
@@ -8913,10 +8964,10 @@
       "effect": "",
       "stats": {
         "attackPower": 28,
-        "adaptiveForce": 58,
+        "skillAmp": 116,
         "penetrationDefenseRatio": 0.08
       },
-      "ap": 58,
+      "ap": 116,
       "attackPower": 28,
       "cd": 0,
       "pen": 0,
@@ -9092,11 +9143,11 @@
       "isCompletedItem": true,
       "showInItemBook": true,
       "makeMaterial1": 117301,
-      "makeMaterial2": 113104,
+      "makeMaterial2": 401124,
       "effect": "",
       "stats": {
         "attackPower": 75,
-        "attackSpeedRatio": 0.2,
+        "attackSpeedRatio": 0.25,
         "normalLifeSteal": 0.08
       },
       "ap": 0,
@@ -9124,11 +9175,11 @@
       "isCompletedItem": true,
       "showInItemBook": true,
       "makeMaterial1": 117301,
-      "makeMaterial2": 401108,
+      "makeMaterial2": 205110,
       "effect": "",
       "stats": {
         "attackPower": 63,
-        "attackSpeedRatio": 0.2
+        "attackSpeedRatio": 0.25
       },
       "ap": 0,
       "attackPower": 63,
@@ -9139,9 +9190,7 @@
       "defense": 0,
       "maxHp": 0,
       "sightRange": 0,
-      "dmgAmp": 0,
-      "patchVersion": "12.2",
-      "patchOrder": 20260820
+      "dmgAmp": 0
     },
     {
       "code": 117405,
@@ -9192,11 +9241,11 @@
       "makeMaterial2": 401304,
       "effect": "",
       "stats": {
-        "attackPower": 88,
+        "attackPower": 90,
         "attackSpeedRatio": 0.4
       },
       "ap": 0,
-      "attackPower": 88,
+      "attackPower": 90,
       "cd": 0,
       "pen": 0,
       "penPct": 0,
@@ -9224,10 +9273,10 @@
       "effect": "",
       "stats": {
         "attackPower": 35,
-        "skillAmp": 78,
+        "skillAmp": 82,
         "attackSpeedRatio": 0.25
       },
-      "ap": 78,
+      "ap": 82,
       "attackPower": 35,
       "cd": 0,
       "pen": 0,
@@ -9255,11 +9304,11 @@
       "makeMaterial2": 401212,
       "effect": "",
       "stats": {
-        "attackPower": 69,
+        "attackPower": 71,
         "attackSpeedRatio": 0.35
       },
       "ap": 0,
-      "attackPower": 69,
+      "attackPower": 71,
       "cd": 0,
       "pen": 0,
       "penPct": 0,
@@ -9282,7 +9331,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 205303,
+      "makeMaterial1": 401110,
       "makeMaterial2": 401208,
       "effect": "",
       "stats": {
@@ -9381,7 +9430,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 401121,
+      "makeMaterial1": 401110,
       "makeMaterial2": 401304,
       "effect": "",
       "stats": {
@@ -9417,13 +9466,12 @@
       "makeMaterial2": 401405,
       "effect": "",
       "stats": {
-        "attackPower": 40,
-        "adaptiveForce": 53,
+        "attackPower": 95,
         "attackSpeedRatio": 0.4,
         "penetrationDefenseRatio": 0.07
       },
-      "ap": 53,
-      "attackPower": 40,
+      "ap": 0,
+      "attackPower": 95,
       "cd": 0,
       "pen": 0,
       "penPct": 0.07,
@@ -9451,11 +9499,11 @@
       "effect": "",
       "stats": {
         "attackPower": 25,
-        "adaptiveForce": 53,
+        "skillAmp": 106,
         "attackSpeedRatio": 0.3,
         "penetrationDefenseRatio": 0.08
       },
-      "ap": 53,
+      "ap": 106,
       "attackPower": 25,
       "cd": 0,
       "pen": 0,
@@ -9510,7 +9558,7 @@
       "isCompletedItem": false,
       "showInItemBook": true,
       "makeMaterial1": 118101,
-      "makeMaterial2": 401108,
+      "makeMaterial2": 205110,
       "effect": "",
       "stats": {
         "attackPower": 30,
@@ -9667,7 +9715,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 401108,
+      "makeMaterial1": 118101,
       "makeMaterial2": 401304,
       "effect": "",
       "stats": {
@@ -9701,7 +9749,7 @@
       "isCompletedItem": true,
       "showInItemBook": true,
       "makeMaterial1": 118301,
-      "makeMaterial2": 401108,
+      "makeMaterial2": 205110,
       "effect": "",
       "stats": {
         "attackPower": 40,
@@ -9735,7 +9783,7 @@
       "isCompletedItem": true,
       "showInItemBook": true,
       "makeMaterial1": 118402,
-      "makeMaterial2": 113104,
+      "makeMaterial2": 401110,
       "effect": "",
       "stats": {
         "attackPower": 73,
@@ -9799,7 +9847,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 118101,
+      "makeMaterial1": 401108,
       "makeMaterial2": 401209,
       "effect": "",
       "stats": {
@@ -9863,7 +9911,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 205303,
+      "makeMaterial1": 118101,
       "makeMaterial2": 401209,
       "effect": "",
       "stats": {
@@ -9931,7 +9979,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 118101,
+      "makeMaterial1": 401108,
       "makeMaterial2": 401304,
       "effect": "",
       "stats": {
@@ -9968,14 +10016,13 @@
       "makeMaterial2": 401405,
       "effect": "",
       "stats": {
-        "attackPower": 33,
-        "adaptiveForce": 51,
+        "attackPower": 84,
         "attackSpeedRatio": 0.3,
         "sightRange": 1.5,
         "penetrationDefenseRatio": 0.07
       },
-      "ap": 51,
-      "attackPower": 33,
+      "ap": 0,
+      "attackPower": 84,
       "cd": 0,
       "pen": 0,
       "penPct": 0.07,
@@ -10003,12 +10050,12 @@
       "effect": "",
       "stats": {
         "attackPower": 22,
-        "adaptiveForce": 56,
+        "skillAmp": 112,
         "attackSpeedRatio": 0.4,
         "sightRange": 1.5,
         "penetrationDefenseRatio": 0.08
       },
-      "ap": 56,
+      "ap": 112,
       "attackPower": 22,
       "cd": 0,
       "pen": 0,
@@ -10158,10 +10205,10 @@
       "effect": "",
       "stats": {
         "attackPower": 35,
-        "skillAmp": 66,
+        "skillAmp": 68,
         "cooldownReduction": 10
       },
-      "ap": 66,
+      "ap": 68,
       "attackPower": 35,
       "cd": 10,
       "pen": 0,
@@ -10314,7 +10361,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 119101,
+      "makeMaterial1": 205103,
       "makeMaterial2": 401208,
       "effect": "",
       "stats": {
@@ -10346,7 +10393,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 119101,
+      "makeMaterial1": 205103,
       "makeMaterial2": 401209,
       "effect": "",
       "stats": {
@@ -10377,7 +10424,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 401110,
+      "makeMaterial1": 119101,
       "makeMaterial2": 401208,
       "effect": "",
       "stats": {
@@ -10412,13 +10459,12 @@
       "makeMaterial2": 401405,
       "effect": "",
       "stats": {
-        "attackPower": 33,
-        "adaptiveForce": 56,
+        "attackPower": 89,
         "attackSpeedRatio": 0.3,
         "penetrationDefenseRatio": 0.07
       },
-      "ap": 56,
-      "attackPower": 33,
+      "ap": 0,
+      "attackPower": 89,
       "cd": 0,
       "pen": 0,
       "penPct": 0.07,
@@ -10446,10 +10492,10 @@
       "effect": "",
       "stats": {
         "attackPower": 30,
-        "adaptiveForce": 56,
+        "skillAmp": 112,
         "penetrationDefenseRatio": 0.08
       },
-      "ap": 56,
+      "ap": 112,
       "attackPower": 30,
       "cd": 0,
       "pen": 0,
@@ -10569,10 +10615,10 @@
       "effect": "",
       "stats": {
         "attackPower": 25,
-        "skillAmp": 69,
+        "skillAmp": 71,
         "cooldownReduction": 10
       },
-      "ap": 69,
+      "ap": 71,
       "attackPower": 25,
       "cd": 10,
       "pen": 0,
@@ -10627,7 +10673,7 @@
       "isCompletedItem": true,
       "showInItemBook": true,
       "makeMaterial1": 120301,
-      "makeMaterial2": 401108,
+      "makeMaterial2": 401110,
       "effect": "",
       "stats": {
         "attackPower": 57,
@@ -10764,7 +10810,7 @@
         "attackSpeedRatio": 0.33,
         "criticalStrikeChance": 0.25,
         "criticalStrikeDamage": 0.07,
-        "moveSpeedRatio": 0.03
+        "moveSpeedRatio": 0.02
       },
       "ap": 0,
       "attackPower": 58,
@@ -10972,6 +11018,38 @@
       "dmgAmp": 0
     },
     {
+      "code": 120504,
+      "source": "er-gamedata",
+      "type": "武器",
+      "itemType": "Weapon",
+      "weaponType": "刺剑 / Rapier",
+      "weaponTypeRaw": "Rapier",
+      "armorType": "",
+      "name": "苍野荆棘",
+      "quality": "传说",
+      "itemGrade": "Legend",
+      "isCompletedItem": true,
+      "showInItemBook": true,
+      "makeMaterial1": 108101,
+      "makeMaterial2": 401304,
+      "effect": "",
+      "stats": {
+        "attackPower": 32,
+        "skillAmp": 79,
+        "maxHp": 120
+      },
+      "ap": 79,
+      "attackPower": 32,
+      "cd": 0,
+      "pen": 0,
+      "penPct": 0,
+      "apPct": 0,
+      "defense": 0,
+      "maxHp": 120,
+      "sightRange": 0,
+      "dmgAmp": 0
+    },
+    {
       "code": 120701,
       "source": "er-gamedata",
       "type": "武器",
@@ -10988,15 +11066,14 @@
       "makeMaterial2": 401405,
       "effect": "",
       "stats": {
-        "attackPower": 12,
-        "adaptiveForce": 52,
+        "attackPower": 64,
         "attackSpeedRatio": 0.3,
         "criticalStrikeChance": 0.2,
         "criticalStrikeDamage": 0.1,
         "penetrationDefenseRatio": 0.07
       },
-      "ap": 52,
-      "attackPower": 12,
+      "ap": 0,
+      "attackPower": 64,
       "cd": 0,
       "pen": 0,
       "penPct": 0.07,
@@ -11024,10 +11101,10 @@
       "effect": "",
       "stats": {
         "attackPower": 5,
-        "adaptiveForce": 58,
+        "skillAmp": 116,
         "penetrationDefenseRatio": 0.08
       },
-      "ap": 58,
+      "ap": 116,
       "attackPower": 5,
       "cd": 0,
       "pen": 0,
@@ -11174,7 +11251,7 @@
       "isCompletedItem": false,
       "showInItemBook": true,
       "makeMaterial1": 121201,
-      "makeMaterial2": 401108,
+      "makeMaterial2": 502104,
       "effect": "",
       "stats": {
         "attackPower": 20,
@@ -11333,10 +11410,10 @@
       "effect": "",
       "stats": {
         "attackPower": 42,
-        "skillAmp": 70,
+        "skillAmp": 72,
         "cooldownReduction": 10
       },
-      "ap": 70,
+      "ap": 72,
       "attackPower": 42,
       "cd": 10,
       "pen": 0,
@@ -11487,7 +11564,7 @@
       "isCompletedItem": true,
       "showInItemBook": true,
       "makeMaterial1": 121305,
-      "makeMaterial2": 113104,
+      "makeMaterial2": 401106,
       "effect": "",
       "stats": {
         "attackPower": 58,
@@ -11548,7 +11625,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 121101,
+      "makeMaterial1": 502104,
       "makeMaterial2": 401208,
       "effect": "",
       "stats": {
@@ -11681,13 +11758,12 @@
       "makeMaterial2": 401405,
       "effect": "",
       "stats": {
-        "attackPower": 28,
-        "adaptiveForce": 47,
+        "attackPower": 75,
         "attackSpeedRatio": 0.3,
         "penetrationDefenseRatio": 0.07
       },
-      "ap": 47,
-      "attackPower": 28,
+      "ap": 0,
+      "attackPower": 75,
       "cd": 0,
       "pen": 0,
       "penPct": 0.07,
@@ -11715,10 +11791,10 @@
       "effect": "",
       "stats": {
         "attackPower": 25,
-        "adaptiveForce": 55,
+        "skillAmp": 110,
         "penetrationDefenseRatio": 0.08
       },
-      "ap": 55,
+      "ap": 110,
       "attackPower": 25,
       "cd": 0,
       "pen": 0,
@@ -11837,7 +11913,7 @@
       "isCompletedItem": false,
       "showInItemBook": true,
       "makeMaterial1": 122101,
-      "makeMaterial2": 401108,
+      "makeMaterial2": 205110,
       "effect": "",
       "stats": {
         "attackPower": 15,
@@ -11872,10 +11948,10 @@
       "effect": "",
       "stats": {
         "attackPower": 25,
-        "skillAmp": 77,
+        "skillAmp": 80,
         "sightRange": 1
       },
-      "ap": 77,
+      "ap": 80,
       "attackPower": 25,
       "cd": 0,
       "pen": 0,
@@ -11903,13 +11979,13 @@
       "makeMaterial2": 401212,
       "effect": "",
       "stats": {
-        "attackPower": 55,
+        "attackPower": 58,
         "attackSpeedRatio": 0.2,
         "cooldownReduction": 15,
         "sightRange": 1
       },
       "ap": 0,
-      "attackPower": 55,
+      "attackPower": 58,
       "cd": 15,
       "pen": 0,
       "penPct": 0,
@@ -11932,7 +12008,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 401108,
+      "makeMaterial1": 122101,
       "makeMaterial2": 401208,
       "effect": "",
       "stats": {
@@ -12031,7 +12107,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 122101,
+      "makeMaterial1": 401117,
       "makeMaterial2": 401208,
       "effect": "",
       "stats": {
@@ -12098,7 +12174,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 401108,
+      "makeMaterial1": 122101,
       "makeMaterial2": 401209,
       "effect": "",
       "stats": {
@@ -12131,7 +12207,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 122101,
+      "makeMaterial1": 401117,
       "makeMaterial2": 401209,
       "effect": "",
       "stats": {
@@ -12168,15 +12244,14 @@
       "makeMaterial2": 401405,
       "effect": "",
       "stats": {
-        "attackPower": 25,
-        "adaptiveForce": 52,
+        "attackPower": 77,
         "attackSpeedRatio": 0.4,
         "cooldownReduction": 10,
         "sightRange": 1,
         "penetrationDefenseRatio": 0.07
       },
-      "ap": 52,
-      "attackPower": 25,
+      "ap": 0,
+      "attackPower": 77,
       "cd": 10,
       "pen": 0,
       "penPct": 0.07,
@@ -12204,11 +12279,11 @@
       "effect": "",
       "stats": {
         "attackPower": 25,
-        "adaptiveForce": 55,
+        "skillAmp": 110,
         "sightRange": 1,
         "penetrationDefenseRatio": 0.08
       },
-      "ap": 55,
+      "ap": 110,
       "attackPower": 25,
       "cd": 0,
       "pen": 0,
@@ -12602,9 +12677,7 @@
       "defense": 0,
       "maxHp": 0,
       "sightRange": 0,
-      "dmgAmp": 0,
-      "patchVersion": "12.1",
-      "patchOrder": 20260813
+      "dmgAmp": 0
     },
     {
       "code": 130501,
@@ -12619,7 +12692,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 112101,
+      "makeMaterial1": 130101,
       "makeMaterial2": 401208,
       "effect": "",
       "stats": {
@@ -12685,7 +12758,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 130101,
+      "makeMaterial1": 112101,
       "makeMaterial2": 401208,
       "effect": "",
       "stats": {
@@ -12697,6 +12770,38 @@
       "ap": 82,
       "attackPower": 35,
       "cd": 15,
+      "pen": 0,
+      "penPct": 0,
+      "apPct": 0,
+      "defense": 0,
+      "maxHp": 0,
+      "sightRange": 0,
+      "dmgAmp": 0
+    },
+    {
+      "code": 130504,
+      "source": "er-gamedata",
+      "type": "武器",
+      "itemType": "Weapon",
+      "weaponType": "圣器 / Arcana",
+      "weaponTypeRaw": "Arcana",
+      "armorType": "",
+      "name": "倒吊人",
+      "quality": "传说",
+      "itemGrade": "Legend",
+      "isCompletedItem": true,
+      "showInItemBook": true,
+      "makeMaterial1": 130101,
+      "makeMaterial2": 401304,
+      "effect": "",
+      "stats": {
+        "attackPower": 40,
+        "skillAmp": 88,
+        "cooldownReduction": 10
+      },
+      "ap": 88,
+      "attackPower": 40,
+      "cd": 10,
       "pen": 0,
       "penPct": 0,
       "apPct": 0,
@@ -12735,9 +12840,7 @@
       "defense": 0,
       "maxHp": 0,
       "sightRange": 0,
-      "dmgAmp": 0,
-      "patchVersion": "12.1",
-      "patchOrder": 20260813
+      "dmgAmp": 0
     },
     {
       "code": 130702,
@@ -13006,7 +13109,7 @@
       "stats": {
         "attackPower": 52,
         "maxHpByLv": 4,
-        "lifeSteal": 0.1
+        "lifeSteal": 0.08
       },
       "ap": 0,
       "attackPower": 52,
@@ -13017,7 +13120,9 @@
       "defense": 0,
       "maxHp": 0,
       "sightRange": 0,
-      "dmgAmp": 0
+      "dmgAmp": 0,
+      "patchVersion": "11.6",
+      "patchOrder": 20260709
     },
     {
       "code": 131403,
@@ -13171,7 +13276,7 @@
       "stats": {
         "attackPower": 52,
         "maxHpByLv": 6,
-        "lifeSteal": 0.1
+        "lifeSteal": 0.08
       },
       "ap": 0,
       "attackPower": 52,
@@ -13748,7 +13853,7 @@
       "itemGrade": "Epic",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 401113,
+      "makeMaterial1": 201101,
       "makeMaterial2": 205312,
       "effect": "",
       "stats": {
@@ -13843,7 +13948,7 @@
       "itemGrade": "Rare",
       "isCompletedItem": false,
       "showInItemBook": true,
-      "makeMaterial1": 201101,
+      "makeMaterial1": 201201,
       "makeMaterial2": 401213,
       "effect": "",
       "stats": {
@@ -13874,7 +13979,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 201104,
+      "makeMaterial1": 205110,
       "makeMaterial2": 401304,
       "effect": "",
       "stats": {
@@ -14226,8 +14331,8 @@
       "itemGrade": "Epic",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 201401,
-      "makeMaterial2": 205102,
+      "makeMaterial1": 201202,
+      "makeMaterial2": 401214,
       "effect": "",
       "stats": {
         "attackPower": 25,
@@ -14258,17 +14363,17 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 205109,
+      "makeMaterial1": 401106,
       "makeMaterial2": 401304,
       "effect": "",
       "stats": {
         "defense": 15,
-        "maxHpByLv": 22,
-        "cooldownReduction": 25
+        "maxHpByLv": 20,
+        "cooldownReduction": 20
       },
       "ap": 0,
       "attackPower": 0,
-      "cd": 25,
+      "cd": 20,
       "pen": 0,
       "penPct": 0,
       "apPct": 0,
@@ -14321,7 +14426,7 @@
       "itemGrade": "Epic",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 201203,
+      "makeMaterial1": 201202,
       "makeMaterial2": 401210,
       "effect": "",
       "stats": {
@@ -14417,7 +14522,7 @@
       "isCompletedItem": true,
       "showInItemBook": true,
       "makeMaterial1": 201202,
-      "makeMaterial2": 401210,
+      "makeMaterial2": 401218,
       "effect": "",
       "stats": {
         "skillAmp": 68,
@@ -14447,8 +14552,8 @@
       "itemGrade": "Epic",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 201202,
-      "makeMaterial2": 205211,
+      "makeMaterial1": 201201,
+      "makeMaterial2": 205312,
       "effect": "",
       "stats": {
         "attackPower": 10,
@@ -14479,7 +14584,7 @@
       "itemGrade": "Epic",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 201101,
+      "makeMaterial1": 201201,
       "makeMaterial2": 401303,
       "effect": "",
       "stats": {
@@ -14512,7 +14617,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 401105,
+      "makeMaterial1": 201104,
       "makeMaterial2": 401208,
       "effect": "",
       "stats": {
@@ -14576,7 +14681,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 201101,
+      "makeMaterial1": 201102,
       "makeMaterial2": 401209,
       "effect": "",
       "stats": {
@@ -14609,7 +14714,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 201201,
+      "makeMaterial1": 205101,
       "makeMaterial2": 401403,
       "effect": "",
       "stats": {
@@ -14641,14 +14746,14 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 201102,
+      "makeMaterial1": 201201,
       "makeMaterial2": 401208,
       "effect": "",
       "stats": {
-        "skillAmp": 80,
+        "skillAmp": 82,
         "cooldownReduction": 15
       },
-      "ap": 80,
+      "ap": 82,
       "attackPower": 0,
       "cd": 15,
       "pen": 0,
@@ -14672,15 +14777,15 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 401309,
+      "makeMaterial1": 201104,
       "makeMaterial2": 401304,
       "effect": "",
       "stats": {
-        "skillAmp": 80,
+        "skillAmp": 85,
         "attackSpeedRatio": 0.35,
         "cooldownReduction": 10
       },
-      "ap": 80,
+      "ap": 85,
       "attackPower": 0,
       "cd": 10,
       "pen": 0,
@@ -14704,23 +14809,27 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 201102,
+      "makeMaterial1": 401121,
       "makeMaterial2": 401209,
       "effect": "",
       "stats": {
         "attackPower": 33,
-        "attackSpeedRatio": 0.4
+        "attackSpeedRatio": 0.42,
+        "skillAmp": 80,
+        "maxHp": 230
       },
-      "ap": 0,
+      "ap": 80,
       "attackPower": 33,
       "cd": 0,
       "pen": 0,
       "penPct": 0,
       "apPct": 0,
       "defense": 0,
-      "maxHp": 0,
+      "maxHp": 230,
       "sightRange": 0,
-      "dmgAmp": 0
+      "dmgAmp": 0,
+      "patchVersion": "auto-12.5-stats",
+      "patchOrder": 20261001
     },
     {
       "code": 201507,
@@ -14735,15 +14844,15 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 401309,
+      "makeMaterial1": 201104,
       "makeMaterial2": 401209,
       "effect": "",
       "stats": {
-        "skillAmp": 55,
+        "skillAmp": 50,
         "maxHp": 200,
         "cooldownReduction": 10
       },
-      "ap": 55,
+      "ap": 50,
       "attackPower": 0,
       "cd": 10,
       "pen": 0,
@@ -14799,7 +14908,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 205103,
+      "makeMaterial1": 201101,
       "makeMaterial2": 401304,
       "effect": "",
       "stats": {
@@ -14864,7 +14973,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 205110,
+      "makeMaterial1": 201102,
       "makeMaterial2": 401304,
       "effect": "",
       "stats": {
@@ -14896,7 +15005,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 201102,
+      "makeMaterial1": 201201,
       "makeMaterial2": 401304,
       "effect": "",
       "stats": {
@@ -14928,7 +15037,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 401110,
+      "makeMaterial1": 401124,
       "makeMaterial2": 401304,
       "effect": "",
       "stats": {
@@ -14960,7 +15069,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 201104,
+      "makeMaterial1": 401121,
       "makeMaterial2": 401208,
       "effect": "",
       "stats": {
@@ -14991,7 +15100,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 201104,
+      "makeMaterial1": 401106,
       "makeMaterial2": 401209,
       "effect": "",
       "stats": {
@@ -15056,7 +15165,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 205103,
+      "makeMaterial1": 401106,
       "makeMaterial2": 401403,
       "effect": "",
       "stats": {
@@ -15124,8 +15233,8 @@
       "makeMaterial2": 401403,
       "effect": "",
       "stats": {
-        "defense": 8,
         "skillAmp": 75,
+        "maxHp": 120,
         "cooldownReduction": 10
       },
       "ap": 75,
@@ -15134,8 +15243,8 @@
       "pen": 0,
       "penPct": 0,
       "apPct": 0,
-      "defense": 8,
-      "maxHp": 0,
+      "defense": 0,
+      "maxHp": 120,
       "sightRange": 0,
       "dmgAmp": 0
     },
@@ -15152,7 +15261,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 205110,
+      "makeMaterial1": 401309,
       "makeMaterial2": 401209,
       "effect": "",
       "stats": {
@@ -15185,7 +15294,7 @@
       "itemGrade": "Mythic",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 201102,
+      "makeMaterial1": 205110,
       "makeMaterial2": 401401,
       "effect": "",
       "stats": {
@@ -15217,7 +15326,7 @@
       "itemGrade": "Mythic",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 201104,
+      "makeMaterial1": 401309,
       "makeMaterial2": 401401,
       "effect": "",
       "stats": {
@@ -15235,9 +15344,7 @@
       "defense": 15,
       "maxHp": 0,
       "sightRange": 0,
-      "dmgAmp": 0,
-      "patchVersion": "12.0b",
-      "patchOrder": 20260810
+      "dmgAmp": 0
     },
     {
       "code": 201530,
@@ -15252,7 +15359,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 201101,
+      "makeMaterial1": 401309,
       "makeMaterial2": 401304,
       "effect": "",
       "stats": {
@@ -15317,7 +15424,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 205101,
+      "makeMaterial1": 205110,
       "makeMaterial2": 401209,
       "effect": "",
       "stats": {
@@ -15349,7 +15456,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 401124,
+      "makeMaterial1": 201201,
       "makeMaterial2": 401403,
       "effect": "",
       "stats": {
@@ -15381,7 +15488,7 @@
       "itemGrade": "Mythic",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 202106,
+      "makeMaterial1": 202101,
       "makeMaterial2": 401401,
       "effect": "",
       "stats": {
@@ -15415,7 +15522,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 401114,
+      "makeMaterial1": 401121,
       "makeMaterial2": 401403,
       "effect": "",
       "stats": {
@@ -15447,15 +15554,15 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 502401,
-      "makeMaterial2": 401403,
+      "makeMaterial1": 205102,
+      "makeMaterial2": 401304,
       "effect": "",
       "stats": {
-        "skillAmp": 70,
+        "skillAmp": 75,
         "cooldownReduction": 15,
         "healerGiveHpHealRatio": 0.06
       },
-      "ap": 70,
+      "ap": 75,
       "attackPower": 0,
       "cd": 15,
       "pen": 0,
@@ -15479,7 +15586,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 401107,
+      "makeMaterial1": 205110,
       "makeMaterial2": 401403,
       "effect": "",
       "stats": {
@@ -15498,6 +15605,38 @@
       "dmgAmp": 0
     },
     {
+      "code": 201538,
+      "source": "er-gamedata",
+      "type": "头部",
+      "itemType": "Armor",
+      "weaponType": "",
+      "weaponTypeRaw": "",
+      "armorType": "Head",
+      "name": "帝王头盔",
+      "quality": "传说",
+      "itemGrade": "Legend",
+      "isCompletedItem": true,
+      "showInItemBook": true,
+      "makeMaterial1": 401309,
+      "makeMaterial2": 401403,
+      "effect": "",
+      "stats": {
+        "attackPower": 30,
+        "maxHp": 250,
+        "cooldownReduction": 15
+      },
+      "ap": 0,
+      "attackPower": 30,
+      "cd": 15,
+      "pen": 0,
+      "penPct": 0,
+      "apPct": 0,
+      "defense": 0,
+      "maxHp": 250,
+      "sightRange": 0,
+      "dmgAmp": 0
+    },
+    {
       "code": 201701,
       "source": "er-gamedata",
       "type": "头部",
@@ -15510,7 +15649,7 @@
       "itemGrade": "Mythic",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 201101,
+      "makeMaterial1": 401121,
       "makeMaterial2": 401401,
       "effect": "",
       "stats": {
@@ -15603,8 +15742,8 @@
       "itemGrade": "Epic",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 202206,
-      "makeMaterial2": 401307,
+      "makeMaterial1": 202301,
+      "makeMaterial2": 203102,
       "effect": "",
       "stats": {
         "defense": 25,
@@ -15697,7 +15836,7 @@
       "isCompletedItem": false,
       "showInItemBook": true,
       "makeMaterial1": 202106,
-      "makeMaterial2": 401103,
+      "makeMaterial2": 401307,
       "effect": "",
       "stats": {
         "defense": 16
@@ -15820,7 +15959,7 @@
       "itemGrade": "Mythic",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 202105,
+      "makeMaterial1": 401105,
       "makeMaterial2": 401401,
       "effect": "",
       "stats": {
@@ -15884,7 +16023,7 @@
       "isCompletedItem": false,
       "showInItemBook": true,
       "makeMaterial1": 202106,
-      "makeMaterial2": 401113,
+      "makeMaterial2": 205109,
       "effect": "",
       "stats": {
         "defense": 12,
@@ -16201,13 +16340,13 @@
       "makeMaterial2": 205204,
       "effect": "",
       "stats": {
-        "attackPower": 9,
+        "attackPower": 7,
         "attackPowerByLv": 3,
         "defense": 13,
         "criticalStrikeChance": 0.24
       },
       "ap": 0,
-      "attackPower": 9,
+      "attackPower": 7,
       "cd": 0,
       "pen": 0,
       "penPct": 0,
@@ -16234,14 +16373,15 @@
       "makeMaterial2": 112103,
       "effect": "",
       "stats": {
+        "attackPower": 10,
         "attackPowerByLv": 3,
         "defense": 20,
-        "penetrationDefense": 12
+        "penetrationDefense": 10
       },
       "ap": 0,
-      "attackPower": 0,
+      "attackPower": 10,
       "cd": 0,
-      "pen": 12,
+      "pen": 10,
       "penPct": 0,
       "apPct": 0,
       "defense": 20,
@@ -16262,7 +16402,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 202106,
+      "makeMaterial1": 202105,
       "makeMaterial2": 401304,
       "effect": "",
       "stats": {
@@ -16429,7 +16569,7 @@
       "stats": {
         "attackPower": 10,
         "attackPowerByLv": 3,
-        "defense": 10,
+        "defense": 12,
         "attackSpeedRatio": 0.15,
         "cooldownReduction": 10
       },
@@ -16439,7 +16579,7 @@
       "pen": 0,
       "penPct": 0,
       "apPct": 0,
-      "defense": 10,
+      "defense": 12,
       "maxHp": 0,
       "sightRange": 0,
       "dmgAmp": 0
@@ -16457,7 +16597,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 202106,
+      "makeMaterial1": 202105,
       "makeMaterial2": 401209,
       "effect": "",
       "stats": {
@@ -16489,7 +16629,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 401107,
+      "makeMaterial1": 202105,
       "makeMaterial2": 401208,
       "effect": "",
       "stats": {
@@ -16652,7 +16792,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 202105,
+      "makeMaterial1": 401307,
       "makeMaterial2": 401304,
       "effect": "",
       "stats": {
@@ -16738,6 +16878,39 @@
       "dmgAmp": 0
     },
     {
+      "code": 202424,
+      "source": "er-gamedata",
+      "type": "衣服",
+      "itemType": "Armor",
+      "weaponType": "",
+      "weaponTypeRaw": "",
+      "armorType": "Chest",
+      "name": "脉冲夹克",
+      "quality": "英雄",
+      "itemGrade": "Epic",
+      "isCompletedItem": true,
+      "showInItemBook": true,
+      "makeMaterial1": 202301,
+      "makeMaterial2": 401110,
+      "effect": "",
+      "stats": {
+        "defense": 25,
+        "skillAmp": 10,
+        "skillAmpByLevel": 5,
+        "attackSpeedRatio": 0.2
+      },
+      "ap": 10,
+      "attackPower": 0,
+      "cd": 0,
+      "pen": 0,
+      "penPct": 0,
+      "apPct": 0,
+      "defense": 25,
+      "maxHp": 0,
+      "sightRange": 0,
+      "dmgAmp": 0
+    },
+    {
       "code": 202501,
       "source": "er-gamedata",
       "type": "衣服",
@@ -16783,7 +16956,7 @@
       "itemGrade": "Mythic",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 113102,
+      "makeMaterial1": 202103,
       "makeMaterial2": 401401,
       "effect": "",
       "stats": {
@@ -16850,13 +17023,13 @@
       "itemGrade": "Mythic",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 202101,
+      "makeMaterial1": 401113,
       "makeMaterial2": 401401,
       "effect": "",
       "stats": {
         "attackPower": 13,
         "attackPowerByLv": 3,
-        "defense": 15,
+        "defense": 18,
         "attackSpeedRatio": 0.2,
         "lifeSteal": 0.08
       },
@@ -16866,7 +17039,7 @@
       "pen": 0,
       "penPct": 0,
       "apPct": 0,
-      "defense": 15,
+      "defense": 18,
       "maxHp": 0,
       "sightRange": 0,
       "dmgAmp": 0
@@ -16917,7 +17090,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 202101,
+      "makeMaterial1": 401113,
       "makeMaterial2": 401208,
       "effect": "",
       "stats": {
@@ -16949,7 +17122,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 202105,
+      "makeMaterial1": 401307,
       "makeMaterial2": 401403,
       "effect": "",
       "stats": {
@@ -16980,7 +17153,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 401113,
+      "makeMaterial1": 202103,
       "makeMaterial2": 401304,
       "effect": "",
       "stats": {
@@ -17020,7 +17193,7 @@
         "attackPower": 10,
         "attackPowerByLv": 3,
         "defense": 20,
-        "attackSpeedRatio": 0.4
+        "attackSpeedRatio": 0.42
       },
       "ap": 0,
       "attackPower": 10,
@@ -17046,17 +17219,17 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 202105,
+      "makeMaterial1": 202101,
       "makeMaterial2": 401209,
       "effect": "",
       "stats": {
-        "attackPower": 14,
+        "attackPower": 10,
         "attackPowerByLv": 3,
         "defense": 18,
         "criticalStrikeChance": 0.34
       },
       "ap": 0,
-      "attackPower": 14,
+      "attackPower": 10,
       "cd": 0,
       "pen": 0,
       "penPct": 0,
@@ -17084,10 +17257,10 @@
       "effect": "",
       "stats": {
         "defense": 25,
-        "skillAmp": 22,
+        "skillAmp": 14,
         "skillAmpByLevel": 5
       },
-      "ap": 22,
+      "ap": 14,
       "attackPower": 0,
       "cd": 0,
       "pen": 0,
@@ -17111,7 +17284,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 202101,
+      "makeMaterial1": 401103,
       "makeMaterial2": 401403,
       "effect": "",
       "stats": {
@@ -17144,18 +17317,18 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 202101,
+      "makeMaterial1": 202106,
       "makeMaterial2": 401209,
       "effect": "",
       "stats": {
-        "attackPower": 12,
+        "attackPower": 10,
         "attackPowerByLv": 3,
         "defense": 20,
         "cooldownReduction": 10,
         "penetrationDefense": 12
       },
       "ap": 0,
-      "attackPower": 12,
+      "attackPower": 10,
       "cd": 10,
       "pen": 12,
       "penPct": 0,
@@ -17211,7 +17384,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 205303,
+      "makeMaterial1": 202106,
       "makeMaterial2": 401403,
       "effect": "",
       "stats": {
@@ -17245,10 +17418,10 @@
       "isCompletedItem": true,
       "showInItemBook": true,
       "makeMaterial1": 205102,
-      "makeMaterial2": 401208,
+      "makeMaterial2": 401403,
       "effect": "",
       "stats": {
-        "defense": 25,
+        "defense": 28,
         "skillAmpByLevel": 5,
         "cooldownReduction": 20
       },
@@ -17258,7 +17431,7 @@
       "pen": 0,
       "penPct": 0,
       "apPct": 0,
-      "defense": 25,
+      "defense": 28,
       "maxHp": 0,
       "sightRange": 0,
       "dmgAmp": 0
@@ -17276,7 +17449,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 202106,
+      "makeMaterial1": 401307,
       "makeMaterial2": 401208,
       "effect": "",
       "stats": {
@@ -17309,7 +17482,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 202103,
+      "makeMaterial1": 401114,
       "makeMaterial2": 401403,
       "effect": "",
       "stats": {
@@ -17341,7 +17514,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 202101,
+      "makeMaterial1": 401103,
       "makeMaterial2": 401304,
       "effect": "",
       "stats": {
@@ -17374,7 +17547,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 203102,
+      "makeMaterial1": 205103,
       "makeMaterial2": 401403,
       "effect": "",
       "stats": {
@@ -17405,7 +17578,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 202105,
+      "makeMaterial1": 202101,
       "makeMaterial2": 401208,
       "effect": "",
       "stats": {
@@ -17438,7 +17611,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 401103,
+      "makeMaterial1": 401123,
       "makeMaterial2": 401403,
       "effect": "",
       "stats": {
@@ -17470,7 +17643,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 202103,
+      "makeMaterial1": 401113,
       "makeMaterial2": 401304,
       "effect": "",
       "stats": {
@@ -17504,7 +17677,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 202106,
+      "makeMaterial1": 202103,
       "makeMaterial2": 401403,
       "effect": "",
       "stats": {
@@ -17537,7 +17710,7 @@
       "itemGrade": "Mythic",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 401107,
+      "makeMaterial1": 202105,
       "makeMaterial2": 401401,
       "effect": "",
       "stats": {
@@ -17569,7 +17742,7 @@
       "itemGrade": "Mythic",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 205101,
+      "makeMaterial1": 201102,
       "makeMaterial2": 401401,
       "effect": "",
       "stats": {
@@ -17601,13 +17774,13 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 205102,
+      "makeMaterial1": 202101,
       "makeMaterial2": 401403,
       "effect": "",
       "stats": {
         "attackPowerByLv": 3,
         "defense": 20,
-        "attackSpeedRatio": 0.3,
+        "attackSpeedRatio": 0.33,
         "criticalStrikeChance": 0.35
       },
       "ap": 0,
@@ -17651,6 +17824,71 @@
       "apPct": 0,
       "defense": 25,
       "maxHp": 200,
+      "sightRange": 0,
+      "dmgAmp": 0
+    },
+    {
+      "code": 202531,
+      "source": "er-gamedata",
+      "type": "衣服",
+      "itemType": "Armor",
+      "weaponType": "",
+      "weaponTypeRaw": "",
+      "armorType": "Chest",
+      "name": "凛风铠甲",
+      "quality": "传说",
+      "itemGrade": "Legend",
+      "isCompletedItem": true,
+      "showInItemBook": true,
+      "makeMaterial1": 202105,
+      "makeMaterial2": 401403,
+      "effect": "",
+      "stats": {
+        "defense": 40,
+        "maxHpByLv": 24,
+        "cooldownReduction": 10
+      },
+      "ap": 0,
+      "attackPower": 0,
+      "cd": 10,
+      "pen": 0,
+      "penPct": 0,
+      "apPct": 0,
+      "defense": 40,
+      "maxHp": 0,
+      "sightRange": 0,
+      "dmgAmp": 0
+    },
+    {
+      "code": 202532,
+      "source": "er-gamedata",
+      "type": "衣服",
+      "itemType": "Armor",
+      "weaponType": "",
+      "weaponTypeRaw": "",
+      "armorType": "Chest",
+      "name": "能量战衣",
+      "quality": "传说",
+      "itemGrade": "Legend",
+      "isCompletedItem": true,
+      "showInItemBook": true,
+      "makeMaterial1": 401112,
+      "makeMaterial2": 401208,
+      "effect": "",
+      "stats": {
+        "defense": 25,
+        "skillAmp": 10,
+        "skillAmpByLevel": 5,
+        "attackSpeedRatio": 0.2
+      },
+      "ap": 10,
+      "attackPower": 0,
+      "cd": 0,
+      "pen": 0,
+      "penPct": 0,
+      "apPct": 0,
+      "defense": 25,
+      "maxHp": 0,
       "sightRange": 0,
       "dmgAmp": 0
     },
@@ -17758,7 +17996,7 @@
       "isCompletedItem": false,
       "showInItemBook": true,
       "makeMaterial1": 401104,
-      "makeMaterial2": 401103,
+      "makeMaterial2": 401307,
       "effect": "",
       "stats": {
         "defense": 6
@@ -17818,7 +18056,7 @@
       "isCompletedItem": false,
       "showInItemBook": true,
       "makeMaterial1": 203102,
-      "makeMaterial2": 401103,
+      "makeMaterial2": 401105,
       "effect": "",
       "stats": {
         "defense": 5
@@ -17878,7 +18116,7 @@
       "isCompletedItem": false,
       "showInItemBook": true,
       "makeMaterial1": 401213,
-      "makeMaterial2": 401103,
+      "makeMaterial2": 401307,
       "effect": "",
       "stats": {
         "attackPower": 18
@@ -18001,10 +18239,10 @@
       "makeMaterial2": 401302,
       "effect": "",
       "stats": {
-        "skillAmp": 62,
+        "skillAmp": 63,
         "cooldownReduction": 10
       },
-      "ap": 62,
+      "ap": 63,
       "attackPower": 0,
       "cd": 10,
       "pen": 0,
@@ -18064,9 +18302,9 @@
       "makeMaterial2": 203102,
       "effect": "",
       "stats": {
-        "skillAmp": 75
+        "skillAmp": 76
       },
-      "ap": 75,
+      "ap": 76,
       "attackPower": 0,
       "cd": 0,
       "pen": 0,
@@ -18090,7 +18328,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 401104,
+      "makeMaterial1": 502401,
       "makeMaterial2": 401304,
       "effect": "",
       "stats": {
@@ -18154,8 +18392,8 @@
       "itemGrade": "Epic",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 203201,
-      "makeMaterial2": 203202,
+      "makeMaterial1": 203203,
+      "makeMaterial2": 401218,
       "effect": "",
       "stats": {
         "attackPower": 22,
@@ -18221,12 +18459,13 @@
       "makeMaterial2": 401209,
       "effect": "",
       "stats": {
-        "attackPower": 15,
+        "attackPower": 10,
         "attackSpeedRatio": 0.35,
-        "criticalStrikeChance": 0.35
+        "criticalStrikeChance": 0.35,
+        "criticalStrikeDamage": 0.04
       },
       "ap": 0,
-      "attackPower": 15,
+      "attackPower": 10,
       "cd": 0,
       "pen": 0,
       "penPct": 0,
@@ -18234,9 +18473,7 @@
       "defense": 0,
       "maxHp": 0,
       "sightRange": 0,
-      "dmgAmp": 0,
-      "patchVersion": "12.2",
-      "patchOrder": 20260820
+      "dmgAmp": 0
     },
     {
       "code": 203409,
@@ -18283,7 +18520,7 @@
       "isCompletedItem": true,
       "showInItemBook": true,
       "makeMaterial1": 203304,
-      "makeMaterial2": 203101,
+      "makeMaterial2": 302103,
       "effect": "",
       "stats": {
         "skillAmp": 50,
@@ -18350,12 +18587,12 @@
       "makeMaterial2": 401306,
       "effect": "",
       "stats": {
-        "attackPower": 20,
+        "attackPower": 22,
         "defense": 10,
         "attackSpeedRatio": 0.25
       },
       "ap": 0,
-      "attackPower": 20,
+      "attackPower": 22,
       "cd": 0,
       "pen": 0,
       "penPct": 0,
@@ -18378,7 +18615,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 203101,
+      "makeMaterial1": 401112,
       "makeMaterial2": 401403,
       "effect": "",
       "stats": {
@@ -18504,7 +18741,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 401110,
+      "makeMaterial1": 112104,
       "makeMaterial2": 401403,
       "effect": "",
       "stats": {
@@ -18536,7 +18773,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 401309,
+      "makeMaterial1": 203102,
       "makeMaterial2": 401403,
       "effect": "",
       "stats": {
@@ -18568,11 +18805,11 @@
       "itemGrade": "Mythic",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 203104,
+      "makeMaterial1": 401104,
       "makeMaterial2": 401401,
       "effect": "",
       "stats": {
-        "defense": 16,
+        "defense": 15,
         "maxHpByLv": 21,
         "cooldownReduction": 20
       },
@@ -18582,7 +18819,7 @@
       "pen": 0,
       "penPct": 0,
       "apPct": 0,
-      "defense": 16,
+      "defense": 15,
       "maxHp": 0,
       "sightRange": 0,
       "dmgAmp": 0
@@ -18600,7 +18837,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 203102,
+      "makeMaterial1": 401104,
       "makeMaterial2": 401209,
       "effect": "",
       "stats": {
@@ -18663,7 +18900,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 203101,
+      "makeMaterial1": 203104,
       "makeMaterial2": 401304,
       "effect": "",
       "stats": {
@@ -18694,7 +18931,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 401104,
+      "makeMaterial1": 401124,
       "makeMaterial2": 401209,
       "effect": "",
       "stats": {
@@ -18726,7 +18963,7 @@
       "itemGrade": "Mythic",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 401123,
+      "makeMaterial1": 203102,
       "makeMaterial2": 401401,
       "effect": "",
       "stats": {
@@ -18758,7 +18995,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 401104,
+      "makeMaterial1": 401109,
       "makeMaterial2": 401403,
       "effect": "",
       "stats": {
@@ -18789,18 +19026,18 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 502104,
+      "makeMaterial1": 401124,
       "makeMaterial2": 401208,
       "effect": "",
       "stats": {
         "attackPower": 35,
         "cooldownReduction": 20,
-        "penetrationDefense": 12
+        "penetrationDefense": 13
       },
       "ap": 0,
       "attackPower": 35,
       "cd": 20,
-      "pen": 12,
+      "pen": 13,
       "penPct": 0,
       "apPct": 0,
       "defense": 0,
@@ -18821,23 +19058,26 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 401123,
+      "makeMaterial1": 203104,
       "makeMaterial2": 401209,
       "effect": "",
       "stats": {
-        "skillAmp": 75,
-        "cooldownReduction": 20
+        "skillAmp": 70,
+        "cooldownReduction": 15,
+        "attackPower": 15
       },
-      "ap": 75,
-      "attackPower": 0,
-      "cd": 20,
+      "ap": 70,
+      "attackPower": 15,
+      "cd": 15,
       "pen": 0,
       "penPct": 0,
       "apPct": 0,
       "defense": 0,
       "maxHp": 0,
       "sightRange": 0,
-      "dmgAmp": 0
+      "dmgAmp": 0,
+      "patchVersion": "auto-13.0-part2-stats",
+      "patchOrder": 20261112
     },
     {
       "code": 203513,
@@ -18852,7 +19092,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 401106,
+      "makeMaterial1": 502401,
       "makeMaterial2": 401403,
       "effect": "",
       "stats": {
@@ -18869,7 +19109,9 @@
       "defense": 20,
       "maxHp": 0,
       "sightRange": 0,
-      "dmgAmp": 0
+      "dmgAmp": 0,
+      "patchVersion": "11.4",
+      "patchOrder": 20260611
     },
     {
       "code": 203514,
@@ -18884,7 +19126,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 203102,
+      "makeMaterial1": 203101,
       "makeMaterial2": 401304,
       "effect": "",
       "stats": {
@@ -18916,7 +19158,7 @@
       "itemGrade": "Mythic",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 203102,
+      "makeMaterial1": 203104,
       "makeMaterial2": 401401,
       "effect": "",
       "stats": {
@@ -18933,7 +19175,9 @@
       "defense": 15,
       "maxHp": 0,
       "sightRange": 0,
-      "dmgAmp": 0
+      "dmgAmp": 0,
+      "patchVersion": "12.0-part2",
+      "patchOrder": 20260806
     },
     {
       "code": 203516,
@@ -18948,7 +19192,7 @@
       "itemGrade": "Mythic",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 401104,
+      "makeMaterial1": 401114,
       "makeMaterial2": 401401,
       "effect": "",
       "stats": {
@@ -19068,7 +19312,7 @@
       "itemGrade": "Rare",
       "isCompletedItem": false,
       "showInItemBook": true,
-      "makeMaterial1": 204302,
+      "makeMaterial1": 204202,
       "makeMaterial2": 401105,
       "effect": "",
       "stats": {
@@ -19254,7 +19498,7 @@
       "isCompletedItem": false,
       "showInItemBook": true,
       "makeMaterial1": 204102,
-      "makeMaterial2": 401103,
+      "makeMaterial2": 401124,
       "effect": "",
       "stats": {
         "hpRegenRatio": 0.1,
@@ -19284,7 +19528,7 @@
       "itemGrade": "Epic",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 204301,
+      "makeMaterial1": 204404,
       "makeMaterial2": 401307,
       "effect": "",
       "stats": {
@@ -19863,7 +20107,7 @@
       "isCompletedItem": true,
       "showInItemBook": true,
       "makeMaterial1": 204202,
-      "makeMaterial2": 401307,
+      "makeMaterial2": 401202,
       "effect": "",
       "stats": {
         "attackPower": 18,
@@ -20023,7 +20267,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 401101,
+      "makeMaterial1": 204102,
       "makeMaterial2": 401209,
       "effect": "",
       "stats": {
@@ -20152,17 +20396,17 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 204102,
+      "makeMaterial1": 401307,
       "makeMaterial2": 401209,
       "effect": "",
       "stats": {
-        "attackPower": 25,
+        "attackPower": 23,
         "attackSpeedRatio": 0.2,
         "normalLifeSteal": 0.12,
         "moveSpeed": 0.25
       },
       "ap": 0,
-      "attackPower": 25,
+      "attackPower": 23,
       "cd": 0,
       "pen": 0,
       "penPct": 0,
@@ -20185,18 +20429,17 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 302103,
+      "makeMaterial1": 401110,
       "makeMaterial2": 401209,
       "effect": "",
       "stats": {
-        "attackPower": 23,
-        "attackSpeedRatio": 0.1,
-        "cooldownReduction": 15,
+        "attackPower": 25,
+        "cooldownReduction": 10,
         "moveSpeed": 0.25
       },
       "ap": 0,
-      "attackPower": 23,
-      "cd": 15,
+      "attackPower": 25,
+      "cd": 10,
       "pen": 0,
       "penPct": 0,
       "apPct": 0,
@@ -20222,7 +20465,7 @@
       "makeMaterial2": 401209,
       "effect": "",
       "stats": {
-        "attackSpeedRatio": 0.26,
+        "attackSpeedRatio": 0.28,
         "criticalStrikeChance": 0.33,
         "moveSpeed": 0.25
       },
@@ -20268,7 +20511,9 @@
       "defense": 0,
       "maxHp": 0,
       "sightRange": 0,
-      "dmgAmp": 0
+      "dmgAmp": 0,
+      "patchVersion": "12.0-part2",
+      "patchOrder": 20260806
     },
     {
       "code": 204511,
@@ -20283,24 +20528,27 @@
       "itemGrade": "Mythic",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 401114,
+      "makeMaterial1": 401103,
       "makeMaterial2": 401401,
       "effect": "",
       "stats": {
         "skillAmp": 45,
         "cooldownReduction": 10,
-        "moveSpeed": 0.27
+        "moveSpeed": 0.27,
+        "penetrationDefenseRatio": 0.12
       },
       "ap": 45,
       "attackPower": 0,
       "cd": 10,
       "pen": 0,
-      "penPct": 0,
+      "penPct": 0.12,
       "apPct": 0,
       "defense": 0,
       "maxHp": 0,
       "sightRange": 0,
-      "dmgAmp": 0
+      "dmgAmp": 0,
+      "patchVersion": "auto-12.6-stats",
+      "patchOrder": 20261015
     },
     {
       "code": 204512,
@@ -20352,9 +20600,9 @@
       "makeMaterial2": 401401,
       "effect": "",
       "stats": {
+        "skillAmp": 50,
         "cooldownReduction": 20,
-        "moveSpeed": 0.27,
-        "skillAmp": 50
+        "moveSpeed": 0.27
       },
       "ap": 50,
       "attackPower": 0,
@@ -20380,7 +20628,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 204102,
+      "makeMaterial1": 401110,
       "makeMaterial2": 401403,
       "effect": "",
       "stats": {
@@ -20397,6 +20645,38 @@
       "apPct": 0,
       "defense": 0,
       "maxHp": 150,
+      "sightRange": 0,
+      "dmgAmp": 0
+    },
+    {
+      "code": 204515,
+      "source": "er-gamedata",
+      "type": "鞋子",
+      "itemType": "Armor",
+      "weaponType": "",
+      "weaponTypeRaw": "",
+      "armorType": "Leg",
+      "name": "象牙之履",
+      "quality": "传说",
+      "itemGrade": "Legend",
+      "isCompletedItem": true,
+      "showInItemBook": true,
+      "makeMaterial1": 204103,
+      "makeMaterial2": 401304,
+      "effect": "",
+      "stats": {
+        "attackSpeedRatio": 0.25,
+        "criticalStrikeChance": 0.33,
+        "moveSpeed": 0.25
+      },
+      "ap": 0,
+      "attackPower": 0,
+      "cd": 0,
+      "pen": 0,
+      "penPct": 0,
+      "apPct": 0,
+      "defense": 0,
+      "maxHp": 0,
       "sightRange": 0,
       "dmgAmp": 0
     },
@@ -20447,10 +20727,10 @@
       "makeMaterial2": 205312,
       "effect": "",
       "stats": {
-        "skillAmp": 52,
+        "skillAmp": 55,
         "cooldownReduction": 10
       },
-      "ap": 52,
+      "ap": 55,
       "attackPower": 0,
       "cd": 10,
       "pen": 0,
@@ -20494,38 +20774,36 @@
       "dmgAmp": 0
     },
     {
-      "code": 205306,
+      "code": 205305,
       "source": "er-gamedata",
       "type": "手部",
       "itemType": "Armor",
       "weaponType": "",
       "weaponTypeRaw": "",
       "armorType": "Arm",
-      "name": "海盗印记",
+      "name": "越王勾践剑",
       "quality": "传说",
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 401124,
-      "makeMaterial2": 401209,
+      "makeMaterial1": 203101,
+      "makeMaterial2": 401208,
       "effect": "",
       "stats": {
-        "attackPower": 26,
+        "attackPower": 16,
         "attackSpeedRatio": 0.3,
-        "maxHp": 220
+        "criticalStrikeChance": 0.35
       },
       "ap": 0,
-      "attackPower": 26,
+      "attackPower": 16,
       "cd": 0,
       "pen": 0,
       "penPct": 0,
       "apPct": 0,
       "defense": 0,
-      "maxHp": 220,
+      "maxHp": 0,
       "sightRange": 0,
-      "dmgAmp": 0,
-      "patchVersion": "12.2",
-      "patchOrder": 20260820
+      "dmgAmp": 0
     },
     {
       "code": 205308,
@@ -20641,7 +20919,7 @@
       "effect": "",
       "stats": {
         "defense": 10,
-        "maxHp": 120,
+        "maxHp": 150,
         "cooldownReduction": 15
       },
       "ap": 0,
@@ -20651,7 +20929,7 @@
       "penPct": 0,
       "apPct": 0,
       "defense": 10,
-      "maxHp": 120,
+      "maxHp": 150,
       "sightRange": 0,
       "dmgAmp": 0
     },
@@ -20672,7 +20950,7 @@
       "makeMaterial2": 205312,
       "effect": "",
       "stats": {
-        "defense": 10,
+        "defense": 8,
         "skillAmp": 50,
         "maxHp": 100,
         "cooldownReduction": 5
@@ -20683,7 +20961,7 @@
       "pen": 0,
       "penPct": 0,
       "apPct": 0,
-      "defense": 10,
+      "defense": 8,
       "maxHp": 100,
       "sightRange": 0,
       "dmgAmp": 0
@@ -20705,7 +20983,7 @@
       "makeMaterial2": 401209,
       "effect": "",
       "stats": {
-        "defense": 10,
+        "defense": 8,
         "skillAmp": 55,
         "maxHp": 200,
         "cooldownReduction": 10
@@ -20716,7 +20994,7 @@
       "pen": 0,
       "penPct": 0,
       "apPct": 0,
-      "defense": 10,
+      "defense": 8,
       "maxHp": 200,
       "sightRange": 0,
       "dmgAmp": 0
@@ -20734,16 +21012,16 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 205101,
+      "makeMaterial1": 203102,
       "makeMaterial2": 401304,
       "effect": "",
       "stats": {
-        "attackPower": 30,
+        "attackPower": 33,
         "attackSpeedRatio": 0.3,
         "moveSpeedRatio": 0.015
       },
       "ap": 0,
-      "attackPower": 30,
+      "attackPower": 33,
       "cd": 0,
       "pen": 0,
       "penPct": 0,
@@ -20766,7 +21044,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 205101,
+      "makeMaterial1": 203102,
       "makeMaterial2": 401208,
       "effect": "",
       "stats": {
@@ -20798,7 +21076,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 113102,
+      "makeMaterial1": 203101,
       "makeMaterial2": 401403,
       "effect": "",
       "stats": {
@@ -20831,16 +21109,16 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 205101,
+      "makeMaterial1": 203104,
       "makeMaterial2": 401403,
       "effect": "",
       "stats": {
-        "skillAmp": 82,
-        "cooldownReduction": 10
+        "skillAmp": 88,
+        "cooldownReduction": 20
       },
-      "ap": 82,
+      "ap": 88,
       "attackPower": 0,
-      "cd": 10,
+      "cd": 20,
       "pen": 0,
       "penPct": 0,
       "apPct": 0,
@@ -20862,15 +21140,15 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 401114,
+      "makeMaterial1": 201201,
       "makeMaterial2": 401209,
       "effect": "",
       "stats": {
-        "skillAmp": 80,
+        "skillAmp": 82,
         "cooldownReduction": 20,
         "moveSpeedRatio": 0.03
       },
-      "ap": 80,
+      "ap": 82,
       "attackPower": 0,
       "cd": 20,
       "pen": 0,
@@ -20894,7 +21172,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 401124,
+      "makeMaterial1": 401117,
       "makeMaterial2": 401304,
       "effect": "",
       "stats": {
@@ -20955,7 +21233,7 @@
       "itemGrade": "Mythic",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 401117,
+      "makeMaterial1": 401109,
       "makeMaterial2": 401401,
       "effect": "",
       "stats": {
@@ -20990,12 +21268,12 @@
       "makeMaterial2": 401403,
       "effect": "",
       "stats": {
-        "skillAmp": 85,
-        "cooldownReduction": 20
+        "skillAmp": 80,
+        "cooldownReduction": 10
       },
-      "ap": 85,
+      "ap": 80,
       "attackPower": 0,
-      "cd": 20,
+      "cd": 10,
       "pen": 0,
       "penPct": 0,
       "apPct": 0,
@@ -21017,7 +21295,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 401114,
+      "makeMaterial1": 401104,
       "makeMaterial2": 401304,
       "effect": "",
       "stats": {
@@ -21053,7 +21331,7 @@
       "makeMaterial2": 401208,
       "effect": "",
       "stats": {
-        "maxHp": 220,
+        "maxHp": 250,
         "attackSpeedRatio": 0.38,
         "cooldownReduction": 20
       },
@@ -21064,7 +21342,7 @@
       "penPct": 0,
       "apPct": 0,
       "defense": 0,
-      "maxHp": 220,
+      "maxHp": 250,
       "sightRange": 0,
       "dmgAmp": 0
     },
@@ -21081,7 +21359,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 112103,
+      "makeMaterial1": 401104,
       "makeMaterial2": 401403,
       "effect": "",
       "stats": {
@@ -21112,7 +21390,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 112103,
+      "makeMaterial1": 401104,
       "makeMaterial2": 401208,
       "effect": "",
       "stats": {
@@ -21144,16 +21422,16 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 203104,
-      "makeMaterial2": 401304,
+      "makeMaterial1": 205102,
+      "makeMaterial2": 401208,
       "effect": "",
       "stats": {
-        "skillAmp": 55,
+        "skillAmp": 60,
         "maxHp": 100,
         "cooldownReduction": 15,
-        "healerGiveHpHealRatio": 0.1
+        "healerGiveHpHealRatio": 0.06
       },
-      "ap": 55,
+      "ap": 60,
       "attackPower": 0,
       "cd": 15,
       "pen": 0,
@@ -21177,21 +21455,21 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 203102,
+      "makeMaterial1": 502401,
       "makeMaterial2": 401208,
       "effect": "",
       "stats": {
-        "defense": 13,
+        "defense": 11,
         "maxHpByLv": 17,
-        "cooldownReduction": 15
+        "cooldownReduction": 10
       },
       "ap": 0,
       "attackPower": 0,
-      "cd": 15,
+      "cd": 10,
       "pen": 0,
       "penPct": 0,
       "apPct": 0,
-      "defense": 13,
+      "defense": 11,
       "maxHp": 0,
       "sightRange": 0,
       "dmgAmp": 0
@@ -21209,14 +21487,14 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 401109,
+      "makeMaterial1": 502104,
       "makeMaterial2": 401304,
       "effect": "",
       "stats": {
-        "skillAmp": 90,
+        "skillAmp": 92,
         "uniqueSkillAmpRatio": 0.15
       },
-      "ap": 90,
+      "ap": 92,
       "attackPower": 0,
       "cd": 0,
       "pen": 0,
@@ -21240,7 +21518,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 302103,
+      "makeMaterial1": 401124,
       "makeMaterial2": 401403,
       "effect": "",
       "stats": {
@@ -21260,6 +21538,39 @@
       "dmgAmp": 0
     },
     {
+      "code": 705619,
+      "source": "er-gamedata",
+      "type": "手部",
+      "itemType": "Armor",
+      "weaponType": "",
+      "weaponTypeRaw": "",
+      "armorType": "Arm",
+      "name": "星之碎片",
+      "quality": "传说",
+      "itemGrade": "Legend",
+      "isCompletedItem": true,
+      "showInItemBook": true,
+      "makeMaterial1": 112103,
+      "makeMaterial2": 401403,
+      "effect": "",
+      "stats": {
+        "defense": 10,
+        "skillAmp": 77,
+        "maxHp": 230,
+        "cooldownReduction": 15
+      },
+      "ap": 77,
+      "attackPower": 0,
+      "cd": 15,
+      "pen": 0,
+      "penPct": 0,
+      "apPct": 0,
+      "defense": 10,
+      "maxHp": 230,
+      "sightRange": 0,
+      "dmgAmp": 0
+    },
+    {
       "code": 705620,
       "source": "er-gamedata",
       "type": "头部",
@@ -21272,7 +21583,7 @@
       "itemGrade": "Legend",
       "isCompletedItem": true,
       "showInItemBook": true,
-      "makeMaterial1": 201201,
+      "makeMaterial1": 401114,
       "makeMaterial2": 401304,
       "effect": "",
       "stats": {
@@ -21286,184 +21597,6 @@
       "penPct": 0,
       "apPct": 0,
       "defense": 0,
-      "maxHp": 0,
-      "sightRange": 0,
-      "dmgAmp": 0
-    },
-    {
-      "source": "official-patch-note",
-      "type": "武器",
-      "itemType": "Weapon",
-      "weaponType": "刺剑 / Rapier",
-      "weaponTypeRaw": "Rapier",
-      "armorType": "",
-      "name": "苍野荆棘",
-      "quality": "传说",
-      "itemGrade": "Legend",
-      "isCompletedItem": true,
-      "showInItemBook": true,
-      "effect": "惩恶",
-      "recipe": "冰块 + 秘银",
-      "tooltip": "惩恶：4秒内用普攻或独立技能命中同一敌人3次时，造成 50(+技能增幅的20%)(+实验体等级*2) 技能伤害，并获得 100(+技能增幅的30%)(+实验体等级*5) 护盾、持续2.5秒。冷却 12秒。",
-      "stats": {
-        "attackPower": 32,
-        "skillAmp": 79,
-        "maxHp": 120
-      },
-      "sourceVersion": "12.0",
-      "sourceUrl": "https://playeternalreturn.com/posts/news/3743?hl=zh-CN",
-      "sourceTitle": "[修正] 12.0 更新日志 Part.2 - 实验体和物品",
-      "ap": 79,
-      "attackPower": 32,
-      "cd": 0,
-      "pen": 0,
-      "penPct": 0,
-      "apPct": 0,
-      "defense": 0,
-      "maxHp": 120,
-      "sightRange": 0,
-      "dmgAmp": 0,
-      "patchVersion": "12.2",
-      "patchOrder": 20260820
-    },
-    {
-      "source": "official-patch-note",
-      "type": "武器",
-      "itemType": "Weapon",
-      "weaponType": "棍棒 / Bat",
-      "weaponTypeRaw": "Bat",
-      "armorType": "",
-      "name": "棒棒糖",
-      "quality": "传说",
-      "itemGrade": "Legend",
-      "isCompletedItem": true,
-      "showInItemBook": true,
-      "effect": "神速 - 微风",
-      "recipe": "石头 + 秘银",
-      "tooltip": "神速 - 微风：4秒内造成3次普攻或独立技能伤害时，2.5秒内移动速度增加15%，并获得 100(+技能增幅的30%)(+实验体等级*5) 护盾。冷却 12秒。",
-      "stats": {
-        "attackPower": 30,
-        "skillAmp": 86,
-        "maxHp": 120
-      },
-      "sourceVersion": "12.0",
-      "sourceUrl": "https://playeternalreturn.com/posts/news/3743?hl=zh-CN",
-      "sourceTitle": "[修正] 12.0 更新日志 Part.2 - 实验体和物品",
-      "ap": 86,
-      "attackPower": 30,
-      "cd": 0,
-      "pen": 0,
-      "penPct": 0,
-      "apPct": 0,
-      "defense": 0,
-      "maxHp": 120,
-      "sightRange": 0,
-      "dmgAmp": 0,
-      "patchVersion": "12.1",
-      "patchOrder": 20260813
-    },
-    {
-      "source": "official-patch-note",
-      "type": "武器",
-      "itemType": "Weapon",
-      "weaponType": "圣器 / Arcana",
-      "weaponTypeRaw": "Arcana",
-      "armorType": "",
-      "name": "倒吊人",
-      "quality": "传说",
-      "itemGrade": "Legend",
-      "isCompletedItem": true,
-      "showInItemBook": true,
-      "effect": "瘟疫蝴蝶",
-      "recipe": "琉璃球 + 秘银",
-      "tooltip": "瘟疫蝴蝶：用独立技能对敌方实验体造成伤害时，飞出一只蝴蝶造成 40(+技能增幅的30%)(+实验体等级*3) 伤害，可在 4m 内最多弹射 5 次，每次弹射伤害降低 10%。冷却 10秒。",
-      "stats": {
-        "attackPower": 40,
-        "skillAmp": 88,
-        "cooldownReduction": 10
-      },
-      "sourceVersion": "12.0",
-      "sourceUrl": "https://playeternalreturn.com/posts/news/3743?hl=zh-CN",
-      "sourceTitle": "[修正] 12.0 更新日志 Part.2 - 实验体和物品",
-      "ap": 88,
-      "attackPower": 40,
-      "cd": 10,
-      "pen": 0,
-      "penPct": 0,
-      "apPct": 0,
-      "defense": 0,
-      "maxHp": 0,
-      "sightRange": 0,
-      "dmgAmp": 0,
-      "patchVersion": "12.1",
-      "patchOrder": 20260813
-    },
-    {
-      "source": "official-patch-note",
-      "type": "武器",
-      "itemType": "Weapon",
-      "weaponType": "双手剑 / TwoHandSword",
-      "weaponTypeRaw": "TwoHandSword",
-      "armorType": "",
-      "name": "均衡之刃",
-      "quality": "传说",
-      "itemGrade": "Legend",
-      "isCompletedItem": true,
-      "showInItemBook": true,
-      "effect": "惩恶",
-      "recipe": "铁锈剑 + 秘银",
-      "tooltip": "惩恶：4秒内用普攻或独立技能命中同一敌人3次时，造成 40(+额外攻击力50%)(+实验体等级*5) 技能伤害，并获得 100(+攻击力的55%)(+实验体等级*5) 护盾、持续2.5秒。冷却 12秒。",
-      "stats": {
-        "attackPower": 64,
-        "attackSpeedRatio": 0.3,
-        "maxHp": 150
-      },
-      "sourceVersion": "12.0",
-      "sourceUrl": "https://playeternalreturn.com/posts/news/3743?hl=zh-CN",
-      "sourceTitle": "[修正] 12.0 更新日志 Part.2 - 实验体和物品",
-      "ap": 0,
-      "attackPower": 64,
-      "cd": 0,
-      "pen": 0,
-      "penPct": 0,
-      "apPct": 0,
-      "defense": 0,
-      "maxHp": 150,
-      "sightRange": 0,
-      "dmgAmp": 0,
-      "patchVersion": "12.1",
-      "patchOrder": 20260813
-    },
-    {
-      "source": "official-patch-note",
-      "type": "衣服",
-      "itemType": "Armor",
-      "weaponType": "",
-      "weaponTypeRaw": "",
-      "armorType": "Chest",
-      "name": "凛风铠甲",
-      "quality": "传说",
-      "itemGrade": "Legend",
-      "isCompletedItem": true,
-      "showInItemBook": true,
-      "effect": "疾风 - 寒气",
-      "recipe": "皮革补丁 + 能源晶石",
-      "tooltip": "疾风 - 寒气：对敌方实验体施加无法移动效果时释放持续5秒的旋涡，每0.5秒造成 20(+额外体力6%) 技能伤害并降低范围内敌人 25% 移动速度。冷却 10秒。",
-      "stats": {
-        "defense": 40,
-        "maxHpByLv": 24,
-        "cooldownReduction": 10
-      },
-      "sourceVersion": "12.0",
-      "sourceUrl": "https://playeternalreturn.com/posts/news/3743?hl=zh-CN",
-      "sourceTitle": "[修正] 12.0 更新日志 Part.2 - 实验体和物品",
-      "ap": 0,
-      "attackPower": 0,
-      "cd": 10,
-      "pen": 0,
-      "penPct": 0,
-      "apPct": 0,
-      "defense": 40,
       "maxHp": 0,
       "sightRange": 0,
       "dmgAmp": 0

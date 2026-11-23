@@ -59,7 +59,7 @@
     "options": [
       {
         "stat": "AttackSpeedRatio",
-        "value": 0.03
+        "value": 0.034
       },
       {
         "stat": "IncreaseBasicAttackDamageRatio",
@@ -73,11 +73,11 @@
     "options": [
       {
         "stat": "AttackSpeedRatio",
-        "value": 0.041
+        "value": 0.027
       },
       {
         "stat": "IncreaseBasicAttackDamageRatio",
-        "value": 0.021
+        "value": 0.013
       }
     ]
   },
@@ -87,7 +87,7 @@
     "options": [
       {
         "stat": "AttackSpeedRatio",
-        "value": 0.036
+        "value": 0.04
       },
       {
         "stat": "IncreaseBasicAttackDamageRatio",
@@ -101,7 +101,7 @@
     "options": [
       {
         "stat": "AttackSpeedRatio",
-        "value": 0.04
+        "value": 0.044
       },
       {
         "stat": "IncreaseBasicAttackDamageRatio",
@@ -133,7 +133,7 @@
       },
       {
         "stat": "IncreaseBasicAttackDamageRatio",
-        "value": 0.014
+        "value": 0.015
       }
     ]
   },
@@ -175,7 +175,7 @@
       },
       {
         "stat": "SkillAmpRatio",
-        "value": 0.05
+        "value": 0.048
       }
     ]
   },
@@ -245,7 +245,7 @@
       },
       {
         "stat": "SkillAmpRatio",
-        "value": 0.04
+        "value": 0.042
       }
     ]
   },
@@ -385,7 +385,7 @@
       },
       {
         "stat": "IncreaseBasicAttackDamageRatio",
-        "value": 0.022
+        "value": 0.021
       }
     ]
   },
@@ -399,7 +399,7 @@
       },
       {
         "stat": "IncreaseBasicAttackDamageRatio",
-        "value": 0.018
+        "value": 0.017
       }
     ]
   },
@@ -427,7 +427,7 @@
       },
       {
         "stat": "SkillAmpRatio",
-        "value": 0.048
+        "value": 0.047
       }
     ]
   },
@@ -455,7 +455,7 @@
       },
       {
         "stat": "SkillAmpRatio",
-        "value": 0.044
+        "value": 0.047
       }
     ]
   },
@@ -483,7 +483,7 @@
       },
       {
         "stat": "SkillAmpRatio",
-        "value": 0.046
+        "value": 0.045
       }
     ]
   },
@@ -497,7 +497,7 @@
       },
       {
         "stat": "SkillAmpRatio",
-        "value": 0.04
+        "value": 0.042
       }
     ]
   },
@@ -525,7 +525,7 @@
       },
       {
         "stat": "SkillAmpRatio",
-        "value": 0.041
+        "value": 0.04
       }
     ]
   },
@@ -637,7 +637,7 @@
       },
       {
         "stat": "SkillAmpRatio",
-        "value": 0.048
+        "value": 0.045
       }
     ]
   },
@@ -651,7 +651,7 @@
       },
       {
         "stat": "SkillAmpRatio",
-        "value": 0.046
+        "value": 0.045
       }
     ]
   },
@@ -675,7 +675,7 @@
     "options": [
       {
         "stat": "AttackSpeedRatio",
-        "value": 0.028
+        "value": 0.024
       },
       {
         "stat": "IncreaseBasicAttackDamageRatio",
@@ -693,7 +693,7 @@
       },
       {
         "stat": "SkillAmpRatio",
-        "value": 0.044
+        "value": 0.045
       }
     ]
   },
@@ -931,7 +931,7 @@
       },
       {
         "stat": "IncreaseBasicAttackDamageRatio",
-        "value": 0.022
+        "value": 0.02
       }
     ]
   },
@@ -973,7 +973,7 @@
       },
       {
         "stat": "IncreaseBasicAttackDamageRatio",
-        "value": 0.013
+        "value": 0.012
       }
     ]
   },
@@ -1137,11 +1137,11 @@
     "options": [
       {
         "stat": "AttackSpeedRatio",
-        "value": 0.02
+        "value": 0.028
       },
       {
         "stat": "SkillAmpRatio",
-        "value": 0.043
+        "value": 0.046
       }
     ]
   },
@@ -1155,7 +1155,7 @@
       },
       {
         "stat": "SkillAmpRatio",
-        "value": 0.044
+        "value": 0.045
       }
     ]
   },
@@ -1281,7 +1281,7 @@
       },
       {
         "stat": "SkillAmpRatio",
-        "value": 0.045
+        "value": 0.044
       }
     ]
   },
@@ -1309,7 +1309,7 @@
       },
       {
         "stat": "SkillAmpRatio",
-        "value": 0.041
+        "value": 0.042
       }
     ]
   },
@@ -1417,7 +1417,7 @@
     "options": [
       {
         "stat": "AttackSpeedRatio",
-        "value": 0.037
+        "value": 0.034
       },
       {
         "stat": "IncreaseBasicAttackDamageRatio",
@@ -1449,7 +1449,7 @@
       },
       {
         "stat": "IncreaseBasicAttackDamageRatio",
-        "value": 0.02
+        "value": 0.019
       }
     ]
   },
@@ -1463,7 +1463,7 @@
       },
       {
         "stat": "SkillAmpRatio",
-        "value": 0.044
+        "value": 0.043
       }
     ]
   },
@@ -1477,7 +1477,7 @@
       },
       {
         "stat": "IncreaseBasicAttackDamageRatio",
-        "value": 0.017
+        "value": 0.016
       }
     ]
   },
@@ -1519,7 +1519,7 @@
       },
       {
         "stat": "SkillAmpRatio",
-        "value": 0.041
+        "value": 0.04
       }
     ]
   },
@@ -1567,7 +1567,7 @@
     "options": [
       {
         "stat": "AttackSpeedRatio",
-        "value": 0.035
+        "value": 0.04
       },
       {
         "stat": "SkillAmpRatio",
@@ -1613,7 +1613,7 @@
       },
       {
         "stat": "IncreaseBasicAttackDamageRatio",
-        "value": 0.016
+        "value": 0.015
       }
     ]
   },
@@ -1693,11 +1693,25 @@
     "options": [
       {
         "stat": "AttackSpeedRatio",
-        "value": 0.04
+        "value": 0.045
       },
       {
         "stat": "SkillAmpRatio",
-        "value": 0.042
+        "value": 0.043
+      }
+    ]
+  },
+  {
+    "characterCode": 91,
+    "type": "TwoHandSword",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.043
+      },
+      {
+        "stat": "SkillAmpRatio",
+        "value": 0.046
       }
     ]
   }

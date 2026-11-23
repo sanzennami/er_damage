@@ -988,5 +988,16 @@
     "sourceImage": "https://eternalreturn.fandom.com/wiki/File:Mini_Lucia_00.png",
     "sha1": "e7efeb75a93958dfc88d2b2eeb34e795c33c9f69",
     "bytes": 43131
+  },
+  {
+    "code": 91,
+    "name": "Seres",
+    "resource": "Seres",
+    "file": "assets/characters/091-Seres.png",
+    "sourcePage": "https://dak.gg/er/characters/Seres",
+    "sourceImage": "https://cdn.dak.gg/assets/er/game-assets/13.1.0/CharProfile_Seres_S000.png",
+    "source": "dak.gg",
+    "sha1": "f2324c71fc845607a3df11184e773968bfbba68e",
+    "bytes": 46665
   }
 ]

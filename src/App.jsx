@@ -10,6 +10,7 @@ import ITEM_EFFECT_DAMAGE from './data/itemEffectDamage.json';
 import ITEM_EFFECT_MODIFIERS from './data/itemEffectModifiers.json';
 import HERO_STATUS from './data/heroStatus.json';
 import DAK_LOADOUT_ASSETS from './data/dakLoadoutAssets.json';
+import TRAIT_EFFECTS_DATA from './data/traitEffects.json';
 import DAK_ITEM_SKILL_ICONS from './data/dakItemSkillIcons.json';
 import WEAPON_ROUTE_PRESETS from './data/weaponRoutePresets.json';
 import PATCH_LOG from './data/patchLog.json';
@@ -52,7 +53,7 @@ import {
   statConversionFor
 } from './lib/specialRules.js';
 
-const APP_VERSION = 'v0.2.076';
+const APP_VERSION = 'v0.2.080';
 
 const EXPORTED_LOCAL_CONFIG_MODULES = import.meta.glob('./data/localConfig.export.json', {
   eager: true,
@@ -114,7 +115,7 @@ const QUALITY_RANK = {
   红: 5
 };
 const QUALITY_OPTIONS = ['普通', '高级', '稀有', '英雄', '传说', '神话'];
-const TACTICAL_SKILL_OPTIONS = ['震裂', '违规者', '斥力弹', '阔步者', '实刃', '等离子冲击', '其他'];
+const TACTICAL_SKILL_OPTIONS = ['震裂', '违规者', '斥力弹', '阔步者', '实刃', '等离子冲击', '虚言', '其他'];
 const MASTERY_STAT_LABELS = {
   AttackPower: '攻击力',
   AttackSpeedRatio: '攻击速度',
@@ -138,50 +139,10 @@ const CONFIG_EXPORT_ENDPOINT = '/api/config/export';
 const ANNOUNCEMENT_KEY = 'er-damage-announcement-v1';
 const ANNOUNCEMENT_SEEN_KEY = 'er-damage-announcement-seen-v1';
 const ANNOUNCEMENT_SAVE_ENDPOINT = '/api/announcement';
-const TRAIT_EFFECTS = {
-  7000201: { extraEffect: 'absoluteForce', summary: '绝对武力：三次命中后追加真实伤害，并降低目标防御。' },
-  7000401: { summary: '吸血鬼：满层后按实验体主路径提供攻击力或技能增幅；技能增幅满层为 30 + 等级。' },
-  7000501: { extraEffect: 'thunder', summary: '霹雳：技能命中实验体时造成 30+等级*2+额外攻击力45%或技能增幅26% 的技能伤害。' },
-  7010501: { dynamicDamage: 'burst', summary: '按双方体力差增加造成伤害' },
-  7011101: { extraEffect: 'huntBear', summary: '猎魂・熊按 80 层预估：攻击力 +10 或技能增幅 +20，按实验体主路径计入。' },
-  7011201: { maxHp: 180, summary: '猎魂・野猪按 80 层预估：体力上限 +180。' },
-  7011301: { summary: '猎魂・狼按 80 层为攻击速度 +24%，当前不计入技能伤害。' },
-  7011401: { summary: '猎魂・野狗按 80 层为吸血-所有伤害 +7%，当前不计入技能伤害。' },
-  7011001: { dmgAmp: 0.08, summary: '弱肉强食：目标当前体力低于 40% 时造成伤害 +8%。' },
-  7011501: { extraEffect: 'scar', summary: '启用伤痕额外伤害估算' },
-  7010701: { extraEffect: 'tear', summary: '伤口撕裂：2 秒内造成 10 + 等级*2 + 目标当前体力*8% 的技能伤害。' },
-  7300101: { extraEffect: 'stardust', summary: '星尘蓄势：3 层后下一次普攻对实验体或召唤物造成 30+等级*2 的额外真实伤害。' },
-  7300201: { extraEffect: 'ghostFire', summary: '鬼火：3 秒内造成足量伤害后，5 秒内造成 50+等级*10+额外攻击力70%或技能增幅20% 的真实伤害。' },
-  7300301: { extraEffect: 'vortex', summary: '涡流：结束时造成等级*5+额外攻击力80%或技能增幅40% 的技能伤害。' },
-  7310101: { extraEffect: 'concentration', summary: '凝力按当前适性最大值预估：攻击力 0~16 或技能增幅 0~32，按实验体主路径计入。' },
-  7310201: { summary: '循环系统：技能命中时恢复 10 + 等级 + 体力上限*0.3%，同一技能每秒只适用一次；不影响伤害。' },
-  7310301: { cd: 5, extraEffect: 'overclock', summary: '超频：冷却缩减 +5；冷却缩减超过 40 时攻击力 +5 或技能增幅 +10，按实验体主路径计入。' },
-  7310401: { penPct: 0.06, summary: '制动力：对敌人实验体造成伤害后 4 秒内防御穿透 +6%，当前按已触发计入。' },
-  7310501: { extraEffect: 'rCharger', summary: 'R_echarger：终极技能冷却缩减 +15；使用终极技能后 5 秒内攻击力 +5+等级*0.5 或技能增幅 +10+等级。' },
-  7310701: { extraEffect: 'celestialCollection', summary: '天界典藏：按装备的物品等级分档给属性。5 件英雄+ 攻击力+2 或技能增幅+4；1 件传说+ 攻击力+3 或技能增幅+6；2 件传说+ 防御力+2；3 件传说+ 体力+40；4 件传说+ 移速+1%；5 件传说+ 防御穿透+1%；1 件超凡+ 吸血+3%；2 件超凡+ 负面效果抵御+5%。移速/吸血/抵御三项不影响伤害。' },
-  7310601: { extraEffect: 'rapidShot', summary: '急速射击：技能后普攻命中时，5 秒内攻击力 +2+等级*0.5 或技能增幅 +4+等级，并提升攻击速度 15%；按实验体主路径计入。' },
-  7200101: { summary: '超再生（12.0）：转为副潜能；护盾与体力恢复量增加 5%；原“被护盾/治疗目标获得适应力”已移除，不再提供攻击力或技能增幅。' },
-  7200201: { extraEffect: 'enhancementDevice', summary: '强化装置：使用终极技能时出现强化装置，4.5 秒内给 4m 范围内自身和队友移动速度 +10+等级*0.6%，技能伤害量 +8+等级*0.5%。' },
-  7200301: { summary: '治愈装置：自身或 4m 内队友体力低于 40% 承受伤害时出现治愈装置，每秒恢复 3+等级*0.3% 已失体力；重复时治疗效果为 50%。' },
-  7200501: { summary: '无私：独立技能造成伤害时，自身和周围 8m 队友获得 6 秒护盾；体力低于 30% 以下目标获得 1.5 倍护盾，上限 35%。' },
-  7210101: { dmgAmp: 0.05, summary: '荆棘丛：目标无法移动状态时，5 秒内治疗效果降低 20%，承受的所有伤害增加 5%。' },
-  7211001: { summary: '狩猎的快感：对野生动物造成伤害增加 20%；参与击杀野生动物时恢复体力并获得移动速度，随后逐渐下降。' },
-  7211301: { extraEffect: 'explosiveCactus', summary: '爆炸仙人掌（12.0）：转为核心潜能；对敌人造成伤害时附着 4 秒仙人掌，队友普攻或独立技能触发时造成 8~160+敌人体力上限 5% 的技能伤害；未触发时自动爆炸造成减少 70% 的伤害。' },
-  7211401: { dmgAmp: 0.04, summary: '压迫感：自身 3m 内敌方实验体承受伤害增加 4%；叠加时每层效果减少 25%，上限 3 层。' },
-  7100101: { extraEffect: 'diamondShard', summary: '金刚碎片：定身成功后防御力 +20+等级*5，结束时造成等级*10 的技能伤害。' },
-  7100401: { summary: '天使护翼：获得体力上限 18% 的护盾，护盾破裂时解除负面效果并增加移动速度；不直接计入伤害。' },
-  7100501: { extraEffect: 'penance', summary: '惩戒：满层普攻消耗叠层时按等级*15 造成技能伤害，并附带减速。' },
-  7110101: { summary: '无惧感：使用技能或潜能获得护盾或体力恢复效果时，4 秒内防御力增加 5+等级*1。' },
-  7110201: { summary: '特工队：周围 3.5m 内没有队友时，承受伤害减少 4%。' },
-  7110401: { summary: '钢化：负面效果抵御增加 12+等级*0.4%。' },
-  7110701: { summary: '不屈：使用终极技能时获得 等级*15 的护盾，持续 3 秒。' },
-  7111001: { summary: '镇痛剂：随着体力降低增加防御力，体力低于 40% 以下时防御力逐渐达到最大值 12%。' },
-  7111101: { summary: '警戒心：体力低于 75% 时受到敌方实验体伤害，1.5 秒内所受伤害减少 5+等级*0.5%。' },
-  7111201: { summary: '淬火：进入第二天白天时防御力增加 3，此后每 80 秒防御力增加 1。' }
-};
+const TRAIT_EFFECTS = TRAIT_EFFECTS_DATA.traits || {};
+
 /**
  * 该实验体是否只在「显示技能伤害统计测试英雄」开关下可见。
- * 状态写在 src/data/heroStatus.json，核对完一个英雄就把它改成 false。
  */
 function heroDamageTestOnly(hero) {
   const entry = HERO_STATUS.heroes?.[hero];
@@ -716,8 +677,8 @@ function equipmentEffectDamages(items, context, effectToggles = {}) {
 function equipmentEffectModifiers(items, { effectToggles = {}, targetHpRatio = 1 } = {}) {
   const equipped = new Set(items.flatMap((item) => uniqueEffectsForItem(item)));
   const total = {
-    ap: 0, attackPower: 0, attackPowerPct: 0, damageBonus: 0,
-    pen: 0, penPct: 0, targetDefensePct: 0, cd: 0, basicAttackBonus: 0
+    ap: 0, apPct: 0, attackPower: 0, attackPowerPct: 0, damageBonus: 0,
+    pen: 0, penPct: 0, targetDefensePct: 0, cd: 0, cdFromExtraAttackPct: 0, basicAttackBonus: 0
   };
   const applied = [];
 
@@ -726,6 +687,8 @@ function equipmentEffectModifiers(items, { effectToggles = {}, targetHpRatio = 1
     if (!effectEnabled(effect, effectToggles)) continue;
     const below = effect.condition?.targetHpBelow;
     if (below !== undefined && targetHpRatio >= below) continue;
+    const above = effect.condition?.targetHpAbove;
+    if (above !== undefined && targetHpRatio < above) continue;
     for (const [key, value] of Object.entries(effect.modifiers || {})) {
       if (total[key] === undefined) continue;
       total[key] += getNumber(value);
@@ -803,7 +766,8 @@ function aggregateEquipmentStats(selected, masteryLevel = 0) {
       sightRange: statValue(item.stats, 'sightRange') || getNumber(item.sightRange),
       penetrationDefense: statValue(item.stats, 'penetrationDefense') || getNumber(item.pen),
       penetrationDefenseRatio: statValue(item.stats, 'penetrationDefenseRatio') || getNumber(item.penPct),
-      skillAmpRatio: statValue(item.stats, 'skillAmpRatio') || getNumber(item.apPct)
+      skillAmpRatio: statValue(item.stats, 'skillAmpRatio')
+        || (!item.uniqueApPct && !statValue(item.stats, 'uniqueSkillAmpRatio') ? getNumber(item.apPct) : 0)
     };
     Object.entries(LEVEL_SCALING_STAT_TARGETS).forEach(([levelKey, targetKey]) => {
       const scaledValue = statValue(item.stats, levelKey) * level;
@@ -1028,10 +992,37 @@ async function persistAnnouncement(announcement) {
 }
 
 function characterImageSrc(character) {
-  if (!character?.image) return '';
-  const imageName = character.image.split('/').pop();
-  const match = Object.entries(CHARACTER_IMAGE_URLS).find(([path]) => path.endsWith(`/${imageName}`));
-  return match?.[1] || character.image;
+  if (!character) return '';
+  const rawImage = String(character.image || '');
+  const imageName = rawImage.split('/').pop();
+  const lowerName = imageName.toLowerCase();
+  const codePrefix = character.code ? `/${String(character.code).padStart(3, '0')}-` : '';
+  const entries = Object.entries(CHARACTER_IMAGE_URLS);
+  const exact = imageName && entries.find(([p]) => p.endsWith(`/${imageName}`));
+  if (exact) return exact[1];
+  const ciMatch = lowerName && entries.find(([p]) => p.toLowerCase().endsWith(`/${lowerName}`));
+  if (ciMatch) return ciMatch[1];
+  const prefixMatch = codePrefix && entries.find(([p]) => p.includes(codePrefix));
+  if (prefixMatch) return prefixMatch[1];
+  return rawImage ? rawImage.replace(/^\/assets\//, './assets/') : '';
+}
+
+function CharacterAvatar({ character, fallbackName = '', className = '' }) {
+  const src = characterImageSrc(character);
+  const [failedSrc, setFailedSrc] = useState('');
+  const label = (character?.name || fallbackName || '?').slice(0, 1);
+  if (!src || failedSrc === src) {
+    return <span className={`heroAvatarFallback ${className}`.trim()} aria-hidden="true">{label}</span>;
+  }
+  return (
+    <img
+      key={`${character?.code || fallbackName}-${src}`}
+      className={className || undefined}
+      src={src}
+      alt={character?.name || fallbackName}
+      onError={() => setFailedSrc(src)}
+    />
+  );
 }
 
 function loadoutImageSrc(source) {
@@ -1186,9 +1177,10 @@ function traitBonusesFor(traits, burstBonus = 0) {
       defense: bonus.defense + getNumber(effect.defense),
       maxHp: bonus.maxHp + getNumber(effect.maxHp),
       effectIds: effect.extraEffect ? [...bonus.effectIds, effect.extraEffect] : bonus.effectIds,
+      damageEffects: effect.damageEffect ? [...bonus.damageEffects, effect.damageEffect] : bonus.damageEffects,
       summaries: effect.summary ? [...bonus.summaries, `${trait.name}: ${effect.summary}`] : bonus.summaries
     };
-  }, { ap: 0, pen: 0, penPct: 0, cd: 0, dmgAmp: 0, defense: 0, maxHp: 0, effectIds: [], summaries: [] });
+  }, { ap: 0, pen: 0, penPct: 0, cd: 0, dmgAmp: 0, defense: 0, maxHp: 0, effectIds: [], damageEffects: [], summaries: [] });
 }
 
 function normalizeTraitSelection(selection) {
@@ -1404,8 +1396,6 @@ function calc({
   const talentPen = getNumber(traitBonuses.pen);
   const talentPenPct = getNumber(traitBonuses.penPct);
   const talentDamageBonus = getNumber(traitBonuses.dmgAmp);
-  const equipAp = statValue(equipmentStats, 'skillAmp') + statValue(equipmentStats, 'adaptiveForce') || selected.reduce((sum, item) => sum + getNumber(item.ap), 0);
-  const equipAttackPower = statValue(equipmentStats, 'attackPower');
   // 玛蒂娜那种带形态开关的英雄，只保留当前形态的条目（不写 form 的条目两态都留）
   const selectedHeroSkillRows = filterSkillsByForm(
     selectedHero,
@@ -1416,6 +1406,11 @@ function calc({
   const buffs = buffTotals(selectedHeroSkillRows, skillLevels, skillTargetCounts);
   const offensePath = primaryOffensePath({ skills: selectedHeroSkillRows, masteryStat });
   const usesAttackPath = offensePath === 'attack';
+  // 1 点适应力 = 1 攻击力 或 2 技能增幅（随实验体主路径二选一）
+  const equipAdaptive = statValue(equipmentStats, 'adaptiveForce');
+  const baseEquipSkillAmp = statValue(equipmentStats, 'skillAmp') || selected.reduce((sum, item) => sum + getNumber(item.ap), 0);
+  const equipAp = baseEquipSkillAmp + (usesAttackPath ? 0 : equipAdaptive * 2);
+  const equipAttackPower = statValue(equipmentStats, 'attackPower') + (usesAttackPath ? equipAdaptive : 0);
   const vampireStackAp = usesAttackPath ? 0 : (vampireFull ? 30 + mastery : 0);
   const vampireStackAttackPower = usesAttackPath && vampireFull ? 15 + mastery * 0.5 : 0;
   // 装备独有效果的修正项统一从 itemEffectModifiers.json 取，不再散落成魔法数字
@@ -1425,7 +1420,8 @@ function calc({
   });
   const stackAp = vampireStackAp + effectMods.ap;
   const stackAttackPower = vampireStackAttackPower + effectMods.attackPower + buffs.attackPower;
-  const stackCd = effectMods.cd;
+  const prelimExtraAttack = equipAttackPower + (usesAttackPath && vampireFull ? 15 + mastery * 0.5 : 0) + effectMods.attackPower + buffs.attackPower;
+  const stackCd = effectMods.cd + (effectMods.cdFromExtraAttackPct ? damageFloor(prelimExtraAttack * effectMods.cdFromExtraAttackPct) : 0);
   const rawCd = (statValue(equipmentStats, 'cooldownReduction') || selected.reduce((sum, item) => sum + getNumber(item.cd), 0)) + stackCd + getNumber(traitBonuses.cd);
   // 属性转换：席琳「不受冷却缩减影响，每 1 冷却缩减转换 1 技能增幅」。
   // 转换生效时原来那一档要清零，否则等于白拿一次冷却缩减。
@@ -1458,7 +1454,7 @@ function calc({
   const talentBonusDefense = getNumber(traitBonuses.defense) + dynamicTraitDefense + celestial.defense;
   const equipDefense = (statValue(equipmentStats, 'defense') || selected.reduce((sum, item) => sum + getNumber(item.defense), 0)) + talentBonusDefense;
   const extraHp = statValue(equipmentStats, 'maxHp') + getNumber(traitBonuses.maxHp) + celestial.maxHp;
-  const normalApPct = 0;
+  const normalApPct = statValue(equipmentStats, 'skillAmpRatio');
   const uniqueApPct = Math.max(statValue(equipmentStats, 'uniqueSkillAmpRatio'), ...selected.filter((item) => item.uniqueApPct).map((item) => getNumber(item.apPct)));
   const equipDamageBonus = selected.reduce((sum, item) => (
     sum + (hasConditionalDamageAmp(item) && !effectToggles['光辉'] ? 0 : getNumber(item.dmgAmp))
@@ -1470,7 +1466,7 @@ function calc({
   const extraAttackPower = equipAttackPower + talentBonusAttackPower + stackAttackPower;
   // 攻击力百分比加成（神速-鲁德拉的短剑、双重假面）作用在总攻击力上
   const attackPower = (baseAttackPower + extraAttackPower) * (1 + effectMods.attackPowerPct);
-  const totalApPct = normalApPct + uniqueApPct + masteryApPct + heroModifiers.apPct + buffs.apPct;
+  const totalApPct = normalApPct + uniqueApPct + masteryApPct + effectMods.apPct + heroModifiers.apPct + buffs.apPct;
   const totalBaseAp = equipAp + talentAp + talentBonusAp + stackAp + convertedAp + buffs.ap;
   const apRaw = totalBaseAp * (1 + totalApPct);
   const ap = damageFloor(apRaw);
@@ -1481,7 +1477,8 @@ function calc({
     * (1 - penPct - effectMods.penPct) - pen - effectMods.pen;
   const defenseMod = 100 / (100 + finalDefense);
   const enhancementDeviceDamageBonus = activeTraitEffectIds.has('enhancementDevice') ? 0.08 + mastery * 0.005 : 0;
-  const potentialDamageBonus = talentDamageBonus + enhancementDeviceDamageBonus;
+  const falseVowBonus = tacticalSkill === '虚言' ? (tacticalUpgraded ? 0.12 : 0.08) : 0;
+  const potentialDamageBonus = talentDamageBonus + enhancementDeviceDamageBonus + falseVowBonus;
   const totalDamageBonus = damageBonus + equipDamageBonus + potentialDamageBonus + effectMods.damageBonus + heroModifiers.damageBonus + buffs.damageBonus;
   const targetMasteryLevel = Math.max(1, Math.min(20, getNumber(targetMastery) || 1));
   const targetMasterySkillReduction = targetMasteryLevel <= 1 ? 0 : targetMasteryLevel * 0.008;
@@ -1502,11 +1499,15 @@ function calc({
   const basicAttackFlatBonus = statValue(equipmentStats, 'increaseBasicAttackDamage');
   const basicAttackDamageIncreaseRatio = totalDamageBonus + basicAttackAmp;
   const basicAttackTargetReductionRatio = target.reduction + targetMasteryBasicReduction;
+  const effectiveTargetForBa = {
+    ...target,
+    defense: target.defense * (1 - effectMods.targetDefensePct)
+  };
   const basicAttackDamage = calculateBasicAttackDamage({
     attackPower,
-    target,
-    armorPenetration: pen,
-    armorPenetrationRatio: penPct,
+    target: effectiveTargetForBa,
+    armorPenetration: pen + effectMods.pen,
+    armorPenetrationRatio: penPct + effectMods.penPct,
     flatBonus: basicAttackFlatBonus,
     damageIncreaseRatio: basicAttackDamageIncreaseRatio,
     targetDamageReductionRatio: basicAttackTargetReductionRatio,
@@ -1537,6 +1538,7 @@ function calc({
     defense: selfDefense,
     shield: getNumber(selfShield),
     critChance: statValue(equipmentStats, 'criticalStrikeChance'),
+    pen: pen + effectMods.pen,
     basicAttackAmp,
     accumulatedDamage: getNumber(accumulatedDamage),
     stacks: stackCount,
@@ -1605,7 +1607,7 @@ function calc({
       ? { title: '爆炸仙人掌(技)', raw: damageFloor(cactusBase), value: damageFloor(damageFloor(cactusBase) * finalMod), note: '队友普攻/独立技能触发：8~160+敌人体力上限5%；未触发自动爆炸为减少70%的伤害。' }
       : null
   ].filter(Boolean);
-  const ghostFire = adaptiveOffenseFormula({ base: 50 + mastery * 10, extraAttack: extraAttackPower, attackRatio: 0.7, ap, apRatio: 0.2 });
+  const ghostFire = adaptiveOffenseFormula({ base: 70 + mastery * 10, extraAttack: extraAttackPower, attackRatio: 0.7, ap, apRatio: 0.2 });
   if (activeTraitEffectIds.has('ghostFire')) {
     effects.push({ title: '鬼火(真伤)', raw: damageFloor(ghostFire.value), value: damageFloor(ghostFire.value), note: `50+等级*10+额外攻击力70%或技能增幅20%；当前按${ghostFire.route}计算。` });
   }
@@ -1618,14 +1620,40 @@ function calc({
     finalMod
   });
   if (tacticalEffect) effects.push(tacticalEffect);
+  // 数据驱动潜能通用伤害段（加速度及 S13 新增伤害型潜能）
+  for (const de of traitBonuses.damageEffects || []) {
+    if (de.adaptiveRoute) {
+      const baseVal = evaluateFormula(de.adaptiveRoute.baseFormula || '0', { ...context, base: 0, level: 1 });
+      const route = adaptiveOffenseFormula({
+        base: baseVal,
+        extraAttack: extraAttackPower,
+        attackRatio: getNumber(de.adaptiveRoute.attackRatio),
+        ap,
+        apRatio: getNumber(de.adaptiveRoute.apRatio)
+      });
+      const raw = damageFloor(route.value);
+      effects.push({
+        title: de.title,
+        raw,
+        value: de.damageType === 'true' ? raw : damageFloor(raw * finalMod),
+        note: `${de.note || ''}（当前按${route.route}计算）`
+      });
+    } else if (de.formula) {
+      const raw = damageFloor(evaluateFormula(de.formula, { ...context, base: 0, level: 1 }));
+      effects.push({
+        title: de.title,
+        raw,
+        value: de.damageType === 'true' ? raw : damageFloor(raw * finalMod),
+        note: de.note || ''
+      });
+    }
+  }
   // 装备独有效果伤害（诅咒 / 腐化 / 破裂…）：只算当前真的装上的
   effects.push(...equipmentEffectDamages(selected, context, effectToggles));
   const damageEffects = effects.filter((effect) => !effect.excludeFromSubtotal);
   const effectSubtotalRaw = damageEffects.reduce((sum, effect) => sum + effect.raw, 0);
   const effectSubtotal = damageEffects.reduce((sum, effect) => sum + effect.value, 0);
-  const comboSkills = skillTable
-    .filter((skill) => skill.hero === selectedHero)
-    .map((skill) => calculateSkill(skill, skillLevels[skill.id], context));
+  const comboSkills = heroSkills;
   const comboDamage = Object.fromEntries(comboSkills.map((skill) => [skill.id, skill.damage]));
   const comboRawDamage = Object.fromEntries(comboSkills.map((skill) => [skill.id, skill.rawDamage]));
   const comboRows = combos
@@ -2605,20 +2633,26 @@ export default function App() {
   // 「一段时间内累计造成的伤害」，给按累计量折算的技能用（丹尼尔 W 灵感引爆的真伤）
   const [accumulatedDamage, setAccumulatedDamage] = useState(getNumber(initialWorkspaceState.accumulatedDamage));
   // 目标当前体力 / 已失体力是同一件事的两面，两个框联动，和为 100%
-  const [targetHpPct, setTargetHpPct] = useState(() => {
-    const saved = getNumber(initialWorkspaceState.targetHpPct);
-    return saved > 0 ? saved : 100;
-  });
-  const [selfHpPct, setSelfHpPct] = useState(() => {
-    const saved = getNumber(initialWorkspaceState.selfHpPct);
-    return saved > 0 ? saved : 100;
-  });
+  const [targetHpPct, setTargetHpPct] = useState(() => (
+    initialWorkspaceState.targetHpPct === undefined || initialWorkspaceState.targetHpPct === null || initialWorkspaceState.targetHpPct === ''
+      ? 100
+      : Math.max(0, Math.min(100, getNumber(initialWorkspaceState.targetHpPct)))
+  ));
+  const [selfHpPct, setSelfHpPct] = useState(() => (
+    initialWorkspaceState.selfHpPct === undefined || initialWorkspaceState.selfHpPct === null || initialWorkspaceState.selfHpPct === ''
+      ? 100
+      : Math.max(0, Math.min(100, getNumber(initialWorkspaceState.selfHpPct)))
+  ));
   const [heroModifierChoices, setHeroModifierChoices] = useState(initialWorkspaceState.heroModifierChoices || {});
   // 形态开关（目前只有玛蒂娜的采访中 / 报道中），按英雄分别记住
   const [heroFormChoices, setHeroFormChoices] = useState(initialWorkspaceState.heroFormChoices || {});
   const [damageBonus, setDamageBonus] = useState(getNumber(initialWorkspaceState.damageBonus));
   const [skillReduction, setSkillReduction] = useState(getNumber(initialWorkspaceState.skillReduction));
-  const [r2Stacks, setR2Stacks] = useState(getNumber(initialWorkspaceState.r2Stacks) || 1);
+  const [r2Stacks, setR2Stacks] = useState(() => (
+    initialWorkspaceState.r2Stacks === undefined || initialWorkspaceState.r2Stacks === null || initialWorkspaceState.r2Stacks === ''
+      ? 1
+      : Math.max(0, getNumber(initialWorkspaceState.r2Stacks))
+  ));
   const [tacticalSkill, setTacticalSkill] = useState(initialWorkspaceState.tacticalSkill || '斥力弹');
   const [tacticalUpgraded, setTacticalUpgraded] = useState(initialWorkspaceState.tacticalUpgraded ?? true);
   const [vampireFull, setVampireFull] = useState(Boolean(initialWorkspaceState.vampireFull));
@@ -2714,7 +2748,6 @@ export default function App() {
       vampireFull,
       effectToggles,
       effectsCollapsed,
-      skillTargetCounts,
       heroAvatarQuery,
       showLowerTierEquipment,
       visibleStatKeys,
@@ -2946,7 +2979,7 @@ export default function App() {
     : weaponTypeRaw(byName(equipment, gear['武器']));
   const selectedMasteryStat = masteryStatFor(selectedCharacter?.code, selectedWeaponRaw);
   const selectedMasterySummary = masterySummary(selectedMasteryStat);
-  const attack = characterAttackAtLevel(selectedCharacter);
+  const attack = characterAttackAtLevel(selectedCharacter, mastery);
   const selectedGearItems = SLOTS.map((slot) => byName(equipment, gear[slot])).filter(Boolean);
   const selectedEquipmentEffectsRaw = selectedGearItems.flatMap((item) => (
     uniqueEffectsForItem(item).map((effect) => ({
@@ -2970,7 +3003,8 @@ export default function App() {
     ].join(' ');
     // 刽子手这类「目标血量低于 X%」的触发条件也需要那两个框
     const needsTargetHp = (ITEM_EFFECT_MODIFIERS.effects || [])
-      .some((effect) => equippedEffects.includes(effect.name) && effect.condition?.targetHpBelow !== undefined);
+      .some((effect) => equippedEffects.includes(effect.name)
+        && (effect.condition?.targetHpBelow !== undefined || effect.condition?.targetHpAbove !== undefined));
     return ['targetCurrentHp', 'targetLostHp', 'shield', 'accumulatedDamage'].filter((name) => (
       new RegExp(`\\b${name}\\b`).test(formulas) || (needsTargetHp && name !== 'shield' && name !== 'accumulatedDamage')
     ));
@@ -3112,6 +3146,9 @@ export default function App() {
       const scenarioSelfHp = Math.max(1, getNumber(comparisonSettings.selfHp));
       const scenarioTraitBonuses = traitBonusesFor(selectedTraits, Math.min(0.1, Math.max(0, (comparisonSettings.target.hp - scenarioSelfHp) / scenarioSelfHp) * 0.25));
       const effectAvailability = comparisonScenarioEffectAvailability(scenario);
+      const levelAttack = characterAttackAtLevel(selectedCharacter, level);
+      const levelDefense = characterDefenseAtLevel(selectedCharacter, level);
+      const levelMaxHp = characterMaxHpAtLevel(selectedCharacter, level);
       const scenarioResult = calc({
         equipment,
         skillTable: skills,
@@ -3119,13 +3156,22 @@ export default function App() {
         gear: scenario.gear,
         mastery: level,
         masteryStat: scenarioMasteryStat,
-        attack,
+        attack: levelAttack,
+        baseDefense: levelDefense,
+        baseMaxHp: levelMaxHp,
         talentAp,
         traitBonuses: scenarioTraitBonuses,
         selectedTraits,
         target: comparisonSettings.target,
         targetMastery: comparisonSettings.targetMastery,
+        targetHpPct,
+        selfHpPct,
+        heroModifierChoices,
+        heroForm: activeHeroForm,
+        skillTargetCounts,
         selfHp: comparisonSettings.selfHp,
+        selfShield,
+        accumulatedDamage,
         damageBonus: comparisonSettings.damageBonus,
         skillReduction: comparisonSettings.skillReduction,
         r2Stacks,
@@ -3171,7 +3217,7 @@ export default function App() {
         }
       };
     }))
-  ), [comparisonScenarios, comparisonMasteryLevels, comparisonSettings, equipment, skills, skillLevels, selectedCharacter, selectedTraits, attack, talentAp, r2Stacks, tacticalSkill, tacticalUpgraded, selectedHero, combos]);
+  ), [comparisonScenarios, comparisonMasteryLevels, comparisonSettings, equipment, skills, skillLevels, selectedCharacter, selectedTraits, talentAp, targetHpPct, selfHpPct, heroModifierChoices, activeHeroForm, skillTargetCounts, selfShield, accumulatedDamage, r2Stacks, tacticalSkill, tacticalUpgraded, selectedHero, combos]);
   // 勾选栏里能出现哪些指标：核心项恒在，其余项要「至少有一个方案真的有这个数值」
   const availableComparisonMetrics = useMemo(() => {
     const nonZero = new Set();
@@ -3611,6 +3657,7 @@ export default function App() {
             ...skill,
             [key]: key === 'maxLevel' ? getNumber(value) : value,
             manual: true,
+            userEdited: true,
             updatedAt: new Date().toISOString()
           }
           : skill
@@ -3731,7 +3778,7 @@ export default function App() {
             title={group.tooltip || group.name}
             key={`${area}-${group.key}`}
           >
-            <img src={loadoutImageSrc(group.image)} alt="" />
+            <img key={group.image} src={loadoutImageSrc(group.image)} alt="" onError={(e) => { e.currentTarget.style.display = 'none'; }} />
             <span>{group.name}</span>
           </button>
         ))}
@@ -3756,7 +3803,7 @@ export default function App() {
               title={trait.tooltip || trait.name}
               key={`${slot.key}-${trait.id}`}
             >
-              <img className="traitIcon" src={loadoutImageSrc(trait.image)} alt="" />
+              <img key={trait.image} className="traitIcon" src={loadoutImageSrc(trait.image)} alt="" onError={(e) => { e.currentTarget.style.display = 'none'; }} />
               <span>{trait.name}</span>
             </button>
           ))}
@@ -4659,11 +4706,7 @@ export default function App() {
               onClick={() => setSelectedHero(name)}
               key={name}
             >
-              {character ? (
-                <img src={characterImageSrc(character)} alt="" onError={(event) => { event.currentTarget.style.display = 'none'; }} />
-              ) : (
-                <span className="heroAvatarFallback">{name.slice(0, 1)}</span>
-              )}
+              <CharacterAvatar character={character} fallbackName={name} />
               <span>
                 <strong>{name}</strong>
                 <small>{character?.englishName || '手动配置'}</small>
@@ -4680,9 +4723,7 @@ export default function App() {
     <main>
       <section className="hero">
         <div className="heroPanel heroIdentity">
-          {selectedCharacter ? (
-            <img src={characterImageSrc(selectedCharacter)} alt={selectedCharacter.name} onError={(event) => { event.currentTarget.style.display = 'none'; }} />
-          ) : null}
+          <CharacterAvatar character={selectedCharacter} fallbackName={selectedHero} />
           <span>当前实验体</span>
           <strong>{selectedHero}</strong>
           <small>{selectedCharacter ? selectedCharacter.englishName : '手动配置实验体'}</small>
@@ -5074,7 +5115,7 @@ export default function App() {
           <div className="sourceBody">
             <div className="sourceGrid">
               <div className="characterCard">
-                <img src={characterImageSrc(selectedCharacter)} alt={selectedCharacter.name} onError={(event) => { event.currentTarget.style.display = 'none'; }} />
+                <CharacterAvatar character={selectedCharacter} fallbackName={selectedHero} />
                 <div>
                   <strong>{selectedCharacter.storyName || selectedCharacter.name}</strong>
                   <span>{selectedCharacter.englishName} / {selectedCharacter.archetypes.join(', ') || '未分类'}</span>

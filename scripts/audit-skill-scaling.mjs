@@ -1,7 +1,10 @@
 // 公告的系数文本里若写成「5/5.5/6/6.5/7%」这种分级百分比，公式里就该是 [..][level-1]。
 // 写死成单一常数 = 只有 1 级值正确，其余等级全部算少（或算多）。
 import { readFileSync } from 'node:fs';
-const file = JSON.parse(readFileSync('D:/er_damage/src/data/heroSkills.json', 'utf8'));
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+const rootDir = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const file = JSON.parse(readFileSync(path.join(rootDir, 'src/data/heroSkills.json'), 'utf8'));
 const skills = file.skills || Object.values(file)[0];
 
 const rows = [];

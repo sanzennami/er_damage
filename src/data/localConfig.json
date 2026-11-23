@@ -55,36 +55,5 @@
       "note": "示例：技伤加成"
     }
   ],
-  "combos": [
-    {
-      "id": "yumin-q3",
-      "hero": "俞岷",
-      "title": "Q 三跳全中",
-      "note": "Q*3",
-      "hits": {
-        "yumin-q": 3
-      }
-    },
-    {
-      "id": "yumin-eq4",
-      "hero": "俞岷",
-      "title": "EQ 四跳全中",
-      "note": "EQ*4",
-      "hits": {
-        "yumin-eq": 4
-      }
-    },
-    {
-      "id": "yumin-eqqw",
-      "hero": "俞岷",
-      "title": "EQQW 全中",
-      "note": "Q3 + EQ4 + E + W",
-      "hits": {
-        "yumin-q": 3,
-        "yumin-eq": 4,
-        "yumin-e": 1,
-        "yumin-w": 1
-      }
-    }
-  ]
+  "combos": []
 }
