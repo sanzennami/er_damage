@@ -63,7 +63,7 @@ import {
   statConversionFor
 } from './lib/specialRules.js';
 
-const APP_VERSION = 'v0.2.092';
+const APP_VERSION = 'v0.2.093';
 
 const EXPORTED_LOCAL_CONFIG_MODULES = import.meta.glob('./data/localConfig.export.json', {
   eager: true,
@@ -3454,7 +3454,7 @@ export default function App() {
   const [editMode, setEditMode] = useState(Boolean(initialAppSettings.editMode));
   const [showDamageTestHeroes, setShowDamageTestHeroes] = useState(Boolean(initialAppSettings.showDamageTestHeroes));
   const [uiTheme, setUiTheme] = useState(() => initialAppSettings.uiTheme || 'night');
-  const [wideLayout, setWideLayout] = useState(() => initialAppSettings.wideLayout !== false);
+  const [wideLayout, setWideLayout] = useState(() => !Boolean(initialAppSettings.useLegacyUi));
   const [pinnedBaseline, setPinnedBaseline] = useState(null);
   const [quickComboItems, setQuickComboItems] = useState(() => (
     Array.isArray(initialWorkspaceState.quickComboItems) ? initialWorkspaceState.quickComboItems : []
@@ -3564,7 +3564,14 @@ export default function App() {
   }, [selectedHero]);
 
   useEffect(() => {
-    window.localStorage.setItem(APP_SETTINGS_KEY, JSON.stringify({ useHeroAvatarPicker, useVisualGearPicker, editMode, showDamageTestHeroes, uiTheme, wideLayout }));
+    window.localStorage.setItem(APP_SETTINGS_KEY, JSON.stringify({
+      useHeroAvatarPicker,
+      useVisualGearPicker,
+      editMode,
+      showDamageTestHeroes,
+      uiTheme,
+      useLegacyUi: !wideLayout
+    }));
   }, [useHeroAvatarPicker, useVisualGearPicker, editMode, showDamageTestHeroes, uiTheme, wideLayout]);
 
   useEffect(() => {
@@ -6618,14 +6625,6 @@ export default function App() {
               <button type="button" className={activePage === 'compare' ? 'active' : ''} onClick={() => setActivePage('compare')}>
                 拉表对比
               </button>
-              <button
-                type="button"
-                className={wideLayout ? 'active' : ''}
-                onClick={() => setWideLayout((v) => !v)}
-                title="切换横屏自适应铺满 / 传统窄版居中"
-              >
-                {wideLayout ? '↔ 宽屏铺满' : '▫ 窄版居中'}
-              </button>
               {GAME_VERSION.label ? (
                 <span className="dataVersionTag" title={GAME_VERSION.note || ''}>
                   数据版本 {GAME_VERSION.label}
@@ -6686,6 +6685,14 @@ export default function App() {
                         onChange={(event) => setUiTheme(event.target.checked ? 'day' : 'night')}
                       />
                       <span>日间配色</span>
+                    </label>
+                    <label className="toggle">
+                      <input
+                        type="checkbox"
+                        checked={!wideLayout}
+                        onChange={(event) => setWideLayout(!event.target.checked)}
+                      />
+                      <span>旧版界面</span>
                     </label>
                     <label className="toggle">
                       <input
