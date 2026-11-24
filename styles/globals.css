@@ -3923,8 +3923,7 @@ body[data-theme='day'] .pinnedStatCell {
 }
 body[data-theme='day'] .pinnedStatNums strong { color: #1e293b; }
 
-/* 2. 宽屏模式专属视觉重塑（去除 AI Slop 肥圆角、大标题、脏紫棕底色） */
-@media (min-width: 1100px) {
+/* 2. 宽屏模式专属视觉重塑（去除 AI Slop 肥圆角、大标题、脏紫棕底色；全视口保持统一现代视觉） */
   body[data-wide='true'] {
     background: #0b0e14;
     color: #e2e8f0;
@@ -4191,29 +4190,31 @@ body[data-theme='day'] .pinnedStatNums strong { color: #1e293b; }
     font-weight: 700;
   }
 
-  /* ---- 核心第一屏工作区：严丝合缝双栏 / 三栏网格对齐 ---- */
-  body[data-wide='true'] .buildTargetGrid {
-    grid-template-columns: minmax(0, 1.32fr) minmax(380px, 0.95fr);
-    gap: 16px;
-    align-items: stretch;
-  }
+  /* ---- 核心第一屏工作区：严丝合缝双栏 / 三栏网格对齐（仅 >=1100px 启用多列） ---- */
+  @media (min-width: 1100px) {
+    body[data-wide='true'] .buildTargetGrid {
+      grid-template-columns: minmax(0, 1.32fr) minmax(380px, 0.95fr);
+      gap: 16px;
+      align-items: stretch;
+    }
 
-  body[data-wide='true'] .buildTargetGrid.withAvatarRail {
-    grid-template-columns: 220px minmax(0, 1.32fr) minmax(380px, 0.95fr);
-  }
+    body[data-wide='true'] .buildTargetGrid.withAvatarRail {
+      grid-template-columns: 220px minmax(0, 1.32fr) minmax(380px, 0.95fr);
+    }
 
-  body[data-wide='true'] .wideRailAvatarPicker {
-    max-height: 540px;
-    border-radius: 10px;
-    border: 1px solid #1e2636;
-    background: #121722;
-    box-shadow: none;
-    padding: 12px;
-  }
+    body[data-wide='true'] .wideRailAvatarPicker {
+      max-height: 540px;
+      border-radius: 10px;
+      border: 1px solid #1e2636;
+      background: #121722;
+      box-shadow: none;
+      padding: 12px;
+    }
 
-  body[data-wide='true'] .wideRailAvatarPicker .heroAvatarList {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 6px;
+    body[data-wide='true'] .wideRailAvatarPicker .heroAvatarList {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 6px;
+    }
   }
 
   body[data-wide='true'] .heroAvatarOption {
@@ -4318,7 +4319,6 @@ body[data-theme='day'] .pinnedStatNums strong { color: #1e293b; }
     border-color: rgba(56, 189, 248, 0.28);
     background: rgba(11, 15, 23, 0.72) !important;
   }
-}
 
 /* ==========================================================================
    v0.2.083 宽屏三列布局、问号图标复位、头像防裁切与日间模式全面适配补丁
@@ -4333,7 +4333,6 @@ body[data-theme='day'] .pinnedStatNums strong { color: #1e293b; }
   line-height: 1.3;
 }
 
-@media (min-width: 1100px) {
   /* 修复宽屏下 .helpButton (?) 被全局 button padding 撑歪到右下角的 Bug，以及其它零内边距按钮保护 */
   body[data-wide='true'] button.helpButton {
     width: 18px;
@@ -4365,44 +4364,46 @@ body[data-theme='day'] .pinnedStatNums strong { color: #1e293b; }
   }
 
   /* 宽屏第一屏黄金三列排布（装备选择 | 目标与增减伤 | 核心数据概览） */
-  body[data-wide='true'] .buildTargetGrid {
-    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.95fr) minmax(340px, 0.98fr);
-    gap: 14px;
-    align-items: start;
-  }
+  @media (min-width: 1100px) {
+    body[data-wide='true'] .buildTargetGrid {
+      grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.95fr) minmax(340px, 0.98fr);
+      gap: 14px;
+      align-items: start;
+    }
 
-  /* 开启左侧头像列表时：紧凑四列（头像栏 196px | 装备 | 目标 | 核心数据） */
-  body[data-wide='true'] .buildTargetGrid.withAvatarRail {
-    grid-template-columns: 196px minmax(0, 1.12fr) minmax(0, 0.92fr) minmax(330px, 0.95fr);
-    gap: 12px;
-  }
-
-  /* 中等笔记本屏幕（1100px ~ 1440px）自动折为舒适双列，避免三列过挤 */
-  @media (max-width: 1440px) {
-    body[data-wide='true'] .buildTargetGrid,
+    /* 开启左侧头像列表时：紧凑四列（头像栏 196px | 装备 | 目标 | 核心数据） */
     body[data-wide='true'] .buildTargetGrid.withAvatarRail {
+      grid-template-columns: 196px minmax(0, 1.12fr) minmax(0, 0.92fr) minmax(330px, 0.95fr);
+      gap: 12px;
+    }
+
+    /* 中等笔记本屏幕（1100px ~ 1440px）自动折为舒适双列，避免三列过挤 */
+    @media (max-width: 1440px) {
+      body[data-wide='true'] .buildTargetGrid,
+      body[data-wide='true'] .buildTargetGrid.withAvatarRail {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+      body[data-wide='true'] .wideKeyStatsColumn {
+        grid-column: 1 / -1;
+      }
+    }
+
+    /* 装备与木桩在三列宽度下改用清爽规整的 2 列排布，不再挤成一团 */
+    body[data-wide='true'] .gearGrid,
+    body[data-wide='true'] .formGrid {
       grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px 12px;
     }
-    body[data-wide='true'] .wideKeyStatsColumn {
-      grid-column: 1 / -1;
+
+    body[data-wide='true'] .wideRailAvatarPicker {
+      max-height: 600px;
+      padding: 10px;
     }
-  }
 
-  /* 装备与木桩在三列宽度下改用清爽规整的 2 列排布，不再挤成一团 */
-  body[data-wide='true'] .gearGrid,
-  body[data-wide='true'] .formGrid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 10px 12px;
-  }
-
-  body[data-wide='true'] .wideRailAvatarPicker {
-    max-height: 600px;
-    padding: 10px;
-  }
-
-  body[data-wide='true'] .heroAvatarOption {
-    min-height: 66px;
-    padding: 6px 4px;
+    body[data-wide='true'] .heroAvatarOption {
+      min-height: 66px;
+      padding: 6px 4px;
+    }
   }
 
   /* 第 3 列核心数据双列紧凑网格 */
@@ -4642,7 +4643,6 @@ body[data-theme='day'] .pinnedStatNums strong { color: #1e293b; }
     border-color: #cbd5e1;
     box-shadow: 0 12px 32px rgba(15, 23, 42, 0.14);
   }
-}
 
 .progressiveStepInteractive {
   cursor: pointer;
@@ -6649,4 +6649,334 @@ body[data-theme='day'] .goCurrentEquippedBanner {
   background: #f0f9ff;
   border-color: #7dd3fc;
   color: #1e293b;
+}
+
+
+/* ==========================================================================
+   v0.2.092 竖屏 / 右侧分屏 / 手机窄视口全场景排版修复
+   ========================================================================== */
+
+/* 1. 修复技能子卡片在相邻列高度不同时内部被撑出大段空白黑洞的问题 */
+.skillSubGrid,
+.skillDamageLeaf {
+  align-content: start;
+}
+
+/* 2. 修复 D 键武器技能与技能槽「D等级 / Lv.」标签竖排断行 */
+.levelSelect {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.levelSelect > span {
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* 3. 确保可视化装备栏悬浮锚点与卡片右侧按钮严格贴右对齐 */
+.hovercardAnchor.vgSlotHoverWrap {
+  display: block !important;
+  width: 100%;
+  min-width: 0;
+}
+
+.vgSlotMeta {
+  width: 100%;
+  flex: 1 1 0%;
+}
+
+.vgSlotTopRow {
+  width: 100%;
+}
+
+/* 4. 修复弹窗在带滚动条窄视口下右侧超出 2~18px 的问题 */
+.vgModalDialog,
+.goModalDialog {
+  width: min(1040px, 100%) !important;
+  max-width: 100% !important;
+  box-sizing: border-box;
+}
+
+/* 5. < 1100px（竖屏显示器、IDE 右侧分屏预览、平板竖屏）适配 */
+@media (max-width: 1099px) {
+  body[data-wide='true'] main {
+    width: min(100% - 24px, 1040px);
+    padding: 12px 0 36px;
+  }
+
+  body[data-wide='true'] .hero {
+    flex-wrap: wrap;
+    gap: 10px 16px;
+    padding: 10px 14px;
+  }
+
+  body[data-wide='true'] .heroPanel.heroIdentity {
+    padding-right: 14px;
+  }
+
+  body[data-wide='true'] .buildTargetGrid,
+  body[data-wide='true'] .buildTargetGrid.withAvatarRail {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 12px;
+  }
+
+  /* 竖屏/分屏下若开启了头像列表，改为紧凑横向多列抽屉，不挤占整屏高度 */
+  body[data-wide='true'] .wideRailAvatarPicker {
+    max-height: 220px;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #1e2636;
+    background: #121722;
+  }
+
+  body[data-wide='true'] .wideRailAvatarPicker .heroAvatarList {
+    grid-template-columns: repeat(auto-fill, minmax(74px, 1fr));
+    gap: 6px;
+  }
+
+  body[data-wide='true'] .gearGrid,
+  body[data-wide='true'] .formGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px 12px;
+  }
+
+  /* 窄版居中模式在竖屏下同样收紧巨型头图，避免首屏被占满 */
+  body:not([data-wide='true']) .hero {
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  body:not([data-wide='true']) .heroPanel.heroIdentity {
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 12px;
+    min-height: 0;
+    padding: 12px 16px;
+    text-align: left;
+  }
+
+  body:not([data-wide='true']) .heroIdentity img,
+  body:not([data-wide='true']) .heroIdentity .heroAvatarFallback {
+    width: 52px;
+    height: 52px;
+    margin-bottom: 0;
+  }
+
+  body:not([data-wide='true']) .heroIdentity > span:not(.heroAvatarFallback) {
+    display: none;
+  }
+
+  body:not([data-wide='true']) .heroIdentity strong {
+    margin: 0;
+    font-size: 22px;
+  }
+
+  body:not([data-wide='true']) .hero h1 {
+    font-size: clamp(20px, 4.8vw, 28px);
+    line-height: 1.25;
+  }
+
+  body:not([data-wide='true']) .heroIntroBlock .intro {
+    margin: 6px 0 0;
+    font-size: 13px;
+  }
+
+  body:not([data-wide='true']) .heroPicker {
+    margin-top: 10px;
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* 6. <= 760px（窄分屏与手机竖屏）精细排版：防断字、防挤压 */
+@media (max-width: 760px) {
+  .vgModalBackdrop {
+    padding: 10px;
+  }
+
+  body[data-wide='true'] .hero {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  body[data-wide='true'] .heroPanel.heroIdentity {
+    width: 100%;
+    border-right: 0;
+    border-bottom: 1px solid rgba(148, 163, 184, 0.14);
+    padding: 0 0 10px 0;
+  }
+
+  body[data-wide='true'][data-theme='day'] .heroPanel.heroIdentity {
+    border-bottom-color: #e2e8f0;
+  }
+
+  body[data-wide='true'] .heroIntroBlock {
+    width: 100%;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+
+  body[data-wide='true'] .hero h1 {
+    font-size: 18px;
+    white-space: nowrap;
+  }
+
+  body[data-wide='true'] .heroPicker {
+    width: 100%;
+  }
+
+  body[data-wide='true'] .heroPickerTop,
+  body:not([data-wide='true']) .heroPickerTop {
+    width: 100%;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    gap: 8px;
+    align-items: end;
+  }
+
+  body[data-wide='true'] .heroPickerTop .selectBlock {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 4px;
+    min-width: 0;
+    width: 100%;
+  }
+
+  body[data-wide='true'] .heroPickerTop .selectBlock select {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .globalSettingsMenu {
+    top: calc(100% + 6px);
+    right: 0;
+    left: auto;
+    width: min(300px, calc(100vw - 24px));
+  }
+
+  .buildPanel .panelHead {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+  }
+
+  .buildPanel .panelHead .buttonRow {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .skillMainGrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .traitCompactSummary {
+    margin-left: 0;
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  /* 换装收益排行弹窗在窄竖屏下改为双行卡片式排行，彻底消除装备名称竖排一字挤压 */
+  .goSlotTabsBar {
+    display: flex;
+    overflow-x: auto;
+    gap: 6px;
+    padding: 8px 12px;
+  }
+
+  .goSlotTabsBar .vgModalSlotTab {
+    flex: 0 0 auto;
+  }
+
+  .goBestSlotGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .goRankRow {
+    display: grid;
+    grid-template-columns: 28px 40px minmax(0, 1fr) auto;
+    grid-template-areas:
+      "idx icon info act"
+      "idx stats stats stats";
+    align-items: center;
+    gap: 6px 8px;
+    padding: 9px 10px;
+  }
+
+  .goRankIndex {
+    grid-area: idx;
+    width: auto;
+  }
+
+  .goRankRow > .vgEquipIconBox {
+    grid-area: icon;
+  }
+
+  .goRankInfo {
+    grid-area: info;
+  }
+
+  .goRankActionCol {
+    grid-area: act;
+    width: auto;
+  }
+
+  .goRankStatsCol {
+    grid-area: stats;
+    min-width: 0;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    text-align: left;
+    padding-top: 5px;
+    border-top: 1px dashed rgba(148, 163, 184, 0.16);
+    gap: 4px 10px;
+  }
+
+  .goScoreMain,
+  .goAuxDiffLine {
+    justify-content: flex-start;
+  }
+}
+
+/* 7. <= 540px（手机竖屏）单列舒展排布 */
+@media (max-width: 540px) {
+  body[data-wide='true'] main,
+  main {
+    width: calc(100% - 16px);
+  }
+
+  .vgSlotStrip {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  body[data-wide='true'] .gearGrid,
+  body[data-wide='true'] .formGrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  body[data-wide='true'] .wideKeyStatsGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .goBestSlotGrid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .pageSwitch {
+    flex-wrap: wrap;
+    width: 100%;
+  }
+
+  .pageSwitch .dataVersionTag {
+    border-left: 0;
+    margin-left: 0;
+    padding-left: 4px;
+  }
 }
