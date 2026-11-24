@@ -83,8 +83,14 @@
       "damageType": "skill",
       "formula": "12 + ap * 0.05",
       "hits": 5,
+      "realisticHits": 2,
+      "toggle": {
+        "label": "次元裂痕已触发（终极命中后 5 秒）",
+        "situational": true,
+        "zone": true
+      },
       "coefficientText": "每秒 12(+技能增幅5%)",
-      "note": "12.7 加强：每秒技能增幅系数由 4% 上调至 5%。终极技能命中附加 5 秒「次元紊乱」（目标承伤 +6% 可在配装栏开关勾选），每目标冷却 20 秒。"
+      "note": "12.7 加强：每秒技能增幅系数由 4% 上调至 5%。终极技能命中附加 5 秒「次元紊乱」（目标承伤 +6% 同步生效），每目标冷却 20 秒。"
     },
     {
       "name": "火力延伸",
@@ -108,8 +114,14 @@
       "damageType": "skill",
       "formula": "20 + ap * 0.15 + targetHp * 0.005",
       "hits": 10,
+      "realisticHits": 2,
+      "toggle": {
+        "label": "疾风已触发（命中 3 次·龙卷风）",
+        "situational": true,
+        "zone": true
+      },
       "coefficientText": "每 0.5 秒 20(+技能增幅15%)(+目标体力上限0.5%)",
-      "note": "5 秒内命中同一敌人 3 次生成龙卷风，持续 5 秒共 10 跳，冷却 10 秒。"
+      "note": "5 秒内命中同一敌人 3 次在原地生成龙卷风，持续 5 秒共 10 跳（实战常驻留约 1 秒即 2 跳），冷却 10 秒。"
     },
     {
       "name": "疾风 - 集结",
@@ -117,8 +129,14 @@
       "damageType": "skill",
       "formula": "20 + attack * 0.3 + targetHp * 0.005",
       "hits": 10,
+      "realisticHits": 2,
+      "toggle": {
+        "label": "疾风-集结已触发（硬控·龙卷风）",
+        "situational": true,
+        "zone": true
+      },
       "coefficientText": "每 0.5 秒 20(+攻击力30%)(+目标体力上限0.5%)",
-      "note": "对敌人施加无法移动效果时生成，持续 5 秒共 10 跳，冷却 10 秒。"
+      "note": "对敌人施加无法移动效果时在原地生成龙卷风，持续 5 秒共 10 跳（实战常驻留约 1 秒即 2 跳），冷却 10 秒。"
     },
     {
       "name": "疾风 - 寒气",
@@ -263,8 +281,14 @@
       "damageType": "skill",
       "formula": "20 + extraHp * 0.12",
       "hits": 6,
+      "realisticHits": 2,
+      "toggle": {
+        "label": "邪恶之雾（目标在区域内）",
+        "situational": true,
+        "zone": true
+      },
       "coefficientText": "每秒 20(+额外体力12%)",
-      "note": "施加无法移动效果后生成 6 秒迷雾；区域内敌人防御 -12% 已在修正表建模（勾选配装栏开关即可计入），冷却 10 秒。"
+      "note": "施加无法移动效果后在原地生成 6 秒迷雾（实战常驻留约 2 秒即 2 跳）；区域内敌人防御 -12% 同步生效，冷却 10 秒。"
     },
     {
       "name": "灼火之心",
@@ -295,16 +319,24 @@
       "label": "精准锁定",
       "damageType": "skill",
       "formula": "10 + heroLevel * 2",
+      "toggle": {
+        "label": "精准锁定已触发（队友命中标记）",
+        "situational": true
+      },
       "coefficientText": "10(+实验体等级*2)",
-      "note": "队友对被标识的目标造成伤害时结算，冷却 8 秒。"
+      "note": "队友对被标识的目标造成伤害时结算（单人无法触发），冷却 8 秒。"
     },
     {
       "name": "荆棘",
       "label": "荆棘 爆发",
       "damageType": "skill",
       "formula": "150",
+      "toggle": {
+        "label": "荆棘爆发（累计承受 600 伤害）",
+        "situational": true
+      },
       "coefficientText": "150",
-      "note": "4 秒内累计承受 600 伤害时对周围造成，冷却 3 秒。普攻反弹 4.5% 真伤未建模。"
+      "note": "4 秒内累计承受 600 伤害时对周围造成反击伤害，冷却 3 秒。普攻反弹 4.5% 真伤未建模。"
     },
     {
       "name": "泰瑟电击 - 跳跃",
@@ -319,8 +351,12 @@
       "label": "亡灵祷告",
       "damageType": "skill",
       "formula": "30 + heroLevel * 5 + targetHp * 0.07",
+      "toggle": {
+        "label": "亡灵祷告已触发（队友协同触发）",
+        "situational": true
+      },
       "coefficientText": "30(+实验体等级*5)(+目标体力上限7%)",
-      "note": "给队友提供恢复或护盾后，队友命中敌人时亡灵飞出结算。冷却 6 秒。"
+      "note": "给队友提供恢复或护盾后，队友命中敌人时亡灵飞出结算（单人无法触发）。冷却 6 秒。"
     },
     {
       "name": "微步",
@@ -350,7 +386,8 @@
       "damageType": "shield",
       "formula": "100 + extraHp * 1",
       "toggle": {
-        "label": "法夫纳之鳞满层"
+        "label": "法夫纳之鳞满层",
+        "situational": true
       },
       "coefficientText": "100(+额外体力100%)",
       "note": "累计承受 350 伤害叠 1 层，上限 8 层；满层时获得持续 4 秒且逐渐减弱的护盾。"
@@ -369,7 +406,8 @@
       "damageType": "shield",
       "formula": "125 + extraHp * 0.8",
       "toggle": {
-        "label": "逆流 - 巨人已触发"
+        "label": "逆流 - 巨人已触发",
+        "situational": true
       },
       "coefficientText": "125(+额外体力80%)",
       "note": "体力低于 40% 时承受敌人伤害触发，持续 2 秒。冷却 30 秒。"
@@ -380,7 +418,8 @@
       "damageType": "shield",
       "formula": "200 + heroLevel * 15",
       "toggle": {
-        "label": "逆流 - 血之契约已触发"
+        "label": "逆流 - 血之契约已触发",
+        "situational": true
       },
       "coefficientText": "200(+实验体等级*15)",
       "note": "体力低于 40% 时承受敌人伤害触发，持续 2.5 秒；同时 8 秒内 +15 攻击力或 +30 技能增幅（见修正表）。冷却 40 秒。"
@@ -457,7 +496,8 @@
       "damageType": "shield",
       "formula": "30 + extraHp * 0.06 + heroLevel * 3",
       "toggle": {
-        "label": "守护者协议已触发（定身敌人后）"
+        "label": "守护者协议已触发（定身敌人后）",
+        "situational": true
       },
       "coefficientText": "30(+额外体力6%)(+实验体等级*3)",
       "note": "13.0 圣骑士头盔新增：对敌方实验体施加无法移动效果后，为周围 10m 队友赋予持续 2.5 秒的护盾，冷却 8 秒。"

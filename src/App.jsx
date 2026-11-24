@@ -63,7 +63,7 @@ import {
   statConversionFor
 } from './lib/specialRules.js';
 
-const APP_VERSION = 'v0.2.093';
+const APP_VERSION = 'v0.2.094';
 
 const EXPORTED_LOCAL_CONFIG_MODULES = import.meta.glob('./data/localConfig.export.json', {
   eager: true,
@@ -623,17 +623,34 @@ function uniqueEffectsForItem(item) {
  * 需要界面开关的装备特效（叠层类、条件触发类）。两张表里凡是写了 toggle 的都算，
  * 按效果名去重 —— 装上带该效果的装备后，对应开关才会出现。
  */
-const EFFECT_TOGGLE_LABELS = new Map(
-  [...(ITEM_EFFECT_DAMAGE.effects || []), ...(ITEM_EFFECT_MODIFIERS.effects || [])]
-    .filter((effect) => effect.toggle)
-    .map((effect) => [effect.name, effect.toggle.label || effect.name])
+const EFFECT_TOGGLE_META = (() => {
+  const map = new Map();
+  for (const effect of [...(ITEM_EFFECT_DAMAGE.effects || []), ...(ITEM_EFFECT_MODIFIERS.effects || [])]) {
+    if (!effect.toggle) continue;
+    const prev = map.get(effect.name);
+    map.set(effect.name, {
+      name: effect.name,
+      label: prev?.label || effect.toggle.label || effect.name,
+      situational: Boolean(prev?.situational || effect.toggle.situational),
+      zone: Boolean(prev?.zone || effect.toggle.zone)
+    });
+  }
+  return map;
+})();
+
+const REALISTIC_HIT_EFFECT_NAMES = new Set(
+  (ITEM_EFFECT_DAMAGE.effects || [])
+    .filter((effect) => getNumber(effect.realisticHits) > 0 && getNumber(effect.hits) > 1)
+    .map((effect) => effect.name)
 );
+
+function hasRealisticHitEffects(items = []) {
+  return items.some((item) => uniqueEffectsForItem(item).some((name) => REALISTIC_HIT_EFFECT_NAMES.has(name)));
+}
 
 function toggleableEffectsFor(items) {
   const equipped = new Set(items.flatMap((item) => uniqueEffectsForItem(item)));
-  return [...EFFECT_TOGGLE_LABELS.entries()]
-    .filter(([name]) => equipped.has(name))
-    .map(([name, label]) => ({ name, label }));
+  return [...EFFECT_TOGGLE_META.values()].filter((meta) => equipped.has(meta.name));
 }
 
 /** 声明了开关但没勾上的效果不参与计算 */
@@ -653,7 +670,7 @@ function effectToggleHint(name) {
  * 变量和技能公式共用一套（ap / attack / extraAttack / targetHp / maxHp / extraHp / heroLevel）。
  * 只列出真的装上了的效果，没装的不显示。
  */
-function equipmentEffectDamages(items, context, effectToggles = {}) {
+function equipmentEffectDamages(items, context, effectToggles = {}, { realisticEffectHits = false } = {}) {
   const equippedNames = new Set(items.flatMap((item) => uniqueEffectsForItem(item)));
   const owners = new Map();
   for (const item of items) {
@@ -671,15 +688,29 @@ function equipmentEffectDamages(items, context, effectToggles = {}) {
       // 真实伤害和护盾不吃防御与减伤，技能伤害走最终倍率
       const flat = effect.damageType === 'true' || effect.damageType === 'shield';
       const single = flat ? raw : damageFloor(raw * context.finalMod);
-      const hits = Math.max(1, getNumber(effect.hits) || 1);
+      const fullHits = Math.max(1, getNumber(effect.hits) || 1);
+      const rHits = Math.max(1, getNumber(effect.realisticHits) || 0);
+      const useRealistic = Boolean(realisticEffectHits && getNumber(effect.realisticHits) > 0 && rHits < fullHits);
+      const hits = useRealistic ? rHits : fullHits;
+      const suffix = SUFFIX[effect.damageType] || '(技)';
+      const stableId = `item-effect:${effect.name}:${effect.label || effect.name}:${effect.damageType || 'skill'}`;
       const from = (owners.get(effect.name) || []).join('、');
+      const hitTitleSuffix = fullHits > 1
+        ? (useRealistic ? ` ×${hits}/${fullHits}（实战折算）` : ` ×${fullHits}`)
+        : '';
+      const hitNoteText = fullHits > 1
+        ? (useRealistic
+          ? `单次 ${single}，当前按实战折算 ${hits}/${fullHits} 跳计入（满额 ${fullHits} 跳合计 ${single * fullHits}）`
+          : `单次 ${single}，共 ${fullHits} 次`)
+        : '';
       return {
-        title: `${effect.label || effect.name}${SUFFIX[effect.damageType] || '(技)'}${hits > 1 ? ` ×${hits}` : ''}`,
+        id: stableId,
+        title: `${effect.label || effect.name}${suffix}${hitTitleSuffix}`,
         raw: raw * hits,
         value: single * hits,
         // 护盾不是伤害，不进「特效小计」
         excludeFromSubtotal: effect.damageType === 'shield',
-        note: [effect.coefficientText, hits > 1 ? `单次 ${single}，共 ${hits} 次` : '', effect.note, from ? `来自 ${from}` : '']
+        note: [effect.coefficientText, hitNoteText, effect.note, from ? `来自 ${from}` : '']
           .filter(Boolean).join('；')
       };
     });
@@ -1577,6 +1608,7 @@ function calc({
   tacticalUpgraded,
   vampireFull,
   effectToggles = {},
+  realisticEffectHits = false,
   heroModifierChoices = {},
   skillTargetCounts = {},
   selectedHero,
@@ -1949,7 +1981,7 @@ function calc({
     }
   }
   // 装备独有效果伤害（诅咒 / 腐化 / 破裂…）：只算当前真的装上的
-  effects.push(...equipmentEffectDamages(selected, context, effectToggles));
+  effects.push(...equipmentEffectDamages(selected, context, effectToggles, { realisticEffectHits }));
   const damageEffects = effects.filter((effect) => !effect.excludeFromSubtotal);
   const effectSubtotalRaw = damageEffects.reduce((sum, effect) => sum + effect.raw, 0);
   const effectSubtotal = damageEffects.reduce((sum, effect) => sum + effect.value, 0);
@@ -2355,6 +2387,10 @@ function GearOptimizerDialog({
   onToggleIncludeProc,
   autoMaxStacks,
   onToggleAutoMaxStacks,
+  enableZoneEffects,
+  onToggleEnableZoneEffects,
+  realisticEffectHits,
+  onToggleRealisticEffectHits,
   keepMinCd,
   onToggleKeepMinCd,
   allowCrossWeapon,
@@ -2380,6 +2416,9 @@ function GearOptimizerDialog({
 
   const {
     baselineScore,
+    baselineDirect,
+    baselineProc,
+    hasScoreSplit,
     baselineCd,
     metricMeta,
     slotBestList,
@@ -2393,6 +2432,7 @@ function GearOptimizerDialog({
     return n > 0 ? `+${n}` : `${n}`;
   };
   const findItem = (name) => (name ? equipment.find((x) => x.name === name) : null);
+  const supportsProcToggle = !metricKey.startsWith('stat:') && metricKey !== 'ba_dps' && metricKey !== 'ba_hit';
 
   return createPortal(
     <div className="vgModalBackdrop goModalBackdrop" role="presentation" onMouseDown={onClose}>
@@ -2423,7 +2463,12 @@ function GearOptimizerDialog({
             </div>
             <small className="goSubtitle">
               {heroName} · 熟练度 Lv.{mastery} · 当前基准 <strong>{metricMeta?.shortLabel || metricMeta?.label}</strong>：
-              <b>{fmtVal(baselineScore)}</b>（当前 CD {baselineCd}%）
+              <b>{fmtVal(baselineScore)}</b>
+              {hasScoreSplit ? (
+                <span className="goBaseSplitHint">（直伤 {fmtVal(baselineDirect)} + 特效 {fmtVal(baselineProc)} · CD {baselineCd}%）</span>
+              ) : (
+                <span>（当前 CD {baselineCd}%）</span>
+              )}
             </small>
           </div>
           <div className="vgModalHeaderActions">
@@ -2486,16 +2531,28 @@ function GearOptimizerDialog({
           </div>
 
           <div className="goToggleRow">
-            {!metricKey.startsWith('stat:') && metricKey !== 'ba_dps' && metricKey !== 'ba_hit' ? (
-              <label className="vgChainToggle" title="将装备/潜能独有触发伤害（如诅咒、超负荷、鬼火、腐化、意念等）按触发 1 次计入总伤，避免纯触发型装备被低估">
+            {supportsProcToggle ? (
+              <label className="vgChainToggle" title="将装备/潜能独有触发伤害（如诅咒、破裂、意念、腐化等）按触发 1 次计入总伤；下方每行会拆解「直伤 ± / 特效 ±」">
                 <input type="checkbox" checked={includeProc} onChange={(e) => onToggleIncludeProc(e.target.checked)} />
                 <span>计入装备触发伤害(1次)</span>
               </label>
             ) : null}
-            <label className="vgChainToggle" title="对比时对当前装备与候选装备同步开启可叠层特效（如炽燃、神速、光辉、觉醒、超负荷等），保证公平满状态对比">
+            <label className="vgChainToggle" title="仅同步开启常规战斗叠层/充能特效（如炽燃、全速运转、超负荷、神速、光辉、觉醒、意念等），不会强行开启地面风圈、硬控限定、队友触发或反伤类特效">
               <input type="checkbox" checked={autoMaxStacks} onChange={(e) => onToggleAutoMaxStacks(e.target.checked)} />
-              <span>满层激活叠层特效</span>
+              <span>满层激活常规叠层</span>
             </label>
+            {supportsProcToggle ? (
+              <label className="vgChainToggle" title="手动开启后，在排行中一并激活幽冥战甲（疾风）、幽灵夹克（疾风-集结）、幽灵新娘的嫁纱（邪恶之雾）、异端审判官（次元裂痕）等地面持续区域特效参与对比">
+                <input type="checkbox" checked={enableZoneEffects} onChange={(e) => onToggleEnableZoneEffects(e.target.checked)} />
+                <span>激活地面区域特效</span>
+              </label>
+            ) : null}
+            {supportsProcToggle ? (
+              <label className="vgChainToggle" title="方案1折算开关：开启时地面持续区域特效按实战常见驻留跳数折算（如疾风 2/10 跳、邪恶之雾 2/6 跳、次元裂痕 2/5 跳）；取消勾选则按木桩站满全程跳数计算">
+                <input type="checkbox" checked={realisticEffectHits} onChange={(e) => onToggleRealisticEffectHits(e.target.checked)} />
+                <span>持续特效实战折算跳数</span>
+              </label>
+            ) : null}
             <label className="vgChainToggle" title={`过滤掉会导致冷却缩减低于当前（${baselineCd}%）的换装方案`}>
               <input type="checkbox" checked={keepMinCd} onChange={(e) => onToggleKeepMinCd(e.target.checked)} />
               <span>不降冷却缩减 (≥{baselineCd}%)</span>
@@ -2540,6 +2597,13 @@ function GearOptimizerDialog({
                             <div className="goBestSlotInfo">
                               <strong style={bestColor ? { color: bestColor } : undefined}>{best.item.name}</strong>
                               <small>替换：{curItem ? curItem.name : '空栏'}</small>
+                              {hasScoreSplit ? (
+                                <small className="goBestSlotSplit">
+                                  直伤 <b className={best.directDelta > 0 ? 'pos' : best.directDelta < 0 ? 'neg' : ''}>{fmtSigned(best.directDelta)}</b>
+                                  {' · '}
+                                  特效 <b className={best.procDelta > 0 ? 'procPos' : best.procDelta < 0 ? 'neg' : ''}>{fmtSigned(best.procDelta)}</b>
+                                </small>
+                              ) : null}
                             </div>
                           </div>
                           <div className="goBestSlotFooter">
@@ -2634,6 +2698,22 @@ function GearOptimizerDialog({
                             </span>
                           )}
                         </div>
+                        {hasScoreSplit ? (
+                          <div className="goSourceSplitLine" title="拆解该方案与当前基准相比：技能/普攻直伤变化 vs 装备/潜能触发特效伤害变化">
+                            {row.isCurrent ? (
+                              <span className="goSplitChip zero">直伤 {fmtVal(row.directScore)} + 特效 {fmtVal(row.procScore)}</span>
+                            ) : (
+                              <>
+                                <span className={`goSplitChip ${Math.round(row.directDelta) > 0 ? 'pos' : Math.round(row.directDelta) < 0 ? 'neg' : 'zero'}`}>
+                                  直伤 {fmtSigned(row.directDelta)}
+                                </span>
+                                <span className={`goSplitChip ${Math.round(row.procDelta) > 0 ? 'procPos' : Math.round(row.procDelta) < 0 ? 'neg' : 'zero'}`}>
+                                  特效 {fmtSigned(row.procDelta)}
+                                </span>
+                              </>
+                            )}
+                          </div>
+                        ) : null}
                         <div className="goAuxDiffLine">
                           <small>法强 {row.ap} / 攻击 {round(row.attackPower, 0)}</small>
                           {cdDiff !== 0 ? (
@@ -3444,6 +3524,8 @@ export default function App() {
     if (initialWorkspaceState.conditionalDamageAmpActive) migrated['光辉'] = true;
     return migrated;
   });
+  // 方案1独立勾选项：地面持续区域特效（疾风 / 邪恶之雾 / 次元裂痕）是否按实战驻留跳数折算
+  const [realisticEffectHits, setRealisticEffectHits] = useState(() => initialWorkspaceState.realisticEffectHits !== false);
   const [showBuildSettings, setShowBuildSettings] = useState(false);
   const [showGlobalSettings, setShowGlobalSettings] = useState(false);
   const [showHeroDebugSettings, setShowHeroDebugSettings] = useState(false);
@@ -3531,6 +3613,7 @@ export default function App() {
       tacticalUpgraded,
       vampireFull,
       effectToggles,
+      realisticEffectHits,
       effectsCollapsed,
       heroAvatarQuery,
       showLowerTierEquipment,
@@ -3542,7 +3625,7 @@ export default function App() {
       collapsedComparisonCharts,
       quickComboItems
     }));
-  }, [activePage, gear, weaponTypeFilter, selectedHero, mastery, talentAp, traitSelection, heroLoadouts, targetIndex, target, targetMastery, targetHpPct, selfHpPct, heroModifierChoices, heroFormChoices, selfHp, autoSyncSelfHp, traitsCollapsed, selfShield, accumulatedDamage, damageBonus, skillReduction, r2Stacks, tacticalSkill, tacticalUpgraded, vampireFull, effectToggles, effectsCollapsed, skillTargetCounts, heroAvatarQuery, showLowerTierEquipment, visibleStatKeys, skillLevels, comparisonSettings, comparisonScenarios, selectedComparisonMastery, collapsedComparisonCharts, quickComboItems]);
+  }, [activePage, gear, weaponTypeFilter, selectedHero, mastery, talentAp, traitSelection, heroLoadouts, targetIndex, target, targetMastery, targetHpPct, selfHpPct, heroModifierChoices, heroFormChoices, selfHp, autoSyncSelfHp, traitsCollapsed, selfShield, accumulatedDamage, damageBonus, skillReduction, r2Stacks, tacticalSkill, tacticalUpgraded, vampireFull, effectToggles, realisticEffectHits, effectsCollapsed, skillTargetCounts, heroAvatarQuery, showLowerTierEquipment, visibleStatKeys, skillLevels, comparisonSettings, comparisonScenarios, selectedComparisonMastery, collapsedComparisonCharts, quickComboItems]);
 
   useEffect(() => {
     window.localStorage.setItem(SAVED_PRESETS_KEY, JSON.stringify(savedHeroPresets));
@@ -3839,6 +3922,7 @@ export default function App() {
   const effectiveVampireFull = hasVampireStackTrait && vampireFull;
   // 当前装备里需要开关的特效；换装后开关跟着变
   const availableEffectToggles = useMemo(() => toggleableEffectsFor(selectedGearItems), [selectedGearItems]);
+  const hasEquippedRealisticHitEffects = useMemo(() => hasRealisticHitEffects(selectedGearItems), [selectedGearItems]);
   // 只把「装备还在身上」的开关传下去，脱装后自动失效
   const activeEffectToggles = useMemo(() => Object.fromEntries(
     availableEffectToggles.filter((item) => effectToggles[item.name]).map((item) => [item.name, true])
@@ -3893,12 +3977,13 @@ export default function App() {
       tacticalUpgraded,
       vampireFull: effectiveVampireFull,
       effectToggles: activeEffectToggles,
+      realisticEffectHits,
       selectedHero,
       weaponSkillLevel: weaponSkillLevelOverride,
       hammerShredActive,
       combos
     }),
-    [equipment, skills, skillLevels, gear, mastery, selectedMasteryStat, selectedWeaponRaw, attack, selectedCharacter, talentAp, traitBonuses, selectedTraits, target, targetMastery, targetHpPct, selfHpPct, heroModifierChoices, activeHeroForm, skillTargetCounts, selfHp, autoSyncSelfHp, selfShield, accumulatedDamage, damageBonus, skillReduction, r2Stacks, tacticalSkill, tacticalUpgraded, effectiveVampireFull, activeEffectToggles, selectedHero, weaponSkillLevelOverride, hammerShredActive, combos]
+    [equipment, skills, skillLevels, gear, mastery, selectedMasteryStat, selectedWeaponRaw, attack, selectedCharacter, talentAp, traitBonuses, selectedTraits, target, targetMastery, targetHpPct, selfHpPct, heroModifierChoices, activeHeroForm, skillTargetCounts, selfHp, autoSyncSelfHp, selfShield, accumulatedDamage, damageBonus, skillReduction, r2Stacks, tacticalSkill, tacticalUpgraded, effectiveVampireFull, activeEffectToggles, realisticEffectHits, selectedHero, weaponSkillLevelOverride, hammerShredActive, combos]
   );
 
   // 开启「跟随上限」时同步 selfHp 状态，保证爆发力潜能血量差与切回手动模式时的初值一致
@@ -3950,6 +4035,7 @@ export default function App() {
     const effectMap = {};
     for (const ef of result.effects || []) {
       effectMap[ef.title] = ef.value;
+      if (ef.id) effectMap[ef.id] = ef.value;
     }
     const gearSummary = SLOTS.map((s) => gear[s] || '空').join(' · ');
     setPinnedBaseline({
@@ -3960,6 +4046,7 @@ export default function App() {
       tacticalSkill,
       tacticalUpgraded,
       effectToggles: clone(effectToggles),
+      realisticEffectHits,
       vampireFull,
       gearSummary,
       ap: result.ap,
@@ -3991,6 +4078,7 @@ export default function App() {
     if (pinnedBaseline.tacticalSkill) setTacticalSkill(pinnedBaseline.tacticalSkill);
     setTacticalUpgraded(Boolean(pinnedBaseline.tacticalUpgraded));
     setEffectToggles(clone(pinnedBaseline.effectToggles || {}));
+    if (pinnedBaseline.realisticEffectHits !== undefined) setRealisticEffectHits(Boolean(pinnedBaseline.realisticEffectHits));
     setVampireFull(Boolean(pinnedBaseline.vampireFull));
   }
 
@@ -4043,12 +4131,17 @@ export default function App() {
   const resolvedQuickCombo = useMemo(() => {
     const skillById = new Map(result.skills.map((s) => [s.id, s]));
     const wsSegById = new Map((result.weaponSkill?.segments || []).map((s) => [s.id, s]));
-    const effectByTitle = new Map((result.effects || []).map((e) => [e.title, e]));
+    const effectByKey = new Map();
+    for (const e of result.effects || []) {
+      effectByKey.set(e.title, e);
+      if (e.id) effectByKey.set(e.id, e);
+    }
 
     const items = quickComboItems.map((item) => {
       let unitFinal = 0;
       let unitRaw = 0;
       let baseUnitFinal = undefined;
+      let resolvedLabel = item.label;
 
       if (item.kind === 'ba-normal') {
         unitFinal = result.basicAttackDamage.normal;
@@ -4067,10 +4160,11 @@ export default function App() {
         unitRaw = getNumber(wsSeg?.rawDamage);
         baseUnitFinal = activePin?.skillMap?.[`ws:${item.refId}`];
       } else if (item.kind === 'effect') {
-        const ef = effectByTitle.get(item.refId);
+        const ef = effectByKey.get(item.refId);
         unitFinal = getNumber(ef?.value);
         unitRaw = getNumber(ef?.raw);
-        baseUnitFinal = activePin?.effectMap?.[item.refId];
+        if (ef?.title) resolvedLabel = ef.title;
+        baseUnitFinal = activePin?.effectMap?.[item.refId] ?? (ef?.id ? activePin?.effectMap?.[ef.id] : undefined);
       } else if (item.kind === 'skill-prog') {
         const sk = skillById.get(item.refId);
         if (sk) {
@@ -4109,6 +4203,7 @@ export default function App() {
 
       return {
         ...item,
+        label: resolvedLabel,
         unitFinal,
         unitRaw,
         totalFinal: unitFinal * item.count,
@@ -4169,6 +4264,7 @@ export default function App() {
   const [optimizerTierScope, setOptimizerTierScope] = useState('all_high');
   const [optimizerIncludeProc, setOptimizerIncludeProc] = useState(true);
   const [optimizerAutoMaxStacks, setOptimizerAutoMaxStacks] = useState(true);
+  const [optimizerEnableZoneEffects, setOptimizerEnableZoneEffects] = useState(false);
   const [optimizerKeepMinCd, setOptimizerKeepMinCd] = useState(false);
   const [optimizerAllowCrossWeapon, setOptimizerAllowCrossWeapon] = useState(false);
 
@@ -4270,9 +4366,16 @@ export default function App() {
       const candBurstBonus = Math.min(0.1, Math.max(0, (getNumber(target.hp) - candSelfHp) / Math.max(1, candSelfHp)) * 0.25);
       const candTraitBonuses = traitBonusesFor(selectedTraits, candBurstBonus);
       const candAvailToggles = toggleableEffectsFor(candItems);
-      const candEffectToggles = optimizerAutoMaxStacks
-        ? Object.fromEntries(candAvailToggles.map((t) => [t.name, true]))
-        : Object.fromEntries(candAvailToggles.filter((t) => activeEffectToggles[t.name]).map((t) => [t.name, true]));
+      const candEffectToggles = Object.fromEntries(
+        candAvailToggles
+          .filter((t) => {
+            if (activeEffectToggles[t.name]) return true;
+            if (!t.situational && optimizerAutoMaxStacks) return true;
+            if (t.zone && optimizerEnableZoneEffects) return true;
+            return false;
+          })
+          .map((t) => [t.name, true])
+      );
 
       return calc({
         equipment,
@@ -4307,6 +4410,7 @@ export default function App() {
         tacticalUpgraded,
         vampireFull: effectiveVampireFull,
         effectToggles: candEffectToggles,
+        realisticEffectHits,
         selectedHero,
         weaponSkillLevel: weaponSkillLevelOverride,
         hammerShredActive,
@@ -4341,28 +4445,39 @@ export default function App() {
       return getNumber(sk.damage);
     }
 
-    function scoreForSim(simRes) {
+    function scoreBreakdownForSim(simRes) {
       const mKey = effectiveOptimizerMetric;
-      if (mKey === 'stat:ap') return simRes.ap;
-      if (mKey === 'stat:attackPower') return simRes.attackPower;
+      if (mKey === 'stat:ap') return { total: simRes.ap, direct: simRes.ap, proc: 0, hasSplit: false };
+      if (mKey === 'stat:attackPower') return { total: simRes.attackPower, direct: simRes.attackPower, proc: 0, hasSplit: false };
       const critP = Math.max(0, Math.min(1, getNumber(simRes.critChance)));
       const expectedBa = (1 - critP) * getNumber(simRes.basicAttackDamage?.normal) + critP * getNumber(simRes.basicAttackDamage?.critical);
-      if (mKey === 'ba_hit') return expectedBa;
-      if (mKey === 'ba_dps') return expectedBa * Math.max(0.01, getNumber(simRes.finalAttackSpeed));
+      if (mKey === 'ba_hit') return { total: expectedBa, direct: expectedBa, proc: 0, hasSplit: false };
+      if (mKey === 'ba_dps') {
+        const dps = expectedBa * Math.max(0.01, getNumber(simRes.finalAttackSpeed));
+        return { total: dps, direct: dps, proc: 0, hasSplit: false };
+      }
       if (mKey === 'ws_d') {
         const wsDmg = (simRes.weaponSkill?.segments || []).reduce((s, seg) => s + getNumber(seg.damage), 0);
-        return wsDmg + (optimizerIncludeProc ? getNumber(simRes.effectSubtotal) : 0);
+        const proc = optimizerIncludeProc ? getNumber(simRes.effectSubtotal) : 0;
+        return { total: wsDmg + proc, direct: wsDmg, proc, hasSplit: true };
       }
       if (mKey.startsWith('skill:')) {
         const skId = mKey.slice('skill:'.length);
         const sk = simRes.skills.find((x) => x.id === skId);
-        return skillRepresentativeDamage(sk, simRes) + (optimizerIncludeProc ? getNumber(simRes.effectSubtotal) : 0);
+        const direct = skillRepresentativeDamage(sk, simRes);
+        const proc = optimizerIncludeProc ? getNumber(simRes.effectSubtotal) : 0;
+        return { total: direct + proc, direct, proc, hasSplit: true };
       }
       if (mKey === 'combo' && quickComboItems.length > 0) {
         const skMap = new Map(simRes.skills.map((s) => [s.id, s]));
         const wsMap = new Map((simRes.weaponSkill?.segments || []).map((s) => [s.id, s]));
-        const efMap = new Map((simRes.effects || []).map((e) => [e.title, e]));
-        let total = 0;
+        const efMap = new Map();
+        for (const e of simRes.effects || []) {
+          efMap.set(e.title, e);
+          if (e.id) efMap.set(e.id, e);
+        }
+        let direct = 0;
+        let proc = 0;
         for (const item of quickComboItems) {
           let unit = 0;
           if (item.kind === 'ba-normal') unit = getNumber(simRes.basicAttackDamage?.normal);
@@ -4385,28 +4500,30 @@ export default function App() {
             const sk = skMap.get(item.refId);
             if (sk) unit = scaledSkillDamage(sk, simRes.finalMod, { scale: item.scale || 1, hits: item.hits || 1, context: simRes.formulaContext }).final;
           }
-          total += unit * getNumber(item.count);
+          const sub = unit * getNumber(item.count);
+          if (item.kind === 'effect') proc += sub;
+          else direct += sub;
         }
         if (optimizerIncludeProc) {
           const extraProc = (simRes.effects || [])
-            .filter((e) => e && !e.excludeFromSubtotal && !comboEffectTitles.has(e.title))
+            .filter((e) => e && !e.excludeFromSubtotal && !comboEffectTitles.has(e.title) && (!e.id || !comboEffectTitles.has(e.id)))
             .reduce((s, e) => s + getNumber(e.value), 0);
-          total += extraProc;
+          proc += extraProc;
         }
-        return total;
+        return { total: direct + proc, direct, proc, hasSplit: true };
       }
 
       // 默认 burst：一套技能（排除护盾/治疗/增益与已被普通段覆盖的 R强化 重复项）+ 1发期望平A + D首段伤害 + 触发特效
-      let burstSum = expectedBa;
+      let direct = expectedBa;
       for (const sk of simRes.skills) {
         if (sk.kind === 'shield' || sk.kind === 'heal' || sk.kind === 'buff') continue;
         if (String(sk.title || '').includes('（R强化）')) continue;
-        burstSum += skillRepresentativeDamage(sk, simRes);
+        direct += skillRepresentativeDamage(sk, simRes);
       }
       const wsFirst = simRes.weaponSkill?.segments?.[0];
-      if (wsFirst) burstSum += getNumber(wsFirst.damage);
-      if (optimizerIncludeProc) burstSum += getNumber(simRes.effectSubtotal);
-      return burstSum;
+      if (wsFirst) direct += getNumber(wsFirst.damage);
+      const proc = optimizerIncludeProc ? getNumber(simRes.effectSubtotal) : 0;
+      return { total: direct + proc, direct, proc, hasSplit: true };
     }
 
     function passesTierFilter(item) {
@@ -4434,7 +4551,11 @@ export default function App() {
     }
 
     const baseSim = runSim(gear);
-    const baselineScore = scoreForSim(baseSim);
+    const baseBd = scoreBreakdownForSim(baseSim);
+    const baselineScore = baseBd.total;
+    const baselineDirect = baseBd.direct;
+    const baselineProc = baseBd.proc;
+    const hasScoreSplit = baseBd.hasSplit;
     const baselineCd = baseSim.cd;
 
     function evaluateSlotCandidates(slot) {
@@ -4444,7 +4565,8 @@ export default function App() {
         const isCurrent = gear[slot] === item.name;
         const sim = isCurrent ? baseSim : runSim({ ...gear, [slot]: item.name });
         if (!isCurrent && optimizerKeepMinCd && sim.cd < baselineCd) continue;
-        const score = isCurrent ? baselineScore : scoreForSim(sim);
+        const bd = isCurrent ? baseBd : scoreBreakdownForSim(sim);
+        const score = bd.total;
         const delta = score - baselineScore;
         const pctDelta = baselineScore > 0 ? (delta / baselineScore) * 100 : (delta > 0 ? 100 : 0);
         rows.push({
@@ -4452,7 +4574,11 @@ export default function App() {
           item,
           isCurrent,
           score,
+          directScore: bd.direct,
+          procScore: bd.proc,
           delta,
+          directDelta: bd.direct - baselineDirect,
+          procDelta: bd.proc - baselineProc,
           pctDelta,
           ap: sim.ap,
           attackPower: sim.attackPower,
@@ -4471,6 +4597,9 @@ export default function App() {
         : { item: byName(equipment, gear[optimizerSlot]), score: baselineScore, rank: null };
       return {
         baselineScore,
+        baselineDirect,
+        baselineProc,
+        hasScoreSplit,
         baselineCd,
         metricMeta,
         slotBestList: [],
@@ -4493,6 +4622,9 @@ export default function App() {
 
     return {
       baselineScore,
+      baselineDirect,
+      baselineProc,
+      hasScoreSplit,
       baselineCd,
       metricMeta,
       slotBestList: bySlot.map(({ slot, best }) => ({ slot, best })),
@@ -4508,8 +4640,10 @@ export default function App() {
     optimizerTierScope,
     optimizerIncludeProc,
     optimizerAutoMaxStacks,
+    optimizerEnableZoneEffects,
     optimizerKeepMinCd,
     optimizerAllowCrossWeapon,
+    realisticEffectHits,
     equipment,
     skills,
     skillLevels,
@@ -4637,6 +4771,7 @@ export default function App() {
         effectToggles: Object.fromEntries(effectAvailability.effects
           .filter((item) => scenario.effectToggles[item.name])
           .map((item) => [item.name, true])),
+        realisticEffectHits,
         selectedHero,
         combos
       });
@@ -4673,7 +4808,7 @@ export default function App() {
         }
       };
     }))
-  ), [comparisonScenarios, comparisonMasteryLevels, comparisonSettings, equipment, skills, skillLevels, selectedCharacter, selectedTraits, talentAp, targetHpPct, selfHpPct, heroModifierChoices, activeHeroForm, skillTargetCounts, selfShield, accumulatedDamage, r2Stacks, tacticalSkill, tacticalUpgraded, selectedHero, combos]);
+  ), [comparisonScenarios, comparisonMasteryLevels, comparisonSettings, equipment, skills, skillLevels, selectedCharacter, selectedTraits, talentAp, targetHpPct, selfHpPct, heroModifierChoices, activeHeroForm, skillTargetCounts, selfShield, accumulatedDamage, r2Stacks, tacticalSkill, tacticalUpgraded, realisticEffectHits, selectedHero, combos]);
   // 勾选栏里能出现哪些指标：核心项恒在，其余项要「至少有一个方案真的有这个数值」
   const availableComparisonMetrics = useMemo(() => {
     const nonZero = new Set();
@@ -6335,6 +6470,17 @@ export default function App() {
               />
               <span>装备特效伤害</span>
             </label>
+            <label
+              className="toggle"
+              title="开启后，原地龙卷风/迷雾等持续区域特效按实战常见驻留跳数折算（如疾风 2/10 跳、邪恶之雾 2/6 跳、次元裂痕 2/5 跳）；取消勾选则按站桩满额跳数计算"
+            >
+              <input
+                type="checkbox"
+                checked={realisticEffectHits}
+                onChange={(event) => setRealisticEffectHits(event.target.checked)}
+              />
+              <span>持续特效实战折算跳数</span>
+            </label>
             <label className="toggle">
               <input type="checkbox" checked={comparisonSettings.includeSkills} onChange={(event) => updateComparisonSetting('includeSkills', event.target.checked)} />
               <span>输出各技能最终伤害</span>
@@ -6756,6 +6902,10 @@ export default function App() {
           onToggleIncludeProc={setOptimizerIncludeProc}
           autoMaxStacks={optimizerAutoMaxStacks}
           onToggleAutoMaxStacks={setOptimizerAutoMaxStacks}
+          enableZoneEffects={optimizerEnableZoneEffects}
+          onToggleEnableZoneEffects={setOptimizerEnableZoneEffects}
+          realisticEffectHits={realisticEffectHits}
+          onToggleRealisticEffectHits={setRealisticEffectHits}
           keepMinCd={optimizerKeepMinCd}
           onToggleKeepMinCd={setOptimizerKeepMinCd}
           allowCrossWeapon={optimizerAllowCrossWeapon}
@@ -7105,7 +7255,11 @@ export default function App() {
             ) : null}
             {/* 叠层类 / 条件触发类装备特效：装上带该效果的装备后开关才出现 */}
             {availableEffectToggles.map((item) => (
-              <label className="toggle" key={item.name} title={effectToggleHint(item.name)}>
+              <label
+                className={`toggle${item.situational ? ' situationalToggle' : ''}`}
+                key={item.name}
+                title={effectToggleHint(item.name)}
+              >
                 <input
                   type="checkbox"
                   checked={Boolean(effectToggles[item.name])}
@@ -7114,6 +7268,19 @@ export default function App() {
                 <span>{item.label}</span>
               </label>
             ))}
+            {hasEquippedRealisticHitEffects ? (
+              <label
+                className="toggle realisticHitsToggle"
+                title="开启后，原地龙卷风/迷雾等持续区域特效按实战常见驻留跳数折算（如疾风 2/10 跳、邪恶之雾 2/6 跳、次元裂痕 2/5 跳）；取消勾选则按木桩站满全程跳数计算"
+              >
+                <input
+                  type="checkbox"
+                  checked={realisticEffectHits}
+                  onChange={(event) => setRealisticEffectHits(event.target.checked)}
+                />
+                <span>持续特效实战折算跳数</span>
+              </label>
+            ) : null}
             <label className="toggle">
               <input type="checkbox" checked={tacticalUpgraded} onChange={(event) => setTacticalUpgraded(event.target.checked)} />
               <span>战术技能升级</span>
@@ -7758,8 +7925,23 @@ export default function App() {
           </button>
           {!effectsCollapsed ? (
           <div className="effectGrid">
+            {hasEquippedRealisticHitEffects ? (
+              <div className="effectsSubToolbar">
+                <label
+                  className="toggle realisticHitsToggle"
+                  title="开启后，原地龙卷风/迷雾等持续区域特效按实战常见驻留跳数折算（如疾风 2/10 跳、邪恶之雾 2/6 跳、次元裂痕 2/5 跳）；取消勾选则按木桩站满全程跳数计算"
+                >
+                  <input
+                    type="checkbox"
+                    checked={realisticEffectHits}
+                    onChange={(event) => setRealisticEffectHits(event.target.checked)}
+                  />
+                  <span>持续特效实战折算跳数（疾风/邪雾/次元裂痕）</span>
+                </label>
+              </div>
+            ) : null}
             {result.effects.length ? result.effects.map((effect) => (
-              <div className="damageRow compactDamageRow" key={effect.title}>
+              <div className="damageRow compactDamageRow" key={effect.id || effect.title}>
                 <div>
                   <strong>{effect.title}</strong>
                   <span>{effect.note}</span>
@@ -7767,11 +7949,11 @@ export default function App() {
                 <DamageValue
                   raw={effect.raw}
                   final={effect.value}
-                  baselineFinal={activePin?.effectMap?.[effect.title]}
+                  baselineFinal={activePin?.effectMap?.[effect.id || effect.title] ?? activePin?.effectMap?.[effect.title]}
                   onQuickCombo={!effect.excludeFromSubtotal ? () => appendQuickComboStep({
-                    key: `effect:${effect.title}`,
+                    key: `effect:${effect.id || effect.title}`,
                     kind: 'effect',
-                    refId: effect.title,
+                    refId: effect.id || effect.title,
                     label: effect.title
                   }) : undefined}
                 />
