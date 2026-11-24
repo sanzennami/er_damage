@@ -66,7 +66,7 @@ const SLOT_GLYPHS = {
   '鞋子': '👢'
 };
 
-const QUALITY_TIER_KEY = {
+export const QUALITY_TIER_KEY = {
   '神话': 'mythic', '红': 'mythic',
   '传说': 'legend', '金': 'legend',
   '英雄': 'epic', '紫': 'epic',
@@ -75,7 +75,7 @@ const QUALITY_TIER_KEY = {
   '普通': 'common', '白': 'common'
 };
 
-const QUALITY_SHORT_LABELS = {
+export const QUALITY_SHORT_LABELS = {
   mythic: '超凡',
   legend: '传说',
   epic: '英雄',
@@ -114,7 +114,7 @@ export function resolveEquipmentIconUrl(item) {
   return '';
 }
 
-function summarizeItemStats(item, mastery = 20) {
+export function summarizeItemStats(item, mastery = 20) {
   if (!item) return [];
   const s = item.stats || {};
   const lv = Math.max(1, getNumber(mastery) || 20);
@@ -207,6 +207,7 @@ export default function VisualGearBar({
   showLowerTierEquipment = false,
   onToggleLowerTier,
   onSelectGear,
+  onOpenOptimizer,
   uniqueEffectsForItem,
   qualityColor,
   PortalHovercard,
@@ -308,19 +309,34 @@ export default function VisualGearBar({
               <div className="vgSlotMeta">
                 <div className="vgSlotTopRow">
                   <span className="vgSlotTag">{slot}</span>
-                  {item ? (
-                    <button
-                      type="button"
-                      className="vgSlotClearBtn"
-                      title={`卸下${slot}（设为空栏）`}
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        onSelectGear(slot, '');
-                      }}
-                    >
-                      ×
-                    </button>
-                  ) : null}
+                  <span className="vgSlotMiniActions">
+                    {onOpenOptimizer ? (
+                      <button
+                        type="button"
+                        className="vgSlotRankBtn"
+                        title={`查看【${slot}】换装伤害收益排行`}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          onOpenOptimizer('slot', slot);
+                        }}
+                      >
+                        ⚡
+                      </button>
+                    ) : null}
+                    {item ? (
+                      <button
+                        type="button"
+                        className="vgSlotClearBtn"
+                        title={`卸下${slot}（设为空栏）`}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          onSelectGear(slot, '');
+                        }}
+                      >
+                        ×
+                      </button>
+                    ) : null}
+                  </span>
                 </div>
                 <strong className="vgSlotItemName" style={color ? { color } : undefined}>
                   {item ? item.name : '（空）点击选装'}
@@ -383,6 +399,20 @@ export default function VisualGearBar({
               </div>
 
               <div className="vgModalHeaderActions">
+                {onOpenOptimizer ? (
+                  <button
+                    type="button"
+                    className="quietButton vgModalRankBtn"
+                    onClick={() => {
+                      const targetSlot = openSlot;
+                      setOpenSlot(null);
+                      onOpenOptimizer('slot', targetSlot);
+                    }}
+                    title={`按当前实验体技能/连招计算所有候选${openSlot}的伤害提升排行`}
+                  >
+                    ⚡ 本部位伤害排行
+                  </button>
+                ) : null}
                 <label className="vgChainToggle" title="开启后选完一件装备会自动跳到下一个部位，5次点击配完满装">
                   <input
                     type="checkbox"

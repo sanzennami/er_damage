@@ -15,7 +15,12 @@ import DAK_ITEM_SKILL_ICONS from './data/dakItemSkillIcons.json';
 import WEAPON_ROUTE_PRESETS from './data/weaponRoutePresets.json';
 import WEAPON_TYPE_INFO from './data/weaponTypeInfo.json';
 import WEAPON_SKILLS_DATA from './data/weaponSkills.json';
-import VisualGearBar from './components/VisualGearPicker.jsx';
+import VisualGearBar, {
+  EquipmentSlotIcon,
+  QUALITY_SHORT_LABELS,
+  QUALITY_TIER_KEY,
+  summarizeItemStats
+} from './components/VisualGearPicker.jsx';
 import PATCH_LOG from './data/patchLog.json';
 import { CHARACTERS, findCharacterByName, masteryStatFor } from './lib/characterStats.js';
 import {
@@ -58,7 +63,7 @@ import {
   statConversionFor
 } from './lib/specialRules.js';
 
-const APP_VERSION = 'v0.2.090';
+const APP_VERSION = 'v0.2.091';
 
 const EXPORTED_LOCAL_CONFIG_MODULES = import.meta.glob('./data/localConfig.export.json', {
   eager: true,
@@ -2328,6 +2333,360 @@ function EquipmentItemHoverContent({ item, mastery, uiTheme }) {
   );
 }
 
+function GearOptimizerDialog({
+  open,
+  onClose,
+  heroName,
+  mastery,
+  uiTheme,
+  slots,
+  gear,
+  equipment,
+  mode,
+  onChangeMode,
+  activeSlot,
+  onChangeSlot,
+  metricKey,
+  metricOptions,
+  onChangeMetric,
+  tierScope,
+  onChangeTierScope,
+  includeProc,
+  onToggleIncludeProc,
+  autoMaxStacks,
+  onToggleAutoMaxStacks,
+  keepMinCd,
+  onToggleKeepMinCd,
+  allowCrossWeapon,
+  onToggleAllowCrossWeapon,
+  canCrossWeapon,
+  optimizerData,
+  onEquipCandidate,
+  qualityColor,
+  uniqueEffectsForItem,
+  PortalHovercard,
+  renderHoverContent
+}) {
+  useEffect(() => {
+    if (!open) return undefined;
+    const onKey = (e) => {
+      if (e.key === 'Escape') onClose();
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [open, onClose]);
+
+  if (!open || !optimizerData) return null;
+
+  const {
+    baselineScore,
+    baselineCd,
+    metricMeta,
+    slotBestList,
+    rankedRows,
+    currentSlotRow
+  } = optimizerData;
+
+  const fmtVal = (v) => (metricMeta?.digits > 0 ? round(v, metricMeta.digits) : Math.round(v));
+  const fmtSigned = (v) => {
+    const n = metricMeta?.digits > 0 ? round(v, metricMeta.digits) : Math.round(v);
+    return n > 0 ? `+${n}` : `${n}`;
+  };
+  const findItem = (name) => (name ? equipment.find((x) => x.name === name) : null);
+
+  return createPortal(
+    <div className="vgModalBackdrop goModalBackdrop" role="presentation" onMouseDown={onClose}>
+      <section
+        className="vgModalDialog goModalDialog"
+        role="dialog"
+        aria-modal="true"
+        aria-label="一键换装收益排行"
+        onMouseDown={(e) => e.stopPropagation()}
+      >
+        <div className="vgModalHeader goModalHeader">
+          <div className="goTitleBlock">
+            <div className="goModeSwitch" role="tablist" aria-label="换装排行模式">
+              <button
+                type="button"
+                className={`goModeBtn ${mode === 'upgrade' ? 'active' : ''}`}
+                onClick={() => onChangeMode('upgrade')}
+              >
+                🔥 全身金/红升级优先级
+              </button>
+              <button
+                type="button"
+                className={`goModeBtn ${mode === 'slot' ? 'active' : ''}`}
+                onClick={() => onChangeMode('slot')}
+              >
+                🎯 单部位散件排行
+              </button>
+            </div>
+            <small className="goSubtitle">
+              {heroName} · 熟练度 Lv.{mastery} · 当前基准 <strong>{metricMeta?.shortLabel || metricMeta?.label}</strong>：
+              <b>{fmtVal(baselineScore)}</b>（当前 CD {baselineCd}%）
+            </small>
+          </div>
+          <div className="vgModalHeaderActions">
+            <button type="button" className="quietButton vgCloseBtn" onClick={onClose}>
+              关闭 Esc
+            </button>
+          </div>
+        </div>
+
+        {mode === 'slot' ? (
+          <div className="goSlotTabsBar">
+            {slots.map((s) => {
+              const cur = findItem(gear[s]);
+              return (
+                <button
+                  type="button"
+                  key={s}
+                  className={`vgModalSlotTab ${activeSlot === s ? 'active' : ''}`}
+                  onClick={() => onChangeSlot(s)}
+                >
+                  <EquipmentSlotIcon item={cur} slot={s} size={26} />
+                  <div className="vgModalSlotTabText">
+                    <span>{s}</span>
+                    <small>{cur ? cur.name : '（空）'}</small>
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+        ) : null}
+
+        <div className="vgFilterSection goControlSection">
+          <div className="goControlTopRow">
+            <label className="goMetricSelectWrap">
+              <span>排序指标</span>
+              <select value={metricKey} onChange={(e) => onChangeMetric(e.target.value)}>
+                {metricOptions.map((opt) => (
+                  <option value={opt.key} key={opt.key}>{opt.label}</option>
+                ))}
+              </select>
+            </label>
+
+            <div className="goTierPillGroup" aria-label="候选品级范围">
+              {[
+                { key: 'all_high', label: '金+红 (传说/超凡)', cls: 'tierPill-all' },
+                { key: 'mythic', label: '仅超凡 (红装)', cls: 'tierPill-mythic' },
+                { key: 'legend', label: '仅传说 (金装)', cls: 'tierPill-legend' },
+                { key: 'with_epic', label: '含英雄 (紫装)', cls: 'tierPill-epic' }
+              ].map((t) => (
+                <button
+                  type="button"
+                  key={t.key}
+                  className={`vgFilterPill ${t.cls} ${tierScope === t.key ? 'active' : ''}`}
+                  onClick={() => onChangeTierScope(t.key)}
+                >
+                  {t.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="goToggleRow">
+            {!metricKey.startsWith('stat:') && metricKey !== 'ba_dps' && metricKey !== 'ba_hit' ? (
+              <label className="vgChainToggle" title="将装备/潜能独有触发伤害（如诅咒、超负荷、鬼火、腐化、意念等）按触发 1 次计入总伤，避免纯触发型装备被低估">
+                <input type="checkbox" checked={includeProc} onChange={(e) => onToggleIncludeProc(e.target.checked)} />
+                <span>计入装备触发伤害(1次)</span>
+              </label>
+            ) : null}
+            <label className="vgChainToggle" title="对比时对当前装备与候选装备同步开启可叠层特效（如炽燃、神速、光辉、觉醒、超负荷等），保证公平满状态对比">
+              <input type="checkbox" checked={autoMaxStacks} onChange={(e) => onToggleAutoMaxStacks(e.target.checked)} />
+              <span>满层激活叠层特效</span>
+            </label>
+            <label className="vgChainToggle" title={`过滤掉会导致冷却缩减低于当前（${baselineCd}%）的换装方案`}>
+              <input type="checkbox" checked={keepMinCd} onChange={(e) => onToggleKeepMinCd(e.target.checked)} />
+              <span>不降冷却缩减 (≥{baselineCd}%)</span>
+            </label>
+            {canCrossWeapon && (mode === 'upgrade' || activeSlot === '武器') ? (
+              <label className="vgChainToggle" title="允许武器槽跨武器组对比该实验体可用的其它武器类型（自动同步熟练度加成与 D 技能）">
+                <input type="checkbox" checked={allowCrossWeapon} onChange={(e) => onToggleAllowCrossWeapon(e.target.checked)} />
+                <span>允许跨武器组对比</span>
+              </label>
+            ) : null}
+          </div>
+        </div>
+
+        <div className="goScrollBody">
+          {mode === 'upgrade' ? (
+            <div className="goBestPerSlotSection">
+              <div className="goSectionSubhead">
+                <strong>各部位头号升级推荐（保持其余 4 件不变）</strong>
+                <span>优先把陨石 / 秘银 / 生命树枝 / 能量核心 / 血包投给提升最大的部位</span>
+              </div>
+              <div className="goBestSlotGrid">
+                {slotBestList.map((entry) => {
+                  const best = entry.best;
+                  const curItem = findItem(gear[entry.slot]);
+                  const bestColor = best?.item ? qualityColor(best.item.quality, uiTheme) : undefined;
+                  return (
+                    <div className={`goBestSlotCard ${best && best.delta > 0 ? 'hasGain' : 'isMaxed'}`} key={entry.slot}>
+                      <div className="goBestSlotHeader">
+                        <span className="vgSlotTag">{entry.slot}</span>
+                        <button
+                          type="button"
+                          className="goJumpSlotLink"
+                          onClick={() => { onChangeMode('slot'); onChangeSlot(entry.slot); }}
+                        >
+                          看全榜 ›
+                        </button>
+                      </div>
+                      {best && best.delta > 0 ? (
+                        <>
+                          <div className="goBestSlotMain">
+                            <EquipmentSlotIcon item={best.item} slot={entry.slot} size={38} />
+                            <div className="goBestSlotInfo">
+                              <strong style={bestColor ? { color: bestColor } : undefined}>{best.item.name}</strong>
+                              <small>替换：{curItem ? curItem.name : '空栏'}</small>
+                            </div>
+                          </div>
+                          <div className="goBestSlotFooter">
+                            <span className="goDeltaPositive">
+                              {fmtSigned(best.delta)} ({best.pctDelta >= 0 ? '+' : ''}{round(best.pctDelta, 1)}%)
+                            </span>
+                            <button
+                              type="button"
+                              className="goEquipBtn"
+                              onClick={() => onEquipCandidate(entry.slot, best.item)}
+                            >
+                              换上
+                            </button>
+                          </div>
+                        </>
+                      ) : (
+                        <div className="goBestSlotOptimal">
+                          <EquipmentSlotIcon item={curItem} slot={entry.slot} size={34} />
+                          <div>
+                            <strong>{curItem ? curItem.name : '暂无更优'}</strong>
+                            <small className="goOptimalTag">✓ 当前筛选下已是最优</small>
+                          </div>
+                        </div>
+                      )}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          ) : (
+            currentSlotRow ? (
+              <div className="goCurrentEquippedBanner">
+                <span>当前穿戴【{activeSlot}】：</span>
+                <strong style={{ color: qualityColor(currentSlotRow.item?.quality, uiTheme) }}>
+                  {currentSlotRow.item ? currentSlotRow.item.name : '（空栏）'}
+                </strong>
+                <span>· 当前指标 <b>{fmtVal(currentSlotRow.score)}</b></span>
+                {currentSlotRow.rank ? <span className="goCurrentRankPill">本榜第 {currentSlotRow.rank} 名</span> : null}
+              </div>
+            ) : null
+          )}
+
+          <div className="goRankListSection">
+            <div className="goSectionSubhead">
+              <strong>
+                {mode === 'upgrade'
+                  ? `跨部位单件换装总榜（前 ${rankedRows.length} 项正向/平替方案）`
+                  : `【${activeSlot}】全部候选排行（共 ${rankedRows.length} 件）`}
+              </strong>
+              <span>点击「换上」立即穿戴并实时重算其余部位收益</span>
+            </div>
+
+            {rankedRows.length ? (
+              <div className="goRankList">
+                {rankedRows.map((row, idx) => {
+                  const tier = QUALITY_TIER_KEY[row.item.quality] || 'common';
+                  const color = qualityColor(row.item.quality, uiTheme);
+                  const statsArr = summarizeItemStats(row.item, mastery);
+                  const effs = uniqueEffectsForItem(row.item);
+                  const cdDiff = row.cd - baselineCd;
+                  const rowBody = (
+                    <div
+                      className={`goRankRow tier-${tier} ${row.isCurrent ? 'isCurrent' : ''} ${idx === 0 && row.delta > 0 ? 'isTop1' : ''}`.trim()}
+                      key={`${row.slot}-${row.item.code || row.item.name}`}
+                    >
+                      <span className={`goRankIndex ${idx < 3 ? `top-${idx + 1}` : ''}`}>#{idx + 1}</span>
+                      <EquipmentSlotIcon item={row.item} slot={row.slot} size={42} />
+                      <div className="goRankInfo">
+                        <div className="goRankTitleLine">
+                          {mode === 'upgrade' ? <span className="goSlotPill">{row.slot}</span> : null}
+                          <strong style={color ? { color } : undefined}>{row.item.name}</strong>
+                          <span className={`vgRarityTag tier-${tier}`}>{QUALITY_SHORT_LABELS[tier] || row.item.quality}</span>
+                          {row.slot === '武器' && row.item.weaponType ? (
+                            <span className="goWeaponSubTag">{row.item.weaponType.split('/')[0].trim()}</span>
+                          ) : null}
+                          {row.isCurrent ? <span className="goCurrentBadge">当前穿戴</span> : null}
+                        </div>
+                        <div className="goRankSubLine">
+                          <span>{statsArr.length ? statsArr.join(' · ') : '基础装备'}</span>
+                          {effs.map((ef) => <span className="vgEffectBadge" key={ef}>{ef}</span>)}
+                        </div>
+                      </div>
+
+                      <div className="goRankStatsCol">
+                        <div className="goScoreMain">
+                          <span className="goScoreVal">{fmtVal(row.score)}</span>
+                          {row.isCurrent ? (
+                            <span className="goDeltaNeutral">基准 ±0</span>
+                          ) : (
+                            <span className={row.delta > 0 ? 'goDeltaPositive' : row.delta < 0 ? 'goDeltaNegative' : 'goDeltaNeutral'}>
+                              {fmtSigned(row.delta)} ({row.pctDelta >= 0 ? '+' : ''}{round(row.pctDelta, 1)}%)
+                            </span>
+                          )}
+                        </div>
+                        <div className="goAuxDiffLine">
+                          <small>法强 {row.ap} / 攻击 {round(row.attackPower, 0)}</small>
+                          {cdDiff !== 0 ? (
+                            <small className={cdDiff > 0 ? 'goCdUp' : 'goCdDown'}>
+                              CD {cdDiff > 0 ? `+${cdDiff}` : cdDiff}%
+                            </small>
+                          ) : <small>CD {row.cd}%</small>}
+                        </div>
+                      </div>
+
+                      <div className="goRankActionCol">
+                        {row.isCurrent ? (
+                          <span className="goEquippedLabel">已装备</span>
+                        ) : (
+                          <button
+                            type="button"
+                            className="goEquipBtn"
+                            onClick={() => onEquipCandidate(row.slot, row.item)}
+                          >
+                            换上
+                          </button>
+                        )}
+                      </div>
+                    </div>
+                  );
+
+                  if (PortalHovercard && renderHoverContent) {
+                    return (
+                      <PortalHovercard
+                        key={`${row.slot}-${row.item.code || row.item.name}`}
+                        className="goRankHoverWrap"
+                        content={renderHoverContent(row.item)}
+                      >
+                        {rowBody}
+                      </PortalHovercard>
+                    );
+                  }
+                  return rowBody;
+                })}
+              </div>
+            ) : (
+              <div className="vgEmptyState">
+                当前筛选条件下暂无符合要求的装备（若开启了「不降冷却缩减」或「仅超凡」，可尝试放宽条件）。
+              </div>
+            )}
+          </div>
+        </div>
+      </section>
+    </div>,
+    document.body
+  );
+}
+
 function AnnouncementDialog({
   announcement,
   editable,
@@ -3794,6 +4153,391 @@ export default function App() {
     slot,
     slot === '武器' ? weaponChoices : builderEquipment.filter((item) => item.type === slot)
   ]));
+
+  // ---- v0.2.091 一键换装收益排行（全身金/红升级优先级 + 单部位散件排行） ----
+  const [showGearOptimizer, setShowGearOptimizer] = useState(false);
+  const [optimizerMode, setOptimizerMode] = useState('upgrade');
+  const [optimizerSlot, setOptimizerSlot] = useState('头部');
+  const [optimizerMetric, setOptimizerMetric] = useState('auto');
+  const [optimizerTierScope, setOptimizerTierScope] = useState('all_high');
+  const [optimizerIncludeProc, setOptimizerIncludeProc] = useState(true);
+  const [optimizerAutoMaxStacks, setOptimizerAutoMaxStacks] = useState(true);
+  const [optimizerKeepMinCd, setOptimizerKeepMinCd] = useState(false);
+  const [optimizerAllowCrossWeapon, setOptimizerAllowCrossWeapon] = useState(false);
+
+  function openGearOptimizer(nextMode = 'upgrade', nextSlot = null) {
+    setOptimizerMode(nextMode);
+    if (nextSlot && SLOTS.includes(nextSlot)) setOptimizerSlot(nextSlot);
+    setShowGearOptimizer(true);
+  }
+
+  function handleEquipFromOptimizer(slot, item) {
+    if (!item) return;
+    if (slot === '武器') {
+      const nextRaw = weaponTypeRaw(item);
+      if (nextRaw && nextRaw !== selectedWeaponRaw) {
+        setWeaponTypeFilter(weaponTypeLabelForRaw(nextRaw));
+        const key = loadoutKeyFor(selectedHero, nextRaw);
+        loadoutRecordKeyRef.current = key;
+      }
+    }
+    updateGear(slot, item.name);
+  }
+
+  const optimizerMetricOptions = useMemo(() => {
+    const opts = [];
+    if (quickComboItems.length > 0) {
+      opts.push({
+        key: 'combo',
+        label: `🎯 当前连招序列总伤（${quickComboItems.length} 步）`,
+        shortLabel: '当前连招总伤',
+        digits: 0
+      });
+    }
+    opts.push({
+      key: 'burst',
+      label: '💥 一套技能爆发总伤（全技能 + 平A + D）',
+      shortLabel: '一套爆发总伤',
+      digits: 0
+    });
+    opts.push({
+      key: 'ba_dps',
+      label: '🏹 普攻持续秒伤（期望平A × 面板攻速）',
+      shortLabel: '普攻持续秒伤',
+      digits: 1
+    });
+    opts.push({
+      key: 'ba_hit',
+      label: '🗡 单发普攻期望伤害（暴击加权）',
+      shortLabel: '单发期望普攻',
+      digits: 0
+    });
+    if ((result.weaponSkill?.segments || []).length > 0) {
+      opts.push({
+        key: 'ws_d',
+        label: `⚡ 武器技能 D · ${result.weaponSkill.name}`,
+        shortLabel: `D·${result.weaponSkill.name}`,
+        digits: 0
+      });
+    }
+    for (const sk of result.skills) {
+      if (sk.kind === 'shield' || sk.kind === 'heal' || sk.kind === 'buff') continue;
+      opts.push({
+        key: `skill:${sk.id}`,
+        label: `单技能 · ${sk.title}`,
+        shortLabel: sk.title,
+        digits: 0
+      });
+    }
+    opts.push({ key: 'stat:ap', label: '面板属性 · 最终法强', shortLabel: '最终法强', digits: 0 });
+    opts.push({ key: 'stat:attackPower', label: '面板属性 · 最终攻击力', shortLabel: '最终攻击力', digits: 1 });
+    return opts;
+  }, [quickComboItems.length, result.weaponSkill, result.skills]);
+
+  const effectiveOptimizerMetric = useMemo(() => {
+    const defaultKey = quickComboItems.length > 0 ? 'combo' : 'burst';
+    if (optimizerMetric === 'auto') return defaultKey;
+    if (!optimizerMetricOptions.some((o) => o.key === optimizerMetric)) return defaultKey;
+    return optimizerMetric;
+  }, [optimizerMetric, optimizerMetricOptions, quickComboItems.length]);
+
+  const gearOptimizerData = useMemo(() => {
+    if (!showGearOptimizer) return null;
+
+    const metricMeta = optimizerMetricOptions.find((o) => o.key === effectiveOptimizerMetric) || optimizerMetricOptions[0];
+    const baseDefLv = characterDefenseAtLevel(selectedCharacter, mastery);
+    const baseMaxHpLv = characterMaxHpAtLevel(selectedCharacter, mastery);
+    const charAsOffset = getNumber(selectedCharacter?.base?.attackSpeed);
+    const comboEffectTitles = new Set(
+      quickComboItems.filter((x) => x.kind === 'effect').map((x) => x.refId)
+    );
+
+    function runSim(candidateGear) {
+      const candItems = SLOTS.map((s) => byName(equipment, candidateGear[s])).filter(Boolean);
+      const candWeaponItem = candItems.find((it) => it.type === '武器');
+      const candWeaponRaw = weaponTypeRaw(candWeaponItem) || selectedWeaponRaw || selectedCharacter?.weapons?.[0] || '';
+      const candMasteryStat = masteryStatFor(selectedCharacter?.code, candWeaponRaw);
+      const candEqStats = aggregateEquipmentStats(candItems, mastery);
+      const candMaxHp = getNumber(baseMaxHpLv) + statValue(candEqStats, 'maxHp');
+      const candSelfHp = autoSyncSelfHp && candMaxHp > 0 ? candMaxHp : Math.max(1, getNumber(selfHp) || 1000);
+      const candBurstBonus = Math.min(0.1, Math.max(0, (getNumber(target.hp) - candSelfHp) / Math.max(1, candSelfHp)) * 0.25);
+      const candTraitBonuses = traitBonusesFor(selectedTraits, candBurstBonus);
+      const candAvailToggles = toggleableEffectsFor(candItems);
+      const candEffectToggles = optimizerAutoMaxStacks
+        ? Object.fromEntries(candAvailToggles.map((t) => [t.name, true]))
+        : Object.fromEntries(candAvailToggles.filter((t) => activeEffectToggles[t.name]).map((t) => [t.name, true]));
+
+      return calc({
+        equipment,
+        skillTable: skills,
+        skillLevels,
+        gear: candidateGear,
+        mastery,
+        masteryStat: candMasteryStat,
+        attack,
+        characterAttackSpeedOffset: charAsOffset,
+        weaponRaw: candWeaponRaw,
+        baseDefense: baseDefLv,
+        baseMaxHp: baseMaxHpLv,
+        talentAp,
+        traitBonuses: candTraitBonuses,
+        selectedTraits,
+        target,
+        targetMastery,
+        targetHpPct,
+        selfHpPct,
+        heroModifierChoices,
+        heroForm: activeHeroForm,
+        skillTargetCounts,
+        selfHp: candSelfHp,
+        autoSyncSelfHp,
+        selfShield,
+        accumulatedDamage,
+        damageBonus,
+        skillReduction,
+        r2Stacks,
+        tacticalSkill,
+        tacticalUpgraded,
+        vampireFull: effectiveVampireFull,
+        effectToggles: candEffectToggles,
+        selectedHero,
+        weaponSkillLevel: weaponSkillLevelOverride,
+        hammerShredActive,
+        combos
+      });
+    }
+
+    function skillRepresentativeDamage(sk, simRes) {
+      if (!sk || sk.kind === 'shield' || sk.kind === 'heal' || sk.kind === 'buff') return 0;
+      const pRule = progressiveDamageRule(sk);
+      if (pRule) {
+        const { min, max, defaultValue } = progressiveDamageBounds(pRule);
+        const rId = pRule?.id || 'progressive';
+        const saved = skillTargetCounts[`${sk.id}-${rId}`];
+        const stepVal = Math.max(min, Math.min(max, saved === undefined || saved === null || saved === '' ? defaultValue : getNumber(saved)));
+        return progressiveDamageValue(sk, simRes.formulaContext, stepVal).final;
+      }
+      if (getNumber(sk.maxHits) > 1) {
+        const maxH = Math.max(1, getNumber(sk.maxHits));
+        const stored = getNumber(skillTargetCounts[`${sk.id}-hits`]);
+        const dynHits = skillDisplayRule(selectedHero, sk.id)?.dynamicHitsByBonusAs;
+        const computedDef = dynHits
+          ? Math.min(getNumber(dynHits.max) || maxH, getNumber(dynHits.base) + Math.floor((simRes.totalBonusAttackSpeed + 1e-6) / (getNumber(dynHits.step) || 0.2)))
+          : (getNumber(sk.defaultHits) || 1);
+        const hits = stored > 0 ? Math.min(maxH, stored) : Math.max(1, Math.min(maxH, computedDef));
+        return scaledSkillDamage(sk, simRes.finalMod, { hits, context: simRes.formulaContext }).final;
+      }
+      const dRule = skillDisplayRule(selectedHero, sk.id);
+      if (dRule?.hits > 1) {
+        return scaledSkillDamage(sk, simRes.finalMod, { hits: dRule.hits, context: simRes.formulaContext }).final;
+      }
+      return getNumber(sk.damage);
+    }
+
+    function scoreForSim(simRes) {
+      const mKey = effectiveOptimizerMetric;
+      if (mKey === 'stat:ap') return simRes.ap;
+      if (mKey === 'stat:attackPower') return simRes.attackPower;
+      const critP = Math.max(0, Math.min(1, getNumber(simRes.critChance)));
+      const expectedBa = (1 - critP) * getNumber(simRes.basicAttackDamage?.normal) + critP * getNumber(simRes.basicAttackDamage?.critical);
+      if (mKey === 'ba_hit') return expectedBa;
+      if (mKey === 'ba_dps') return expectedBa * Math.max(0.01, getNumber(simRes.finalAttackSpeed));
+      if (mKey === 'ws_d') {
+        const wsDmg = (simRes.weaponSkill?.segments || []).reduce((s, seg) => s + getNumber(seg.damage), 0);
+        return wsDmg + (optimizerIncludeProc ? getNumber(simRes.effectSubtotal) : 0);
+      }
+      if (mKey.startsWith('skill:')) {
+        const skId = mKey.slice('skill:'.length);
+        const sk = simRes.skills.find((x) => x.id === skId);
+        return skillRepresentativeDamage(sk, simRes) + (optimizerIncludeProc ? getNumber(simRes.effectSubtotal) : 0);
+      }
+      if (mKey === 'combo' && quickComboItems.length > 0) {
+        const skMap = new Map(simRes.skills.map((s) => [s.id, s]));
+        const wsMap = new Map((simRes.weaponSkill?.segments || []).map((s) => [s.id, s]));
+        const efMap = new Map((simRes.effects || []).map((e) => [e.title, e]));
+        let total = 0;
+        for (const item of quickComboItems) {
+          let unit = 0;
+          if (item.kind === 'ba-normal') unit = getNumber(simRes.basicAttackDamage?.normal);
+          else if (item.kind === 'ba-crit') unit = getNumber(simRes.basicAttackDamage?.critical);
+          else if (item.kind === 'ba-enhanced') unit = getNumber(simRes.basicAttackDamage?.normal) + getNumber(simRes.basicAttackBonus);
+          else if (item.kind === 'weapon-skill') unit = getNumber(wsMap.get(item.refId)?.damage);
+          else if (item.kind === 'effect') unit = getNumber(efMap.get(item.refId)?.value);
+          else if (item.kind === 'skill-prog') {
+            const sk = skMap.get(item.refId);
+            if (sk) {
+              const pRule = progressiveDamageRule(sk);
+              const { min, max, defaultValue } = progressiveDamageBounds(pRule);
+              const targetStep = item.step !== undefined ? Math.max(min, Math.min(max, getNumber(item.step))) : defaultValue;
+              unit = progressiveDamageValue(sk, simRes.formulaContext, targetStep).final;
+            }
+          } else if (item.kind === 'skill-multihit') {
+            const sk = skMap.get(item.refId);
+            if (sk) unit = scaledSkillDamage(sk, simRes.finalMod, { context: simRes.formulaContext }).final;
+          } else if (item.kind === 'skill') {
+            const sk = skMap.get(item.refId);
+            if (sk) unit = scaledSkillDamage(sk, simRes.finalMod, { scale: item.scale || 1, hits: item.hits || 1, context: simRes.formulaContext }).final;
+          }
+          total += unit * getNumber(item.count);
+        }
+        if (optimizerIncludeProc) {
+          const extraProc = (simRes.effects || [])
+            .filter((e) => e && !e.excludeFromSubtotal && !comboEffectTitles.has(e.title))
+            .reduce((s, e) => s + getNumber(e.value), 0);
+          total += extraProc;
+        }
+        return total;
+      }
+
+      // 默认 burst：一套技能（排除护盾/治疗/增益与已被普通段覆盖的 R强化 重复项）+ 1发期望平A + D首段伤害 + 触发特效
+      let burstSum = expectedBa;
+      for (const sk of simRes.skills) {
+        if (sk.kind === 'shield' || sk.kind === 'heal' || sk.kind === 'buff') continue;
+        if (String(sk.title || '').includes('（R强化）')) continue;
+        burstSum += skillRepresentativeDamage(sk, simRes);
+      }
+      const wsFirst = simRes.weaponSkill?.segments?.[0];
+      if (wsFirst) burstSum += getNumber(wsFirst.damage);
+      if (optimizerIncludeProc) burstSum += getNumber(simRes.effectSubtotal);
+      return burstSum;
+    }
+
+    function passesTierFilter(item) {
+      const tier = QUALITY_TIER_KEY[item.quality] || 'common';
+      if (optimizerTierScope === 'mythic') return tier === 'mythic';
+      if (optimizerTierScope === 'legend') return tier === 'legend';
+      if (optimizerTierScope === 'all_high') return tier === 'mythic' || tier === 'legend';
+      return tier === 'mythic' || tier === 'legend' || tier === 'epic';
+    }
+
+    function candidatesForSlot(slot) {
+      return equipment.filter((item) => {
+        if (item.type !== slot) return false;
+        const isCurrentlyWorn = gear[slot] === item.name;
+        if (!isCurrentlyWorn && !passesTierFilter(item)) return false;
+        if (slot === '武器') {
+          const raw = weaponTypeRaw(item);
+          if (allowedWeaponTypes.size && !allowedWeaponTypes.has(raw)) return false;
+          if (!optimizerAllowCrossWeapon && selectedWeaponRaw && raw !== selectedWeaponRaw && !isCurrentlyWorn) {
+            return false;
+          }
+        }
+        return true;
+      });
+    }
+
+    const baseSim = runSim(gear);
+    const baselineScore = scoreForSim(baseSim);
+    const baselineCd = baseSim.cd;
+
+    function evaluateSlotCandidates(slot) {
+      const cands = candidatesForSlot(slot);
+      const rows = [];
+      for (const item of cands) {
+        const isCurrent = gear[slot] === item.name;
+        const sim = isCurrent ? baseSim : runSim({ ...gear, [slot]: item.name });
+        if (!isCurrent && optimizerKeepMinCd && sim.cd < baselineCd) continue;
+        const score = isCurrent ? baselineScore : scoreForSim(sim);
+        const delta = score - baselineScore;
+        const pctDelta = baselineScore > 0 ? (delta / baselineScore) * 100 : (delta > 0 ? 100 : 0);
+        rows.push({
+          slot,
+          item,
+          isCurrent,
+          score,
+          delta,
+          pctDelta,
+          ap: sim.ap,
+          attackPower: sim.attackPower,
+          cd: sim.cd
+        });
+      }
+      rows.sort((a, b) => b.score - a.score || (b.cd - a.cd));
+      return rows;
+    }
+
+    if (optimizerMode === 'slot') {
+      const rows = evaluateSlotCandidates(optimizerSlot);
+      const curIdx = rows.findIndex((r) => r.isCurrent);
+      const currentSlotRow = curIdx >= 0
+        ? { ...rows[curIdx], rank: curIdx + 1 }
+        : { item: byName(equipment, gear[optimizerSlot]), score: baselineScore, rank: null };
+      return {
+        baselineScore,
+        baselineCd,
+        metricMeta,
+        slotBestList: [],
+        rankedRows: rows,
+        currentSlotRow
+      };
+    }
+
+    // upgrade 模式：评估全部 5 个部位
+    const bySlot = SLOTS.map((slot) => {
+      const rows = evaluateSlotCandidates(slot);
+      const bestUpgrade = rows.find((r) => !r.isCurrent && r.delta > 0) || null;
+      return { slot, best: bestUpgrade, rows };
+    });
+
+    const mergedUpgrades = bySlot
+      .flatMap((entry) => entry.rows.filter((r) => !r.isCurrent && r.delta >= -0.5))
+      .sort((a, b) => b.delta - a.delta || (b.cd - a.cd))
+      .slice(0, 28);
+
+    return {
+      baselineScore,
+      baselineCd,
+      metricMeta,
+      slotBestList: bySlot.map(({ slot, best }) => ({ slot, best })),
+      rankedRows: mergedUpgrades,
+      currentSlotRow: null
+    };
+  }, [
+    showGearOptimizer,
+    optimizerMode,
+    optimizerSlot,
+    effectiveOptimizerMetric,
+    optimizerMetricOptions,
+    optimizerTierScope,
+    optimizerIncludeProc,
+    optimizerAutoMaxStacks,
+    optimizerKeepMinCd,
+    optimizerAllowCrossWeapon,
+    equipment,
+    skills,
+    skillLevels,
+    gear,
+    mastery,
+    selectedWeaponRaw,
+    allowedWeaponTypes,
+    attack,
+    selectedCharacter,
+    talentAp,
+    selectedTraits,
+    target,
+    targetMastery,
+    targetHpPct,
+    selfHpPct,
+    heroModifierChoices,
+    activeHeroForm,
+    skillTargetCounts,
+    selfHp,
+    autoSyncSelfHp,
+    selfShield,
+    accumulatedDamage,
+    damageBonus,
+    skillReduction,
+    r2Stacks,
+    tacticalSkill,
+    tacticalUpgraded,
+    effectiveVampireFull,
+    activeEffectToggles,
+    selectedHero,
+    weaponSkillLevelOverride,
+    hammerShredActive,
+    combos,
+    quickComboItems
+  ]);
   const showBasicAttackAmp = Boolean(result.basicAttackAmp || result.basicAttackFlatBonus || heroUsesBasicAttackAmp);
   // 「预计恢复与护盾」和「强化普攻」两张卡：都在时并列成两列，只有一张时照旧占满整行
   const hasSupportPanel = result.supportSkills.length > 0;
@@ -5483,7 +6227,7 @@ export default function App() {
                         raw={seg.rawDamage}
                         final={seg.damage}
                         baselineFinal={activePin?.skillMap?.[`ws:${seg.id}`]}
-                        onQuickComboAdd={() => appendQuickComboStep({
+                        onQuickCombo={() => appendQuickComboStep({
                           key: `ws:${seg.id}`,
                           kind: 'weapon-skill',
                           refId: seg.id,
@@ -5982,6 +6726,43 @@ export default function App() {
         />
       ) : null}
 
+      {showGearOptimizer ? (
+        <GearOptimizerDialog
+          open={showGearOptimizer}
+          onClose={() => setShowGearOptimizer(false)}
+          heroName={selectedHero}
+          mastery={mastery}
+          uiTheme={uiTheme}
+          slots={SLOTS}
+          gear={gear}
+          equipment={equipment}
+          mode={optimizerMode}
+          onChangeMode={setOptimizerMode}
+          activeSlot={optimizerSlot}
+          onChangeSlot={setOptimizerSlot}
+          metricKey={effectiveOptimizerMetric}
+          metricOptions={optimizerMetricOptions}
+          onChangeMetric={setOptimizerMetric}
+          tierScope={optimizerTierScope}
+          onChangeTierScope={setOptimizerTierScope}
+          includeProc={optimizerIncludeProc}
+          onToggleIncludeProc={setOptimizerIncludeProc}
+          autoMaxStacks={optimizerAutoMaxStacks}
+          onToggleAutoMaxStacks={setOptimizerAutoMaxStacks}
+          keepMinCd={optimizerKeepMinCd}
+          onToggleKeepMinCd={setOptimizerKeepMinCd}
+          allowCrossWeapon={optimizerAllowCrossWeapon}
+          onToggleAllowCrossWeapon={setOptimizerAllowCrossWeapon}
+          canCrossWeapon={(selectedCharacter?.weapons || []).length > 1}
+          optimizerData={gearOptimizerData}
+          onEquipCandidate={handleEquipFromOptimizer}
+          qualityColor={qualityColor}
+          uniqueEffectsForItem={uniqueEffectsForItem}
+          PortalHovercard={PortalHovercard}
+          renderHoverContent={(item) => <EquipmentItemHoverContent item={item} mastery={mastery} uiTheme={uiTheme} />}
+        />
+      ) : null}
+
       {activePage === 'compare' ? renderComparisonPage() : (
       <>
       <section className={`grid twoColumns buildTargetGrid ${useHeroAvatarPicker ? 'withAvatarRail' : ''}`.trim()}>
@@ -5995,6 +6776,14 @@ export default function App() {
               <h2><LabelWithHelp note={help('section.gear')}>装备选择</LabelWithHelp></h2>
             </div>
             <div className="buttonRow">
+              <button
+                type="button"
+                className="openOptimizerBtn"
+                onClick={() => openGearOptimizer('upgrade')}
+                title="一键计算全身金/红装升级优先级（陨石/秘银/血包给哪个部位提升最大）与各部位散件伤害排行"
+              >
+                ⚡ 换装收益排行
+              </button>
               <button
                 type="button"
                 className={`quietButton shareBuildBtn ${shareCopied ? 'copied' : ''}`}
@@ -6204,6 +6993,7 @@ export default function App() {
                     showLowerTierEquipment={showLowerTierEquipment}
                     onToggleLowerTier={setShowLowerTierEquipment}
                     onSelectGear={updateGear}
+                    onOpenOptimizer={openGearOptimizer}
                     uniqueEffectsForItem={uniqueEffectsForItem}
                     qualityColor={qualityColor}
                     PortalHovercard={PortalHovercard}
