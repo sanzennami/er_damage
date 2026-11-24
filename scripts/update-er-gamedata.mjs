@@ -9,8 +9,9 @@ const rootDir = path.resolve(__dirname, '..');
 const cacheDir = path.join(rootDir, '.er-gamedata-cache');
 const outDir = path.join(rootDir, 'src', 'data', 'sources');
 const outFile = path.join(outDir, 'erGameData.json');
-// masteryStats 是 App 直接读取的活数据，留在 src/data 顶层
+// masteryStats 与 weaponTypeInfo 是 App 直接读取的活数据，留在 src/data 顶层
 const masteryOutFile = path.join(rootDir, 'src', 'data', 'masteryStats.json');
+const weaponTypeInfoOutFile = path.join(rootDir, 'src', 'data', 'weaponTypeInfo.json');
 const repoUrl = 'https://github.com/pypy-vrc/er-gamedata.git';
 
 const SKILL_SLOT_LABELS = new Map([
@@ -385,11 +386,12 @@ async function ensureRepo() {
 async function main() {
   if (!await ensureRepo()) return;
 
-  const [characters, levelStats, masteries, masteryStats, attributes, skillGroups, skillExtensions, itemWeapons, itemArmors, zh, en] = await Promise.all([
+  const [characters, levelStats, masteries, masteryStats, weaponTypeInfos, attributes, skillGroups, skillExtensions, itemWeapons, itemArmors, zh, en] = await Promise.all([
     readJson('data/Character.json'),
     readJson('data/CharacterLevelUpStat.json'),
     readJson('data/CharacterMastery.json'),
     readJson('data/MasteryStat.json'),
+    existsSync(path.join(cacheDir, 'data/WeaponTypeInfo.json')) ? readJson('data/WeaponTypeInfo.json') : Promise.resolve([]),
     readJson('data/CharacterAttributes.json'),
     readJson('data/SkillGroup.json'),
     readJson('data/SkillExtension.json'),
@@ -509,6 +511,20 @@ async function main() {
       { stat: row.thirdOption, value: row.thirdOptionSection1Value }
     ].filter((item) => item.stat && item.stat !== 'None' && item.value)
   })), null, 2)}\n`, 'utf8');
+  if (Array.isArray(weaponTypeInfos) && weaponTypeInfos.length > 0) {
+    await writeFile(weaponTypeInfoOutFile, `${JSON.stringify({
+      _comment: '武器类型基础攻速与基础射程表（源自 pypy-vrc/er-gamedata data/WeaponTypeInfo.json）。实验体面板基础攻速 = characters.json base.attackSpeed（角色修正值） + weaponTypes[weapon].attackSpeed。',
+      source: repoUrl,
+      updatedAt: new Date().toISOString(),
+      count: weaponTypeInfos.length,
+      weaponTypes: Object.fromEntries(weaponTypeInfos.map((w) => [w.type, {
+        attackSpeed: w.attackSpeed,
+        attackRange: w.attackRange,
+        shopFilter: w.shopFilter
+      }]))
+    }, null, 2)}\n`, 'utf8');
+    console.log(`Wrote ${path.relative(rootDir, weaponTypeInfoOutFile)}`);
+  }
 
   console.log(`Wrote ${path.relative(rootDir, outFile)}`);
   console.log(`Wrote ${path.relative(rootDir, masteryOutFile)}`);

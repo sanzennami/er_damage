@@ -1,0 +1,123 @@
+{
+  "_comment": "武器类型基础攻速与基础射程表（源自 pypy-vrc/er-gamedata data/WeaponTypeInfo.json）。实验体面板基础攻速 = characters.json base.attackSpeed（角色修正值） + weaponTypes[weapon].attackSpeed。",
+  "source": "https://github.com/pypy-vrc/er-gamedata (data/WeaponTypeInfo.json)",
+  "updatedAt": "2026-11-24T09:17:39.352Z",
+  "count": 23,
+  "weaponTypes": {
+    "Glove": {
+      "attackSpeed": 0.63,
+      "attackRange": 1.2,
+      "shopFilter": 1
+    },
+    "Tonfa": {
+      "attackSpeed": 0.5,
+      "attackRange": 1.2,
+      "shopFilter": 1
+    },
+    "Bat": {
+      "attackSpeed": 0.56,
+      "attackRange": 1.4,
+      "shopFilter": 1
+    },
+    "Hammer": {
+      "attackSpeed": 0.455,
+      "attackRange": 1.5,
+      "shopFilter": 1
+    },
+    "Whip": {
+      "attackSpeed": 0.55,
+      "attackRange": 2.4,
+      "shopFilter": 1
+    },
+    "HighAngleFire": {
+      "attackSpeed": 0.51,
+      "attackRange": 5.3,
+      "shopFilter": 1
+    },
+    "DirectFire": {
+      "attackSpeed": 0.55,
+      "attackRange": 4.8,
+      "shopFilter": 1
+    },
+    "Bow": {
+      "attackSpeed": 0.65,
+      "attackRange": 5.5,
+      "shopFilter": 1
+    },
+    "CrossBow": {
+      "attackSpeed": 0.54,
+      "attackRange": 5.2,
+      "shopFilter": 1
+    },
+    "Pistol": {
+      "attackSpeed": 0.505,
+      "attackRange": 4.85,
+      "shopFilter": 1
+    },
+    "AssaultRifle": {
+      "attackSpeed": 0.55,
+      "attackRange": 5.15,
+      "shopFilter": 1
+    },
+    "SniperRifle": {
+      "attackSpeed": 0.43,
+      "attackRange": 6,
+      "shopFilter": 1
+    },
+    "Axe": {
+      "attackSpeed": 0.485,
+      "attackRange": 1.65,
+      "shopFilter": 1
+    },
+    "OneHandSword": {
+      "attackSpeed": 0.58,
+      "attackRange": 1.25,
+      "shopFilter": 1
+    },
+    "TwoHandSword": {
+      "attackSpeed": 0.56,
+      "attackRange": 1.65,
+      "shopFilter": 1
+    },
+    "DualSword": {
+      "attackSpeed": 0.43,
+      "attackRange": 1.4,
+      "shopFilter": 1
+    },
+    "Spear": {
+      "attackSpeed": 0.445,
+      "attackRange": 2.2,
+      "shopFilter": 1
+    },
+    "Nunchaku": {
+      "attackSpeed": 0.56,
+      "attackRange": 1.75,
+      "shopFilter": 1
+    },
+    "Rapier": {
+      "attackSpeed": 0.615,
+      "attackRange": 1.4,
+      "shopFilter": 1
+    },
+    "Guitar": {
+      "attackSpeed": 0.495,
+      "attackRange": 4.4,
+      "shopFilter": 1
+    },
+    "Camera": {
+      "attackSpeed": 0.55,
+      "attackRange": 5.1,
+      "shopFilter": 1
+    },
+    "Arcana": {
+      "attackSpeed": 0.555,
+      "attackRange": 4.65,
+      "shopFilter": 1
+    },
+    "VFArm": {
+      "attackSpeed": 0.5,
+      "attackRange": 1.4,
+      "shopFilter": 1
+    }
+  }
+}

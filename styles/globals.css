@@ -301,11 +301,11 @@ button {
 }
 
 .floatingHeroAvatarPicker {
-  position: absolute;
-  z-index: 1;
-  top: 0;
-  left: 0;
-  width: 176px;
+  position: sticky;
+  z-index: 5;
+  top: 16px;
+  width: 100%;
+  max-height: calc(100vh - 32px);
 }
 
 .heroAvatarList {
@@ -449,9 +449,14 @@ button {
 
 main {
   position: relative;
-  width: min(1180px, calc(100% - 32px));
+  width: min(1760px, calc(100vw - 48px));
   margin: 0 auto;
-  padding: 36px 0 56px;
+  padding: 28px 0 56px;
+  transition: width 0.2s ease;
+}
+
+body[data-wide='false'] main {
+  width: min(1180px, calc(100% - 32px));
 }
 
 .hero {
@@ -3462,4 +3467,2470 @@ body[data-theme='day'] .comparisonStandaloneMetric {
   border: 1px solid rgba(255, 255, 255, 0.14);
   border-radius: 8px;
   font-size: 32px;
+}
+
+/* ==================== 横屏宽屏自适应增强 + 快照对比 + 连招斩杀面板 ==================== */
+@media (min-width: 1360px) {
+  body[data-wide='true'] .hero h1,
+  body[data-wide='true'] .intro {
+    max-width: none;
+  }
+
+  body[data-wide='true'] .gearGrid,
+  body[data-wide='true'] .formGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  body[data-wide='true'] .buildArea.hasHeroAvatarRail {
+    grid-template-columns: 220px minmax(0, 1fr);
+  }
+
+  body[data-wide='true'] .floatingHeroAvatarPicker .heroAvatarList {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  /* 宽屏下技能面板在左、连招斩杀与装备特效在右并排展示，彻底告别上下长滚屏 */
+  body[data-wide='true'] .damageLayout {
+    grid-template-columns: minmax(0, 1.85fr) minmax(360px, 0.95fr);
+    align-items: start;
+  }
+
+  body[data-wide='true'] .damageSideStack {
+    position: sticky;
+    top: 16px;
+  }
+}
+
+.damageSideStack {
+  display: grid;
+  gap: 16px;
+  min-width: 0;
+}
+
+/* 一键快照对比（Pin Baseline）样式 */
+.pinBaselineBtn {
+  border-color: rgba(129, 202, 255, 0.45);
+  background: rgba(129, 202, 255, 0.14);
+  color: #cbe8ff;
+  font-weight: 700;
+  font-size: 13px;
+}
+
+.pinBaselineBtn.pinned {
+  border-color: rgba(141, 225, 173, 0.65);
+  background: rgba(141, 225, 173, 0.2);
+  color: #b5f5ce;
+}
+
+.pinnedBaselineBanner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px 16px;
+  margin-bottom: 16px;
+  padding: 10px 14px;
+  border: 1px solid rgba(141, 225, 173, 0.35);
+  border-radius: 12px;
+  background: linear-gradient(90deg, rgba(36, 122, 69, 0.22), rgba(18, 28, 38, 0.45));
+}
+
+.pinnedBannerMain {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.pinnedBannerMain strong {
+  color: #9ef0be;
+  font-size: 13px;
+}
+
+.pinnedBannerMain span {
+  color: #c9c0b3;
+  font-size: 12px;
+}
+
+.pinnedBannerMetrics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 14px;
+  font-size: 12.5px;
+  color: #f6f2e8;
+}
+
+.damageValueMainRow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.pinDeltaBadge {
+  display: inline-flex;
+  align-items: center;
+  padding: 1px 6px;
+  border-radius: 6px;
+  font-style: normal;
+  font-size: 12px;
+  font-weight: 800;
+  line-height: 1.35;
+  letter-spacing: 0;
+}
+
+.pinDeltaBadge.up {
+  background: rgba(46, 204, 113, 0.18);
+  border: 1px solid rgba(46, 204, 113, 0.45);
+  color: #69f0ae;
+}
+
+.pinDeltaBadge.down {
+  background: rgba(255, 92, 108, 0.18);
+  border: 1px solid rgba(255, 92, 108, 0.45);
+  color: #ff8a96;
+}
+
+.pinDeltaBadge.neutral {
+  background: rgba(255, 255, 255, 0.07);
+  color: #9e968c;
+  font-weight: 600;
+}
+
+/* 快捷 +连招 小按钮 */
+.quickComboAddBtn {
+  padding: 2px 7px;
+  border: 1px solid rgba(255, 213, 107, 0.35);
+  border-radius: 6px;
+  background: rgba(255, 213, 107, 0.1);
+  color: #ffd56b;
+  font-size: 11px;
+  font-weight: 700;
+  line-height: 1.35;
+  opacity: 0.78;
+  transition: opacity 0.15s ease, background 0.15s ease, transform 0.1s ease;
+}
+
+.quickComboAddBtn:hover {
+  opacity: 1;
+  background: rgba(255, 213, 107, 0.26);
+  transform: translateY(-1px);
+}
+
+/* 连招计算与斩杀线血条面板 */
+.comboSandboxPanel {
+  display: grid;
+  gap: 12px;
+}
+
+.comboSandboxHead {
+  margin-bottom: 0;
+}
+
+.comboQuickTriggers {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.comboQuickTriggers button {
+  padding: 6px 10px;
+  font-size: 12px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.comboQuickTriggers button:hover {
+  border-color: rgba(255, 213, 107, 0.55);
+  background: rgba(255, 213, 107, 0.16);
+}
+
+.lethalHpBox {
+  display: grid;
+  gap: 8px;
+  padding: 12px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  background: rgba(10, 12, 18, 0.55);
+}
+
+.lethalHpBox.lethal {
+  border-color: rgba(255, 92, 108, 0.68);
+  background: linear-gradient(135deg, rgba(92, 18, 30, 0.52), rgba(18, 14, 22, 0.75));
+  box-shadow: 0 0 24px rgba(255, 79, 95, 0.18);
+}
+
+.lethalHpHeader {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  font-size: 12px;
+}
+
+.lethalTargetName {
+  color: #b9ad9f;
+}
+
+.lethalRemainText {
+  color: #8de1ad;
+  font-size: 12.5px;
+}
+
+.lethalKillBadge {
+  color: #ff8592;
+  font-size: 13px;
+}
+
+.lethalHpTrack {
+  position: relative;
+  height: 16px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.lethalHpRemainFill {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  background: linear-gradient(90deg, #27ae60, #58d68d);
+  transition: width 0.22s ease;
+}
+
+.lethalHpDealtFill {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  background: repeating-linear-gradient(
+    -45deg,
+    rgba(255, 92, 108, 0.85),
+    rgba(255, 92, 108, 0.85) 6px,
+    rgba(255, 168, 107, 0.85) 6px,
+    rgba(255, 168, 107, 0.85) 12px
+  );
+  transition: left 0.22s ease, width 0.22s ease;
+}
+
+.lethalTotalRow {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  padding-top: 4px;
+}
+
+.lethalTotalRow > span {
+  color: #b9ad9f;
+  font-size: 12px;
+}
+
+.lethalTotalNum {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.lethalTotalNum b {
+  color: #ffd56b;
+  font-size: 26px;
+  line-height: 1;
+}
+
+.comboSequenceList {
+  display: grid;
+  gap: 6px;
+  max-height: 280px;
+  overflow-y: auto;
+  padding-right: 2px;
+}
+
+.comboStepRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 7px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.comboStepInfo {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.comboStepInfo strong {
+  color: #fff2d5;
+  font-size: 13px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.comboStepInfo small {
+  color: #9e968c;
+  font-size: 11px;
+}
+
+.comboStepActions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.comboStepSubtotal {
+  min-width: 48px;
+  text-align: right;
+  color: #ffd56b;
+  font-size: 15px;
+}
+
+.comboEmptyHint {
+  margin: 0;
+  padding: 10px 12px;
+  border: 1px dashed rgba(255, 255, 255, 0.14);
+  border-radius: 8px;
+  color: #a9a0a0;
+  font-size: 12px;
+  line-height: 1.55;
+}
+
+/* 日间主题适配 */
+body[data-theme='day'] .pinBaselineBtn {
+  border-color: rgba(31, 91, 176, 0.35);
+  background: rgba(49, 111, 190, 0.1);
+  color: #1c4d94;
+}
+
+body[data-theme='day'] .pinBaselineBtn.pinned {
+  border-color: rgba(36, 122, 69, 0.45);
+  background: rgba(36, 122, 69, 0.14);
+  color: #196136;
+}
+
+body[data-theme='day'] .pinnedBaselineBanner {
+  border-color: rgba(36, 122, 69, 0.32);
+  background: #eefaf2;
+}
+
+body[data-theme='day'] .pinnedBannerMain strong { color: #196136; }
+body[data-theme='day'] .pinnedBannerMain span,
+body[data-theme='day'] .pinnedBannerMetrics { color: #243247; }
+body[data-theme='day'] .pinDeltaBadge.up { color: #15733b; background: rgba(36, 122, 69, 0.14); }
+body[data-theme='day'] .pinDeltaBadge.down { color: #b82535; background: rgba(214, 48, 65, 0.12); }
+body[data-theme='day'] .quickComboAddBtn { color: #8a5d00; border-color: rgba(201, 141, 35, 0.45); background: rgba(255, 196, 87, 0.16); }
+body[data-theme='day'] .lethalHpBox { background: #f4f8fd; border-color: rgba(45, 98, 166, 0.18); }
+body[data-theme='day'] .lethalHpBox.lethal { background: #fff0f2; border-color: rgba(214, 48, 65, 0.45); }
+body[data-theme='day'] .lethalKillBadge { color: #c41d30; }
+body[data-theme='day'] .lethalRemainText { color: #196f3d; }
+body[data-theme='day'] .lethalTotalNum b,
+body[data-theme='day'] .comboStepSubtotal { color: #9a5f00; }
+body[data-theme='day'] .comboStepInfo strong { color: #1e2430; }
+body[data-theme='day'] .comboStepRow { background: #f7faff; border-color: rgba(45, 98, 166, 0.14); }
+
+/* ==========================================================================
+   PRO TACTICAL TERMINAL THEME (仅在 body[data-wide='true'] 宽屏模式下生效！)
+   窄屏模式 body[data-wide='false'] 100% 保持旧版圆角暖色外观不动。
+   设计语言对标：DAK.GG / Linear / 卢米亚实验数据终端
+   ========================================================================== */
+
+/* 1. 全站全维属性对比矩阵通用样式（宽窄屏皆可用） */
+.pinnedBaselineBanner {
+  display: grid;
+  gap: 10px;
+}
+
+.pinnedBannerTopBar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 12px;
+}
+
+.pinnedToggleAllBtn {
+  padding: 5px 10px !important;
+  font-size: 12px !important;
+  min-height: 0 !important;
+}
+
+.pinnedStatGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(175px, 1fr));
+  gap: 8px;
+}
+
+.pinnedStatCell {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(9, 13, 20, 0.65);
+  font-variant-numeric: tabular-nums;
+}
+
+.pinnedStatCell.isUp {
+  border-color: rgba(46, 204, 113, 0.42);
+  background: rgba(22, 68, 43, 0.32);
+}
+
+.pinnedStatCell.isDown {
+  border-color: rgba(255, 92, 108, 0.42);
+  background: rgba(78, 22, 32, 0.32);
+}
+
+.pinnedStatLabel {
+  font-size: 11.5px;
+  color: #9aa4b5 !important;
+}
+
+.pinnedStatNums {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+
+.pinnedOldVal {
+  font-size: 11.5px;
+  color: #7d8797 !important;
+}
+
+.pinnedStatNums strong {
+  font-size: 14.5px;
+  color: #f1f5f9;
+}
+
+.pinnedUnchangedHint {
+  color: #8b95a5;
+  font-size: 11.5px;
+}
+
+body[data-theme='day'] .pinnedStatCell {
+  background: #ffffff;
+  border-color: rgba(45, 98, 166, 0.16);
+}
+body[data-theme='day'] .pinnedStatNums strong { color: #1e293b; }
+
+/* 2. 宽屏模式专属视觉重塑（去除 AI Slop 肥圆角、大标题、脏紫棕底色） */
+@media (min-width: 1100px) {
+  body[data-wide='true'] {
+    background: #0b0e14;
+    color: #e2e8f0;
+    font-feature-settings: "cv02", "cv03", "cv04", "tnum";
+    font-variant-numeric: tabular-nums;
+  }
+
+  body[data-wide='true']::before {
+    background:
+      radial-gradient(ellipse 80% 50% at 50% -15%, rgba(56, 189, 248, 0.08), transparent),
+      linear-gradient(180deg, #0b0e14 0%, #0f141d 100%);
+  }
+
+  body[data-wide='true'][data-theme='day'] {
+    background: #f1f5f9;
+    color: #0f172a;
+  }
+
+  body[data-wide='true'][data-theme='day']::before {
+    background: linear-gradient(180deg, #f8fafc 0%, #eef2f6 100%);
+  }
+
+  body[data-wide='true'] main {
+    width: min(1820px, calc(100vw - 40px));
+    padding: 16px 0 48px;
+  }
+
+  /* 隐藏浓重 AI 模板味的英文大写 Eyebrow（BUILD / TARGET / POTENTIAL / FORMULA） */
+  body[data-wide='true'] .eyebrow {
+    display: none;
+  }
+
+  /* ---- 顶部巨型头图浓缩为 68px 电竞战术顶栏 ---- */
+  body[data-wide='true'] .hero {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    margin-bottom: 16px;
+    padding: 10px 18px;
+    border-radius: 10px;
+    border: 1px solid #1e2636;
+    background: #121722;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  }
+
+  body[data-wide='true'][data-theme='day'] .hero {
+    background: #ffffff;
+    border-color: #cbd5e1;
+    box-shadow: 0 2px 10px rgba(15, 23, 42, 0.05);
+  }
+
+  body[data-wide='true'] .heroPanel.heroIdentity {
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 12px;
+    min-height: 0;
+    padding: 0 18px 0 0;
+    border: 0;
+    border-right: 1px solid #232d3f;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    backdrop-filter: none;
+    text-align: left;
+  }
+
+  body[data-wide='true'][data-theme='day'] .heroPanel.heroIdentity {
+    border-right-color: #e2e8f0;
+  }
+
+  body[data-wide='true'] .heroIdentity img,
+  body[data-wide='true'] .heroIdentity .heroAvatarFallback {
+    width: 48px;
+    height: 48px;
+    margin-bottom: 0;
+    border-radius: 8px;
+    border: 1px solid rgba(56, 189, 248, 0.35);
+    font-size: 20px;
+  }
+
+  body[data-wide='true'] .heroIdentity > span:not(.heroAvatarFallback) {
+    display: none;
+  }
+
+  body[data-wide='true'] .heroIdentity strong {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 800;
+    color: #f8fafc;
+    white-space: nowrap;
+  }
+
+  body[data-wide='true'] .heroIdentity small {
+    font-size: 12px;
+    color: #64748b;
+    font-family: Consolas, monospace;
+  }
+
+  body[data-wide='true'] .heroIntroBlock {
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px 20px;
+  }
+
+  /* 隐藏占地方的废话副标题 */
+  body[data-wide='true'] .heroIntroBlock .intro {
+    display: none;
+  }
+
+  body[data-wide='true'] .heroTitleLine {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+  }
+
+  body[data-wide='true'] .hero h1 {
+    margin: 0;
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: #e2e8f0;
+  }
+
+  body[data-wide='true'] .heroPicker {
+    margin-top: 0;
+    display: flex;
+    align-items: center;
+  }
+
+  body[data-wide='true'] .heroPickerTop {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  body[data-wide='true'] .heroPickerTop .selectBlock {
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    min-width: 210px;
+  }
+
+  body[data-wide='true'] .heroPickerTop .selectBlock .labelWithHelp {
+    white-space: nowrap;
+    font-size: 12.5px;
+    color: #94a3b8;
+  }
+
+  body[data-wide='true'] .heroPickerTop .quietButton,
+  body[data-wide='true'] .announcementButton {
+    min-height: 36px;
+    padding: 6px 12px;
+    font-size: 12.5px;
+  }
+
+  /* ---- 面板、卡片、输入框彻底告别肥圆角与脏阴影 ---- */
+  body[data-wide='true'] .panel,
+  body[data-wide='true'] .statCard {
+    border-radius: 10px;
+    border: 1px solid #1e2636;
+    background: #121722;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.18);
+    backdrop-filter: none;
+  }
+
+  body[data-wide='true'][data-theme='day'] .panel,
+  body[data-wide='true'][data-theme='day'] .statCard {
+    background: #ffffff;
+    border-color: #cbd5e1;
+    box-shadow: 0 1px 4px rgba(15, 23, 42, 0.05);
+  }
+
+  body[data-wide='true'] .panel {
+    padding: 16px 18px;
+  }
+
+  body[data-wide='true'] .panelHead {
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(148, 163, 184, 0.1);
+  }
+
+  body[data-wide='true'] .panel h2 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 700;
+    color: #f1f5f9;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  body[data-wide='true'] .panel h2::before {
+    content: '';
+    display: inline-block;
+    width: 3px;
+    height: 15px;
+    border-radius: 2px;
+    background: #38bdf8;
+  }
+
+  body[data-wide='true'][data-theme='day'] .panel h2 {
+    color: #0f172a;
+  }
+
+  body[data-wide='true'] select,
+  body[data-wide='true'] input[type='number'],
+  body[data-wide='true'] input[type='text'],
+  body[data-wide='true'] input[type='search'] {
+    border-radius: 6px;
+    border: 1px solid #283246;
+    background: #0b0f17;
+    padding: 8px 11px;
+    font-size: 13px;
+    color: #f1f5f9;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  body[data-wide='true'][data-theme='day'] select,
+  body[data-wide='true'][data-theme='day'] input[type='number'],
+  body[data-wide='true'][data-theme='day'] input[type='text'],
+  body[data-wide='true'][data-theme='day'] input[type='search'] {
+    background: #f8fafc;
+    border-color: #cbd5e1;
+    color: #0f172a;
+  }
+
+  body[data-wide='true'] select:focus,
+  body[data-wide='true'] input:focus {
+    border-color: #38bdf8;
+    box-shadow: 0 0 0 2px rgba(56, 189, 248, 0.15);
+  }
+
+  body[data-wide='true'] button {
+    border-radius: 6px;
+    border-color: #2b364a;
+    background: #1a2232;
+    color: #e2e8f0;
+    font-size: 12.5px;
+    padding: 7px 11px;
+    transition: all 0.14s ease;
+  }
+
+  body[data-wide='true'] button:hover {
+    border-color: #38bdf8;
+    background: #212d42;
+  }
+
+  body[data-wide='true'] .pageSwitch {
+    background: #0b0f17;
+    border-color: #232d3f;
+    border-radius: 7px;
+  }
+
+  body[data-wide='true'] .pageSwitch button.active {
+    background: rgba(56, 189, 248, 0.16);
+    color: #38bdf8;
+    font-weight: 700;
+  }
+
+  /* ---- 核心第一屏工作区：严丝合缝双栏 / 三栏网格对齐 ---- */
+  body[data-wide='true'] .buildTargetGrid {
+    grid-template-columns: minmax(0, 1.32fr) minmax(380px, 0.95fr);
+    gap: 16px;
+    align-items: stretch;
+  }
+
+  body[data-wide='true'] .buildTargetGrid.withAvatarRail {
+    grid-template-columns: 220px minmax(0, 1.32fr) minmax(380px, 0.95fr);
+  }
+
+  body[data-wide='true'] .wideRailAvatarPicker {
+    max-height: 540px;
+    border-radius: 10px;
+    border: 1px solid #1e2636;
+    background: #121722;
+    box-shadow: none;
+    padding: 12px;
+  }
+
+  body[data-wide='true'] .wideRailAvatarPicker .heroAvatarList {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 6px;
+  }
+
+  body[data-wide='true'] .heroAvatarOption {
+    border-radius: 6px;
+    min-height: 74px;
+    padding: 6px 4px;
+    background: #0b0f17;
+    border-color: #1f293d;
+  }
+
+  body[data-wide='true'] .heroAvatarOption.active {
+    border-color: #38bdf8;
+    background: rgba(56, 189, 248, 0.14);
+  }
+
+  body[data-wide='true'] .selectBlock,
+  body[data-wide='true'] .field {
+    gap: 5px;
+  }
+
+  body[data-wide='true'] .selectBlock span,
+  body[data-wide='true'] .field span {
+    font-size: 12px;
+    color: #94a3b8;
+  }
+
+  body[data-wide='true'] .chip {
+    border-radius: 6px;
+    padding: 4px 9px;
+    font-size: 12px;
+    background: #0b0f17;
+    border-color: #253045;
+  }
+
+  /* 中部核心派生属性横条：紧凑高密度仪表带 */
+  body[data-wide='true'] .stats {
+    grid-template-columns: repeat(auto-fit, minmax(165px, 1fr));
+    gap: 10px;
+    margin: 14px 0;
+  }
+
+  body[data-wide='true'] .statCard {
+    min-height: 0;
+    padding: 12px 14px;
+    gap: 4px;
+  }
+
+  body[data-wide='true'] .statCard strong {
+    font-size: 22px;
+    font-weight: 800;
+    color: #f8fafc;
+  }
+
+  body[data-wide='true'] .finalDamageModBlock {
+    padding: 11px 14px;
+    margin-top: 12px;
+    border-radius: 8px;
+    border-color: rgba(56, 189, 248, 0.3);
+    background: rgba(56, 189, 248, 0.08);
+  }
+
+  body[data-wide='true'] .finalDamageModBlock strong {
+    color: #38bdf8;
+    font-size: 24px;
+  }
+
+  /* 潜能面板精简利落化 */
+  body[data-wide='true'] .traitGroupButton,
+  body[data-wide='true'] .traitButton {
+    border-radius: 6px;
+    background: #0b0f17;
+    border-color: #222c40;
+  }
+
+  body[data-wide='true'] .traitGroupButton.active,
+  body[data-wide='true'] .traitButton.active {
+    border-color: #38bdf8;
+    background: rgba(56, 189, 248, 0.16);
+    color: #f0f9ff;
+    box-shadow: inset 0 0 0 1px rgba(56, 189, 248, 0.25);
+  }
+
+  /* 技能伤害卡片列与叶节点 */
+  body[data-wide='true'] .skillMainColumn {
+    background: #0c1018;
+    border-color: #1e2636;
+    border-radius: 8px;
+  }
+
+  body[data-wide='true'] .skillMainHead > strong {
+    color: #38bdf8;
+    font-size: 18px;
+  }
+
+  body[data-wide='true'] .skillDamageLeaf {
+    background: #131926;
+    border-color: #222c40;
+    border-radius: 6px;
+  }
+
+  body[data-wide='true'] .skillTotalValue {
+    border-color: rgba(56, 189, 248, 0.28);
+    background: rgba(11, 15, 23, 0.72) !important;
+  }
+}
+
+/* ==========================================================================
+   v0.2.083 宽屏三列布局、问号图标复位、头像防裁切与日间模式全面适配补丁
+   ========================================================================== */
+
+.heroAvatarOption {
+  justify-content: center;
+  min-height: 70px;
+  padding: 6px 4px;
+}
+.heroAvatarOption strong {
+  line-height: 1.3;
+}
+
+@media (min-width: 1100px) {
+  /* 修复宽屏下 .helpButton (?) 被全局 button padding 撑歪到右下角的 Bug，以及其它零内边距按钮保护 */
+  body[data-wide='true'] button.helpButton {
+    width: 18px;
+    height: 18px;
+    min-width: 18px;
+    padding: 0;
+    border-radius: 50%;
+    display: inline-grid;
+    place-items: center;
+    font-size: 11.5px;
+    line-height: 1;
+  }
+
+  body[data-wide='true'] button.versionButton,
+  body[data-wide='true'] button.comparisonChartToggle {
+    padding: 0;
+    background: transparent;
+    border: 0;
+  }
+
+  body[data-wide='true'] button.toggleSwitch {
+    border-radius: 999px;
+    padding: 3px 9px 3px 4px;
+  }
+
+  body[data-wide='true'] .targetStepper button {
+    padding: 3px 0;
+    min-width: 24px;
+  }
+
+  /* 宽屏第一屏黄金三列排布（装备选择 | 目标与增减伤 | 核心数据概览） */
+  body[data-wide='true'] .buildTargetGrid {
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.95fr) minmax(340px, 0.98fr);
+    gap: 14px;
+    align-items: start;
+  }
+
+  /* 开启左侧头像列表时：紧凑四列（头像栏 196px | 装备 | 目标 | 核心数据） */
+  body[data-wide='true'] .buildTargetGrid.withAvatarRail {
+    grid-template-columns: 196px minmax(0, 1.12fr) minmax(0, 0.92fr) minmax(330px, 0.95fr);
+    gap: 12px;
+  }
+
+  /* 中等笔记本屏幕（1100px ~ 1440px）自动折为舒适双列，避免三列过挤 */
+  @media (max-width: 1440px) {
+    body[data-wide='true'] .buildTargetGrid,
+    body[data-wide='true'] .buildTargetGrid.withAvatarRail {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    body[data-wide='true'] .wideKeyStatsColumn {
+      grid-column: 1 / -1;
+    }
+  }
+
+  /* 装备与木桩在三列宽度下改用清爽规整的 2 列排布，不再挤成一团 */
+  body[data-wide='true'] .gearGrid,
+  body[data-wide='true'] .formGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px 12px;
+  }
+
+  body[data-wide='true'] .wideRailAvatarPicker {
+    max-height: 600px;
+    padding: 10px;
+  }
+
+  body[data-wide='true'] .heroAvatarOption {
+    min-height: 66px;
+    padding: 6px 4px;
+  }
+
+  /* 第 3 列核心数据双列紧凑网格 */
+  body[data-wide='true'] .wideKeyStatsColumn {
+    display: flex;
+    flex-direction: column;
+  }
+
+  body[data-wide='true'] .wideKeyStatsGrid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+
+  body[data-wide='true'] .wideKeyStatsGrid .statCard {
+    padding: 10px 12px;
+    border-radius: 8px;
+    background: #0c1018;
+    border-color: #1f293d;
+    box-shadow: none;
+  }
+
+  body[data-wide='true'] .wideKeyStatsGrid .statCard strong {
+    font-size: 18px;
+    line-height: 1.25;
+  }
+
+  body[data-wide='true'] .wideKeyStatsGrid .statCard small {
+    font-size: 11px;
+    line-height: 1.35;
+  }
+
+  /* 宽屏日间配色（body[data-wide='true'][data-theme='day']）全量清透浅色覆盖 */
+  body[data-wide='true'][data-theme='day'] .hero h1,
+  body[data-wide='true'][data-theme='day'] .heroIdentity strong,
+  body[data-wide='true'][data-theme='day'] .statCard strong {
+    color: #0f172a;
+  }
+
+  body[data-wide='true'][data-theme='day'] .heroIdentity small,
+  body[data-wide='true'][data-theme='day'] .heroPickerTop .selectBlock .labelWithHelp,
+  body[data-wide='true'][data-theme='day'] .selectBlock span,
+  body[data-wide='true'][data-theme='day'] .field span {
+    color: #475569;
+  }
+
+  body[data-wide='true'][data-theme='day'] button {
+    background: #f1f5f9;
+    border-color: #cbd5e1;
+    color: #1e293b;
+  }
+
+  body[data-wide='true'][data-theme='day'] button:hover {
+    background: #e2e8f0;
+    border-color: #0284c7;
+    color: #0f172a;
+  }
+
+  body[data-wide='true'][data-theme='day'] button.helpButton {
+    background: #fef3c7;
+    border-color: #f59e0b;
+    color: #92400e;
+  }
+
+  body[data-wide='true'][data-theme='day'] .pageSwitch {
+    background: #f1f5f9;
+    border-color: #cbd5e1;
+  }
+
+  body[data-wide='true'][data-theme='day'] .pageSwitch button {
+    background: transparent;
+    border-color: transparent;
+    color: #475569;
+  }
+
+  body[data-wide='true'][data-theme='day'] .pageSwitch button.active {
+    background: #ffffff;
+    color: #0284c7;
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.1);
+  }
+
+  body[data-wide='true'][data-theme='day'] .wideRailAvatarPicker {
+    background: #ffffff;
+    border-color: #cbd5e1;
+  }
+
+  body[data-wide='true'][data-theme='day'] .heroAvatarOption {
+    background: #f8fafc;
+    border-color: #e2e8f0;
+    color: #1e293b;
+  }
+
+  body[data-wide='true'][data-theme='day'] .heroAvatarOption strong {
+    color: #0f172a;
+  }
+
+  body[data-wide='true'][data-theme='day'] .heroAvatarOption.active {
+    background: #e0f2fe;
+    border-color: #0284c7;
+  }
+
+  body[data-wide='true'][data-theme='day'] .chip,
+  body[data-wide='true'][data-theme='day'] .pill {
+    background: #f8fafc;
+    border-color: #cbd5e1;
+    color: #1e293b;
+  }
+
+  body[data-wide='true'][data-theme='day'] .wideKeyStatsGrid .statCard {
+    background: #f8fafc;
+    border-color: #e2e8f0;
+  }
+
+  body[data-wide='true'][data-theme='day'] .wideKeyStatsGrid .statCard strong {
+    color: #0f172a;
+  }
+
+  body[data-wide='true'][data-theme='day'] .finalDamageModBlock {
+    background: #f0f9ff;
+    border-color: #7dd3fc;
+  }
+
+  body[data-wide='true'][data-theme='day'] .finalDamageModBlock span {
+    color: #0369a1;
+  }
+
+  body[data-wide='true'][data-theme='day'] .finalDamageModBlock strong {
+    color: #0284c7;
+  }
+
+  body[data-wide='true'][data-theme='day'] .traitGroupButton,
+  body[data-wide='true'][data-theme='day'] .traitButton {
+    background: #f8fafc;
+    border-color: #cbd5e1;
+    color: #1e293b;
+  }
+
+  body[data-wide='true'][data-theme='day'] .traitGroupButton span,
+  body[data-wide='true'][data-theme='day'] .traitButton span {
+    color: #1e293b;
+  }
+
+  body[data-wide='true'][data-theme='day'] .traitGroupButton.active,
+  body[data-wide='true'][data-theme='day'] .traitButton.active {
+    background: #e0f2fe;
+    border-color: #0284c7;
+    color: #0369a1;
+    box-shadow: inset 0 0 0 1px rgba(2, 132, 199, 0.25);
+  }
+
+  body[data-wide='true'][data-theme='day'] .traitGroupButton.active span,
+  body[data-wide='true'][data-theme='day'] .traitButton.active span {
+    color: #0369a1;
+    font-weight: 700;
+  }
+
+  body[data-wide='true'][data-theme='day'] .equippedStats,
+  body[data-wide='true'][data-theme='day'] .currentStatsBlock,
+  body[data-wide='true'][data-theme='day'] .attributePanel div,
+  body[data-wide='true'][data-theme='day'] .equipmentEffectRail,
+  body[data-wide='true'][data-theme='day'] .statSettings {
+    background: #f8fafc;
+    border-color: #e2e8f0;
+    color: #1e293b;
+  }
+
+  body[data-wide='true'][data-theme='day'] .attributePanel strong {
+    color: #0f172a;
+  }
+
+  body[data-wide='true'][data-theme='day'] .skillMainColumn {
+    background: #f8fafc;
+    border-color: #cbd5e1;
+  }
+
+  body[data-wide='true'][data-theme='day'] .skillMainHead > strong {
+    color: #0284c7;
+  }
+
+  body[data-wide='true'][data-theme='day'] .skillDamageLeaf {
+    background: #ffffff;
+    border-color: #cbd5e1;
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04);
+  }
+
+  body[data-wide='true'][data-theme='day'] .skillLeafHead strong {
+    color: #0f172a;
+  }
+
+  body[data-wide='true'][data-theme='day'] .skillLeafValues > div,
+  body[data-wide='true'][data-theme='day'] .segmentedDamageRows > div,
+  body[data-wide='true'][data-theme='day'] .progressiveDamageSteps > div {
+    background: #f1f5f9;
+    border-color: #e2e8f0;
+    color: #1e293b;
+  }
+
+  body[data-wide='true'][data-theme='day'] .skillTotalValue {
+    background: #f0f9ff !important;
+    border-color: #7dd3fc !important;
+  }
+
+  body[data-wide='true'][data-theme='day'] .damageValue b {
+    color: #0f172a;
+  }
+
+  body[data-wide='true'][data-theme='day'] .damageValue small {
+    color: #64748b;
+  }
+
+  body[data-wide='true'][data-theme='day'] .comboQuickTriggers button {
+    background: #f1f5f9;
+    border-color: #cbd5e1;
+    color: #1e293b;
+  }
+
+  body[data-wide='true'][data-theme='day'] .comboQuickTriggers button:hover {
+    background: #e0f2fe;
+    border-color: #0284c7;
+    color: #0369a1;
+  }
+
+  body[data-wide='true'][data-theme='day'] .lethalHpTrack {
+    background: #e2e8f0;
+    border-color: #cbd5e1;
+  }
+
+  body[data-wide='true'][data-theme='day'] .lethalTargetName,
+  body[data-wide='true'][data-theme='day'] .lethalTotalRow > span,
+  body[data-wide='true'][data-theme='day'] .comboEmptyHint {
+    color: #475569;
+    border-color: #cbd5e1;
+  }
+
+  body[data-wide='true'][data-theme='day'] .globalSettingsMenu {
+    background: #ffffff;
+    border-color: #cbd5e1;
+    box-shadow: 0 12px 32px rgba(15, 23, 42, 0.14);
+  }
+}
+
+.progressiveStepInteractive {
+  cursor: pointer;
+  transition: border-color 0.14s ease, background 0.14s ease;
+}
+.progressiveStepInteractive:hover {
+  border-color: rgba(56, 189, 248, 0.45) !important;
+}
+
+/* ==========================================================================
+   v0.2.085 小头像边界防压缩修复 + 轻量化可视化图标配装器 (VisualGearPicker)
+   ========================================================================== */
+
+.heroAvatarList {
+  grid-auto-rows: max-content !important;
+  align-content: start !important;
+  padding-top: 2px;
+  padding-bottom: 4px;
+}
+
+.heroAvatarOption {
+  box-sizing: border-box !important;
+  height: auto !important;
+  min-height: 78px !important;
+  padding: 8px 6px 7px !important;
+  gap: 6px !important;
+  justify-content: flex-start !important;
+  overflow: hidden !important;
+}
+
+.heroAvatarOption img,
+.heroAvatarOption .heroAvatarFallback {
+  width: 42px !important;
+  height: 42px !important;
+  flex: 0 0 42px !important;
+  display: block;
+  margin: 0 auto;
+}
+
+/* 可视化五件套槽位条 */
+.vgSlotStrip {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.vgSlotStrip:not(.isCompact) > .vgSlotHoverWrap:first-child {
+  grid-column: 1 / -1;
+}
+
+.vgSlotStrip.isCompact {
+  grid-template-columns: repeat(auto-fit, minmax(135px, 1fr));
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.vgSlotHoverWrap {
+  display: block !important;
+  width: 100%;
+  min-width: 0;
+}
+
+.vgSlotCard {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  min-width: 0;
+  padding: 8px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.11);
+  border-radius: 8px;
+  background: rgba(11, 15, 23, 0.72);
+  cursor: pointer;
+  transition: border-color 0.15s ease, background 0.15s ease, transform 0.1s ease;
+  user-select: none;
+}
+
+.vgSlotCard:hover,
+.vgSlotCard.active {
+  border-color: #38bdf8;
+  background: rgba(24, 34, 52, 0.88);
+}
+
+.vgSlotCard.empty {
+  border-style: dashed;
+  opacity: 0.78;
+}
+
+.vgEquipIconBox {
+  position: relative;
+  flex: 0 0 auto;
+  display: grid;
+  place-items: center;
+  border-radius: 7px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: radial-gradient(circle at 50% 35%, rgba(65, 80, 105, 0.45), rgba(14, 18, 26, 0.92));
+}
+
+.vgEquipIconBox.tier-mythic {
+  border-color: rgba(255, 107, 107, 0.68);
+  background: radial-gradient(circle at 50% 35%, rgba(190, 42, 58, 0.45), rgba(28, 12, 18, 0.94));
+}
+
+.vgEquipIconBox.tier-legend {
+  border-color: rgba(255, 213, 107, 0.65);
+  background: radial-gradient(circle at 50% 35%, rgba(180, 125, 24, 0.42), rgba(26, 20, 11, 0.94));
+}
+
+.vgEquipIconBox.tier-epic {
+  border-color: rgba(185, 148, 255, 0.6);
+  background: radial-gradient(circle at 50% 35%, rgba(116, 66, 190, 0.42), rgba(20, 14, 32, 0.94));
+}
+
+.vgEquipIconBox.tier-rare {
+  border-color: rgba(103, 184, 255, 0.55);
+  background: radial-gradient(circle at 50% 35%, rgba(36, 108, 180, 0.4), rgba(12, 20, 32, 0.94));
+}
+
+.vgEquipIconBox img {
+  width: 88%;
+  height: 88%;
+  object-fit: contain;
+  display: block;
+}
+
+.vgEquipFallbackGlyph {
+  font-size: 16px;
+  font-weight: 800;
+  color: #cbd5e1;
+}
+
+.vgSlotMeta {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.vgSlotTopRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px;
+}
+
+.vgSlotTag {
+  font-size: 11px;
+  color: #8b95a5 !important;
+  line-height: 1.2;
+}
+
+.vgSlotClearBtn {
+  width: 18px;
+  height: 18px;
+  min-width: 18px;
+  padding: 0 !important;
+  border: 0 !important;
+  border-radius: 4px !important;
+  background: transparent !important;
+  color: #7d8797 !important;
+  font-size: 14px !important;
+  line-height: 1;
+  opacity: 0;
+  transition: opacity 0.14s ease, color 0.14s ease, background 0.14s ease;
+}
+
+.vgSlotCard:hover .vgSlotClearBtn {
+  opacity: 1;
+}
+
+.vgSlotClearBtn:hover {
+  background: rgba(255, 92, 108, 0.2) !important;
+  color: #ff8a96 !important;
+}
+
+.vgSlotItemName {
+  font-size: 13.5px;
+  font-weight: 700;
+  line-height: 1.3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: #f1f5f9;
+}
+
+.vgSlotSubText {
+  font-size: 11px;
+  color: #94a3b8 !important;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.vgAuxControlGrid {
+  margin-top: 4px;
+}
+
+/* 选装浮窗 Modal 样式 */
+.vgModalBackdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483645;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  background: rgba(4, 7, 13, 0.68);
+  backdrop-filter: blur(8px);
+}
+
+.vgModalDialog {
+  width: min(980px, calc(100vw - 32px));
+  max-height: min(820px, calc(100vh - 36px));
+  display: flex;
+  flex-direction: column;
+  border-radius: 12px;
+  border: 1px solid #28354a;
+  background: #101520;
+  color: #e2e8f0;
+  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.55);
+  overflow: hidden;
+}
+
+.vgModalHeader {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 12px 16px;
+  border-bottom: 1px solid #1e293b;
+  background: #0c1018;
+}
+
+.vgModalSlotTabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.vgModalSlotTab {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 10px !important;
+  border-radius: 7px !important;
+  border: 1px solid #222d40 !important;
+  background: #131a27 !important;
+  color: #cbd5e1 !important;
+  text-align: left;
+}
+
+.vgModalSlotTab.active {
+  border-color: #38bdf8 !important;
+  background: rgba(56, 189, 248, 0.15) !important;
+  color: #f8fafc !important;
+}
+
+.vgModalSlotTabText {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.vgModalSlotTabText span {
+  font-size: 11px;
+  color: #94a3b8;
+}
+
+.vgModalSlotTabText small {
+  font-size: 12px;
+  font-weight: 700;
+  max-width: 84px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.vgModalHeaderActions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.vgChainToggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: #cbd5e1;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.vgChainToggle input {
+  width: 15px;
+  height: 15px;
+  accent-color: #38bdf8;
+}
+
+.vgFilterSection {
+  display: grid;
+  gap: 9px;
+  padding: 12px 16px;
+  border-bottom: 1px solid #1e293b;
+  background: #121826;
+}
+
+.vgSearchRow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.vgSearchInput {
+  flex: 1;
+  min-height: 38px;
+  padding: 8px 12px !important;
+  border-radius: 7px !important;
+  border: 1px solid #2d3b54 !important;
+  background: #0a0e16 !important;
+  color: #f8fafc !important;
+  font-size: 13px !important;
+}
+
+.vgSearchInput:focus {
+  border-color: #38bdf8 !important;
+}
+
+.vgChipRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+
+.vgChipLabel {
+  font-size: 11.5px;
+  color: #8b95a5;
+  margin-right: 2px;
+}
+
+.vgChipDivider {
+  width: 1px;
+  height: 14px;
+  background: #28354a;
+  margin: 0 4px;
+}
+
+.vgFilterPill {
+  padding: 4px 9px !important;
+  border-radius: 999px !important;
+  border: 1px solid #263348 !important;
+  background: #0d121c !important;
+  color: #cbd5e1 !important;
+  font-size: 11.5px !important;
+  line-height: 1.3;
+}
+
+.vgFilterPill:hover {
+  border-color: #475569 !important;
+}
+
+.vgFilterPill.active {
+  border-color: #38bdf8 !important;
+  background: rgba(56, 189, 248, 0.18) !important;
+  color: #7dd3fc !important;
+  font-weight: 700;
+}
+
+.vgItemGrid {
+  flex: 1;
+  min-height: 240px;
+  overflow-y: auto;
+  padding: 14px 16px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(265px, 1fr));
+  grid-auto-rows: max-content;
+  align-content: start;
+  gap: 9px;
+}
+
+.vgItemOptionCard {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 11px !important;
+  border-radius: 8px !important;
+  border: 1px solid #1f2a3d !important;
+  background: #141c2b !important;
+  color: #e2e8f0 !important;
+  text-align: left;
+  transition: border-color 0.14s ease, background 0.14s ease, transform 0.1s ease;
+}
+
+.vgItemOptionCard:hover {
+  border-color: #38bdf8 !important;
+  background: #1a2538 !important;
+  transform: translateY(-1px);
+}
+
+.vgItemOptionCard.selected {
+  border-color: #38bdf8 !important;
+  background: rgba(56, 189, 248, 0.14) !important;
+  box-shadow: inset 0 0 0 1px rgba(56, 189, 248, 0.3);
+}
+
+.vgItemCardBody {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.vgItemTitleLine {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+}
+
+.vgItemTitleLine strong {
+  font-size: 13.5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.vgRarityTag {
+  flex: 0 0 auto;
+  font-size: 10.5px;
+  padding: 1px 5px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #cbd5e1;
+}
+.vgRarityTag.tier-mythic { color: #ff8a8a; background: rgba(255, 107, 107, 0.16); }
+.vgRarityTag.tier-legend { color: #ffd56b; background: rgba(255, 213, 107, 0.15); }
+.vgRarityTag.tier-epic { color: #d6bcfa; background: rgba(185, 148, 255, 0.16); }
+
+.vgItemStatsLine {
+  font-size: 11.5px;
+  color: #94a3b8;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.vgItemEffectsLine {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 1px;
+}
+
+.vgEffectBadge {
+  font-size: 10.5px;
+  padding: 1px 6px;
+  border-radius: 4px;
+  background: rgba(56, 189, 248, 0.12);
+  border: 1px solid rgba(56, 189, 248, 0.25);
+  color: #7dd3fc;
+}
+
+.vgEmptyState {
+  grid-column: 1 / -1;
+  padding: 42px 16px;
+  text-align: center;
+  color: #8b95a5;
+  font-size: 13px;
+}
+
+.vgModalFooter {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 16px;
+  border-top: 1px solid #1e293b;
+  background: #0c1018;
+  font-size: 12px;
+  color: #8b95a5;
+}
+
+/* 日间浅色主题（data-theme='day'）全套适配 */
+body[data-theme='day'] .vgSlotCard {
+  background: #f8fafc;
+  border-color: #cbd5e1;
+}
+body[data-theme='day'] .vgSlotCard:hover,
+body[data-theme='day'] .vgSlotCard.active {
+  background: #f0f9ff;
+  border-color: #0284c7;
+}
+body[data-theme='day'] .vgSlotItemName { color: #0f172a; }
+body[data-theme='day'] .vgSlotSubText { color: #475569 !important; }
+body[data-theme='day'] .vgModalDialog {
+  background: #ffffff;
+  border-color: #cbd5e1;
+  color: #0f172a;
+}
+body[data-theme='day'] .vgModalHeader,
+body[data-theme='day'] .vgModalFooter {
+  background: #f1f5f9;
+  border-color: #e2e8f0;
+  color: #475569;
+}
+body[data-theme='day'] .vgFilterSection {
+  background: #f8fafc;
+  border-color: #e2e8f0;
+}
+body[data-theme='day'] .vgModalSlotTab {
+  background: #ffffff !important;
+  border-color: #cbd5e1 !important;
+  color: #1e293b !important;
+}
+body[data-theme='day'] .vgModalSlotTab.active {
+  background: #e0f2fe !important;
+  border-color: #0284c7 !important;
+  color: #0369a1 !important;
+}
+body[data-theme='day'] .vgSearchInput {
+  background: #ffffff !important;
+  border-color: #cbd5e1 !important;
+  color: #0f172a !important;
+}
+body[data-theme='day'] .vgFilterPill {
+  background: #ffffff !important;
+  border-color: #cbd5e1 !important;
+  color: #334155 !important;
+}
+body[data-theme='day'] .vgFilterPill.active {
+  background: #e0f2fe !important;
+  border-color: #0284c7 !important;
+  color: #0369a1 !important;
+}
+body[data-theme='day'] .vgItemOptionCard {
+  background: #f8fafc !important;
+  border-color: #e2e8f0 !important;
+  color: #0f172a !important;
+}
+body[data-theme='day'] .vgItemOptionCard:hover {
+  background: #f0f9ff !important;
+  border-color: #0284c7 !important;
+}
+body[data-theme='day'] .vgItemStatsLine { color: #475569; }
+body[data-theme='day'] .vgEffectBadge {
+  background: #e0f2fe;
+  border-color: #7dd3fc;
+  color: #0369a1;
+}
+body[data-theme='day'] .vgChainToggle { color: #334155; }
+
+/* ==========================================================================
+   v0.2.086 拉表对比页宽屏全面适配 + 品级筛选胶囊（红/金/紫/蓝）独立染色
+   ========================================================================== */
+
+/* 品级筛选按钮独立文字与边框染色（夜间模式） */
+.vgFilterPill.tierPill-mythic {
+  color: #ff808d !important;
+  border-color: rgba(255, 107, 107, 0.36) !important;
+  background: rgba(255, 82, 100, 0.08) !important;
+}
+.vgFilterPill.tierPill-mythic:hover {
+  border-color: rgba(255, 107, 107, 0.65) !important;
+  background: rgba(255, 82, 100, 0.15) !important;
+}
+.vgFilterPill.tierPill-mythic.active {
+  color: #ffd0d5 !important;
+  border-color: #ff6b7b !important;
+  background: rgba(235, 58, 78, 0.28) !important;
+  box-shadow: 0 0 10px rgba(255, 92, 108, 0.22);
+}
+
+.vgFilterPill.tierPill-legend {
+  color: #ffd56b !important;
+  border-color: rgba(255, 213, 107, 0.36) !important;
+  background: rgba(255, 200, 70, 0.08) !important;
+}
+.vgFilterPill.tierPill-legend:hover {
+  border-color: rgba(255, 213, 107, 0.68) !important;
+  background: rgba(255, 200, 70, 0.15) !important;
+}
+.vgFilterPill.tierPill-legend.active {
+  color: #fff0bd !important;
+  border-color: #ffd56b !important;
+  background: rgba(230, 162, 32, 0.28) !important;
+  box-shadow: 0 0 10px rgba(255, 213, 107, 0.2);
+}
+
+.vgFilterPill.tierPill-epic {
+  color: #cfaeff !important;
+  border-color: rgba(185, 148, 255, 0.38) !important;
+  background: rgba(162, 112, 255, 0.09) !important;
+}
+.vgFilterPill.tierPill-epic:hover {
+  border-color: rgba(185, 148, 255, 0.68) !important;
+  background: rgba(162, 112, 255, 0.16) !important;
+}
+.vgFilterPill.tierPill-epic.active {
+  color: #efe3ff !important;
+  border-color: #c299ff !important;
+  background: rgba(145, 88, 245, 0.28) !important;
+  box-shadow: 0 0 10px rgba(175, 130, 255, 0.22);
+}
+
+.vgFilterPill.tierPill-rare {
+  color: #7cc4ff !important;
+  border-color: rgba(110, 185, 255, 0.36) !important;
+  background: rgba(65, 155, 245, 0.08) !important;
+}
+.vgFilterPill.tierPill-rare:hover {
+  border-color: rgba(110, 185, 255, 0.68) !important;
+  background: rgba(65, 155, 245, 0.15) !important;
+}
+.vgFilterPill.tierPill-rare.active {
+  color: #dbf0ff !important;
+  border-color: #6bc0ff !important;
+  background: rgba(45, 145, 235, 0.28) !important;
+}
+
+/* 品级筛选按钮独立染色（日间浅色模式） */
+body[data-theme='day'] .vgFilterPill.tierPill-mythic {
+  color: #c42335 !important;
+  border-color: rgba(214, 48, 65, 0.35) !important;
+  background: #fff5f6 !important;
+}
+body[data-theme='day'] .vgFilterPill.tierPill-mythic.active {
+  color: #9e1424 !important;
+  border-color: #e03144 !important;
+  background: #ffe0e4 !important;
+}
+
+body[data-theme='day'] .vgFilterPill.tierPill-legend {
+  color: #9e6000 !important;
+  border-color: rgba(217, 148, 22, 0.42) !important;
+  background: #fffbeb !important;
+}
+body[data-theme='day'] .vgFilterPill.tierPill-legend.active {
+  color: #784700 !important;
+  border-color: #d99014 !important;
+  background: #fef0c7 !important;
+}
+
+body[data-theme='day'] .vgFilterPill.tierPill-epic {
+  color: #6936bd !important;
+  border-color: rgba(132, 78, 222, 0.38) !important;
+  background: #f9f5ff !important;
+}
+body[data-theme='day'] .vgFilterPill.tierPill-epic.active {
+  color: #51229e !important;
+  border-color: #844ede !important;
+  background: #ede4ff !important;
+}
+
+body[data-theme='day'] .vgFilterPill.tierPill-rare {
+  color: #1664b8 !important;
+  border-color: rgba(37, 128, 224, 0.38) !important;
+  background: #f2f8ff !important;
+}
+body[data-theme='day'] .vgFilterPill.tierPill-rare.active {
+  color: #0d4b8f !important;
+  border-color: #2580e0 !important;
+  background: #dbeeff !important;
+}
+
+/* 拉表对比图表防溢出与宽屏布局适配 */
+.comparisonChartsGrid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 14px;
+  margin-top: 10px;
+}
+
+.comparisonChartsGrid > .comparisonChart {
+  margin-top: 0;
+}
+
+.comparisonChartViewport:not(.isZoomed) {
+  max-height: none;
+  overflow-y: hidden;
+  overflow-x: auto;
+  scrollbar-gutter: auto;
+}
+
+@media (min-width: 1100px) {
+  body[data-wide='true'] .comparisonChartsGrid.multiCharts {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+  }
+
+  body[data-wide='true'] .comparisonChartsGrid.singleChart .comparisonChartViewport:not(.isZoomed) svg {
+    max-height: 310px;
+    width: 100%;
+  }
+
+  body[data-wide='true'] .comparisonChartsGrid.multiCharts .comparisonChartViewport:not(.isZoomed) svg {
+    max-height: 280px;
+    width: 100%;
+  }
+
+  body[data-wide='true'] .comparisonSettingsGrid {
+    grid-template-columns: repeat(auto-fit, minmax(145px, 1fr));
+    gap: 10px 12px;
+  }
+
+  body[data-wide='true'] .comparisonScenarioGrid {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 12px;
+  }
+
+  body[data-wide='true'] .comparisonScenarioHead input {
+    border-radius: 6px;
+    padding: 7px 10px;
+    border-color: #283246;
+    background: #0b0f17;
+    font-weight: 700;
+    font-size: 13.5px;
+  }
+
+  body[data-wide='true'] .comparisonChart,
+  body[data-wide='true'] .comparisonDeltaBlock {
+    background: #0c1018;
+    border: 1px solid #1e2636;
+    border-radius: 8px;
+    padding: 14px 16px;
+  }
+
+  body[data-wide='true'] .comparisonDeltaCard {
+    background: #131926;
+    border-color: #222c40;
+    border-radius: 6px;
+  }
+
+  body[data-wide='true'] .comparisonDeltaCard strong {
+    color: #38bdf8;
+  }
+
+  body[data-wide='true'] .comparisonTableWrap,
+  body[data-wide='true'] .comparisonDeltaTableWrap {
+    border-color: #1e2636;
+    border-radius: 8px;
+  }
+
+  body[data-wide='true'] .comparisonTable th,
+  body[data-wide='true'] .comparisonDeltaTable th {
+    background: #141b29;
+    color: #cbd5e1;
+    border-color: #222d42;
+  }
+
+  body[data-wide='true'] .comparisonTable td:first-child,
+  body[data-wide='true'] .comparisonTable th:first-child {
+    background: #111723;
+  }
+
+  body[data-wide='true'] .comparisonChartPoint {
+    fill: #0c1018;
+  }
+
+  /* 宽屏日间模式拉表对比页全套浅色覆盖 */
+  body[data-wide='true'][data-theme='day'] .comparisonScenarioHead input {
+    background: #f8fafc;
+    border-color: #cbd5e1;
+    color: #0f172a;
+  }
+
+  body[data-wide='true'][data-theme='day'] .comparisonChart,
+  body[data-wide='true'][data-theme='day'] .comparisonDeltaBlock {
+    background: #f8fafc;
+    border-color: #cbd5e1;
+  }
+
+  body[data-wide='true'][data-theme='day'] .comparisonDeltaCard {
+    background: #ffffff;
+    border-color: #e2e8f0;
+  }
+
+  body[data-wide='true'][data-theme='day'] .comparisonDeltaCard strong {
+    color: #0284c7;
+  }
+
+  body[data-wide='true'][data-theme='day'] .comparisonTable th,
+  body[data-wide='true'][data-theme='day'] .comparisonDeltaTable th {
+    background: #e2e8f0;
+    color: #1e293b;
+    border-color: #cbd5e1;
+  }
+
+  body[data-wide='true'][data-theme='day'] .comparisonTable td:first-child,
+  body[data-wide='true'][data-theme='day'] .comparisonTable th:first-child {
+    background: #f8fafc;
+  }
+
+  body[data-wide='true'][data-theme='day'] .comparisonChartPoint {
+    fill: #ffffff;
+  }
+}
+
+/* ==========================================================================
+   v0.2.087 潜能紧凑图标条收起态 & 自身血量自动同步控件样式
+   ========================================================================== */
+
+.selfHpHeadRow {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+}
+
+.selfHpSyncBtn {
+  padding: 2px 7px !important;
+  min-height: 0 !important;
+  font-size: 11px !important;
+  line-height: 1.35 !important;
+  border-radius: 999px !important;
+  border: 1px solid rgba(255, 255, 255, 0.16) !important;
+  background: rgba(255, 255, 255, 0.06) !important;
+  color: #b8c2d1 !important;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.selfHpSyncBtn:hover {
+  border-color: rgba(56, 189, 248, 0.55) !important;
+  color: #e2f2ff !important;
+}
+
+.selfHpSyncBtn.active {
+  border-color: rgba(56, 189, 248, 0.65) !important;
+  background: rgba(56, 189, 248, 0.18) !important;
+  color: #7dd3fc !important;
+  font-weight: 700;
+}
+
+body[data-theme='day'] .selfHpSyncBtn {
+  border-color: #cbd5e1 !important;
+  background: #f1f5f9 !important;
+  color: #475569 !important;
+}
+
+body[data-theme='day'] .selfHpSyncBtn.active {
+  border-color: #0284c7 !important;
+  background: #e0f2fe !important;
+  color: #0369a1 !important;
+}
+
+.talentPanel.isCollapsed {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  margin-bottom: 14px;
+}
+
+.talentPanel.isCollapsed .panelHead {
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+}
+
+.traitCollapseBtn.active {
+  border-color: rgba(56, 189, 248, 0.6) !important;
+  color: #7dd3fc !important;
+}
+
+body[data-theme='day'] .traitCollapseBtn.active {
+  border-color: #0284c7 !important;
+  color: #0369a1 !important;
+}
+
+.traitCompactBar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px 14px;
+}
+
+.traitCompactCluster {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.traitCompactGroupBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 12px;
+  color: #cbd5e1;
+  white-space: nowrap;
+}
+
+.traitCompactGroupBadge img {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+}
+
+.traitCompactGroupBadge b {
+  font-weight: 700;
+}
+
+.traitCompactSlots {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+
+.traitCompactPill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 34px;
+  padding: 4px 10px 4px 7px !important;
+  border-radius: 7px !important;
+  border: 1px solid rgba(255, 255, 255, 0.14) !important;
+  background: rgba(11, 15, 23, 0.72) !important;
+  color: #e2e8f0 !important;
+  font-size: 12.5px !important;
+  cursor: pointer;
+  transition: border-color 0.14s ease, background 0.14s ease, transform 0.12s ease;
+}
+
+.traitCompactPill:hover {
+  border-color: #38bdf8 !important;
+  background: rgba(30, 44, 68, 0.85) !important;
+}
+
+.traitCompactPill.isCore.picked {
+  border-color: rgba(255, 213, 107, 0.55) !important;
+  background: rgba(255, 196, 86, 0.11) !important;
+  color: #fff3cf !important;
+  font-weight: 700;
+}
+
+.traitCompactPill.empty {
+  border-style: dashed !important;
+  border-color: rgba(148, 163, 184, 0.28) !important;
+  background: rgba(15, 23, 42, 0.3) !important;
+  color: #8b96a9 !important;
+}
+
+.traitCompactIcon {
+  width: 24px;
+  height: 24px;
+  flex: 0 0 auto;
+  object-fit: contain;
+}
+
+.traitCompactEmptyDot {
+  display: inline-grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: rgba(148, 163, 184, 0.14);
+  color: #94a3b8;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.traitCompactDivider {
+  width: 1px;
+  height: 24px;
+  background: rgba(148, 163, 184, 0.22);
+}
+
+.traitCompactSummary {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 11px;
+  border-radius: 7px;
+  border: 1px solid rgba(56, 189, 248, 0.24);
+  background: rgba(56, 189, 248, 0.08);
+  font-size: 12px;
+}
+
+.traitCompactSummary span {
+  color: #94a3b8;
+  white-space: nowrap;
+}
+
+.traitCompactSummary strong {
+  color: #e0f2fe;
+  font-size: 12.5px;
+  font-weight: 700;
+}
+
+/* 日间模式适配 */
+body[data-theme='day'] .traitCompactGroupBadge {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+  color: #334155;
+}
+
+body[data-theme='day'] .traitCompactPill {
+  background: #f8fafc !important;
+  border-color: #cbd5e1 !important;
+  color: #1e293b !important;
+}
+
+body[data-theme='day'] .traitCompactPill:hover {
+  background: #e0f2fe !important;
+  border-color: #0284c7 !important;
+}
+
+body[data-theme='day'] .traitCompactPill.isCore.picked {
+  background: #fffbeb !important;
+  border-color: #d99014 !important;
+  color: #784700 !important;
+}
+
+body[data-theme='day'] .traitCompactPill.empty {
+  background: #f8fafc !important;
+  border-color: #cbd5e1 !important;
+  color: #64748b !important;
+}
+
+body[data-theme='day'] .traitCompactDivider {
+  background: #cbd5e1;
+}
+
+body[data-theme='day'] .traitCompactSummary {
+  background: #f0f9ff;
+  border-color: #bae6fd;
+}
+
+body[data-theme='day'] .traitCompactSummary span {
+  color: #475569;
+}
+
+body[data-theme='day'] .traitCompactSummary strong {
+  color: #0369a1;
+}
+
+/* ==========================================================================
+   v0.2.088 URL 分享反馈横幅与单英雄自定义配装预设标签栏
+   ========================================================================== */
+
+.shareBuildBtn.copied {
+  border-color: rgba(46, 204, 113, 0.7) !important;
+  background: rgba(22, 101, 52, 0.35) !important;
+  color: #86efac !important;
+  font-weight: 700;
+}
+
+body[data-theme='day'] .shareBuildBtn.copied {
+  border-color: #16a34a !important;
+  background: #dcfce7 !important;
+  color: #15803d !important;
+}
+
+.sharedLoadedBanner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 7px 12px;
+  margin-bottom: 10px;
+  border-radius: 7px;
+  border: 1px solid rgba(56, 189, 248, 0.38);
+  background: rgba(56, 189, 248, 0.11);
+  color: #e0f2fe;
+  font-size: 12.5px;
+}
+
+.sharedLoadedBanner .quietButton {
+  padding: 3px 9px !important;
+  min-height: 0 !important;
+  font-size: 11.5px !important;
+}
+
+body[data-theme='day'] .sharedLoadedBanner {
+  background: #f0f9ff;
+  border-color: #7dd3fc;
+  color: #0369a1;
+}
+
+.heroPresetBar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 7px 10px;
+  padding: 7px 10px;
+  margin-bottom: 12px;
+  border-radius: 8px;
+  border: 1px solid rgba(148, 163, 184, 0.14);
+  background: rgba(9, 13, 21, 0.55);
+}
+
+.heroPresetLabel {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: #94a3b8;
+  white-space: nowrap;
+}
+
+.heroPresetList {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+  flex: 1;
+  min-width: 0;
+}
+
+.heroPresetChip {
+  padding: 4px 10px !important;
+  min-height: 26px !important;
+  font-size: 12px !important;
+  border-radius: 999px !important;
+  border: 1px solid rgba(148, 163, 184, 0.24) !important;
+  background: rgba(255, 255, 255, 0.05) !important;
+  color: #cbd5e1 !important;
+  cursor: pointer;
+}
+
+.heroPresetChip:hover {
+  border-color: #38bdf8 !important;
+  color: #f8fafc !important;
+}
+
+.heroPresetChip.isOfficial.isActive {
+  border-color: rgba(56, 189, 248, 0.65) !important;
+  background: rgba(56, 189, 248, 0.16) !important;
+  color: #7dd3fc !important;
+  font-weight: 700;
+}
+
+.heroPresetTagWrap {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  border: 1px solid rgba(148, 163, 184, 0.25);
+  background: rgba(255, 255, 255, 0.05);
+  overflow: hidden;
+  transition: border-color 0.14s ease, background 0.14s ease;
+}
+
+.heroPresetTagWrap:hover {
+  border-color: rgba(56, 189, 248, 0.55);
+}
+
+.heroPresetTagWrap.isActive {
+  border-color: rgba(255, 213, 107, 0.68);
+  background: rgba(255, 196, 86, 0.15);
+}
+
+.heroPresetTagWrap .heroPresetChip {
+  border: 0 !important;
+  background: transparent !important;
+  padding: 4px 8px 4px 10px !important;
+  border-radius: 0 !important;
+}
+
+.heroPresetTagWrap.isActive .heroPresetChip {
+  color: #ffe8a3 !important;
+  font-weight: 700;
+}
+
+.heroPresetMiniAct {
+  padding: 2px 6px !important;
+  min-height: 24px !important;
+  border: 0 !important;
+  border-left: 1px solid rgba(148, 163, 184, 0.18) !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  color: #94a3b8 !important;
+  font-size: 12px !important;
+  line-height: 1 !important;
+  cursor: pointer;
+}
+
+.heroPresetMiniAct:hover {
+  background: rgba(56, 189, 248, 0.18) !important;
+  color: #e0f2fe !important;
+}
+
+.heroPresetMiniAct.isDelete:hover {
+  background: rgba(239, 68, 68, 0.24) !important;
+  color: #fca5a5 !important;
+}
+
+.heroPresetAddBtn {
+  padding: 4px 10px !important;
+  min-height: 26px !important;
+  font-size: 12px !important;
+  border-radius: 999px !important;
+  border: 1px dashed rgba(56, 189, 248, 0.45) !important;
+  background: rgba(56, 189, 248, 0.06) !important;
+  color: #7dd3fc !important;
+  cursor: pointer;
+}
+
+.heroPresetAddBtn:hover {
+  border-style: solid !important;
+  background: rgba(56, 189, 248, 0.16) !important;
+}
+
+.heroPresetCreateForm {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.heroPresetCreateForm input {
+  width: 148px;
+  padding: 4px 8px !important;
+  min-height: 26px !important;
+  font-size: 12px !important;
+  border-radius: 6px !important;
+}
+
+.heroPresetSaveBtn {
+  padding: 4px 9px !important;
+  min-height: 26px !important;
+  font-size: 12px !important;
+  border-color: rgba(56, 189, 248, 0.6) !important;
+  background: rgba(56, 189, 248, 0.2) !important;
+  color: #e0f2fe !important;
+  font-weight: 700;
+}
+
+.heroPresetCreateForm .quietButton {
+  padding: 4px 8px !important;
+  min-height: 26px !important;
+  font-size: 12px !important;
+}
+
+/* 日间模式适配 */
+body[data-theme='day'] .heroPresetBar {
+  background: #f8fafc;
+  border-color: #e2e8f0;
+}
+
+body[data-theme='day'] .heroPresetLabel {
+  color: #475569;
+}
+
+body[data-theme='day'] .heroPresetChip {
+  background: #ffffff !important;
+  border-color: #cbd5e1 !important;
+  color: #334155 !important;
+}
+
+body[data-theme='day'] .heroPresetChip.isOfficial.isActive {
+  background: #e0f2fe !important;
+  border-color: #0284c7 !important;
+  color: #0369a1 !important;
+}
+
+body[data-theme='day'] .heroPresetTagWrap {
+  background: #ffffff;
+  border-color: #cbd5e1;
+}
+
+body[data-theme='day'] .heroPresetTagWrap.isActive {
+  background: #fffbeb;
+  border-color: #d99014;
+}
+
+body[data-theme='day'] .heroPresetTagWrap.isActive .heroPresetChip {
+  color: #784700 !important;
+}
+
+body[data-theme='day'] .heroPresetMiniAct {
+  border-left-color: #e2e8f0 !important;
+  color: #64748b !important;
+}
+
+body[data-theme='day'] .heroPresetAddBtn {
+  background: #f0f9ff !important;
+  border-color: #38bdf8 !important;
+  color: #0284c7 !important;
+}
+
+body[data-theme='day'] .heroPresetSaveBtn {
+  background: #0284c7 !important;
+  border-color: #0284c7 !important;
+  color: #ffffff !important;
 }

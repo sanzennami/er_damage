@@ -92,6 +92,7 @@ const FORMULA_VARIABLES = [
   'targetHp', 'targetCurrentHp', 'targetLostHp',
   'maxHp', 'selfCurrentHp', 'selfLostHp',
   'extraHp', 'defense', 'shield', 'critChance', 'pen',
+  'attackSpeed', 'bonusAttackSpeed',
   'basicAttackAmp', 'accumulatedDamage', 'stacks', 'level', 'heroLevel'
 ];
 
@@ -221,6 +222,8 @@ export function skillFormulaDescription(skill, level) {
     ['shield', '护盾'],
     ['critChance', '暴击率'],
     ['pen', '防御穿透'],
+    ['attackSpeed', '攻击速度'],
+    ['bonusAttackSpeed', '额外攻击速度'],
     ['accumulatedDamage', '累计伤害'],
     ['stacks', '叠层'],
     ['heroLevel', '实验体等级']
@@ -229,8 +232,15 @@ export function skillFormulaDescription(skill, level) {
     if (interpolation && variable === interpolation.denomVar) return;
     const coefficient = coefficientAtLevel(skill.formula, variable, nextLevel);
     if (coefficient === null) return;
-    // 实验体等级是「等级 * 系数」的线性项，按倍数显示比百分比更直观
-    pieces.push(variable === 'heroLevel' ? `${label}×${round(coefficient, 2)}` : `${label}${pct(coefficient)}`);
+    // 实验体等级是「等级 * 系数」的线性项，按倍数显示比百分比更直观；
+    // bonusAttackSpeed 是 0~1 比例（如 100% 额外攻速 = 1.0），乘 20 即每 1% +0.2，折回官方文案的「额外攻击速度20%」
+    if (variable === 'heroLevel') {
+      pieces.push(`${label}×${round(coefficient, 2)}`);
+    } else if (variable === 'bonusAttackSpeed') {
+      pieces.push(`${label}${pct(coefficient / 100)}`);
+    } else {
+      pieces.push(`${label}${pct(coefficient)}`);
+    }
   });
   // 普攻类伤害段走的是另一条结算线，系数表里看不出来，单独缀一句说明
   const joined = interpolation

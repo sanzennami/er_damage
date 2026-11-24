@@ -76,6 +76,13 @@ export function statConversionFor(hero) {
 }
 
 /**
+ * 实验体专属攻速上限 / 固定攻速 / 攻速转化规则（阿德拉 P、卡拉 P、玛蒂娜 P、翡翠 P、纳塔朋 P、克雷弗 P）。
+ */
+export function attackSpeedRuleFor(hero) {
+  return heroRule(hero)?.attackSpeedRule || null;
+}
+
+/**
  * 英雄专属的条件修正（卡洛琳 W 的镜子技能增幅、秀雅 Q 冲撞点的承受伤害提升这类）。
  * 每条是一个下拉，选项自带要加进哪个桶：
  *   apPct       → 技能增幅百分比，和熟练度/独有增幅同一个桶

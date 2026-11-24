@@ -1,147 +1,107 @@
 {
-  "_comment": "官方「武器路线推荐」导出的装备预设，键是「实验体名|武器类型」。由 scripts/build-weapon-route-presets.mjs 生成，不要手改。",
+  "_comment": "推荐武器路线导出的装备预设，键是「实验体名|武器类型」。由 scripts/sync-weapon-routes.mjs 与 scripts/build-weapon-route-presets.mjs 生成，不要手改。",
   "_usage": "切换实验体或武器类型时，若用户没有自己改过这个组合的配装，就套用这里的预设；用户改过则以用户的为准（存在浏览器缓存里）。",
-  "generatedAt": "2026-11-23T14:22:32.773Z",
-  "source": "src/data/sources/weaponRoutesRecommend.json",
+  "generatedAt": "2026-11-24T09:18:07.028Z",
+  "source": "dak.gg routes API (zh-CN) + pypy-vrc/er-gamedata WeaponRoute.json fallback",
   "counts": {
-    "routes": 100,
-    "presets": 54
+    "routes": 119,
+    "presets": 119,
+    "heroes": 91,
+    "byVersion": {
+      "13.1.0": 119
+    }
   },
   "presets": {
-    "卡缇娅|SniperRifle": {
-      "hero": "卡缇娅",
-      "weaponTypeRaw": "SniperRifle",
+    "杰琪|OneHandSword": {
+      "hero": "杰琪",
+      "weaponTypeRaw": "OneHandSword",
       "gear": {
-        "武器": "霹雳火炮",
-        "衣服": "战术重甲",
-        "头部": "天使光环",
-        "手部": "荆刺护手",
-        "鞋子": "银河战靴"
-      },
-      "traitSelection": {
-        "group": "Havoc",
-        "core": "7000701",
-        "sub1": "7011001",
-        "sub2": "7011101",
-        "secondaryGroup": "Chaos",
-        "secondarySub1": "7310401",
-        "secondarySub2": "7310101"
-      },
-      "tacticalSkill": "赤色风暴",
-      "routeId": 35176,
-      "routeTitle": "124",
-      "routeAuthor": "돼지고기무한리필",
-      "gameVersion": "11.3.0"
-    },
-    "莉诺尔|Guitar": {
-      "hero": "莉诺尔",
-      "weaponTypeRaw": "Guitar",
-      "gear": {
-        "武器": "天堂之门",
-        "衣服": "优雅礼服",
-        "头部": "幽灵面具",
-        "手部": "龙鳞",
-        "鞋子": "锋利长靴"
-      },
-      "traitSelection": {
-        "group": "Chaos",
-        "core": "7000501",
-        "sub1": "7010701",
-        "sub2": "7310501",
-        "secondaryGroup": "Havoc",
-        "secondarySub1": "7010501",
-        "secondarySub2": "7011101"
-      },
-      "tacticalSkill": "闪灵",
-      "routeId": 28222,
-      "routeTitle": "莉诺尔",
-      "routeAuthor": "TiaAbyss",
-      "gameVersion": "12.1.0"
-    },
-    "亚历克斯|Pistol": {
-      "hero": "亚历克斯",
-      "weaponTypeRaw": "Pistol",
-      "gear": {
-        "武器": "正午",
+        "武器": "噬灵短剑",
         "衣服": "战术重甲",
         "头部": "暮光头饰",
-        "手部": "蓝纹臂章",
-        "鞋子": "亚历山大"
-      },
-      "traitSelection": {
-        "group": "Chaos",
-        "core": "7300201",
-        "sub1": "7010701",
-        "sub2": "7310101",
-        "secondaryGroup": "Havoc",
-        "secondarySub1": "7011501",
-        "secondarySub2": "7011301"
-      },
-      "tacticalSkill": "斥力弹",
-      "routeId": 53731,
-      "routeTitle": "도불리펄서방관",
-      "routeAuthor": "몸이약해슬픈나딘",
-      "gameVersion": "11.5.0"
-    },
-    "盖瑞特|Bat": {
-      "hero": "盖瑞特",
-      "weaponTypeRaw": "Bat",
-      "gear": {
-        "武器": "魔法棒",
-        "衣服": "幽灵新娘的嫁纱",
-        "头部": "矮人头盔",
-        "手部": "魔法神灯",
-        "鞋子": "EOD防爆靴"
+        "手部": "普赛克之刃",
+        "鞋子": "剑齿虎"
       },
       "traitSelection": {
         "group": "Support",
-        "core": "7200301",
-        "sub1": "7211001",
-        "sub2": "7110801",
-        "secondaryGroup": "Fortification",
-        "secondarySub1": "7111001",
-        "secondarySub2": "7110601"
+        "core": "7200201",
+        "sub1": "7211401",
+        "sub2": "7211101",
+        "secondaryGroup": "Chaos",
+        "secondarySub1": "7310401",
+        "secondarySub2": "7310501"
       },
-      "tacticalSkill": "等离子冲击",
-      "routeId": 47617,
-      "routeTitle": "tqtq",
-      "routeAuthor": "아둔무지SASIN",
-      "gameVersion": "11.5.0"
+      "tacticalSkill": "闪灵",
+      "routeId": 3191,
+      "routeTitle": "단재 만점",
+      "routeAuthor": "뮤황이",
+      "gameVersion": "13.1.0",
+      "routeLikes": 389,
+      "routeSource": "dak.gg"
     },
-    "埃索|AssaultRifle": {
-      "hero": "埃索",
-      "weaponTypeRaw": "AssaultRifle",
+    "杰琪|TwoHandSword": {
+      "hero": "杰琪",
+      "weaponTypeRaw": "TwoHandSword",
       "gear": {
-        "武器": "地狱之火 - 绯红",
-        "衣服": "吉利服",
-        "头部": "圣光冠冕",
-        "手部": "苏丹箭筒",
-        "鞋子": "赛车靴"
+        "武器": "均衡之刃",
+        "衣服": "战术重甲",
+        "头部": "玄瞳头盔",
+        "手部": "召唤手表",
+        "鞋子": "亚历山大"
       },
       "traitSelection": {
         "group": "Havoc",
-        "core": "7000601",
-        "sub1": "7010501",
+        "core": "7000401",
+        "sub1": "7010901",
         "sub2": "7011401",
-        "secondaryGroup": "Chaos",
-        "secondarySub1": "7310601",
-        "secondarySub2": "7310101"
+        "secondaryGroup": "Fortification",
+        "secondarySub1": "7110101",
+        "secondarySub2": "7110201"
       },
-      "tacticalSkill": "光之翼",
-      "routeId": 58322,
-      "routeTitle": "ADC",
-      "routeAuthor": "Somaru",
-      "gameVersion": "11.6.0"
+      "tacticalSkill": "闪灵",
+      "routeId": 426,
+      "routeTitle": "10174점 재키",
+      "routeAuthor": "Husky",
+      "gameVersion": "13.1.0",
+      "routeLikes": 1442,
+      "routeSource": "dak.gg"
     },
-    "伊萨克|Tonfa": {
-      "hero": "伊萨克",
-      "weaponTypeRaw": "Tonfa",
+    "杰琪|Axe": {
+      "hero": "杰琪",
+      "weaponTypeRaw": "Axe",
       "gear": {
-        "武器": "螳螂旋棍",
-        "衣服": "奥黛",
+        "武器": "盘古斧",
+        "衣服": "战术重甲",
         "头部": "爆破者头盔",
-        "手部": "自动臂",
-        "鞋子": "刀片靴"
+        "手部": "普赛克之刃",
+        "鞋子": "剑齿虎"
+      },
+      "traitSelection": {
+        "group": "Fortification",
+        "core": "7100201",
+        "sub1": "7110101",
+        "sub2": "7110201",
+        "secondaryGroup": "Havoc",
+        "secondarySub1": "7011001",
+        "secondarySub2": "7011301"
+      },
+      "tacticalSkill": "闪灵",
+      "routeId": 3662,
+      "routeTitle": "불괴 도재",
+      "routeAuthor": "뮤황이",
+      "gameVersion": "13.1.0",
+      "routeLikes": 554,
+      "routeSource": "dak.gg"
+    },
+    "杰琪|DualSword": {
+      "hero": "杰琪",
+      "weaponTypeRaw": "DualSword",
+      "gear": {
+        "武器": "阴阳双刃",
+        "衣服": "奥黛",
+        "头部": "恶魔面具",
+        "手部": "召唤手表",
+        "鞋子": "银河战靴"
       },
       "traitSelection": {
         "group": "Havoc",
@@ -149,49 +109,134 @@
         "sub1": "7010901",
         "sub2": "7011301",
         "secondaryGroup": "Fortification",
-        "secondarySub1": "7111001",
-        "secondarySub2": "7111201"
+        "secondarySub1": "7110101",
+        "secondarySub2": "7110401"
       },
       "tacticalSkill": "闪灵",
-      "routeId": 28616,
-      "routeTitle": "나는 블레어다.",
-      "routeAuthor": "바위너구리",
-      "gameVersion": "12.1.0"
+      "routeId": 641,
+      "routeTitle": "만점 쌍재",
+      "routeAuthor": "Husky",
+      "gameVersion": "13.1.0",
+      "routeLikes": 1155,
+      "routeSource": "dak.gg"
     },
-    "玛蒂娜|Camera": {
-      "hero": "玛蒂娜",
-      "weaponTypeRaw": "Camera",
+    "阿雅|Pistol": {
+      "hero": "阿雅",
+      "weaponTypeRaw": "Pistol",
       "gear": {
-        "武器": "高倍望远大炮",
+        "武器": "牵牛星",
+        "衣服": "日轮之铠",
+        "头部": "幽灵面具",
+        "手部": "斯嘉蒂的手镯",
+        "鞋子": "万年冰鞋"
+      },
+      "traitSelection": {
+        "group": "Chaos",
+        "core": "7000501",
+        "sub1": "7310401",
+        "sub2": "7310101",
+        "secondaryGroup": "Havoc",
+        "secondarySub1": "7010501",
+        "secondarySub2": "7011101"
+      },
+      "tacticalSkill": "闪灵",
+      "routeId": 6554,
+      "routeTitle": "권아야",
+      "routeAuthor": "김딱대",
+      "gameVersion": "13.1.0",
+      "routeLikes": 986,
+      "routeSource": "dak.gg"
+    },
+    "阿雅|AssaultRifle": {
+      "hero": "阿雅",
+      "weaponTypeRaw": "AssaultRifle",
+      "gear": {
+        "武器": "极地加农炮",
         "衣服": "魅影",
-        "头部": "暮光头饰",
-        "手部": "命运之骰",
-        "鞋子": "亚历山大"
+        "头部": "雷加图斯",
+        "手部": "越王勾践剑",
+        "鞋子": "银河战靴"
       },
       "traitSelection": {
         "group": "Havoc",
-        "core": "7000701",
-        "sub1": "7011001",
-        "sub2": "7011101",
-        "secondaryGroup": "Chaos",
-        "secondarySub1": "7310601",
-        "secondarySub2": "7310701"
+        "core": "7000601",
+        "sub1": "7010501",
+        "sub2": "7011301",
+        "secondaryGroup": "Fortification",
+        "secondarySub1": "7110101",
+        "secondarySub2": "7110601"
       },
       "tacticalSkill": "赤色风暴",
-      "routeId": 45486,
-      "routeTitle": "치명",
-      "routeAuthor": "에스텔공룡박치기",
-      "gameVersion": "11.4.0"
+      "routeId": 13106,
+      "routeTitle": "稳健阿雅←关注B站",
+      "routeAuthor": "SnowPodicepsR",
+      "gameVersion": "13.1.0",
+      "routeLikes": 410,
+      "routeSource": "dak.gg"
     },
-    "克雷弗|Pistol": {
-      "hero": "克雷弗",
-      "weaponTypeRaw": "Pistol",
+    "阿雅|SniperRifle": {
+      "hero": "阿雅",
+      "weaponTypeRaw": "SniperRifle",
       "gear": {
-        "武器": "魔弹射手",
-        "衣服": "幽冥战甲",
-        "头部": "太空头盔",
+        "武器": "死亡之眼",
+        "衣服": "神职法衣",
+        "头部": "瘟疫使者",
+        "手部": "荷鲁斯之眼",
+        "鞋子": "锋利长靴"
+      },
+      "traitSelection": {
+        "group": "Chaos",
+        "core": "7000501",
+        "sub1": "7310401",
+        "sub2": "7310101",
+        "secondaryGroup": "Havoc",
+        "secondarySub1": "7010501",
+        "secondarySub2": "7011101"
+      },
+      "tacticalSkill": "闪灵",
+      "routeId": 1546,
+      "routeTitle": "저격아야)루트바뀜 설명",
+      "routeAuthor": "택시",
+      "gameVersion": "13.1.0",
+      "routeLikes": 1960,
+      "routeSource": "dak.gg"
+    },
+    "菲欧娜|Rapier": {
+      "hero": "菲欧娜",
+      "weaponTypeRaw": "Rapier",
+      "gear": {
+        "武器": "米斯特汀",
+        "衣服": "优雅礼服",
+        "头部": "En Garde",
         "手部": "邀明月",
-        "鞋子": "刀片靴"
+        "鞋子": "赫尔墨斯之靴"
+      },
+      "traitSelection": {
+        "group": "Fortification",
+        "core": "7100201",
+        "sub1": "7110701",
+        "sub2": "7110201",
+        "secondaryGroup": "Chaos",
+        "secondarySub1": "7310201",
+        "secondarySub2": "7310301"
+      },
+      "tacticalSkill": "闪灵",
+      "routeId": 319,
+      "routeTitle": "익숙한 맛",
+      "routeAuthor": "도화",
+      "gameVersion": "13.1.0",
+      "routeLikes": 268,
+      "routeSource": "dak.gg"
+    },
+    "菲欧娜|TwoHandSword": {
+      "hero": "菲欧娜",
+      "weaponTypeRaw": "TwoHandSword",
+      "gear": {
+        "武器": "极冰之剑",
+        "衣服": "神职法衣",
+        "头部": "En Garde",
+        "手部": "廷达罗斯君主",
+        "鞋子": "锋利长靴"
       },
       "traitSelection": {
         "group": "Havoc",
@@ -200,22 +245,51 @@
         "sub2": "7011201",
         "secondaryGroup": "Chaos",
         "secondarySub1": "7310201",
-        "secondarySub2": "7310701"
+        "secondarySub2": "7310301"
       },
       "tacticalSkill": "闪灵",
-      "routeId": 49316,
-      "routeTitle": "나.작.크",
-      "routeAuthor": "알타일",
-      "gameVersion": "11.5.0"
+      "routeId": 8630,
+      "routeTitle": "전시즌꺼",
+      "routeAuthor": "킹반인입니다",
+      "gameVersion": "13.1.0",
+      "routeLikes": 124,
+      "routeSource": "dak.gg"
+    },
+    "菲欧娜|Spear": {
+      "hero": "菲欧娜",
+      "weaponTypeRaw": "Spear",
+      "gear": {
+        "武器": "猎星者",
+        "衣服": "日轮之铠",
+        "头部": "En Garde",
+        "手部": "廷达罗斯君主",
+        "鞋子": "星际战靴"
+      },
+      "traitSelection": {
+        "group": "Havoc",
+        "core": "7000401",
+        "sub1": "7010901",
+        "sub2": "7011201",
+        "secondaryGroup": "Chaos",
+        "secondarySub1": "7310201",
+        "secondarySub2": "7310101"
+      },
+      "tacticalSkill": "闪灵",
+      "routeId": 12141,
+      "routeTitle": "앙가 흡마창피",
+      "routeAuthor": "개구택",
+      "gameVersion": "13.1.0",
+      "routeLikes": 299,
+      "routeSource": "dak.gg"
     },
     "马格努斯|Hammer": {
       "hero": "马格努斯",
       "weaponTypeRaw": "Hammer",
       "gear": {
-        "武器": "天星锤",
-        "衣服": "星火洋装",
+        "武器": "夜神星锤",
+        "衣服": "秘银链甲",
         "头部": "秘银头盔",
-        "手部": "蜈蚣护肩",
+        "手部": "燃烧之心",
         "鞋子": "EOD防爆靴"
       },
       "traitSelection": {
@@ -223,65 +297,395 @@
         "core": "7100101",
         "sub1": "7111001",
         "sub2": "7111201",
-        "secondaryGroup": "Chaos",
-        "secondarySub1": "7010701",
-        "secondarySub2": "7310501"
+        "secondaryGroup": "Support",
+        "secondarySub1": "7211401",
+        "secondarySub2": "7210801"
       },
-      "tacticalSkill": "阔步者",
-      "routeId": 38774,
-      "routeTitle": "내가 쓸거",
-      "routeAuthor": "농장연",
-      "gameVersion": "11.4.0"
+      "tacticalSkill": "超越",
+      "routeId": 5342,
+      "routeTitle": "탱매그",
+      "routeAuthor": "연못여우",
+      "gameVersion": "13.1.0",
+      "routeLikes": 1917,
+      "routeSource": "dak.gg"
     },
-    "阿尔达|Arcana": {
-      "hero": "阿尔达",
-      "weaponTypeRaw": "Arcana",
+    "马格努斯|Bat": {
+      "hero": "马格努斯",
+      "weaponTypeRaw": "Bat",
       "gear": {
-        "武器": "女帝",
-        "衣服": "优雅礼服",
-        "头部": "龙首簪",
-        "手部": "鬼灵之爪",
-        "鞋子": "万年冰鞋"
+        "武器": "如意金箍棒",
+        "衣服": "摇滚外套",
+        "头部": "圣光冠冕",
+        "手部": "命运之骰",
+        "鞋子": "象牙之履"
       },
       "traitSelection": {
-        "group": "Support",
-        "core": "7200501",
-        "sub1": "7210101",
-        "sub2": "7211101",
-        "secondaryGroup": "Chaos",
-        "secondarySub1": "7010701",
-        "secondarySub2": "7310501"
+        "group": "Havoc",
+        "core": "7000701",
+        "sub1": "7011001",
+        "sub2": "7011101",
+        "secondaryGroup": "Support",
+        "secondarySub1": "7211001",
+        "secondarySub2": "7210801"
       },
       "tacticalSkill": "闪灵",
-      "routeId": 15013,
-      "routeTitle": "학골",
-      "routeAuthor": "RetortPouch",
-      "gameVersion": "12.1.0"
+      "routeId": 5488,
+      "routeTitle": "방매그는 살아있다!",
+      "routeAuthor": "얀한준이야",
+      "gameVersion": "13.1.0",
+      "routeLikes": 447,
+      "routeSource": "dak.gg"
     },
-    "妮娅|Pistol": {
-      "hero": "妮娅",
-      "weaponTypeRaw": "Pistol",
+    "扎希尔|HighAngleFire": {
+      "hero": "扎希尔",
+      "weaponTypeRaw": "HighAngleFire",
       "gear": {
-        "武器": "牵牛星",
-        "衣服": "优雅礼服",
+        "武器": "追猎者",
+        "衣服": "神职法衣",
         "头部": "En Garde",
-        "手部": "鬼灵之爪",
-        "鞋子": "万年冰鞋"
+        "手部": "斯嘉蒂的手镯",
+        "鞋子": "锋利长靴"
       },
       "traitSelection": {
         "group": "Havoc",
         "core": "7000401",
-        "sub1": "7011001",
+        "sub1": "7010501",
         "sub2": "7011101",
         "secondaryGroup": "Chaos",
-        "secondarySub1": "7010701",
+        "secondarySub1": "7310201",
+        "secondarySub2": "7310101"
+      },
+      "tacticalSkill": "闪灵",
+      "routeId": 13598,
+      "routeTitle": "이거쓰셈1",
+      "routeAuthor": "레입아",
+      "gameVersion": "13.1.0",
+      "routeLikes": 62,
+      "routeSource": "dak.gg"
+    },
+    "扎希尔|DirectFire": {
+      "hero": "扎希尔",
+      "weaponTypeRaw": "DirectFire",
+      "gear": {
+        "武器": "冰魄银针",
+        "衣服": "私人定制",
+        "头部": "昆德拉",
+        "手部": "守护之眼",
+        "鞋子": "锋利长靴"
+      },
+      "traitSelection": {
+        "group": "Havoc",
+        "core": "7000401",
+        "sub1": "7010501",
+        "sub2": "7011101",
+        "secondaryGroup": "Chaos",
+        "secondarySub1": "7310201",
+        "secondarySub2": "7310501"
+      },
+      "tacticalSkill": "闪灵",
+      "routeId": 1233,
+      "routeTitle": "3124",
+      "routeAuthor": "네네코마시로",
+      "gameVersion": "13.1.0",
+      "routeLikes": 132,
+      "routeSource": "dak.gg"
+    },
+    "娜町|Bow": {
+      "hero": "娜町",
+      "weaponTypeRaw": "Bow",
+      "gear": {
+        "武器": "阿提米丝",
+        "衣服": "神职法衣",
+        "头部": "瘟疫使者",
+        "手部": "银河腕表",
+        "鞋子": "刀片靴"
+      },
+      "traitSelection": {
+        "group": "Chaos",
+        "core": "7300201",
+        "sub1": "7010701",
+        "sub2": "7310501",
+        "secondaryGroup": "Havoc",
+        "secondarySub1": "7010501",
+        "secondarySub2": "7011101"
+      },
+      "tacticalSkill": "闪灵",
+      "routeId": 13176,
+      "routeTitle": "도불활딘의시대",
+      "routeAuthor": "활나딘인권운동가",
+      "gameVersion": "13.1.0",
+      "routeLikes": 125,
+      "routeSource": "dak.gg"
+    },
+    "娜町|CrossBow": {
+      "hero": "娜町",
+      "weaponTypeRaw": "CrossBow",
+      "gear": {
+        "武器": "狂澜",
+        "衣服": "贤者之袍",
+        "头部": "圣光冠冕",
+        "手部": "命运之骰",
+        "鞋子": "亚历山大"
+      },
+      "traitSelection": {
+        "group": "Havoc",
+        "core": "7000601",
+        "sub1": "7010501",
+        "sub2": "7011301",
+        "secondaryGroup": "Chaos",
+        "secondarySub1": "7310401",
+        "secondarySub2": "7310501"
+      },
+      "tacticalSkill": "赤色风暴",
+      "routeId": 545,
+      "routeTitle": "나딘",
+      "routeAuthor": "베베코",
+      "gameVersion": "13.1.0",
+      "routeLikes": 21,
+      "routeSource": "dak.gg"
+    },
+    "玄佑|Glove": {
+      "hero": "玄佑",
+      "weaponTypeRaw": "Glove",
+      "gear": {
+        "武器": "朱雀之纹",
+        "衣服": "幽灵战衣",
+        "头部": "战术面罩",
+        "手部": "召唤手表",
+        "鞋子": "秘银靴"
+      },
+      "traitSelection": {
+        "group": "Fortification",
+        "core": "7100501",
+        "sub1": "7111001",
+        "sub2": "7111201",
+        "secondaryGroup": "Havoc",
+        "secondarySub1": "7011501",
+        "secondarySub2": "7011201"
+      },
+      "tacticalSkill": "阔步者",
+      "routeId": 2963,
+      "routeTitle": "패시브 버프 개쳐나이스ㅋㅋ",
+      "routeAuthor": "과거에살았던사람",
+      "gameVersion": "13.1.0",
+      "routeLikes": 1889,
+      "routeSource": "dak.gg"
+    },
+    "玄佑|Tonfa": {
+      "hero": "玄佑",
+      "weaponTypeRaw": "Tonfa",
+      "gear": {
+        "武器": "黑曜石双钗",
+        "衣服": "日轮之铠",
+        "头部": "幽灵面具",
+        "手部": "翡翠石板",
+        "鞋子": "万年冰鞋"
+      },
+      "traitSelection": {
+        "group": "Chaos",
+        "core": "7300201",
+        "sub1": "7310401",
+        "sub2": "7310501",
+        "secondaryGroup": "Support",
+        "secondarySub1": "7211401",
+        "secondarySub2": "7210801"
+      },
+      "tacticalSkill": "闪灵",
+      "routeId": 8681,
+      "routeTitle": "미움받을 용기",
+      "routeAuthor": "게1이스",
+      "gameVersion": "13.1.0",
+      "routeLikes": 222,
+      "routeSource": "dak.gg"
+    },
+    "哈特|Guitar": {
+      "hero": "哈特",
+      "weaponTypeRaw": "Guitar",
+      "gear": {
+        "武器": "自由之翼",
+        "衣服": "魅影",
+        "头部": "爆破者头盔",
+        "手部": "命运之骰",
+        "鞋子": "亚历山大"
+      },
+      "traitSelection": {
+        "group": "Havoc",
+        "core": "7000201",
+        "sub1": "7010501",
+        "sub2": "7011101",
+        "secondaryGroup": "Chaos",
+        "secondarySub1": "7310401",
+        "secondarySub2": "7310101"
+      },
+      "tacticalSkill": "斥力弹",
+      "routeId": 1864,
+      "routeTitle": "123",
+      "routeAuthor": "인세인",
+      "gameVersion": "13.1.0",
+      "routeLikes": 767,
+      "routeSource": "dak.gg"
+    },
+    "埃索|AssaultRifle": {
+      "hero": "埃索",
+      "weaponTypeRaw": "AssaultRifle",
+      "gear": {
+        "武器": "极地加农炮",
+        "衣服": "魅影",
+        "头部": "雷加图斯",
+        "手部": "苏丹箭筒",
+        "鞋子": "象牙之履"
+      },
+      "traitSelection": {
+        "group": "Havoc",
+        "core": "7000601",
+        "sub1": "7010501",
+        "sub2": "7011301",
+        "secondaryGroup": "Chaos",
+        "secondarySub1": "7310601",
+        "secondarySub2": "7310101"
+      },
+      "tacticalSkill": "赤色风暴",
+      "routeId": 3302,
+      "routeTitle": "13.1 적용 - 학개 0주문",
+      "routeAuthor": "초코쉐이크미디움",
+      "gameVersion": "13.1.0",
+      "routeLikes": 1537,
+      "routeSource": "dak.gg"
+    },
+    "埃索|Pistol": {
+      "hero": "埃索",
+      "weaponTypeRaw": "Pistol",
+      "gear": {
+        "武器": "魔弹射手",
+        "衣服": "优雅礼服",
+        "头部": "暗影面纱",
+        "手部": "斯嘉蒂的手镯",
+        "鞋子": "锋利长靴"
+      },
+      "traitSelection": {
+        "group": "Support",
+        "core": "7200501",
+        "sub1": "7211001",
+        "sub2": "7210801",
+        "secondaryGroup": "Chaos",
+        "secondarySub1": "7310201",
         "secondarySub2": "7310301"
       },
       "tacticalSkill": "闪灵",
-      "routeId": 11896,
-      "routeTitle": "123",
-      "routeAuthor": "정리해고된알바생",
-      "gameVersion": "12.1.0"
+      "routeId": 4412,
+      "routeTitle": "정중히 찢어발겨주지",
+      "routeAuthor": "Progetto65",
+      "gameVersion": "13.1.0",
+      "routeLikes": 108,
+      "routeSource": "dak.gg"
+    },
+    "李黛琳|Glove": {
+      "hero": "李黛琳",
+      "weaponTypeRaw": "Glove",
+      "gear": {
+        "武器": "天蚕手套",
+        "衣服": "魅影",
+        "头部": "天使光环",
+        "手部": "自动臂",
+        "鞋子": "亚历山大"
+      },
+      "traitSelection": {
+        "group": "Fortification",
+        "core": "7100201",
+        "sub1": "7110701",
+        "sub2": "7110201",
+        "secondaryGroup": "Havoc",
+        "secondarySub1": "7011501",
+        "secondarySub2": "7011201"
+      },
+      "tacticalSkill": "闪灵",
+      "routeId": 588,
+      "routeTitle": "브루저 글리다",
+      "routeAuthor": "귀련",
+      "gameVersion": "13.1.0",
+      "routeLikes": 635,
+      "routeSource": "dak.gg"
+    },
+    "李黛琳|Nunchaku": {
+      "hero": "李黛琳",
+      "weaponTypeRaw": "Nunchaku",
+      "gear": {
+        "武器": "霓虹锁链",
+        "衣服": "战术重甲",
+        "头部": "圣光冠冕",
+        "手部": "蓝纹臂章",
+        "鞋子": "亚历山大"
+      },
+      "traitSelection": {
+        "group": "Havoc",
+        "core": "7000201",
+        "sub1": "7011001",
+        "sub2": "7011101",
+        "secondaryGroup": "Fortification",
+        "secondarySub1": "7110701",
+        "secondarySub2": "7111201"
+      },
+      "tacticalSkill": "闪灵",
+      "routeId": 3311,
+      "routeTitle": "개사기 템이 된 락자",
+      "routeAuthor": "hwata",
+      "gameVersion": "13.1.0",
+      "routeLikes": 770,
+      "routeSource": "dak.gg"
+    },
+    "雪|TwoHandSword": {
+      "hero": "雪",
+      "weaponTypeRaw": "TwoHandSword",
+      "gear": {
+        "武器": "极光长剑",
+        "衣服": "缄默法则",
+        "头部": "戴维德耳机",
+        "手部": "秘银箭筒",
+        "鞋子": "幻影行者"
+      },
+      "traitSelection": {
+        "group": "Fortification",
+        "core": "7100101",
+        "sub1": "7111001",
+        "sub2": "7110601",
+        "secondaryGroup": "Chaos",
+        "secondarySub1": "7310201",
+        "secondarySub2": "7310301"
+      },
+      "tacticalSkill": "极光陀螺",
+      "routeId": 3723,
+      "routeTitle": "13시즌 정석 오메르타 유키",
+      "routeAuthor": "이월",
+      "gameVersion": "13.1.0",
+      "routeLikes": 1429,
+      "routeSource": "dak.gg"
+    },
+    "雪|DualSword": {
+      "hero": "雪",
+      "weaponTypeRaw": "DualSword",
+      "gear": {
+        "武器": "幽影双刃",
+        "衣服": "缄默法则",
+        "头部": "戴维德耳机",
+        "手部": "赫利克斯",
+        "鞋子": "秘银靴"
+      },
+      "traitSelection": {
+        "group": "Fortification",
+        "core": "7100101",
+        "sub1": "7111001",
+        "sub2": "7110601",
+        "secondaryGroup": "Havoc",
+        "secondarySub1": "7011501",
+        "secondarySub2": "7011201"
+      },
+      "tacticalSkill": "斥力弹",
+      "routeId": 1854,
+      "routeTitle": "13시즌을 맞이하는 쌍유루트",
+      "routeAuthor": "음쩝맛있다",
+      "gameVersion": "13.1.0",
+      "routeLikes": 1295,
+      "routeSource": "dak.gg"
     },
     "慧珍|Bow": {
       "hero": "慧珍",
@@ -297,41 +701,828 @@
         "group": "Support",
         "core": "7200201",
         "sub1": "7210101",
-        "sub2": "7210401",
+        "sub2": "7211101",
         "secondaryGroup": "Havoc",
         "secondarySub1": "7010501",
         "secondarySub2": "7011101"
       },
-      "tacticalSkill": "闪灵",
-      "routeId": 36697,
-      "routeTitle": "돌풍혜진",
-      "routeAuthor": "모상빈",
-      "gameVersion": "11.2.0"
+      "tacticalSkill": "斥力弹",
+      "routeId": 3449,
+      "routeTitle": "2루트 0배달",
+      "routeAuthor": "유갸무",
+      "gameVersion": "13.1.0",
+      "routeLikes": 633,
+      "routeSource": "dak.gg"
     },
-    "卡洛琳|Arcana": {
-      "hero": "卡洛琳",
-      "weaponTypeRaw": "Arcana",
+    "慧珍|DirectFire": {
+      "hero": "慧珍",
+      "weaponTypeRaw": "DirectFire",
       "gear": {
-        "武器": "炼狱 - 绯红",
+        "武器": "亡者之符",
+        "衣服": "日轮之铠",
+        "头部": "幽灵面具",
+        "手部": "芭蕉扇",
+        "鞋子": "恨天高"
+      },
+      "traitSelection": {
+        "group": "Support",
+        "core": "7200201",
+        "sub1": "7210101",
+        "sub2": "7211101",
+        "secondaryGroup": "Havoc",
+        "secondarySub1": "7010501",
+        "secondarySub2": "7011101"
+      },
+      "tacticalSkill": "斥力弹",
+      "routeId": 22296,
+      "routeTitle": "암기 혜진",
+      "routeAuthor": "치카쟝",
+      "gameVersion": "13.1.0",
+      "routeLikes": 49,
+      "routeSource": "dak.gg"
+    },
+    "修凯|Spear": {
+      "hero": "修凯",
+      "weaponTypeRaw": "Spear",
+      "gear": {
+        "武器": "宇宙双叉戟",
+        "衣服": "骑士战甲",
+        "头部": "圣骑士头盔",
+        "手部": "微型太阳系统",
+        "鞋子": "星际战靴"
+      },
+      "traitSelection": {
+        "group": "Support",
+        "core": "7200201",
+        "sub1": "7200101",
+        "sub2": "7110801",
+        "secondaryGroup": "Fortification",
+        "secondarySub1": "7111001",
+        "secondarySub2": "7110601"
+      },
+      "tacticalSkill": "羁绊者",
+      "routeId": 5261,
+      "routeTitle": "뉴비용 쇼우",
+      "routeAuthor": "띠띠",
+      "gameVersion": "13.1.0",
+      "routeLikes": 298,
+      "routeSource": "dak.gg"
+    },
+    "修凯|OneHandSword": {
+      "hero": "修凯",
+      "weaponTypeRaw": "OneHandSword",
+      "gear": {
+        "武器": "月蚀",
+        "衣服": "星火洋装",
+        "头部": "矮人头盔",
+        "手部": "微型太阳系统",
+        "鞋子": "EOD防爆靴"
+      },
+      "traitSelection": {
+        "group": "Support",
+        "core": "7200201",
+        "sub1": "7211001",
+        "sub2": "7110801",
+        "secondaryGroup": "Havoc",
+        "secondarySub1": "7011501",
+        "secondarySub2": "7011201"
+      },
+      "tacticalSkill": "震裂",
+      "routeId": 2589,
+      "routeTitle": "퀘이크 단검 쇼우(설명o)",
+      "routeAuthor": "김미",
+      "gameVersion": "13.1.0",
+      "routeLikes": 90,
+      "routeSource": "dak.gg"
+    },
+    "奇娅拉|Rapier": {
+      "hero": "奇娅拉",
+      "weaponTypeRaw": "Rapier",
+      "gear": {
+        "武器": "苍野荆棘",
         "衣服": "神职法衣",
-        "头部": "瘟疫使者",
-        "手部": "极光陀螺",
+        "头部": "En Garde",
+        "手部": "翡翠石板",
+        "鞋子": "万年冰鞋"
+      },
+      "traitSelection": {
+        "group": "Havoc",
+        "core": "7000401",
+        "sub1": "7010901",
+        "sub2": "7011401",
+        "secondaryGroup": "Chaos",
+        "secondarySub1": "7310201",
+        "secondarySub2": "7310501"
+      },
+      "tacticalSkill": "极光陀螺",
+      "routeId": 2518,
+      "routeTitle": "에타개사긴데?",
+      "routeAuthor": "Tear",
+      "gameVersion": "13.1.0",
+      "routeLikes": 1306,
+      "routeSource": "dak.gg"
+    },
+    "希瑟拉|DirectFire": {
+      "hero": "希瑟拉",
+      "weaponTypeRaw": "DirectFire",
+      "gear": {
+        "武器": "亡者之符",
+        "衣服": "血色斗篷",
+        "头部": "幽灵面具",
+        "手部": "鬼灵之爪",
         "鞋子": "万年冰鞋"
       },
       "traitSelection": {
         "group": "Chaos",
-        "core": "7300201",
+        "core": "7000501",
         "sub1": "7010701",
         "sub2": "7310101",
         "secondaryGroup": "Havoc",
         "secondarySub1": "7010501",
         "secondarySub2": "7011101"
       },
+      "tacticalSkill": "闪灵",
+      "routeId": 2299,
+      "routeTitle": "셀루",
+      "routeAuthor": "정상현",
+      "gameVersion": "13.1.0",
+      "routeLikes": 120,
+      "routeSource": "dak.gg"
+    },
+    "希瑟拉|HighAngleFire": {
+      "hero": "希瑟拉",
+      "weaponTypeRaw": "HighAngleFire",
+      "gear": {
+        "武器": "追猎者",
+        "衣服": "血色斗篷",
+        "头部": "瘟疫使者",
+        "手部": "龙鳞",
+        "鞋子": "万年冰鞋"
+      },
+      "traitSelection": {
+        "group": "Chaos",
+        "core": "7000501",
+        "sub1": "7010701",
+        "sub2": "7310101",
+        "secondaryGroup": "Havoc",
+        "secondarySub1": "7010501",
+        "secondarySub2": "7011101"
+      },
+      "tacticalSkill": "闪灵",
+      "routeId": 2482,
+      "routeTitle": "노주문 셀라루트(설명있음)",
+      "routeAuthor": "도화가",
+      "gameVersion": "13.1.0",
+      "routeLikes": 880,
+      "routeSource": "dak.gg"
+    },
+    "西尔维娅|Pistol": {
+      "hero": "西尔维娅",
+      "weaponTypeRaw": "Pistol",
+      "gear": {
+        "武器": "魔弹射手",
+        "衣服": "神职法衣",
+        "头部": "太空头盔",
+        "手部": "荷鲁斯之眼",
+        "鞋子": "万年冰鞋"
+      },
+      "traitSelection": {
+        "group": "Havoc",
+        "core": "7000401",
+        "sub1": "7011501",
+        "sub2": "7011201",
+        "secondaryGroup": "Chaos",
+        "secondarySub1": "7310201",
+        "secondarySub2": "7310701"
+      },
+      "tacticalSkill": "闪灵",
+      "routeId": 307,
+      "routeTitle": "튜닝의 끝은 순정",
+      "routeAuthor": "의문의실비아장인",
+      "gameVersion": "13.1.0",
+      "routeLikes": 774,
+      "routeSource": "dak.gg"
+    },
+    "阿德瑞娜|HighAngleFire": {
+      "hero": "阿德瑞娜",
+      "weaponTypeRaw": "HighAngleFire",
+      "gear": {
+        "武器": "追猎者 - 晓色",
+        "衣服": "血色斗篷",
+        "头部": "瘟疫使者",
+        "手部": "守护之眼",
+        "鞋子": "万年冰鞋"
+      },
+      "traitSelection": {
+        "group": "Chaos",
+        "core": "7000501",
+        "sub1": "7010701",
+        "sub2": "7310501",
+        "secondaryGroup": "Havoc",
+        "secondarySub1": "7011501",
+        "secondarySub2": "7011101"
+      },
+      "tacticalSkill": "闪灵",
+      "routeId": 4888,
+      "routeTitle": "아드1",
+      "routeAuthor": "RIOORI",
+      "gameVersion": "13.1.0",
+      "routeLikes": 1976,
+      "routeSource": "dak.gg"
+    },
+    "彰一|OneHandSword": {
+      "hero": "彰一",
+      "weaponTypeRaw": "OneHandSword",
+      "gear": {
+        "武器": "月蚀",
+        "衣服": "神职法衣",
+        "头部": "En Garde",
+        "手部": "廷达罗斯君主",
+        "鞋子": "荒野行者"
+      },
+      "traitSelection": {
+        "group": "Havoc",
+        "core": "7000401",
+        "sub1": "7010901",
+        "sub2": "7011201",
+        "secondaryGroup": "Chaos",
+        "secondarySub1": "7310201",
+        "secondarySub2": "7310701"
+      },
+      "tacticalSkill": "闪灵",
+      "routeId": 2408,
+      "routeTitle": "숲고",
+      "routeAuthor": "Luminal",
+      "gameVersion": "13.1.0",
+      "routeLikes": 2397,
+      "routeSource": "dak.gg"
+    },
+    "艾玛|DirectFire": {
+      "hero": "艾玛",
+      "weaponTypeRaw": "DirectFire",
+      "gear": {
+        "武器": "乾坤圈",
+        "衣服": "私人定制",
+        "头部": "幽灵面具",
+        "手部": "鬼灵之爪",
+        "鞋子": "万年冰鞋"
+      },
+      "traitSelection": {
+        "group": "Chaos",
+        "core": "7300101",
+        "sub1": "7310601",
+        "sub2": "7310501",
+        "secondaryGroup": "Havoc",
+        "secondarySub1": "7010501",
+        "secondarySub2": "7011101"
+      },
+      "tacticalSkill": "极光陀螺",
+      "routeId": 635,
+      "routeTitle": "먹던 맛",
+      "routeAuthor": "엠마가너무예뻐요",
+      "gameVersion": "13.1.0",
+      "routeLikes": 754,
+      "routeSource": "dak.gg"
+    },
+    "艾玛|Arcana": {
+      "hero": "艾玛",
+      "weaponTypeRaw": "Arcana",
+      "gear": {
+        "武器": "女帝",
+        "衣服": "神职法衣",
+        "头部": "暗影面纱",
+        "手部": "荷鲁斯之眼",
+        "鞋子": "锋利长靴"
+      },
+      "traitSelection": {
+        "group": "Chaos",
+        "core": "7300101",
+        "sub1": "7310601",
+        "sub2": "7310501",
+        "secondaryGroup": "Havoc",
+        "secondarySub1": "7010501",
+        "secondarySub2": "7011101"
+      },
+      "tacticalSkill": "极光陀螺",
+      "routeId": 12849,
+      "routeTitle": "엠마의 시대가 왔나요",
+      "routeAuthor": "SoundVoltex",
+      "gameVersion": "13.1.0",
+      "routeLikes": 442,
+      "routeSource": "dak.gg"
+    },
+    "伦诺克斯|Whip": {
+      "hero": "伦诺克斯",
+      "weaponTypeRaw": "Whip",
+      "gear": {
+        "武器": "命运之环",
+        "衣服": "秘银链甲",
+        "头部": "魔兔帽",
+        "手部": "微型太阳系统",
+        "鞋子": "荒野行者"
+      },
+      "traitSelection": {
+        "group": "Support",
+        "core": "7200301",
+        "sub1": "7210101",
+        "sub2": "7210401",
+        "secondaryGroup": "Fortification",
+        "secondarySub1": "7111001",
+        "secondarySub2": "7110601"
+      },
+      "tacticalSkill": "闪灵",
+      "routeId": 13098,
+      "routeTitle": "레녹시",
+      "routeAuthor": "앙영몽둥방강웡",
+      "gameVersion": "13.1.0",
+      "routeLikes": 69,
+      "routeSource": "dak.gg"
+    },
+    "洛兹|Pistol": {
+      "hero": "洛兹",
+      "weaponTypeRaw": "Pistol",
+      "gear": {
+        "武器": "正午 - 绯红",
+        "衣服": "摇滚外套",
+        "头部": "夜视头盔",
+        "手部": "雷达",
+        "鞋子": "亚历山大"
+      },
+      "traitSelection": {
+        "group": "Havoc",
+        "core": "7000401",
+        "sub1": "7010501",
+        "sub2": "7011301",
+        "secondaryGroup": "Chaos",
+        "secondarySub1": "7310601",
+        "secondarySub2": "7310501"
+      },
+      "tacticalSkill": "闪灵",
+      "routeId": 9751,
+      "routeTitle": "321",
+      "routeAuthor": "페이블",
+      "gameVersion": "13.1.0",
+      "routeLikes": 2361,
+      "routeSource": "dak.gg"
+    },
+    "卢克|Bat": {
+      "hero": "卢克",
+      "weaponTypeRaw": "Bat",
+      "gear": {
+        "武器": "秃鹫之眼",
+        "衣服": "泰坦盔甲",
+        "头部": "舰长礼帽",
+        "手部": "燃烧之心",
+        "鞋子": "荒野行者"
+      },
+      "traitSelection": {
+        "group": "Fortification",
+        "core": "7100501",
+        "sub1": "7111001",
+        "sub2": "7110601",
+        "secondaryGroup": "Support",
+        "secondarySub1": "7211401",
+        "secondarySub2": "7210801"
+      },
+      "tacticalSkill": "超越",
+      "routeId": 155,
+      "routeTitle": "13시즌 청소 시작 ",
+      "routeAuthor": "노토",
+      "gameVersion": "13.1.0",
+      "routeLikes": 2222,
+      "routeSource": "dak.gg"
+    },
+    "凯希|OneHandSword": {
+      "hero": "凯希",
+      "weaponTypeRaw": "OneHandSword",
+      "gear": {
+        "武器": "月蚀",
+        "衣服": "神职法衣",
+        "头部": "太空头盔",
+        "手部": "龙鳞",
+        "鞋子": "万年冰鞋"
+      },
+      "traitSelection": {
+        "group": "Havoc",
+        "core": "7000701",
+        "sub1": "7011501",
+        "sub2": "7011101",
+        "secondaryGroup": "Chaos",
+        "secondarySub1": "7310601",
+        "secondarySub2": "7310501"
+      },
       "tacticalSkill": "斥力弹",
-      "routeId": 61227,
-      "routeTitle": "123",
-      "routeAuthor": "PUGB",
-      "gameVersion": "11.7.0"
+      "routeId": 3081,
+      "routeTitle": "저점퀸-엑셀캐시",
+      "routeAuthor": "주유소직원",
+      "gameVersion": "13.1.0",
+      "routeLikes": 43,
+      "routeSource": "dak.gg"
+    },
+    "凯希|DualSword": {
+      "hero": "凯希",
+      "weaponTypeRaw": "DualSword",
+      "gear": {
+        "武器": "塔纳托斯",
+        "衣服": "神职法衣",
+        "头部": "赛博追踪者",
+        "手部": "荷鲁斯之眼",
+        "鞋子": "万年冰鞋"
+      },
+      "traitSelection": {
+        "group": "Fortification",
+        "core": "7100201",
+        "sub1": "7111101",
+        "sub2": "7110201",
+        "secondaryGroup": "Chaos",
+        "secondarySub1": "7310401",
+        "secondarySub2": "7310501"
+      },
+      "tacticalSkill": "闪灵",
+      "routeId": 2485,
+      "routeTitle": "불괴캐시",
+      "routeAuthor": "알리오올",
+      "gameVersion": "13.1.0",
+      "routeLikes": 14,
+      "routeSource": "dak.gg"
+    },
+    "阿德拉|Rapier": {
+      "hero": "阿德拉",
+      "weaponTypeRaw": "Rapier",
+      "gear": {
+        "武器": "阿戈斯之眼",
+        "衣服": "神职法衣",
+        "头部": "暗影面纱",
+        "手部": "荷鲁斯之眼",
+        "鞋子": "锋利长靴"
+      },
+      "traitSelection": {
+        "group": "Havoc",
+        "core": "7000201",
+        "sub1": "7011001",
+        "sub2": "7011101",
+        "secondaryGroup": "Chaos",
+        "secondarySub1": "7310401",
+        "secondarySub2": "7310101"
+      },
+      "tacticalSkill": "闪灵",
+      "routeId": 4103,
+      "routeTitle": "S12 아델라 1등",
+      "routeAuthor": "띠후",
+      "gameVersion": "13.1.0",
+      "routeLikes": 317,
+      "routeSource": "dak.gg"
+    },
+    "阿德拉|Bat": {
+      "hero": "阿德拉",
+      "weaponTypeRaw": "Bat",
+      "gear": {
+        "武器": "鬼手棍",
+        "衣服": "神职法衣",
+        "头部": "暗影面纱",
+        "手部": "荷鲁斯之眼",
+        "鞋子": "锋利长靴"
+      },
+      "traitSelection": {
+        "group": "Havoc",
+        "core": "7000201",
+        "sub1": "7011001",
+        "sub2": "7011101",
+        "secondaryGroup": "Chaos",
+        "secondarySub1": "7310401",
+        "secondarySub2": "7310101"
+      },
+      "tacticalSkill": "闪灵",
+      "routeId": 9,
+      "routeTitle": "신속 좋네",
+      "routeAuthor": "건피의악마로즈너",
+      "gameVersion": "13.1.0",
+      "routeLikes": 351,
+      "routeSource": "dak.gg"
+    },
+    "伯尼斯|SniperRifle": {
+      "hero": "伯尼斯",
+      "weaponTypeRaw": "SniperRifle",
+      "gear": {
+        "武器": "夜行",
+        "衣服": "仙女服",
+        "头部": "雷加图斯",
+        "手部": "苏丹箭筒",
+        "鞋子": "亚历山大"
+      },
+      "traitSelection": {
+        "group": "Fortification",
+        "core": "7100401",
+        "sub1": "7111101",
+        "sub2": "7111201",
+        "secondaryGroup": "Havoc",
+        "secondarySub1": "7010501",
+        "secondarySub2": "7011101"
+      },
+      "tacticalSkill": "闪灵",
+      "routeId": 26,
+      "routeTitle": "네 님블이 쓰지 말라고 하네요",
+      "routeAuthor": "털보냥이TV",
+      "gameVersion": "13.1.0",
+      "routeLikes": 1920,
+      "routeSource": "dak.gg"
+    },
+    "芭芭拉|Pistol": {
+      "hero": "芭芭拉",
+      "weaponTypeRaw": "Pistol",
+      "gear": {
+        "武器": "正午 - 晓色",
+        "衣服": "异端审判官",
+        "头部": "龙首簪",
+        "手部": "斯嘉蒂的手镯",
+        "鞋子": "锋利长靴"
+      },
+      "traitSelection": {
+        "group": "Support",
+        "core": "7200201",
+        "sub1": "7211001",
+        "sub2": "7211101",
+        "secondaryGroup": "Chaos",
+        "secondarySub1": "7010701",
+        "secondarySub2": "7310501"
+      },
+      "tacticalSkill": "斥力弹",
+      "routeId": 4625,
+      "routeTitle": "이터니티 바바라",
+      "routeAuthor": "manaya",
+      "gameVersion": "13.1.0",
+      "routeLikes": 395,
+      "routeSource": "dak.gg"
+    },
+    "亚历克斯|Tonfa": {
+      "hero": "亚历克斯",
+      "weaponTypeRaw": "Tonfa",
+      "gear": {
+        "武器": "螳螂旋棍",
+        "衣服": "摇滚外套",
+        "头部": "战术面罩",
+        "手部": "赫利克斯",
+        "鞋子": "战术鞋"
+      },
+      "traitSelection": {
+        "group": "Chaos",
+        "core": "7300101",
+        "sub1": "7310201",
+        "sub2": "7310701",
+        "secondaryGroup": "Havoc",
+        "secondarySub1": "7011501",
+        "secondarySub2": "7011201"
+      },
+      "tacticalSkill": "闪灵",
+      "routeId": 2060,
+      "routeTitle": "강소금식 알렉스",
+      "routeAuthor": "소금49호",
+      "gameVersion": "13.1.0",
+      "routeLikes": 68,
+      "routeSource": "dak.gg"
+    },
+    "亚历克斯|TwoHandSword": {
+      "hero": "亚历克斯",
+      "weaponTypeRaw": "TwoHandSword",
+      "gear": {
+        "武器": "顺天剑",
+        "衣服": "摇滚外套",
+        "头部": "暮光头饰",
+        "手部": "赫利克斯",
+        "鞋子": "幻影行者"
+      },
+      "traitSelection": {
+        "group": "Chaos",
+        "core": "7300101",
+        "sub1": "7310201",
+        "sub2": "7310701",
+        "secondaryGroup": "Havoc",
+        "secondarySub1": "7011501",
+        "secondarySub2": "7011301"
+      },
+      "tacticalSkill": "闪灵",
+      "routeId": 7136,
+      "routeTitle": "슈스자 날개를 달아줘요",
+      "routeAuthor": "알렉스는숨어야해",
+      "gameVersion": "13.1.0",
+      "routeLikes": 481,
+      "routeSource": "dak.gg"
+    },
+    "亚历克斯|DirectFire": {
+      "hero": "亚历克斯",
+      "weaponTypeRaw": "DirectFire",
+      "gear": {
+        "武器": "疯子国王的卡片",
+        "衣服": "赛车服",
+        "头部": "夜视头盔",
+        "手部": "命运之骰",
+        "鞋子": "亚历山大"
+      },
+      "traitSelection": {
+        "group": "Chaos",
+        "core": "7300101",
+        "sub1": "7310201",
+        "sub2": "7310101",
+        "secondaryGroup": "Havoc",
+        "secondarySub1": "7011501",
+        "secondarySub2": "7011201"
+      },
+      "tacticalSkill": "闪灵",
+      "routeId": 18582,
+      "routeTitle": "test",
+      "routeAuthor": "밀감성",
+      "gameVersion": "13.1.0",
+      "routeLikes": 0,
+      "routeSource": "dak.gg"
+    },
+    "亚历克斯|Pistol": {
+      "hero": "亚历克斯",
+      "weaponTypeRaw": "Pistol",
+      "gear": {
+        "武器": "凯尔特",
+        "衣服": "魅影",
+        "头部": "雷加图斯",
+        "手部": "苏丹箭筒",
+        "鞋子": "亚历山大"
+      },
+      "traitSelection": {
+        "group": "Chaos",
+        "core": "7300101",
+        "sub1": "7310201",
+        "sub2": "7310701",
+        "secondaryGroup": "Havoc",
+        "secondarySub1": "7011001",
+        "secondarySub2": "7011301"
+      },
+      "tacticalSkill": "闪灵",
+      "routeId": 5903,
+      "routeTitle": "알렉스는원딜이야",
+      "routeAuthor": "알렉스는원딜이야",
+      "gameVersion": "13.1.0",
+      "routeLikes": 21,
+      "routeSource": "dak.gg"
+    },
+    "秀雅|Hammer": {
+      "hero": "秀雅",
+      "weaponTypeRaw": "Hammer",
+      "gear": {
+        "武器": "和平暗使",
+        "衣服": "神职法衣",
+        "头部": "太空头盔",
+        "手部": "翡翠石板",
+        "鞋子": "荒野行者"
+      },
+      "traitSelection": {
+        "group": "Fortification",
+        "core": "7100201",
+        "sub1": "7111001",
+        "sub2": "7110201",
+        "secondaryGroup": "Chaos",
+        "secondarySub1": "7310601",
+        "secondarySub2": "7310301"
+      },
+      "tacticalSkill": "闪灵",
+      "routeId": 8613,
+      "routeTitle": "아망의선택 성법우뚝에타",
+      "routeAuthor": "블랙페이퍼",
+      "gameVersion": "13.1.0",
+      "routeLikes": 122,
+      "routeSource": "dak.gg"
+    },
+    "秀雅|Bat": {
+      "hero": "秀雅",
+      "weaponTypeRaw": "Bat",
+      "gear": {
+        "武器": "魔法棒",
+        "衣服": "神职法衣",
+        "头部": "先知头巾",
+        "手部": "星之碎片",
+        "鞋子": "万年冰鞋"
+      },
+      "traitSelection": {
+        "group": "Chaos",
+        "core": "7300101",
+        "sub1": "7310601",
+        "sub2": "7310301",
+        "secondaryGroup": "Fortification",
+        "secondarySub1": "7111001",
+        "secondarySub2": "7111201"
+      },
+      "tacticalSkill": "闪灵",
+      "routeId": 2329,
+      "routeTitle": "★ 시즌13 방수아 ★",
+      "routeAuthor": "민트별",
+      "gameVersion": "13.1.0",
+      "routeLikes": 1659,
+      "routeSource": "dak.gg"
+    },
+    "里昂|Glove": {
+      "hero": "里昂",
+      "weaponTypeRaw": "Glove",
+      "gear": {
+        "武器": "冻土传说",
+        "衣服": "神职法衣",
+        "头部": "赛车头盔",
+        "手部": "银河腕表",
+        "鞋子": "万年冰鞋"
+      },
+      "traitSelection": {
+        "group": "Havoc",
+        "core": "7000701",
+        "sub1": "7011501",
+        "sub2": "7011201",
+        "secondaryGroup": "Fortification",
+        "secondarySub1": "7110101",
+        "secondarySub2": "7110601"
+      },
+      "tacticalSkill": "闪灵",
+      "routeId": 110,
+      "routeTitle": "전시즌 루트 1등 엑셀 2루트",
+      "routeAuthor": "알만딘",
+      "gameVersion": "13.1.0",
+      "routeLikes": 1951,
+      "routeSource": "dak.gg"
+    },
+    "里昂|Tonfa": {
+      "hero": "里昂",
+      "weaponTypeRaw": "Tonfa",
+      "gear": {
+        "武器": "黑曜石双钗",
+        "衣服": "血色斗篷",
+        "头部": "瘟疫使者",
+        "手部": "鬼灵之爪",
+        "鞋子": "万年冰鞋"
+      },
+      "traitSelection": {
+        "group": "Chaos",
+        "core": "7000501",
+        "sub1": "7010701",
+        "sub2": "7310301",
+        "secondaryGroup": "Support",
+        "secondarySub1": "7211001",
+        "secondarySub2": "7210801"
+      },
+      "tacticalSkill": "斥力弹",
+      "routeId": 9569,
+      "routeTitle": "극딜번개파도",
+      "routeAuthor": "젤리켓",
+      "gameVersion": "13.1.0",
+      "routeLikes": 114,
+      "routeSource": "dak.gg"
+    },
+    "Eleven|Hammer": {
+      "hero": "Eleven",
+      "weaponTypeRaw": "Hammer",
+      "gear": {
+        "武器": "天星锤",
+        "衣服": "幽灵新娘的嫁纱",
+        "头部": "秘银头盔",
+        "手部": "燃烧之心",
+        "鞋子": "EOD防爆靴"
+      },
+      "traitSelection": {
+        "group": "Support",
+        "core": "7200301",
+        "sub1": "7211401",
+        "sub2": "7110801",
+        "secondaryGroup": "Havoc",
+        "secondarySub1": "7011501",
+        "secondarySub2": "7011201"
+      },
+      "tacticalSkill": "震裂",
+      "routeId": 1740,
+      "routeTitle": "햄버거",
+      "routeAuthor": "레몬부거",
+      "gameVersion": "13.1.0",
+      "routeLikes": 1539,
+      "routeSource": "dak.gg"
+    },
+    "莉央|Bow": {
+      "hero": "莉央",
+      "weaponTypeRaw": "Bow",
+      "gear": {
+        "武器": "血之刻印 - 绯红",
+        "衣服": "吉利服",
+        "头部": "荒野之星",
+        "手部": "命运之骰",
+        "鞋子": "象牙之履"
+      },
+      "traitSelection": {
+        "group": "Havoc",
+        "core": "7000601",
+        "sub1": "7010501",
+        "sub2": "7011301",
+        "secondaryGroup": "Chaos",
+        "secondarySub1": "7310601",
+        "secondarySub2": "7310701"
+      },
+      "tacticalSkill": "赤色风暴",
+      "routeId": 9411,
+      "routeTitle": "321",
+      "routeAuthor": "페이블",
+      "gameVersion": "13.1.0",
+      "routeLikes": 3472,
+      "routeSource": "dak.gg"
     },
     "威廉|HighAngleFire": {
       "hero": "威廉",
@@ -349,270 +1540,346 @@
         "sub1": "7010501",
         "sub2": "7011301",
         "secondaryGroup": "Fortification",
-        "secondarySub1": "7110701",
-        "secondarySub2": "7110201"
+        "secondarySub1": "7111101",
+        "secondarySub2": "7111201"
       },
-      "tacticalSkill": "闪灵",
-      "routeId": 60618,
-      "routeTitle": "용사 힘멜이라면",
-      "routeAuthor": "이유화",
-      "gameVersion": "11.7.0"
+      "tacticalSkill": "赤色风暴",
+      "routeId": 103,
+      "routeTitle": "갤스",
+      "routeAuthor": "StandByYou",
+      "gameVersion": "13.1.0",
+      "routeLikes": 297,
+      "routeSource": "dak.gg"
     },
-    "彰一|OneHandSword": {
-      "hero": "彰一",
-      "weaponTypeRaw": "OneHandSword",
-      "gear": {
-        "武器": "月蚀",
-        "衣服": "神职法衣",
-        "头部": "En Garde",
-        "手部": "廷达罗斯君主",
-        "鞋子": "万年冰鞋"
-      },
-      "traitSelection": {
-        "group": "Havoc",
-        "core": "7000401",
-        "sub1": "7011501",
-        "sub2": "7011401",
-        "secondaryGroup": "Fortification",
-        "secondarySub1": "7110701",
-        "secondarySub2": "7110201"
-      },
-      "tacticalSkill": "闪灵",
-      "routeId": 4666,
-      "routeTitle": "불굴특공",
-      "routeAuthor": "화난햄스터",
-      "gameVersion": "11.5.0"
-    },
-    "艾比盖尔|Axe": {
-      "hero": "艾比盖尔",
-      "weaponTypeRaw": "Axe",
-      "gear": {
-        "武器": "天堂之镰",
-        "衣服": "星火洋装",
-        "头部": "天使光环",
-        "手部": "血杀龙爪",
-        "鞋子": "生化推进器"
-      },
-      "traitSelection": {
-        "group": "Chaos",
-        "core": "7000501",
-        "sub1": "7010701",
-        "sub2": "7310301",
-        "secondaryGroup": "Havoc",
-        "secondarySub1": "7011001",
-        "secondarySub2": "7011101"
-      },
-      "tacticalSkill": "阔步者",
-      "routeId": 59343,
-      "routeTitle": "kanon\n",
-      "routeAuthor": "Jichkatam17",
-      "gameVersion": "11.6.0"
-    },
-    "埃索|Pistol": {
-      "hero": "埃索",
-      "weaponTypeRaw": "Pistol",
-      "gear": {
-        "武器": "牵牛星",
-        "衣服": "神职法衣",
-        "头部": "太空头盔",
-        "手部": "邀明月",
-        "鞋子": "锋利长靴"
-      },
-      "traitSelection": {
-        "group": "Support",
-        "core": "7200501",
-        "sub1": "7211001",
-        "sub2": "7211101",
-        "secondaryGroup": "Chaos",
-        "secondarySub1": "7310201",
-        "secondarySub2": "7310301"
-      },
-      "tacticalSkill": "闪灵",
-      "routeId": 43321,
-      "routeTitle": "뿌리고튄다",
-      "routeAuthor": "Progetto65",
-      "gameVersion": "11.6.0"
-    },
-    "鼻荆|Bat": {
-      "hero": "鼻荆",
-      "weaponTypeRaw": "Bat",
-      "gear": {
-        "武器": "秃鹫之眼",
-        "衣服": "反抗的意志",
-        "头部": "荒野之饥",
-        "手部": "图腾",
-        "鞋子": "秘银靴"
-      },
-      "traitSelection": {
-        "group": "Fortification",
-        "core": "7100501",
-        "sub1": "7111001",
-        "sub2": "7111201",
-        "secondaryGroup": "Havoc",
-        "secondarySub1": "7011501",
-        "secondarySub2": "7011201"
-      },
-      "tacticalSkill": "实刃",
-      "routeId": 31928,
-      "routeTitle": "반역허기광분개탈",
-      "routeAuthor": "땅에떨어진식빵",
-      "gameVersion": "11.4.0"
-    },
-    "阿隆索|Glove": {
-      "hero": "阿隆索",
+    "妮琪|Glove": {
+      "hero": "妮琪",
       "weaponTypeRaw": "Glove",
       "gear": {
         "武器": "雷霆之握",
-        "衣服": "星火洋装",
-        "头部": "魔兔帽",
-        "手部": "图腾",
-        "鞋子": "EOD防爆靴"
+        "衣服": "幽冥战甲",
+        "头部": "战术护目镜",
+        "手部": "邀明月",
+        "鞋子": "星际战靴"
       },
       "traitSelection": {
-        "group": "Support",
-        "core": "7200301",
-        "sub1": "7210101",
-        "sub2": "7211101",
-        "secondaryGroup": "Fortification",
-        "secondarySub1": "7111001",
-        "secondarySub2": "7110601"
-      },
-      "tacticalSkill": "违规者",
-      "routeId": 40627,
-      "routeTitle": "지론소2",
-      "routeAuthor": "난봉꾼",
-      "gameVersion": "11.3.0"
-    },
-    "燕翼|DirectFire": {
-      "hero": "燕翼",
-      "weaponTypeRaw": "DirectFire",
-      "gear": {
-        "武器": "满天花雨",
-        "衣服": "贤者之袍",
-        "头部": "圣光冠冕",
-        "手部": "命运之骰",
-        "鞋子": "亚历山大"
-      },
-      "traitSelection": {
-        "group": "Havoc",
-        "core": "7000601",
-        "sub1": "7010901",
-        "sub2": "7011301",
-        "secondaryGroup": "Fortification",
-        "secondarySub1": "7110701",
-        "secondarySub2": "7111201"
-      },
-      "tacticalSkill": "闪灵",
-      "routeId": 52067,
-      "routeTitle": "지난식 츠바메",
-      "routeAuthor": "안지난",
-      "gameVersion": "11.6.0"
-    },
-    "洛兹|Pistol": {
-      "hero": "洛兹",
-      "weaponTypeRaw": "Pistol",
-      "gear": {
-        "武器": "等离子枪",
-        "衣服": "火灵装",
-        "头部": "夜视头盔",
-        "手部": "雷达",
-        "鞋子": "秘银靴"
-      },
-      "traitSelection": {
-        "group": "Havoc",
-        "core": "7000401",
-        "sub1": "7010501",
-        "sub2": "7011301",
-        "secondaryGroup": "Chaos",
-        "secondarySub1": "7310601",
-        "secondarySub2": "7310701"
-      },
-      "tacticalSkill": "闪灵",
-      "routeId": 18747,
-      "routeTitle": "이거 맛있음?",
-      "routeAuthor": "소드당",
-      "gameVersion": "11.7.0"
-    },
-    "翡翠|TwoHandSword": {
-      "hero": "翡翠",
-      "weaponTypeRaw": "TwoHandSword",
-      "gear": {
-        "武器": "极光长剑",
-        "衣服": "奥黛",
-        "头部": "暮光头饰",
-        "手部": "自动臂",
-        "鞋子": "刀片靴"
-      },
-      "traitSelection": {
-        "group": "Havoc",
-        "core": "7000401",
-        "sub1": "7010901",
-        "sub2": "7011201",
-        "secondaryGroup": "Chaos",
-        "secondarySub1": "7310201",
-        "secondarySub2": "7310701"
-      },
-      "tacticalSkill": "等离子冲击",
-      "routeId": 13970,
-      "routeTitle": "season11 hisui ソロラン",
-      "routeAuthor": "Dagashi0",
-      "gameVersion": "11.5.0"
-    },
-    "卢克|Bat": {
-      "hero": "卢克",
-      "weaponTypeRaw": "Bat",
-      "gear": {
-        "武器": "如意金箍棒",
-        "衣服": "摇滚外套",
-        "头部": "脸谱",
-        "手部": "皎月吊坠",
-        "鞋子": "剑齿虎"
-      },
-      "traitSelection": {
-        "group": "Havoc",
-        "core": "7000201",
-        "sub1": "7011001",
-        "sub2": "7011301",
+        "group": "Fortification",
+        "core": "7100101",
+        "sub1": "7110701",
+        "sub2": "7111201",
         "secondaryGroup": "Support",
         "secondarySub1": "7211401",
-        "secondarySub2": "7210401"
+        "secondarySub2": "7210801"
       },
-      "tacticalSkill": "实刃",
-      "routeId": 46611,
-      "routeTitle": "23322323",
-      "routeAuthor": "椰子树",
-      "gameVersion": "11.4.0"
+      "tacticalSkill": "斥力弹",
+      "routeId": 4537,
+      "routeTitle": "레버넌트 니키",
+      "routeAuthor": "Eilundrol",
+      "gameVersion": "13.1.0",
+      "routeLikes": 2063,
+      "routeSource": "dak.gg"
     },
-    "西尔维娅|Pistol": {
-      "hero": "西尔维娅",
-      "weaponTypeRaw": "Pistol",
+    "纳塔朋|Camera": {
+      "hero": "纳塔朋",
+      "weaponTypeRaw": "Camera",
       "gear": {
-        "武器": "正午",
-        "衣服": "日轮之铠",
-        "头部": "En Garde",
-        "手部": "荷鲁斯之眼",
-        "鞋子": "恨天高"
+        "武器": "三重聚焦相机",
+        "衣服": "神职法衣",
+        "头部": "瘟疫使者",
+        "手部": "龙鳞",
+        "鞋子": "万年冰鞋"
+      },
+      "traitSelection": {
+        "group": "Fortification",
+        "core": "7100401",
+        "sub1": "7111101",
+        "sub2": "7110601",
+        "secondaryGroup": "Support",
+        "secondarySub1": "7211001",
+        "secondarySub2": "7211101"
+      },
+      "tacticalSkill": "闪灵",
+      "routeId": 3367,
+      "routeTitle": "병묘의 정석(다른루트 설명에)",
+      "routeAuthor": "useless0man",
+      "gameVersion": "13.1.0",
+      "routeLikes": 567,
+      "routeSource": "dak.gg"
+    },
+    "扬|Glove": {
+      "hero": "扬",
+      "weaponTypeRaw": "Glove",
+      "gear": {
+        "武器": "天蚕手套",
+        "衣服": "缄默法则",
+        "头部": "帝王头盔",
+        "手部": "秘银箭筒",
+        "鞋子": "幻影行者"
+      },
+      "traitSelection": {
+        "group": "Fortification",
+        "core": "7100201",
+        "sub1": "7110701",
+        "sub2": "7110201",
+        "secondaryGroup": "Havoc",
+        "secondarySub1": "7011501",
+        "secondarySub2": "7011301"
+      },
+      "tacticalSkill": "闪灵",
+      "routeId": 1481,
+      "routeTitle": "국밥 2루트 / 설명 o",
+      "routeAuthor": "헤이스트",
+      "gameVersion": "13.1.0",
+      "routeLikes": 187,
+      "routeSource": "dak.gg"
+    },
+    "扬|Tonfa": {
+      "hero": "扬",
+      "weaponTypeRaw": "Tonfa",
+      "gear": {
+        "武器": "风行者",
+        "衣服": "私人定制",
+        "头部": "战术护目镜",
+        "手部": "秘银盾",
+        "鞋子": "赫尔墨斯之靴"
       },
       "traitSelection": {
         "group": "Chaos",
         "core": "7300101",
         "sub1": "7310201",
         "sub2": "7310701",
+        "secondaryGroup": "Fortification",
+        "secondarySub1": "7111001",
+        "secondarySub2": "7111201"
+      },
+      "tacticalSkill": "闪灵",
+      "routeId": 6422,
+      "routeTitle": "이터니티 얀 ",
+      "routeAuthor": "Kayoko68",
+      "gameVersion": "13.1.0",
+      "routeLikes": 1027,
+      "routeSource": "dak.gg"
+    },
+    "伊娃|HighAngleFire": {
+      "hero": "伊娃",
+      "weaponTypeRaw": "HighAngleFire",
+      "gear": {
+        "武器": "追猎者",
+        "衣服": "私人定制",
+        "头部": "龙首簪",
+        "手部": "守护之眼",
+        "鞋子": "锋利长靴"
+      },
+      "traitSelection": {
+        "group": "Chaos",
+        "core": "7000501",
+        "sub1": "7310401",
+        "sub2": "7310301",
         "secondaryGroup": "Havoc",
-        "secondarySub1": "7011001",
-        "secondarySub2": "7011401"
+        "secondarySub1": "7010501",
+        "secondarySub2": "7011101"
+      },
+      "tacticalSkill": "闪灵",
+      "routeId": 1416,
+      "routeTitle": "이바",
+      "routeAuthor": "Stormchaser",
+      "gameVersion": "13.1.0",
+      "routeLikes": 1210,
+      "routeSource": "dak.gg"
+    },
+    "丹尼尔|OneHandSword": {
+      "hero": "丹尼尔",
+      "weaponTypeRaw": "OneHandSword",
+      "gear": {
+        "武器": "佛拉格拉克",
+        "衣服": "摇滚外套",
+        "头部": "暮光头饰",
+        "手部": "普赛克之刃",
+        "鞋子": "剑齿虎"
+      },
+      "traitSelection": {
+        "group": "Chaos",
+        "core": "7300201",
+        "sub1": "7310401",
+        "sub2": "7310501",
+        "secondaryGroup": "Support",
+        "secondarySub1": "7211001",
+        "secondarySub2": "7211101"
+      },
+      "tacticalSkill": "闪灵",
+      "routeId": 5978,
+      "routeTitle": "씹방관",
+      "routeAuthor": "왕꿈툴이",
+      "gameVersion": "13.1.0",
+      "routeLikes": 313,
+      "routeSource": "dak.gg"
+    },
+    "珍妮|Pistol": {
+      "hero": "珍妮",
+      "weaponTypeRaw": "Pistol",
+      "gear": {
+        "武器": "正午",
+        "衣服": "能量战衣",
+        "头部": "赛车头盔",
+        "手部": "银河腕表",
+        "鞋子": "刀片靴"
+      },
+      "traitSelection": {
+        "group": "Havoc",
+        "core": "7000401",
+        "sub1": "7010501",
+        "sub2": "7011101",
+        "secondaryGroup": "Chaos",
+        "secondarySub1": "7310601",
+        "secondarySub2": "7310101"
       },
       "tacticalSkill": "斥力弹",
-      "routeId": 48800,
-      "routeTitle": "_크레이버_",
-      "routeAuthor": "주유소직원",
-      "gameVersion": "11.4.0"
+      "routeId": 467,
+      "routeTitle": "내가쓰는루트",
+      "routeAuthor": "Hasuki",
+      "gameVersion": "13.1.0",
+      "routeLikes": 1204,
+      "routeSource": "dak.gg"
+    },
+    "卡米洛|DualSword": {
+      "hero": "卡米洛",
+      "weaponTypeRaw": "DualSword",
+      "gear": {
+        "武器": "阴阳双刃",
+        "衣服": "奥黛",
+        "头部": "圣光冠冕",
+        "手部": "雷达",
+        "鞋子": "亚历山大"
+      },
+      "traitSelection": {
+        "group": "Havoc",
+        "core": "7000401",
+        "sub1": "7011501",
+        "sub2": "7011301",
+        "secondaryGroup": "Chaos",
+        "secondarySub1": "7310201",
+        "secondarySub2": "7310701"
+      },
+      "tacticalSkill": "闪灵",
+      "routeId": 395,
+      "routeTitle": "흠냐흠냐",
+      "routeAuthor": "귤귤귤귤귤귤귤귤",
+      "gameVersion": "13.1.0",
+      "routeLikes": 832,
+      "routeSource": "dak.gg"
+    },
+    "卡米洛|Rapier": {
+      "hero": "卡米洛",
+      "weaponTypeRaw": "Rapier",
+      "gear": {
+        "武器": "咎瓦尤斯",
+        "衣服": "奥黛",
+        "头部": "火花护盾",
+        "手部": "蓝纹臂章",
+        "鞋子": "象牙之履"
+      },
+      "traitSelection": {
+        "group": "Fortification",
+        "core": "7100201",
+        "sub1": "7110101",
+        "sub2": "7111201",
+        "secondaryGroup": "Havoc",
+        "secondarySub1": "7010901",
+        "secondarySub2": "7011301"
+      },
+      "tacticalSkill": "阔步者",
+      "routeId": 7677,
+      "routeTitle": "먹던거",
+      "routeAuthor": "메가톤박치기",
+      "gameVersion": "13.1.0",
+      "routeLikes": 358,
+      "routeSource": "dak.gg"
+    },
+    "克洛伊|DirectFire": {
+      "hero": "克洛伊",
+      "weaponTypeRaw": "DirectFire",
+      "gear": {
+        "武器": "妙见神轮",
+        "衣服": "吉利服",
+        "头部": "荒野之星",
+        "手部": "命运之骰",
+        "鞋子": "亚历山大"
+      },
+      "traitSelection": {
+        "group": "Havoc",
+        "core": "7000601",
+        "sub1": "7010501",
+        "sub2": "7011301",
+        "secondaryGroup": "Chaos",
+        "secondarySub1": "7310601",
+        "secondarySub2": "7310101"
+      },
+      "tacticalSkill": "闪灵",
+      "routeId": 2931,
+      "routeTitle": "성공",
+      "routeAuthor": "자래",
+      "gameVersion": "13.1.0",
+      "routeLikes": 846,
+      "routeSource": "dak.gg"
+    },
+    "约翰|Arcana": {
+      "hero": "约翰",
+      "weaponTypeRaw": "Arcana",
+      "gear": {
+        "武器": "烈阳",
+        "衣服": "精灵舞裙",
+        "头部": "白夜王冠",
+        "手部": "克拉达戒指",
+        "鞋子": "荒野行者"
+      },
+      "traitSelection": {
+        "group": "Support",
+        "core": "7200301",
+        "sub1": "7210101",
+        "sub2": "7210401",
+        "secondaryGroup": "Chaos",
+        "secondarySub1": "7310201",
+        "secondarySub2": "7310301"
+      },
+      "tacticalSkill": "羁绊者",
+      "routeId": 1553,
+      "routeTitle": "나 마스터즈3등요한이야",
+      "routeAuthor": "전요한",
+      "gameVersion": "13.1.0",
+      "routeLikes": 361,
+      "routeSource": "dak.gg"
+    },
+    "比安卡|Arcana": {
+      "hero": "比安卡",
+      "weaponTypeRaw": "Arcana",
+      "gear": {
+        "武器": "女帝",
+        "衣服": "神职法衣",
+        "头部": "太空头盔",
+        "手部": "鬼灵之爪",
+        "鞋子": "恨天高"
+      },
+      "traitSelection": {
+        "group": "Support",
+        "core": "7200201",
+        "sub1": "7211001",
+        "sub2": "7211101",
+        "secondaryGroup": "Chaos",
+        "secondarySub1": "7310401",
+        "secondarySub2": "7310501"
+      },
+      "tacticalSkill": "斥力弹",
+      "routeId": 94,
+      "routeTitle": "youtube빈혈비앙카/설명",
+      "routeAuthor": "빈혈비앙카",
+      "gameVersion": "13.1.0",
+      "routeLikes": 1947,
+      "routeSource": "dak.gg"
     },
     "席琳|HighAngleFire": {
       "hero": "席琳",
       "weaponTypeRaw": "HighAngleFire",
       "gear": {
-        "武器": "如意珠",
+        "武器": "追猎者",
         "衣服": "血色斗篷",
         "头部": "幽灵面具",
         "手部": "斯嘉蒂的手镯",
@@ -628,120 +1895,238 @@
         "secondarySub2": "7011101"
       },
       "tacticalSkill": "闪灵",
-      "routeId": 41007,
-      "routeTitle": "뻥이요",
-      "routeAuthor": "마법쨔",
-      "gameVersion": "11.3.0"
+      "routeId": 3094,
+      "routeTitle": "13.1 요얀 고숲 or 고모 ",
+      "routeAuthor": "요얀",
+      "gameVersion": "13.1.0",
+      "routeLikes": 318,
+      "routeSource": "dak.gg"
     },
-    "亨利|DirectFire": {
-      "hero": "亨利",
-      "weaponTypeRaw": "DirectFire",
+    "厄喀翁|VFArm": {
+      "hero": "厄喀翁",
+      "weaponTypeRaw": "VFArm",
       "gear": {
-        "武器": "亡者之符",
-        "衣服": "优雅礼服",
-        "头部": "龙首簪",
-        "手部": "鬼灵之爪",
-        "鞋子": "万年冰鞋"
+        "武器": "女王蛇 FC",
+        "衣服": "秘银吊带",
+        "头部": "荒野之饥",
+        "手部": "图腾",
+        "鞋子": "EOD防爆靴"
+      },
+      "traitSelection": {
+        "group": "Fortification",
+        "core": "7100501",
+        "sub1": "7111001",
+        "sub2": "7110201",
+        "secondaryGroup": "Havoc",
+        "secondarySub1": "7011501",
+        "secondarySub2": "7011201"
+      },
+      "tacticalSkill": "超越",
+      "routeId": 2766,
+      "routeTitle": "탱애더/탱맘바",
+      "routeAuthor": "유체",
+      "gameVersion": "13.1.0",
+      "routeLikes": 350,
+      "routeSource": "dak.gg"
+    },
+    "梅|Whip": {
+      "hero": "梅",
+      "weaponTypeRaw": "Whip",
+      "gear": {
+        "武器": "命运之环",
+        "衣服": "星火洋装",
+        "头部": "秘银头盔",
+        "手部": "微型太阳系统",
+        "鞋子": "EOD防爆靴"
       },
       "traitSelection": {
         "group": "Support",
-        "core": "7200501",
+        "core": "7200301",
         "sub1": "7211401",
-        "sub2": "7211101",
-        "secondaryGroup": "Chaos",
-        "secondarySub1": "7010701",
-        "secondarySub2": "7310501"
+        "sub2": "7210401",
+        "secondaryGroup": "Fortification",
+        "secondarySub1": "7111001",
+        "secondarySub2": "7110201"
       },
-      "tacticalSkill": "闪灵",
-      "routeId": 52054,
-      "routeTitle": "이거가라",
-      "routeAuthor": "zl존씨",
-      "gameVersion": "11.5.0"
+      "tacticalSkill": "震裂",
+      "routeId": 600,
+      "routeTitle": "딴딴한 마이",
+      "routeAuthor": "R3ady",
+      "gameVersion": "13.1.0",
+      "routeLikes": 759,
+      "routeSource": "dak.gg"
     },
-    "雪|TwoHandSword": {
-      "hero": "雪",
+    "艾登|TwoHandSword": {
+      "hero": "艾登",
       "weaponTypeRaw": "TwoHandSword",
       "gear": {
         "武器": "极光长剑",
-        "衣服": "赛车服",
+        "衣服": "战术重甲",
         "头部": "天使光环",
-        "手部": "等离子电盾",
-        "鞋子": "星际战靴"
+        "手部": "秘银箭筒",
+        "鞋子": "秘银靴"
+      },
+      "traitSelection": {
+        "group": "Fortification",
+        "core": "7100501",
+        "sub1": "7110701",
+        "sub2": "7110601",
+        "secondaryGroup": "Havoc",
+        "secondarySub1": "7011501",
+        "secondarySub2": "7011201"
+      },
+      "tacticalSkill": "斥力弹",
+      "routeId": 1969,
+      "routeTitle": "정석든(설명 O)",
+      "routeAuthor": "날개여다시돋아라",
+      "gameVersion": "13.1.0",
+      "routeLikes": 815,
+      "routeSource": "dak.gg"
+    },
+    "劳拉|Whip": {
+      "hero": "劳拉",
+      "weaponTypeRaw": "Whip",
+      "gear": {
+        "武器": "乌拉诺斯",
+        "衣服": "日轮之铠",
+        "头部": "En Garde",
+        "手部": "银河腕表",
+        "鞋子": "万年冰鞋"
       },
       "traitSelection": {
         "group": "Fortification",
         "core": "7100101",
-        "sub1": "7111001",
-        "sub2": "7110601",
+        "sub1": "7110701",
+        "sub2": "7110201",
         "secondaryGroup": "Chaos",
         "secondarySub1": "7310201",
-        "secondarySub2": "7310301"
+        "secondarySub2": "7310701"
       },
       "tacticalSkill": "闪灵",
-      "routeId": 17502,
-      "routeTitle": "폭딜개쌘유키",
-      "routeAuthor": "moto",
-      "gameVersion": "11.4.0"
+      "routeId": 246,
+      "routeTitle": "정석 라우라",
+      "routeAuthor": "캐리해줄게",
+      "gameVersion": "13.1.0",
+      "routeLikes": 1196,
+      "routeSource": "dak.gg"
     },
-    "希瑟拉|HighAngleFire": {
-      "hero": "希瑟拉",
-      "weaponTypeRaw": "HighAngleFire",
+    "蒂娅|Bat": {
+      "hero": "蒂娅",
+      "weaponTypeRaw": "Bat",
       "gear": {
-        "武器": "追猎者",
+        "武器": "棒棒糖",
         "衣服": "血色斗篷",
-        "头部": "瘟疫使者",
-        "手部": "芭蕉扇",
-        "鞋子": "锋利长靴"
+        "头部": "幽灵面具",
+        "手部": "鬼灵之爪",
+        "鞋子": "万年冰鞋"
       },
       "traitSelection": {
-        "group": "Chaos",
-        "core": "7000501",
-        "sub1": "7010701",
-        "sub2": "7310301",
+        "group": "Fortification",
+        "core": "7100401",
+        "sub1": "7110701",
+        "sub2": "7111201",
         "secondaryGroup": "Havoc",
         "secondarySub1": "7010501",
         "secondarySub2": "7011101"
       },
       "tacticalSkill": "闪灵",
-      "routeId": 44002,
-      "routeTitle": "경절 파초선",
-      "routeAuthor": "ZackSeed",
-      "gameVersion": "11.6.0"
+      "routeId": 7947,
+      "routeTitle": "0만",
+      "routeAuthor": "영만",
+      "gameVersion": "13.1.0",
+      "routeLikes": 1530,
+      "routeSource": "dak.gg"
     },
-    "亚历克斯|TwoHandSword": {
-      "hero": "亚历克斯",
-      "weaponTypeRaw": "TwoHandSword",
+    "费利克斯|Spear": {
+      "hero": "费利克斯",
+      "weaponTypeRaw": "Spear",
       "gear": {
-        "武器": "极冰之剑",
-        "衣服": "赛车服",
-        "头部": "暮光头饰",
-        "手部": "赫利克斯",
-        "鞋子": "幻影行者"
+        "武器": "涯角枪",
+        "衣服": "泰坦盔甲",
+        "头部": "雷加图斯",
+        "手部": "雷达",
+        "鞋子": "亚历山大"
       },
       "traitSelection": {
-        "group": "Chaos",
-        "core": "7300101",
-        "sub1": "7310201",
-        "sub2": "7310301",
+        "group": "Havoc",
+        "core": "7000601",
+        "sub1": "7010901",
+        "sub2": "7011401",
+        "secondaryGroup": "Fortification",
+        "secondarySub1": "7110701",
+        "secondarySub2": "7110201"
+      },
+      "tacticalSkill": "闪灵",
+      "routeId": 9263,
+      "routeTitle": "우냐야하",
+      "routeAuthor": "성현23",
+      "gameVersion": "13.1.0",
+      "routeLikes": 909,
+      "routeSource": "dak.gg"
+    },
+    "埃琳娜|Rapier": {
+      "hero": "埃琳娜",
+      "weaponTypeRaw": "Rapier",
+      "gear": {
+        "武器": "苍野荆棘",
+        "衣服": "星火洋装",
+        "头部": "圣骑士头盔",
+        "手部": "微型太阳系统",
+        "鞋子": "EOD防爆靴"
+      },
+      "traitSelection": {
+        "group": "Support",
+        "core": "7200301",
+        "sub1": "7211401",
+        "sub2": "7210801",
         "secondaryGroup": "Havoc",
         "secondarySub1": "7011501",
-        "secondarySub2": "7011301"
+        "secondarySub2": "7011201"
       },
-      "tacticalSkill": "斥力弹",
-      "routeId": 38621,
-      "routeTitle": "個人用すぱい",
-      "routeAuthor": "るいす",
-      "gameVersion": "11.3.0"
+      "tacticalSkill": "震裂",
+      "routeId": 3069,
+      "routeTitle": "김연아",
+      "routeAuthor": "moonho06",
+      "gameVersion": "13.1.0",
+      "routeLikes": 769,
+      "routeSource": "dak.gg"
     },
-    "艾玛|Arcana": {
-      "hero": "艾玛",
+    "普里亚|Guitar": {
+      "hero": "普里亚",
+      "weaponTypeRaw": "Guitar",
+      "gear": {
+        "武器": "天堂之门",
+        "衣服": "日轮之铠",
+        "头部": "天籁花冠",
+        "手部": "守护之眼",
+        "鞋子": "精灵之靴"
+      },
+      "traitSelection": {
+        "group": "Support",
+        "core": "7200501",
+        "sub1": "7200101",
+        "sub2": "7211101",
+        "secondaryGroup": "Chaos",
+        "secondarySub1": "7310201",
+        "secondarySub2": "7310701"
+      },
+      "tacticalSkill": "羁绊者",
+      "routeId": 2036,
+      "routeTitle": "프리야를 위대하게 ",
+      "routeAuthor": "hungran",
+      "gameVersion": "13.1.0",
+      "routeLikes": 367,
+      "routeSource": "dak.gg"
+    },
+    "阿迪娜|Arcana": {
+      "hero": "阿迪娜",
       "weaponTypeRaw": "Arcana",
       "gear": {
         "武器": "倒吊人",
-        "衣服": "神职法衣",
-        "头部": "瘟疫使者",
-        "手部": "荷鲁斯之眼",
-        "鞋子": "锋利长靴"
+        "衣服": "日轮之铠",
+        "头部": "幽灵面具",
+        "手部": "芭蕉扇",
+        "鞋子": "万年冰鞋"
       },
       "traitSelection": {
         "group": "Chaos",
@@ -752,311 +2137,94 @@
         "secondarySub1": "7010501",
         "secondarySub2": "7011101"
       },
-      "tacticalSkill": "极光陀螺",
-      "routeId": 27095,
-      "routeTitle": "엠마",
-      "routeAuthor": "윤룬",
-      "gameVersion": "12.1.0"
-    },
-    "奇娅拉|Rapier": {
-      "hero": "奇娅拉",
-      "weaponTypeRaw": "Rapier",
-      "gear": {
-        "武器": "阿戈斯之眼",
-        "衣服": "神职法衣",
-        "头部": "赛车头盔",
-        "手部": "银河腕表",
-        "鞋子": "刀片靴"
-      },
-      "traitSelection": {
-        "group": "Havoc",
-        "core": "7000401",
-        "sub1": "7010901",
-        "sub2": "7011401",
-        "secondaryGroup": "Fortification",
-        "secondarySub1": "7110101",
-        "secondarySub2": "7111201"
-      },
-      "tacticalSkill": "极光陀螺",
-      "routeId": 48870,
-      "routeTitle": "가능성",
-      "routeAuthor": "月読",
-      "gameVersion": "11.4.0"
-    },
-    "露西娅|SniperRifle": {
-      "hero": "露西娅",
-      "weaponTypeRaw": "SniperRifle",
-      "gear": {
-        "武器": "四射星光",
-        "衣服": "神职法衣",
-        "头部": "昆德拉",
-        "手部": "荷鲁斯之眼",
-        "鞋子": "锋利长靴"
-      },
-      "traitSelection": {
-        "group": "Chaos",
-        "core": "7000501",
-        "sub1": "7310401",
-        "sub2": "7310701",
-        "secondaryGroup": "Havoc",
-        "secondarySub1": "7010501",
-        "secondarySub2": "7011101"
-      },
       "tacticalSkill": "闪灵",
-      "routeId": 29335,
-      "routeTitle": "osu",
-      "routeAuthor": "Xoretra",
-      "gameVersion": "12.2.0"
+      "routeId": 22,
+      "routeTitle": "디나",
+      "routeAuthor": "강민",
+      "gameVersion": "13.1.0",
+      "routeLikes": 577,
+      "routeSource": "dak.gg"
     },
-    "雪|DualSword": {
-      "hero": "雪",
-      "weaponTypeRaw": "DualSword",
+    "马库斯|Axe": {
+      "hero": "马库斯",
+      "weaponTypeRaw": "Axe",
       "gear": {
-        "武器": "幽影双刃",
-        "衣服": "幽灵战衣",
-        "头部": "战术面罩",
-        "手部": "海盗旗",
-        "鞋子": "秘银靴"
-      },
-      "traitSelection": {
-        "group": "Fortification",
-        "core": "7100101",
-        "sub1": "7111001",
-        "sub2": "7110201",
-        "secondaryGroup": "Chaos",
-        "secondarySub1": "7310201",
-        "secondarySub2": "7310301"
-      },
-      "tacticalSkill": "光之翼",
-      "routeId": 25783,
-      "routeTitle": "싼맛 브루저2",
-      "routeAuthor": "그거",
-      "gameVersion": "12.1.0"
-    },
-    "芬里尔|Glove": {
-      "hero": "芬里尔",
-      "weaponTypeRaw": "Glove",
-      "gear": {
-        "武器": "天蚕手套",
-        "衣服": "魅影",
-        "头部": "暮光头饰",
-        "手部": "普赛克之刃",
-        "鞋子": "亚历山大"
-      },
-      "traitSelection": {
-        "group": "Havoc",
-        "core": "7000601",
-        "sub1": "7011501",
-        "sub2": "7011301",
-        "secondaryGroup": "Fortification",
-        "secondarySub1": "7111101",
-        "secondarySub2": "7110601"
-      },
-      "tacticalSkill": "等离子冲击",
-      "routeId": 30813,
-      "routeTitle": "실버가 만든 펜리르",
-      "routeAuthor": "Waowang231",
-      "gameVersion": "12.2.0"
-    },
-    "比安卡|Arcana": {
-      "hero": "比安卡",
-      "weaponTypeRaw": "Arcana",
-      "gear": {
-        "武器": "倒吊人",
-        "衣服": "日轮之铠",
-        "头部": "幽灵面具",
-        "手部": "廷达罗斯君主",
-        "鞋子": "万年冰鞋"
-      },
-      "traitSelection": {
-        "group": "Support",
-        "core": "7200201",
-        "sub1": "7211001",
-        "sub2": "7211101",
-        "secondaryGroup": "Chaos",
-        "secondarySub1": "7010701",
-        "secondarySub2": "7310501"
-      },
-      "tacticalSkill": "斥力弹",
-      "routeId": 17204,
-      "routeTitle": "비아앙",
-      "routeAuthor": "딸깍딸깍곤듀캐리",
-      "gameVersion": "12.1.0"
-    },
-    "黛比&玛莲|TwoHandSword": {
-      "hero": "黛比&玛莲",
-      "weaponTypeRaw": "TwoHandSword",
-      "gear": {
-        "武器": "破灭之枝",
-        "衣服": "泰坦盔甲",
-        "头部": "矮人头盔",
-        "手部": "查理曼大盾",
-        "鞋子": "战术鞋"
-      },
-      "traitSelection": {
-        "group": "Support",
-        "core": "7200501",
-        "sub1": "7211001",
-        "sub2": "7210801",
-        "secondaryGroup": "Fortification",
-        "secondarySub1": "7110101",
-        "secondarySub2": "7110601"
-      },
-      "tacticalSkill": "超越",
-      "routeId": 38966,
-      "routeTitle": "バスー&ノーリン",
-      "routeAuthor": "まるころ",
-      "gameVersion": "11.3.0"
-    },
-    "费利克斯|Spear": {
-      "hero": "费利克斯",
-      "weaponTypeRaw": "Spear",
-      "gear": {
-        "武器": "涯角枪",
-        "衣服": "火灵装",
-        "头部": "战术面罩",
-        "手部": "雷达",
-        "鞋子": "银河战靴"
-      },
-      "traitSelection": {
-        "group": "Havoc",
-        "core": "7000601",
-        "sub1": "7010901",
-        "sub2": "7011301",
-        "secondaryGroup": "Fortification",
-        "secondarySub1": "7110701",
-        "secondarySub2": "7110201"
-      },
-      "tacticalSkill": "闪灵",
-      "routeId": 4847,
-      "routeTitle": "s12",
-      "routeAuthor": "たゆた",
-      "gameVersion": "12.1.0"
-    },
-    "玄佑|Glove": {
-      "hero": "玄佑",
-      "weaponTypeRaw": "Glove",
-      "gear": {
-        "武器": "天蚕手套",
-        "衣服": "幽灵战衣",
-        "头部": "秘银头盔",
-        "手部": "召唤手表",
-        "鞋子": "秘银靴"
-      },
-      "traitSelection": {
-        "group": "Havoc",
-        "core": "7000601",
-        "sub1": "7010901",
-        "sub2": "7011301",
-        "secondaryGroup": "Fortification",
-        "secondarySub1": "7110101",
-        "secondarySub2": "7110201"
-      },
-      "tacticalSkill": "光之翼",
-      "routeId": 53444,
-      "routeTitle": "유체화",
-      "routeAuthor": "Challo",
-      "gameVersion": "11.5.0"
-    },
-    "米尔卡|Hammer": {
-      "hero": "米尔卡",
-      "weaponTypeRaw": "Hammer",
-      "gear": {
-        "武器": "和平暗使",
-        "衣服": "黑炎龙铠甲",
-        "头部": "魔兔帽",
-        "手部": "燃烧之心",
+        "武器": "盘古斧",
+        "衣服": "凛风铠甲",
+        "头部": "舰长礼帽",
+        "手部": "秘银盾",
         "鞋子": "星际战靴"
       },
       "traitSelection": {
-        "group": "Chaos",
-        "core": "7300301",
-        "sub1": "7310201",
-        "sub2": "7310301",
-        "secondaryGroup": "Fortification",
-        "secondarySub1": "7110101",
-        "secondarySub2": "7110201"
+        "group": "Fortification",
+        "core": "7100501",
+        "sub1": "7111001",
+        "sub2": "7111201",
+        "secondaryGroup": "Havoc",
+        "secondarySub1": "7011501",
+        "secondarySub2": "7011201"
       },
-      "tacticalSkill": "等离子冲击",
-      "routeId": 54706,
-      "routeTitle": "ddd",
-      "routeAuthor": "작은파도",
-      "gameVersion": "11.6.0"
+      "tacticalSkill": "超越",
+      "routeId": 2275,
+      "routeTitle": "시작하면 체육관쪽으로 뛰세요",
+      "routeAuthor": "앙카루치아닷지침",
+      "gameVersion": "13.1.0",
+      "routeLikes": 1293,
+      "routeSource": "dak.gg"
     },
-    "达尔科|Bat": {
-      "hero": "达尔科",
-      "weaponTypeRaw": "Bat",
+    "马库斯|Hammer": {
+      "hero": "马库斯",
+      "weaponTypeRaw": "Hammer",
       "gear": {
-        "武器": "如意金箍棒",
-        "衣服": "赛车服",
-        "头部": "天使光环",
-        "手部": "查理曼大盾",
-        "鞋子": "幻影行者"
+        "武器": "天星锤",
+        "衣服": "骑士战甲",
+        "头部": "圣骑士头盔",
+        "手部": "图腾",
+        "鞋子": "EOD防爆靴"
       },
       "traitSelection": {
-        "group": "Chaos",
-        "core": "7300101",
-        "sub1": "7310201",
-        "sub2": "7310301",
-        "secondaryGroup": "Fortification",
-        "secondarySub1": "7110101",
-        "secondarySub2": "7110201"
+        "group": "Fortification",
+        "core": "7100501",
+        "sub1": "7111001",
+        "sub2": "7110601",
+        "secondaryGroup": "Havoc",
+        "secondarySub1": "7011501",
+        "secondarySub2": "7011201"
       },
-      "tacticalSkill": "斥力弹",
-      "routeId": 37259,
-      "routeTitle": "eee",
-      "routeAuthor": "Lawron",
-      "gameVersion": "11.2.0"
+      "tacticalSkill": "超越",
+      "routeId": 8266,
+      "routeTitle": "성뚝의 시대",
+      "routeAuthor": "일광욕하는치킨",
+      "gameVersion": "13.1.0",
+      "routeLikes": 101,
+      "routeSource": "dak.gg"
     },
-    "阿德瑞娜|HighAngleFire": {
-      "hero": "阿德瑞娜",
-      "weaponTypeRaw": "HighAngleFire",
+    "卡拉|CrossBow": {
+      "hero": "卡拉",
+      "weaponTypeRaw": "CrossBow",
       "gear": {
-        "武器": "阿斯特拉普",
-        "衣服": "血色斗篷",
-        "头部": "幽灵面具",
-        "手部": "芭蕉扇",
-        "鞋子": "万年冰鞋"
-      },
-      "traitSelection": {
-        "group": "Havoc",
-        "core": "7000201",
-        "sub1": "7010501",
-        "sub2": "7011101",
-        "secondaryGroup": "Chaos",
-        "secondarySub1": "7010701",
-        "secondarySub2": "7310101"
-      },
-      "tacticalSkill": "闪灵",
-      "routeId": 28171,
-      "routeTitle": "클래식",
-      "routeAuthor": "아드통나무",
-      "gameVersion": "12.1.0"
-    },
-    "里昂|Glove": {
-      "hero": "里昂",
-      "weaponTypeRaw": "Glove",
-      "gear": {
-        "武器": "雷霆之握",
-        "衣服": "泰坦盔甲",
+        "武器": "灵光金龟神机弩",
+        "衣服": "神职法衣",
         "头部": "赛车头盔",
         "手部": "银河腕表",
-        "鞋子": "秘银靴"
+        "鞋子": "赛车靴"
       },
       "traitSelection": {
         "group": "Havoc",
         "core": "7000401",
-        "sub1": "7011501",
-        "sub2": "7011201",
-        "secondaryGroup": "Support",
-        "secondarySub1": "7210101",
-        "secondarySub2": "7211101"
+        "sub1": "7010501",
+        "sub2": "7011101",
+        "secondaryGroup": "Chaos",
+        "secondarySub1": "7310601",
+        "secondarySub2": "7310501"
       },
-      "tacticalSkill": "实刃",
-      "routeId": 59219,
-      "routeTitle": "ㅁㅇㄹ",
-      "routeAuthor": "無月",
-      "gameVersion": "11.6.0"
+      "tacticalSkill": "闪灵",
+      "routeId": 8222,
+      "routeTitle": "한동루트 8607",
+      "routeAuthor": "자민",
+      "gameVersion": "13.1.0",
+      "routeLikes": 253,
+      "routeSource": "dak.gg"
     },
     "艾丝蒂尔|Axe": {
       "hero": "艾丝蒂尔",
@@ -1066,82 +2234,277 @@
         "衣服": "星火洋装",
         "头部": "太空头盔",
         "手部": "邀明月",
-        "鞋子": "荒野行者"
+        "鞋子": "星际战靴"
       },
       "traitSelection": {
         "group": "Support",
         "core": "7200301",
         "sub1": "7210101",
-        "sub2": "7211101",
-        "secondaryGroup": "Havoc",
-        "secondarySub1": "7011501",
-        "secondarySub2": "7011201"
+        "sub2": "7110801",
+        "secondaryGroup": "Fortification",
+        "secondarySub1": "7110101",
+        "secondarySub2": "7111201"
+      },
+      "tacticalSkill": "羁绊者",
+      "routeId": 2109,
+      "routeTitle": "27세 에스텔성@기삽니다.",
+      "routeAuthor": "율설",
+      "gameVersion": "13.1.0",
+      "routeLikes": 1583,
+      "routeSource": "dak.gg"
+    },
+    "皮奥洛|Nunchaku": {
+      "hero": "皮奥洛",
+      "weaponTypeRaw": "Nunchaku",
+      "gear": {
+        "武器": "革律翁",
+        "衣服": "神职法衣",
+        "头部": "赛博追踪者",
+        "手部": "芭蕉扇",
+        "鞋子": "荒野行者"
+      },
+      "traitSelection": {
+        "group": "Fortification",
+        "core": "7100101",
+        "sub1": "7110701",
+        "sub2": "7110601",
+        "secondaryGroup": "Chaos",
+        "secondarySub1": "7310201",
+        "secondarySub2": "7310301"
       },
       "tacticalSkill": "等离子冲击",
-      "routeId": 55699,
-      "routeTitle": "에스텔",
-      "routeAuthor": "시아루아",
-      "gameVersion": "11.6.0"
+      "routeId": 226,
+      "routeTitle": "메릿치 노주문 2루트",
+      "routeAuthor": "먹어버릴거야",
+      "gameVersion": "13.1.0",
+      "routeLikes": 599,
+      "routeSource": "dak.gg"
+    },
+    "玛蒂娜|Camera": {
+      "hero": "玛蒂娜",
+      "weaponTypeRaw": "Camera",
+      "gear": {
+        "武器": "高倍望远大炮",
+        "衣服": "魅影",
+        "头部": "暮光头饰",
+        "手部": "命运之骰",
+        "鞋子": "象牙之履"
+      },
+      "traitSelection": {
+        "group": "Havoc",
+        "core": "7000701",
+        "sub1": "7011001",
+        "sub2": "7011101",
+        "secondaryGroup": "Chaos",
+        "secondarySub1": "7310601",
+        "secondarySub2": "7310101"
+      },
+      "tacticalSkill": "赤色风暴",
+      "routeId": 294,
+      "routeTitle": "치명",
+      "routeAuthor": "유니짜장귀신",
+      "gameVersion": "13.1.0",
+      "routeLikes": 444,
+      "routeSource": "dak.gg"
+    },
+    "海因茨|AssaultRifle": {
+      "hero": "海因茨",
+      "weaponTypeRaw": "AssaultRifle",
+      "gear": {
+        "武器": "女武神",
+        "衣服": "日轮之铠",
+        "头部": "暗影面纱",
+        "手部": "龙鳞",
+        "鞋子": "万年冰鞋"
+      },
+      "traitSelection": {
+        "group": "Chaos",
+        "core": "7000501",
+        "sub1": "7010701",
+        "sub2": "7310101",
+        "secondaryGroup": "Havoc",
+        "secondarySub1": "7010501",
+        "secondarySub2": "7011101"
+      },
+      "tacticalSkill": "闪灵",
+      "routeId": 475,
+      "routeTitle": "몽이즈",
+      "routeAuthor": "몽몽글",
+      "gameVersion": "13.1.0",
+      "routeLikes": 1430,
+      "routeSource": "dak.gg"
+    },
+    "伊萨克|Tonfa": {
+      "hero": "伊萨克",
+      "weaponTypeRaw": "Tonfa",
+      "gear": {
+        "武器": "螳螂旋棍",
+        "衣服": "摇滚外套",
+        "头部": "天使光环",
+        "手部": "赫利克斯",
+        "鞋子": "刀片靴"
+      },
+      "traitSelection": {
+        "group": "Havoc",
+        "core": "7000401",
+        "sub1": "7010901",
+        "sub2": "7011301",
+        "secondaryGroup": "Fortification",
+        "secondarySub1": "7110101",
+        "secondarySub2": "7110401"
+      },
+      "tacticalSkill": "闪灵",
+      "routeId": 9957,
+      "routeTitle": "제뚝 못씀",
+      "routeAuthor": "사색",
+      "gameVersion": "13.1.0",
+      "routeLikes": 1738,
+      "routeSource": "dak.gg"
     },
     "塔齐娅|DirectFire": {
       "hero": "塔齐娅",
       "weaponTypeRaw": "DirectFire",
       "gear": {
         "武器": "冰魄银针",
-        "衣服": "私人定制",
-        "头部": "幽灵面具",
-        "手部": "鬼灵之爪",
-        "鞋子": "星际战靴"
+        "衣服": "神职法衣",
+        "头部": "En Garde",
+        "手部": "星之碎片",
+        "鞋子": "荒野行者"
       },
       "traitSelection": {
         "group": "Havoc",
         "core": "7000401",
-        "sub1": "7010901",
-        "sub2": "7011401",
-        "secondaryGroup": "Fortification",
-        "secondarySub1": "7110101",
-        "secondarySub2": "7110201"
+        "sub1": "7011001",
+        "sub2": "7011201",
+        "secondaryGroup": "Chaos",
+        "secondarySub1": "7310201",
+        "secondarySub2": "7310701"
       },
       "tacticalSkill": "极光陀螺",
-      "routeId": 14555,
-      "routeTitle": "람쥐아",
-      "routeAuthor": "니달x",
-      "gameVersion": "12.1.0"
+      "routeId": 2364,
+      "routeTitle": "131",
+      "routeAuthor": "소에",
+      "gameVersion": "13.1.0",
+      "routeLikes": 611,
+      "routeSource": "dak.gg"
     },
-    "娜町|CrossBow": {
-      "hero": "娜町",
-      "weaponTypeRaw": "CrossBow",
+    "爱琳|HighAngleFire": {
+      "hero": "爱琳",
+      "weaponTypeRaw": "HighAngleFire",
       "gear": {
-        "武器": "血色弦月 - 绯红",
-        "衣服": "贤者之袍",
-        "头部": "圣光冠冕",
-        "手部": "命运之骰",
-        "鞋子": "亚历山大"
+        "武器": "火球",
+        "衣服": "私人定制",
+        "头部": "先知头巾",
+        "手部": "翡翠石板",
+        "鞋子": "万年冰鞋"
       },
       "traitSelection": {
         "group": "Havoc",
-        "core": "7000601",
-        "sub1": "7010501",
-        "sub2": "7011301",
+        "core": "7000401",
+        "sub1": "7011001",
+        "sub2": "7011101",
         "secondaryGroup": "Chaos",
-        "secondarySub1": "7310401",
+        "secondarySub1": "7310201",
+        "secondarySub2": "7310301"
+      },
+      "tacticalSkill": "斥力弹",
+      "routeId": 1841,
+      "routeTitle": "고쿨감에타흡마,너프의미X",
+      "routeAuthor": "건피의악마로즈너",
+      "gameVersion": "13.1.0",
+      "routeLikes": 476,
+      "routeSource": "dak.gg"
+    },
+    "西奥多|SniperRifle": {
+      "hero": "西奥多",
+      "weaponTypeRaw": "SniperRifle",
+      "gear": {
+        "武器": "死亡之眼",
+        "衣服": "能量战衣",
+        "头部": "赛车头盔",
+        "手部": "银河腕表",
+        "鞋子": "刀片靴"
+      },
+      "traitSelection": {
+        "group": "Havoc",
+        "core": "7000401",
+        "sub1": "7010501",
+        "sub2": "7011101",
+        "secondaryGroup": "Chaos",
+        "secondarySub1": "7310601",
         "secondarySub2": "7310101"
       },
-      "tacticalSkill": "赤色风暴",
-      "routeId": 58081,
-      "routeTitle": "ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ",
-      "routeAuthor": "민초는신이야",
-      "gameVersion": "11.6.0"
+      "tacticalSkill": "闪灵",
+      "routeId": 1068,
+      "routeTitle": "이제 고경 노배달 안됨",
+      "routeAuthor": "히메카와",
+      "gameVersion": "13.1.0",
+      "routeLikes": 1142,
+      "routeSource": "dak.gg"
     },
-    "艾登|TwoHandSword": {
-      "hero": "艾登",
+    "伊安|OneHandSword": {
+      "hero": "伊安",
+      "weaponTypeRaw": "OneHandSword",
+      "gear": {
+        "武器": "噬灵短剑",
+        "衣服": "缄默法则",
+        "头部": "恶魔面具",
+        "手部": "皎月吊坠",
+        "鞋子": "幻影行者"
+      },
+      "traitSelection": {
+        "group": "Fortification",
+        "core": "7100501",
+        "sub1": "7111001",
+        "sub2": "7110601",
+        "secondaryGroup": "Chaos",
+        "secondarySub1": "7310201",
+        "secondarySub2": "7310301"
+      },
+      "tacticalSkill": "闪灵",
+      "routeId": 449,
+      "routeTitle": "늘 먹던 오메르타",
+      "routeAuthor": "울부짖는이안",
+      "gameVersion": "13.1.0",
+      "routeLikes": 192,
+      "routeSource": "dak.gg"
+    },
+    "万尼亚|Arcana": {
+      "hero": "万尼亚",
+      "weaponTypeRaw": "Arcana",
+      "gear": {
+        "武器": "女帝",
+        "衣服": "神职法衣",
+        "头部": "太空头盔",
+        "手部": "超星臂章",
+        "鞋子": "万年冰鞋"
+      },
+      "traitSelection": {
+        "group": "Havoc",
+        "core": "7000401",
+        "sub1": "7011501",
+        "sub2": "7011101",
+        "secondaryGroup": "Fortification",
+        "secondarySub1": "7110101",
+        "secondarySub2": "7111201"
+      },
+      "tacticalSkill": "极光陀螺",
+      "routeId": 4207,
+      "routeTitle": "흡마 ( 설명있음 1.1V )",
+      "routeAuthor": "I초월냥I",
+      "gameVersion": "13.1.0",
+      "routeLikes": 1241,
+      "routeSource": "dak.gg"
+    },
+    "黛比&玛莲|TwoHandSword": {
+      "hero": "黛比&玛莲",
       "weaponTypeRaw": "TwoHandSword",
       "gear": {
-        "武器": "极光长剑",
-        "衣服": "贤者之袍",
-        "头部": "天使光环",
+        "武器": "破灭之枝",
+        "衣服": "泰坦盔甲",
+        "头部": "帝王头盔",
         "手部": "赫利克斯",
-        "鞋子": "银河战靴"
+        "鞋子": "赫尔墨斯之靴"
       },
       "traitSelection": {
         "group": "Havoc",
@@ -1152,21 +2515,185 @@
         "secondarySub1": "7310201",
         "secondarySub2": "7310701"
       },
-      "tacticalSkill": "闪灵",
-      "routeId": 59765,
-      "routeTitle": "흡성대법든",
-      "routeAuthor": "나도순애할래",
-      "gameVersion": "11.7.0"
+      "tacticalSkill": "阔步者",
+      "routeId": 902,
+      "routeTitle": "제왕의투구 다터진다",
+      "routeAuthor": "Mallon",
+      "gameVersion": "13.1.0",
+      "routeLikes": 2432,
+      "routeSource": "dak.gg"
     },
-    "伯尼斯|SniperRifle": {
-      "hero": "伯尼斯",
+    "阿尔达|Arcana": {
+      "hero": "阿尔达",
+      "weaponTypeRaw": "Arcana",
+      "gear": {
+        "武器": "女帝",
+        "衣服": "优雅礼服",
+        "头部": "暗影面纱",
+        "手部": "鬼灵之爪",
+        "鞋子": "万年冰鞋"
+      },
+      "traitSelection": {
+        "group": "Chaos",
+        "core": "7000501",
+        "sub1": "7010701",
+        "sub2": "7310501",
+        "secondaryGroup": "Havoc",
+        "secondarySub1": "7010501",
+        "secondarySub2": "7011101"
+      },
+      "tacticalSkill": "闪灵",
+      "routeId": 869,
+      "routeTitle": "벽력 아르다",
+      "routeAuthor": "침대",
+      "gameVersion": "13.1.0",
+      "routeLikes": 947,
+      "routeSource": "dak.gg"
+    },
+    "艾比盖尔|Axe": {
+      "hero": "艾比盖尔",
+      "weaponTypeRaw": "Axe",
+      "gear": {
+        "武器": "蓝狮",
+        "衣服": "幽冥战甲",
+        "头部": "En Garde",
+        "手部": "邀明月",
+        "鞋子": "万年冰鞋"
+      },
+      "traitSelection": {
+        "group": "Chaos",
+        "core": "7300301",
+        "sub1": "7310401",
+        "sub2": "7310701",
+        "secondaryGroup": "Fortification",
+        "secondarySub1": "7110101",
+        "secondarySub2": "7111201"
+      },
+      "tacticalSkill": "实刃",
+      "routeId": 10001,
+      "routeTitle": "앙가르드",
+      "routeAuthor": "oracle1",
+      "gameVersion": "13.1.0",
+      "routeLikes": 4845,
+      "routeSource": "dak.gg"
+    },
+    "阿隆索|Glove": {
+      "hero": "阿隆索",
+      "weaponTypeRaw": "Glove",
+      "gear": {
+        "武器": "冻土传说",
+        "衣服": "幽灵新娘的嫁纱",
+        "头部": "圣骑士头盔",
+        "手部": "燃烧之心",
+        "鞋子": "EOD防爆靴"
+      },
+      "traitSelection": {
+        "group": "Havoc",
+        "core": "7000201",
+        "sub1": "7011501",
+        "sub2": "7011201",
+        "secondaryGroup": "Fortification",
+        "secondarySub1": "7111001",
+        "secondarySub2": "7110601"
+      },
+      "tacticalSkill": "违规者",
+      "routeId": 6861,
+      "routeTitle": "수호자 프로토콜 위반",
+      "routeAuthor": "앙카말이김치찜",
+      "gameVersion": "13.1.0",
+      "routeLikes": 259,
+      "routeSource": "dak.gg"
+    },
+    "雷妮|Pistol": {
+      "hero": "雷妮",
+      "weaponTypeRaw": "Pistol",
+      "gear": {
+        "武器": "牵牛星",
+        "衣服": "精灵舞裙",
+        "头部": "白夜王冠",
+        "手部": "克拉达戒指",
+        "鞋子": "星际战靴"
+      },
+      "traitSelection": {
+        "group": "Support",
+        "core": "7200501",
+        "sub1": "7210101",
+        "sub2": "7110801",
+        "secondaryGroup": "Chaos",
+        "secondarySub1": "7310201",
+        "secondarySub2": "7310301"
+      },
+      "tacticalSkill": "羁绊者",
+      "routeId": 15,
+      "routeTitle": "일단 국밥 ",
+      "routeAuthor": "tlasi",
+      "gameVersion": "13.1.0",
+      "routeLikes": 1678,
+      "routeSource": "dak.gg"
+    },
+    "燕翼|DirectFire": {
+      "hero": "燕翼",
+      "weaponTypeRaw": "DirectFire",
+      "gear": {
+        "武器": "满天花雨",
+        "衣服": "仙女服",
+        "头部": "雷加图斯",
+        "手部": "蓝纹臂章",
+        "鞋子": "亚历山大"
+      },
+      "traitSelection": {
+        "group": "Havoc",
+        "core": "7000601",
+        "sub1": "7010501",
+        "sub2": "7011301",
+        "secondaryGroup": "Fortification",
+        "secondarySub1": "7110701",
+        "secondarySub2": "7110201"
+      },
+      "tacticalSkill": "闪灵",
+      "routeId": 1471,
+      "routeTitle": "미완선강",
+      "routeAuthor": "인세인",
+      "gameVersion": "13.1.0",
+      "routeLikes": 2063,
+      "routeSource": "dak.gg"
+    },
+    "肯尼思|Axe": {
+      "hero": "肯尼思",
+      "weaponTypeRaw": "Axe",
+      "gear": {
+        "武器": "战坦克",
+        "衣服": "赛车服",
+        "头部": "魔兔帽",
+        "手部": "召唤手表",
+        "鞋子": "战术鞋"
+      },
+      "traitSelection": {
+        "group": "Fortification",
+        "core": "7100101",
+        "sub1": "7110101",
+        "sub2": "7111201",
+        "secondaryGroup": "Chaos",
+        "secondarySub1": "7310201",
+        "secondarySub2": "7310301"
+      },
+      "tacticalSkill": "闪灵",
+      "routeId": 4231,
+      "routeTitle": "큐브워치",
+      "routeAuthor": "Rokuon",
+      "gameVersion": "13.1.0",
+      "routeLikes": 1877,
+      "routeSource": "dak.gg"
+    },
+    "卡缇娅|SniperRifle": {
+      "hero": "卡缇娅",
       "weaponTypeRaw": "SniperRifle",
       "gear": {
-        "武器": "夜行",
-        "衣服": "火灵装",
-        "头部": "荒野之星",
-        "手部": "苏丹箭筒",
-        "鞋子": "亚历山大"
+        "武器": "霹雳火炮",
+        "衣服": "仙女服",
+        "头部": "雷加图斯",
+        "手部": "越王勾践剑",
+        "鞋子": "象牙之履"
       },
       "traitSelection": {
         "group": "Havoc",
@@ -1177,186 +2704,526 @@
         "secondarySub1": "7310601",
         "secondarySub2": "7310701"
       },
-      "tacticalSkill": "斥力弹",
-      "routeId": 6207,
-      "routeTitle": "버니스 화이트",
-      "routeAuthor": "매ユ",
-      "gameVersion": "12.1.0"
+      "tacticalSkill": "赤色风暴",
+      "routeId": 745,
+      "routeTitle": "현통(선강)",
+      "routeAuthor": "인세인",
+      "gameVersion": "13.1.0",
+      "routeLikes": 5642,
+      "routeSource": "dak.gg"
     },
-    "爱琳|HighAngleFire": {
-      "hero": "爱琳",
-      "weaponTypeRaw": "HighAngleFire",
+    "夏洛特|Arcana": {
+      "hero": "夏洛特",
+      "weaponTypeRaw": "Arcana",
       "gear": {
-        "武器": "火球",
-        "衣服": "优雅礼服",
-        "头部": "En Garde",
-        "手部": "荷鲁斯之眼",
-        "鞋子": "赫尔墨斯之靴"
+        "武器": "烈阳",
+        "衣服": "精灵舞裙",
+        "头部": "白夜王冠",
+        "手部": "克拉达戒指",
+        "鞋子": "荒野行者"
+      },
+      "traitSelection": {
+        "group": "Support",
+        "core": "7200301",
+        "sub1": "7200101",
+        "sub2": "7110801",
+        "secondaryGroup": "Fortification",
+        "secondarySub1": "7110101",
+        "secondarySub2": "7111201"
+      },
+      "tacticalSkill": "治愈之风",
+      "routeId": 8568,
+      "routeTitle": "쮸비냥의 샬럿",
+      "routeAuthor": "쮸비냥",
+      "gameVersion": "13.1.0",
+      "routeLikes": 140,
+      "routeSource": "dak.gg"
+    },
+    "达尔科|Bat": {
+      "hero": "达尔科",
+      "weaponTypeRaw": "Bat",
+      "gear": {
+        "武器": "如意金箍棒",
+        "衣服": "幽灵夹克",
+        "头部": "圣光冠冕",
+        "手部": "蓝纹臂章",
+        "鞋子": "亚历山大"
+      },
+      "traitSelection": {
+        "group": "Fortification",
+        "core": "7100101",
+        "sub1": "7110101",
+        "sub2": "7110201",
+        "secondaryGroup": "Chaos",
+        "secondarySub1": "7310601",
+        "secondarySub2": "7310501"
+      },
+      "tacticalSkill": "闪灵",
+      "routeId": 257,
+      "routeTitle": "다르코 왜함?",
+      "routeAuthor": "shuukin",
+      "gameVersion": "13.1.0",
+      "routeLikes": 3245,
+      "routeSource": "dak.gg"
+    },
+    "莉诺尔|Guitar": {
+      "hero": "莉诺尔",
+      "weaponTypeRaw": "Guitar",
+      "gear": {
+        "武器": "天堂之门",
+        "衣服": "血色斗篷",
+        "头部": "瘟疫使者",
+        "手部": "龙鳞",
+        "鞋子": "锋利长靴"
       },
       "traitSelection": {
         "group": "Chaos",
-        "core": "7300101",
-        "sub1": "7310201",
-        "sub2": "7310301",
-        "secondaryGroup": "Fortification",
-        "secondarySub1": "7110101",
-        "secondarySub2": "7110401"
+        "core": "7000501",
+        "sub1": "7010701",
+        "sub2": "7310101",
+        "secondaryGroup": "Havoc",
+        "secondarySub1": "7010501",
+        "secondarySub2": "7011101"
       },
-      "tacticalSkill": "实刃",
-      "routeId": 45903,
-      "routeTitle": "진칼인파이팅",
-      "routeAuthor": "노쇼의달인박준상",
-      "gameVersion": "11.4.0"
+      "tacticalSkill": "闪灵",
+      "routeId": 772,
+      "routeTitle": "르노어1",
+      "routeAuthor": "우화",
+      "gameVersion": "13.1.0",
+      "routeLikes": 498,
+      "routeSource": "dak.gg"
     },
-    "伊安|OneHandSword": {
-      "hero": "伊安",
-      "weaponTypeRaw": "OneHandSword",
+    "盖瑞特|Bat": {
+      "hero": "盖瑞特",
+      "weaponTypeRaw": "Bat",
       "gear": {
-        "武器": "噬灵短剑",
-        "衣服": "奥黛",
-        "头部": "戴维德耳机",
-        "手部": "皎月吊坠",
-        "鞋子": "幻影行者"
+        "武器": "魔法棒",
+        "衣服": "幽灵新娘的嫁纱",
+        "头部": "圣骑士头盔",
+        "手部": "魔法神灯",
+        "鞋子": "赫尔墨斯之靴"
       },
       "traitSelection": {
-        "group": "Havoc",
-        "core": "7000401",
-        "sub1": "7011501",
-        "sub2": "7011401",
+        "group": "Support",
+        "core": "7200301",
+        "sub1": "7211001",
+        "sub2": "7110801",
         "secondaryGroup": "Fortification",
         "secondarySub1": "7111001",
         "secondarySub2": "7110601"
       },
       "tacticalSkill": "闪灵",
-      "routeId": 39334,
-      "routeTitle": "ㅎㅇ",
-      "routeAuthor": "동랑",
-      "gameVersion": "11.3.0"
+      "routeId": 1088,
+      "routeTitle": "1루트 가붕이",
+      "routeAuthor": "사무실카누도둑",
+      "gameVersion": "13.1.0",
+      "routeLikes": 3010,
+      "routeSource": "dak.gg"
     },
-    "秀雅|Bat": {
-      "hero": "秀雅",
-      "weaponTypeRaw": "Bat",
+    "俞岷|Arcana": {
+      "hero": "俞岷",
+      "weaponTypeRaw": "Arcana",
       "gear": {
-        "武器": "魔法棒",
-        "衣服": "神职法衣",
-        "头部": "赛博追踪者",
+        "武器": "倒吊人",
+        "衣服": "私人定制",
+        "头部": "幽灵面具",
         "手部": "鬼灵之爪",
-        "鞋子": "万年冰鞋"
+        "鞋子": "恨天高"
       },
       "traitSelection": {
         "group": "Chaos",
-        "core": "7300101",
-        "sub1": "7310601",
-        "sub2": "7310301",
-        "secondaryGroup": "Fortification",
-        "secondarySub1": "7111001",
-        "secondarySub2": "7111201"
+        "core": "7300201",
+        "sub1": "7310401",
+        "sub2": "7310101",
+        "secondaryGroup": "Havoc",
+        "secondarySub1": "7010501",
+        "secondarySub2": "7011101"
       },
-      "tacticalSkill": "闪灵",
-      "routeId": 26134,
-      "routeTitle": "수아",
-      "routeAuthor": "베베코",
-      "gameVersion": "12.1.0"
+      "tacticalSkill": "斥力弹",
+      "routeId": 1616,
+      "routeTitle": "New 도깨비불 유민",
+      "routeAuthor": "선령비주",
+      "gameVersion": "13.1.0",
+      "routeLikes": 1086,
+      "routeSource": "dak.gg"
     },
-    "杰琪|DualSword": {
-      "hero": "杰琪",
-      "weaponTypeRaw": "DualSword",
+    "翡翠|TwoHandSword": {
+      "hero": "翡翠",
+      "weaponTypeRaw": "TwoHandSword",
       "gear": {
-        "武器": "阴阳双刃",
-        "衣服": "战术重甲",
-        "头部": "圣光冠冕",
-        "手部": "召唤手表",
-        "鞋子": "赛车靴"
+        "武器": "均衡之刃",
+        "衣服": "奥黛",
+        "头部": "天使光环",
+        "手部": "荆刺护手",
+        "鞋子": "银河战靴"
       },
       "traitSelection": {
         "group": "Havoc",
         "core": "7000401",
         "sub1": "7010901",
-        "sub2": "7011301",
-        "secondaryGroup": "Support",
-        "secondarySub1": "7211401",
-        "secondarySub2": "7211101"
+        "sub2": "7011201",
+        "secondaryGroup": "Fortification",
+        "secondarySub1": "7111001",
+        "secondarySub2": "7110201"
       },
-      "tacticalSkill": "闪灵",
-      "routeId": 45652,
-      "routeTitle": "쌍재",
-      "routeAuthor": "신속츠바메",
-      "gameVersion": "11.4.0"
+      "tacticalSkill": "等离子冲击",
+      "routeId": 712,
+      "routeTitle": "TCD - 3 (설명 참조)",
+      "routeAuthor": "초운",
+      "gameVersion": "13.1.0",
+      "routeLikes": 2750,
+      "routeSource": "dak.gg"
     },
-    "阿迪娜|Arcana": {
-      "hero": "阿迪娜",
-      "weaponTypeRaw": "Arcana",
+    "尤斯蒂娜|CrossBow": {
+      "hero": "尤斯蒂娜",
+      "weaponTypeRaw": "CrossBow",
       "gear": {
-        "武器": "月水晶",
-        "衣服": "血色斗篷",
+        "武器": "幻影之矢",
+        "衣服": "日轮之铠",
         "头部": "幽灵面具",
-        "手部": "翡翠石板",
-        "鞋子": "锋利长靴"
+        "手部": "龙鳞",
+        "鞋子": "剑齿虎"
       },
       "traitSelection": {
         "group": "Chaos",
-        "core": "7300201",
+        "core": "7000501",
         "sub1": "7010701",
-        "sub2": "7310701",
-        "secondaryGroup": "Fortification",
-        "secondarySub1": "7111001",
-        "secondarySub2": "7111201"
+        "sub2": "7310101",
+        "secondaryGroup": "Havoc",
+        "secondarySub1": "7010501",
+        "secondarySub2": "7011101"
       },
-      "tacticalSkill": "斥力弹",
-      "routeId": 58300,
-      "routeTitle": "도불담금질디나 철학",
-      "routeAuthor": "디샤나",
-      "gameVersion": "11.6.0"
+      "tacticalSkill": "闪灵",
+      "routeId": 7011,
+      "routeTitle": "유스1",
+      "routeAuthor": "RIOORI",
+      "gameVersion": "13.1.0",
+      "routeLikes": 2829,
+      "routeSource": "dak.gg"
     },
-    "菲欧娜|TwoHandSword": {
-      "hero": "菲欧娜",
-      "weaponTypeRaw": "TwoHandSword",
+    "伊舒特|Spear": {
+      "hero": "伊舒特",
+      "weaponTypeRaw": "Spear",
       "gear": {
-        "武器": "极冰之剑",
-        "衣服": "优雅礼服",
-        "头部": "En Garde",
-        "手部": "极光陀螺",
-        "鞋子": "荒野行者"
+        "武器": "朗基努斯之枪",
+        "衣服": "摇滚外套",
+        "头部": "月桂冠",
+        "手部": "普赛克之刃",
+        "鞋子": "剑齿虎"
       },
       "traitSelection": {
         "group": "Support",
         "core": "7200201",
         "sub1": "7211401",
         "sub2": "7211101",
-        "secondaryGroup": "Havoc",
-        "secondarySub1": "7011501",
-        "secondarySub2": "7011201"
+        "secondaryGroup": "Chaos",
+        "secondarySub1": "7310401",
+        "secondarySub2": "7310501"
       },
-      "tacticalSkill": "斥力弹",
-      "routeId": 40071,
-      "routeTitle": "진은319",
-      "routeAuthor": "G1N0",
-      "gameVersion": "11.6.0"
+      "tacticalSkill": "闪灵",
+      "routeId": 9478,
+      "routeTitle": "들박",
+      "routeAuthor": "포항참치",
+      "gameVersion": "13.1.0",
+      "routeLikes": 690,
+      "routeSource": "dak.gg"
     },
-    "俞岷|Arcana": {
-      "hero": "俞岷",
-      "weaponTypeRaw": "Arcana",
+    "妮娅|Pistol": {
+      "hero": "妮娅",
+      "weaponTypeRaw": "Pistol",
       "gear": {
-        "武器": "女帝",
+        "武器": "正午",
         "衣服": "私人定制",
-        "头部": "先知头巾",
-        "手部": "守护之眼",
+        "头部": "龙首簪",
+        "手部": "鬼灵之爪",
         "鞋子": "万年冰鞋"
       },
       "traitSelection": {
+        "group": "Havoc",
+        "core": "7000401",
+        "sub1": "7010501",
+        "sub2": "7011101",
+        "secondaryGroup": "Chaos",
+        "secondarySub1": "7310401",
+        "secondarySub2": "7310301"
+      },
+      "tacticalSkill": "闪灵",
+      "routeId": 323,
+      "routeTitle": "Youtube 진이",
+      "routeAuthor": "Jinyee",
+      "gameVersion": "13.1.0",
+      "routeLikes": 2508,
+      "routeSource": "dak.gg"
+    },
+    "雪琳|Rapier": {
+      "hero": "雪琳",
+      "weaponTypeRaw": "Rapier",
+      "gear": {
+        "武器": "咎瓦尤斯",
+        "衣服": "缄默法则",
+        "头部": "恶魔面具",
+        "手部": "蓝纹臂章",
+        "鞋子": "银河战靴"
+      },
+      "traitSelection": {
+        "group": "Havoc",
+        "core": "7000401",
+        "sub1": "7010901",
+        "sub2": "7011401",
+        "secondaryGroup": "Fortification",
+        "secondarySub1": "7110101",
+        "secondarySub2": "7111201"
+      },
+      "tacticalSkill": "闪灵",
+      "routeId": 3405,
+      "routeTitle": "공격력 450 슈린",
+      "routeAuthor": "혜안",
+      "gameVersion": "13.1.0",
+      "routeLikes": 2920,
+      "routeSource": "dak.gg"
+    },
+    "亨利|DirectFire": {
+      "hero": "亨利",
+      "weaponTypeRaw": "DirectFire",
+      "gear": {
+        "武器": "亡者之符",
+        "衣服": "优雅礼服",
+        "头部": "太空头盔",
+        "手部": "星之碎片",
+        "鞋子": "荒野行者"
+      },
+      "traitSelection": {
         "group": "Support",
-        "core": "7211301",
+        "core": "7200501",
+        "sub1": "7211001",
+        "sub2": "7210801",
+        "secondaryGroup": "Chaos",
+        "secondarySub1": "7310201",
+        "secondarySub2": "7310301"
+      },
+      "tacticalSkill": "闪灵",
+      "routeId": 1362,
+      "routeTitle": "쿨감헨리의 철학",
+      "routeAuthor": "효민",
+      "gameVersion": "13.1.0",
+      "routeLikes": 1934,
+      "routeSource": "dak.gg"
+    },
+    "布莱尔|DualSword": {
+      "hero": "布莱尔",
+      "weaponTypeRaw": "DualSword",
+      "gear": {
+        "武器": "阴阳双刃",
+        "衣服": "奥黛",
+        "头部": "恶魔面具",
+        "手部": "自动臂",
+        "鞋子": "银河战靴"
+      },
+      "traitSelection": {
+        "group": "Havoc",
+        "core": "7000401",
+        "sub1": "7010901",
+        "sub2": "7011201",
+        "secondaryGroup": "Fortification",
+        "secondarySub1": "7110101",
+        "secondarySub2": "7110201"
+      },
+      "tacticalSkill": "闪灵",
+      "routeId": 2158,
+      "routeTitle": "피할수없는블레어     설명있음",
+      "routeAuthor": "피할수없는노현준",
+      "gameVersion": "13.1.0",
+      "routeLikes": 1574,
+      "routeSource": "dak.gg"
+    },
+    "米尔卡|Hammer": {
+      "hero": "米尔卡",
+      "weaponTypeRaw": "Hammer",
+      "gear": {
+        "武器": "夜神星锤",
+        "衣服": "秘银链甲",
+        "头部": "魔兔帽",
+        "手部": "燃烧之心",
+        "鞋子": "星际战靴"
+      },
+      "traitSelection": {
+        "group": "Support",
+        "core": "7200301",
         "sub1": "7200101",
         "sub2": "7210801",
+        "secondaryGroup": "Fortification",
+        "secondarySub1": "7110101",
+        "secondarySub2": "7111201"
+      },
+      "tacticalSkill": "闪灵",
+      "routeId": 7148,
+      "routeTitle": "★ 미르카 ★",
+      "routeAuthor": "민트별",
+      "gameVersion": "13.1.0",
+      "routeLikes": 462,
+      "routeSource": "dak.gg"
+    },
+    "芬里尔|Glove": {
+      "hero": "芬里尔",
+      "weaponTypeRaw": "Glove",
+      "gear": {
+        "武器": "天蚕手套",
+        "衣服": "摇滚外套",
+        "头部": "暮光头饰",
+        "手部": "普赛克之刃",
+        "鞋子": "剑齿虎"
+      },
+      "traitSelection": {
+        "group": "Havoc",
+        "core": "7000201",
+        "sub1": "7011501",
+        "sub2": "7011101",
+        "secondaryGroup": "Support",
+        "secondarySub1": "7211401",
+        "secondarySub2": "7211101"
+      },
+      "tacticalSkill": "斥力弹",
+      "routeId": 6498,
+      "routeTitle": "극딜 펜리르",
+      "routeAuthor": "구룬",
+      "gameVersion": "13.1.0",
+      "routeLikes": 2068,
+      "routeSource": "dak.gg"
+    },
+    "卡洛琳|Arcana": {
+      "hero": "卡洛琳",
+      "weaponTypeRaw": "Arcana",
+      "gear": {
+        "武器": "倒吊人",
+        "衣服": "神职法衣",
+        "头部": "瘟疫使者",
+        "手部": "鬼灵之爪",
+        "鞋子": "万年冰鞋"
+      },
+      "traitSelection": {
+        "group": "Chaos",
+        "core": "7300201",
+        "sub1": "7010701",
+        "sub2": "7310101",
         "secondaryGroup": "Havoc",
         "secondarySub1": "7010501",
         "secondarySub2": "7011101"
       },
-      "tacticalSkill": "治愈之风",
-      "routeId": 39612,
-      "routeTitle": "ㅊㅈㅅ",
-      "routeAuthor": "뇌명팔괘",
-      "gameVersion": "11.3.0"
+      "tacticalSkill": "斥力弹",
+      "routeId": 2517,
+      "routeTitle": "코렐1",
+      "routeAuthor": "RIOORI",
+      "gameVersion": "13.1.0",
+      "routeLikes": 7682,
+      "routeSource": "dak.gg"
+    },
+    "鼻荆|Bat": {
+      "hero": "鼻荆",
+      "weaponTypeRaw": "Bat",
+      "gear": {
+        "武器": "秃鹫之眼",
+        "衣服": "秘银链甲",
+        "头部": "战术面罩",
+        "手部": "微型太阳系统",
+        "鞋子": "战术鞋"
+      },
+      "traitSelection": {
+        "group": "Fortification",
+        "core": "7100501",
+        "sub1": "7111001",
+        "sub2": "7111201",
+        "secondaryGroup": "Havoc",
+        "secondarySub1": "7011501",
+        "secondarySub2": "7011201"
+      },
+      "tacticalSkill": "闪灵",
+      "routeId": 1834,
+      "routeTitle": "솔라비형",
+      "routeAuthor": "수영장파티김민석",
+      "gameVersion": "13.1.0",
+      "routeLikes": 1972,
+      "routeSource": "dak.gg"
+    },
+    "克雷弗|Pistol": {
+      "hero": "克雷弗",
+      "weaponTypeRaw": "Pistol",
+      "gear": {
+        "武器": "魔弹射手",
+        "衣服": "能量战衣",
+        "头部": "En Garde",
+        "手部": "龙鳞",
+        "鞋子": "万年冰鞋"
+      },
+      "traitSelection": {
+        "group": "Havoc",
+        "core": "7000401",
+        "sub1": "7010901",
+        "sub2": "7011101",
+        "secondaryGroup": "Chaos",
+        "secondarySub1": "7310201",
+        "secondarySub2": "7310701"
+      },
+      "tacticalSkill": "闪灵",
+      "routeId": 3009,
+      "routeTitle": "고주가 화학품 삭제 루트변경",
+      "routeAuthor": "Twitch로링티나",
+      "gameVersion": "13.1.0",
+      "routeLikes": 1519,
+      "routeSource": "dak.gg"
+    },
+    "露西娅|SniperRifle": {
+      "hero": "露西娅",
+      "weaponTypeRaw": "SniperRifle",
+      "gear": {
+        "武器": "四射星光",
+        "衣服": "神职法衣",
+        "头部": "昆德拉",
+        "手部": "龙鳞",
+        "鞋子": "锋利长靴"
+      },
+      "traitSelection": {
+        "group": "Chaos",
+        "core": "7000501",
+        "sub1": "7310201",
+        "sub2": "7310301",
+        "secondaryGroup": "Havoc",
+        "secondarySub1": "7010501",
+        "secondarySub2": "7011101"
+      },
+      "tacticalSkill": "闪灵",
+      "routeId": 1729,
+      "routeTitle": "★ 루치아데스와 ★",
+      "routeAuthor": "민트별",
+      "gameVersion": "13.1.0",
+      "routeLikes": 5150,
+      "routeSource": "dak.gg"
+    },
+    "塞莉丝|TwoHandSword": {
+      "hero": "塞莉丝",
+      "weaponTypeRaw": "TwoHandSword",
+      "gear": {
+        "武器": "极冰之剑",
+        "衣服": "骑士战甲",
+        "头部": "圣骑士头盔",
+        "手部": "魔法神灯",
+        "鞋子": "EOD防爆靴"
+      },
+      "traitSelection": {
+        "group": "Support",
+        "core": "7200301",
+        "sub1": "7210101",
+        "sub2": "7210801",
+        "secondaryGroup": "Fortification",
+        "secondarySub1": "7111001",
+        "secondarySub2": "7110601"
+      },
+      "tacticalSkill": "羁绊者",
+      "routeId": 5141,
+      "routeTitle": "히히 원더레빗 세레스",
+      "routeAuthor": "뽀짝곤듀상하기",
+      "gameVersion": "13.1.0",
+      "routeLikes": 677,
+      "routeSource": "dak.gg"
     }
   }
 }

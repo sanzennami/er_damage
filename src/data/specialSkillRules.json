@@ -109,6 +109,13 @@
       }
     },
     "玛蒂娜": {
+      "attackSpeedRule": {
+        "mode": "standard",
+        "cap": 2.5,
+        "convertPer1PctBonusAsToAttackPct": 0.002,
+        "respectAttackSpeedCap": true,
+        "note": "P 播放：额外攻击速度每增加 1%，总攻击力增加 0.2%（超过 2.5 攻速上限的溢出部分不增加攻击力）。"
+      },
       "formSwitch": {
         "id": "state",
         "label": "状态",
@@ -148,6 +155,96 @@
         "default": 100,
         "max": 500,
         "step": 10,
+        "mode": "slider"
+      }
+    },
+    "卡拉": {
+      "attackSpeedRule": {
+        "mode": "cap",
+        "cap": 1.1,
+        "convertPer001ExcessAsToAp": 1.0,
+        "note": "P 水手的较量：攻击速度上限限制在 1.1 内，每超出 0.01 攻击速度增加 1.0 技能增幅（10.2 调整）。"
+      },
+      "display": {
+        "calib-karla-q-1054200-damage": {
+          "secondaryScale": 0.7,
+          "showBreakdown": true
+        }
+      }
+    },
+    "阿德拉": {
+      "attackSpeedRule": {
+        "mode": "fixedBase",
+        "convertPer001BonusAsToApByPassiveLevel": [
+          0.1,
+          0.35,
+          0.6
+        ],
+        "note": "P 后翼守兵：攻速固定为基础攻速，每增加 0.01 攻击速度转化为 0.1 / 0.35 / 0.6 技能增幅（随 P 1~3 级，对应角色 1/5/9 级）。"
+      }
+    },
+    "翡翠": {
+      "attackSpeedRule": {
+        "mode": "levelFixed",
+        "perLevelAttackSpeed": 0.02,
+        "convertPer1PctBonusAsToExtraAttackRatio": 0.0015,
+        "note": "P 剑之记忆：普攻不受额外攻速影响，每升 1 级攻速 +0.02；每获得 1% 额外攻速，将攻击力的 0.15% 额外转化为额外攻击力。"
+      }
+    },
+    "纳塔朋": {
+      "attackSpeedRule": {
+        "mode": "fixedBase",
+        "note": "P 摄影技巧：相机攻速固定为基础攻速，额外攻速按每 1% +0.2 计入普攻额外技能伤害。"
+      }
+    },
+    "克雷弗": {
+      "attackSpeedRule": {
+        "mode": "fixedBase",
+        "note": "P 亡命之徒：手枪攻速固定为基础攻速，额外攻速按每 1% +0.5 计入普攻额外技能伤害。"
+      }
+    },
+    "阿雅": {
+      "display": {
+        "002-aya-w-1002300-damage-by-level": {
+          "dynamicHitsByBonusAs": {
+            "base": 6,
+            "step": 0.2,
+            "max": 10
+          }
+        }
+      }
+    },
+    "莉诺尔": {
+      "stackSelector": {
+        "label": "悲鸣叠层",
+        "values": [
+          0,
+          5,
+          10,
+          15,
+          20,
+          30
+        ],
+        "default": 5,
+        "max": 50,
+        "step": 1,
+        "mode": "slider"
+      }
+    },
+    "妮娅": {
+      "stackSelector": {
+        "label": "K.O.叠层",
+        "values": [
+          1,
+          5,
+          8,
+          12,
+          16,
+          20
+        ],
+        "default": 6,
+        "max": 30,
+        "step": 1,
         "mode": "slider"
       }
     }

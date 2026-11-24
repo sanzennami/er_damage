@@ -13,6 +13,8 @@ import DAK_LOADOUT_ASSETS from './data/dakLoadoutAssets.json';
 import TRAIT_EFFECTS_DATA from './data/traitEffects.json';
 import DAK_ITEM_SKILL_ICONS from './data/dakItemSkillIcons.json';
 import WEAPON_ROUTE_PRESETS from './data/weaponRoutePresets.json';
+import WEAPON_TYPE_INFO from './data/weaponTypeInfo.json';
+import VisualGearBar from './components/VisualGearPicker.jsx';
 import PATCH_LOG from './data/patchLog.json';
 import { CHARACTERS, findCharacterByName, masteryStatFor } from './lib/characterStats.js';
 import {
@@ -43,6 +45,7 @@ import {
 import {
   DEFAULT_HERO,
   MANUAL_HEROES,
+  attackSpeedRuleFor,
   filterSkillsByForm,
   formSwitchFor,
   heroModifiersFor,
@@ -53,7 +56,7 @@ import {
   statConversionFor
 } from './lib/specialRules.js';
 
-const APP_VERSION = 'v0.2.080';
+const APP_VERSION = 'v0.2.089';
 
 const EXPORTED_LOCAL_CONFIG_MODULES = import.meta.glob('./data/localConfig.export.json', {
   eager: true,
@@ -130,6 +133,7 @@ const MASTERY_STAT_LABELS = {
 };
 const STORAGE_KEY = 'er-damage-config-v1';
 const WORKSPACE_STATE_KEY = 'er-damage-workspace-state-v1';
+const SAVED_PRESETS_KEY = 'er-damage-saved-presets-v1';
 const APP_SETTINGS_KEY = 'er-damage-global-settings-v1';
 const HELP_NOTES_KEY = 'er-damage-help-notes-v1';
 const HELP_NOTES_EDITABLE = typeof window !== 'undefined' && ['localhost', '127.0.0.1', '::1'].includes(window.location.hostname);
@@ -678,7 +682,8 @@ function equipmentEffectModifiers(items, { effectToggles = {}, targetHpRatio = 1
   const equipped = new Set(items.flatMap((item) => uniqueEffectsForItem(item)));
   const total = {
     ap: 0, apPct: 0, attackPower: 0, attackPowerPct: 0, damageBonus: 0,
-    pen: 0, penPct: 0, targetDefensePct: 0, cd: 0, cdFromExtraAttackPct: 0, basicAttackBonus: 0
+    pen: 0, penPct: 0, targetDefensePct: 0, cd: 0, cdFromExtraAttackPct: 0, basicAttackBonus: 0,
+    attackSpeedRatio: 0
   };
   const applied = [];
 
@@ -821,6 +826,142 @@ function loadWorkspaceState() {
   }
 }
 
+function loadSavedHeroPresets() {
+  try {
+    const parsed = JSON.parse(window.localStorage.getItem(SAVED_PRESETS_KEY));
+    return parsed && typeof parsed === 'object' ? parsed : {};
+  } catch {
+    return {};
+  }
+}
+
+function encodeBase64UrlUtf8(text) {
+  const bytes = new TextEncoder().encode(text);
+  let binary = '';
+  for (let i = 0; i < bytes.length; i += 1) binary += String.fromCharCode(bytes[i]);
+  return window.btoa(binary).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+}
+
+function decodeBase64UrlUtf8(encoded) {
+  const normalized = String(encoded || '').trim().replace(/-/g, '+').replace(/_/g, '/');
+  if (!normalized) return '';
+  const padded = normalized + '==='.slice((normalized.length + 3) % 4);
+  const binary = window.atob(padded);
+  const bytes = new Uint8Array(binary.length);
+  for (let i = 0; i < binary.length; i += 1) bytes[i] = binary.charCodeAt(i);
+  return new TextDecoder().decode(bytes);
+}
+
+function parseSharedBuildFromUrl() {
+  if (typeof window === 'undefined') return null;
+  try {
+    const params = new URLSearchParams(window.location.search);
+    const rawParam = params.get('b');
+    if (!rawParam) return null;
+    const data = JSON.parse(decodeBase64UrlUtf8(rawParam));
+    if (!data || typeof data !== 'object') return null;
+
+    const itemByCode = new Map(INITIAL_EQUIPMENT.filter((i) => i.code).map((i) => [String(i.code), i]));
+    const charByCode = new Map(CHARACTERS.map((c) => [Number(c.code), c]));
+    const heroChar = typeof data.h === 'number' ? charByCode.get(data.h) : findCharacterByName(String(data.h || ''));
+    const selectedHero = heroChar?.name || (typeof data.h === 'string' && data.h ? data.h : DEFAULT_HERO);
+
+    const gearArr = Array.isArray(data.g) ? data.g : [];
+    const gear = {};
+    SLOTS.forEach((slot, idx) => {
+      const token = gearArr[idx];
+      if (token === 0 || token === '' || token === null || token === undefined) {
+        gear[slot] = '';
+      } else {
+        const matched = itemByCode.get(String(token)) || INITIAL_EQUIPMENT.find((it) => it.name === String(token));
+        gear[slot] = matched ? matched.name : String(token);
+      }
+    });
+
+    const tArr = Array.isArray(data.t) ? data.t : [];
+    const traitSelection = normalizeTraitSelection({
+      group: tArr[0] || DEFAULT_TRAIT_SELECTION.group,
+      core: tArr[1] || '',
+      sub1: tArr[2] || '',
+      sub2: tArr[3] || '',
+      secondaryGroup: tArr[4] || DEFAULT_TRAIT_SELECTION.secondaryGroup,
+      secondarySub1: tArr[5] || '',
+      secondarySub2: tArr[6] || ''
+    });
+
+    const weaponRaw = String(data.w || weaponTypeRaw(byName(INITIAL_EQUIPMENT, gear['武器'])) || '');
+    const weaponTypeFilter = weaponRaw ? weaponTypeLabelForRaw(weaponRaw) : '全部类型';
+    const fArr = Array.isArray(data.f) ? data.f : [];
+    const tacticalSkill = fArr[0] || '斥力弹';
+    const tacticalUpgraded = fArr[1] === undefined ? true : Boolean(fArr[1]);
+    const talentAp = getNumber(fArr[2]);
+
+    const tgArr = Array.isArray(data.tg) ? data.tg : [];
+    const targetIndex = Number.isInteger(tgArr[0]) && TARGETS[tgArr[0]] ? tgArr[0] : 0;
+    const baseTarget = TARGETS[targetIndex] || TARGETS[0];
+    const target = {
+      ...baseTarget,
+      name: targetIndex === 0 && (tgArr[1] !== baseTarget.hp || tgArr[2] !== baseTarget.defense) ? '自定义木桩' : baseTarget.name,
+      hp: tgArr[1] !== undefined ? getNumber(tgArr[1]) : baseTarget.hp,
+      defense: tgArr[2] !== undefined ? getNumber(tgArr[2]) : baseTarget.defense,
+      defenseReduction: getNumber(tgArr[3]),
+      reduction: getNumber(tgArr[4])
+    };
+    const targetMastery = Math.max(1, Math.min(20, getNumber(tgArr[5]) || 1));
+    const targetHpPct = tgArr[6] !== undefined ? Math.max(0, Math.min(100, getNumber(tgArr[6]))) : 100;
+    const selfHpPct = tgArr[7] !== undefined ? Math.max(0, Math.min(100, getNumber(tgArr[7]))) : 100;
+    const autoSyncSelfHp = tgArr[8] === undefined ? true : Boolean(tgArr[8]);
+    const selfHp = getNumber(tgArr[9]) || 2514;
+
+    const extra = data.x && typeof data.x === 'object' ? data.x : {};
+    const effectToggles = {};
+    if (Array.isArray(extra.ef)) {
+      extra.ef.forEach((k) => { if (k) effectToggles[String(k)] = true; });
+    }
+    const quickComboItems = Array.isArray(extra.cb)
+      ? extra.cb.map((c) => ({
+        key: String(c[0] || ''),
+        kind: String(c[1] || 'skill'),
+        refId: c[2] || undefined,
+        label: String(c[3] || ''),
+        count: Math.max(1, getNumber(c[4]) || 1),
+        hits: c[5] || undefined,
+        scale: c[6] || undefined,
+        step: c[7] !== null && c[7] !== undefined ? getNumber(c[7]) : undefined
+      })).filter((c) => c.key)
+      : [];
+
+    return {
+      activePage: 'calculator',
+      selectedHero,
+      mastery: Math.max(1, Math.min(20, getNumber(data.m) || 20)),
+      weaponRaw,
+      weaponTypeFilter,
+      gear,
+      traitSelection,
+      tacticalSkill,
+      tacticalUpgraded,
+      talentAp,
+      targetIndex,
+      target,
+      targetMastery,
+      targetHpPct,
+      selfHpPct,
+      autoSyncSelfHp,
+      selfHp,
+      effectToggles,
+      vampireFull: Boolean(extra.vf),
+      r2Stacks: extra.st !== undefined ? Math.max(0, getNumber(extra.st)) : undefined,
+      damageBonus: extra.db !== undefined ? getNumber(extra.db) : 0,
+      skillReduction: extra.sr !== undefined ? getNumber(extra.sr) : 0,
+      heroFormChoice: extra.fm,
+      quickComboItems
+    };
+  } catch {
+    return null;
+  }
+}
+
 function normalizeComparisonScenario(scenario, fallbackGear = DEFAULT_GEAR, index = 0) {
   return {
     id: scenario?.id || `scenario-${Date.now()}-${index}`,
@@ -905,6 +1046,10 @@ function loadAnnouncement() {
 
   try {
     const saved = JSON.parse(window.localStorage.getItem(ANNOUNCEMENT_KEY));
+    if (saved && DEFAULT_ANNOUNCEMENT.updatedAt && saved.updatedAt && saved.updatedAt < DEFAULT_ANNOUNCEMENT.updatedAt) {
+      window.localStorage.removeItem(ANNOUNCEMENT_KEY);
+      return normalizeAnnouncement(DEFAULT_ANNOUNCEMENT);
+    }
     return normalizeAnnouncement({ ...DEFAULT_ANNOUNCEMENT, ...(saved || {}) });
   } catch {
     return normalizeAnnouncement(DEFAULT_ANNOUNCEMENT);
@@ -1100,6 +1245,11 @@ function weaponTypeOfficialList(rawTypes) {
   return names.length ? names.join('、') : '未设置武器';
 }
 
+function weaponBaseAttackSpeedFor(rawType) {
+  if (!rawType) return 0;
+  return getNumber(WEAPON_TYPE_INFO.weaponTypes?.[rawType]?.attackSpeed);
+}
+
 function masteryOptionValue(masteryStat, stat) {
   return getNumber(masteryStat?.options?.find((option) => option.stat === stat)?.value);
 }
@@ -1176,11 +1326,12 @@ function traitBonusesFor(traits, burstBonus = 0) {
       dmgAmp: bonus.dmgAmp + getNumber(effect.dmgAmp) + (effect.dynamicDamage === 'burst' ? burstBonus : 0),
       defense: bonus.defense + getNumber(effect.defense),
       maxHp: bonus.maxHp + getNumber(effect.maxHp),
+      attackSpeedRatio: bonus.attackSpeedRatio + getNumber(effect.attackSpeedRatio),
       effectIds: effect.extraEffect ? [...bonus.effectIds, effect.extraEffect] : bonus.effectIds,
       damageEffects: effect.damageEffect ? [...bonus.damageEffects, effect.damageEffect] : bonus.damageEffects,
       summaries: effect.summary ? [...bonus.summaries, `${trait.name}: ${effect.summary}`] : bonus.summaries
     };
-  }, { ap: 0, pen: 0, penPct: 0, cd: 0, dmgAmp: 0, defense: 0, maxHp: 0, effectIds: [], damageEffects: [], summaries: [] });
+  }, { ap: 0, pen: 0, penPct: 0, cd: 0, dmgAmp: 0, defense: 0, maxHp: 0, attackSpeedRatio: 0, effectIds: [], damageEffects: [], summaries: [] });
 }
 
 function normalizeTraitSelection(selection) {
@@ -1213,6 +1364,7 @@ function traitBonusSummaryItems(bonuses) {
     bonuses.pen ? `防穿 +${round(bonuses.pen, 1)}` : '',
     bonuses.penPct ? `防穿 ${pct(bonuses.penPct)}` : '',
     bonuses.cd ? `冷却缩减 +${round(bonuses.cd, 1)}` : '',
+    bonuses.attackSpeedRatio ? `攻速 +${pct(bonuses.attackSpeedRatio)}` : '',
     bonuses.dmgAmp ? `技伤 +${pct(bonuses.dmgAmp)}` : '',
     bonuses.defense ? `防御 +${round(bonuses.defense, 1)}` : '',
     bonuses.maxHp ? `生命 +${round(bonuses.maxHp, 1)}` : ''
@@ -1233,6 +1385,7 @@ function calculatedTraitBonusSummaryItems(result) {
     bonuses.pen ? `防穿 +${round(bonuses.pen, 1)}` : '',
     bonuses.penPct ? `防穿 ${pct(bonuses.penPct)}` : '',
     bonuses.cd ? `冷却缩减 +${round(bonuses.cd, 1)}` : '',
+    bonuses.attackSpeedRatio ? `攻速 +${pct(bonuses.attackSpeedRatio)}` : '',
     result?.potentialDamageBonus ? `技伤 +${pct(result.potentialDamageBonus)}` : '',
     result?.talentBonusDefense ? `防御 +${round(result.talentBonusDefense, 1)}` : '',
     bonuses.maxHp ? `生命 +${round(bonuses.maxHp, 1)}` : ''
@@ -1363,6 +1516,8 @@ function calc({
   mastery,
   masteryStat,
   attack,
+  characterAttackSpeedOffset = 0,
+  weaponRaw = '',
   baseDefense = 0,
   baseMaxHp = 0,
   talentAp,
@@ -1373,6 +1528,7 @@ function calc({
   targetHpPct = 100,
   selfHpPct = 100,
   selfHp,
+  autoSyncSelfHp = false,
   selfShield = 0,
   accumulatedDamage = 0,
   damageBonus,
@@ -1389,6 +1545,7 @@ function calc({
   combos = []
 }) {
   const selected = SLOTS.map((slot) => byName(equipment, gear[slot])).filter(Boolean);
+  const resolvedWeaponRaw = weaponRaw || weaponTypeRaw(selected.find((item) => item?.type === '武器'));
   // 英雄专属的条件修正（卡洛琳 W 的镜子增幅、秀雅 Q 冲撞点的承受伤害提升）
   const heroModifiers = heroModifierTotals(selectedHero, heroModifierChoices);
   const equipmentStats = aggregateEquipmentStats(selected, mastery);
@@ -1420,15 +1577,48 @@ function calc({
   });
   const stackAp = vampireStackAp + effectMods.ap;
   const stackAttackPower = vampireStackAttackPower + effectMods.attackPower + buffs.attackPower;
-  const prelimExtraAttack = equipAttackPower + (usesAttackPath && vampireFull ? 15 + mastery * 0.5 : 0) + effectMods.attackPower + buffs.attackPower;
-  const stackCd = effectMods.cd + (effectMods.cdFromExtraAttackPct ? damageFloor(prelimExtraAttack * effectMods.cdFromExtraAttackPct) : 0);
-  const rawCd = (statValue(equipmentStats, 'cooldownReduction') || selected.reduce((sum, item) => sum + getNumber(item.cd), 0)) + stackCd + getNumber(traitBonuses.cd);
-  // 属性转换：席琳「不受冷却缩减影响，每 1 冷却缩减转换 1 技能增幅」。
-  // 转换生效时原来那一档要清零，否则等于白拿一次冷却缩减。
-  const statConversion = statConversionFor(selectedHero);
-  const convertsCdToAp = statConversion?.from === 'cd' && statConversion?.to === 'ap';
-  const convertedAp = convertsCdToAp ? rawCd * (getNumber(statConversion.ratio) || 1) : 0;
-  const cd = convertsCdToAp ? 0 : rawCd;
+
+  // ---- 真实面板攻速与攻速转化引擎（WeaponTypeInfo + 熟练度 + 装备 + 潜能 + 触发特效） ----
+  const weaponBaseAttackSpeed = weaponBaseAttackSpeedFor(resolvedWeaponRaw);
+  const baseAttackSpeed = getNumber(characterAttackSpeedOffset) + weaponBaseAttackSpeed;
+  const masteryAttackSpeedRatio = mastery * masteryOptionValue(masteryStat, 'AttackSpeedRatio');
+  const equipAttackSpeedRatio = statValue(equipmentStats, 'attackSpeedRatio');
+  const traitAttackSpeedRatio = getNumber(traitBonuses.attackSpeedRatio);
+  const effectAttackSpeedRatio = getNumber(effectMods.attackSpeedRatio);
+  const totalBonusAttackSpeed = masteryAttackSpeedRatio + equipAttackSpeedRatio + traitAttackSpeedRatio + effectAttackSpeedRatio;
+  const uncappedAttackSpeed = baseAttackSpeed * (1 + totalBonusAttackSpeed);
+  const asRule = attackSpeedRuleFor(selectedHero);
+  const attackSpeedCap = getNumber(asRule?.cap) > 0 ? getNumber(asRule.cap) : 2.5;
+  const attackSpeedFixed = asRule?.mode === 'fixedBase' || asRule?.mode === 'levelFixed';
+  const finalAttackSpeed = asRule?.mode === 'fixedBase'
+    ? baseAttackSpeed
+    : asRule?.mode === 'levelFixed'
+      ? Math.min(attackSpeedCap, baseAttackSpeed + Math.max(0, mastery - 1) * getNumber(asRule.perLevelAttackSpeed))
+      : Math.min(attackSpeedCap, uncappedAttackSpeed);
+
+  // 被动等级（供阿德拉 P 1~3 级分段比例使用：优先读 P 槽等级，无 P 条目时按游戏 1/5/9 级解锁）
+  const passiveSkillRow = selectedHeroSkillRows.find((s) => (s.slot === 'P' || /^P\b/.test(s.title || '')));
+  const passiveLevel = passiveSkillRow
+    ? clampLevel(passiveSkillRow, skillLevels[passiveSkillRow.id])
+    : (mastery >= 9 ? 3 : mastery >= 5 ? 2 : 1);
+
+  let asConvertedAp = 0;
+  if (Array.isArray(asRule?.convertPer001BonusAsToApByPassiveLevel) && baseAttackSpeed > 0) {
+    const ratioIdx = Math.max(0, Math.min(asRule.convertPer001BonusAsToApByPassiveLevel.length - 1, passiveLevel - 1));
+    const per001Ratio = getNumber(asRule.convertPer001BonusAsToApByPassiveLevel[ratioIdx]);
+    const bonusSteps001 = Math.max(0, Math.floor((uncappedAttackSpeed - baseAttackSpeed + 1e-6) * 100));
+    asConvertedAp = round(bonusSteps001 * per001Ratio, 2);
+  } else if (getNumber(asRule?.convertPer001ExcessAsToAp) > 0 && baseAttackSpeed > 0) {
+    const excessSteps001 = Math.max(0, Math.floor((uncappedAttackSpeed - attackSpeedCap + 1e-6) * 100));
+    asConvertedAp = round(excessSteps001 * getNumber(asRule.convertPer001ExcessAsToAp), 2);
+  }
+
+  const masteryApPct = mastery * masteryOptionValue(masteryStat, 'SkillAmpRatio');
+  const masteryAttackPower = mastery * masteryOptionValue(masteryStat, 'AttackPower');
+  const masteryBasicAttackDamageRatio = mastery * masteryOptionValue(masteryStat, 'IncreaseBasicAttackDamageRatio');
+  const baseAttackPower = attack + masteryAttackPower;
+
+  // 先算不含超频（overclock）的基础潜能加值，用于翡翠额外攻击力与幻影行者（磨砺）
   const concentrationAp = activeTraitEffectIds.has('concentration') && !usesAttackPath ? 32 : 0;
   const concentrationAttackPower = activeTraitEffectIds.has('concentration') && usesAttackPath ? 16 : 0;
   const huntBearAp = activeTraitEffectIds.has('huntBear') && !usesAttackPath ? 20 : 0;
@@ -1437,16 +1627,29 @@ function calc({
   const rapidShotAttackPower = activeTraitEffectIds.has('rapidShot') && usesAttackPath ? 2 + mastery * 0.5 : 0;
   const rChargerAp = activeTraitEffectIds.has('rCharger') && !usesAttackPath ? 10 + mastery : 0;
   const rChargerAttackPower = activeTraitEffectIds.has('rCharger') && usesAttackPath ? 5 + mastery * 0.5 : 0;
-  const overclockAp = activeTraitEffectIds.has('overclock') && cd >= 40 && !usesAttackPath ? 10 : 0;
-  const overclockAttackPower = activeTraitEffectIds.has('overclock') && cd >= 40 && usesAttackPath ? 5 : 0;
-  // 天界典藏：按当前装备的物品等级分档给属性。官方文案里的「超凡」就是 Mythic
-  // （我们数据里沿用旧译名「神话」），「英雄」=Epic、「传说」=Legend。
   const celestial = activeTraitEffectIds.has('celestialCollection')
     ? celestialCollectionBonus(selected, usesAttackPath)
     : { ap: 0, attackPower: 0, defense: 0, maxHp: 0, penPct: 0, tiers: [] };
+
+  const baseTalentAttackPower = concentrationAttackPower + huntBearAttackPower + rapidShotAttackPower + rChargerAttackPower + celestial.attackPower;
+  const prelimExtraAttack = equipAttackPower + baseTalentAttackPower + stackAttackPower;
+  const bonusAsSteps1Pct = Math.max(0, Math.floor((totalBonusAttackSpeed + 1e-6) * 100));
+  const prelimConvertedExtraAttack = getNumber(asRule?.convertPer1PctBonusAsToExtraAttackRatio) > 0
+    ? (baseAttackPower + prelimExtraAttack) * (bonusAsSteps1Pct * getNumber(asRule.convertPer1PctBonusAsToExtraAttackRatio))
+    : 0;
+  const stackCd = effectMods.cd + (effectMods.cdFromExtraAttackPct ? damageFloor((prelimExtraAttack + prelimConvertedExtraAttack) * effectMods.cdFromExtraAttackPct) : 0);
+  const rawCd = (statValue(equipmentStats, 'cooldownReduction') || selected.reduce((sum, item) => sum + getNumber(item.cd), 0)) + stackCd + getNumber(traitBonuses.cd);
+  // 属性转换：席琳 / 蒂娅「不受冷却缩减影响，每 1 冷却缩减转换 1 技能增幅」。
+  const statConversion = statConversionFor(selectedHero);
+  const convertsCdToAp = statConversion?.from === 'cd' && statConversion?.to === 'ap';
+  const cdConvertedAp = convertsCdToAp ? rawCd * (getNumber(statConversion.ratio) || 1) : 0;
+  const convertedAp = cdConvertedAp + asConvertedAp;
+  const cd = convertsCdToAp ? 0 : rawCd;
+  const overclockAp = activeTraitEffectIds.has('overclock') && cd >= 40 && !usesAttackPath ? 10 : 0;
+  const overclockAttackPower = activeTraitEffectIds.has('overclock') && cd >= 40 && usesAttackPath ? 5 : 0;
   // 12.0：超再生不再给予被护盾/治疗目标适应力，因此不再计入攻击力或技能增幅
   const talentBonusAp = getNumber(traitBonuses.ap) + concentrationAp + huntBearAp + rapidShotAp + rChargerAp + overclockAp + celestial.ap;
-  const talentBonusAttackPower = concentrationAttackPower + huntBearAttackPower + rapidShotAttackPower + rChargerAttackPower + overclockAttackPower + celestial.attackPower;
+  const talentBonusAttackPower = baseTalentAttackPower + overclockAttackPower;
   const pen = statValue(equipmentStats, 'penetrationDefense') + statValue(equipmentStats, 'uniquePenetrationDefense') + talentPen || selected.reduce((sum, item) => sum + getNumber(item.pen), 0) + talentPen;
   const basePenPct = statValue(equipmentStats, 'penetrationDefenseRatio') + statValue(equipmentStats, 'uniquePenetrationDefenseRatio') + talentPenPct || selected.reduce((sum, item) => sum + getNumber(item.penPct), 0) + talentPenPct;
   const penPct = basePenPct + celestial.penPct;
@@ -1459,13 +1662,23 @@ function calc({
   const equipDamageBonus = selected.reduce((sum, item) => (
     sum + (hasConditionalDamageAmp(item) && !effectToggles['光辉'] ? 0 : getNumber(item.dmgAmp))
   ), 0);
-  const masteryApPct = mastery * masteryOptionValue(masteryStat, 'SkillAmpRatio');
-  const masteryAttackPower = mastery * masteryOptionValue(masteryStat, 'AttackPower');
-  const masteryBasicAttackDamageRatio = mastery * masteryOptionValue(masteryStat, 'IncreaseBasicAttackDamageRatio');
-  const baseAttackPower = attack + masteryAttackPower;
-  const extraAttackPower = equipAttackPower + talentBonusAttackPower + stackAttackPower;
-  // 攻击力百分比加成（神速-鲁德拉的短剑、双重假面）作用在总攻击力上
-  const attackPower = (baseAttackPower + extraAttackPower) * (1 + effectMods.attackPowerPct);
+  const cdCap = 40 + statValue(equipmentStats, 'cooldownLimit') + statValue(equipmentStats, 'uniqueCooldownLimit');
+  const preConversionExtraAttack = equipAttackPower + talentBonusAttackPower + stackAttackPower;
+  // 翡翠 P 剑之记忆：每 1% 额外攻速将当前攻击力的 0.15% 额外转化为额外攻击力
+  const convertedExtraAttackPower = getNumber(asRule?.convertPer1PctBonusAsToExtraAttackRatio) > 0
+    ? (baseAttackPower + preConversionExtraAttack) * (bonusAsSteps1Pct * getNumber(asRule.convertPer1PctBonusAsToExtraAttackRatio))
+    : 0;
+  const extraAttackPower = preConversionExtraAttack + convertedExtraAttackPower;
+  // 玛蒂娜 P 播放：每 1% 额外攻速使攻击力 +0.2%（超过 2.5 攻速上限部分不计）
+  const effectiveBonusAsForAttackPct = asRule?.respectAttackSpeedCap && baseAttackSpeed > 0
+    ? Math.min(totalBonusAttackSpeed, Math.max(0, (attackSpeedCap - baseAttackSpeed) / baseAttackSpeed))
+    : totalBonusAttackSpeed;
+  const convertedAttackPowerPct = getNumber(asRule?.convertPer1PctBonusAsToAttackPct) > 0
+    ? Math.max(0, Math.floor((effectiveBonusAsForAttackPct + 1e-6) * 100)) * getNumber(asRule.convertPer1PctBonusAsToAttackPct)
+    : 0;
+  // 攻击力百分比加成（神速、双重假面、玛蒂娜 P）作用在总攻击力上
+  const totalAttackPowerPct = getNumber(effectMods.attackPowerPct) + convertedAttackPowerPct;
+  const attackPower = (baseAttackPower + extraAttackPower) * (1 + totalAttackPowerPct);
   const totalApPct = normalApPct + uniqueApPct + masteryApPct + effectMods.apPct + heroModifiers.apPct + buffs.apPct;
   const totalBaseAp = equipAp + talentAp + talentBonusAp + stackAp + convertedAp + buffs.ap;
   const apRaw = totalBaseAp * (1 + totalApPct);
@@ -1521,9 +1734,12 @@ function calc({
   // 自身当前 / 已失体力：和目标那两个对称，由界面「自身当前体力 %」推出
   const selfHpRatio = Math.max(0, Math.min(1, getNumber(selfHpPct) / 100));
   const selfDefense = getNumber(baseDefense) + equipDefense;
-  // 血量上限 = 实验体等级成长血量 + 装备/潜能的额外体力。这跟界面上手填的「自身血量」是两码事：
-  // 后者是公式里 maxHp 变量的取值，允许自己填一个假设值，这里显示的是当前配装真实算出来的上限。
+  // 血量上限 = 实验体等级成长血量 + 装备/潜能的额外体力。开启自动跟随时直接作为 maxHp 参与技能与爆发力计算；
+  // 关闭自动跟随时保留用户手填的假设血量。
   const characterMaxHp = getNumber(baseMaxHp) + extraHp;
+  const effectiveSelfHp = autoSyncSelfHp
+    ? Math.max(1, Math.round(characterMaxHp))
+    : Math.max(1, getNumber(selfHp));
   const context = {
     ap,
     attack: attackPower,
@@ -1531,14 +1747,16 @@ function calc({
     targetHp: target.hp,
     targetCurrentHp: target.hp * targetHpRatio,
     targetLostHp: target.hp * (1 - targetHpRatio),
-    maxHp: selfHp,
-    selfCurrentHp: getNumber(selfHp) * selfHpRatio,
-    selfLostHp: getNumber(selfHp) * (1 - selfHpRatio),
+    maxHp: effectiveSelfHp,
+    selfCurrentHp: effectiveSelfHp * selfHpRatio,
+    selfLostHp: effectiveSelfHp * (1 - selfHpRatio),
     extraHp,
     defense: selfDefense,
     shield: getNumber(selfShield),
     critChance: statValue(equipmentStats, 'criticalStrikeChance'),
     pen: pen + effectMods.pen,
+    attackSpeed: finalAttackSpeed,
+    bonusAttackSpeed: totalBonusAttackSpeed,
     basicAttackAmp,
     accumulatedDamage: getNumber(accumulatedDamage),
     stacks: stackCount,
@@ -1566,8 +1784,8 @@ function calc({
   const basicAttackSkills = heroSkills.filter((skill) => skill.kind === 'basicAttack');
   const basicAttackBonusRaw = basicAttackSkills.reduce((sum, skill) => sum + getNumber(skill.rawDamage), 0);
   const basicAttackBonus = basicAttackSkills.reduce((sum, skill) => sum + getNumber(skill.damage), 0);
-  const hpDiffRatio = Math.min(0.4, Math.max(0.1, (target.hp - selfHp) / selfHp));
-  const burstBonus = Math.min(0.1, Math.max(0, (target.hp - selfHp) / selfHp) * 0.25);
+  const hpDiffRatio = Math.min(0.4, Math.max(0.1, (target.hp - effectiveSelfHp) / effectiveSelfHp));
+  const burstBonus = Math.min(0.1, Math.max(0, (target.hp - effectiveSelfHp) / effectiveSelfHp) * 0.25);
   const curse = 50 + ap * 0.15;
   const scarBase = 10 + mastery + target.hp * 0.03;
   const tearBase = 10 + mastery * 2 + target.hp * 0.08;
@@ -1695,6 +1913,27 @@ function calc({
     selectedTalents: selectedTraits,
     traitBonuses,
     cd,
+    cdCap,
+    baseAttackSpeed,
+    weaponBaseAttackSpeed,
+    uncappedAttackSpeed,
+    finalAttackSpeed,
+    attackSpeedCap,
+    attackSpeedFixed,
+    totalBonusAttackSpeed,
+    equipAttackSpeedRatio,
+    masteryAttackSpeedRatio,
+    traitAttackSpeedRatio,
+    effectAttackSpeedRatio,
+    asConvertedAp,
+    cdConvertedAp,
+    convertedExtraAttackPower,
+    convertedAttackPowerPct,
+    totalAttackPowerPct,
+    asRule,
+    critChance: statValue(equipmentStats, 'criticalStrikeChance'),
+    critDamage: statValue(equipmentStats, 'criticalStrikeDamage'),
+    basicAttackTargetReductionRatio,
     pen,
     penPct,
     equipDefense,
@@ -1718,6 +1957,7 @@ function calc({
     extraHp,
     baseMaxHp: getNumber(baseMaxHp),
     characterMaxHp,
+    effectiveSelfHp,
     normalApPct,
     uniqueApPct,
     masteryApPct,
@@ -2139,7 +2379,7 @@ function StatCard({ label, value, hint, note }) {
   );
 }
 
-function ComparisonChart({ rows, metricKey, metricLabel, selectedMastery, onSelectMastery, collapsed, onToggleCollapsed, formatValue }) {
+function ComparisonChart({ rows, metricKey, metricLabel, selectedMastery, onSelectMastery, collapsed, onToggleCollapsed, formatValue, wideCanvas = false }) {
   const [zoom, setZoom] = useState(1);
   const [hoverMastery, setHoverMastery] = useState(null);
   const chartViewportRef = useRef(null);
@@ -2152,8 +2392,8 @@ function ComparisonChart({ rows, metricKey, metricLabel, selectedMastery, onSele
   const rawMaxX = Math.max(...values.map((row) => row.mastery), 20);
   const rawMinY = Math.min(...values.map((row) => row.value), 0);
   const rawMaxY = Math.max(...values.map((row) => row.value), 1);
-  const width = 720;
-  const height = 260;
+  const width = wideCanvas ? 1220 : 760;
+  const height = wideCanvas ? 250 : 255;
   const padLeft = 58;
   const padRight = 18;
   const padTop = 30;
@@ -2279,7 +2519,7 @@ function ComparisonChart({ rows, metricKey, metricLabel, selectedMastery, onSele
   return (
     <div className="comparisonChart">
       {head}
-      <div className="comparisonChartViewport" ref={chartViewportRef}>
+      <div className={`comparisonChartViewport ${zoom > 1.01 ? 'isZoomed' : ''}`.trim()} ref={chartViewportRef}>
       <svg
         viewBox={`0 0 ${width} ${height}`}
         role="img"
@@ -2414,11 +2654,42 @@ function TextCell({ value, onChange, type = 'text', step }) {
  * 给「随某个状态在两个数之间浮动」的段用 —— 西尔维娅 E 孤轮疾驰按车速追加 0~154，
  * 官方只给了两端、没给换算曲线。写成单个数会被当成必然打出的伤害，区间才是实情。
  */
-function DamageValue({ raw, final, rangeFrom }) {
+function InlineDeltaBadge({ current, baseline, digits = 0, isPercent = false }) {
+  if (baseline === undefined || baseline === null || !Number.isFinite(Number(baseline))) return null;
+  const diff = getNumber(current) - getNumber(baseline);
+  const threshold = isPercent ? 0.0005 : (digits > 0 ? 10 ** (-digits) * 0.5 : 0.5);
+  if (Math.abs(diff) <= threshold) {
+    return <em className="pinDeltaBadge neutral">±0</em>;
+  }
+  const sign = diff > 0 ? '+' : '';
+  const text = isPercent
+    ? `${sign}${pct(diff)}`
+    : (digits > 0 ? `${sign}${round(diff, digits)}` : `${sign}${Math.round(diff)}`);
+  return <em className={`pinDeltaBadge ${diff > 0 ? 'up' : 'down'}`}>{text}</em>;
+}
+
+function DamageValue({ raw, final, rangeFrom, baselineFinal, onQuickCombo, quickComboTitle = '加入连招计算' }) {
   const ranged = Number.isFinite(rangeFrom);
+  const flooredFinal = damageFloor(final);
+  const flooredBase = (baselineFinal !== undefined && baselineFinal !== null && Number.isFinite(Number(baselineFinal)))
+    ? damageFloor(baselineFinal)
+    : undefined;
   return (
     <div className={`damageValue ${ranged ? 'rangedValue' : ''}`.trim()}>
-      <b>{ranged ? `${damageFloor(rangeFrom)}~${damageFloor(final)}` : damageFloor(final)}</b>
+      <div className="damageValueMainRow">
+        <b>{ranged ? `${damageFloor(rangeFrom)}~${flooredFinal}` : flooredFinal}</b>
+        {flooredBase !== undefined ? <InlineDeltaBadge current={flooredFinal} baseline={flooredBase} /> : null}
+        {onQuickCombo ? (
+          <button
+            type="button"
+            className="quickComboAddBtn"
+            onClick={(e) => { e.stopPropagation(); onQuickCombo(); }}
+            title={quickComboTitle}
+          >
+            +连招
+          </button>
+        ) : null}
+      </div>
       <small>原始 {ranged ? `${damageFloor(rangeFrom)}~${damageFloor(raw)}` : damageFloor(raw)}</small>
     </div>
   );
@@ -2608,8 +2879,57 @@ function characterMaxHpAtLevel(character, level = 20) {
 }
 
 export default function App() {
-  const initialWorkspaceState = loadWorkspaceState();
+  const sharedUrlBuild = useMemo(() => parseSharedBuildFromUrl(), []);
+  const initialWorkspaceState = useMemo(() => {
+    const base = loadWorkspaceState();
+    if (!sharedUrlBuild) return base;
+    const mergedLoadouts = { ...(base.heroLoadouts || {}) };
+    if (sharedUrlBuild.weaponRaw) {
+      mergedLoadouts[loadoutKeyFor(sharedUrlBuild.selectedHero, sharedUrlBuild.weaponRaw)] = {
+        gear: sharedUrlBuild.gear,
+        traitSelection: sharedUrlBuild.traitSelection,
+        tacticalSkill: sharedUrlBuild.tacticalSkill
+      };
+    }
+    const mergedForms = { ...(base.heroFormChoices || {}) };
+    if (sharedUrlBuild.heroFormChoice !== undefined) {
+      mergedForms[sharedUrlBuild.selectedHero] = sharedUrlBuild.heroFormChoice;
+    }
+    return {
+      ...base,
+      activePage: 'calculator',
+      selectedHero: sharedUrlBuild.selectedHero,
+      mastery: sharedUrlBuild.mastery,
+      weaponTypeFilter: sharedUrlBuild.weaponTypeFilter,
+      gear: sharedUrlBuild.gear,
+      traitSelection: sharedUrlBuild.traitSelection,
+      heroLoadouts: mergedLoadouts,
+      tacticalSkill: sharedUrlBuild.tacticalSkill,
+      tacticalUpgraded: sharedUrlBuild.tacticalUpgraded,
+      talentAp: sharedUrlBuild.talentAp,
+      targetIndex: sharedUrlBuild.targetIndex,
+      target: sharedUrlBuild.target,
+      targetMastery: sharedUrlBuild.targetMastery,
+      targetHpPct: sharedUrlBuild.targetHpPct,
+      selfHpPct: sharedUrlBuild.selfHpPct,
+      autoSyncSelfHp: sharedUrlBuild.autoSyncSelfHp,
+      selfHp: sharedUrlBuild.selfHp,
+      effectToggles: sharedUrlBuild.effectToggles,
+      vampireFull: sharedUrlBuild.vampireFull,
+      r2Stacks: sharedUrlBuild.r2Stacks ?? base.r2Stacks,
+      damageBonus: sharedUrlBuild.damageBonus,
+      skillReduction: sharedUrlBuild.skillReduction,
+      heroFormChoices: mergedForms,
+      quickComboItems: sharedUrlBuild.quickComboItems
+    };
+  }, [sharedUrlBuild]);
   const initialAppSettings = loadAppSettings();
+  const [savedHeroPresets, setSavedHeroPresets] = useState(loadSavedHeroPresets);
+  const [isCreatingPreset, setIsCreatingPreset] = useState(false);
+  const [newPresetName, setNewPresetName] = useState('');
+  const [shareCopied, setShareCopied] = useState(false);
+  const [sharedLoadedBanner, setSharedLoadedBanner] = useState(Boolean(sharedUrlBuild));
+  const skipInitialHeroAutoRouteRef = useRef(Boolean(sharedUrlBuild));
   const [{ equipment, skills, talents, combos }, setConfig] = useState(loadConfig);
   const [activePage, setActivePage] = useState(initialWorkspaceState.activePage || 'calculator');
   const [gear, setGear] = useState(() => ({ ...DEFAULT_GEAR, ...(initialWorkspaceState.gear || {}) }));
@@ -2629,6 +2949,12 @@ export default function App() {
   const [target, setTarget] = useState(() => (initialWorkspaceState.target ? { ...TARGETS[0], ...initialWorkspaceState.target } : TARGETS[0]));
   const [targetMastery, setTargetMastery] = useState(getNumber(initialWorkspaceState.targetMastery) || 1);
   const [selfHp, setSelfHp] = useState(getNumber(initialWorkspaceState.selfHp) || 2514);
+  const [autoSyncSelfHp, setAutoSyncSelfHp] = useState(() => (
+    initialWorkspaceState.autoSyncSelfHp === undefined ? true : Boolean(initialWorkspaceState.autoSyncSelfHp)
+  ));
+  const [traitsCollapsed, setTraitsCollapsed] = useState(() => (
+    initialWorkspaceState.traitsCollapsed === undefined ? true : Boolean(initialWorkspaceState.traitsCollapsed)
+  ));
   const [selfShield, setSelfShield] = useState(getNumber(initialWorkspaceState.selfShield));
   // 「一段时间内累计造成的伤害」，给按累计量折算的技能用（丹尼尔 W 灵感引爆的真伤）
   const [accumulatedDamage, setAccumulatedDamage] = useState(getNumber(initialWorkspaceState.accumulatedDamage));
@@ -2674,9 +3000,15 @@ export default function App() {
   const [effectsCollapsed, setEffectsCollapsed] = useState(Boolean(initialWorkspaceState.effectsCollapsed));
   const [skillTargetCounts, setSkillTargetCounts] = useState(initialWorkspaceState.skillTargetCounts || {});
   const [useHeroAvatarPicker, setUseHeroAvatarPicker] = useState(() => Boolean(initialAppSettings.useHeroAvatarPicker));
+  const [useVisualGearPicker, setUseVisualGearPicker] = useState(() => initialAppSettings.useVisualGearPicker !== false);
   const [editMode, setEditMode] = useState(Boolean(initialAppSettings.editMode));
   const [showDamageTestHeroes, setShowDamageTestHeroes] = useState(Boolean(initialAppSettings.showDamageTestHeroes));
   const [uiTheme, setUiTheme] = useState(() => initialAppSettings.uiTheme || 'night');
+  const [wideLayout, setWideLayout] = useState(() => initialAppSettings.wideLayout !== false);
+  const [pinnedBaseline, setPinnedBaseline] = useState(null);
+  const [quickComboItems, setQuickComboItems] = useState(() => (
+    Array.isArray(initialWorkspaceState.quickComboItems) ? initialWorkspaceState.quickComboItems : []
+  ));
   const [heroAvatarQuery, setHeroAvatarQuery] = useState(initialWorkspaceState.heroAvatarQuery || '');
   const [showLowerTierEquipment, setShowLowerTierEquipment] = useState(Boolean(initialWorkspaceState.showLowerTierEquipment));
   const [visibleStatKeys, setVisibleStatKeys] = useState(initialWorkspaceState.visibleStatKeys || DEFAULT_VISIBLE_STAT_KEYS);
@@ -2738,6 +3070,8 @@ export default function App() {
       heroFormChoices,
       skillTargetCounts,
       selfHp,
+      autoSyncSelfHp,
+      traitsCollapsed,
       selfShield,
       accumulatedDamage,
       damageBonus,
@@ -2755,13 +3089,33 @@ export default function App() {
       comparisonSettings,
       comparisonScenarios,
       selectedComparisonMastery,
-      collapsedComparisonCharts
+      collapsedComparisonCharts,
+      quickComboItems
     }));
-  }, [activePage, gear, weaponTypeFilter, selectedHero, mastery, talentAp, traitSelection, heroLoadouts, targetIndex, target, targetMastery, targetHpPct, selfHpPct, heroModifierChoices, heroFormChoices, selfHp, selfShield, accumulatedDamage, damageBonus, skillReduction, r2Stacks, tacticalSkill, tacticalUpgraded, vampireFull, effectToggles, effectsCollapsed, skillTargetCounts, heroAvatarQuery, showLowerTierEquipment, visibleStatKeys, skillLevels, comparisonSettings, comparisonScenarios, selectedComparisonMastery, collapsedComparisonCharts]);
+  }, [activePage, gear, weaponTypeFilter, selectedHero, mastery, talentAp, traitSelection, heroLoadouts, targetIndex, target, targetMastery, targetHpPct, selfHpPct, heroModifierChoices, heroFormChoices, selfHp, autoSyncSelfHp, traitsCollapsed, selfShield, accumulatedDamage, damageBonus, skillReduction, r2Stacks, tacticalSkill, tacticalUpgraded, vampireFull, effectToggles, effectsCollapsed, skillTargetCounts, heroAvatarQuery, showLowerTierEquipment, visibleStatKeys, skillLevels, comparisonSettings, comparisonScenarios, selectedComparisonMastery, collapsedComparisonCharts, quickComboItems]);
 
   useEffect(() => {
-    window.localStorage.setItem(APP_SETTINGS_KEY, JSON.stringify({ useHeroAvatarPicker, editMode, showDamageTestHeroes, uiTheme }));
-  }, [useHeroAvatarPicker, editMode, showDamageTestHeroes, uiTheme]);
+    window.localStorage.setItem(SAVED_PRESETS_KEY, JSON.stringify(savedHeroPresets));
+  }, [savedHeroPresets]);
+
+  useEffect(() => {
+    if (!sharedUrlBuild || typeof window === 'undefined') return;
+    const url = new URL(window.location.href);
+    if (url.searchParams.has('b')) {
+      url.searchParams.delete('b');
+      const cleanSearch = url.searchParams.toString();
+      window.history.replaceState(null, '', `${url.pathname}${cleanSearch ? `?${cleanSearch}` : ''}${url.hash}`);
+    }
+  }, [sharedUrlBuild]);
+
+  useEffect(() => {
+    setIsCreatingPreset(false);
+    setNewPresetName('');
+  }, [selectedHero]);
+
+  useEffect(() => {
+    window.localStorage.setItem(APP_SETTINGS_KEY, JSON.stringify({ useHeroAvatarPicker, useVisualGearPicker, editMode, showDamageTestHeroes, uiTheme, wideLayout }));
+  }, [useHeroAvatarPicker, useVisualGearPicker, editMode, showDamageTestHeroes, uiTheme, wideLayout]);
 
   useEffect(() => {
     if (!editMode) setShowHeroDebugSettings(false);
@@ -2770,6 +3124,10 @@ export default function App() {
   useEffect(() => {
     document.body.dataset.theme = uiTheme;
   }, [uiTheme]);
+
+  useEffect(() => {
+    document.body.dataset.wide = wideLayout ? 'true' : 'false';
+  }, [wideLayout]);
 
   useEffect(() => {
     if (HELP_NOTES_EDITABLE) {
@@ -3048,6 +3406,8 @@ export default function App() {
       mastery,
       masteryStat: selectedMasteryStat,
       attack,
+      characterAttackSpeedOffset: getNumber(selectedCharacter?.base?.attackSpeed),
+      weaponRaw: selectedWeaponRaw || selectedCharacter?.weapons?.[0] || '',
       baseDefense: characterDefenseAtLevel(selectedCharacter, mastery),
       baseMaxHp: characterMaxHpAtLevel(selectedCharacter, mastery),
       talentAp,
@@ -3061,6 +3421,7 @@ export default function App() {
       heroForm: activeHeroForm,
       skillTargetCounts,
       selfHp,
+      autoSyncSelfHp,
       selfShield,
       accumulatedDamage,
       damageBonus,
@@ -3073,8 +3434,243 @@ export default function App() {
       selectedHero,
       combos
     }),
-    [equipment, skills, skillLevels, gear, mastery, selectedMasteryStat, attack, selectedCharacter, talentAp, traitBonuses, selectedTraits, target, targetMastery, targetHpPct, selfHpPct, heroModifierChoices, activeHeroForm, skillTargetCounts, selfHp, selfShield, accumulatedDamage, damageBonus, skillReduction, r2Stacks, tacticalSkill, tacticalUpgraded, effectiveVampireFull, activeEffectToggles, selectedHero, combos]
+    [equipment, skills, skillLevels, gear, mastery, selectedMasteryStat, selectedWeaponRaw, attack, selectedCharacter, talentAp, traitBonuses, selectedTraits, target, targetMastery, targetHpPct, selfHpPct, heroModifierChoices, activeHeroForm, skillTargetCounts, selfHp, autoSyncSelfHp, selfShield, accumulatedDamage, damageBonus, skillReduction, r2Stacks, tacticalSkill, tacticalUpgraded, effectiveVampireFull, activeEffectToggles, selectedHero, combos]
   );
+
+  // 开启「跟随上限」时同步 selfHp 状态，保证爆发力潜能血量差与切回手动模式时的初值一致
+  useEffect(() => {
+    if (!autoSyncSelfHp) return;
+    const synced = Math.max(1, Math.round(result.characterMaxHp));
+    if (synced > 0 && synced !== selfHp) {
+      setSelfHp(synced);
+    }
+  }, [autoSyncSelfHp, result.characterMaxHp, selfHp]);
+  // ---- 主配装器一键快照对比（Pin Baseline）与点选式连招沙盘 ----
+  // 切换实验体时清空跨英雄的快照与临时连招，防止串英雄对比
+  const prevHeroForToolsRef = useRef(selectedHero);
+  useEffect(() => {
+    if (prevHeroForToolsRef.current !== selectedHero) {
+      prevHeroForToolsRef.current = selectedHero;
+      setPinnedBaseline(null);
+      setQuickComboItems([]);
+    }
+  }, [selectedHero]);
+
+  function capturePinBaseline() {
+    const skillMap = {};
+    for (const sk of result.skills) {
+      skillMap[sk.id] = sk.damage;
+      const pRule = progressiveDamageRule(sk);
+      if (pRule) {
+        const { min, max, defaultValue } = progressiveDamageBounds(pRule);
+        const rId = pRule?.id || 'progressive';
+        const sKey = `${sk.id}-${rId}`;
+        const saved = skillTargetCounts[sKey];
+        const sVal = Math.max(min, Math.min(max, saved === undefined || saved === null || saved === '' ? defaultValue : getNumber(saved)));
+        skillMap[`prog:${sk.id}`] = progressiveDamageValue(sk, result.formulaContext, sVal).final;
+        for (let st = min; st <= max; st += 1) {
+          skillMap[`prog:${sk.id}:${st}`] = progressiveDamageValue(sk, result.formulaContext, st).final;
+        }
+      }
+      if (getNumber(sk.maxHits) > 1) {
+        const maxH = Math.max(1, getNumber(sk.maxHits));
+        const stored = getNumber(skillTargetCounts[`${sk.id}-hits`]);
+        const defH = Math.max(1, Math.min(maxH, getNumber(sk.defaultHits) || 1));
+        const hCount = stored > 0 ? Math.min(maxH, stored) : defH;
+        skillMap[`multihit:${sk.id}`] = scaledSkillDamage(sk, result.finalMod, { hits: hCount, context: result.formulaContext }).final;
+      }
+    }
+    const effectMap = {};
+    for (const ef of result.effects || []) {
+      effectMap[ef.title] = ef.value;
+    }
+    const gearSummary = SLOTS.map((s) => gear[s] || '空').join(' · ');
+    setPinnedBaseline({
+      hero: selectedHero,
+      mastery,
+      gear: clone(gear),
+      traitSelection: clone(traitSelection),
+      tacticalSkill,
+      tacticalUpgraded,
+      effectToggles: clone(effectToggles),
+      vampireFull,
+      gearSummary,
+      ap: result.ap,
+      attackPower: result.attackPower,
+      cd: result.cd,
+      cdCap: result.cdCap,
+      finalAs: result.finalAttackSpeed,
+      bonusAs: result.totalBonusAttackSpeed,
+      selfDefense: result.selfDefense,
+      maxHp: result.characterMaxHp,
+      pen: result.pen,
+      penPct: result.penPct,
+      critChance: result.critChance,
+      totalDamageBonus: result.totalDamageBonus,
+      basicNormal: result.basicAttackDamage.normal,
+      basicCrit: result.basicAttackDamage.critical,
+      finalMod: result.finalMod,
+      effectSubtotal: result.effectSubtotal,
+      skillMap,
+      effectMap
+    });
+  }
+
+  function restorePinnedGear() {
+    if (!pinnedBaseline) return;
+    setGear(clone(pinnedBaseline.gear));
+    setMastery(pinnedBaseline.mastery);
+    if (pinnedBaseline.traitSelection) setTraitSelection(normalizeTraitSelection(pinnedBaseline.traitSelection));
+    if (pinnedBaseline.tacticalSkill) setTacticalSkill(pinnedBaseline.tacticalSkill);
+    setTacticalUpgraded(Boolean(pinnedBaseline.tacticalUpgraded));
+    setEffectToggles(clone(pinnedBaseline.effectToggles || {}));
+    setVampireFull(Boolean(pinnedBaseline.vampireFull));
+  }
+
+  const [showAllPinnedStats, setShowAllPinnedStats] = useState(false);
+  const activePin = pinnedBaseline && pinnedBaseline.hero === selectedHero ? pinnedBaseline : null;
+
+  const pinnedStatDiffRows = useMemo(() => {
+    if (!activePin) return [];
+    const defs = [
+      { key: 'ap', label: '最终法强', cur: result.ap, base: activePin.ap, digits: 0 },
+      { key: 'atk', label: '最终攻击', cur: result.attackPower, base: activePin.attackPower, digits: 1 },
+      { key: 'cd', label: '冷却缩减', cur: result.cd, base: activePin.cd ?? 0, digits: 0 },
+      { key: 'finalAs', label: '面板攻速', cur: result.finalAttackSpeed, base: activePin.finalAs ?? 0, digits: 2 },
+      { key: 'as', label: '额外攻速%', cur: result.totalBonusAttackSpeed, base: activePin.bonusAs ?? 0, isPercent: true },
+      { key: 'def', label: '自身防御', cur: result.selfDefense, base: activePin.selfDefense ?? 0, digits: 1 },
+      { key: 'hp', label: '血量上限', cur: result.characterMaxHp, base: activePin.maxHp ?? 0, digits: 0 },
+      { key: 'ba', label: '平A(普攻)', cur: result.basicAttackDamage.normal, base: activePin.basicNormal, digits: 0 },
+      { key: 'baCrit', label: '平A(暴击)', cur: result.basicAttackDamage.critical, base: activePin.basicCrit ?? 0, digits: 0 },
+      { key: 'pen', label: '固定防穿', cur: result.pen, base: activePin.pen ?? 0, digits: 0 },
+      { key: 'penPct', label: '百分比防穿', cur: result.penPct, base: activePin.penPct ?? 0, isPercent: true },
+      { key: 'crit', label: '暴击率', cur: result.critChance, base: activePin.critChance ?? 0, isPercent: true },
+      { key: 'dmgAmp', label: '伤害提升%', cur: result.totalDamageBonus, base: activePin.totalDamageBonus ?? 0, isPercent: true },
+      { key: 'mod', label: '最终伤害倍率', cur: result.finalMod, base: activePin.finalMod, digits: 3 }
+    ];
+    return defs.map((d) => {
+      const diff = getNumber(d.cur) - getNumber(d.base);
+      const eps = d.isPercent ? 0.0005 : (d.digits > 0 ? 10 ** (-d.digits) * 0.5 : 0.5);
+      const changed = Math.abs(diff) > eps;
+      const fmt = (v) => (d.isPercent ? pct(v) : (d.digits > 0 ? round(v, d.digits) : Math.round(v)));
+      return { ...d, diff, changed, curText: fmt(d.cur), baseText: fmt(d.base) };
+    });
+  }, [activePin, result]);
+
+  function appendQuickComboStep(step) {
+    setQuickComboItems((prev) => {
+      const idx = prev.findIndex((item) => item.key === step.key);
+      if (idx >= 0) {
+        return prev.map((item, i) => (i === idx ? { ...item, count: item.count + 1 } : item));
+      }
+      return [...prev, { ...step, count: 1 }];
+    });
+  }
+
+  function updateQuickComboStepCount(key, delta) {
+    setQuickComboItems((prev) => prev
+      .map((item) => (item.key === key ? { ...item, count: item.count + delta } : item))
+      .filter((item) => item.count > 0));
+  }
+
+  const resolvedQuickCombo = useMemo(() => {
+    const skillById = new Map(result.skills.map((s) => [s.id, s]));
+    const effectByTitle = new Map((result.effects || []).map((e) => [e.title, e]));
+
+    const items = quickComboItems.map((item) => {
+      let unitFinal = 0;
+      let unitRaw = 0;
+      let baseUnitFinal = undefined;
+
+      if (item.kind === 'ba-normal') {
+        unitFinal = result.basicAttackDamage.normal;
+        unitRaw = unitFinal;
+        baseUnitFinal = activePin?.basicNormal;
+      } else if (item.kind === 'ba-crit') {
+        unitFinal = result.basicAttackDamage.critical;
+        unitRaw = unitFinal;
+        baseUnitFinal = activePin?.basicCrit;
+      } else if (item.kind === 'ba-enhanced') {
+        unitFinal = result.basicAttackDamage.normal + result.basicAttackBonus;
+        unitRaw = result.basicAttackDamage.normal + result.basicAttackBonusRaw;
+      } else if (item.kind === 'effect') {
+        const ef = effectByTitle.get(item.refId);
+        unitFinal = getNumber(ef?.value);
+        unitRaw = getNumber(ef?.raw);
+        baseUnitFinal = activePin?.effectMap?.[item.refId];
+      } else if (item.kind === 'skill-prog') {
+        const sk = skillById.get(item.refId);
+        if (sk) {
+          const pRule = progressiveDamageRule(sk);
+          const { min, max, defaultValue } = progressiveDamageBounds(pRule);
+          const rId = pRule?.id || 'progressive';
+          const saved = skillTargetCounts[`${sk.id}-${rId}`];
+          const fallbackStep = Math.max(min, Math.min(max, saved === undefined || saved === null || saved === '' ? defaultValue : getNumber(saved)));
+          const targetStep = item.step !== undefined ? Math.max(min, Math.min(max, getNumber(item.step))) : fallbackStep;
+          const pv = progressiveDamageValue(sk, result.formulaContext, targetStep);
+          unitFinal = pv.final;
+          unitRaw = pv.raw;
+          baseUnitFinal = activePin?.skillMap?.[`prog:${sk.id}:${targetStep}`] ?? activePin?.skillMap?.[`prog:${sk.id}`];
+        }
+      } else if (item.kind === 'skill-multihit') {
+        const sk = skillById.get(item.refId);
+        if (sk) {
+          const single = scaledSkillDamage(sk, result.finalMod, { context: result.formulaContext });
+          unitFinal = single.final;
+          unitRaw = single.raw;
+          baseUnitFinal = activePin?.skillMap?.[sk.id];
+        }
+      } else if (item.kind === 'skill') {
+        const sk = skillById.get(item.refId);
+        if (sk) {
+          const scale = item.scale || 1;
+          const hits = item.hits || 1;
+          const sc = scaledSkillDamage(sk, result.finalMod, { scale, hits, context: result.formulaContext });
+          unitFinal = sc.final;
+          unitRaw = sc.raw;
+          if (activePin?.skillMap?.[sk.id] !== undefined) {
+            baseUnitFinal = Math.floor(activePin.skillMap[sk.id] * scale) * hits;
+          }
+        }
+      }
+
+      return {
+        ...item,
+        unitFinal,
+        unitRaw,
+        totalFinal: unitFinal * item.count,
+        totalRaw: unitRaw * item.count,
+        baseTotalFinal: baseUnitFinal !== undefined ? baseUnitFinal * item.count : undefined
+      };
+    });
+
+    const totalDamage = items.reduce((s, x) => s + x.totalFinal, 0);
+    const totalRaw = items.reduce((s, x) => s + x.totalRaw, 0);
+    const hasAllBase = activePin && items.length > 0 && items.every((x) => x.baseTotalFinal !== undefined);
+    const baseTotalDamage = hasAllBase ? items.reduce((s, x) => s + x.baseTotalFinal, 0) : undefined;
+    const targetMax = Math.max(1, getNumber(target.hp) || 1000);
+    const startHpRatio = Math.max(0, Math.min(1, getNumber(targetHpPct) / 100));
+    const startHp = Math.round(targetMax * startHpRatio);
+    const remainHp = Math.max(0, startHp - totalDamage);
+    const overkill = Math.max(0, totalDamage - startHp);
+    const dealtPctOfMax = Math.min(100, (totalDamage / targetMax) * 100);
+    const remainPctOfMax = Math.max(0, (remainHp / targetMax) * 100);
+
+    return {
+      items,
+      totalDamage,
+      totalRaw,
+      baseTotalDamage,
+      targetMax,
+      startHp,
+      remainHp,
+      overkill,
+      isLethal: items.length > 0 && totalDamage >= startHp,
+      dealtPctOfMax,
+      remainPctOfMax
+    };
+  }, [quickComboItems, result, activePin, target.hp, targetHpPct, skillTargetCounts]);
+
   const heroWeaponOptions = WEAPON_TYPE_OPTIONS.filter((type) => {
     if (type === '全部类型') return true;
     const rawType = weaponTypeFromFilter(type);
@@ -3109,10 +3705,10 @@ export default function App() {
   const heroUsesAttackScaling = result.skills.some((skill) => formulaUsesVariable(skill.formula, 'attack'));
   const showApFormulaStats = heroUsesApScaling || (!heroUsesApScaling && !heroUsesAttackScaling);
   const finalAttack = result.attackPower;
-  // 攻击力百分比（神速、双重假面这类触发式特效）是最后乘上去的，
-  // 提示里不写清楚的话会出现「145 + 239」却显示 437.8 这种对不上的情况
-  const attackPowerPct = getNumber(result.effectMods?.attackPowerPct);
+  // 攻击力百分比（神速、双重假面、玛蒂娜被动）是最后乘上去的，翡翠被动攻速转额外攻击力单独标注
+  const attackPowerPct = getNumber(result.totalAttackPowerPct);
   const attackBreakdownHint = `基础 ${round(result.baseAttackPower, 1)} + 额外 ${round(result.extraAttackPower, 1)}`
+    + (result.convertedExtraAttackPower ? `（含攻速转化 +${round(result.convertedExtraAttackPower, 1)}）` : '')
     + (attackPowerPct ? ` ，再 × (1 + ${pct(attackPowerPct)})` : '');
   const formulaSummaryStats = [
     showApFormulaStats ? `最终法强 ${result.ap}` : '',
@@ -3157,6 +3753,8 @@ export default function App() {
         mastery: level,
         masteryStat: scenarioMasteryStat,
         attack: levelAttack,
+        characterAttackSpeedOffset: getNumber(selectedCharacter?.base?.attackSpeed),
+        weaponRaw: scenarioWeaponRaw || selectedCharacter?.weapons?.[0] || '',
         baseDefense: levelDefense,
         baseMaxHp: levelMaxHp,
         talentAp,
@@ -3207,7 +3805,7 @@ export default function App() {
           defense: scenarioResult.selfDefense,
           critChance: statValue(scenarioResult.equipmentStats, 'criticalStrikeChance'),
           critDamage: statValue(scenarioResult.equipmentStats, 'criticalStrikeDamage'),
-          attackSpeed: statValue(scenarioResult.equipmentStats, 'attackSpeedRatio'),
+          attackSpeed: scenarioResult.totalBonusAttackSpeed,
           moveSpeed: statValue(scenarioResult.equipmentStats, 'moveSpeed'),
           skillAmpPct: scenarioResult.totalApPct,
           ...Object.fromEntries(scenarioResult.skills.map((skill) => [`skill:${skill.id}`, skill.damage])),
@@ -3342,6 +3940,10 @@ export default function App() {
   );
 
   useEffect(() => {
+    if (skipInitialHeroAutoRouteRef.current) {
+      skipInitialHeroAutoRouteRef.current = false;
+      return;
+    }
     const nextRawType = preferredWeaponRawFor(selectedHero, selectedCharacter);
     if (!nextRawType) return;
 
@@ -3431,6 +4033,215 @@ export default function App() {
 
   function updateGear(slot, name) {
     setGear((current) => ({ ...current, [slot]: name }));
+  }
+
+  const currentOfficialPreset = selectedWeaponRaw
+    ? ROUTE_PRESETS[loadoutKeyFor(selectedHero, selectedWeaponRaw)]
+    : null;
+  const heroCustomPresets = savedHeroPresets[selectedHero] || [];
+
+  function buildShareUrl() {
+    const extra = {};
+    const activeEf = Object.keys(activeEffectToggles).filter((k) => activeEffectToggles[k]);
+    if (activeEf.length) extra.ef = activeEf;
+    if (effectiveVampireFull) extra.vf = 1;
+    if (r2Stacks !== 1) extra.st = r2Stacks;
+    if (damageBonus) extra.db = damageBonus;
+    if (skillReduction) extra.sr = skillReduction;
+    if (activeHeroForm !== undefined) extra.fm = activeHeroForm;
+    if (quickComboItems.length) {
+      extra.cb = quickComboItems.map((c) => [
+        c.key,
+        c.kind,
+        c.refId || '',
+        c.label || '',
+        c.count || 1,
+        c.hits || 1,
+        c.scale || 1,
+        c.step ?? null
+      ]);
+    }
+
+    const payload = {
+      v: 1,
+      h: selectedCharacter?.code || selectedHero,
+      m: mastery,
+      w: selectedWeaponRaw || '',
+      g: SLOTS.map((slot) => {
+        const name = gear[slot];
+        if (isEmptyGear(name)) return 0;
+        const item = byName(equipment, name);
+        return item?.code || name;
+      }),
+      t: [
+        traitSelection.group || '',
+        traitSelection.core || '',
+        traitSelection.sub1 || '',
+        traitSelection.sub2 || '',
+        traitSelection.secondaryGroup || '',
+        traitSelection.secondarySub1 || '',
+        traitSelection.secondarySub2 || ''
+      ],
+      f: [tacticalSkill, tacticalUpgraded ? 1 : 0, talentAp || 0],
+      tg: [
+        targetIndex,
+        target.hp,
+        target.defense,
+        target.defenseReduction || 0,
+        target.reduction || 0,
+        targetMastery,
+        targetHpPct,
+        selfHpPct,
+        autoSyncSelfHp ? 1 : 0,
+        autoSyncSelfHp ? Math.round(result.characterMaxHp) : selfHp
+      ]
+    };
+    if (Object.keys(extra).length) payload.x = extra;
+
+    const encoded = encodeBase64UrlUtf8(JSON.stringify(payload));
+    return `${window.location.origin}${window.location.pathname}?b=${encoded}`;
+  }
+
+  async function copyShareUrl() {
+    if (typeof window === 'undefined') return;
+    const url = buildShareUrl();
+    try {
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(url);
+      } else {
+        const area = document.createElement('textarea');
+        area.value = url;
+        area.style.position = 'fixed';
+        area.style.opacity = '0';
+        document.body.appendChild(area);
+        area.select();
+        document.execCommand('copy');
+        document.body.removeChild(area);
+      }
+      setShareCopied(true);
+      window.setTimeout(() => setShareCopied(false), 2200);
+    } catch {
+      window.prompt('复制以下配装分享链接：', url);
+    }
+  }
+
+  function startCreateHeroPreset() {
+    const count = heroCustomPresets.length + 1;
+    const wLabel = weaponTypeOfficialName(selectedWeaponRaw);
+    setNewPresetName(`${wLabel !== '未设置' ? wLabel : '配装'}方案 ${count}`);
+    setIsCreatingPreset(true);
+  }
+
+  function saveNewHeroPreset() {
+    const trimmed = newPresetName.trim() || `方案 ${heroCustomPresets.length + 1}`;
+    const nextPreset = {
+      id: `preset-${Date.now()}`,
+      name: trimmed,
+      weaponRaw: selectedWeaponRaw || '',
+      weaponTypeFilter,
+      gear: clone(gear),
+      traitSelection: clone(traitSelection),
+      tacticalSkill,
+      tacticalUpgraded,
+      talentAp,
+      effectToggles: clone(effectToggles),
+      vampireFull,
+      quickComboItems: clone(quickComboItems),
+      updatedAt: new Date().toISOString()
+    };
+    setSavedHeroPresets((prev) => ({
+      ...prev,
+      [selectedHero]: [...(prev[selectedHero] || []), nextPreset]
+    }));
+    setIsCreatingPreset(false);
+    setNewPresetName('');
+  }
+
+  function applyCustomHeroPreset(preset) {
+    if (!preset) return;
+    const rawW = preset.weaponRaw || weaponTypeRaw(byName(equipment, preset.gear?.['武器'])) || selectedWeaponRaw;
+    if (rawW) {
+      const nextFilter = preset.weaponTypeFilter && preset.weaponTypeFilter !== '全部类型'
+        ? preset.weaponTypeFilter
+        : weaponTypeLabelForRaw(rawW);
+      setWeaponTypeFilter(nextFilter);
+      const key = loadoutKeyFor(selectedHero, rawW);
+      loadoutRecordKeyRef.current = key;
+      setHeroLoadouts((saved) => ({
+        ...saved,
+        [key]: {
+          gear: clone(preset.gear),
+          traitSelection: normalizeTraitSelection(preset.traitSelection || DEFAULT_TRAIT_SELECTION),
+          tacticalSkill: preset.tacticalSkill || tacticalSkill
+        }
+      }));
+    }
+    setGear(clone(preset.gear));
+    if (preset.traitSelection) setTraitSelection(normalizeTraitSelection(preset.traitSelection));
+    if (preset.tacticalSkill) setTacticalSkill(preset.tacticalSkill);
+    if (preset.tacticalUpgraded !== undefined) setTacticalUpgraded(Boolean(preset.tacticalUpgraded));
+    if (preset.talentAp !== undefined) setTalentAp(getNumber(preset.talentAp));
+    if (preset.effectToggles) setEffectToggles(clone(preset.effectToggles));
+    if (preset.vampireFull !== undefined) setVampireFull(Boolean(preset.vampireFull));
+    if (Array.isArray(preset.quickComboItems) && preset.quickComboItems.length) {
+      setQuickComboItems(clone(preset.quickComboItems));
+    }
+  }
+
+  function overwriteHeroPreset(presetId) {
+    setSavedHeroPresets((prev) => ({
+      ...prev,
+      [selectedHero]: (prev[selectedHero] || []).map((p) => (
+        p.id === presetId
+          ? {
+            ...p,
+            weaponRaw: selectedWeaponRaw || '',
+            weaponTypeFilter,
+            gear: clone(gear),
+            traitSelection: clone(traitSelection),
+            tacticalSkill,
+            tacticalUpgraded,
+            talentAp,
+            effectToggles: clone(effectToggles),
+            vampireFull,
+            quickComboItems: clone(quickComboItems),
+            updatedAt: new Date().toISOString()
+          }
+          : p
+      ))
+    }));
+  }
+
+  function deleteHeroPreset(presetId) {
+    setSavedHeroPresets((prev) => ({
+      ...prev,
+      [selectedHero]: (prev[selectedHero] || []).filter((p) => p.id !== presetId)
+    }));
+  }
+
+  function restoreOfficialRoutePreset() {
+    if (!currentOfficialPreset || !selectedWeaponRaw) return;
+    const key = loadoutKeyFor(selectedHero, selectedWeaponRaw);
+    setHeroLoadouts((saved) => {
+      if (!saved[key]) return saved;
+      const next = { ...saved };
+      delete next[key];
+      return next;
+    });
+    setGear((current) => {
+      const next = { ...current };
+      SLOTS.forEach((slot) => {
+        const name = currentOfficialPreset.gear[slot];
+        if (name !== undefined && (!name || byName(equipment, name))) next[slot] = name;
+      });
+      return next;
+    });
+    if (currentOfficialPreset.traitSelection) {
+      setTraitSelection(normalizeTraitSelection(currentOfficialPreset.traitSelection));
+    }
+    if (currentOfficialPreset.tacticalSkill) {
+      setTacticalSkill(currentOfficialPreset.tacticalSkill);
+    }
   }
 
   /**
@@ -3936,7 +4747,21 @@ export default function App() {
           ) : null}
           <div className="skillTotalValue">
             <span>{totalLabel}</span>
-            <DamageValue raw={totalRaw} final={totalFinal} rangeFrom={damageRange?.min} />
+            <DamageValue
+              raw={totalRaw}
+              final={totalFinal}
+              rangeFrom={damageRange?.min}
+              baselineFinal={activePin?.skillMap?.[skill.id] !== undefined && count === 1 && !options.primaryFinal
+                ? activePin.skillMap[skill.id]
+                : undefined}
+              onQuickCombo={() => appendQuickComboStep({
+                key: `skill:${skill.id}:${options.ruleHits || 1}`,
+                kind: 'skill',
+                refId: skill.id,
+                hits: options.ruleHits || 1,
+                label: `${skillMainSlot(skill)}·${label}`
+              })}
+            />
           </div>
           {selfAmp ? (
             <div className="skillTotalValue selfAmpValue">
@@ -4000,16 +4825,49 @@ export default function App() {
         <div className="skillLeafValues">
           <div className="skillTotalValue">
             <span>{selectedLabel}</span>
-            <DamageValue raw={selectedStep.raw} final={selectedStep.final} />
+            <DamageValue
+              raw={selectedStep.raw}
+              final={selectedStep.final}
+              baselineFinal={activePin?.skillMap?.[`prog:${skill.id}:${stepValue}`]}
+              onQuickCombo={() => appendQuickComboStep({
+                key: `prog:${skill.id}:step:${stepValue}`,
+                kind: 'skill-prog',
+                refId: skill.id,
+                step: stepValue,
+                label: `${skillMainSlot(skill)}·${label}(${stepValue}${unit || '档'})`
+              })}
+              quickComboTitle={`将【${stepValue}${unit || '档'}】加入连招（不同蓄力档位分开计算）`}
+            />
           </div>
         </div>
         <div className="progressiveDamageSteps" aria-label={`${stepLabel}伤害列表`}>
-          {steps.map((step) => (
-            <div className={step.step === stepValue ? 'active' : ''} key={`${skill.id}-${ruleId}-${step.step}`}>
-              <span>{step.step}{unit ? ` ${unit}` : ''} / {step.variable === 'ap' ? '技增' : step.variable} {pct(step.coefficient)}</span>
-              <DamageValue raw={step.raw} final={step.final} />
-            </div>
-          ))}
+          {steps.map((step) => {
+            const varLabelMap = { ap: '技增', attack: '攻击', extraAttack: '额外攻击', maxHp: '体力上限', extraHp: '额外体力', targetHp: '目标体力', defense: '防御' };
+            const varZh = varLabelMap[step.variable] || step.variable;
+            return (
+              <div
+                className={`progressiveStepInteractive ${step.step === stepValue ? 'active' : ''}`.trim()}
+                key={`${skill.id}-${ruleId}-${step.step}`}
+                onClick={() => updateSkillCount(stepKey, step.step, { min, max })}
+                title={`点击切换至 ${step.step}${unit ? ` ${unit}` : ''}`}
+              >
+                <span>{step.step}{unit ? ` ${unit}` : ''} / {varZh} {pct(step.coefficient)}</span>
+                <DamageValue
+                  raw={step.raw}
+                  final={step.final}
+                  baselineFinal={activePin?.skillMap?.[`prog:${skill.id}:${step.step}`]}
+                  onQuickCombo={() => appendQuickComboStep({
+                    key: `prog:${skill.id}:step:${step.step}`,
+                    kind: 'skill-prog',
+                    refId: skill.id,
+                    step: step.step,
+                    label: `${skillMainSlot(skill)}·${label}(${step.step}${unit || '档'})`
+                  })}
+                  quickComboTitle={`直接将【${step.step}${unit || '档'}】加入连招`}
+                />
+              </div>
+            );
+          })}
         </div>
         {rule?.note ? <p className="skillLeafNote">{rule.note}</p> : null}
       </div>
@@ -4087,12 +4945,13 @@ export default function App() {
   function renderSkillMainColumn(slot) {
     // 强化普攻类不进技能栏，它们在下面的「强化普攻」面板里
     const slotSkills = result.skills.filter((skill) => skillMainSlot(skill) === slot && skill.kind !== 'basicAttack');
-    // 等级归属可能和显示位置不同：R 强化段显示在 Q/W/E 下，等级仍由 R 这一槽的选择器控制。
-    // 所以 R 那一栏即使一条都不显示，也要保留它的等级选择器。
-    const levelSkills = result.skills.filter((skill) => skillLevelSlot(skill) === slot && skill.kind !== 'basicAttack');
+    // 等级归属可能和显示位置不同：R 强化段显示在 Q/W/E 下，强化普攻显示在下方「强化普攻」栏，
+    // 但等级仍由原技能槽的选择器控制，所以即使本槽不直接显示伤害条目也要保留等级选择器。
+    const levelSkills = result.skills.filter((skill) => skillLevelSlot(skill) === slot);
     const levelValue = levelSkills[0] ? skillLevels[levelSkills[0].id] : 1;
     // 这一槽的伤害段被挪到别处显示时，给个说明，别让人以为没数据
-    const movedAway = levelSkills.filter((skill) => skillMainSlot(skill) !== slot);
+    const movedAway = levelSkills.filter((skill) => skill.kind !== 'basicAttack' && skillMainSlot(skill) !== slot);
+    const basicAttackMoved = levelSkills.filter((skill) => skill.kind === 'basicAttack');
     const slotDescription = slotSkills.length ? (
       <span className="skillDescriptionContent">
         <strong>{slot} Lv.{levelValue}</strong>
@@ -4132,7 +4991,13 @@ export default function App() {
             {renderSlotLeaves(slotSkills)}
           </div>
         ) : (
-          <p className="note">{movedAway.length ? `${movedAway.length} 段强化伤害显示在被强化的技能下（标题带「（R强化）」），这里只控制等级` : '暂无技能数据'}</p>
+          <p className="note">
+            {movedAway.length
+              ? `${movedAway.length} 段强化伤害显示在被强化的技能下（标题带「（R强化）」），这里只控制等级`
+              : basicAttackMoved.length
+                ? `${basicAttackMoved.length} 段强化普攻显示在下方「强化普攻」栏，此处可调整技能等级`
+                : '暂无技能数据'}
+          </p>
         )}
       </div>
     );
@@ -4170,7 +5035,11 @@ export default function App() {
   function renderMultiHitSkillDamage(skill, label, maxHits) {
     const hitKey = `${skill.id}-hits`;
     const stored = getNumber(skillTargetCounts[hitKey]);
-    const defaultHits = Math.max(1, Math.min(maxHits, getNumber(skill.defaultHits) || 1));
+    const dynHits = skillDisplayRule(selectedHero, skill.id)?.dynamicHitsByBonusAs;
+    const computedDefault = dynHits
+      ? Math.min(getNumber(dynHits.max) || maxHits, getNumber(dynHits.base) + Math.floor((result.totalBonusAttackSpeed + 1e-6) / (getNumber(dynHits.step) || 0.2)))
+      : (getNumber(skill.defaultHits) || 1);
+    const defaultHits = Math.max(1, Math.min(maxHits, computedDefault));
     const hits = stored > 0 ? Math.min(maxHits, stored) : defaultHits;
     const single = scaledSkillDamage(skill, result.finalMod, { context: result.formulaContext });
     const picked = scaledSkillDamage(skill, result.finalMod, { hits, context: result.formulaContext });
@@ -4225,7 +5094,22 @@ export default function App() {
           </div>
           <div className="skillTotalValue">
             <span>中 {hits} 次合计</span>
-            <DamageValue raw={picked.raw} final={picked.final} />
+            <DamageValue
+              raw={picked.raw}
+              final={picked.final}
+              baselineFinal={activePin?.skillMap?.[`multihit:${skill.id}`]}
+              onQuickCombo={() => {
+                for (let i = 0; i < hits; i += 1) {
+                  appendQuickComboStep({
+                    key: `multihit:${skill.id}`,
+                    kind: 'skill-multihit',
+                    refId: skill.id,
+                    label: `${skillMainSlot(skill)}·${label}(单发)`
+                  });
+                }
+              }}
+              quickComboTitle={`将 ${hits} 次命中加入连招`}
+            />
           </div>
         </div>
         {skill.hitNote ? <p className="skillLeafNote">{skill.hitNote}</p> : null}
@@ -4389,6 +5273,7 @@ export default function App() {
         totalLabel: rule.totalLabelSuffix
           ? (nextCount) => `${nextCount > 1 ? `${nextCount} 目标总计` : '单目标'}${rule.totalLabelSuffix}`
           : undefined,
+        ruleHits: hits,
         showBreakdown: Boolean(rule.showBreakdown)
       });
     }
@@ -4508,26 +5393,45 @@ export default function App() {
                   <input value={scenario.name} onChange={(event) => updateComparisonScenario(scenario.id, { name: event.target.value })} aria-label="方案名称" />
                   <button type="button" className="quietButton" onClick={() => removeComparisonScenario(scenario.id)} disabled={comparisonScenarios.length <= 1}>删除</button>
                 </div>
-                <div className="comparisonGearGrid">
-                  {SLOTS.map((slot) => (
-                    <label className="selectBlock" key={`${scenario.id}-${slot}`}>
-                      <span>{slot}</span>
-                      <select
-                        className="qualitySelect"
-                        value={scenario.gear[slot] || ''}
-                        style={{ color: qualityColor(byName(equipment, scenario.gear[slot])?.quality, uiTheme) }}
-                        onChange={(event) => updateComparisonScenarioGear(scenario.id, slot, event.target.value)}
-                      >
-                        <option value={EMPTY_GEAR_VALUE}>{EMPTY_GEAR_LABEL}</option>
-                        {comparisonChoicesForSlot(slot, scenario).map((item) => (
-                          <option value={item.name} key={`${slot}-${item.name}`} style={{ color: qualityColor(item.quality, uiTheme) }}>
-                            {item.name}
-                          </option>
-                        ))}
-                      </select>
-                    </label>
-                  ))}
-                </div>
+                {useVisualGearPicker ? (
+                  <VisualGearBar
+                    slots={SLOTS}
+                    gear={scenario.gear}
+                    equipment={equipment}
+                    choicesBySlot={Object.fromEntries(SLOTS.map((slot) => [slot, comparisonChoicesForSlot(slot, scenario)]))}
+                    mastery={selectedComparisonMasteryLevel || 20}
+                    uiTheme={uiTheme}
+                    compact
+                    showLowerTierEquipment={showLowerTierEquipment}
+                    onToggleLowerTier={setShowLowerTierEquipment}
+                    onSelectGear={(slot, itemName) => updateComparisonScenarioGear(scenario.id, slot, itemName)}
+                    uniqueEffectsForItem={uniqueEffectsForItem}
+                    qualityColor={qualityColor}
+                    PortalHovercard={PortalHovercard}
+                    renderHoverContent={(item) => <EquipmentItemHoverContent item={item} mastery={selectedComparisonMasteryLevel || 20} uiTheme={uiTheme} />}
+                  />
+                ) : (
+                  <div className="comparisonGearGrid">
+                    {SLOTS.map((slot) => (
+                      <label className="selectBlock" key={`${scenario.id}-${slot}`}>
+                        <span>{slot}</span>
+                        <select
+                          className="qualitySelect"
+                          value={scenario.gear[slot] || ''}
+                          style={{ color: qualityColor(byName(equipment, scenario.gear[slot])?.quality, uiTheme) }}
+                          onChange={(event) => updateComparisonScenarioGear(scenario.id, slot, event.target.value)}
+                        >
+                          <option value={EMPTY_GEAR_VALUE}>{EMPTY_GEAR_LABEL}</option>
+                          {comparisonChoicesForSlot(slot, scenario).map((item) => (
+                            <option value={item.name} key={`${slot}-${item.name}`} style={{ color: qualityColor(item.quality, uiTheme) }}>
+                              {item.name}
+                            </option>
+                          ))}
+                        </select>
+                      </label>
+                    ))}
+                  </div>
+                )}
                 {effectOptions.length ? (
                   <div className="comparisonEffectToggles">
                     {effectOptions.map((option) => (
@@ -4551,19 +5455,26 @@ export default function App() {
             </div>
             <span className="pill">{comparisonRows.length} 行 / {comparisonMetricColumns.length} 列</span>
           </div>
-          {comparisonChartMetrics.map((metric) => (
-            <ComparisonChart
-              key={metric.key}
-              rows={comparisonRows}
-              metricKey={metric.key}
-              metricLabel={metric.label}
-              selectedMastery={selectedComparisonMasteryLevel}
-              onSelectMastery={setSelectedComparisonMastery}
-              collapsed={collapsedComparisonCharts.includes(metric.key)}
-              onToggleCollapsed={toggleComparisonChart}
-              formatValue={formatComparisonValue}
-            />
-          ))}
+          <div className={`comparisonChartsGrid ${comparisonChartMetrics.length > 1 ? 'multiCharts' : 'singleChart'}`}>
+            {comparisonChartMetrics.map((metric) => {
+              const isCollapsed = collapsedComparisonCharts.includes(metric.key);
+              const useWideCanvas = wideLayout && (comparisonChartMetrics.length === 1 || isCollapsed);
+              return (
+                <ComparisonChart
+                  key={metric.key}
+                  rows={comparisonRows}
+                  metricKey={metric.key}
+                  metricLabel={metric.label}
+                  selectedMastery={selectedComparisonMasteryLevel}
+                  onSelectMastery={setSelectedComparisonMastery}
+                  collapsed={isCollapsed}
+                  onToggleCollapsed={toggleComparisonChart}
+                  formatValue={formatComparisonValue}
+                  wideCanvas={useWideCanvas}
+                />
+              );
+            })}
+          </div>
           {comparisonDeltaRows.length ? (
             <div className={`comparisonDeltaBlock ${deltaPanelCollapsed ? 'collapsed' : ''}`}>
               <div className="comparisonDeltaHead">
@@ -4709,7 +5620,6 @@ export default function App() {
               <CharacterAvatar character={character} fallbackName={name} />
               <span>
                 <strong>{name}</strong>
-                <small>{character?.englishName || '手动配置'}</small>
               </span>
             </button>
           ))}
@@ -4752,6 +5662,14 @@ export default function App() {
               </button>
               <button type="button" className={activePage === 'compare' ? 'active' : ''} onClick={() => setActivePage('compare')}>
                 拉表对比
+              </button>
+              <button
+                type="button"
+                className={wideLayout ? 'active' : ''}
+                onClick={() => setWideLayout((v) => !v)}
+                title="切换横屏自适应铺满 / 传统窄版居中"
+              >
+                {wideLayout ? '↔ 宽屏铺满' : '▫ 窄版居中'}
               </button>
               {GAME_VERSION.label ? (
                 <span className="dataVersionTag" title={GAME_VERSION.note || ''}>
@@ -4855,9 +5773,10 @@ export default function App() {
 
       {activePage === 'compare' ? renderComparisonPage() : (
       <>
-      <section className="grid twoColumns buildTargetGrid">
-        <div className={`buildArea ${useHeroAvatarPicker ? 'hasHeroAvatarRail' : ''}`}>
-          {renderHeroAvatarPicker('floatingHeroAvatarPicker')}
+      <section className={`grid twoColumns buildTargetGrid ${useHeroAvatarPicker ? 'withAvatarRail' : ''}`.trim()}>
+        {wideLayout && useHeroAvatarPicker ? renderHeroAvatarPicker('wideRailAvatarPicker') : null}
+        <div className={`buildArea ${!wideLayout && useHeroAvatarPicker ? 'hasHeroAvatarRail' : ''}`}>
+          {!wideLayout ? renderHeroAvatarPicker('floatingHeroAvatarPicker') : null}
           <div className="panel buildPanel">
           <div className="panelHead">
             <div>
@@ -4867,6 +5786,32 @@ export default function App() {
             <div className="buttonRow">
               <button
                 type="button"
+                className={`quietButton shareBuildBtn ${shareCopied ? 'copied' : ''}`}
+                onClick={copyShareUrl}
+                title="将当前实验体、五件装备、潜能、目标设置与连招序列压缩为短链接复制到剪贴板"
+              >
+                {shareCopied ? '✓ 已复制分享链接' : '🔗 分享配装'}
+              </button>
+              <button
+                type="button"
+                className={`pinBaselineBtn ${activePin ? 'pinned' : ''}`}
+                onClick={capturePinBaseline}
+                title="把当前装备与面板伤害钉为基准，之后换装会实时用绿/红字标出每项伤害增减"
+              >
+                {activePin ? '📌 更新基准快照' : '📌 钉住当前作基准'}
+              </button>
+              {activePin ? (
+                <>
+                  <button type="button" className="quietButton" onClick={restorePinnedGear} title="一键穿回钉住时的基准装备与潜能">
+                    还原基准装
+                  </button>
+                  <button type="button" className="quietButton" onClick={() => setPinnedBaseline(null)} title="清除基准快照">
+                    清除基准
+                  </button>
+                </>
+              ) : null}
+              <button
+                type="button"
                 className={`quietButton ${showBuildSettings ? 'active' : ''}`}
                 onClick={() => setShowBuildSettings((current) => !current)}
               >
@@ -4874,12 +5819,140 @@ export default function App() {
               </button>
             </div>
           </div>
+          {sharedLoadedBanner ? (
+            <div className="sharedLoadedBanner">
+              <span>🔗 已从分享链接还原该套配装、潜能与连招序列</span>
+              <button type="button" className="quietButton" onClick={() => setSharedLoadedBanner(false)}>知道了</button>
+            </div>
+          ) : null}
+          <div className="heroPresetBar" aria-label="单角色配装预设标签">
+            <span className="heroPresetLabel">预设方案</span>
+            <div className="heroPresetList">
+              {currentOfficialPreset ? (
+                <button
+                  type="button"
+                  className={`heroPresetChip isOfficial ${loadoutFieldsEqual({ gear, traitSelection, tacticalSkill }, currentOfficialPreset) ? 'isActive' : ''}`.trim()}
+                  onClick={restoreOfficialRoutePreset}
+                  title={`还原默认推荐路线${currentOfficialPreset.gameVersion ? `（数据版本 ${currentOfficialPreset.gameVersion}）` : ''}`}
+                >
+                  <span>默认推荐</span>
+                </button>
+              ) : null}
+              {heroCustomPresets.map((preset) => {
+                const isMatched = loadoutFieldsEqual({ gear, traitSelection, tacticalSkill }, preset);
+                return (
+                  <div className={`heroPresetTagWrap ${isMatched ? 'isActive' : ''}`.trim()} key={preset.id}>
+                    <button
+                      type="button"
+                      className="heroPresetChip"
+                      onClick={() => applyCustomHeroPreset(preset)}
+                      title={`点击切换至「${preset.name}」：${SLOTS.map((s) => preset.gear?.[s] || '空').join(' · ')}`}
+                    >
+                      <span>{preset.name}</span>
+                    </button>
+                    {!isMatched ? (
+                      <button
+                        type="button"
+                        className="heroPresetMiniAct"
+                        onClick={() => overwriteHeroPreset(preset.id)}
+                        title={`用当前穿戴的装备与潜能覆盖更新「${preset.name}」`}
+                        aria-label={`更新预设 ${preset.name}`}
+                      >
+                        ↻
+                      </button>
+                    ) : null}
+                    <button
+                      type="button"
+                      className="heroPresetMiniAct isDelete"
+                      onClick={() => deleteHeroPreset(preset.id)}
+                      title={`删除预设「${preset.name}」`}
+                      aria-label={`删除预设 ${preset.name}`}
+                    >
+                      ×
+                    </button>
+                  </div>
+                );
+              })}
+              {isCreatingPreset ? (
+                <div className="heroPresetCreateForm">
+                  <input
+                    type="text"
+                    value={newPresetName}
+                    onChange={(event) => setNewPresetName(event.target.value)}
+                    onKeyDown={(event) => {
+                      if (event.key === 'Enter') saveNewHeroPreset();
+                      if (event.key === 'Escape') { setIsCreatingPreset(false); setNewPresetName(''); }
+                    }}
+                    placeholder="如：四红神装 / 半肉装"
+                    maxLength={20}
+                    autoFocus
+                  />
+                  <button type="button" className="heroPresetSaveBtn" onClick={saveNewHeroPreset}>保存</button>
+                  <button type="button" className="quietButton" onClick={() => { setIsCreatingPreset(false); setNewPresetName(''); }}>取消</button>
+                </div>
+              ) : (
+                <button
+                  type="button"
+                  className="heroPresetAddBtn"
+                  onClick={startCreateHeroPreset}
+                  title="将当前穿戴的装备、潜能、战术技能与连招保存为此实验体的快捷标签"
+                >
+                  + 存为预设
+                </button>
+              )}
+            </div>
+          </div>
+          {activePin ? (
+            <div className="pinnedBaselineBanner">
+              <div className="pinnedBannerTopBar">
+                <div className="pinnedBannerMain">
+                  <strong>📌 基准快照对比中（Lv.{activePin.mastery}）</strong>
+                  <span>基准配装：{activePin.gearSummary}</span>
+                </div>
+                <button
+                  type="button"
+                  className="quietButton pinnedToggleAllBtn"
+                  onClick={() => setShowAllPinnedStats((v) => !v)}
+                >
+                  {showAllPinnedStats ? '只看变动项' : `展开全部 ${pinnedStatDiffRows.length} 项属性`}
+                </button>
+              </div>
+              <div className="pinnedStatGrid">
+                {(showAllPinnedStats
+                  ? pinnedStatDiffRows
+                  : (pinnedStatDiffRows.filter((r) => r.changed).length
+                    ? pinnedStatDiffRows.filter((r) => r.changed)
+                    : pinnedStatDiffRows.slice(0, 6))
+                ).map((row) => (
+                  <div className={`pinnedStatCell ${row.changed ? (row.diff > 0 ? 'isUp' : 'isDown') : ''}`.trim()} key={row.key}>
+                    <span className="pinnedStatLabel">{row.label}</span>
+                    <div className="pinnedStatNums">
+                      <small className="pinnedOldVal">{row.baseText} →</small>
+                      <strong>{row.curText}</strong>
+                      <InlineDeltaBadge current={row.cur} baseline={row.base} digits={row.digits || 0} isPercent={Boolean(row.isPercent)} />
+                    </div>
+                  </div>
+                ))}
+              </div>
+              {!showAllPinnedStats && pinnedStatDiffRows.every((r) => !r.changed) ? (
+                <small className="pinnedUnchangedHint">当前配装与基准快照完全一致；更换上方任意装备/潜能/等级后将自动列出属性差值。</small>
+              ) : null}
+            </div>
+          ) : null}
           {showBuildSettings ? (
             <div className="buildSettingsMenu">
               <div className="panelSubhead">
                 <strong>显示设置</strong>
                 <span>配装器</span>
               </div>
+              <label className="toggle">
+                <input
+                  type="checkbox"
+                  checked={useVisualGearPicker}
+                  onChange={(event) => setUseVisualGearPicker(event.target.checked)}
+                />
+                <span>使用可视化图标配装器（支持搜索与词条快筛）</span>
+              </label>
               <label className="toggle">
                 <input
                   type="checkbox"
@@ -4905,54 +5978,96 @@ export default function App() {
           ) : null}
           <div className="buildControlLayout">
             <div>
-              <div className="gearGrid">
-                <label className="selectBlock">
-                  <LabelWithHelp note={help('select.weaponType')}>武器类型</LabelWithHelp>
-                  <select value={weaponTypeFilter} onChange={(event) => updateWeaponType(event.target.value)}>
-                    <option value="全部类型">全部类型</option>
-                    {heroWeaponOptions.filter((type) => type !== '全部类型').map((type) => <option value={type} key={type}>{type}</option>)}
-                  </select>
-                </label>
-                {SLOTS.map((slot) => (
-                  <label className="selectBlock" key={slot}>
-                    <LabelWithHelp note={help('equipment.type')}>{slot}</LabelWithHelp>
-                    <select
-                      className="qualitySelect"
-                      value={gear[slot]}
-                      style={{ color: qualityColor(byName(equipment, gear[slot])?.quality, uiTheme) }}
-                      onChange={(event) => updateGear(slot, event.target.value)}
-                    >
-                      <option value={EMPTY_GEAR_VALUE}>{EMPTY_GEAR_LABEL}</option>
-                      {builderChoicesBySlot[slot].map((item) => (
-                        <option value={item.name} key={`${item.type}-${item.name}`} style={{ color: qualityColor(item.quality, uiTheme) }}>
-                          {slot === '武器' ? `${item.name} / ${item.weaponType || '未设置'}` : item.name}
-                        </option>
-                      ))}
+              {useVisualGearPicker ? (
+                <>
+                  <VisualGearBar
+                    slots={SLOTS}
+                    gear={gear}
+                    equipment={equipment}
+                    choicesBySlot={builderChoicesBySlot}
+                    mastery={mastery}
+                    uiTheme={uiTheme}
+                    weaponTypeFilter={weaponTypeFilter}
+                    heroWeaponOptions={heroWeaponOptions}
+                    onChangeWeaponType={updateWeaponType}
+                    showLowerTierEquipment={showLowerTierEquipment}
+                    onToggleLowerTier={setShowLowerTierEquipment}
+                    onSelectGear={updateGear}
+                    uniqueEffectsForItem={uniqueEffectsForItem}
+                    qualityColor={qualityColor}
+                    PortalHovercard={PortalHovercard}
+                    renderHoverContent={(item) => <EquipmentItemHoverContent item={item} mastery={mastery} uiTheme={uiTheme} />}
+                  />
+                  <div className="gearGrid vgAuxControlGrid">
+                    <label className="selectBlock">
+                      <LabelWithHelp note={help('select.weaponType')}>武器路线类型</LabelWithHelp>
+                      <select value={weaponTypeFilter} onChange={(event) => updateWeaponType(event.target.value)}>
+                        <option value="全部类型">全部类型</option>
+                        {heroWeaponOptions.filter((type) => type !== '全部类型').map((type) => <option value={type} key={type}>{type}</option>)}
+                      </select>
+                    </label>
+                    <label className="selectBlock">
+                      <LabelWithHelp note={help('select.tacticalSkill')}>战术技能选择</LabelWithHelp>
+                      <select value={tacticalSkill} onChange={(event) => setTacticalSkill(event.target.value)}>
+                        {TACTICAL_SKILL_OPTIONS.map((name) => <option value={name} key={name}>{name}</option>)}
+                      </select>
+                    </label>
+                    <Field label="熟练度等级" value={mastery} onChange={setMastery} min={1} max={20} note={help('field.mastery')} />
+                    <Field label="手动潜能法强" value={talentAp} onChange={setTalentAp} note={help('field.talentAp')} />
+                  </div>
+                </>
+              ) : (
+                <div className="gearGrid">
+                  <label className="selectBlock">
+                    <LabelWithHelp note={help('select.weaponType')}>武器类型</LabelWithHelp>
+                    <select value={weaponTypeFilter} onChange={(event) => updateWeaponType(event.target.value)}>
+                      <option value="全部类型">全部类型</option>
+                      {heroWeaponOptions.filter((type) => type !== '全部类型').map((type) => <option value={type} key={type}>{type}</option>)}
                     </select>
                   </label>
-                ))}
-                <label className="selectBlock">
-                  <LabelWithHelp note={help('select.tacticalSkill')}>战术技能选择</LabelWithHelp>
-                  <select value={tacticalSkill} onChange={(event) => setTacticalSkill(event.target.value)}>
-                    {TACTICAL_SKILL_OPTIONS.map((name) => <option value={name} key={name}>{name}</option>)}
-                  </select>
-                </label>
-                <Field label="熟练度等级" value={mastery} onChange={setMastery} min={1} max={20} note={help('field.mastery')} />
-                <Field label="手动潜能法强" value={talentAp} onChange={setTalentAp} note={help('field.talentAp')} />
-              </div>
-              <div className="chips">
-                {result.selected.map((item) => (
-                  <PortalHovercard
-                    content={<EquipmentItemHoverContent item={item} mastery={mastery} uiTheme={uiTheme} />}
-                    className="equipmentChipHover"
-                    key={`${item.type}-${item.name}`}
-                  >
-                    <span className="chip" style={{ color: qualityColor(item.quality, uiTheme) }}>
-                      {item.name}{uniqueEffectsForItem(item).length ? ` / ${uniqueEffectsForItem(item).join(',')}` : ''}
-                    </span>
-                  </PortalHovercard>
-                ))}
-              </div>
+                  {SLOTS.map((slot) => (
+                    <label className="selectBlock" key={slot}>
+                      <LabelWithHelp note={help('equipment.type')}>{slot}</LabelWithHelp>
+                      <select
+                        className="qualitySelect"
+                        value={gear[slot]}
+                        style={{ color: qualityColor(byName(equipment, gear[slot])?.quality, uiTheme) }}
+                        onChange={(event) => updateGear(slot, event.target.value)}
+                      >
+                        <option value={EMPTY_GEAR_VALUE}>{EMPTY_GEAR_LABEL}</option>
+                        {builderChoicesBySlot[slot].map((item) => (
+                          <option value={item.name} key={`${item.type}-${item.name}`} style={{ color: qualityColor(item.quality, uiTheme) }}>
+                            {slot === '武器' ? `${item.name} / ${item.weaponType || '未设置'}` : item.name}
+                          </option>
+                        ))}
+                      </select>
+                    </label>
+                  ))}
+                  <label className="selectBlock">
+                    <LabelWithHelp note={help('select.tacticalSkill')}>战术技能选择</LabelWithHelp>
+                    <select value={tacticalSkill} onChange={(event) => setTacticalSkill(event.target.value)}>
+                      {TACTICAL_SKILL_OPTIONS.map((name) => <option value={name} key={name}>{name}</option>)}
+                    </select>
+                  </label>
+                  <Field label="熟练度等级" value={mastery} onChange={setMastery} min={1} max={20} note={help('field.mastery')} />
+                  <Field label="手动潜能法强" value={talentAp} onChange={setTalentAp} note={help('field.talentAp')} />
+                </div>
+              )}
+              {!useVisualGearPicker ? (
+                <div className="chips">
+                  {result.selected.map((item) => (
+                    <PortalHovercard
+                      content={<EquipmentItemHoverContent item={item} mastery={mastery} uiTheme={uiTheme} />}
+                      className="equipmentChipHover"
+                      key={`${item.type}-${item.name}`}
+                    >
+                      <span className="chip" style={{ color: qualityColor(item.quality, uiTheme) }}>
+                        {item.name}{uniqueEffectsForItem(item).length ? ` / ${uniqueEffectsForItem(item).join(',')}` : ''}
+                      </span>
+                    </PortalHovercard>
+                  ))}
+                </div>
+              ) : null}
             </div>
           </div>
           <details className="equipmentEffectRail mobileEquipmentEffectRail">
@@ -5027,31 +6142,108 @@ export default function App() {
               </select>
             </label>
             <Field label="目标通用减伤" value={target.reduction} onChange={(value) => updateTarget('reduction', value)} suffix="小数" step={0.01} note={help('field.targetReduction')} />
-            <Field label="自身血量" value={selfHp} onChange={setSelfHp} note={help('field.selfHp')} />
+            <div className="field selfHpField">
+              <div className="selfHpHeadRow">
+                <LabelWithHelp note={help('field.selfHp')}>自身血量</LabelWithHelp>
+                <button
+                  type="button"
+                  className={`selfHpSyncBtn ${autoSyncSelfHp ? 'active' : ''}`}
+                  onClick={() => {
+                    const next = !autoSyncSelfHp;
+                    setAutoSyncSelfHp(next);
+                    if (next && result.characterMaxHp > 0) {
+                      setSelfHp(Math.round(result.characterMaxHp));
+                    }
+                  }}
+                  title={autoSyncSelfHp
+                    ? '当前自动跟随配装与等级血量上限；点击切换为手动固定血量'
+                    : `当前为手动固定血量；点击恢复跟随配装血量上限（${Math.round(result.characterMaxHp)}）`}
+                >
+                  {autoSyncSelfHp ? '🔗 跟随上限' : '✎ 手动固定'}
+                </button>
+              </div>
+              <div className="fieldInput">
+                <input
+                  type="number"
+                  value={autoSyncSelfHp ? Math.round(result.characterMaxHp) : selfHp}
+                  onChange={(event) => {
+                    setAutoSyncSelfHp(false);
+                    setSelfHp(getNumber(event.target.value));
+                  }}
+                  aria-label="自身血量"
+                />
+                {autoSyncSelfHp ? <b>自动</b> : null}
+              </div>
+            </div>
             <Field label="手动伤害提升百分比" value={damageBonus} onChange={setDamageBonus} suffix="小数" step={0.01} note={help('field.damageBonus')} />
             <Field label="手动技能伤害减免" value={skillReduction} onChange={setSkillReduction} suffix="小数" step={0.01} note={help('field.skillReduction')} />
           </div>
           <div className="finalDamageModBlock">
             <span>最终伤害修正值</span>
-            <strong>{round(result.finalMod, 3)}</strong>
+            <strong>
+              {round(result.finalMod, 3)}
+              {activePin ? <InlineDeltaBadge current={result.finalMod} baseline={activePin.finalMod} digits={3} /> : null}
+            </strong>
           </div>
         </div>
 
+        {/* 宽屏模式第 3 列：核心面板与对抗倍率看板（紧凑双列仪表盘） */}
+        {wideLayout ? (
+          <div className="panel wideKeyStatsColumn">
+            <div className="panelHead">
+              <div>
+                <h2>核心数据概览</h2>
+              </div>
+              <span className="pill">Lv.{mastery} · {weaponTypeOfficialName(selectedWeaponRaw)}</span>
+            </div>
+            <div className="wideKeyStatsGrid">
+              <StatCard label="最终法强" value={result.ap} hint={`${round(result.totalBaseAp, 1)}${result.convertedAp ? `（含转化 +${round(result.convertedAp, 1)}）` : ''} × (1 + ${pct(result.totalApPct)})`} note={help('stat.equipAp')} />
+              <StatCard label="最终攻击力" value={round(finalAttack, 1)} hint={attackBreakdownHint} note={help('stat.finalAttack')} />
+              <StatCard
+                label="每发平A / 暴击"
+                value={`${result.basicAttackDamage.normal} / ${result.basicAttackDamage.critical}`}
+                hint={`暴击 ${pct(result.critChance)} · 攻速 ${round(result.finalAttackSpeed, 2)}/s${result.attackSpeedFixed ? ' (固定)' : (result.uncappedAttackSpeed > result.attackSpeedCap ? ' (满上限)' : '')} (+${pct(result.totalBonusAttackSpeed)})`}
+              />
+              <StatCard label="血量 / 防御 / 冷却" value={`${round(result.characterMaxHp, 0)} / ${round(result.selfDefense, 0)} / ${result.cd}%`} hint={`防穿 ${result.pen} | ${pct(result.penPct)}`} note={help('stat.pen')} />
+              <StatCard label="目标最终防御" value={round(result.finalDefense, 1)} hint={`防御修正 ${pct(result.defenseMod)}`} note={help('stat.finalDefense')} />
+              <StatCard label="自身伤害提升" value={pct(result.totalDamageBonus)} hint={`装备 ${pct(result.equipDamageBonus)} / 潜能 ${pct(result.talentDamageBonus)} / 手动 ${pct(damageBonus)}`} note={help('stat.damageBonus')} />
+              <StatCard label="目标技能/平A减伤" value={`${pct(result.totalSkillReduction)} / ${pct(result.basicAttackTargetReductionRatio)}`} hint={`目标 Lv.${result.targetMasteryLevel} 熟练减伤`} note={help('field.targetMastery')} />
+              <StatCard label="增减伤合算" value={pct(result.damageMod - 1)} hint={`最终伤害倍率 ${round(result.finalMod, 3)}`} note={help('stat.damageMod')} />
+              {showBasicAttackAmp ? (
+                <StatCard
+                  label="普攻增幅"
+                  value={pct(result.basicAttackAmp)}
+                  hint={`熟练 ${pct(result.masteryBasicAttackDamageRatio)} / 装备特效 ${pct(result.basicAttackAmp - result.masteryBasicAttackDamageRatio)}`}
+                  note={help('stat.basicAttackAmp')}
+                />
+              ) : null}
+              {hasBurstTrait ? (
+                <StatCard label="爆发力血量差" value={pct(result.hpDiffRatio)} hint={`追伤 +${pct(result.burstBonus)}`} note={help('stat.hpDiffRatio')} />
+              ) : null}
+            </div>
+          </div>
+        ) : null}
+
         <details className="currentStatsBlock buildTargetStatsBlock collapsibleStats">
           <summary className="panelSubhead">
-            <strong>当前角色属性汇总</strong>
-            <span>{visibleEquipmentStats.length + 6} 项显示</span>
+            <strong>当前角色更多属性明细</strong>
+            <span>{visibleEquipmentStats.length + 7} 项显示</span>
           </summary>
           <div className="attributePanel">
             <div>
               <span>当前法强</span>
               <strong>{result.ap}</strong>
-              <small>装备 {result.equipAp} + 手动 {talentAp} + 潜能 {result.talentBonusAp} + 叠层 {result.stackAp}，加成 {pct(result.totalApPct)}</small>
+              <small>装备 {result.equipAp} + 手动 {talentAp} + 潜能 {result.talentBonusAp} + 叠层 {result.stackAp}{result.convertedAp ? ` + 转化 ${round(result.convertedAp, 1)}` : ''}，加成 {pct(result.totalApPct)}</small>
             </div>
             <div>
               <span>攻击力</span>
               <strong>{round(finalAttack, 1)}</strong>
-              <small>基础 {round(result.baseAttackPower, 1)} + 额外 {round(result.extraAttackPower, 1)}</small>
+              <small>{attackBreakdownHint}</small>
+            </div>
+            <div>
+              <span>面板攻速</span>
+              <strong>{round(result.finalAttackSpeed, 2)}/s</strong>
+              <small>基础 {round(result.baseAttackSpeed, 3)} × (1 + {pct(result.totalBonusAttackSpeed)}){result.attackSpeedFixed ? ' · 被动固定攻速' : ` · 上限 ${result.attackSpeedCap}/s`}</small>
             </div>
             <div>
               <span>血量上限</span>
@@ -5081,113 +6273,185 @@ export default function App() {
         </details>
       </section>
 
-      <section className="stats">
-        <StatCard label="自身最终法强" value={result.ap} hint={`${round(result.totalBaseAp, 1)} * (1 + ${pct(result.totalApPct)})`} note={help('stat.equipAp')} />
-        <StatCard label="自身最终攻击力" value={round(finalAttack, 1)} hint={attackBreakdownHint} note={help('stat.finalAttack')} />
-        <StatCard label="对目标：目标最终防御" value={round(result.finalDefense, 1)} hint={`防御修正 ${pct(result.defenseMod)}`} note={help('stat.finalDefense')} />
-        <StatCard label="防御穿透" value={`${result.pen} / ${pct(result.penPct)}`} hint="数值 / 百分比" note={help('stat.pen')} />
-        <StatCard label="自身伤害提升" value={pct(result.totalDamageBonus)} hint={`装备 ${pct(result.equipDamageBonus)} / 潜能 ${pct(result.talentDamageBonus)} / 手动 ${pct(damageBonus)}`} note={help('stat.damageBonus')} />
-        <StatCard label="目标身上的技能减伤" value={pct(result.totalSkillReduction)} hint={`目标熟练 ${pct(result.targetMasterySkillReduction)} / 手动 ${pct(skillReduction)}，平A熟练减伤 ${pct(result.targetMasteryBasicReduction)}`} note={help('field.targetMastery')} />
-        <StatCard label="增减伤合算" value={pct(result.damageMod - 1)} hint={`最终倍率 ${round(result.damageMod, 3)}`} note={help('stat.damageMod')} />
-        {showBasicAttackAmp ? (
+      {/* 窄版居中模式保留原版横向 stats 卡片带，不破坏老习惯 */}
+      {!wideLayout ? (
+        <section className="stats">
+          <StatCard label="自身最终法强" value={result.ap} hint={`${round(result.totalBaseAp, 1)}${result.convertedAp ? `（含转化 +${round(result.convertedAp, 1)}）` : ''} × (1 + ${pct(result.totalApPct)})`} note={help('stat.equipAp')} />
+          <StatCard label="自身最终攻击力" value={round(finalAttack, 1)} hint={attackBreakdownHint} note={help('stat.finalAttack')} />
           <StatCard
-            label="普攻增幅"
-            value={pct(result.basicAttackAmp)}
-            hint={`熟练度 ${pct(result.masteryBasicAttackDamageRatio)} / 装备与特效 ${pct(result.basicAttackAmp - result.masteryBasicAttackDamageRatio)}`
-              + (result.basicAttackFlatBonus ? `，普攻额外伤害 +${round(result.basicAttackFlatBonus, 1)}` : '')}
-            note={help('stat.basicAttackAmp')}
+            label="每发平A / 面板攻速"
+            value={`${result.basicAttackDamage.normal} / ${round(result.finalAttackSpeed, 2)}/s`}
+            hint={`暴击 ${result.basicAttackDamage.critical} (${pct(result.critChance)}) · 额外攻速 +${pct(result.totalBonusAttackSpeed)}${result.attackSpeedFixed ? ' · 攻速固定' : ''}`}
           />
-        ) : null}
-        {hasBurstTrait ? (
-          <StatCard label="血量差比" value={pct(result.hpDiffRatio)} hint={`爆发力追伤 ${pct(result.burstBonus)}`} note={help('stat.hpDiffRatio')} />
-        ) : null}
-      </section>
-
-      {selectedCharacter ? (
-        <details className="panel sourcePanel sourceDetails">
-          <summary className="panelHead sourceSummary">
-            <div>
-              <p className="eyebrow">ER GameData</p>
-              <h2>{selectedCharacter.name} 官方数据</h2>
-            </div>
-            <span className="pill">{OFFICIAL_DATA_COUNTS.characters} 名角色 / {OFFICIAL_DATA_COUNTS.calculableSkills} 条可计算技能</span>
-          </summary>
-          <div className="sourceBody">
-            <div className="sourceGrid">
-              <div className="characterCard">
-                <CharacterAvatar character={selectedCharacter} fallbackName={selectedHero} />
-                <div>
-                  <strong>{selectedCharacter.storyName || selectedCharacter.name}</strong>
-                  <span>{selectedCharacter.englishName} / {selectedCharacter.archetypes.join(', ') || '未分类'}</span>
-                  <small>{selectedCharacter.playTip}</small>
-                  <small className="characterWeapons">熟练武器：{weaponTypeOfficialList(selectedCharacter.weapons)}</small>
-                </div>
-              </div>
-              <div className="miniStats">
-                <StatCard label="基础血量" value={selectedCharacter.base.hp} hint={`成长 +${round(selectedCharacter.growth?.maxHp || 0, 2)} / 级`} />
-                <StatCard label="基础攻击" value={selectedCharacter.base.attackPower} hint={`成长 +${round(selectedCharacter.growth?.attackPower || 0, 2)} / 级`} />
-                <StatCard label="基础防御" value={selectedCharacter.base.defense} hint={`成长 +${round(selectedCharacter.growth?.defense || 0, 2)} / 级`} />
-                <StatCard label="当前熟练" value={weaponTypeOfficialName(selectedWeaponRaw)} hint={selectedMasterySummary.join(' / ') || '暂无熟练成长'} />
-              </div>
-            </div>
-            <div className="officialSkillStrip">
-              {selectedOfficialSkillGroups.map((skill) => (
-                <div className="officialSkillCard" key={skill.group}>
-                  <PortalHovercard
-                    className="officialSkillHover"
-                    content={(
-                      <SkillDescriptionContent
-                        title={`${skill.slot} ${skill.name}`}
-                        description={skill.coefficientText || skill.description}
-                        source={skill.extensionName}
-                      />
-                    )}
-                  >
-                    <strong>{skill.slot} {skill.name}</strong>
-                  </PortalHovercard>
-                </div>
-              ))}
-            </div>
-          </div>
-        </details>
+          <StatCard label="对目标：目标最终防御" value={round(result.finalDefense, 1)} hint={`防御修正 ${pct(result.defenseMod)}`} note={help('stat.finalDefense')} />
+          <StatCard label="防御穿透" value={`${result.pen} / ${pct(result.penPct)}`} hint="数值 / 百分比" note={help('stat.pen')} />
+          <StatCard label="自身伤害提升" value={pct(result.totalDamageBonus)} hint={`装备 ${pct(result.equipDamageBonus)} / 潜能 ${pct(result.talentDamageBonus)} / 手动 ${pct(damageBonus)}`} note={help('stat.damageBonus')} />
+          <StatCard label="目标身上的技能减伤" value={pct(result.totalSkillReduction)} hint={`目标熟练 ${pct(result.targetMasterySkillReduction)} / 手动 ${pct(skillReduction)}，平A熟练减伤 ${pct(result.targetMasteryBasicReduction)}`} note={help('field.targetMastery')} />
+          <StatCard label="增减伤合算" value={pct(result.damageMod - 1)} hint={`最终倍率 ${round(result.damageMod, 3)}`} note={help('stat.damageMod')} />
+          {showBasicAttackAmp ? (
+            <StatCard
+              label="普攻增幅"
+              value={pct(result.basicAttackAmp)}
+              hint={`熟练度 ${pct(result.masteryBasicAttackDamageRatio)} / 装备与特效 ${pct(result.basicAttackAmp - result.masteryBasicAttackDamageRatio)}`
+                + (result.basicAttackFlatBonus ? `，普攻额外伤害 +${round(result.basicAttackFlatBonus, 1)}` : '')}
+              note={help('stat.basicAttackAmp')}
+            />
+          ) : null}
+          {hasBurstTrait ? (
+            <StatCard label="血量差比" value={pct(result.hpDiffRatio)} hint={`爆发力追伤 ${pct(result.burstBonus)}`} note={help('stat.hpDiffRatio')} />
+          ) : null}
+        </section>
       ) : null}
 
-      <section className="panel talentPanel">
+      <section className={`panel talentPanel ${traitsCollapsed ? 'isCollapsed' : ''}`.trim()}>
         <div className="panelHead">
           <div>
             <p className="eyebrow">Potential</p>
             <h2><LabelWithHelp note={help('section.traits')}>潜能选择</LabelWithHelp></h2>
           </div>
           <div className="buttonRow">
-            <button type="button" className="quietButton" onClick={clearTraitSelection}>
-              清空潜能
+            {selectedTraits.length > 0 || !traitsCollapsed ? (
+              <button type="button" className="quietButton" onClick={clearTraitSelection}>
+                清空潜能
+              </button>
+            ) : null}
+            <span className="pill">{selectedTraits.length} / 5 已选</span>
+            <button
+              type="button"
+              className={`quietButton traitCollapseBtn ${traitsCollapsed ? '' : 'active'}`}
+              onClick={() => setTraitsCollapsed((v) => !v)}
+              aria-expanded={!traitsCollapsed}
+            >
+              {traitsCollapsed ? '▾ 展开更换潜能' : '▴ 收起为图标条'}
             </button>
-            <span className="pill">{selectedTraits.length} 项已选</span>
           </div>
         </div>
-        <div className="traitBuilder">
-          <div className="traitColumn">
-            <div className="traitSectionHead">
-              <strong><LabelWithHelp note={help('trait.primaryGroup')}>主系 {primaryGroup?.name}</LabelWithHelp></strong>
-              <span>{primaryGroup?.tooltip}</span>
+        {traitsCollapsed ? (
+          <div className="traitCompactBar">
+            <div className="traitCompactCluster">
+              <span className="traitCompactGroupBadge" title={primaryGroup?.tooltip || primaryGroup?.name}>
+                {primaryGroup?.image ? (
+                  <img src={loadoutImageSrc(primaryGroup.image)} alt="" onError={(e) => { e.currentTarget.style.display = 'none'; }} />
+                ) : null}
+                <b>主系·{primaryGroup?.name || '未选'}</b>
+              </span>
+              <div className="traitCompactSlots">
+                {traitSelectionSlots.slice(0, 3).map((slot, idx) => {
+                  const picked = TRAIT_BY_ID[traitSelection[slot.key]];
+                  const shortSlot = idx === 0 ? '核心' : `主${idx}`;
+                  const pillNode = (
+                    <button
+                      type="button"
+                      className={`traitCompactPill ${picked ? 'picked' : 'empty'} ${idx === 0 ? 'isCore' : ''}`.trim()}
+                      onClick={() => setTraitsCollapsed(false)}
+                      title={picked ? `${slot.title}：${picked.name}（点击展开更换）` : `点击展开选择${slot.title}`}
+                    >
+                      {picked?.image ? (
+                        <img className="traitCompactIcon" src={loadoutImageSrc(picked.image)} alt="" onError={(e) => { e.currentTarget.style.display = 'none'; }} />
+                      ) : (
+                        <span className="traitCompactEmptyDot">+</span>
+                      )}
+                      <span>{picked ? picked.name : shortSlot}</span>
+                    </button>
+                  );
+                  return picked ? (
+                    <PortalHovercard
+                      key={slot.key}
+                      className="traitCompactHover"
+                      content={(
+                        <span className="skillDescriptionContent">
+                          <strong>{slot.title} · {picked.name}</strong>
+                          <span>{stripMarkup(picked.tooltip) || '暂无说明'}</span>
+                        </span>
+                      )}
+                    >
+                      {pillNode}
+                    </PortalHovercard>
+                  ) : <React.Fragment key={slot.key}>{pillNode}</React.Fragment>;
+                })}
+              </div>
             </div>
-            {renderTraitGroupTabs('primary', traitSelection.group)}
-            {traitSelectionSlots.slice(0, 3).map(renderTraitLane)}
+            <span className="traitCompactDivider" aria-hidden="true" />
+            <div className="traitCompactCluster">
+              <span className="traitCompactGroupBadge" title={secondaryGroup?.tooltip || secondaryGroup?.name}>
+                {secondaryGroup?.image ? (
+                  <img src={loadoutImageSrc(secondaryGroup.image)} alt="" onError={(e) => { e.currentTarget.style.display = 'none'; }} />
+                ) : null}
+                <b>副系·{secondaryGroup?.name || '未选'}</b>
+              </span>
+              <div className="traitCompactSlots">
+                {traitSelectionSlots.slice(3).map((slot, idx) => {
+                  const picked = TRAIT_BY_ID[traitSelection[slot.key]];
+                  const shortSlot = `副${idx + 1}`;
+                  const pillNode = (
+                    <button
+                      type="button"
+                      className={`traitCompactPill ${picked ? 'picked' : 'empty'}`.trim()}
+                      onClick={() => setTraitsCollapsed(false)}
+                      title={picked ? `${slot.title}：${picked.name}（点击展开更换）` : `点击展开选择${slot.title}`}
+                    >
+                      {picked?.image ? (
+                        <img className="traitCompactIcon" src={loadoutImageSrc(picked.image)} alt="" onError={(e) => { e.currentTarget.style.display = 'none'; }} />
+                      ) : (
+                        <span className="traitCompactEmptyDot">+</span>
+                      )}
+                      <span>{picked ? picked.name : shortSlot}</span>
+                    </button>
+                  );
+                  return picked ? (
+                    <PortalHovercard
+                      key={slot.key}
+                      className="traitCompactHover"
+                      content={(
+                        <span className="skillDescriptionContent">
+                          <strong>{slot.title} · {picked.name}</strong>
+                          <span>{stripMarkup(picked.tooltip) || '暂无说明'}</span>
+                        </span>
+                      )}
+                    >
+                      {pillNode}
+                    </PortalHovercard>
+                  ) : <React.Fragment key={slot.key}>{pillNode}</React.Fragment>;
+                })}
+              </div>
+            </div>
+            <div
+              className="traitCompactSummary"
+              title={result.traitBonuses.summaries.length ? result.traitBonuses.summaries.join('；') : ''}
+            >
+              <span>潜能加成</span>
+              <strong>
+                {traitSummaryItems.length
+                  ? traitSummaryItems.join(' / ')
+                  : (selectedTraits.length ? '触发伤害已计入下方特效栏' : '未选数值类潜能')}
+              </strong>
+            </div>
           </div>
-          <div className="traitColumn">
-            <div className="traitSectionHead">
-              <strong><LabelWithHelp note={help('trait.secondaryGroup')}>副系 {secondaryGroup?.name}</LabelWithHelp></strong>
-              <span>{secondaryGroup?.tooltip}</span>
+        ) : (
+          <div className="traitBuilder">
+            <div className="traitColumn">
+              <div className="traitSectionHead">
+                <strong><LabelWithHelp note={help('trait.primaryGroup')}>主系 {primaryGroup?.name}</LabelWithHelp></strong>
+                <span>{primaryGroup?.tooltip}</span>
+              </div>
+              {renderTraitGroupTabs('primary', traitSelection.group)}
+              {traitSelectionSlots.slice(0, 3).map(renderTraitLane)}
             </div>
-            {renderTraitGroupTabs('secondary', traitSelection.secondaryGroup)}
-            {traitSelectionSlots.slice(3).map(renderTraitLane)}
-            <div className="traitSummary">
-              <LabelWithHelp note={help('trait.summary')}>潜能合计</LabelWithHelp>
-              <strong>{traitSummaryItems.length ? traitSummaryItems.join(' / ') : '暂无数值修正'}</strong>
-              <small>{result.traitBonuses.summaries.length ? result.traitBonuses.summaries.join('；') : '当前组合未配置额外可计算效果'}</small>
+            <div className="traitColumn">
+              <div className="traitSectionHead">
+                <strong><LabelWithHelp note={help('trait.secondaryGroup')}>副系 {secondaryGroup?.name}</LabelWithHelp></strong>
+                <span>{secondaryGroup?.tooltip}</span>
+              </div>
+              {renderTraitGroupTabs('secondary', traitSelection.secondaryGroup)}
+              {traitSelectionSlots.slice(3).map(renderTraitLane)}
+              <div className="traitSummary">
+                <LabelWithHelp note={help('trait.summary')}>潜能合计</LabelWithHelp>
+                <strong>{traitSummaryItems.length ? traitSummaryItems.join(' / ') : '暂无数值修正'}</strong>
+                <small>{result.traitBonuses.summaries.length ? result.traitBonuses.summaries.join('；') : '当前组合未配置额外可计算效果'}</small>
+              </div>
             </div>
           </div>
-        </div>
+        )}
       </section>
 
       <section className="damageLayout">
@@ -5373,6 +6637,108 @@ export default function App() {
           {renderPassiveSkillRow()}
         </details>
 
+        <div className="damageSideStack">
+          <section className="panel comboSandboxPanel">
+            <div className="panelHead comboSandboxHead">
+              <div>
+                <p className="eyebrow">Burst &amp; Lethal</p>
+                <h2>连招计算与斩杀线</h2>
+              </div>
+              <div className="buttonRow">
+                {resolvedQuickCombo.items.length ? (
+                  <button type="button" className="quietButton" onClick={() => setQuickComboItems([])}>
+                    清空连招
+                  </button>
+                ) : null}
+              </div>
+            </div>
+
+            {/* 快捷追加平A / 强化普攻按钮条 */}
+            <div className="comboQuickTriggers">
+              <button
+                type="button"
+                onClick={() => appendQuickComboStep({ key: 'ba:normal', kind: 'ba-normal', label: '平A(普)' })}
+              >
+                + 平A ({result.basicAttackDamage.normal})
+              </button>
+              <button
+                type="button"
+                onClick={() => appendQuickComboStep({ key: 'ba:crit', kind: 'ba-crit', label: '平A(暴击)' })}
+              >
+                + 暴击A ({result.basicAttackDamage.critical})
+              </button>
+              {result.basicAttackSkills.length > 0 ? (
+                <button
+                  type="button"
+                  onClick={() => appendQuickComboStep({ key: 'ba:enhanced', kind: 'ba-enhanced', label: '强化普攻(全)' })}
+                >
+                  + 强化A ({result.basicAttackDamage.normal + result.basicAttackBonus})
+                </button>
+              ) : null}
+            </div>
+
+            {/* 目标动态斩杀线血条 */}
+            <div className={`lethalHpBox ${resolvedQuickCombo.isLethal ? 'lethal' : ''}`}>
+              <div className="lethalHpHeader">
+                <span className="lethalTargetName">
+                  靶子：{target.name}（起始 {resolvedQuickCombo.startHp} / {resolvedQuickCombo.targetMax} HP）
+                </span>
+                {resolvedQuickCombo.isLethal ? (
+                  <strong className="lethalKillBadge">💀 已达斩杀线（溢出 {resolvedQuickCombo.overkill}）</strong>
+                ) : (
+                  <strong className="lethalRemainText">
+                    剩余 {resolvedQuickCombo.remainHp} HP（打掉 {round(resolvedQuickCombo.dealtPctOfMax, 1)}%）
+                  </strong>
+                )}
+              </div>
+              <div className="lethalHpTrack" role="progressbar" aria-valuenow={resolvedQuickCombo.remainHp}>
+                <div className="lethalHpRemainFill" style={{ width: `${resolvedQuickCombo.remainPctOfMax}%` }} />
+                <div
+                  className="lethalHpDealtFill"
+                  style={{
+                    left: `${resolvedQuickCombo.remainPctOfMax}%`,
+                    width: `${Math.min(100 - resolvedQuickCombo.remainPctOfMax, resolvedQuickCombo.dealtPctOfMax)}%`
+                  }}
+                />
+              </div>
+              <div className="lethalTotalRow">
+                <span>连招折后总伤（原始 {resolvedQuickCombo.totalRaw}）</span>
+                <div className="lethalTotalNum">
+                  <b>{resolvedQuickCombo.totalDamage}</b>
+                  {resolvedQuickCombo.baseTotalDamage !== undefined ? (
+                    <InlineDeltaBadge current={resolvedQuickCombo.totalDamage} baseline={resolvedQuickCombo.baseTotalDamage} />
+                  ) : null}
+                </div>
+              </div>
+            </div>
+
+            {/* 已选连招动作筹码列表 */}
+            {resolvedQuickCombo.items.length ? (
+              <div className="comboSequenceList">
+                {resolvedQuickCombo.items.map((step) => (
+                  <div className="comboStepRow" key={step.key}>
+                    <div className="comboStepInfo">
+                      <strong>{step.label}</strong>
+                      <small>单次 {step.unitFinal}</small>
+                    </div>
+                    <div className="comboStepActions">
+                      <div className="targetStepper">
+                        <button type="button" onClick={() => updateQuickComboStepCount(step.key, -1)}>-</button>
+                        <b>×{step.count}</b>
+                        <button type="button" onClick={() => updateQuickComboStepCount(step.key, 1)}>+</button>
+                      </div>
+                      <strong className="comboStepSubtotal">{step.totalFinal}</strong>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            ) : (
+              <p className="comboEmptyHint">
+                点击任意技能卡或下方特效卡上的 <b>+连招</b> 按钮，或点上方 <b>+平A</b> 自由拼装连招看斩杀线。
+              </p>
+            )}
+          </section>
+
         <div className={`panel damagePanel effectsPanel ${effectsCollapsed ? 'collapsed' : ''}`}>
           <button type="button" className="effectToggle" onClick={() => setEffectsCollapsed((current) => !current)}>
             <div>
@@ -5389,7 +6755,17 @@ export default function App() {
                   <strong>{effect.title}</strong>
                   <span>{effect.note}</span>
                 </div>
-                <DamageValue raw={effect.raw} final={effect.value} />
+                <DamageValue
+                  raw={effect.raw}
+                  final={effect.value}
+                  baselineFinal={activePin?.effectMap?.[effect.title]}
+                  onQuickCombo={!effect.excludeFromSubtotal ? () => appendQuickComboStep({
+                    key: `effect:${effect.title}`,
+                    kind: 'effect',
+                    refId: effect.title,
+                    label: effect.title
+                  }) : undefined}
+                />
               </div>
             )) : (
               <div className="damageRow compactDamageRow">
@@ -5404,7 +6780,11 @@ export default function App() {
                 <strong>特效小计</strong>
                 <span>潜能 / 战术技能 / 装备独有效果的附加伤害</span>
               </div>
-              <DamageValue raw={result.effectSubtotalRaw} final={result.effectSubtotal} />
+              <DamageValue
+                raw={result.effectSubtotalRaw}
+                final={result.effectSubtotal}
+                baselineFinal={activePin?.effectSubtotal}
+              />
             </div>
             {/* 不产生独立伤害段、但改了属性或增伤的装备效果，单独列出来说明它们已计入 */}
             {result.effectMods?.applied?.length ? (
@@ -5422,6 +6802,7 @@ export default function App() {
             ) : null}
           </div>
           ) : null}
+        </div>
         </div>
       </section>
 

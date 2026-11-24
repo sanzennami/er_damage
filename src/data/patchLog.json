@@ -12634,6 +12634,2011 @@
           "value": 0.034
         }
       ]
+    },
+    {
+      "version": "l10n-zh-skill-titles-13.1",
+      "label": "13.1",
+      "order": 20261120,
+      "date": "2026-11-23",
+      "title": "全角色英文残留技能段标题统一汉化与重复段清理",
+      "url": "",
+      "skills": [
+        {
+          "id": "external-adela-q-1024200-pawn-damage-stat1",
+          "hero": "阿德拉",
+          "title": "Q 升变-兵伤害",
+          "note": "汉化英文残留技能段名称。"
+        },
+        {
+          "id": "external-adela-q-1024200-queen-damage-stat2",
+          "hero": "阿德拉",
+          "title": "Q 升变-皇后伤害",
+          "note": "汉化英文残留技能段名称。"
+        },
+        {
+          "id": "external-adriana-p-1017100-burned-damage-stat2",
+          "hero": "阿德瑞娜",
+          "title": "P 纵火狂-烧伤伤害",
+          "note": "汉化英文残留技能段名称。"
+        },
+        {
+          "id": "external-adriana-p-1017100-oil-slick-damage-stat1",
+          "hero": "阿德瑞娜",
+          "title": "P 纵火狂-火焰地带伤害",
+          "note": "汉化英文残留技能段名称。"
+        },
+        {
+          "id": "external-adriana-e-1017400-damage-stat1",
+          "hero": "阿德瑞娜",
+          "title": "E 火焰行者-火纹每跳伤害",
+          "note": "汉化英文残留技能段名称。"
+        },
+        {
+          "id": "external-adina-e-1052400-impact-damage-stat2",
+          "hero": "阿迪娜",
+          "title": "E 星体陷落-坠落伤害",
+          "note": "汉化英文残留技能段名称。"
+        },
+        {
+          "id": "external-alonso-w-1068300-projectile-damage-stat1",
+          "hero": "阿隆索",
+          "title": "W 磁盾光波-光波单发伤害",
+          "note": "汉化英文残留技能段名称。"
+        },
+        {
+          "id": "external-alonso-r-1068500-damage-over-time-stat3",
+          "hero": "阿隆索",
+          "title": "R 磁吸漩涡-持续每跳伤害",
+          "note": "汉化英文残留技能段名称。"
+        },
+        {
+          "id": "external-elena-r-1050500-icicle-damage-stat2",
+          "hero": "埃琳娜",
+          "title": "R 霜心之舞-内圈冰刺伤害",
+          "note": "汉化英文残留技能段名称。"
+        },
+        {
+          "id": "external-estelle-q-1055220-suppression-damage-stat1",
+          "hero": "艾丝蒂尔",
+          "title": "Q 镇压-强化普攻伤害",
+          "note": "汉化英文残留技能段名称。"
+        },
+        {
+          "id": "external-estelle-w-1055300-emergency-extinguish-damage-stat2",
+          "hero": "艾丝蒂尔",
+          "title": "W 紧急灭火-喷水每跳伤害",
+          "note": "汉化英文残留技能段名称。"
+        },
+        {
+          "id": "external-estelle-w-1055300-first-response-damage-stat1",
+          "hero": "艾丝蒂尔",
+          "title": "W 临危应对-拍击伤害",
+          "note": "汉化英文残留技能段名称。"
+        },
+        {
+          "id": "external-estelle-w-1055320-emergency-extinguish-damage-stat2",
+          "remove": true,
+          "note": "与 1055300 紧急灭火重复"
+        },
+        {
+          "id": "external-estelle-w-1055320-first-response-damage-stat1",
+          "remove": true,
+          "note": "与 1055300 临危应对重复"
+        },
+        {
+          "id": "external-estelle-e-1055400-forcible-entry-damage-stat2",
+          "hero": "艾丝蒂尔",
+          "title": "E 盾牌冲锋-突进伤害",
+          "note": "汉化英文残留技能段名称。"
+        },
+        {
+          "id": "external-estelle-r-1055500-global-damage-stat3",
+          "hero": "艾丝蒂尔",
+          "title": "R 空中救援-支援队友落点伤害",
+          "note": "汉化英文残留技能段名称。"
+        },
+        {
+          "id": "external-estelle-r-1055500-solo-damage-stat1",
+          "hero": "艾丝蒂尔",
+          "title": "R 空中救援-自身水炸弹伤害",
+          "note": "汉化英文残留技能段名称。"
+        },
+        {
+          "id": "external-hisui-w-1078300-clear-cut-damage-stat1",
+          "hero": "翡翠",
+          "title": "W 居合一闪-1层一刀两断(拔刀)",
+          "note": "汉化英文残留技能段名称。"
+        },
+        {
+          "id": "external-hisui-w-1078300-clear-cut-second-damage-stat2",
+          "hero": "翡翠",
+          "title": "W 居合一闪-1层一刀两断(追加斩)",
+          "note": "汉化英文残留技能段名称。"
+        },
+        {
+          "id": "external-hisui-w-1078300-flash-cut-damage-stat4",
+          "hero": "翡翠",
+          "title": "W 居合一闪-2层一闪(路径)",
+          "note": "汉化英文残留技能段名称。"
+        },
+        {
+          "id": "external-hisui-w-1078300-flash-cut-second-damage-stat5",
+          "hero": "翡翠",
+          "title": "W 居合一闪-2层一闪(终结斩)",
+          "note": "汉化英文残留技能段名称。"
+        },
+        {
+          "id": "external-hisui-w-1078300-nichirin-cut-second-damage-stat7",
+          "hero": "翡翠",
+          "title": "W 居合一闪-3层日轮斩(二段)",
+          "note": "汉化英文残留技能段名称。"
+        },
+        {
+          "id": "external-hisui-r-1078500-tsubame-gaeshi-damage-stat2",
+          "hero": "翡翠",
+          "title": "R 物干焯/燕返-二段挥砍伤害",
+          "note": "汉化英文残留技能段名称。"
+        },
+        {
+          "id": "external-karla-p-1054100-uncharged-damage-stat1",
+          "hero": "卡拉",
+          "title": "P 水手的较量-未满蓄力伤害",
+          "note": "汉化英文残留技能段名称。"
+        },
+        {
+          "id": "external-camilo-e-1039400-one-step-damage-stat1",
+          "hero": "卡米洛",
+          "title": "E 节奏乐-一步舞突进伤害",
+          "note": "汉化英文残留技能段名称。"
+        },
+        {
+          "id": "external-camilo-e-1039400-two-step-damage-stat2",
+          "hero": "卡米洛",
+          "title": "E 节奏乐-两步舞击退伤害",
+          "note": "汉化英文残留技能段名称。"
+        },
+        {
+          "id": "external-camilo-r-1039500-embeleso-1st-stack-damage-stat1",
+          "hero": "卡米洛",
+          "title": "R 舞者魅力-碰撞1层伤害",
+          "note": "汉化英文残留技能段名称。"
+        },
+        {
+          "id": "external-camilo-r-1039500-embeleso-2nd-stack-damage-stat2",
+          "hero": "卡米洛",
+          "title": "R 舞者魅力-碰撞2层伤害",
+          "note": "汉化英文残留技能段名称。"
+        },
+        {
+          "id": "external-katja-q-1072200-minimum-damage-stat1",
+          "hero": "卡缇娅",
+          "title": "Q 绝命狙击-最小距离伤害",
+          "note": "汉化英文残留技能段名称。"
+        },
+        {
+          "id": "external-katja-q-1072200-maximum-damage-stat2",
+          "hero": "卡缇娅",
+          "title": "Q 绝命狙击-最大距离伤害",
+          "note": "汉化英文残留技能段名称。"
+        },
+        {
+          "id": "external-leon-r-1029500-collision-damage-stat2",
+          "hero": "里昂",
+          "title": "R 冲浪-撞墙追加伤害",
+          "note": "汉化英文残留技能段名称。"
+        },
+        {
+          "id": "external-lenore-r-1075500-damage-over-time-stat1",
+          "hero": "莉诺尔",
+          "title": "R 天鹅狂想曲-声波每跳伤害",
+          "note": "汉化英文残留技能段名称。"
+        },
+        {
+          "id": "external-tazia-q-1060200-spada-damage-stat2",
+          "hero": "塔齐娅",
+          "title": "Q 破空斩-玻璃剑命中伤害",
+          "note": "汉化英文残留技能段名称。"
+        },
+        {
+          "id": "external-tazia-q-1060200-spada-explosion-damage-stat3",
+          "hero": "塔齐娅",
+          "title": "Q 破空斩-玻璃剑爆炸伤害",
+          "note": "汉化英文残留技能段名称。"
+        },
+        {
+          "id": "external-tazia-q-1060210-spada-damage-stat2",
+          "remove": true,
+          "note": "与 1060200 破空斩重复"
+        },
+        {
+          "id": "external-tazia-q-1060210-spada-explosion-damage-stat3",
+          "remove": true,
+          "note": "与 1060200 破空斩爆炸重复"
+        },
+        {
+          "id": "external-tazia-q-1060210-damage-stat1",
+          "remove": true,
+          "note": "与 1060200 凌空碎重复"
+        },
+        {
+          "id": "augment-064-vanya-r-1064500-extra-damage-from-sleeping-stat2",
+          "hero": "万尼亚",
+          "title": "R 蝶之羽翼-沉睡额外伤害",
+          "note": "汉化英文残留技能段名称。"
+        },
+        {
+          "id": "external-alex-r-1027500-initial-external-damage-stat1",
+          "hero": "亚历克斯",
+          "title": "R 精准轰炸-首击外圈伤害",
+          "note": "汉化英文残留技能段名称。"
+        },
+        {
+          "id": "external-alex-r-1027500-initial-inner-damage-stat2",
+          "hero": "亚历克斯",
+          "title": "R 精准轰炸-首击中心伤害",
+          "note": "汉化英文残留技能段名称。"
+        },
+        {
+          "id": "external-alex-r-1027500-external-damage-over-time-stat3",
+          "hero": "亚历克斯",
+          "title": "R 精准轰炸-后续外圈每跳伤害",
+          "note": "汉化英文残留技能段名称。"
+        },
+        {
+          "id": "external-alex-r-1027500-inner-damage-over-time-stat4",
+          "hero": "亚历克斯",
+          "title": "R 精准轰炸-后续中心每跳伤害",
+          "note": "汉化英文残留技能段名称。"
+        },
+        {
+          "id": "external-eleven-q-1030200-minimum-damage-stat1",
+          "hero": "Eleven",
+          "title": "Q 汉堡少女-未蓄力伤害",
+          "note": "汉化英文残留技能段名称。"
+        },
+        {
+          "id": "external-eleven-q-1030200-maximum-damage-stat2",
+          "hero": "Eleven",
+          "title": "Q 汉堡少女-完全蓄力伤害",
+          "note": "汉化英文残留技能段名称。"
+        },
+        {
+          "id": "external-eleven-w-1030300-minimum-damage-stat1",
+          "hero": "Eleven",
+          "title": "W 开播啦！-未蓄力伤害",
+          "note": "汉化英文残留技能段名称。"
+        },
+        {
+          "id": "external-eleven-w-1030300-maximum-damage-stat2",
+          "hero": "Eleven",
+          "title": "W 开播啦！-完全蓄力伤害",
+          "note": "汉化英文残留技能段名称。"
+        },
+        {
+          "id": "external-eleven-e-1030400-minimum-damage-stat1",
+          "hero": "Eleven",
+          "title": "E 汉堡骑越-最小蓄力伤害",
+          "note": "汉化英文残留技能段名称。"
+        },
+        {
+          "id": "external-eleven-e-1030400-maximum-damage-stat2",
+          "hero": "Eleven",
+          "title": "E 汉堡骑越-最大蓄力伤害",
+          "note": "汉化英文残留技能段名称。"
+        }
+      ]
+    },
+    {
+      "version": "calib-remaining-19-heroes-13.1",
+      "label": "13.1",
+      "order": 20261121,
+      "date": "2026-11-24",
+      "title": "剩余 19 位正式服实验体 13.1 全技能公式校准与错位修复",
+      "url": "https://playeternalreturn.com/posts/news/3969",
+      "skills": [
+        {
+          "id": "external-adriana-p-1017100-oil-slick-damage-stat1",
+          "hero": "阿德瑞娜",
+          "remove": true,
+          "note": "移除 Wiki 旧版火焰地带残留行（现版火焰地带伤害统一在 E 火焰行者计算，P 仅结算烧伤持续伤害）。"
+        },
+        {
+          "id": "external-adriana-p-1017100-burned-damage-stat2",
+          "hero": "阿德瑞娜",
+          "slot": "P",
+          "title": "P 纵火狂-烧伤总伤害",
+          "bases": "20,35,50",
+          "formula": "base + ap * 0.4",
+          "coefficientText": "4秒内共承受 20/35/50(+技能增幅40%)",
+          "note": "核对 13.1：技能命中触发 4 秒烧伤的总面板伤害（期间目标防御力降低）。"
+        },
+        {
+          "id": "external-adriana-q-1017200-damage-stat1",
+          "hero": "阿德瑞娜",
+          "slot": "Q",
+          "title": "Q 火焰发射-单跳伤害",
+          "bases": "35,45,55,65,75",
+          "formula": "base + ap * [0.27,0.29,0.31,0.33,0.35][level - 1]",
+          "maxHits": 9,
+          "defaultHits": 1,
+          "hitLabel": "喷射跳数",
+          "hitNote": "持续喷射 2 秒，最多约 9 跳；可按实战命中跳数调整。",
+          "coefficientText": "每跳 35/45/55/65/75(+技能增幅27/29/31/33/35%)",
+          "note": "同步 11.1 基础值与 11.6 系数并补充多跳步进器。"
+        },
+        {
+          "id": "external-adriana-e-1017400-damage-stat1",
+          "hero": "阿德瑞娜",
+          "slot": "E",
+          "title": "E 火焰行者-火焰地带每跳",
+          "bases": "26,32,38,44,50",
+          "formula": "base + ap * 0.15",
+          "maxHits": 10,
+          "defaultHits": 1,
+          "hitLabel": "灼烧跳数",
+          "hitNote": "每 0.56 秒结算一跳（W 原油弹点燃与 R 落点火焰地带共用此伤害）。",
+          "coefficientText": "每跳 26/32/38/44/50(+技能增幅15%)",
+          "note": "核对 9.6 火焰地带每跳伤害并补充跳数步进器。"
+        },
+        {
+          "id": "external-adriana-r-1017500-damage-stat1",
+          "hero": "阿德瑞娜",
+          "slot": "R",
+          "title": "R 莫洛托夫燃烧瓶-直击爆炸",
+          "bases": "130,155,180",
+          "formula": "base + ap * 0.4",
+          "maxHits": 3,
+          "defaultHits": 1,
+          "hitLabel": "投掷瓶数",
+          "coefficientText": "130/155/180(+技能增幅40%)",
+          "note": "12.5 更新日志：R 爆炸基础伤害 140/170/200 → 130/155/180。"
+        },
+        {
+          "id": "external-adela-q-1024200-pawn-damage-stat1",
+          "hero": "阿德拉",
+          "slot": "Q",
+          "title": "Q 升变-兵伤害",
+          "bases": "60,100,140,180,220",
+          "formula": "base + ap * 0.65",
+          "coefficientText": "60/100/140/180/220(+技能增幅65%)",
+          "note": "同步 8.6 基础值上调（40..200 → 60..220）与 9.7 技能增幅系数上调（60% → 65%）。"
+        },
+        {
+          "id": "external-adela-q-1024200-queen-damage-stat2",
+          "hero": "阿德拉",
+          "slot": "Q",
+          "title": "Q 升变-皇后伤害",
+          "bases": "80,125,170,215,260",
+          "formula": "base + ap * 0.8",
+          "coefficientText": "80/125/170/215/260(+技能增幅80%)",
+          "note": "同步 8.6 基础值上调（50..230 → 80..260）与 9.7 技能增幅系数上调（75% → 80%）。"
+        },
+        {
+          "id": "external-adela-w-1024300-damage-stat1",
+          "hero": "阿德拉",
+          "slot": "W",
+          "title": "W 单马捉双-单次落点",
+          "bases": "20,60,100,140,180",
+          "formula": "base + ap * 0.75",
+          "maxHits": 2,
+          "defaultHits": 1,
+          "hitLabel": "跳跃命中段数",
+          "hitNote": "出马首次落地与二次弹跳落地各结算一次同额伤害。",
+          "coefficientText": "20/60/100/140/180(+技能增幅75%)",
+          "note": "核对 11.4 系数（75%）并补齐二段弹跳步进器。"
+        },
+        {
+          "id": "external-adela-e-1024400-damage-stat1",
+          "hero": "阿德拉",
+          "slot": "E",
+          "title": "E 王翼易位",
+          "bases": "50,90,130,170,210",
+          "formula": "base + ap * 0.75",
+          "coefficientText": "50/90/130/170/210(+技能增幅75%)",
+          "note": "核对 1.33 王翼易位路径伤害。"
+        },
+        {
+          "id": "external-adela-r-1024500-damage-stat1",
+          "hero": "阿德拉",
+          "slot": "R",
+          "title": "R 将军-落地伤害",
+          "bases": "150,275,400",
+          "formula": "base + ap * 0.95",
+          "coefficientText": "150/275/400(+技能增幅95%)",
+          "note": "核对 8.0 将军落地基础技能伤害。"
+        },
+        {
+          "id": "calib-adela-r-1024500-piece-true-damage",
+          "create": true,
+          "hero": "阿德拉",
+          "heroKey": "Adela",
+          "slot": "R",
+          "group": 1024500,
+          "skillId": "AdelaActive4",
+          "dataKey": "pieceTrueDamage",
+          "title": "R 将军-每枚棋子真实伤害",
+          "bases": "0,0,0",
+          "formula": "targetHp * 0.035",
+          "damageType": "true",
+          "maxHits": 5,
+          "defaultHits": 1,
+          "hitLabel": "场上棋子数",
+          "hitNote": "场上每有一枚棋子造成目标体力上限 3.5% 的真实伤害，落地时棋子还会额外触发各自技能 50% 的伤害。",
+          "coefficientText": "每枚棋子 目标体力上限3.5% 真实伤害",
+          "note": "补录 9.1 上调后的将军棋子真实伤害段（3% → 3.5%）。"
+        },
+        {
+          "id": "external-alex-q-1027200-damage-stat1",
+          "hero": "亚历克斯",
+          "slot": "Q",
+          "title": "Q 【远程】伏特枪",
+          "bases": "40,60,80,100,120",
+          "formula": "base + attack * 0.8",
+          "coefficientText": "40/60/80/100/120(+攻击力80%)",
+          "note": "同步 10.4 远程 Q 基础伤害调整（40/65/90/115/140 → 40/60/80/100/120）。"
+        },
+        {
+          "id": "calib-alex-q-1027600-melee-damage",
+          "create": true,
+          "hero": "亚历克斯",
+          "heroKey": "Alex",
+          "slot": "Q",
+          "group": 1027600,
+          "skillId": "AlexActive1",
+          "dataKey": "meleeDamage",
+          "title": "Q 【近战】突袭",
+          "bases": "40,80,120,160,200",
+          "formula": "base + attack * 0.8",
+          "coefficientText": "40/80/120/160/200(+攻击力80%)",
+          "note": "补齐近战形态 Q 突袭伤害（9.6 上调后为 40/80/120/160/200 + 攻击力80%）。"
+        },
+        {
+          "id": "external-alex-w-1027300-damage-stat1",
+          "hero": "亚历克斯",
+          "slot": "W",
+          "title": "W 【远程】间谍探测仪",
+          "bases": "45,75,105,135,165",
+          "formula": "base + attack * 0.7",
+          "coefficientText": "45/75/105/135/165(+攻击力70%)",
+          "note": "修正此前误挂近战 W 数值的问题，并同步 12.4 远程 W 攻击力系数下调（80% → 70%）。"
+        },
+        {
+          "id": "calib-alex-w-1027700-melee-damage",
+          "create": true,
+          "hero": "亚历克斯",
+          "heroKey": "Alex",
+          "slot": "W",
+          "group": 1027700,
+          "skillId": "AlexActive2",
+          "dataKey": "meleeDamage",
+          "title": "W 【近战】电浆地雷",
+          "bases": "40,75,110,145,180",
+          "formula": "base + attack * 0.8",
+          "coefficientText": "40/75/110/145/180(+攻击力80%)",
+          "note": "补齐近战形态 W 电浆地雷伤害（10.6 调整为 40/75/110/145/180 + 攻击力80%）。"
+        },
+        {
+          "id": "external-alex-e-1027400-damage-stat1",
+          "hero": "亚历克斯",
+          "slot": "E",
+          "title": "E 【远程】电脉回力镖",
+          "bases": "80,105,130,155,180",
+          "formula": "base + attack * 0.7",
+          "coefficientText": "80/105/130/155/180(+攻击力70%)",
+          "note": "核对远程形态 E 电脉回力镖伤害（近战 E 无间投影仅嘲讽与潜行，无伤害）。"
+        },
+        {
+          "id": "external-alex-r-1027500-initial-external-damage-stat1",
+          "hero": "亚历克斯",
+          "slot": "R",
+          "title": "R 精准轰炸-首击外圈伤害",
+          "bases": "80,150,220",
+          "formula": "base + attack * 0.6",
+          "coefficientText": "80/150/220(+攻击力60%)",
+          "note": "核对 R 首击外圈伤害。"
+        },
+        {
+          "id": "external-alex-r-1027500-initial-inner-damage-stat2",
+          "hero": "亚历克斯",
+          "slot": "R",
+          "title": "R 精准轰炸-首击中心伤害",
+          "bases": "90,165,240",
+          "formula": "base + attack * 0.75",
+          "coefficientText": "90/165/240(+攻击力75%)",
+          "note": "核对 1.42 R 首击中心伤害。"
+        },
+        {
+          "id": "external-alex-r-1027500-external-damage-over-time-stat3",
+          "hero": "亚历克斯",
+          "slot": "R",
+          "title": "R 精准轰炸-后续外圈每跳",
+          "bases": "30,40,50",
+          "formula": "base + attack * 0.3",
+          "maxHits": 7,
+          "defaultHits": 1,
+          "hitLabel": "轰炸跳数",
+          "coefficientText": "每跳 30/40/50(+攻击力30%)",
+          "note": "核对 R 后续外圈脉冲伤害并补充跳数步进器。"
+        },
+        {
+          "id": "external-alex-r-1027500-inner-damage-over-time-stat4",
+          "hero": "亚历克斯",
+          "slot": "R",
+          "title": "R 精准轰炸-后续中心每跳",
+          "bases": "30,55,80",
+          "formula": "base + attack * 0.45",
+          "maxHits": 7,
+          "defaultHits": 1,
+          "hitLabel": "轰炸跳数",
+          "coefficientText": "每跳 30/55/80(+攻击力45%)",
+          "note": "修正 R 后续中心脉冲攻击力系数（由误抄外圈的 30% 修正为 45%）。"
+        },
+        {
+          "id": "external-leon-p-1029100-damage-stat3",
+          "hero": "里昂",
+          "slot": "P",
+          "title": "P 人体鱼雷-水上普攻附伤",
+          "bases": "30,40,50",
+          "formula": "base + ap * 0.35",
+          "kind": "basicAttack",
+          "coefficientText": "30/40/50(+技能增幅35%)",
+          "note": "12.3 更新日志：P 人体鱼雷基础伤害 30/45/60 → 30/40/50，标记为强化普攻附伤。"
+        },
+        {
+          "id": "external-leon-q-1029200-damage-stat1",
+          "hero": "里昂",
+          "slot": "Q",
+          "title": "Q 水路",
+          "bases": "80,115,150,185,220",
+          "formula": "base + ap * 0.8",
+          "coefficientText": "80/115/150/185/220(+技能增幅80%)",
+          "note": "核对 10.4 Q 水路伤害。"
+        },
+        {
+          "id": "calib-leon-w-1029300-self-shield",
+          "create": true,
+          "hero": "里昂",
+          "heroKey": "Leon",
+          "slot": "W",
+          "group": 1029300,
+          "skillId": "LeonActive2",
+          "dataKey": "selfShield",
+          "title": "W 水武间-自身护盾",
+          "bases": "80,110,140,170,200",
+          "formula": "base + ap * 0.4",
+          "kind": "shield",
+          "coefficientText": "护盾 80/110/140/170/200(+技能增幅40%)",
+          "note": "补齐 10.6 上调后的 W 水武间自身护盾（35% → 40%）。"
+        },
+        {
+          "id": "external-leon-e-1029400-damage-stat1",
+          "hero": "里昂",
+          "slot": "E",
+          "title": "E 潜移",
+          "bases": "60,95,130,165,200",
+          "formula": "base + ap * 0.65",
+          "coefficientText": "60/95/130/165/200(+技能增幅65%)",
+          "note": "12.4 更新日志：E 潜移技能增幅系数 75% → 65%。"
+        },
+        {
+          "id": "external-leon-r-1029500-damage-stat1",
+          "hero": "里昂",
+          "slot": "R",
+          "title": "R 冲浪-推进伤害",
+          "bases": "100,150,200",
+          "formula": "base + ap * 0.75",
+          "coefficientText": "100/150/200(+技能增幅75%)",
+          "note": "同步 10.4 R 冲浪伤害上调（70/120/170 + 70% → 100/150/200 + 75%）。"
+        },
+        {
+          "id": "external-leon-r-1029500-collision-damage-stat2",
+          "hero": "里昂",
+          "slot": "R",
+          "title": "R 冲浪-撞墙追加伤害",
+          "bases": "100,200,300",
+          "formula": "base + ap * 0.7",
+          "coefficientText": "100/200/300(+技能增幅70%)",
+          "note": "核对 R 冲浪撞墙追加伤害。"
+        },
+        {
+          "id": "external-eleven-q-1030200-minimum-damage-stat1",
+          "hero": "Eleven",
+          "slot": "Q",
+          "title": "Q 汉堡少女-未蓄力伤害",
+          "bases": "80,110,140,170,200",
+          "formula": "base + attack * 0.4 + targetHp * 0.06",
+          "coefficientText": "80/110/140/170/200(+攻击力40%)(+目标体力上限6%)",
+          "note": "核对 10.0 Part.2 Q 最小伤害公式。"
+        },
+        {
+          "id": "external-eleven-q-1030200-maximum-damage-stat2",
+          "hero": "Eleven",
+          "slot": "Q",
+          "title": "Q 汉堡少女-完全蓄力伤害",
+          "bases": "160,220,280,340,400",
+          "formula": "base + attack * 0.8 + targetHp * 0.12",
+          "coefficientText": "160/220/280/340/400(+攻击力80%)(+目标体力上限12%)",
+          "note": "补齐 10.0 Part.2 完全蓄力翻倍段漏掉的攻击力 80% 与目标体力上限 12% 系数。"
+        },
+        {
+          "id": "external-eleven-w-1030300-minimum-damage-stat1",
+          "hero": "Eleven",
+          "slot": "W",
+          "title": "W 开播啦！-未蓄力伤害",
+          "bases": "20,40,60,80,100",
+          "formula": "base + attack * 0.1 + extraHp * 0.03",
+          "coefficientText": "20/40/60/80/100(+攻击力10%)(+额外体力3%)",
+          "note": "补齐 W 未蓄力漏掉的额外体力 3% 系数。"
+        },
+        {
+          "id": "external-eleven-w-1030300-maximum-damage-stat2",
+          "hero": "Eleven",
+          "slot": "W",
+          "title": "W 开播啦！-完全蓄力伤害",
+          "bases": "40,60,80,100,120",
+          "formula": "base + attack * 0.2 + extraHp * 0.06",
+          "coefficientText": "40/60/80/100/120(+攻击力20%)(+额外体力6%)",
+          "note": "补齐 W 完全蓄力漏掉的额外体力 6% 系数。"
+        },
+        {
+          "id": "external-eleven-e-1030400-minimum-damage-stat1",
+          "hero": "Eleven",
+          "slot": "E",
+          "title": "E 汉堡骑越-最小蓄力伤害",
+          "bases": "60,80,100,120,140",
+          "formula": "base + attack * 0.25 + extraHp * 0.1",
+          "coefficientText": "60/80/100/120/140(+攻击力25%)(+额外体力10%)",
+          "note": "补齐 E 最小蓄力漏掉的额外体力 10% 系数。"
+        },
+        {
+          "id": "external-eleven-e-1030400-maximum-damage-stat2",
+          "hero": "Eleven",
+          "slot": "E",
+          "title": "E 汉堡骑越-最大蓄力伤害",
+          "bases": "120,160,200,240,280",
+          "formula": "base + attack * 0.5 + extraHp * 0.2",
+          "coefficientText": "120/160/200/240/280(+攻击力50%)(+额外体力20%)",
+          "note": "补齐 E 最大蓄力漏掉的额外体力 20% 系数。"
+        },
+        {
+          "id": "external-eleven-r-1030500-damage-stat2",
+          "hero": "Eleven",
+          "slot": "R",
+          "title": "R 美食风暴-每跳伤害",
+          "bases": "10,15,20",
+          "formula": "base + attack * 0.08 + extraHp * 0.03",
+          "maxHits": 14,
+          "defaultHits": 1,
+          "hitLabel": "旋转跳数",
+          "hitNote": "持续期间每 0.5 秒对周围造成一次技能伤害。",
+          "coefficientText": "每跳 10/15/20(+攻击力8%)(+额外体力3%)",
+          "note": "补齐 11.5 录入时遗漏的额外体力 3% 系数并支持多跳累计。"
+        },
+        {
+          "id": "calib-camilo-p-1039100-shield",
+          "create": true,
+          "hero": "卡米洛",
+          "heroKey": "Camilo",
+          "slot": "P",
+          "group": 1039100,
+          "skillId": "CamiloPassive",
+          "dataKey": "shield",
+          "title": "P Olé!-护盾",
+          "bases": "50,100,150",
+          "formula": "base + attack * 0.8",
+          "kind": "shield",
+          "coefficientText": "护盾 50/100/150(+攻击力80%)",
+          "note": "补齐 9.5 上调后的 P 护盾段（70% → 80%）。"
+        },
+        {
+          "id": "external-camilo-q-1039200-damage-stat1",
+          "hero": "卡米洛",
+          "slot": "Q",
+          "title": "Q 弗拉门戈舞-普通横扫",
+          "bases": "10,30,50,70,90",
+          "formula": "base + attack * 0.65",
+          "damageType": "basicAttack",
+          "coefficientText": "10/30/50/70/90(+攻击力65%) * (普攻增幅)",
+          "note": "12.3 更新日志：攻击力系数 70% → 65%，并修正为普攻伤害结算（吃普攻增幅与普攻减伤）。"
+        },
+        {
+          "id": "external-camilo-q-1039200-initial-damage-stat2",
+          "hero": "卡米洛",
+          "slot": "Q",
+          "title": "Q 弗拉门戈舞-满层一段旋转",
+          "bases": "20,40,60,80,100",
+          "formula": "base + attack * 0.8",
+          "damageType": "basicAttack",
+          "coefficientText": "20/40/60/80/100(+攻击力80%) * (普攻增幅)",
+          "note": "修正为普攻伤害结算（吃普攻增幅与普攻减伤）。"
+        },
+        {
+          "id": "external-camilo-q-1039200-second-damage-stat3",
+          "hero": "卡米洛",
+          "slot": "Q",
+          "title": "Q 弗拉门戈舞-满层二段旋转",
+          "bases": "30,60,90,120,150",
+          "formula": "base + attack * 0.8",
+          "damageType": "basicAttack",
+          "coefficientText": "30/60/90/120/150(+攻击力80%) * (普攻增幅)",
+          "note": "同步 10.2 二段旋转系数下调（90% → 80%），并修正为普攻伤害结算。"
+        },
+        {
+          "id": "calib-camilo-q-1039200-heal",
+          "create": true,
+          "hero": "卡米洛",
+          "heroKey": "Camilo",
+          "slot": "Q",
+          "group": 1039200,
+          "skillId": "CamiloActive1",
+          "dataKey": "heal",
+          "title": "Q 弗拉门戈舞-满层旋转恢复",
+          "bases": "20,35,50,65,80",
+          "formula": "base + attack * 0.35",
+          "kind": "heal",
+          "coefficientText": "恢复 20/35/50/65/80(+攻击力35%)",
+          "note": "补齐 10.0 调整后的满层 Q 自身恢复量。"
+        },
+        {
+          "id": "external-camilo-q-1039210-damage-stat1",
+          "hero": "卡米洛",
+          "remove": true,
+          "note": "移除与基础 Q 数值完全相同的 EQ 升华重复条目。"
+        },
+        {
+          "id": "external-camilo-q-1039210-initial-damage-stat2",
+          "hero": "卡米洛",
+          "remove": true,
+          "note": "移除与满层一段旋转数值完全相同的升华重复条目。"
+        },
+        {
+          "id": "external-camilo-q-1039210-second-damage-stat3",
+          "hero": "卡米洛",
+          "remove": true,
+          "note": "移除与满层二段旋转数值完全相同的升华重复条目。"
+        },
+        {
+          "id": "external-camilo-w-1039300-damage-stat1",
+          "hero": "卡米洛",
+          "slot": "W",
+          "title": "W 终结舞曲",
+          "bases": "5,15,25,35,45",
+          "formula": "base + attack * 0.18",
+          "damageType": "basicAttack",
+          "maxHits": 4,
+          "defaultHits": 4,
+          "hitLabel": "命中次数",
+          "hitNote": "旋转突进最多造成 4 次普攻伤害。",
+          "coefficientText": "每段 5/15/25/35/45(+攻击力18%) * (普攻增幅)，最多4次",
+          "note": "补充 4 段命中次数步进器。"
+        },
+        {
+          "id": "external-camilo-e-1039400-one-step-damage-stat1",
+          "hero": "卡米洛",
+          "slot": "E",
+          "title": "E 节奏乐-一步舞突进伤害",
+          "bases": "30,45,60,75,90",
+          "formula": "base + attack * 0.2",
+          "coefficientText": "30/45/60/75/90(+攻击力20%)",
+          "note": "核对 E 一段突进伤害。"
+        },
+        {
+          "id": "external-camilo-e-1039400-two-step-damage-stat2",
+          "hero": "卡米洛",
+          "slot": "E",
+          "title": "E 节奏乐-两步舞击退伤害",
+          "bases": "30,45,60,75,90",
+          "formula": "base + attack * 0.2",
+          "coefficientText": "30/45/60/75/90(+攻击力20%)",
+          "note": "核对 E 二段击退伤害。"
+        },
+        {
+          "id": "external-camilo-r-1039500-embeleso-1st-stack-damage-stat1",
+          "hero": "卡米洛",
+          "slot": "R",
+          "title": "R 舞者魅力-碰撞1次伤害",
+          "bases": "100,150,200",
+          "formula": "base + attack * 0.5",
+          "coefficientText": "100/150/200(+攻击力50%)",
+          "note": "核对 R 碰撞 1 次结算伤害。"
+        },
+        {
+          "id": "external-camilo-r-1039500-embeleso-2nd-stack-damage-stat2",
+          "hero": "卡米洛",
+          "slot": "R",
+          "title": "R 舞者魅力-碰撞2次伤害",
+          "bases": "200,300,400",
+          "formula": "base + attack * 1",
+          "coefficientText": "200/300/400(+攻击力100%)",
+          "note": "核对 R 往返碰撞 2 次结算伤害（与碰撞 1 次互斥）。"
+        },
+        {
+          "id": "external-laura-p-1047100-damage-stat1",
+          "hero": "劳拉",
+          "slot": "P",
+          "title": "P 怪盗-强化普攻附伤",
+          "bases": "20,45,70",
+          "formula": "base + ap * 0.3",
+          "kind": "basicAttack",
+          "coefficientText": "20/45/70(+技能增幅30%)",
+          "note": "核对 12.0 P 怪盗伤害并归入强化普攻附伤。"
+        },
+        {
+          "id": "external-laura-q-1047200-damage-stat1",
+          "hero": "劳拉",
+          "slot": "Q",
+          "title": "Q 荆棘噬痕",
+          "bases": "50,75,100,125,150",
+          "formula": "base + ap * 0.5",
+          "maxHits": 2,
+          "defaultHits": 1,
+          "hitLabel": "挥鞭段数",
+          "hitNote": "Q 命中后可二段位移（二段位移本身无伤害，长鞭重刷冷却连打时可调段数）。",
+          "coefficientText": "50/75/100/125/150(+技能增幅50%)",
+          "note": "核对 Q 荆棘噬痕伤害。"
+        },
+        {
+          "id": "external-laura-w-1047300-damage-stat1",
+          "hero": "劳拉",
+          "slot": "W",
+          "title": "W 预告函-命中伤害",
+          "bases": "60,90,120,150,180",
+          "formula": "base + ap * 0.5",
+          "coefficientText": "60/90/120/150/180(+技能增幅50%)",
+          "note": "修正此前误把 W 标记回血（18~50+8%）当成 W 伤害的严重错位，恢复 9.3 命中伤害数值。"
+        },
+        {
+          "id": "calib-laura-w-1047300-heal",
+          "create": true,
+          "hero": "劳拉",
+          "heroKey": "Laura",
+          "slot": "W",
+          "group": 1047300,
+          "skillId": "LauraActive2",
+          "dataKey": "heal",
+          "title": "W 预告函-每次触发恢复",
+          "bases": "18,26,34,42,50",
+          "formula": "base + ap * 0.1",
+          "kind": "heal",
+          "coefficientText": "恢复 18/26/34/42/50(+技能增幅10%)",
+          "note": "12.6 更新日志：W 预告函体力恢复技能增幅系数 8% → 10%。"
+        },
+        {
+          "id": "external-laura-e-1047400-damage-stat1",
+          "hero": "劳拉",
+          "slot": "E",
+          "title": "E 优雅的步伐-二段跃击",
+          "bases": "110,145,180,215,250",
+          "formula": "base + ap * 0.75",
+          "coefficientText": "110/145/180/215/250(+技能增幅75%)",
+          "note": "核对 E 二段落地伤害。"
+        },
+        {
+          "id": "external-laura-r-1047500-initial-damage-stat1",
+          "hero": "劳拉",
+          "slot": "R",
+          "title": "R 幻影神偷-一段牵引",
+          "bases": "50,100,150",
+          "formula": "base + ap * 0.1",
+          "coefficientText": "50/100/150(+技能增幅10%)",
+          "note": "核对 R 一段牵引伤害。"
+        },
+        {
+          "id": "external-laura-r-1047500-second-damage-stat2",
+          "hero": "劳拉",
+          "slot": "R",
+          "title": "R 幻影神偷-二段爆发",
+          "bases": "140,220,300",
+          "formula": "base + ap * 0.9",
+          "coefficientText": "140/220/300(+技能增幅90%)",
+          "note": "核对 R 二段伤害。"
+        },
+        {
+          "id": "external-elena-p-1050100-damage-stat1",
+          "hero": "埃琳娜",
+          "slot": "P",
+          "title": "P 女王的冰封领域-碎冰伤害",
+          "bases": "10,30,50",
+          "formula": "base + ap * 0.3 + targetHp * [0.07,0.09,0.11][level - 1]",
+          "coefficientText": "10/30/50(+技能增幅30%)(+目标体力上限7/9/11%)",
+          "note": "核对 11.2 P 冻结碎冰伤害。"
+        },
+        {
+          "id": "external-elena-q-1050200-initial-damage-stat1",
+          "hero": "埃琳娜",
+          "slot": "Q",
+          "title": "Q 极冰-一段伤害",
+          "bases": "20,35,50,65,80",
+          "formula": "base + ap * 0.35 + extraHp * 0.1",
+          "coefficientText": "20/35/50/65/80(+技能增幅35%)(+额外体力10%)",
+          "note": "12.5 更新日志：一段技能增幅系数 25% → 35%，并补齐此前遗漏的额外体力 10% 系数。"
+        },
+        {
+          "id": "external-elena-q-1050200-second-damage-stat2",
+          "hero": "埃琳娜",
+          "slot": "Q",
+          "title": "Q 极冰-二段爆裂",
+          "bases": "40,70,100,130,160",
+          "formula": "base + ap * 0.4 + extraHp * 0.12",
+          "coefficientText": "40/70/100/130/160(+技能增幅40%)(+额外体力12%)",
+          "note": "12.5 更新日志：二段技能增幅 35% → 40%、额外体力 10% → 12%。"
+        },
+        {
+          "id": "external-elena-w-1050300-damage-stat1",
+          "hero": "埃琳娜",
+          "slot": "W",
+          "title": "W 双旋击",
+          "bases": "50,70,90,110,130",
+          "formula": "base + ap * 0.55 + extraHp * 0.1",
+          "maxHits": 2,
+          "defaultHits": 1,
+          "hitLabel": "旋转次数",
+          "coefficientText": "50/70/90/110/130(+技能增幅55%)(+额外体力10%)",
+          "note": "12.3 更新日志：W 额外体力系数 12% → 10%，支持 2 次充能步进。"
+        },
+        {
+          "id": "external-elena-e-1050400-damage-stat1",
+          "hero": "埃琳娜",
+          "slot": "E",
+          "title": "E 飞燕",
+          "bases": "60,95,130,165,200",
+          "formula": "base + ap * 0.8 + extraHp * 0.2",
+          "coefficientText": "60/95/130/165/200(+技能增幅80%)(+额外体力20%)",
+          "note": "补齐 E 飞燕此前遗漏的额外体力 20% 系数。"
+        },
+        {
+          "id": "external-elena-r-1050500-damage-stat1",
+          "hero": "埃琳娜",
+          "slot": "R",
+          "title": "R 霜心之舞-外圈冰区伤害",
+          "bases": "110,180,250",
+          "formula": "base + ap * 0.4 + extraHp * 0.08",
+          "coefficientText": "110/180/250(+技能增幅40%)(+额外体力8%)",
+          "note": "同步 9.4 外圈伤害上调（90/160/230 + 30% → 110/180/250 + 40%）并补齐额外体力 8% 系数。"
+        },
+        {
+          "id": "external-elena-r-1050500-icicle-damage-stat2",
+          "hero": "埃琳娜",
+          "slot": "R",
+          "title": "R 霜心之舞-内圈冰刺伤害",
+          "bases": "150,230,310",
+          "formula": "base + ap * 0.6 + extraHp * 0.12",
+          "coefficientText": "150/230/310(+技能增幅60%)(+额外体力12%)",
+          "note": "同步 9.4 内圈基础值上调（120/200/280 → 150/230/310）并补齐额外体力 12% 系数。"
+        },
+        {
+          "id": "external-adina-q-1052200-damage-stat1",
+          "hero": "阿迪娜",
+          "slot": "Q",
+          "title": "Q 星芒万丈-基础伤害",
+          "bases": "60,85,110,135,160",
+          "formula": "base + ap * 0.65",
+          "coefficientText": "60/85/110/135/160(+技能增幅65%)",
+          "note": "12.3 更新日志：Q 技能增幅系数 60% → 65%。"
+        },
+        {
+          "id": "calib-adina-q-1052210-sun-conjunct",
+          "create": true,
+          "hero": "阿迪娜",
+          "heroKey": "Adina",
+          "slot": "Q",
+          "levelSlot": "Q",
+          "group": 1052210,
+          "skillId": "AdinaActive1Conjunct",
+          "dataKey": "sunConjunctDamage",
+          "title": "Q 星芒万丈-太阳连接直击",
+          "bases": "90,150,210,270",
+          "formula": "base + ap * 0.9",
+          "coefficientText": "90/150/210/270(+技能增幅90%)",
+          "note": "12.3 更新日志：补齐太阳连接效果直击伤害（技能增幅系数 100% → 90%）。"
+        },
+        {
+          "id": "calib-adina-q-1052210-sun-conjunct-burn",
+          "create": true,
+          "hero": "阿迪娜",
+          "heroKey": "Adina",
+          "slot": "Q",
+          "levelSlot": "Q",
+          "group": 1052210,
+          "skillId": "AdinaActive1Conjunct",
+          "dataKey": "sunConjunctBurn",
+          "title": "Q 星芒万丈-太阳连接灼烧",
+          "bases": "0,0,0,0",
+          "formula": "targetHp * 0.11",
+          "coefficientText": "2秒内共造成 目标体力上限11% 持续技能伤害",
+          "note": "11.1 更新日志：补齐太阳连接 2 秒持续灼烧（目标体力上限 10% → 11%）。"
+        },
+        {
+          "id": "external-adina-w-1052300-damage-stat1",
+          "hero": "阿迪娜",
+          "slot": "W",
+          "title": "W 日月星界-基础伤害",
+          "bases": "80,105,130,155,180",
+          "formula": "base + ap * 0.65",
+          "coefficientText": "80/105/130/155/180(+技能增幅65%)",
+          "note": "12.3 更新日志：修正 W 技能增幅系数（60% → 65%）。"
+        },
+        {
+          "id": "calib-adina-w-1052310-moon-conjunct",
+          "create": true,
+          "hero": "阿迪娜",
+          "heroKey": "Adina",
+          "slot": "W",
+          "levelSlot": "W",
+          "group": 1052310,
+          "skillId": "AdinaActive2Conjunct",
+          "dataKey": "moonConjunctDamage",
+          "title": "W 日月星界-月亮连接单次",
+          "bases": "50,100,150,200",
+          "formula": "base + ap * 0.5",
+          "maxHits": 2,
+          "defaultHits": 2,
+          "hitLabel": "结界段数",
+          "hitNote": "月亮连接连续绘制 2 个三角形结界。",
+          "coefficientText": "每次 50/100/150/200(+技能增幅50%)，共2次",
+          "note": "12.3 更新日志：补齐月亮连接伤害（50/90/130/170 + 45% → 50/100/150/200 + 50%）。"
+        },
+        {
+          "id": "calib-adina-w-1052300-star-shield",
+          "create": true,
+          "hero": "阿迪娜",
+          "heroKey": "Adina",
+          "slot": "W",
+          "group": 1052300,
+          "skillId": "AdinaActive2",
+          "dataKey": "starShield",
+          "title": "W 日月星界-星星天体护盾",
+          "bases": "60,90,120,150,180",
+          "formula": "base + ap * 0.35",
+          "kind": "shield",
+          "coefficientText": "护盾 60/90/120/150/180(+技能增幅35%)",
+          "note": "10.0 Part.2 更新日志：补齐 W 星星符号护盾（30% → 35%）。"
+        },
+        {
+          "id": "external-adina-e-1052400-initial-damage-stat1",
+          "hero": "阿迪娜",
+          "slot": "E",
+          "title": "E 星体陷落-一段标记伤害",
+          "bases": "40,60,80,100,120",
+          "formula": "base + ap * 0.45",
+          "coefficientText": "40/60/80/100/120(+技能增幅45%)",
+          "note": "12.3 更新日志：E 仅 1 段伤害系数由 40% 上调至 45%。"
+        },
+        {
+          "id": "external-adina-e-1052400-impact-damage-stat2",
+          "hero": "阿迪娜",
+          "slot": "E",
+          "title": "E 星体陷落-二段坠落伤害",
+          "bases": "40,60,80,100,120",
+          "formula": "base + ap * 0.4",
+          "coefficientText": "40/60/80/100/120(+技能增幅40%)",
+          "note": "12.4 更新日志确认：12.3 仅上调 E 1 段，2 段保持 10.4 下调后的 40% 技能增幅系数。"
+        },
+        {
+          "id": "calib-adina-e-1052410-star-conjunct-heal",
+          "create": true,
+          "hero": "阿迪娜",
+          "heroKey": "Adina",
+          "slot": "E",
+          "levelSlot": "E",
+          "group": 1052410,
+          "skillId": "AdinaActive3Conjunct",
+          "dataKey": "starConjunctHeal",
+          "title": "E 星体陷落-星星连接每秒恢复",
+          "bases": "26,36,46,56",
+          "formula": "base + ap * 0.07",
+          "kind": "heal",
+          "coefficientText": "每秒恢复 26/36/46/56(+技能增幅7%)",
+          "note": "12.6 更新日志：补齐星星连接每秒体力恢复（20/30/40/50 + 6% → 26/36/46/56 + 7%）。"
+        },
+        {
+          "id": "external-karla-p-1054100-fully-charged-damage-stat2",
+          "hero": "卡拉",
+          "slot": "P",
+          "title": "P 水手的较量-满蓄能普攻附伤",
+          "bases": "10,25,40",
+          "formula": "base + attack * 1 + ap * 0.25 + targetHp * [0.04,0.08,0.12][level - 1]",
+          "kind": "basicAttack",
+          "coefficientText": "10/25/40(+攻击力100%)(+技能增幅25%)(+目标体力上限4/8/12%)",
+          "note": "10.7 更新日志：满蓄能目标体力上限系数 4/7/10% → 4/8/12%，归入强化普攻栏。"
+        },
+        {
+          "id": "external-karla-p-1054100-uncharged-damage-stat1",
+          "hero": "卡拉",
+          "slot": "P",
+          "title": "P 水手的较量-未满蓄能附伤",
+          "bases": "5,10,15",
+          "formula": "base + attack * 0.03 + ap * 0.03",
+          "coefficientText": "5/10/15(+攻击力3%)(+技能增幅3%)",
+          "note": "核对未满蓄能普攻附带技能伤害。"
+        },
+        {
+          "id": "calib-karla-q-1054200-damage",
+          "create": true,
+          "hero": "卡拉",
+          "heroKey": "Karla",
+          "slot": "Q",
+          "group": 1054200,
+          "skillId": "KarlaActive1",
+          "dataKey": "piercingChainDamage",
+          "title": "Q 鱼叉穿刺",
+          "bases": "0,0,0,0,0",
+          "formula": "attack * [1.2,1.3,1.4,1.5,1.6][level - 1]",
+          "damageType": "basicAttack",
+          "maxHits": 2,
+          "defaultHits": 1,
+          "hitLabel": "发射次数",
+          "coefficientText": "攻击力 120/130/140/150/160% 普攻伤害",
+          "note": "补齐此前整槽缺失的 Q 鱼叉穿刺（1.40 上调为 120~160% 攻击力，走普攻伤害结算）。"
+        },
+        {
+          "id": "external-karla-w-1054300-damage-stat1",
+          "hero": "卡拉",
+          "slot": "W",
+          "title": "W 回收",
+          "bases": "80,105,130,155,180",
+          "formula": "(base + attack * 0.3 + ap * 0.75) * (1 + critChance * 0.65)",
+          "coefficientText": "(80/105/130/155/180 + 攻击力30% + 技能增幅75%) × (1 + 暴击率×65%)",
+          "note": "同步 11.6 基础值并补齐暴击率 65% 增伤乘区。"
+        },
+        {
+          "id": "external-karla-e-1054400-damage-stat1",
+          "hero": "卡拉",
+          "slot": "E",
+          "title": "E 海员登陆",
+          "bases": "60,100,140,180,220",
+          "formula": "base + attack * 0.5 + ap * 0.8",
+          "coefficientText": "60/100/140/180/220(+攻击力50%)(+技能增幅80%)",
+          "note": "补齐 11.2 上调后的技能增幅 80% 系数（此前漏了整项法强加成）。"
+        },
+        {
+          "id": "external-karla-r-1054500-initial-damage-stat1",
+          "hero": "卡拉",
+          "slot": "R",
+          "title": "R 魂锁炼狱-一段安装伤害",
+          "bases": "50,100,150",
+          "formula": "base + attack * 0.5 + ap * 0.7",
+          "coefficientText": "50/100/150(+攻击力50%)(+技能增幅70%)",
+          "note": "核对 R 一段伤害。"
+        },
+        {
+          "id": "external-karla-r-1054500-second-damage-stat2",
+          "hero": "卡拉",
+          "slot": "R",
+          "title": "R 魂锁炼狱-二段拉拽伤害",
+          "bases": "80,170,260",
+          "formula": "base + attack * 0.8 + ap * 0.9",
+          "coefficientText": "80/170/260(+攻击力80%)(+技能增幅90%)",
+          "note": "核对 8.0 R 二段伤害。"
+        },
+        {
+          "id": "external-estelle-q-1055220-suppression-damage-stat1",
+          "hero": "艾丝蒂尔",
+          "slot": "Q",
+          "title": "Q 镇压-强化普攻附伤",
+          "bases": "50,80,110,140,170",
+          "formula": "base + ap * 0.4 + maxHp * 0.05",
+          "kind": "basicAttack",
+          "coefficientText": "50/80/110/140/170(+技能增幅40%)(+体力上限5%)",
+          "note": "补齐 10.3 Q 镇压遗漏的自身体力上限 5% 系数，并归入强化普攻附伤。"
+        },
+        {
+          "id": "external-estelle-w-1055300-first-response-damage-stat1",
+          "hero": "艾丝蒂尔",
+          "slot": "W",
+          "title": "W 临危应对-拍击伤害",
+          "bases": "20,50,80,110,140",
+          "formula": "base + ap * 0.55 + targetHp * 0.03",
+          "coefficientText": "20/50/80/110/140(+技能增幅55%)(+目标体力上限3%)",
+          "note": "核对 11.3 W 临危应对伤害。"
+        },
+        {
+          "id": "external-estelle-w-1055300-emergency-extinguish-damage-stat2",
+          "hero": "艾丝蒂尔",
+          "slot": "W",
+          "title": "W 紧急灭火-喷水每跳伤害",
+          "bases": "10,20,30,40,50",
+          "formula": "base + ap * 0.25 + maxHp * 0.005",
+          "maxHits": 7,
+          "defaultHits": 1,
+          "hitLabel": "喷水跳数",
+          "coefficientText": "每跳 10/20/30/40/50(+技能增幅25%)(+体力上限0.5%)",
+          "note": "修正此前误抄 W1 55% 系数的问题，同步 8.7 基础值（10~50）与体力上限 0.5% 系数。"
+        },
+        {
+          "id": "external-estelle-e-1055400-forcible-entry-damage-stat2",
+          "hero": "艾丝蒂尔",
+          "slot": "E",
+          "title": "E 盾牌冲锋-突进伤害",
+          "bases": "60,85,110,135,160",
+          "formula": "base + ap * 0.7 + maxHp * 0.1",
+          "coefficientText": "60/85/110/135/160(+技能增幅70%)(+体力上限10%)",
+          "note": "核对 11.3 E 盾牌冲锋伤害。"
+        },
+        {
+          "id": "external-estelle-r-1055500-solo-damage-stat1",
+          "hero": "艾丝蒂尔",
+          "slot": "R",
+          "title": "R 空中救援-自身水炸弹伤害",
+          "bases": "70,150,230",
+          "formula": "base + ap * 0.4 + maxHp * 0.1",
+          "coefficientText": "70/150/230(+技能增幅40%)(+体力上限10%)",
+          "note": "补齐 R 自身水炸弹遗漏的体力上限 10% 系数。"
+        },
+        {
+          "id": "external-estelle-r-1055500-global-damage-stat3",
+          "hero": "艾丝蒂尔",
+          "slot": "R",
+          "title": "R 空中救援-支援队友落地伤害",
+          "bases": "70,150,230",
+          "formula": "base + ap * 0.4 + maxHp * 0.1",
+          "coefficientText": "70/150/230(+技能增幅40%)(+体力上限10%)",
+          "note": "补齐 R 支援队友落地遗漏的体力上限 10% 系数。"
+        },
+        {
+          "id": "calib-estelle-r-1055500-self-shield",
+          "create": true,
+          "hero": "艾丝蒂尔",
+          "heroKey": "Estelle",
+          "slot": "R",
+          "group": 1055500,
+          "skillId": "EstelleActive4",
+          "dataKey": "selfShield",
+          "title": "R 空中救援-用于自身护盾",
+          "bases": "100,150,200",
+          "formula": "base + ap * 0.55 + selfLostHp * 0.25",
+          "kind": "shield",
+          "coefficientText": "护盾 100/150/200(+技能增幅55%)(+已失体力25%)",
+          "note": "12.7 更新日志：用于自身时已失体力护盾系数 20% → 25%。"
+        },
+        {
+          "id": "calib-estelle-r-1055500-ally-shield",
+          "create": true,
+          "hero": "艾丝蒂尔",
+          "heroKey": "Estelle",
+          "slot": "R",
+          "group": 1055500,
+          "skillId": "EstelleActive4",
+          "dataKey": "allyShield",
+          "title": "R 空中救援-用于队友护盾",
+          "bases": "150,250,350",
+          "formula": "base + ap * 0.55 + targetLostHp * 0.15",
+          "kind": "shield",
+          "coefficientText": "护盾 150/250/350(+技能增幅55%)(+目标失去体力15%)",
+          "note": "12.7 更新日志：用于队友时护盾基础值 100/200/300 → 150/250/350（以目标已失体力栏模拟队友已失体力）。"
+        },
+        {
+          "id": "external-isaac-p-1059100-damage-stat1",
+          "hero": "伊萨克",
+          "slot": "P",
+          "title": "P 管制-满3层触发伤害",
+          "bases": "20,30,40",
+          "formula": "base + attack * 0.6 + targetHp * [0.04,0.05,0.06][level - 1]",
+          "coefficientText": "20/30/40(+攻击力60%)(+目标体力上限4/5/6%)",
+          "note": "核对 11.6 P 管制伤害。"
+        },
+        {
+          "id": "external-isaac-q-1059200-damage-stat1",
+          "hero": "伊萨克",
+          "slot": "Q",
+          "title": "Q 突袭行动",
+          "bases": "20,60,100,140,180",
+          "formula": "base + attack * 0.8",
+          "coefficientText": "20/60/100/140/180(+攻击力80%)",
+          "note": "12.4 更新日志：Q 攻击力系数 70% → 80%。"
+        },
+        {
+          "id": "external-isaac-w-1059300-damage-stat1",
+          "hero": "伊萨克",
+          "slot": "W",
+          "title": "W 武装硬化-额外伤害",
+          "bases": "30,40,50,60,70",
+          "formula": "base + attack * 0.65",
+          "coefficientText": "30/40/50/60/70(+攻击力65%)",
+          "note": "核对 1.45 W 武装硬化额外技能伤害。"
+        },
+        {
+          "id": "external-isaac-e-1059400-damage-stat1",
+          "hero": "伊萨克",
+          "slot": "E",
+          "title": "E 追击 / 扣押-二段拉拽",
+          "bases": "30,60,90,120,150",
+          "formula": "base + attack * 0.6",
+          "coefficientText": "30/60/90/120/150(+攻击力60%)",
+          "note": "核对 1.31 E 扣押拉拽伤害。"
+        },
+        {
+          "id": "external-isaac-r-1059500-damage-stat1",
+          "hero": "伊萨克",
+          "slot": "R",
+          "title": "R 湮灭-基础猛击伤害",
+          "bases": "120,180,240",
+          "formula": "base + attack * 1",
+          "coefficientText": "120/180/240(+攻击力100%)",
+          "note": "核对 11.2 R 湮灭基础伤害。"
+        },
+        {
+          "id": "calib-isaac-r-1059500-exploit-extra",
+          "create": true,
+          "hero": "伊萨克",
+          "heroKey": "Isaac",
+          "slot": "R",
+          "group": 1059500,
+          "skillId": "IsaacActive4",
+          "dataKey": "exploitLostHpDamage",
+          "title": "R 湮灭-管制标识已失体力伤害",
+          "bases": "0,0,0",
+          "formula": "targetLostHp * ([0.02,0.05,0.08][level - 1] + attack * 0.0005) * stacks",
+          "maxStacks": 2,
+          "stackLabel": "管制标识层数",
+          "coefficientText": "每层 目标已失体力 (2/5/8% + 攻击力×0.05%)",
+          "note": "补齐 1.41 R 湮灭按目标管制标识层数触发的已失体力百分比追加伤害。"
+        },
+        {
+          "id": "external-tazia-p-1060100-damage-stat1",
+          "hero": "塔齐娅",
+          "slot": "P",
+          "title": "P 匠心工艺-毁弃普攻",
+          "bases": "40,70,100",
+          "formula": "base + ap * 0.35",
+          "kind": "basicAttack",
+          "coefficientText": "40/70/100(+技能增幅35%)",
+          "note": "核对 1.32 P 毁弃伤害并归入强化普攻。"
+        },
+        {
+          "id": "external-tazia-q-1060200-damage-stat1",
+          "hero": "塔齐娅",
+          "slot": "Q",
+          "title": "Q 凌空碎-玻璃刃投掷",
+          "bases": "30,60,90,120,150",
+          "formula": "base + ap * 0.4",
+          "maxHits": 4,
+          "defaultHits": 1,
+          "hitLabel": "投掷刃数",
+          "coefficientText": "30/60/90/120/150(+技能增幅40%)",
+          "note": "同步 10.7 Q 凌空碎基础值调整（40/60/80/100/120 → 30/60/90/120/150）。"
+        },
+        {
+          "id": "external-tazia-q-1060200-spada-damage-stat2",
+          "hero": "塔齐娅",
+          "slot": "Q",
+          "title": "Q 破空斩-玻璃剑穿刺伤害",
+          "bases": "30,60,90,120,150",
+          "formula": "base + ap * 0.5",
+          "coefficientText": "30/60/90/120/150(+技能增幅50%)",
+          "note": "同步 10.7 破空斩穿刺基础值上调（20/45/70/95/120 → 30/60/90/120/150）。"
+        },
+        {
+          "id": "external-tazia-q-1060200-spada-explosion-damage-stat3",
+          "hero": "塔齐娅",
+          "slot": "Q",
+          "title": "Q 破空斩-玻璃剑爆炸伤害",
+          "bases": "40,70,100,130,160",
+          "formula": "base + ap * 0.55",
+          "coefficientText": "40/70/100/130/160(+技能增幅55%)",
+          "note": "核对 10.5 破空斩爆炸伤害。"
+        },
+        {
+          "id": "external-tazia-w-1060300-damage-stat1",
+          "hero": "塔齐娅",
+          "slot": "W",
+          "title": "W 败作-壁垒破碎伤害",
+          "bases": "50,85,120,155,190",
+          "formula": "base + ap * 0.55",
+          "coefficientText": "50/85/120/155/190(+技能增幅55%)",
+          "note": "核对 W 败作伤害。"
+        },
+        {
+          "id": "external-tazia-e-1060420-damage-stat1",
+          "hero": "塔齐娅",
+          "slot": "E",
+          "title": "E 清场-舞刃基础伤害",
+          "bases": "60,90,120,150,180",
+          "formula": "base + ap * 0.45",
+          "selfAmp": {
+            "source": "满碎璃(6片)",
+            "multiplier": 1.5,
+            "note": "破坏 2 个以上玻璃碎片时，每多破 1 片增加 10% 伤害与护盾，上限 +50%。"
+          },
+          "coefficientText": "60/90/120/150/180(+技能增幅45%)，碎璃至多+50%",
+          "note": "修正此前抓取器把 Spada(Enhanced Q) 错挂到 E 清场的问题，恢复 1.30 真实数值。"
+        },
+        {
+          "id": "calib-tazia-e-1060420-shield",
+          "create": true,
+          "hero": "塔齐娅",
+          "heroKey": "Tazia",
+          "slot": "E",
+          "group": 1060420,
+          "skillId": "TaziaActive3",
+          "dataKey": "shield",
+          "title": "E 清场-基础护盾",
+          "bases": "40,60,80,100,120",
+          "formula": "base + ap * 0.4",
+          "kind": "shield",
+          "coefficientText": "护盾 40/60/80/100/120(+技能增幅40%)",
+          "note": "12.6 更新日志：E 清场护盾技能增幅系数 35% → 40%。"
+        },
+        {
+          "id": "external-tazia-r-1060500-damage-stat1",
+          "hero": "塔齐娅",
+          "slot": "R",
+          "title": "R 璃之境-巨剑召唤伤害",
+          "bases": "70,120,170",
+          "formula": "base + ap * 0.45",
+          "coefficientText": "70/120/170(+技能增幅45%)",
+          "note": "核对 R 巨剑生成直接命中伤害。"
+        },
+        {
+          "id": "external-tazia-r-1060500-explosion-damage-stat2",
+          "hero": "塔齐娅",
+          "slot": "R",
+          "title": "R 璃之境-巨剑碎裂基础伤害",
+          "bases": "90,180,270",
+          "formula": "base + ap * 0.6",
+          "selfAmp": {
+            "source": "满碎璃(4片)",
+            "multiplier": 2.2,
+            "note": "生成时每破坏 1 个玻璃碎片伤害 +30%，上限 +120%（即 2.2 倍）。"
+          },
+          "coefficientText": "90/180/270(+技能增幅60%)，每片碎璃+30%(至多+120%)",
+          "note": "核对 R 巨剑爆破伤害并附带满碎璃增伤预览。"
+        },
+        {
+          "id": "external-irem-q-1061200-damage-stat1",
+          "hero": "爱琳",
+          "slot": "Q",
+          "title": "Q 【爱琳】跳跳球",
+          "bases": "50,75,100,125,150",
+          "formula": "base + ap * 0.55",
+          "progressiveDamage": {
+            "id": "bounce",
+            "label": "弹跳次数",
+            "unit": "次",
+            "selectedLabel": "弹跳",
+            "min": 0,
+            "max": 2,
+            "default": 2,
+            "base": {
+              "fromMultiplier": 1,
+              "toMultiplier": 1.6
+            },
+            "coefficient": {
+              "variable": "ap",
+              "from": 0.55,
+              "to": 0.88
+            },
+            "note": "跳跳球每弹跳 1 次伤害提高 30%，最多弹跳 2 次（满弹跳为基础与系数的 1.6 倍）。"
+          },
+          "coefficientText": "50/75/100/125/150(+技能增幅55%) ~ 满弹跳 1.6 倍",
+          "note": "同步 11.6 基础值并接入 0~2 次弹跳渐进档位。"
+        },
+        {
+          "id": "external-irem-q-1061210-damage-stat1",
+          "hero": "爱琳",
+          "slot": "Q",
+          "title": "Q 【猫咪】无敌喵喵拳-突进首击",
+          "bases": "30,60,90,120,150",
+          "formula": "base + ap * 0.65",
+          "coefficientText": "30/60/90/120/150(+技能增幅65%)",
+          "note": "核对猫咪形态 Q 首段突进附伤。"
+        },
+        {
+          "id": "external-irem-w-1061300-damage-stat1",
+          "hero": "爱琳",
+          "slot": "W",
+          "title": "W 【爱琳】喵言喵语",
+          "bases": "40,80,120,160,200",
+          "formula": "base + ap * 0.7",
+          "coefficientText": "40/80/120/160/200(+技能增幅70%)",
+          "note": "核对人类形态 W 魅惑场伤害。"
+        },
+        {
+          "id": "external-irem-w-1061310-damage-stat1",
+          "hero": "爱琳",
+          "slot": "W",
+          "title": "W 【猫咪】喵心不悦",
+          "bases": "40,80,120,160,200",
+          "formula": "base + ap * 0.8",
+          "coefficientText": "40/80/120/160/200(+技能增幅80%)",
+          "note": "核对 11.5 猫咪形态 W 击飞伤害。"
+        },
+        {
+          "id": "calib-irem-e-1061410-cat-damage",
+          "create": true,
+          "hero": "爱琳",
+          "heroKey": "Irem",
+          "slot": "E",
+          "group": 1061410,
+          "skillId": "IremCatActive3",
+          "dataKey": "damage",
+          "title": "E 【猫咪】喵翻滚",
+          "bases": "40,75,110,145,180",
+          "formula": "base + ap * 0.6",
+          "coefficientText": "40/75/110/145/180(+技能增幅60%)",
+          "note": "补齐此前缺失的猫咪形态 E 喵翻滚跃击伤害（人类形态 E 喵步轻俏仅位移留鱼，无伤害）。"
+        },
+        {
+          "id": "external-irem-r-1061500-damage-stat2",
+          "hero": "爱琳",
+          "slot": "R",
+          "title": "R 【爱琳】变身喵咪！-强化普攻",
+          "bases": "10,50,90,130",
+          "formula": "base + ap * [0.3,0.35,0.4,0.45][level - 1]",
+          "kind": "basicAttack",
+          "coefficientText": "10/50/90/130(+技能增幅30/35/40/45%)",
+          "note": "12.3 更新日志：人类形态鱼标强化普攻技能增幅系数由 25/30/35/40% 上调为 30/35/40/45%（R 为 4 级制）。"
+        },
+        {
+          "id": "external-irem-r-1061510-damage-stat2",
+          "hero": "爱琳",
+          "remove": true,
+          "note": "移除 Wiki 抓取器把人类 R 强化普攻重复抄到猫咪 R 的假伤害条目（猫咪变回爱琳仅提供护盾）。"
+        },
+        {
+          "id": "patch-121-irem-r-1061510-shield",
+          "hero": "爱琳",
+          "slot": "R",
+          "title": "R 【猫咪】爱琳登场！-踩鱼护盾",
+          "bases": "20,45,70,95",
+          "formula": "base + ap * 0.35",
+          "kind": "shield",
+          "coefficientText": "护盾 20/45/70/95(+技能增幅35%)",
+          "note": "核对 12.1 猫咪 R 护盾（4 级制）。"
+        },
+        {
+          "id": "external-abigail-p-1067100-damage-stat1",
+          "hero": "艾比盖尔",
+          "slot": "P",
+          "title": "P 撕裂之刃-强化普攻附伤",
+          "bases": "30,65,100",
+          "formula": "base + ap * 0.4",
+          "kind": "basicAttack",
+          "coefficientText": "30/65/100(+技能增幅40%)",
+          "note": "核对 1.44 P 撕裂之刃伤害并归入强化普攻栏（减防需在目标栏手填）。"
+        },
+        {
+          "id": "release-67-q-01",
+          "hero": "艾比盖尔",
+          "slot": "Q",
+          "title": "Q 二元自旋-第一段旋转",
+          "bases": "20,40,60,80,100",
+          "formula": "base + ap * 0.3",
+          "coefficientText": "20/40/60/80/100(+技能增幅30%)",
+          "note": "修正停留在 2023 发布初值的 release 条目，同步至 10.2 一段伤害（20~100 + 30%）。"
+        },
+        {
+          "id": "release-67-q-02",
+          "hero": "艾比盖尔",
+          "slot": "Q",
+          "title": "Q 二元自旋-第二段旋转",
+          "bases": "40,75,110,145,180",
+          "formula": "base + ap * 0.35",
+          "coefficientText": "40/75/110/145/180(+技能增幅35%)",
+          "note": "修正停留在 2023 发布初值（60~180 + 60%）的 release 条目，同步至 10.2 二段伤害（40~180 + 35%）。"
+        },
+        {
+          "id": "external-abigail-w-1067300-damage-stat1",
+          "hero": "艾比盖尔",
+          "slot": "W",
+          "title": "W 时空交错",
+          "bases": "80,110,140,170,200",
+          "formula": "base + targetCurrentHp * (0.08 + ap * 0.0002)",
+          "coefficientText": "80/110/140/170/200 + 目标当前体力×(8% + 技能增幅×0.02%)",
+          "note": "修正公式括号层级错误：官方「目标当前体力 8%(+技能增幅2%)」指每 100 技增提高 2% 目标当前体力伤害，而非 +0.02×ap 固定值。"
+        },
+        {
+          "id": "calib-abigail-w-1067300-shield",
+          "create": true,
+          "hero": "艾比盖尔",
+          "heroKey": "Abigail",
+          "slot": "W",
+          "group": 1067300,
+          "skillId": "AbigailActive2",
+          "dataKey": "shield",
+          "title": "W 时空交错-基础护盾",
+          "bases": "50,75,100,125,150",
+          "formula": "base + ap * 0.35",
+          "kind": "shield",
+          "coefficientText": "护盾 50/75/100/125/150(+技能增幅35%)",
+          "note": "补齐 1.38 上调后的 W 命中基础护盾（每额外命中 1 名敌人再增幅）。"
+        },
+        {
+          "id": "external-abigail-e-1067400-damage-stat1",
+          "hero": "艾比盖尔",
+          "slot": "E",
+          "title": "E 维度跃迁",
+          "bases": "70,95,120,145,170",
+          "formula": "base + ap * 0.4",
+          "coefficientText": "70/95/120/145/170(+技能增幅40%)",
+          "note": "12.7 更新日志：E 维度跃迁基础伤害 70/85/100/115/130 → 70/95/120/145/170。"
+        },
+        {
+          "id": "external-abigail-r-1067500-damage-stat1",
+          "hero": "艾比盖尔",
+          "slot": "R",
+          "title": "R 次元时空",
+          "bases": "150,275,400",
+          "formula": "base + ap * 0.95",
+          "coefficientText": "150/275/400(+技能增幅95%)",
+          "note": "12.4 更新日志：R 技能增幅系数 85% → 95%。"
+        },
+        {
+          "id": "external-alonso-q-1068200-damage-stat1",
+          "hero": "阿隆索",
+          "slot": "Q",
+          "title": "Q 磁石之握-磁力拳命中",
+          "bases": "100,140,180,220,260",
+          "formula": "base + ap * 0.4",
+          "coefficientText": "100/140/180/220/260(+技能增幅40%)",
+          "note": "核对 1.12 Q 磁力拳命中伤害。"
+        },
+        {
+          "id": "external-alonso-q-1068200-connected-enemy-max-hp-damage-stat3",
+          "hero": "阿隆索",
+          "slot": "Q",
+          "title": "Q 磁石之握-连接普攻额外伤害",
+          "bases": "0,0,0,0,0",
+          "formula": "heroLevel * 6 + targetHp * [0.06,0.07,0.08,0.09,0.1][level - 1]",
+          "kind": "basicAttack",
+          "coefficientText": "等级×6 + 目标体力上限6/7/8/9/10%",
+          "note": "核对 11.4 连接目标普攻触发伤害并归入强化普攻附伤。"
+        },
+        {
+          "id": "external-alonso-w-1068300-projectile-damage-stat1",
+          "hero": "阿隆索",
+          "slot": "W",
+          "title": "W 磁盾光波-光波单发伤害",
+          "bases": "30,35,40,45,50",
+          "formula": "base + ap * 0.25 + extraHp * 0.1",
+          "maxHits": 5,
+          "defaultHits": 1,
+          "hitLabel": "光波发数",
+          "hitNote": "盾牌持续期间共发射 5 次光波。",
+          "coefficientText": "每发 30/35/40/45/50(+技能增幅25%)(+额外体力10%)，共5发",
+          "note": "补齐 8.6 上调后的额外体力 10% 系数（此前整项遗漏）及 5 发步进器。"
+        },
+        {
+          "id": "external-alonso-w-1068300-final-damage-stat2",
+          "hero": "阿隆索",
+          "slot": "W",
+          "title": "W 磁盾光波-终结伤害",
+          "bases": "80,120,160,200,240",
+          "formula": "base + ap * 0.5 + extraHp * 0.2",
+          "coefficientText": "80/120/160/200/240(+技能增幅50%)(+额外体力20%)",
+          "note": "核对 8.6 W 终结伤害。"
+        },
+        {
+          "id": "external-alonso-e-1068400-damage-stat1",
+          "hero": "阿隆索",
+          "slot": "E",
+          "title": "E 磁吸冲击",
+          "bases": "60,90,120,150,180",
+          "formula": "base + defense * 0.2 + maxHp * 0.07",
+          "coefficientText": "60/90/120/150/180(+防御力20%)(+体力上限7%)",
+          "note": "补齐此前完全丢失的防御力 20% 与自身体力上限 7% 双加成。"
+        },
+        {
+          "id": "external-alonso-r-1068500-initial-damage-stat1",
+          "hero": "阿隆索",
+          "slot": "R",
+          "title": "R 磁吸漩涡-起手牵引伤害",
+          "bases": "70,160,250",
+          "formula": "base + ap * 0.5",
+          "coefficientText": "70/160/250(+技能增幅50%)",
+          "note": "核对 R 起手牵引伤害。"
+        },
+        {
+          "id": "external-alonso-r-1068500-damage-over-time-stat3",
+          "hero": "阿隆索",
+          "slot": "R",
+          "title": "R 磁吸漩涡-持续每跳伤害",
+          "bases": "16,20,24",
+          "formula": "base + ap * 0.15",
+          "maxHits": 5,
+          "defaultHits": 1,
+          "hitLabel": "持续跳数",
+          "coefficientText": "每跳 16/20/24(+技能增幅15%)",
+          "note": "核对 R 持续伤害并补充跳数步进器。"
+        },
+        {
+          "id": "release-68-r-01",
+          "hero": "阿隆索",
+          "slot": "R",
+          "title": "R 磁吸漩涡-终结最小伤害",
+          "bases": "100,150,200",
+          "formula": "base + ap * 0.5 + extraHp * 0.12",
+          "coefficientText": "100/150/200(+技能增幅50%)(+额外体力12%)",
+          "note": "修正停留在 2023 初值（40/80/120+40%+2%）的 release 条目，同步至 10.6 终结最小伤害。"
+        },
+        {
+          "id": "release-68-r-02",
+          "hero": "阿隆索",
+          "slot": "R",
+          "title": "R 磁吸漩涡-终结最大伤害",
+          "bases": "200,300,400",
+          "formula": "base + ap * 1 + extraHp * 0.24",
+          "coefficientText": "200/300/400(+技能增幅100%)(+额外体力24%)",
+          "note": "修正停留在 2023 初值（80/160/240+80%+4%）的 release 条目，同步至 10.6 终结最大伤害。"
+        },
+        {
+          "id": "external-katja-p-1072100-damage-stat1",
+          "hero": "卡缇娅",
+          "slot": "P",
+          "title": "P 雾色死神-强化普攻附伤",
+          "bases": "50,75,100",
+          "formula": "base + attack * [0.3,0.45,0.6][level - 1]",
+          "kind": "basicAttack",
+          "coefficientText": "50/75/100(+攻击力30/45/60%)",
+          "note": "核对 9.6 P 雾色死神额外技能伤害并归入强化普攻附伤。"
+        },
+        {
+          "id": "external-katja-q-1072200-minimum-damage-stat1",
+          "hero": "卡缇娅",
+          "slot": "Q",
+          "title": "Q 绝命狙击-近距最小伤害",
+          "bases": "40,80,120,160,200",
+          "formula": "base + attack * 0.7",
+          "coefficientText": "40/80/120/160/200(+攻击力70%)",
+          "note": "核对 8.2 Q 最小距离伤害。"
+        },
+        {
+          "id": "external-katja-q-1072200-maximum-damage-stat2",
+          "hero": "卡缇娅",
+          "slot": "Q",
+          "title": "Q 绝命狙击-远距最大伤害",
+          "bases": "60,120,180,240,300",
+          "formula": "base + attack * 1.05",
+          "coefficientText": "60/120/180/240/300(+攻击力105%)",
+          "note": "核对 8.2 Q 最大距离伤害。"
+        },
+        {
+          "id": "external-katja-e-1072400-damage-stat1",
+          "hero": "卡缇娅",
+          "slot": "E",
+          "title": "E 灰色警戒",
+          "bases": "50,75,100,125,150",
+          "formula": "base + attack * 1",
+          "coefficientText": "50/75/100/125/150(+攻击力100%)",
+          "note": "核对 E 灰色警戒后跳射击伤害。"
+        },
+        {
+          "id": "external-katja-r-1072500-initial-damage-stat1",
+          "hero": "卡缇娅",
+          "slot": "R",
+          "title": "R 暗影终结-第一发伤害",
+          "bases": "300,450,600",
+          "formula": "base + attack * 1.5",
+          "coefficientText": "300/450/600(+攻击力150%)",
+          "note": "同步 9.5 第一发基础值上调（250/400/550 → 300/450/600）。"
+        },
+        {
+          "id": "external-katja-r-1072500-second-damage-stat2",
+          "hero": "卡缇娅",
+          "slot": "R",
+          "title": "R 暗影终结-第二发伤害",
+          "bases": "350,500,650",
+          "formula": "base + attack * 1.8",
+          "coefficientText": "350/500/650(+攻击力180%)",
+          "note": "同步 9.5 第二发伤害上调（300/450/600 + 160% → 350/500/650 + 180%）。"
+        },
+        {
+          "id": "release-72-r-01",
+          "hero": "卡缇娅",
+          "slot": "R",
+          "title": "R 暗影终结-第三发伤害",
+          "bases": "400,700,1000",
+          "formula": "base + attack * 2",
+          "coefficientText": "400/700/1000(+攻击力200%)",
+          "note": "修正停留在 2024 发布初值（300/600/900）的第三发基础值为 400/700/1000。"
+        },
+        {
+          "id": "external-lenore-p-1075100-damage-stat1",
+          "hero": "莉诺尔",
+          "slot": "P",
+          "title": "P 苦痛之律-半血以下额外伤害",
+          "bases": "10,30,50",
+          "formula": "base + ap * 0.2 + stacks * 2",
+          "maxStacks": 30,
+          "stackLabel": "悲鸣叠层",
+          "coefficientText": "10/30/50(+技能增幅20%) + 每层悲鸣叠层 2",
+          "note": "修正此前抓取器把李黛琳醉拳被动错挂到莉诺尔 P（35~55 + 攻击力55%）的严重错位，恢复苦痛之律真实公式。"
+        },
+        {
+          "id": "external-lenore-q-1075200-damage-stat1",
+          "hero": "莉诺尔",
+          "slot": "Q",
+          "title": "Q 断奏-首发声波伤害",
+          "bases": "80,100,120,140,160",
+          "formula": "base + ap * 0.6",
+          "selfAmp": {
+            "source": "颤音强化",
+            "multiplier": 1.35,
+            "note": "每第 3 次基本技能触发颤音强化：Q 断奏伤害提高 35%（9.3 上调）。同一目标吃后续声波衰减 55%（每多中 1 发 +45%）。"
+          },
+          "coefficientText": "单发 80/100/120/140/160(+技能增幅60%)，颤音强化+35%",
+          "note": "核对 11.4 Q 断奏伤害并附带 9.3 颤音强化（+35%）对比行。"
+        },
+        {
+          "id": "external-lenore-w-1075300-damage-stat1",
+          "hero": "莉诺尔",
+          "slot": "W",
+          "title": "W 曲终-束缚伤害",
+          "bases": "80,110,140,170,200",
+          "formula": "base + ap * 0.6",
+          "coefficientText": "80/110/140/170/200(+技能增幅60%)",
+          "note": "核对 W 曲终伤害。"
+        },
+        {
+          "id": "calib-lenore-w-1075300-shield",
+          "create": true,
+          "hero": "莉诺尔",
+          "heroKey": "Lenore",
+          "slot": "W",
+          "group": 1075300,
+          "skillId": "LenoreActive2",
+          "dataKey": "shield",
+          "title": "W 曲终-基础护盾",
+          "bases": "70,85,100,115,130",
+          "formula": "base + ap * 0.3",
+          "kind": "shield",
+          "coefficientText": "护盾 70/85/100/115/130(+技能增幅30%)",
+          "note": "补齐 1.43.1 W 曲终基础护盾。"
+        },
+        {
+          "id": "external-lenore-e-1075400-damage-stat1",
+          "hero": "莉诺尔",
+          "slot": "E",
+          "title": "E 连续记号",
+          "bases": "60,95,130,165,200",
+          "formula": "base + ap * 0.75",
+          "coefficientText": "60/95/130/165/200(+技能增幅75%)",
+          "note": "核对 9.2 E 连续记号伤害。"
+        },
+        {
+          "id": "external-lenore-r-1075500-damage-over-time-stat1",
+          "hero": "莉诺尔",
+          "slot": "R",
+          "title": "R 天鹅狂想曲-声波每跳伤害",
+          "bases": "10,15,20",
+          "formula": "base + ap * 0.03",
+          "maxHits": 12,
+          "defaultHits": 6,
+          "hitLabel": "声波跳数",
+          "hitNote": "声波扩散期间最多叠加 12 次伤害。",
+          "coefficientText": "每跳 10/15/20(+技能增幅3%)，最多12跳",
+          "note": "核对 R 声波每跳伤害并补充跳数步进器。"
+        },
+        {
+          "id": "external-lenore-r-1075500-explosion-damage-stat2",
+          "hero": "莉诺尔",
+          "slot": "R",
+          "title": "R 天鹅狂想曲-终章爆炸伤害",
+          "bases": "150,225,300",
+          "formula": "base + ap * 0.65",
+          "coefficientText": "150/225/300(+技能增幅65%)",
+          "note": "核对 R 终章爆炸伤害。"
+        },
+        {
+          "id": "external-niah-p-1081100-damage-stat1",
+          "hero": "妮娅",
+          "slot": "P",
+          "title": "P K.O.-基础储存伤害",
+          "bases": "30,60,90",
+          "formula": "base + ap * 0.15",
+          "coefficientText": "30/60/90(+技能增幅15%)",
+          "note": "核对 P K.O. 首层基础储存伤害。"
+        },
+        {
+          "id": "release-81-p-01",
+          "hero": "妮娅",
+          "slot": "P",
+          "title": "P K.O.-每叠层追加储存伤害",
+          "bases": "5,10,15",
+          "formula": "(base + ap * 0.03) * stacks",
+          "maxStacks": 25,
+          "stackLabel": "K.O.叠层",
+          "coefficientText": "每叠层 5/10/15(+技能增幅3%)",
+          "note": "13.0 Part.2 更新日志：K.O. 每叠层储存伤害由 4/8/12(+3%) 上调为 5/10/15(+3%)。"
+        },
+        {
+          "id": "release-81-q-01",
+          "hero": "妮娅",
+          "slot": "Q",
+          "title": "Q 落点-投掷伤害",
+          "bases": "60,100,140,180,220",
+          "formula": "base + ap * 0.7",
+          "maxHits": 3,
+          "defaultHits": 1,
+          "hitLabel": "投掷按键数",
+          "coefficientText": "60/100/140/180/220(+技能增幅70%)",
+          "note": "修正停留在发布初值（60~200 + 55%）的 release 条目，同步至 10.2 上调后的 60~220(+70%)。"
+        },
+        {
+          "id": "release-81-q-02",
+          "hero": "妮娅",
+          "slot": "Q",
+          "title": "Q 落点-吸引路径伤害",
+          "bases": "30,55,80,105,130",
+          "formula": "base + ap * 0.45",
+          "maxHits": 3,
+          "defaultHits": 1,
+          "hitLabel": "吸引按键数",
+          "coefficientText": "30/55/80/105/130(+技能增幅45%)",
+          "note": "12.4 更新日志：Q 落点吸引路径伤害技能增幅系数由 40% 上调为 45%（多枚同时命中衰减 45%）。"
+        },
+        {
+          "id": "external-niah-w-1081300-damage-stat1",
+          "hero": "妮娅",
+          "slot": "W",
+          "title": "W 节拍交汇-部署伤害",
+          "bases": "60,100,140,180,220",
+          "formula": "base + ap * 0.7",
+          "coefficientText": "60/100/140/180/220(+技能增幅70%)",
+          "note": "核对 11.5 W 部署伤害。"
+        },
+        {
+          "id": "external-niah-w-1081300-true-damage-stat2",
+          "hero": "妮娅",
+          "slot": "W",
+          "title": "W 节拍交汇-吸入按键真实伤害",
+          "bases": "10,15,20,25,30",
+          "formula": "base",
+          "damageType": "true",
+          "maxHits": 3,
+          "defaultHits": 1,
+          "hitLabel": "吸入按键数",
+          "coefficientText": "每枚按键 10/15/20/25/30 真实伤害",
+          "note": "修正此前误挂 W1 65% 技增系数且漏标真实伤害（一直在吃防御减伤）的问题。"
+        },
+        {
+          "id": "external-niah-r-1081500-damage-stat4",
+          "hero": "妮娅",
+          "slot": "R",
+          "title": "R 妮娅的游戏世界-8次命中爆发",
+          "bases": "50,75,100",
+          "formula": "base + ap * 0.45",
+          "coefficientText": "50/75/100(+技能增幅45%)",
+          "note": "同步 1.48 R 游戏世界 8 次伤害触发爆发系数下调（55% → 45%）。"
+        }
+      ]
+    },
+    {
+      "version": "as-scaling-calibration-13.1",
+      "label": "13.1",
+      "order": 20261122,
+      "date": "2026-11-24",
+      "title": "真实面板攻速引擎与攻速收益实验体公式实装（纳塔朋/克雷弗）",
+      "url": "",
+      "skills": [
+        {
+          "id": "ingame-034-nathapon-p-1034100-basic-attack-extra-damage",
+          "hero": "纳塔朋",
+          "slot": "P",
+          "title": "P 摄影技巧-普攻额外伤害",
+          "bases": "30,60,90",
+          "formula": "base + bonusAttackSpeed * 20 + ap * 0.65",
+          "kind": "basicAttack",
+          "source": "in-game-client",
+          "coefficientText": "伤害 30/60/90(+攻击速度20%)(+技能增幅65%)",
+          "note": "相机攻速固定、普攻无法暴击。官方公告 1.2/10.5 原文明确「+0.2 per 1% Additional Attack Speed」，现已随真实额外攻速（熟练度 + 装备 + 潜能 + 触发特效）实时折算。"
+        },
+        {
+          "id": "patch-115-craver-1089100-damage",
+          "hero": "克雷弗",
+          "slot": "P",
+          "title": "P 亡命之徒 普攻额外伤害",
+          "bases": "20,40,60",
+          "formula": "base + ap * 0.25 + bonusAttackSpeed * 50",
+          "kind": "basicAttack",
+          "source": "official-patch-note",
+          "coefficientText": "20/40/60(+技能增幅25%)(+每 1% 额外攻速 0.5)",
+          "note": "11.5 上线、11.6 上调基础值为 20/40/60；手枪攻速固定，每 1% 额外攻击速度追加 0.5 额外技能伤害，现已随真实额外攻速实时计入。"
+        }
+      ],
+      "equipment": [],
+      "characters": [],
+      "mastery": []
     }
   ]
 }

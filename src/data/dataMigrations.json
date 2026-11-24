@@ -1,7 +1,7 @@
 {
   "_comment": "数据迁移表：把浏览器 localStorage 里保存的过期字段改成当前的官方译名。只有当保存值与 from 完全一致时才替换，用户自己改过的内容不受影响。",
   "_usage": "官方公告改了中文译名、或修正了此前自拟的翻译时，在 skillTitles 里追加一条 { id, from, to }。从 heroSkills.json 删条目不需要在这里登记：合并逻辑按 source 字段判定，随包数据消失即从缓存清除。",
-  "generatedAt": "2026-08-06T13:07:50.977Z",
+  "generatedAt": "2026-11-24T03:41:48.857Z",
   "skillTitles": [
     {
       "id": "patch-113-blair-1084200-double-bladed-sword-second-hit-damage",
@@ -67,6 +67,221 @@
       "id": "007-hyunwoo-e-1007400-damage-by-level",
       "from": "E 先发制人 基础伤害",
       "to": "E 先发制人 命中伤害"
+    },
+    {
+      "id": "external-adela-q-1024200-pawn-damage-stat1",
+      "from": "Q 升变 Pawn Damage",
+      "to": "Q 升变-兵伤害"
+    },
+    {
+      "id": "external-adela-q-1024200-queen-damage-stat2",
+      "from": "Q 升变 Queen Damage",
+      "to": "Q 升变-皇后伤害"
+    },
+    {
+      "id": "external-adriana-p-1017100-burned-damage-stat2",
+      "from": "P 纵火狂 Burned Damage",
+      "to": "P 纵火狂-烧伤伤害"
+    },
+    {
+      "id": "external-adriana-p-1017100-oil-slick-damage-stat1",
+      "from": "P 纵火狂 Oil Slick Damage",
+      "to": "P 纵火狂-火焰地带伤害"
+    },
+    {
+      "id": "external-adriana-e-1017400-damage-stat1",
+      "from": "E Fire Walker",
+      "to": "E 火焰行者-火纹每跳伤害"
+    },
+    {
+      "id": "external-adina-e-1052400-impact-damage-stat2",
+      "from": "E 星体陷落 Impact Damage",
+      "to": "E 星体陷落-坠落伤害"
+    },
+    {
+      "id": "external-alonso-w-1068300-projectile-damage-stat1",
+      "from": "W 磁盾光波 Projectile Damage",
+      "to": "W 磁盾光波-光波单发伤害"
+    },
+    {
+      "id": "external-alonso-r-1068500-damage-over-time-stat3",
+      "from": "R 磁吸漩涡 Damage Over Time",
+      "to": "R 磁吸漩涡-持续每跳伤害"
+    },
+    {
+      "id": "external-elena-r-1050500-icicle-damage-stat2",
+      "from": "R 霜心之舞 Icicle Damage",
+      "to": "R 霜心之舞-内圈冰刺伤害"
+    },
+    {
+      "id": "external-estelle-q-1055220-suppression-damage-stat1",
+      "from": "Q 镇压 Suppression Damage",
+      "to": "Q 镇压-强化普攻伤害"
+    },
+    {
+      "id": "external-estelle-w-1055300-emergency-extinguish-damage-stat2",
+      "from": "W 临危应对 Emergency Extinguish Damage",
+      "to": "W 紧急灭火-喷水每跳伤害"
+    },
+    {
+      "id": "external-estelle-w-1055300-first-response-damage-stat1",
+      "from": "W 临危应对 First Response Damage",
+      "to": "W 临危应对-拍击伤害"
+    },
+    {
+      "id": "external-estelle-e-1055400-forcible-entry-damage-stat2",
+      "from": "E 盾牌防御 Forcible Entry Damage",
+      "to": "E 盾牌冲锋-突进伤害"
+    },
+    {
+      "id": "external-estelle-r-1055500-global-damage-stat3",
+      "from": "R 空中救援 Global Damage",
+      "to": "R 空中救援-支援队友落点伤害"
+    },
+    {
+      "id": "external-estelle-r-1055500-solo-damage-stat1",
+      "from": "R 空中救援 Solo Damage",
+      "to": "R 空中救援-自身水炸弹伤害"
+    },
+    {
+      "id": "external-hisui-w-1078300-clear-cut-damage-stat1",
+      "from": "W 居合一闪 Clear Cut Damage",
+      "to": "W 居合一闪-1层一刀两断(拔刀)"
+    },
+    {
+      "id": "external-hisui-w-1078300-clear-cut-second-damage-stat2",
+      "from": "W 居合一闪 Clear Cut Second Damage",
+      "to": "W 居合一闪-1层一刀两断(追加斩)"
+    },
+    {
+      "id": "external-hisui-w-1078300-flash-cut-damage-stat4",
+      "from": "W 居合一闪 Flash Cut Damage",
+      "to": "W 居合一闪-2层一闪(路径)"
+    },
+    {
+      "id": "external-hisui-w-1078300-flash-cut-second-damage-stat5",
+      "from": "W 居合一闪 Flash Cut Second Damage",
+      "to": "W 居合一闪-2层一闪(终结斩)"
+    },
+    {
+      "id": "external-hisui-w-1078300-nichirin-cut-second-damage-stat7",
+      "from": "W 居合一闪 Nichirin Cut Second Damage",
+      "to": "W 居合一闪-3层日轮斩(二段)"
+    },
+    {
+      "id": "external-hisui-r-1078500-tsubame-gaeshi-damage-stat2",
+      "from": "R 物干焯 / 燕返 Tsubame Gaeshi! Damage",
+      "to": "R 物干焯/燕返-二段挥砍伤害"
+    },
+    {
+      "id": "external-karla-p-1054100-uncharged-damage-stat1",
+      "from": "P 水手的较量 Uncharged Damage",
+      "to": "P 水手的较量-未满蓄力伤害"
+    },
+    {
+      "id": "external-camilo-e-1039400-one-step-damage-stat1",
+      "from": "E 节奏乐 One Step Damage",
+      "to": "E 节奏乐-一步舞突进伤害"
+    },
+    {
+      "id": "external-camilo-e-1039400-two-step-damage-stat2",
+      "from": "E 节奏乐 Two Step Damage",
+      "to": "E 节奏乐-两步舞击退伤害"
+    },
+    {
+      "id": "external-camilo-r-1039500-embeleso-1st-stack-damage-stat1",
+      "from": "R 舞者魅力 Embeleso 1st Stack Damage",
+      "to": "R 舞者魅力-碰撞1层伤害"
+    },
+    {
+      "id": "external-camilo-r-1039500-embeleso-2nd-stack-damage-stat2",
+      "from": "R 舞者魅力 Embeleso 2nd Stack Damage",
+      "to": "R 舞者魅力-碰撞2层伤害"
+    },
+    {
+      "id": "external-katja-q-1072200-minimum-damage-stat1",
+      "from": "Q 绝命狙击 Minimum Damage",
+      "to": "Q 绝命狙击-最小距离伤害"
+    },
+    {
+      "id": "external-katja-q-1072200-maximum-damage-stat2",
+      "from": "Q 绝命狙击 Maximum Damage",
+      "to": "Q 绝命狙击-最大距离伤害"
+    },
+    {
+      "id": "external-leon-r-1029500-collision-damage-stat2",
+      "from": "R 冲浪 Collision Damage",
+      "to": "R 冲浪-撞墙追加伤害"
+    },
+    {
+      "id": "external-lenore-r-1075500-damage-over-time-stat1",
+      "from": "R 天鹅狂想曲 Damage Over Time",
+      "to": "R 天鹅狂想曲-声波每跳伤害"
+    },
+    {
+      "id": "external-tazia-q-1060200-spada-damage-stat2",
+      "from": "Q 凌空碎 Spada Damage",
+      "to": "Q 破空斩-玻璃剑命中伤害"
+    },
+    {
+      "id": "external-tazia-q-1060200-spada-explosion-damage-stat3",
+      "from": "Q 凌空碎 Spada Explosion Damage",
+      "to": "Q 破空斩-玻璃剑爆炸伤害"
+    },
+    {
+      "id": "augment-064-vanya-r-1064500-extra-damage-from-sleeping-stat2",
+      "from": "R 蝶之羽翼 Extra Damage from Sleeping",
+      "to": "R 蝶之羽翼-沉睡额外伤害"
+    },
+    {
+      "id": "external-alex-r-1027500-initial-external-damage-stat1",
+      "from": "R 精准轰炸 Initial External Damage",
+      "to": "R 精准轰炸-首击外圈伤害"
+    },
+    {
+      "id": "external-alex-r-1027500-initial-inner-damage-stat2",
+      "from": "R 精准轰炸 Initial Inner Damage",
+      "to": "R 精准轰炸-首击中心伤害"
+    },
+    {
+      "id": "external-alex-r-1027500-external-damage-over-time-stat3",
+      "from": "R 精准轰炸 External Damage Over Time",
+      "to": "R 精准轰炸-后续外圈每跳伤害"
+    },
+    {
+      "id": "external-alex-r-1027500-inner-damage-over-time-stat4",
+      "from": "R 精准轰炸 Inner Damage Over Time",
+      "to": "R 精准轰炸-后续中心每跳伤害"
+    },
+    {
+      "id": "external-eleven-q-1030200-minimum-damage-stat1",
+      "from": "Q 汉堡少女 Minimum Damage",
+      "to": "Q 汉堡少女-未蓄力伤害"
+    },
+    {
+      "id": "external-eleven-q-1030200-maximum-damage-stat2",
+      "from": "Q 汉堡少女 Maximum Damage",
+      "to": "Q 汉堡少女-完全蓄力伤害"
+    },
+    {
+      "id": "external-eleven-w-1030300-minimum-damage-stat1",
+      "from": "W 开播啦！ Minimum Damage",
+      "to": "W 开播啦！-未蓄力伤害"
+    },
+    {
+      "id": "external-eleven-w-1030300-maximum-damage-stat2",
+      "from": "W 开播啦！ Maximum Damage",
+      "to": "W 开播啦！-完全蓄力伤害"
+    },
+    {
+      "id": "external-eleven-e-1030400-minimum-damage-stat1",
+      "from": "E 汉堡骑越 Minimum Damage",
+      "to": "E 汉堡骑越-最小蓄力伤害"
+    },
+    {
+      "id": "external-eleven-e-1030400-maximum-damage-stat2",
+      "from": "E 汉堡骑越 Maximum Damage",
+      "to": "E 汉堡骑越-最大蓄力伤害"
     }
   ]
 }
