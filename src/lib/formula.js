@@ -93,7 +93,7 @@ const FORMULA_VARIABLES = [
   'maxHp', 'selfCurrentHp', 'selfLostHp',
   'extraHp', 'defense', 'shield', 'critChance', 'pen',
   'attackSpeed', 'bonusAttackSpeed',
-  'basicAttackAmp', 'accumulatedDamage', 'stacks', 'level', 'heroLevel'
+  'basicAttackAmp', 'accumulatedDamage', 'stacks', 'level', 'passiveLevel', 'heroLevel'
 ];
 
 export function evaluateFormula(formula, context) {

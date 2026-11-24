@@ -14639,6 +14639,96 @@
       "equipment": [],
       "characters": [],
       "mastery": []
+    },
+    {
+      "version": "passive-and-weapon-form-13.1",
+      "label": "13.1",
+      "order": 20261123,
+      "date": "2026-11-24",
+      "title": "被动改面板与武器组分支联动补齐（杰琪双剑W / 克洛伊妮娜攻击力 / 肯尼思暗火满层）",
+      "url": "",
+      "skills": [
+        {
+          "id": "augment-001-jackie-w-1001300-damage-stat1",
+          "hero": "杰琪",
+          "slot": "W",
+          "title": "W 断筋 强化普攻额外伤害",
+          "bases": "10,20,30,40,50",
+          "formula": "base + extraAttack * [0.2,0.3,0.4,0.5,0.6][level - 1]",
+          "kind": "basicAttack",
+          "weaponFormulas": {
+            "DualSword": "base + attack * 1.2"
+          },
+          "weaponCoefficientText": {
+            "DualSword": "双剑武器组：10/20/30/40/50(+攻击力的120%)"
+          },
+          "coefficientText": "10/20/30/40/50(+额外攻击力的20/30/40/50/60%)；双剑时切换为(+攻击力120%)",
+          "note": "装备双剑武器组时自动切换为「+总攻击力 120%」，其它武器组按「+额外攻击力 20~60%」结算。"
+        },
+        {
+          "id": "augment-040-chloe-p-1040100-nina-enhanced-attack-damage-stat1",
+          "hero": "克洛伊",
+          "slot": "P",
+          "title": "P 人偶师 妮娜 普攻强化伤害",
+          "bases": "20,50,80",
+          "formula": "base + ([4,7,10][passiveLevel - 1] + attack * (0.62 + (heroLevel - 1) * 0.02)) * 0.5",
+          "coefficientText": "20/50/80(+妮娜攻击力的50%)",
+          "note": "妮娜攻击力 = P 等级固定加成(4/7/10) + 克洛伊攻击力 × (62% + (等级-1)×2%)。"
+        },
+        {
+          "id": "ingame-040-chloe-q-1040200-damage",
+          "hero": "克洛伊",
+          "slot": "Q",
+          "title": "Q 攻击指令 妮娜伤害",
+          "bases": "70,90,110,130,150",
+          "formula": "base + ([4,7,10][passiveLevel - 1] + attack * (0.62 + (heroLevel - 1) * 0.02)) * 0.8",
+          "coefficientText": "50/75/100/125/150(+妮娜攻击力的80%)",
+          "note": "已计入 P 人偶师提供的 4/7/10 妮娜固定攻击力。"
+        },
+        {
+          "id": "ingame-040-chloe-w-1040300-nina-slam-damage",
+          "hero": "克洛伊",
+          "slot": "W",
+          "title": "W 木偶戏 妮娜下劈伤害",
+          "bases": "40,80,120,160,200",
+          "formula": "base + ([4,7,10][passiveLevel - 1] + attack * (0.62 + (heroLevel - 1) * 0.02)) * 0.7",
+          "coefficientText": "60/85/110/135/160(+妮娜攻击力的70%)",
+          "note": "已计入 P 人偶师提供的 4/7/10 妮娜固定攻击力。"
+        },
+        {
+          "id": "ingame-040-chloe-e-1040400-nina-damage",
+          "hero": "克洛伊",
+          "slot": "E",
+          "title": "E 扯线傀儡 妮娜伤害",
+          "bases": "50,80,110,140,170",
+          "formula": "base + ([4,7,10][passiveLevel - 1] + attack * (0.62 + (heroLevel - 1) * 0.02)) * 0.6",
+          "coefficientText": "40/65/90/115/140(+妮娜攻击力的60%)",
+          "note": "已计入 P 人偶师提供的 4/7/10 妮娜固定攻击力。"
+        },
+        {
+          "id": "ingame-071-kenneth-p-1071100-damage",
+          "hero": "肯尼思",
+          "slot": "P",
+          "title": "P 暗火燃烧 满层额外伤害",
+          "bases": "0,0,0",
+          "formula": "(targetHp * 0.015 + attack * [0.005,0.0075,0.01][level - 1]) * [0,0,0,0,0,1][stacks]",
+          "coefficientText": "暗火满 5 层时：目标体力上限 1.5%(+攻击力 0.5/0.75/1%)",
+          "note": "仅在暗火叠满 5 层（默认 5 层）时触发。"
+        },
+        {
+          "id": "external-kenneth-q-1071200-damage-stat1",
+          "hero": "肯尼思",
+          "slot": "Q",
+          "title": "Q 烈焰一击",
+          "bases": "30,40,50,60,70",
+          "formula": "(base + attack * [1.7,1.75,1.8,1.85,1.9][level - 1]) * [1,1,1,1,1,1.25][stacks]",
+          "coefficientText": "30/40/50/60/70(+攻击力170~190%)；满 5 层暗火时伤害 +25%",
+          "note": "随顶部「暗火叠层」选择器联动：满 5 层时自动套用 ×1.25 增伤。"
+        }
+      ],
+      "equipment": [],
+      "characters": [],
+      "mastery": []
     }
   ]
 }

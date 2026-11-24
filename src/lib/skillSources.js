@@ -205,7 +205,9 @@ export function mergeSkills(savedSkills) {
         ...merged,
         hero: migrateHeroName(skill, initialSkill),
         title: preferCanonical ? (canonical.title || migrateSkillTitle(skill)) : migrateSkillTitle(skill),
-        progressiveDamage: skill.progressiveDamage || initialSkill.progressiveDamage
+        progressiveDamage: skill.progressiveDamage || initialSkill.progressiveDamage,
+        weaponFormulas: canonical?.weaponFormulas || skill.weaponFormulas || initialSkill.weaponFormulas,
+        weaponCoefficientText: canonical?.weaponCoefficientText || skill.weaponCoefficientText || initialSkill.weaponCoefficientText
       };
     });
 

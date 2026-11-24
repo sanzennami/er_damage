@@ -56,8 +56,8 @@ function getByPath(target, dottedPath) {
   return dottedPath.split('.').reduce((node, part) => (node === undefined || node === null ? node : node[part]), target);
 }
 
-// 只影响界面呈现、不影响数值本身的字段（叠层选择器、命中次数、护盾/治疗标记）
-const PRESENTATION_FIELDS = ['slot', 'levelSlot', 'maxStacks', 'stackLabel', 'stackStep', 'defaultStacks', 'form', 'maxHits', 'defaultHits', 'hitLabel', 'hitNote', 'kind', 'buffKey', 'damageType', 'progressiveDamage', 'selfAmp', 'onlyAtMaxStacks', 'stackMode', 'damageRange'];
+// 只影响界面呈现、不影响数值本身的字段（叠层选择器、命中次数、护盾/治疗标记、武器分支公式切换）
+const PRESENTATION_FIELDS = ['slot', 'levelSlot', 'maxStacks', 'stackLabel', 'stackStep', 'defaultStacks', 'form', 'maxHits', 'defaultHits', 'hitLabel', 'hitNote', 'kind', 'buffKey', 'damageType', 'progressiveDamage', 'selfAmp', 'onlyAtMaxStacks', 'stackMode', 'damageRange', 'weaponFormulas', 'weaponCoefficientText'];
 
 /** progressiveDamage 是对象，不能用 === 比，否则每次都判定成没达标、反复重写。 */
 function samePresentationValue(a, b) {

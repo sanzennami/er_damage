@@ -130,11 +130,26 @@ const sampleCtx = {
   bonusAttackSpeed: 0.85,
   basicAttackAmp: 0.22,
   accumulatedDamage: 1000,
-  stacks: 3,
+  stacks: 5,
+  passiveLevel: 3,
   heroLevel: 20,
   finalMod: 0.62,
   basicAttackFinalMod: 0.58
 };
+
+const weaponSkills = readJson('src/data/weaponSkills.json').weaponSkills || {};
+for (const wKey of Object.keys(weaponTypeInfo)) {
+  const ws = weaponSkills[wKey];
+  if (!ws) { errors.push(`weaponSkills.json 缺失武器技能：${wKey}`); continue; }
+  for (const seg of ws.segments || []) {
+    for (let lv = 1; lv <= 3; lv += 1) {
+      const r = calculateSkill(seg, lv, sampleCtx);
+      if (!Number.isFinite(r.rawDamage) || !Number.isFinite(r.damage)) {
+        errors.push(`武器技能求值 NaN：${seg.id} Lv.${lv}`);
+      }
+    }
+  }
+}
 
 const skillIdSet = new Set(heroSkills.map((s) => s.id));
 let progressiveCount = 0;

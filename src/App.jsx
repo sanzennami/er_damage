@@ -14,6 +14,7 @@ import TRAIT_EFFECTS_DATA from './data/traitEffects.json';
 import DAK_ITEM_SKILL_ICONS from './data/dakItemSkillIcons.json';
 import WEAPON_ROUTE_PRESETS from './data/weaponRoutePresets.json';
 import WEAPON_TYPE_INFO from './data/weaponTypeInfo.json';
+import WEAPON_SKILLS_DATA from './data/weaponSkills.json';
 import VisualGearBar from './components/VisualGearPicker.jsx';
 import PATCH_LOG from './data/patchLog.json';
 import { CHARACTERS, findCharacterByName, masteryStatFor } from './lib/characterStats.js';
@@ -50,13 +51,14 @@ import {
   formSwitchFor,
   heroModifiersFor,
   heroModifierTotals,
+  passiveStatRuleFor,
   skillDisplayRule,
   stackLimitForHero,
   stackSelectorForHero,
   statConversionFor
 } from './lib/specialRules.js';
 
-const APP_VERSION = 'v0.2.089';
+const APP_VERSION = 'v0.2.090';
 
 const EXPORTED_LOCAL_CONFIG_MODULES = import.meta.glob('./data/localConfig.export.json', {
   eager: true,
@@ -70,6 +72,11 @@ const CHARACTER_IMAGE_URLS = import.meta.glob('../assets/characters/*.png', {
   query: '?url'
 });
 const LOADOUT_IMAGE_URLS = import.meta.glob('../assets/loadout/**/*.png', {
+  eager: true,
+  import: 'default',
+  query: '?url'
+});
+const WEAPON_SKILL_IMAGE_URLS = import.meta.glob('../assets/game-icons/weapon-skills/*.png', {
   eager: true,
   import: 'default',
   query: '?url'
@@ -1176,6 +1183,12 @@ function loadoutImageSrc(source) {
   return LOADOUT_IMAGE_URLS[normalized] || source;
 }
 
+function weaponSkillImageSrc(source) {
+  if (!source) return '';
+  const normalized = source.replace(/^\/assets\/game-icons\/weapon-skills\//, '../assets/game-icons/weapon-skills/');
+  return WEAPON_SKILL_IMAGE_URLS[normalized] || source;
+}
+
 function weaponTypeRaw(item) {
   if (item?.weaponTypeRaw) return item.weaponTypeRaw;
   return String(item?.weaponType || '').split('/').pop()?.trim() || '';
@@ -1427,17 +1440,37 @@ function calculateBasicAttackDamage({
   damageIncreaseRatio,
   targetDamageReductionRatio,
   criticalStrikeChance,
-  criticalStrikeDamage
+  criticalStrikeDamage,
+  critScaledBasicAttack = null
 }) {
   const finalDefense = target.defense * (1 - target.defenseReduction) * (1 - armorPenetrationRatio) - armorPenetration;
   const defenseMod = 100 / (100 + finalDefense);
   const damageMod = 1 + damageIncreaseRatio - targetDamageReductionRatio;
   const criticalMultiplier = 1.75 + criticalStrikeDamage;
   const afterDefense = attackPower * defenseMod;
+  const chance = Math.max(0, Math.min(1, criticalStrikeChance));
+  // 莉央 P 集中：普攻无法暴击，基础伤害按 102% + 暴击率 × (75% + 额外暴击伤害) 转化结算
+  if (critScaledBasicAttack) {
+    const scale = getNumber(critScaledBasicAttack.baseScale) + chance * (getNumber(critScaledBasicAttack.critDamageBase) + criticalStrikeDamage);
+    const scaledHit = damageFloor((afterDefense * scale + flatBonus) * damageMod);
+    return {
+      finalDefense,
+      defenseMod,
+      damageMod,
+      flatBonus,
+      normal: scaledHit,
+      critical: scaledHit,
+      criticalMultiplier: scale,
+      cannotCrit: true,
+      criticalStrikeChance: chance,
+      criticalStrikeDamage,
+      damageIncreaseRatio,
+      targetDamageReductionRatio
+    };
+  }
   const normal = damageFloor((afterDefense + flatBonus) * damageMod);
   // 固定值不参与暴击倍率，所以暴击不能直接拿 normal 乘
   const critical = damageFloor((afterDefense * criticalMultiplier + flatBonus) * damageMod);
-  const chance = Math.max(0, Math.min(1, criticalStrikeChance));
 
   return {
     finalDefense,
@@ -1447,6 +1480,7 @@ function calculateBasicAttackDamage({
     normal,
     critical,
     criticalMultiplier,
+    cannotCrit: false,
     criticalStrikeChance: chance,
     criticalStrikeDamage,
     damageIncreaseRatio,
@@ -1542,10 +1576,15 @@ function calc({
   skillTargetCounts = {},
   selectedHero,
   heroForm,
+  weaponSkillLevel = 0,
+  hammerShredActive = false,
   combos = []
 }) {
   const selected = SLOTS.map((slot) => byName(equipment, gear[slot])).filter(Boolean);
   const resolvedWeaponRaw = weaponRaw || weaponTypeRaw(selected.find((item) => item?.type === '武器'));
+  const targetHpRatio = Math.max(0, Math.min(1, getNumber(targetHpPct) / 100));
+  const selfHpRatio = Math.max(0, Math.min(1, getNumber(selfHpPct) / 100));
+  const passiveStatRule = passiveStatRuleFor(selectedHero);
   // 英雄专属的条件修正（卡洛琳 W 的镜子增幅、秀雅 Q 冲撞点的承受伤害提升）
   const heroModifiers = heroModifierTotals(selectedHero, heroModifierChoices);
   const equipmentStats = aggregateEquipmentStats(selected, mastery);
@@ -1639,11 +1678,23 @@ function calc({
     : 0;
   const stackCd = effectMods.cd + (effectMods.cdFromExtraAttackPct ? damageFloor((prelimExtraAttack + prelimConvertedExtraAttack) * effectMods.cdFromExtraAttackPct) : 0);
   const rawCd = (statValue(equipmentStats, 'cooldownReduction') || selected.reduce((sum, item) => sum + getNumber(item.cd), 0)) + stackCd + getNumber(traitBonuses.cd);
-  // 属性转换：席琳 / 蒂娅「不受冷却缩减影响，每 1 冷却缩减转换 1 技能增幅」。
+  // 属性转换：席琳 / 蒂娅「不受冷却缩减影响，每 1 冷却缩减转换 1 技能增幅」；希瑟拉「随已失体力增加法强」。
   const statConversion = statConversionFor(selectedHero);
   const convertsCdToAp = statConversion?.from === 'cd' && statConversion?.to === 'ap';
   const cdConvertedAp = convertsCdToAp ? rawCd * (getNumber(statConversion.ratio) || 1) : 0;
-  const convertedAp = cdConvertedAp + asConvertedAp;
+  let passiveConvertedAp = 0;
+  if (passiveStatRule?.selfLostHpToAp) {
+    const { minByLevel = [0], maxByLevel = [0], startLostRatio = 0.1, fullLostRatio = 0.9 } = passiveStatRule.selfLostHpToAp;
+    const idx = Math.max(0, Math.min(minByLevel.length - 1, passiveLevel - 1));
+    const minAp = getNumber(minByLevel[idx]);
+    const maxAp = getNumber(maxByLevel[idx]);
+    const lostRatio = Math.max(0, Math.min(1, 1 - selfHpRatio));
+    const t = fullLostRatio > startLostRatio
+      ? Math.max(0, Math.min(1, (lostRatio - startLostRatio) / (fullLostRatio - startLostRatio)))
+      : 0;
+    passiveConvertedAp = round(minAp + (maxAp - minAp) * t, 1);
+  }
+  const convertedAp = cdConvertedAp + asConvertedAp + passiveConvertedAp;
   const cd = convertsCdToAp ? 0 : rawCd;
   const overclockAp = activeTraitEffectIds.has('overclock') && cd >= 40 && !usesAttackPath ? 10 : 0;
   const overclockAttackPower = activeTraitEffectIds.has('overclock') && cd >= 40 && usesAttackPath ? 5 : 0;
@@ -1683,10 +1734,30 @@ function calc({
   const totalBaseAp = equipAp + talentAp + talentBonusAp + stackAp + convertedAp + buffs.ap;
   const apRaw = totalBaseAp * (1 + totalApPct);
   const ap = damageFloor(apRaw);
-  // 粉碎 / 邪恶之雾之类的减防和目标自身的减防叠乘；雷鸣裁决的穿透加进固定穿透
+  // 武器技能（D 键）：武器熟练度 Lv.5 / 10 / 15 自动升为 1 / 2 / 3 级，也允许手动指定预览等级
+  const wsDef = resolvedWeaponRaw ? (WEAPON_SKILLS_DATA.weaponSkills?.[resolvedWeaponRaw] || null) : null;
+  const wsAutoLevel = mastery >= 15 ? 3 : mastery >= 10 ? 2 : 1;
+  const wsUnlocked = mastery >= 5;
+  const effectiveWsLevel = weaponSkillLevel > 0 ? Math.max(1, Math.min(3, getNumber(weaponSkillLevel))) : wsAutoLevel;
+  const hammerWeaponShred = resolvedWeaponRaw === 'Hammer' && hammerShredActive && Array.isArray(wsDef?.targetDefenseShredByLevel)
+    ? getNumber(wsDef.targetDefenseShredByLevel[Math.max(0, Math.min(2, effectiveWsLevel - 1))])
+    : 0;
+
+  // 莉央 P 集中：按暴击率无视敌人防御力
+  const equipCritChance = Math.max(0, Math.min(1, statValue(equipmentStats, 'criticalStrikeChance')));
+  let passiveTargetDefenseShred = 0;
+  if (passiveStatRule?.critToTargetDefensePct) {
+    const { baseByLevel = [0], per1PctCrit = 0 } = passiveStatRule.critToTargetDefensePct;
+    const baseShred = getNumber(baseByLevel[Math.max(0, Math.min(baseByLevel.length - 1, passiveLevel - 1))]);
+    passiveTargetDefenseShred = Math.min(0.9, baseShred + (equipCritChance * 100) * getNumber(per1PctCrit));
+  }
+
+  // 粉碎 / 邪恶之雾 / 莉央P / 锤子D 等减防与目标自身减防叠乘；雷鸣裁决的穿透加进固定穿透
   const finalDefense = target.defense
     * (1 - target.defenseReduction)
     * (1 - effectMods.targetDefensePct)
+    * (1 - passiveTargetDefenseShred)
+    * (1 - hammerWeaponShred)
     * (1 - penPct - effectMods.penPct) - pen - effectMods.pen;
   const defenseMod = 100 / (100 + finalDefense);
   const enhancementDeviceDamageBonus = activeTraitEffectIds.has('enhancementDevice') ? 0.08 + mastery * 0.005 : 0;
@@ -1714,7 +1785,10 @@ function calc({
   const basicAttackTargetReductionRatio = target.reduction + targetMasteryBasicReduction;
   const effectiveTargetForBa = {
     ...target,
-    defense: target.defense * (1 - effectMods.targetDefensePct)
+    defense: target.defense
+      * (1 - effectMods.targetDefensePct)
+      * (1 - passiveTargetDefenseShred)
+      * (1 - hammerWeaponShred)
   };
   const basicAttackDamage = calculateBasicAttackDamage({
     attackPower,
@@ -1724,15 +1798,10 @@ function calc({
     flatBonus: basicAttackFlatBonus,
     damageIncreaseRatio: basicAttackDamageIncreaseRatio,
     targetDamageReductionRatio: basicAttackTargetReductionRatio,
-    criticalStrikeChance: statValue(equipmentStats, 'criticalStrikeChance'),
-    criticalStrikeDamage: statValue(equipmentStats, 'criticalStrikeDamage')
+    criticalStrikeChance: equipCritChance,
+    criticalStrikeDamage: statValue(equipmentStats, 'criticalStrikeDamage'),
+    critScaledBasicAttack: passiveStatRule?.critScaledBasicAttack || null
   });
-  // heroLevel = 界面「熟练度等级」，即实验体等级 1~20，供公式里的等级线性项使用
-  // maxHp = 界面「自身血量」；extraHp = 装备与潜能提供的额外体力，官方文案里这两者是分开写的
-  // targetCurrentHp / targetLostHp 由界面的「目标当前体力%」推出，两者之和恒等于目标体力上限
-  const targetHpRatio = Math.max(0, Math.min(1, getNumber(targetHpPct) / 100));
-  // 自身当前 / 已失体力：和目标那两个对称，由界面「自身当前体力 %」推出
-  const selfHpRatio = Math.max(0, Math.min(1, getNumber(selfHpPct) / 100));
   const selfDefense = getNumber(baseDefense) + equipDefense;
   // 血量上限 = 实验体等级成长血量 + 装备/潜能的额外体力。开启自动跟随时直接作为 maxHp 参与技能与爆发力计算；
   // 关闭自动跟随时保留用户手填的假设血量。
@@ -1753,13 +1822,14 @@ function calc({
     extraHp,
     defense: selfDefense,
     shield: getNumber(selfShield),
-    critChance: statValue(equipmentStats, 'criticalStrikeChance'),
+    critChance: equipCritChance,
     pen: pen + effectMods.pen,
     attackSpeed: finalAttackSpeed,
     bonusAttackSpeed: totalBonusAttackSpeed,
     basicAttackAmp,
     accumulatedDamage: getNumber(accumulatedDamage),
     stacks: stackCount,
+    passiveLevel,
     heroLevel: mastery,
     finalMod,
     // 被官方判定为普攻伤害的技能段（damageType: "basicAttack"）走这条：
@@ -1767,7 +1837,14 @@ function calc({
     basicAttackFinalMod: defenseMod * (1 + basicAttackDamageIncreaseRatio - basicAttackTargetReductionRatio)
   };
   const heroSkills = selectedHeroSkillRows
-    .map((skill) => calculateSkill(skill, skillLevels[skill.id], context))
+    .map((skill) => {
+      const overrideFormula = resolvedWeaponRaw && skill.weaponFormulas?.[resolvedWeaponRaw];
+      const overrideCoef = resolvedWeaponRaw && skill.weaponCoefficientText?.[resolvedWeaponRaw];
+      const resolvedSkill = overrideFormula
+        ? { ...skill, formula: overrideFormula, coefficientText: overrideCoef || skill.coefficientText }
+        : skill;
+      return calculateSkill(resolvedSkill, skillLevels[skill.id], context);
+    })
     // 恢复/护盾类技能可以被「给予恢复和护盾效果 +X%」这类增益放大（夏洛特 P 圣洁之心）
     .map((skill) => (
       (skill.kind === 'heal' || skill.kind === 'shield') && buffs.healShieldAmp
@@ -1887,10 +1964,22 @@ function calc({
       return { ...combo, rawValue, value, note: combo.note || hitNote };
     })
     .filter((combo) => Object.values(combo.hits || {}).some((count) => getNumber(count) > 0));
+  const weaponSkill = wsDef ? {
+    ...wsDef,
+    weaponRaw: resolvedWeaponRaw,
+    level: effectiveWsLevel,
+    autoLevel: wsAutoLevel,
+    unlocked: wsUnlocked,
+    segments: (wsDef.segments || []).map((seg) => calculateSkill(seg, effectiveWsLevel, context))
+  } : null;
   const extraHeroGroups = [];
 
   return {
     selected,
+    weaponSkill,
+    passiveConvertedAp,
+    passiveTargetDefenseShred,
+    hammerWeaponShred,
     equipmentStats,
     equipAp,
     equipAttackPower,
@@ -2955,6 +3044,8 @@ export default function App() {
   const [traitsCollapsed, setTraitsCollapsed] = useState(() => (
     initialWorkspaceState.traitsCollapsed === undefined ? true : Boolean(initialWorkspaceState.traitsCollapsed)
   ));
+  const [weaponSkillLevelOverride, setWeaponSkillLevelOverride] = useState(0);
+  const [hammerShredActive, setHammerShredActive] = useState(false);
   const [selfShield, setSelfShield] = useState(getNumber(initialWorkspaceState.selfShield));
   // 「一段时间内累计造成的伤害」，给按累计量折算的技能用（丹尼尔 W 灵感引爆的真伤）
   const [accumulatedDamage, setAccumulatedDamage] = useState(getNumber(initialWorkspaceState.accumulatedDamage));
@@ -3311,10 +3402,13 @@ export default function App() {
   const activeHeroForm = heroFormRule
     ? (heroFormChoices[selectedHero] ?? heroFormRule.default)
     : undefined;
-  // 自身当前体力滑块只在该英雄的公式真的引用 selfCurrentHp / selfLostHp 时出现
-  const usesSelfHp = useMemo(() => skills.some((skill) => (
-    skill.hero === selectedHero && /\b(selfCurrentHp|selfLostHp)\b/.test(String(skill.formula || ''))
-  )), [skills, selectedHero]);
+  // 自身当前体力滑块只在该英雄的公式或被动（如希瑟拉 P）真的依赖自身已失体力时出现
+  const usesSelfHp = useMemo(() => (
+    Boolean(passiveStatRuleFor(selectedHero)?.selfLostHpToAp)
+    || skills.some((skill) => (
+      skill.hero === selectedHero && /\b(selfCurrentHp|selfLostHp)\b/.test(String(skill.formula || ''))
+    ))
+  ), [skills, selectedHero]);
   const stackValuesKey = stackSelector ? `${stackSelector.mode}:${stackSelector.values.join(',')}` : '';
   // 换英雄后原来的叠层值可能落在新选择器的范围之外。滑块只要夹进 0~上限；
   // 按钮模式还得正好落在某个按钮上，否则整排都不高亮，看着像坏了。
@@ -3353,8 +3447,10 @@ export default function App() {
   // 真的用到时才显示输入框，平时不占地方。
   const contextFieldsInUse = useMemo(() => {
     const equippedEffects = selectedEquipmentEffectsRaw.map((item) => item.effect);
+    const activeWs = WEAPON_SKILLS_DATA.weaponSkills?.[selectedWeaponRaw || selectedCharacter?.weapons?.[0] || ''];
     const formulas = [
       ...skills.filter((skill) => skill.hero === selectedHero).map((skill) => skill.formula),
+      ...(activeWs?.segments || []).map((seg) => seg.formula),
       ...(ITEM_EFFECT_DAMAGE.effects || [])
         .filter((effect) => equippedEffects.includes(effect.name))
         .map((effect) => effect.formula)
@@ -3366,7 +3462,7 @@ export default function App() {
     return ['targetCurrentHp', 'targetLostHp', 'shield', 'accumulatedDamage'].filter((name) => (
       new RegExp(`\\b${name}\\b`).test(formulas) || (needsTargetHp && name !== 'shield' && name !== 'accumulatedDamage')
     ));
-  }, [skills, selectedHero, selectedEquipmentEffectsRaw]);
+  }, [skills, selectedHero, selectedWeaponRaw, selectedCharacter, selectedEquipmentEffectsRaw]);
   // 普攻增幅只对普攻流有意义：数值不为 0，或者该英雄有被官方判定为普攻伤害的技能段时才显示
   // 公式里直接引用 basicAttackAmp 的，以及被判定为普攻伤害（damageType: basicAttack）的段落，
   // 都吃普攻增幅这一档，所以只要有一种就该把那张属性卡显示出来
@@ -3432,9 +3528,11 @@ export default function App() {
       vampireFull: effectiveVampireFull,
       effectToggles: activeEffectToggles,
       selectedHero,
+      weaponSkillLevel: weaponSkillLevelOverride,
+      hammerShredActive,
       combos
     }),
-    [equipment, skills, skillLevels, gear, mastery, selectedMasteryStat, selectedWeaponRaw, attack, selectedCharacter, talentAp, traitBonuses, selectedTraits, target, targetMastery, targetHpPct, selfHpPct, heroModifierChoices, activeHeroForm, skillTargetCounts, selfHp, autoSyncSelfHp, selfShield, accumulatedDamage, damageBonus, skillReduction, r2Stacks, tacticalSkill, tacticalUpgraded, effectiveVampireFull, activeEffectToggles, selectedHero, combos]
+    [equipment, skills, skillLevels, gear, mastery, selectedMasteryStat, selectedWeaponRaw, attack, selectedCharacter, talentAp, traitBonuses, selectedTraits, target, targetMastery, targetHpPct, selfHpPct, heroModifierChoices, activeHeroForm, skillTargetCounts, selfHp, autoSyncSelfHp, selfShield, accumulatedDamage, damageBonus, skillReduction, r2Stacks, tacticalSkill, tacticalUpgraded, effectiveVampireFull, activeEffectToggles, selectedHero, weaponSkillLevelOverride, hammerShredActive, combos]
   );
 
   // 开启「跟随上限」时同步 selfHp 状态，保证爆发力潜能血量差与切回手动模式时的初值一致
@@ -3479,6 +3577,9 @@ export default function App() {
         const hCount = stored > 0 ? Math.min(maxH, stored) : defH;
         skillMap[`multihit:${sk.id}`] = scaledSkillDamage(sk, result.finalMod, { hits: hCount, context: result.formulaContext }).final;
       }
+    }
+    for (const sk of result.weaponSkill?.segments || []) {
+      skillMap[`ws:${sk.id}`] = sk.damage;
     }
     const effectMap = {};
     for (const ef of result.effects || []) {
@@ -3575,6 +3676,7 @@ export default function App() {
 
   const resolvedQuickCombo = useMemo(() => {
     const skillById = new Map(result.skills.map((s) => [s.id, s]));
+    const wsSegById = new Map((result.weaponSkill?.segments || []).map((s) => [s.id, s]));
     const effectByTitle = new Map((result.effects || []).map((e) => [e.title, e]));
 
     const items = quickComboItems.map((item) => {
@@ -3593,6 +3695,11 @@ export default function App() {
       } else if (item.kind === 'ba-enhanced') {
         unitFinal = result.basicAttackDamage.normal + result.basicAttackBonus;
         unitRaw = result.basicAttackDamage.normal + result.basicAttackBonusRaw;
+      } else if (item.kind === 'weapon-skill') {
+        const wsSeg = wsSegById.get(item.refId);
+        unitFinal = getNumber(wsSeg?.damage);
+        unitRaw = getNumber(wsSeg?.rawDamage);
+        baseUnitFinal = activePin?.skillMap?.[`ws:${item.refId}`];
       } else if (item.kind === 'effect') {
         const ef = effectByTitle.get(item.refId);
         unitFinal = getNumber(ef?.value);
@@ -5291,6 +5398,110 @@ export default function App() {
     );
   }
 
+  function renderWeaponSkillRow() {
+    const ws = result.weaponSkill;
+    if (!ws) return null;
+    const iconUrl = weaponSkillImageSrc(ws.icon);
+    const hasHammerShred = Array.isArray(ws.targetDefenseShredByLevel) && ws.targetDefenseShredByLevel.length > 0;
+    const curShredPct = hasHammerShred ? ws.targetDefenseShredByLevel[Math.max(0, Math.min(2, ws.level - 1))] : 0;
+
+    return (
+      <div className="weaponSkillBox">
+        <div className="weaponSkillHead">
+          <div className="weaponSkillTitleWrap">
+            {iconUrl ? (
+              <img className="weaponSkillIcon" src={iconUrl} alt={ws.name} onError={(e) => { e.currentTarget.style.display = 'none'; }} />
+            ) : null}
+            <div>
+              <div className="weaponSkillTitleLine">
+                <span className="weaponSkillKeyBadge">D</span>
+                <strong>{ws.name}</strong>
+                <span className="weaponSkillMetaPill">{weaponTypeOfficialName(ws.weaponRaw)} · 冷却 {ws.cooldown}</span>
+                {!ws.unlocked && weaponSkillLevelOverride === 0 ? (
+                  <span className="weaponSkillLockedBadge" title="武器熟练度达到 Lv.5 解锁 1 级，当前按 Lv.1 预览">熟练未满5级(预览Lv.1)</span>
+                ) : null}
+              </div>
+              <p className="weaponSkillSummary">{ws.summary}</p>
+            </div>
+          </div>
+          <div className="weaponSkillControls">
+            {hasHammerShred ? (
+              <label className="weaponSkillShredToggle" title="勾选后将锤子武器技能的减防计入目标最终防御与后续连招计算">
+                <input
+                  type="checkbox"
+                  checked={hammerShredActive}
+                  onChange={(e) => setHammerShredActive(e.target.checked)}
+                />
+                <span>减防 {pct(curShredPct)} 生效</span>
+              </label>
+            ) : null}
+            <div className="levelSelect">
+              <span>D等级</span>
+              <select
+                value={weaponSkillLevelOverride}
+                onChange={(e) => setWeaponSkillLevelOverride(Number(e.target.value))}
+                aria-label="武器技能等级"
+              >
+                <option value={0}>自动 (Lv.{ws.autoLevel})</option>
+                <option value={1}>Lv.1 (熟5)</option>
+                <option value={2}>Lv.2 (熟10)</option>
+                <option value={3}>Lv.3 (熟15)</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        {ws.segments.length ? (
+          <div className="weaponSkillGrid">
+            {ws.segments.map((seg) => {
+              const shortLabel = seg.title.replace(/^D\s*/, '');
+              return (
+                <div className="skillDamageLeaf weaponSkillLeaf" key={seg.id}>
+                  <div className="skillLeafHead">
+                    <div className="skillLeafTitle">
+                      <PortalHovercard
+                        className="skillNameHover"
+                        content={(
+                          <SkillDescriptionContent
+                            title={`${shortLabel}`}
+                            level={ws.level}
+                            formula={skillFormulaDescription(seg, ws.level)}
+                            description={seg.coefficientText || ''}
+                            source="13.1 武器技能"
+                          />
+                        )}
+                      >
+                        <strong>{shortLabel}</strong>
+                      </PortalHovercard>
+                      {seg.damageType === 'true' ? <span className="nonDamageBadge">真伤</span> : null}
+                      {seg.damageType === 'basicAttack' ? <span className="nonDamageBadge">普攻类</span> : null}
+                    </div>
+                  </div>
+                  <div className="skillLeafValues">
+                    <div className="skillTotalValue">
+                      <span>{seg.coefficientText || '单次命中'}</span>
+                      <DamageValue
+                        raw={seg.rawDamage}
+                        final={seg.damage}
+                        baselineFinal={activePin?.skillMap?.[`ws:${seg.id}`]}
+                        onQuickComboAdd={() => appendQuickComboStep({
+                          key: `ws:${seg.id}`,
+                          kind: 'weapon-skill',
+                          refId: seg.id,
+                          label: `D·${shortLabel}`
+                        })}
+                        quickComboTitle={`将 ${shortLabel} 加入连招`}
+                      />
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        ) : null}
+      </div>
+    );
+  }
+
   function formatComparisonValue(key, value) {
     const numericValue = getNumber(value);
     if (key === 'finalMod') return round(numericValue, 3);
@@ -6200,9 +6411,9 @@ export default function App() {
               <StatCard label="最终法强" value={result.ap} hint={`${round(result.totalBaseAp, 1)}${result.convertedAp ? `（含转化 +${round(result.convertedAp, 1)}）` : ''} × (1 + ${pct(result.totalApPct)})`} note={help('stat.equipAp')} />
               <StatCard label="最终攻击力" value={round(finalAttack, 1)} hint={attackBreakdownHint} note={help('stat.finalAttack')} />
               <StatCard
-                label="每发平A / 暴击"
-                value={`${result.basicAttackDamage.normal} / ${result.basicAttackDamage.critical}`}
-                hint={`暴击 ${pct(result.critChance)} · 攻速 ${round(result.finalAttackSpeed, 2)}/s${result.attackSpeedFixed ? ' (固定)' : (result.uncappedAttackSpeed > result.attackSpeedCap ? ' (满上限)' : '')} (+${pct(result.totalBonusAttackSpeed)})`}
+                label={result.basicAttackDamage.cannotCrit ? '每发平A（集中转化）' : '每发平A / 暴击'}
+                value={result.basicAttackDamage.cannotCrit ? `${result.basicAttackDamage.normal}` : `${result.basicAttackDamage.normal} / ${result.basicAttackDamage.critical}`}
+                hint={`${result.basicAttackDamage.cannotCrit ? `暴击转化 ${pct(result.basicAttackDamage.criticalMultiplier)}${result.passiveTargetDefenseShred ? ` · 减防 ${pct(result.passiveTargetDefenseShred)}` : ''}` : `暴击 ${pct(result.critChance)}`} · 攻速 ${round(result.finalAttackSpeed, 2)}/s${result.attackSpeedFixed ? ' (固定)' : (result.uncappedAttackSpeed > result.attackSpeedCap ? ' (满上限)' : '')} (+${pct(result.totalBonusAttackSpeed)})`}
               />
               <StatCard label="血量 / 防御 / 冷却" value={`${round(result.characterMaxHp, 0)} / ${round(result.selfDefense, 0)} / ${result.cd}%`} hint={`防穿 ${result.pen} | ${pct(result.penPct)}`} note={help('stat.pen')} />
               <StatCard label="目标最终防御" value={round(result.finalDefense, 1)} hint={`防御修正 ${pct(result.defenseMod)}`} note={help('stat.finalDefense')} />
@@ -6635,6 +6846,7 @@ export default function App() {
             ) : null}
           </div>
           {renderPassiveSkillRow()}
+          {renderWeaponSkillRow()}
         </details>
 
         <div className="damageSideStack">

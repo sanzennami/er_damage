@@ -83,6 +83,13 @@ export function attackSpeedRuleFor(hero) {
 }
 
 /**
+ * 实验体专属被动面板修正（希瑟拉 P 已失体力增法强、莉央 P 集中暴击率转减防与平A倍率等）。
+ */
+export function passiveStatRuleFor(hero) {
+  return heroRule(hero)?.passiveStatRule || null;
+}
+
+/**
  * 英雄专属的条件修正（卡洛琳 W 的镜子技能增幅、秀雅 Q 冲撞点的承受伤害提升这类）。
  * 每条是一个下拉，选项自带要加进哪个桶：
  *   apPct       → 技能增幅百分比，和熟练度/独有增幅同一个桶

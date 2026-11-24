@@ -214,6 +214,38 @@
         }
       }
     },
+    "希瑟拉": {
+      "passiveStatRule": {
+        "selfLostHpToAp": {
+          "minByLevel": [4, 7, 10],
+          "maxByLevel": [28, 39, 50],
+          "startLostRatio": 0.1,
+          "fullLostRatio": 0.9
+        },
+        "note": "P 苦痛的记忆：随自身已失体力（10%~90%）线性提供 4/7/10 ~ 28/39/50 技能增幅（调节技能面板上方的「自身当前体力」滑条实时生效）。"
+      }
+    },
+    "莉央": {
+      "passiveStatRule": {
+        "critToTargetDefensePct": {
+          "baseByLevel": [0.05, 0.08, 0.11],
+          "per1PctCrit": 0.0025
+        },
+        "critScaledBasicAttack": {
+          "baseScale": 1.02,
+          "critDamageBase": 0.75
+        },
+        "note": "P 集中：普攻与技能按暴击率无视敌人防御力（5/8/11% + 每 1% 暴击率 0.25%）；普攻无法暴击，伤害按 102% + 暴击率 × (75% + 额外暴击伤害) 结算。"
+      }
+    },
+    "肯尼思": {
+      "stackSelector": {
+        "label": "暗火叠层",
+        "values": [0, 1, 2, 3, 4, 5],
+        "default": 5,
+        "max": 5
+      }
+    },
     "莉诺尔": {
       "stackSelector": {
         "label": "悲鸣叠层",

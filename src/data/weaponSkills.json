@@ -1,0 +1,479 @@
+{
+  "_comment": "全 23 类武器技能（D 键）配置表。随武器熟练度 Lv.5 / Lv.10 / Lv.15 自动对应 1 / 2 / 3 级（界面亦支持手动切换预览等级）。冷却固定不受冷却缩减影响。",
+  "source": "永恒轮回 12.0 Part.2 ~ 13.1 官方简中更新公告 + er-gamedata SkillGroup/ChineseSimplified",
+  "version": "13.1",
+  "weaponSkills": {
+    "Glove": {
+      "group": 3001000,
+      "name": "上勾拳",
+      "cooldown": "9 / 7 / 5秒",
+      "icon": "/assets/game-icons/weapon-skills/weapon-skill-d-3001000.png",
+      "summary": "突进造成普攻判定伤害，并追加 40/65/90% 最终伤害与固定真实伤害（不会暴击）。",
+      "segments": [
+        {
+          "id": "ws-glove-hit",
+          "title": "D 上勾拳-主体连击（普攻伤害）",
+          "bases": "0,0,0",
+          "maxLevel": 3,
+          "formula": "(extraAttack * 1.1 + ap * 0.25) * [1.4,1.65,1.9][level - 1]",
+          "damageType": "basicAttack",
+          "coefficientText": "(额外攻击力110%×普攻增幅 + 技能增幅25%) × (1 + 40/65/90%)"
+        },
+        {
+          "id": "ws-glove-true",
+          "title": "D 上勾拳-追加真实伤害",
+          "bases": "50,60,70",
+          "maxLevel": 3,
+          "formula": "base",
+          "damageType": "true",
+          "coefficientText": "50 / 60 / 70 真实伤害"
+        }
+      ]
+    },
+    "Tonfa": {
+      "group": 3002000,
+      "name": "高速旋转",
+      "cooldown": "30 / 25 / 20秒",
+      "icon": "/assets/game-icons/weapon-skills/weapon-skill-d-3002000.png",
+      "summary": "持续期间大幅减免承受伤害，并对攻击者造成反击技能伤害。",
+      "segments": [
+        {
+          "id": "ws-tonfa-counter",
+          "title": "D 高速旋转-反击伤害",
+          "bases": "100,150,200",
+          "maxLevel": 3,
+          "formula": "base + extraAttack * [1.1,1.3,1.5][level - 1] + ap * 0.5",
+          "coefficientText": "100/150/200(+额外攻击力110/130/150%)(+技能增幅50%)"
+        }
+      ]
+    },
+    "Bat": {
+      "group": 3003000,
+      "name": "全力挥棒",
+      "cooldown": "25秒",
+      "icon": "/assets/game-icons/weapon-skills/weapon-skill-d-3003000.png",
+      "summary": "挥棒击退前方敌人造成技能伤害；若敌人撞墙则追加额外伤害并晕厥 0.7/0.8/0.9 秒。",
+      "segments": [
+        {
+          "id": "ws-bat-swing",
+          "title": "D 全力挥棒-挥击伤害",
+          "bases": "100,200,300",
+          "maxLevel": 3,
+          "formula": "base + extraAttack * 1.5 + ap * [0.3,0.45,0.6][level - 1]",
+          "coefficientText": "100/200/300(+额外攻击力150%)(+技能增幅30/45/60%)"
+        },
+        {
+          "id": "ws-bat-wall",
+          "title": "D 全力挥棒-撞墙追加伤害",
+          "bases": "50,100,150",
+          "maxLevel": 3,
+          "formula": "base + extraAttack * 0.5 + ap * [0.15,0.25,0.35][level - 1]",
+          "coefficientText": "50/100/150(+额外攻击力50%)(+技能增幅15/25/35%)"
+        }
+      ]
+    },
+    "Whip": {
+      "group": 3004000,
+      "name": "风斩",
+      "cooldown": "25秒",
+      "icon": "/assets/game-icons/weapon-skills/weapon-skill-d-3004000.png",
+      "summary": "一段挥鞭附加目标当前体力伤害并减速；5 秒内可再施放二段挥下附加目标已失体力伤害。",
+      "segments": [
+        {
+          "id": "ws-whip-hit1",
+          "title": "D 风斩-1段挥击",
+          "bases": "40,70,100",
+          "maxLevel": 3,
+          "formula": "base + extraAttack * 0.4 + ap * 0.2 + targetCurrentHp * 0.12",
+          "coefficientText": "40/70/100(+额外攻击力40%)(+技能增幅20%)(+目标当前体力12%)"
+        },
+        {
+          "id": "ws-whip-hit2",
+          "title": "D 风斩-2段劈斩",
+          "bases": "110,140,170",
+          "maxLevel": 3,
+          "formula": "base + extraAttack * 0.4 + ap * 0.3 + targetLostHp * 0.12",
+          "coefficientText": "110/140/170(+额外攻击力40%)(+技能增幅30%)(+目标已失体力12%)"
+        }
+      ]
+    },
+    "HighAngleFire": {
+      "group": 3005000,
+      "name": "烟幕",
+      "cooldown": "40 / 35 / 30秒",
+      "icon": "/assets/game-icons/weapon-skills/weapon-skill-d-3005000.png",
+      "summary": "投掷烟幕弹限制区域内敌人视野并降低 20/25/30% 移动速度（功能型技能，无直接伤害）。",
+      "segments": []
+    },
+    "DirectFire": {
+      "group": 3006000,
+      "name": "投掷铁蒺藜",
+      "cooldown": "25秒",
+      "icon": "/assets/game-icons/weapon-skills/weapon-skill-d-3006000.png",
+      "summary": "撒布铁蒺藜持续减速并造成技能伤害（同一目标后续踩中每次伤害递减 40%）。",
+      "segments": [
+        {
+          "id": "ws-directfire-caltrop1",
+          "title": "D 投掷铁蒺藜-首枚命中",
+          "bases": "60,90,120",
+          "maxLevel": 3,
+          "formula": "base + extraAttack * 0.65 + ap * [0.25,0.3,0.35][level - 1]",
+          "coefficientText": "60/90/120(+额外攻击力65%)(+技能增幅25/30/35%)"
+        },
+        {
+          "id": "ws-directfire-caltrop-follow",
+          "title": "D 投掷铁蒺藜-后续每枚(60%)",
+          "bases": "60,90,120",
+          "maxLevel": 3,
+          "formula": "(base + extraAttack * 0.65 + ap * [0.25,0.3,0.35][level - 1]) * 0.6",
+          "coefficientText": "连续踩中每次按 60% 结算"
+        }
+      ]
+    },
+    "Bow": {
+      "group": 3007000,
+      "name": "箭雨",
+      "cooldown": "35 / 30 / 25秒",
+      "icon": "/assets/game-icons/weapon-skills/weapon-skill-d-3007000.png",
+      "summary": "延迟落下箭雨造成范围伤害并减速；中心区域造成高额伤害（外围与中心互斥）。",
+      "segments": [
+        {
+          "id": "ws-bow-outer",
+          "title": "D 箭雨-外围伤害",
+          "bases": "90,170,250",
+          "maxLevel": 3,
+          "formula": "base + extraAttack * 1.0 + ap * 0.4",
+          "coefficientText": "90/170/250(+额外攻击力100%)(+技能增幅40%)"
+        },
+        {
+          "id": "ws-bow-center",
+          "title": "D 箭雨-中心伤害（互斥）",
+          "bases": "180,340,500",
+          "maxLevel": 3,
+          "formula": "base + extraAttack * 1.7 + ap * 0.55",
+          "coefficientText": "180/340/500(+额外攻击力170%)(+技能增幅55%)"
+        }
+      ]
+    },
+    "CrossBow": {
+      "group": 3008000,
+      "name": "强弩",
+      "cooldown": "25秒",
+      "icon": "/assets/game-icons/weapon-skills/weapon-skill-d-3008000.png",
+      "summary": "发射弩箭减速并挂上 4 秒爆炸标记；标记期间每次普攻或技能命中都会缩短引爆并叠加爆炸伤害。",
+      "segments": [
+        {
+          "id": "ws-crossbow-shot",
+          "title": "D 强弩-初始命中",
+          "bases": "50,75,100",
+          "maxLevel": 3,
+          "formula": "base + extraAttack * 0.7 + ap * 0.25",
+          "coefficientText": "50/75/100(+额外攻击力70%)(+技能增幅25%)"
+        },
+        {
+          "id": "ws-crossbow-detonate",
+          "title": "D 强弩-标记基础爆炸",
+          "bases": "50,100,150",
+          "maxLevel": 3,
+          "formula": "base + extraAttack * [0.7,0.8,0.9][level - 1] + ap * 0.25",
+          "coefficientText": "50/100/150(+额外攻击力70/80/90%)(+技能增幅25%)"
+        },
+        {
+          "id": "ws-crossbow-stack",
+          "title": "D 强弩-受击每次追加爆炸",
+          "bases": "20,25,30",
+          "maxLevel": 3,
+          "formula": "base + extraAttack * [0.15,0.2,0.25][level - 1] + ap * 0.06",
+          "coefficientText": "每次命中追加 20/25/30(+额外攻击力15/20/25%)(+技能增幅6%)"
+        }
+      ]
+    },
+    "Pistol": {
+      "group": 3009000,
+      "name": "移动重载",
+      "cooldown": "35 / 30 / 25秒",
+      "icon": "/assets/game-icons/weapon-skills/weapon-skill-d-3009000.png",
+      "summary": "大幅提升移动速度并装填弹药，结束后使接下来数次普攻攻击速度提升（功能型增益，无直接伤害）。",
+      "segments": []
+    },
+    "AssaultRifle": {
+      "group": 3010000,
+      "name": "过热",
+      "cooldown": "15秒",
+      "icon": "/assets/game-icons/weapon-skills/weapon-skill-d-3010000.png",
+      "summary": "普攻积攒过热层数；激活后攻速 +20/30/40%（无视攻速上限），并随叠层为每发普攻附加额外伤害。",
+      "segments": [
+        {
+          "id": "ws-ar-overheat-shot",
+          "title": "D 过热-满层单发普攻附伤",
+          "bases": "8,16,24",
+          "maxLevel": 3,
+          "formula": "base + extraAttack * 0.15 + ap * 0.1",
+          "coefficientText": "满过热层数时每发子弹附加额外伤害"
+        }
+      ]
+    },
+    "SniperRifle": {
+      "group": 3011000,
+      "name": "狙击",
+      "cooldown": "35 / 30 / 25秒",
+      "icon": "/assets/game-icons/weapon-skills/weapon-skill-d-3011000.png",
+      "summary": "架枪发射最多 3 发子弹：前 2 发为亡命射击，最后 1 发转化为按目标已失体力增伤的地狱之眼。",
+      "segments": [
+        {
+          "id": "ws-sniper-shot",
+          "title": "D 狙击-亡命射击（单发，共2发）",
+          "bases": "100,200,300",
+          "maxLevel": 3,
+          "formula": "base + extraAttack * 1.6 + ap * [0.3,0.35,0.4][level - 1]",
+          "coefficientText": "100/200/300(+额外攻击力160%)(+技能增幅30/35/40%)"
+        },
+        {
+          "id": "ws-sniper-deadeye",
+          "title": "D 狙击-地狱之眼（第3发终结）",
+          "bases": "150,300,450",
+          "maxLevel": 3,
+          "formula": "(base + extraAttack * 1.8 + ap * [0.4,0.45,0.5][level - 1]) * (1 + 0.3 * Math.min(1, targetLostHp / (targetHp * 0.7)))",
+          "coefficientText": "150/300/450(+额外攻击力180%)(+技能增幅40/45/50%)，随目标已失体力最高 +30%"
+        }
+      ]
+    },
+    "Hammer": {
+      "group": 3013000,
+      "name": "穿刺效果",
+      "cooldown": "30 / 25 / 20秒",
+      "icon": "/assets/game-icons/weapon-skills/weapon-skill-d-3013000.png",
+      "summary": "猛击前方造成高额技能伤害，并使命中目标防御力降低 15/20/25%。",
+      "targetDefenseShredByLevel": [0.15, 0.2, 0.25],
+      "segments": [
+        {
+          "id": "ws-hammer-smash",
+          "title": "D 穿刺效果-猛击伤害",
+          "bases": "200,300,400",
+          "maxLevel": 3,
+          "formula": "base + extraAttack * 1.3 + ap * 0.7",
+          "coefficientText": "200/300/400(+额外攻击力130%)(+技能增幅70%)"
+        }
+      ]
+    },
+    "Axe": {
+      "group": 3014000,
+      "name": "血之螺旋",
+      "cooldown": "7 / 6 / 5秒",
+      "icon": "/assets/game-icons/weapon-skills/weapon-skill-d-3014000.png",
+      "summary": "短突进挥斧对周围敌人造成最大体力百分比技能伤害，并按伤害量恢复体力。",
+      "segments": [
+        {
+          "id": "ws-axe-spiral",
+          "title": "D 血之螺旋",
+          "bases": "50,75,100",
+          "maxLevel": 3,
+          "formula": "base + extraAttack * [0.5,0.65,0.8][level - 1] + ap * 0.3 + targetHp * 0.06",
+          "coefficientText": "50/75/100(+额外攻击力50/65/80%)(+技能增幅30%)(+目标体力上限6%)"
+        }
+      ]
+    },
+    "OneHandSword": {
+      "group": 3015000,
+      "name": "斗篷和短剑",
+      "cooldown": "30 / 25 / 20秒",
+      "icon": "/assets/game-icons/weapon-skills/weapon-skill-d-3015000.png",
+      "summary": "一段加速 40/50/60%；二段瞬移至目标另一侧造成技能伤害与目标当前体力 8% 的真实伤害。",
+      "segments": [
+        {
+          "id": "ws-dagger-slash",
+          "title": "D 短剑(D2)-突袭技能伤害",
+          "bases": "10,30,50",
+          "maxLevel": 3,
+          "formula": "base + extraAttack * 0.4 + ap * 0.25",
+          "coefficientText": "10/30/50(+额外攻击力40%)(+技能增幅25%)"
+        },
+        {
+          "id": "ws-dagger-true",
+          "title": "D 短剑(D2)-当前体力真实伤害",
+          "bases": "0,0,0",
+          "maxLevel": 3,
+          "formula": "targetCurrentHp * 0.08",
+          "damageType": "true",
+          "coefficientText": "目标当前体力 8% 真实伤害"
+        }
+      ]
+    },
+    "TwoHandSword": {
+      "group": 3016000,
+      "name": "格挡",
+      "cooldown": "30秒",
+      "icon": "/assets/game-icons/weapon-skills/weapon-skill-d-3016000.png",
+      "summary": "0.75 秒内减免 80% 承受伤害并免疫负面效果，随后向前突进造成高额技能伤害。",
+      "segments": [
+        {
+          "id": "ws-ths-parry",
+          "title": "D 格挡-突进反击",
+          "bases": "100,150,200",
+          "maxLevel": 3,
+          "formula": "base + extraAttack * [1.5,1.75,2][level - 1] + ap * 0.7",
+          "coefficientText": "100/150/200(+额外攻击力150/175/200%)(+技能增幅70%)"
+        }
+      ]
+    },
+    "DualSword": {
+      "group": 3018000,
+      "name": "双剑狂舞",
+      "cooldown": "25秒",
+      "icon": "/assets/game-icons/weapon-skills/weapon-skill-d-3018000.png",
+      "summary": "一段突进连斩 6 次（命中 1 次即可解锁二段），二段再次突进终结斩击。",
+      "segments": [
+        {
+          "id": "ws-dualsword-d1-full",
+          "title": "D 双剑狂舞-1段（6斩全中）",
+          "bases": "120,180,240",
+          "maxLevel": 3,
+          "formula": "(20 + [0,10,20][level - 1] + extraAttack * [0.2,0.3,0.4][level - 1] + ap * [0.06,0.07,0.08][level - 1]) * 6",
+          "coefficientText": "单斩 20/30/40(+额外攻击力20/30/40%)(+技能增幅6/7/8%) × 6 次"
+        },
+        {
+          "id": "ws-dualsword-d2",
+          "title": "D 双剑狂舞-2段终结突进",
+          "bases": "100,150,200",
+          "maxLevel": 3,
+          "formula": "base + extraAttack * [1,1.25,1.5][level - 1] + ap * [0.5,0.6,0.7][level - 1]",
+          "coefficientText": "100/150/200(+额外攻击力100/125/150%)(+技能增幅50/60/70%)"
+        }
+      ]
+    },
+    "Spear": {
+      "group": 3019000,
+      "name": "刺影子",
+      "cooldown": "30 / 25 / 20秒",
+      "icon": "/assets/game-icons/weapon-skills/weapon-skill-d-3019000.png",
+      "summary": "奋力刺出长枪造成高额伤害并将敌人击退至最大射程处减速。",
+      "segments": [
+        {
+          "id": "ws-spear-thrust",
+          "title": "D 刺影子",
+          "bases": "150,225,300",
+          "maxLevel": 3,
+          "formula": "base + extraAttack * [1,1.45,1.9][level - 1] + ap * [0.8,0.95,1.1][level - 1]",
+          "coefficientText": "150/225/300(+额外攻击力100/145/190%)(+技能增幅80/95/110%)"
+        }
+      ]
+    },
+    "Nunchaku": {
+      "group": 3020000,
+      "name": "猛龙过江",
+      "cooldown": "25秒",
+      "icon": "/assets/game-icons/weapon-skills/weapon-skill-d-3020000.png",
+      "summary": "挥棍蓄力（0.6 秒达上限并附加晕厥），按蓄力时长造成最小~最大技能伤害。",
+      "segments": [
+        {
+          "id": "ws-nunchaku-min",
+          "title": "D 猛龙过江-秒放（最小蓄力）",
+          "bases": "100,175,250",
+          "maxLevel": 3,
+          "formula": "base + extraAttack * 0.5 + ap * 0.4",
+          "coefficientText": "100/175/250(+额外攻击力50%)(+技能增幅40%)"
+        },
+        {
+          "id": "ws-nunchaku-max",
+          "title": "D 猛龙过江-满蓄力（互斥）",
+          "bases": "200,350,500",
+          "maxLevel": 3,
+          "formula": "base + extraAttack * 1.5 + ap * 0.8",
+          "coefficientText": "200/350/500(+额外攻击力150%)(+技能增幅80%)"
+        }
+      ]
+    },
+    "Rapier": {
+      "group": 3021000,
+      "name": "闪击",
+      "cooldown": "30 / 25 / 20秒",
+      "icon": "/assets/game-icons/weapon-skills/weapon-skill-d-3021000.png",
+      "summary": "向指定目标敌人快速突进穿刺造成技能伤害。",
+      "segments": [
+        {
+          "id": "ws-rapier-dash",
+          "title": "D 闪击",
+          "bases": "80,140,200",
+          "maxLevel": 3,
+          "formula": "base + extraAttack * [0.6,0.7,0.8][level - 1] + ap * [0.2,0.35,0.5][level - 1]",
+          "coefficientText": "80/140/200(+额外攻击力60/70/80%)(+技能增幅20/35/50%)"
+        }
+      ]
+    },
+    "Guitar": {
+      "group": 3022000,
+      "name": "Love &...",
+      "cooldown": "30 / 25 / 20秒",
+      "icon": "/assets/game-icons/weapon-skills/weapon-skill-d-3022000.png",
+      "summary": "朝指定方向释放声波造成直线技能伤害并减速。",
+      "segments": [
+        {
+          "id": "ws-guitar-wave",
+          "title": "D Love &...",
+          "bases": "100,150,200",
+          "maxLevel": 3,
+          "formula": "base + extraAttack * [1,1.3,1.6][level - 1] + ap * [0.6,0.7,0.8][level - 1]",
+          "coefficientText": "100/150/200(+额外攻击力100/130/160%)(+技能增幅60/70/80%)"
+        }
+      ]
+    },
+    "Camera": {
+      "group": 3023000,
+      "name": "闪光灯",
+      "cooldown": "25秒",
+      "icon": "/assets/game-icons/weapon-skills/weapon-skill-d-3023000.png",
+      "summary": "朝前方开启闪光造成范围伤害；面朝自身的敌人额外承受伤害并丢失视野。",
+      "segments": [
+        {
+          "id": "ws-camera-flash",
+          "title": "D 闪光灯-基础伤害",
+          "bases": "50,100,150",
+          "maxLevel": 3,
+          "formula": "base + extraAttack * [0.6,0.9,1.2][level - 1] + ap * [0.3,0.4,0.5][level - 1]",
+          "coefficientText": "50/100/150(+额外攻击力60/90/120%)(+技能增幅30/40/50%)"
+        },
+        {
+          "id": "ws-camera-facing",
+          "title": "D 闪光灯-面朝自身追加伤害",
+          "bases": "100,150,200",
+          "maxLevel": 3,
+          "formula": "base",
+          "coefficientText": "面朝自身额外承受 100 / 150 / 200"
+        }
+      ]
+    },
+    "Arcana": {
+      "group": 3024000,
+      "name": "VF介质",
+      "cooldown": "30 / 25 / 20秒",
+      "icon": "/assets/game-icons/weapon-skills/weapon-skill-d-3024000.png",
+      "summary": "生成 3/4/5 颗 VF 能量球；普攻或技能命中时向目标发射造成技能伤害。",
+      "segments": [
+        {
+          "id": "ws-arcana-orb",
+          "title": "D VF介质-单颗球体",
+          "bases": "20,40,60",
+          "maxLevel": 3,
+          "formula": "base + ap * 0.2",
+          "coefficientText": "20/40/60(+技能增幅20%)"
+        },
+        {
+          "id": "ws-arcana-all",
+          "title": "D VF介质-全数命中（3/4/5颗）",
+          "bases": "20,40,60",
+          "maxLevel": 3,
+          "formula": "(base + ap * 0.2) * [3,4,5][level - 1]",
+          "coefficientText": "单颗伤害 × 3/4/5 颗球体"
+        }
+      ]
+    },
+    "VFArm": {
+      "group": 3025000,
+      "name": "VF稳定化",
+      "cooldown": "13 / 12 / 11秒",
+      "icon": "/assets/game-icons/weapon-skills/weapon-skill-d-3025000.png",
+      "summary": "厄喀翁专属：根据 VF 值与暴走/超负荷状态充能、延长暴走时间、缩减冷却并提升移速（无直接伤害）。",
+      "segments": []
+    }
+  }
+}
