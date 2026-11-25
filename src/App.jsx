@@ -63,7 +63,7 @@ import {
   statConversionFor
 } from './lib/specialRules.js';
 
-const APP_VERSION = 'v0.2.095';
+const APP_VERSION = 'v0.2.096';
 
 const EXPORTED_LOCAL_CONFIG_MODULES = import.meta.glob('./data/localConfig.export.json', {
   eager: true,
@@ -2772,6 +2772,100 @@ function GearOptimizerDialog({
   );
 }
 
+function renderTextWithLinks(text) {
+  const parts = String(text || '').split(/(https?:\/\/[^\s)）]+)/g);
+  return parts.map((part, idx) => (
+    /^https?:\/\//.test(part) ? (
+      <a key={`lnk-${idx}`} href={part} target="_blank" rel="noreferrer" className="noticeInlineLink">
+        {part}
+      </a>
+    ) : (
+      <React.Fragment key={`txt-${idx}`}>{part}</React.Fragment>
+    )
+  ));
+}
+
+function parseAnnouncementBlocks(rawBody) {
+  const lines = String(rawBody || '').replace(/\r\n/g, '\n').split('\n');
+  const blocks = [];
+  let changelogItems = [];
+  let guideSteps = [];
+  let guideTitle = '';
+
+  const flushChangelog = () => {
+    if (changelogItems.length) {
+      blocks.push({ type: 'changelog', items: changelogItems });
+      changelogItems = [];
+    }
+  };
+
+  const flushGuide = () => {
+    if (guideTitle || guideSteps.length) {
+      blocks.push({ type: 'guide', title: guideTitle, steps: guideSteps });
+      guideTitle = '';
+      guideSteps = [];
+    }
+  };
+
+  for (const rawLine of lines) {
+    const line = rawLine.trim();
+    if (!line) {
+      flushGuide();
+      continue;
+    }
+
+    // 识别「【如何...】」或「🔍 ...」引导头
+    const guideHeadMatch = line.match(/^(?:🔍\s*)?【([^】]*(?:如何|怎么|指引|找到|解锁)[^】]*)】(.*)$/);
+    if (guideHeadMatch) {
+      flushChangelog();
+      flushGuide();
+      guideTitle = guideHeadMatch[1].trim();
+      const rest = guideHeadMatch[2].replace(/^[:：]\s*/, '').trim();
+      if (rest) guideSteps.push(rest);
+      continue;
+    }
+
+    if (guideTitle && /^(?:\d+[.、)）]|[①②③④⑤]|•|-)\s*/.test(line)) {
+      guideSteps.push(line.replace(/^(?:\d+[.、)）]|[①②③④⑤]|•|-)\s*/, '').trim());
+      continue;
+    }
+
+    // 识别普通章节标题：【版本更新记录】等
+    const secMatch = line.match(/^【([^】]+)】$/);
+    if (secMatch) {
+      flushGuide();
+      flushChangelog();
+      blocks.push({ type: 'section', title: secMatch[1].trim() });
+      continue;
+    }
+
+    // 识别版本更新条目：• v0.2.095：... 或 • v0.2.081 ~ v0.2.083：...
+    const verMatch = line.match(/^(?:[•·\-*]\s*)?(v\d+\.\d+\.\d+(?:\s*~\s*v\d+\.\d+\.\d+)?)\s*[:：]\s*(.+)$/i);
+    if (verMatch) {
+      flushGuide();
+      changelogItems.push({
+        version: verMatch[1].trim(),
+        content: verMatch[2].trim()
+      });
+      continue;
+    }
+
+    flushGuide();
+    flushChangelog();
+
+    // 识别反馈/提示尾注
+    if (/(反馈|QQ|qq\.com|邮箱|报错)/.test(line)) {
+      blocks.push({ type: 'footerNote', text: line });
+    } else {
+      blocks.push({ type: 'lead', text: line });
+    }
+  }
+
+  flushGuide();
+  flushChangelog();
+  return blocks;
+}
+
 function AnnouncementDialog({
   announcement,
   editable,
@@ -2782,88 +2876,199 @@ function AnnouncementDialog({
   onSave,
   onCreate
 }) {
+  const [editingNotice, setEditingNotice] = useState(false);
+
+  useEffect(() => {
+    const onKey = (e) => {
+      if (e.key === 'Escape') onClose();
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [onClose]);
+
   const hasCurrent = Boolean(announcement.title || announcement.body);
+  const parsedBlocks = useMemo(() => parseAnnouncementBlocks(announcement.body), [announcement.body]);
+  const showEditor = editable && editingNotice;
+
   return createPortal(
-    <div className="announcementOverlay" role="presentation" onMouseDown={onClose}>
+    <div className="vgModalBackdrop noticeModalBackdrop" role="presentation" onMouseDown={onClose}>
       <section
-        className="announcementDialog"
+        className="vgModalDialog noticeModalDialog"
         role="dialog"
         aria-modal="true"
         aria-labelledby="announcement-title"
         onMouseDown={(event) => event.stopPropagation()}
       >
-        <div className="announcementHead">
-          <div>
-            <p className="eyebrow">Notice</p>
-            <h2 id="announcement-title">{editable ? '编辑公告' : announcement.title || '公告'}</h2>
+        <div className="vgModalHeader noticeModalHeader">
+          <div className="noticeTitleBlock">
+            <div className="noticeTitleRow">
+              <span className="noticeBadgeIcon" aria-hidden="true">📢</span>
+              <h2 id="announcement-title">{showEditor ? '编辑站点公告' : (announcement.title || '更新公告')}</h2>
+            </div>
+            <div className="noticeMetaRow">
+              {announcement.version ? <span className="noticeVerBadge">{announcement.version}</span> : null}
+              {announcement.updatedAt ? <span className="noticeDateMeta">更新日期：{announcement.updatedAt}</span> : null}
+            </div>
           </div>
-          <button type="button" className="quietButton" onClick={onClose} aria-label="关闭公告">关闭</button>
-        </div>
-        {editable ? (
-          <div className="announcementEditor">
-            {/* 只在本地编辑时出现：把当前公告归档进历史，腾空正文写新的 */}
-            <div className="announcementNewRow">
+          <div className="vgModalHeaderActions">
+            {editable ? (
               <button
                 type="button"
-                className="quietButton"
-                onClick={onCreate}
-                disabled={!hasCurrent}
-                title={hasCurrent
-                  ? '把当前公告按「版本 / 日期：正文」压进历史公告最前面，然后清空标题和正文'
-                  : '当前没有公告内容可归档'}
+                className={`quietButton noticeEditModeBtn ${showEditor ? 'active' : ''}`}
+                onClick={() => setEditingNotice((cur) => !cur)}
               >
-                创建新公告
+                {showEditor ? '预览排版' : '编辑公告'}
               </button>
-              <small>{hasCurrent ? '当前这条会自动归档进历史公告' : '正文为空，直接写就行'}</small>
-            </div>
-            <label className="field">
-              <span>公告标题</span>
-              <input
-                type="text"
-                value={announcement.title}
-                onChange={(event) => onChange({ title: event.target.value })}
-              />
-            </label>
-            <label className="field">
-              <span>公告内容</span>
-              <textarea
-                value={announcement.body}
-                onChange={(event) => onChange({ body: event.target.value })}
-              />
-            </label>
-            <label className="field">
-              <span>历史公告</span>
-              <textarea
-                className="announcementHistoryInput"
-                value={announcement.history}
-                onChange={(event) => onChange({ history: event.target.value })}
-              />
-            </label>
-            <div className="announcementActions">
-              <button type="button" className="helpSaveButton" onClick={onSave} disabled={!dirty || saveStatus === 'saving'}>
-                {saveStatus === 'saving' ? '保存中' : '保存到本地'}
-              </button>
-              <small>
-                {saveStatus === 'saved'
-                  ? '已写入 src/data/announcement.json，下次提交会一起 push。'
-                  : '保存会更新公告日期，并在发布版本的公告按钮上显示感叹号。'}
-              </small>
-              {saveStatus === 'error' ? <small className="helpSaveError">保存失败，请确认正在使用本地 Vite 服务。</small> : null}
-            </div>
-          </div>
-        ) : (
-          <div className="announcementContent">
-            <strong>{announcement.title || '公告'}</strong>
-            <p>{announcement.body || '暂无公告。'}</p>
-            {announcement.updatedAt ? <small>更新：{announcement.updatedAt}</small> : null}
-            {announcement.history ? (
-              <div className="announcementHistory">
-                <h3>历史公告</h3>
-                <p>{announcement.history}</p>
-              </div>
             ) : null}
+            <button type="button" className="quietButton vgCloseBtn" onClick={onClose} aria-label="关闭公告">
+              关闭 Esc
+            </button>
           </div>
-        )}
+        </div>
+
+        <div className="noticeScrollBody">
+          {showEditor ? (
+            <div className="announcementEditor">
+              <div className="announcementNewRow">
+                <button
+                  type="button"
+                  className="quietButton"
+                  onClick={onCreate}
+                  disabled={!hasCurrent}
+                  title={hasCurrent
+                    ? '把当前公告按「版本 / 日期：正文」压进历史公告最前面，然后清空标题和正文'
+                    : '当前没有公告内容可归档'}
+                >
+                  + 归档并创建新公告
+                </button>
+                <small>{hasCurrent ? '当前公告会自动归档至下方历史记录' : '正文为空，可直接填写新公告'}</small>
+              </div>
+              <label className="field">
+                <span>公告标题</span>
+                <input
+                  type="text"
+                  value={announcement.title}
+                  onChange={(event) => onChange({ title: event.target.value })}
+                />
+              </label>
+              <label className="field">
+                <span>公告内容（支持【章节标题】与 • v0.2.xxx：版本列表自动卡片排版）</span>
+                <textarea
+                  value={announcement.body}
+                  onChange={(event) => onChange({ body: event.target.value })}
+                />
+              </label>
+              <label className="field">
+                <span>历史公告存档</span>
+                <textarea
+                  className="announcementHistoryInput"
+                  value={announcement.history}
+                  onChange={(event) => onChange({ history: event.target.value })}
+                />
+              </label>
+              <div className="announcementActions">
+                <button type="button" className="helpSaveButton" onClick={onSave} disabled={!dirty || saveStatus === 'saving'}>
+                  {saveStatus === 'saving' ? '保存中…' : '保存到本地'}
+                </button>
+                <small>
+                  {saveStatus === 'saved'
+                    ? '✓ 已写入 src/data/announcement.json，下次提交会一起 push。'
+                    : '保存会更新公告日期，并在发布版本的公告按钮上显示红点提醒。'}
+                </small>
+                {saveStatus === 'error' ? <small className="helpSaveError">保存失败，请确认正在使用本地 Vite 服务。</small> : null}
+              </div>
+            </div>
+          ) : (
+            <div className="noticeStructuredContent">
+              {parsedBlocks.length ? parsedBlocks.map((block, idx) => {
+                if (block.type === 'lead') {
+                  return (
+                    <div className="noticeLeadBanner" key={`lead-${idx}`}>
+                      {renderTextWithLinks(block.text)}
+                    </div>
+                  );
+                }
+                if (block.type === 'guide') {
+                  return (
+                    <div className="noticeGuideCard" key={`guide-${idx}`}>
+                      <div className="noticeGuideHead">
+                        <span className="noticeGuideTag">操作指引</span>
+                        <strong>{block.title}</strong>
+                      </div>
+                      {block.steps.length ? (
+                        <ol className="noticeGuideList">
+                          {block.steps.map((st, sIdx) => (
+                            <li key={`st-${sIdx}`}>
+                              <span className="noticeStepNum">{sIdx + 1}</span>
+                              <span>{renderTextWithLinks(st)}</span>
+                            </li>
+                          ))}
+                        </ol>
+                      ) : null}
+                    </div>
+                  );
+                }
+                if (block.type === 'section') {
+                  return (
+                    <div className="noticeSectionHeader" key={`sec-${idx}`}>
+                      <span>{block.title}</span>
+                    </div>
+                  );
+                }
+                if (block.type === 'changelog') {
+                  return (
+                    <div className="noticeChangelogList" key={`cl-${idx}`}>
+                      {block.items.map((item, vIdx) => {
+                        const sentences = item.content
+                          .split(/[；;]\s*/)
+                          .map((s) => s.trim())
+                          .filter(Boolean);
+                        return (
+                          <div className={`noticeVersionCard ${vIdx === 0 ? 'isLatest' : ''}`.trim()} key={`ver-${item.version}-${vIdx}`}>
+                            <div className="noticeVersionMeta">
+                              <span className="noticeVersionPill">{item.version}</span>
+                              {vIdx === 0 ? <span className="noticeLatestTag">最新</span> : null}
+                            </div>
+                            <div className="noticeVersionBody">
+                              {sentences.length > 1 ? (
+                                <ul className="noticeSubPoints">
+                                  {sentences.map((pt, pIdx) => (
+                                    <li key={`pt-${pIdx}`}>{renderTextWithLinks(pt)}</li>
+                                  ))}
+                                </ul>
+                              ) : (
+                                <p>{renderTextWithLinks(item.content)}</p>
+                              )}
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  );
+                }
+                if (block.type === 'footerNote') {
+                  return (
+                    <div className="noticeFooterContact" key={`fn-${idx}`}>
+                      <span>💬 {renderTextWithLinks(block.text)}</span>
+                    </div>
+                  );
+                }
+                return null;
+              }) : (
+                <p className="noticeEmptyText">暂无公告。</p>
+              )}
+
+              {announcement.history ? (
+                <details className="noticeHistoryDetails">
+                  <summary>查看早期历史公告存档</summary>
+                  <div className="noticeHistoryBody">
+                    {renderTextWithLinks(announcement.history)}
+                  </div>
+                </details>
+              ) : null}
+            </div>
+          )}
+        </div>
       </section>
     </div>,
     document.body
@@ -3534,6 +3739,27 @@ export default function App() {
   const [showBuildSettings, setShowBuildSettings] = useState(false);
   const [showGlobalSettings, setShowGlobalSettings] = useState(false);
   const [showHeroDebugSettings, setShowHeroDebugSettings] = useState(false);
+  const globalSettingsAnchorRef = useRef(null);
+  const versionButtonRef = useRef(null);
+
+  useEffect(() => {
+    if (!showGlobalSettings) return undefined;
+    const handlePointerDown = (event) => {
+      const targetNode = event.target;
+      if (globalSettingsAnchorRef.current?.contains(targetNode)) return;
+      if (versionButtonRef.current?.contains(targetNode)) return;
+      setShowGlobalSettings(false);
+    };
+    const handleKeyDown = (event) => {
+      if (event.key === 'Escape') setShowGlobalSettings(false);
+    };
+    document.addEventListener('mousedown', handlePointerDown);
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.removeEventListener('mousedown', handlePointerDown);
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [showGlobalSettings]);
   const [effectsCollapsed, setEffectsCollapsed] = useState(Boolean(initialWorkspaceState.effectsCollapsed));
   const [skillTargetCounts, setSkillTargetCounts] = useState(initialWorkspaceState.skillTargetCounts || {});
   const [useHeroAvatarPicker, setUseHeroAvatarPicker] = useState(() => Boolean(initialAppSettings.useHeroAvatarPicker));
@@ -6757,13 +6983,15 @@ export default function App() {
             <div className="appSignature">
               <span>by @白谷池千</span>
               <button
+                ref={versionButtonRef}
                 type="button"
-                className={`versionButton ${editMode ? 'editable' : ''}`}
+                className={`versionButton ${editMode ? 'editable' : ''} ${editMode && showHeroDebugSettings ? 'debugActive' : ''}`.trim()}
                 onClick={() => {
                   if (!editMode) return;
                   setShowGlobalSettings(true);
                   setShowHeroDebugSettings((current) => !current);
                 }}
+                title={editMode ? '点击切换「测试实验体」隐藏开关' : undefined}
                 aria-label="版本号"
               >
                 {APP_VERSION}
@@ -6797,7 +7025,7 @@ export default function App() {
                   ))}
                 </select>
               </label>
-              <div className="globalSettingsAnchor">
+              <div className="globalSettingsAnchor" ref={globalSettingsAnchorRef}>
                 <button
                   type="button"
                   className={`quietButton ${showGlobalSettings ? 'active' : ''}`}
@@ -6806,53 +7034,80 @@ export default function App() {
                   全局设置
                 </button>
                 {showGlobalSettings ? (
-                  <div className="globalSettingsMenu">
-                    <div className="panelSubhead">
-                      <strong>全局设置</strong>
-                      <span>显示与编辑</span>
+                  <div className="globalSettingsMenu" role="dialog" aria-label="全局设置">
+                    <div className="modernPopoverHead">
+                      <div className="modernPopoverTitle">
+                        <strong>全局设置</strong>
+                        <span>界面显示与调试</span>
+                      </div>
+                      <button
+                        type="button"
+                        className="modernPopoverClose"
+                        onClick={() => setShowGlobalSettings(false)}
+                        aria-label="关闭全局设置"
+                      >
+                        ✕
+                      </button>
                     </div>
-                    <label className="toggle">
-                      <input
-                        type="checkbox"
-                        checked={useHeroAvatarPicker}
-                        onChange={(event) => setUseHeroAvatarPicker(event.target.checked)}
-                      />
-                      <span>使用头像列表选择实验体</span>
-                    </label>
-                    {editMode && showHeroDebugSettings ? (
-                      <label className="toggle">
+                    <div className="modernSettingList">
+                      <label className="modernSettingItem">
                         <input
                           type="checkbox"
-                          checked={showDamageTestHeroes}
-                          onChange={(event) => setShowDamageTestHeroes(event.target.checked)}
+                          checked={useHeroAvatarPicker}
+                          onChange={(event) => setUseHeroAvatarPicker(event.target.checked)}
                         />
-                        <span>显示未校对的其他英雄（意思是公式没校对完，有些能用，有些技能伤害公式有问题）</span>
+                        <span className="modernSettingText">
+                          <strong>头像网格选人</strong>
+                          <small>展开带搜索框的实验体头像列表</small>
+                        </span>
                       </label>
-                    ) : null}
-                    <label className="toggle">
-                      <input
-                        type="checkbox"
-                        checked={uiTheme === 'day'}
-                        onChange={(event) => setUiTheme(event.target.checked ? 'day' : 'night')}
-                      />
-                      <span>日间配色</span>
-                    </label>
-                    <label className="toggle">
-                      <input
-                        type="checkbox"
-                        checked={!wideLayout}
-                        onChange={(event) => setWideLayout(!event.target.checked)}
-                      />
-                      <span>旧版界面</span>
-                    </label>
-                    <label className="toggle">
-                      <input
-                        type="checkbox"
-                        checked={editMode}
-                        onChange={(event) => setEditMode(event.target.checked)}
-                      />
-                      <span>编辑模式</span>
-                    </label>
+                      <label className="modernSettingItem">
+                        <input
+                          type="checkbox"
+                          checked={uiTheme === 'day'}
+                          onChange={(event) => setUiTheme(event.target.checked ? 'day' : 'night')}
+                        />
+                        <span className="modernSettingText">
+                          <strong>日间配色</strong>
+                          <small>切换浅色高对比度护眼界面</small>
+                        </span>
+                      </label>
+                      <label className="modernSettingItem">
+                        <input
+                          type="checkbox"
+                          checked={!wideLayout}
+                          onChange={(event) => setWideLayout(!event.target.checked)}
+                        />
+                        <span className="modernSettingText">
+                          <strong>旧版界面</strong>
+                          <small>切回早期居中单栏黑金布局</small>
+                        </span>
+                      </label>
+                      <label className="modernSettingItem">
+                        <input
+                          type="checkbox"
+                          checked={editMode}
+                          onChange={(event) => setEditMode(event.target.checked)}
+                        />
+                        <span className="modernSettingText">
+                          <strong>编辑模式</strong>
+                          <small>{editMode ? '已开启：点一下顶栏版本号可展开测试实验体开关' : '开启本地技能表编辑与调试入口'}</small>
+                        </span>
+                      </label>
+                      {editMode && showHeroDebugSettings ? (
+                        <label className="modernSettingItem isDebugRow">
+                          <input
+                            type="checkbox"
+                            checked={showDamageTestHeroes}
+                            onChange={(event) => setShowDamageTestHeroes(event.target.checked)}
+                          />
+                          <span className="modernSettingText">
+                            <strong>测试实验体（含新角色抢先试算）</strong>
+                            <small>开放【弥莎】及未完全校对完毕的其他英雄</small>
+                          </span>
+                        </label>
+                      ) : null}
+                    </div>
                   </div>
                 ) : null}
                 </div>
@@ -7103,38 +7358,62 @@ export default function App() {
           ) : null}
           {showBuildSettings ? (
             <div className="buildSettingsMenu">
-              <div className="panelSubhead">
-                <strong>显示设置</strong>
-                <span>配装器</span>
+              <div className="modernPopoverHead">
+                <div className="modernPopoverTitle">
+                  <strong>配装显示设置</strong>
+                  <span>选装模式、品级过滤与底部装备卡片展示词条</span>
+                </div>
+                <button
+                  type="button"
+                  className="modernPopoverClose"
+                  onClick={() => setShowBuildSettings(false)}
+                  aria-label="收起配装显示设置"
+                >
+                  收起 ✕
+                </button>
               </div>
-              <label className="toggle">
-                <input
-                  type="checkbox"
-                  checked={useVisualGearPicker}
-                  onChange={(event) => setUseVisualGearPicker(event.target.checked)}
-                />
-                <span>使用可视化图标配装器（支持搜索与词条快筛）</span>
-              </label>
-              <label className="toggle">
-                <input
-                  type="checkbox"
-                  checked={showLowerTierEquipment}
-                  onChange={(event) => setShowLowerTierEquipment(event.target.checked)}
-                />
-                <span>显示紫色以下品级装备</span>
-              </label>
-              <div className="qualityLegend" aria-label="装备品级颜色">
-                {QUALITY_OPTIONS.map((quality) => (
-                  <span key={quality} style={{ color: qualityColor(quality, uiTheme) }}>{quality}</span>
-                ))}
+              <div className="buildSettingsPrimaryRow">
+                <label className="modernSettingItem isCompact">
+                  <input
+                    type="checkbox"
+                    checked={useVisualGearPicker}
+                    onChange={(event) => setUseVisualGearPicker(event.target.checked)}
+                  />
+                  <span className="modernSettingText">
+                    <strong>使用可视化图标配装器</strong>
+                    <small>支持高清图标、搜索与词条快筛</small>
+                  </span>
+                </label>
+                <label className="modernSettingItem isCompact">
+                  <input
+                    type="checkbox"
+                    checked={showLowerTierEquipment}
+                    onChange={(event) => setShowLowerTierEquipment(event.target.checked)}
+                  />
+                  <span className="modernSettingText">
+                    <strong>显示紫色以下品级装备</strong>
+                    <small>包含白/绿/蓝过渡散件</small>
+                  </span>
+                </label>
               </div>
-              <div className="statSettings">
-                {DISPLAYABLE_ITEM_STAT_DEFINITIONS.map((stat) => (
-                  <label className="toggle" key={stat.key}>
-                    <input type="checkbox" checked={visibleStatKeys.includes(stat.key)} onChange={() => toggleVisibleStat(stat.key)} />
-                    <span>{displayItemStatLabel(stat)}</span>
-                  </label>
-                ))}
+              <div className="buildSettingsMetaRow">
+                <span className="buildSettingsSectionLabel">品级图例</span>
+                <div className="qualityLegend" aria-label="装备品级颜色">
+                  {QUALITY_OPTIONS.map((quality) => (
+                    <span key={quality} style={{ color: qualityColor(quality, uiTheme) }}>{quality}</span>
+                  ))}
+                </div>
+              </div>
+              <div className="buildSettingsStatBlock">
+                <span className="buildSettingsSectionLabel">装备卡片展示属性</span>
+                <div className="statSettings">
+                  {DISPLAYABLE_ITEM_STAT_DEFINITIONS.map((stat) => (
+                    <label className="toggle" key={stat.key}>
+                      <input type="checkbox" checked={visibleStatKeys.includes(stat.key)} onChange={() => toggleVisibleStat(stat.key)} />
+                      <span>{displayItemStatLabel(stat)}</span>
+                    </label>
+                  ))}
+                </div>
               </div>
             </div>
           ) : null}
