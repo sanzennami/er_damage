@@ -1,7 +1,7 @@
 {
   "code": 200,
   "message": "Success",
-  "generatedAt": "2026-11-24T09:15:10.312Z",
+  "generatedAt": "2026-11-25T08:14:45.062Z",
   "source": "dak.gg routes API (zh-CN) + pypy-vrc/er-gamedata WeaponRoute.json fallback",
   "counts": {
     "totalPairs": 119,
@@ -25,8 +25,8 @@
         "paths": "[170,140]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 389,
-        "v2WinRate": 10.58,
+        "v2Like": 407,
+        "v2WinRate": 10.52,
         "updateDtm": 1795150435000,
         "routeSource": "dak.gg"
       }
@@ -47,8 +47,8 @@
         "paths": "[120,40]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 1442,
-        "v2WinRate": 14.4,
+        "v2Like": 1576,
+        "v2WinRate": 14.33,
         "updateDtm": 1795445092000,
         "routeSource": "dak.gg"
       }
@@ -69,8 +69,8 @@
         "paths": "[200,50]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 554,
-        "v2WinRate": 12.89,
+        "v2Like": 593,
+        "v2WinRate": 12.9,
         "updateDtm": 1795087630000,
         "routeSource": "dak.gg"
       }
@@ -91,8 +91,8 @@
         "paths": "[200,180]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 1155,
-        "v2WinRate": 13.85,
+        "v2Like": 1223,
+        "v2WinRate": 13.88,
         "updateDtm": 1795143311000,
         "routeSource": "dak.gg"
       }
@@ -113,8 +113,8 @@
         "paths": "[180,110]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 986,
-        "v2WinRate": 16.65,
+        "v2Like": 1053,
+        "v2WinRate": 16.61,
         "updateDtm": 1795315313000,
         "routeSource": "dak.gg"
       }
@@ -135,8 +135,8 @@
         "paths": "[100,130]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 410,
-        "v2WinRate": 22.2,
+        "v2Like": 448,
+        "v2WinRate": 22.11,
         "updateDtm": 1795485907000,
         "routeSource": "dak.gg"
       }
@@ -157,8 +157,8 @@
         "paths": "[180,110]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 1960,
-        "v2WinRate": 18.38,
+        "v2Like": 2083,
+        "v2WinRate": 18.17,
         "updateDtm": 1795076136000,
         "routeSource": "dak.gg"
       }
@@ -179,8 +179,8 @@
         "paths": "[60,160]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 268,
-        "v2WinRate": 11.54,
+        "v2Like": 294,
+        "v2WinRate": 11.37,
         "updateDtm": 1795081641000,
         "routeSource": "dak.gg"
       }
@@ -189,7 +189,7 @@
       "recommendWeaponRoute": {
         "id": 8630,
         "title": "전시즌꺼",
-        "userNum": 5,
+        "userNum": 4,
         "userNickname": "킹반인입니다",
         "characterCode": 3,
         "slotId": 0,
@@ -201,8 +201,8 @@
         "paths": "[160,60]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 124,
-        "v2WinRate": 12.38,
+        "v2Like": 134,
+        "v2WinRate": 12.49,
         "updateDtm": 1795097627000,
         "routeSource": "dak.gg"
       }
@@ -223,8 +223,8 @@
         "paths": "[110,160]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 299,
-        "v2WinRate": 12.47,
+        "v2Like": 322,
+        "v2WinRate": 12.51,
         "updateDtm": 1795273655000,
         "routeSource": "dak.gg"
       }
@@ -245,8 +245,8 @@
         "paths": "[160,20]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 1917,
-        "v2WinRate": 14.38,
+        "v2Like": 2062,
+        "v2WinRate": 14.49,
         "updateDtm": 1795234147000,
         "routeSource": "dak.gg"
       }
@@ -267,8 +267,8 @@
         "paths": "[40,70]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 447,
-        "v2WinRate": 12.16,
+        "v2Like": 472,
+        "v2WinRate": 12.3,
         "updateDtm": 1795352361000,
         "routeSource": "dak.gg"
       }
@@ -289,8 +289,8 @@
         "paths": "[190,160]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 62,
-        "v2WinRate": 18.39,
+        "v2Like": 80,
+        "v2WinRate": 18.28,
         "updateDtm": 1795331692000,
         "routeSource": "dak.gg"
       }
@@ -311,8 +311,8 @@
         "paths": "[200,160]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 132,
-        "v2WinRate": 17.31,
+        "v2Like": 145,
+        "v2WinRate": 17.57,
         "updateDtm": 1795194111000,
         "routeSource": "dak.gg"
       }
@@ -333,8 +333,8 @@
         "paths": "[70,170]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 125,
-        "v2WinRate": 16.4,
+        "v2Like": 134,
+        "v2WinRate": 16.15,
         "updateDtm": 1795132457000,
         "routeSource": "dak.gg"
       }
@@ -355,9 +355,9 @@
         "paths": "[40,120]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 21,
-        "v2WinRate": 18.5,
-        "updateDtm": 1795499531000,
+        "v2Like": 22,
+        "v2WinRate": 18.29,
+        "updateDtm": 1795512471000,
         "routeSource": "dak.gg"
       }
     },
@@ -377,9 +377,9 @@
         "paths": "[80,140]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 1889,
-        "v2WinRate": 15.13,
-        "updateDtm": 1795239065000,
+        "v2Like": 2030,
+        "v2WinRate": 15.14,
+        "updateDtm": 1795562543000,
         "routeSource": "dak.gg"
       }
     },
@@ -387,7 +387,7 @@
       "recommendWeaponRoute": {
         "id": 8681,
         "title": "미움받을 용기",
-        "userNum": 4,
+        "userNum": 5,
         "userNickname": "게1이스",
         "characterCode": 7,
         "slotId": 0,
@@ -399,8 +399,8 @@
         "paths": "[180,20]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 222,
-        "v2WinRate": 12.12,
+        "v2Like": 233,
+        "v2WinRate": 12.06,
         "updateDtm": 1795179220000,
         "routeSource": "dak.gg"
       }
@@ -421,8 +421,8 @@
         "paths": "[190,60]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 767,
-        "v2WinRate": 13.84,
+        "v2Like": 862,
+        "v2WinRate": 13.68,
         "updateDtm": 1795187155000,
         "routeSource": "dak.gg"
       }
@@ -443,8 +443,8 @@
         "paths": "[190,40]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 1537,
-        "v2WinRate": 16.73,
+        "v2Like": 1630,
+        "v2WinRate": 16.55,
         "updateDtm": 1795069571000,
         "routeSource": "dak.gg"
       }
@@ -465,8 +465,8 @@
         "paths": "[60,160]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 108,
-        "v2WinRate": 18.39,
+        "v2Like": 114,
+        "v2WinRate": 18.44,
         "updateDtm": 1795332486000,
         "routeSource": "dak.gg"
       }
@@ -487,8 +487,8 @@
         "paths": "[40,120]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 635,
-        "v2WinRate": 13.12,
+        "v2Like": 666,
+        "v2WinRate": 13,
         "updateDtm": 1795072198000,
         "routeSource": "dak.gg"
       }
@@ -509,8 +509,8 @@
         "paths": "[170,50]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 770,
-        "v2WinRate": 14.36,
+        "v2Like": 826,
+        "v2WinRate": 14.37,
         "updateDtm": 1795425920000,
         "routeSource": "dak.gg"
       }
@@ -531,8 +531,8 @@
         "paths": "[120,40]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 1429,
-        "v2WinRate": 16.03,
+        "v2Like": 1556,
+        "v2WinRate": 16.06,
         "updateDtm": 1795431859000,
         "routeSource": "dak.gg"
       }
@@ -553,8 +553,8 @@
         "paths": "[110,30]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 1295,
-        "v2WinRate": 14.07,
+        "v2Like": 1398,
+        "v2WinRate": 14.1,
         "updateDtm": 1795187238000,
         "routeSource": "dak.gg"
       }
@@ -575,8 +575,8 @@
         "paths": "[60,50]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 633,
-        "v2WinRate": 14.43,
+        "v2Like": 682,
+        "v2WinRate": 14.48,
         "updateDtm": 1795069150000,
         "routeSource": "dak.gg"
       }
@@ -597,8 +597,8 @@
         "paths": "[130,40]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 49,
-        "v2WinRate": 17.29,
+        "v2Like": 57,
+        "v2WinRate": 16.58,
         "updateDtm": 1795194197000,
         "routeSource": "dak.gg"
       }
@@ -619,9 +619,9 @@
         "paths": "[90,50]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 298,
-        "v2WinRate": 16.04,
-        "updateDtm": 1795420604000,
+        "v2Like": 319,
+        "v2WinRate": 16.13,
+        "updateDtm": 1795593659000,
         "routeSource": "dak.gg"
       }
     },
@@ -641,8 +641,8 @@
         "paths": "[30,40]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 90,
-        "v2WinRate": 14.36,
+        "v2Like": 98,
+        "v2WinRate": 14.44,
         "updateDtm": 1795108278000,
         "routeSource": "dak.gg"
       }
@@ -663,8 +663,8 @@
         "paths": "[60,160]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 1306,
-        "v2WinRate": 14.42,
+        "v2Like": 1388,
+        "v2WinRate": 14.44,
         "updateDtm": 1795068750000,
         "routeSource": "dak.gg"
       }
@@ -685,8 +685,8 @@
         "paths": "[100,130]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 120,
-        "v2WinRate": 14.62,
+        "v2Like": 131,
+        "v2WinRate": 14.78,
         "updateDtm": 1795451762000,
         "routeSource": "dak.gg"
       }
@@ -702,14 +702,14 @@
         "weaponType": 5,
         "weaponCodes": "[112302,202412,201409,203403,204419]",
         "traitCodes": "[7000501,7010701,7310101,7010501,7011101]",
-        "lateGameItemCodes": "{\"0\":[203510,202511,201519,112503,204410,999999],\"1\":[201503,202511,205508,112503,204410]}",
+        "lateGameItemCodes": "{\"0\":[201503,202511,205508,112503,204410,999999],\"1\":[203510,202511,201519,112503,204410]}",
         "tacticalSkillGroupCode": 30,
         "paths": "[200,160]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 880,
-        "v2WinRate": 15.42,
-        "updateDtm": 1795122213000,
+        "v2Like": 950,
+        "v2WinRate": 15.44,
+        "updateDtm": 1795532169000,
         "routeSource": "dak.gg"
       }
     },
@@ -729,8 +729,8 @@
         "paths": "[40,130]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 774,
-        "v2WinRate": 14.06,
+        "v2Like": 821,
+        "v2WinRate": 14.08,
         "updateDtm": 1795094294000,
         "routeSource": "dak.gg"
       }
@@ -751,9 +751,9 @@
         "paths": "[160,20]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 1976,
-        "v2WinRate": 15.8,
-        "updateDtm": 1795509847000,
+        "v2Like": 2090,
+        "v2WinRate": 15.7,
+        "updateDtm": 1795591086000,
         "routeSource": "dak.gg"
       }
     },
@@ -773,8 +773,8 @@
         "paths": "[160,60]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 2397,
-        "v2WinRate": 9.69,
+        "v2Like": 2534,
+        "v2WinRate": 9.67,
         "updateDtm": 1795110215000,
         "routeSource": "dak.gg"
       }
@@ -795,8 +795,8 @@
         "paths": "[50,60]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 754,
-        "v2WinRate": 11.22,
+        "v2Like": 790,
+        "v2WinRate": 11.17,
         "updateDtm": 1795274952000,
         "routeSource": "dak.gg"
       }
@@ -817,7 +817,7 @@
         "paths": "[200,160]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 442,
+        "v2Like": 462,
         "v2WinRate": 13.08,
         "updateDtm": 1795241481000,
         "routeSource": "dak.gg"
@@ -839,8 +839,8 @@
         "paths": "[40,110]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 69,
-        "v2WinRate": 17.4,
+        "v2Like": 76,
+        "v2WinRate": 16.78,
         "updateDtm": 1795372763000,
         "routeSource": "dak.gg"
       }
@@ -861,8 +861,8 @@
         "paths": "[190,130]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 2361,
-        "v2WinRate": 14.73,
+        "v2Like": 2589,
+        "v2WinRate": 14.74,
         "updateDtm": 1795343374000,
         "routeSource": "dak.gg"
       }
@@ -883,9 +883,9 @@
         "paths": "[80,190]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 2222,
-        "v2WinRate": 15.03,
-        "updateDtm": 1795391698000,
+        "v2Like": 2355,
+        "v2WinRate": 15.05,
+        "updateDtm": 1795519452000,
         "routeSource": "dak.gg"
       }
     },
@@ -905,8 +905,8 @@
         "paths": "[100,130]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 43,
-        "v2WinRate": 14.36,
+        "v2Like": 49,
+        "v2WinRate": 15.01,
         "updateDtm": 1795499906000,
         "routeSource": "dak.gg"
       }
@@ -949,8 +949,8 @@
         "paths": "[160,20]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 317,
-        "v2WinRate": 13.37,
+        "v2Like": 339,
+        "v2WinRate": 13.28,
         "updateDtm": 1795346249000,
         "routeSource": "dak.gg"
       }
@@ -958,22 +958,22 @@
     {
       "recommendWeaponRoute": {
         "id": 9,
-        "title": "신속 좋네",
+        "title": "찾았다 스선루트",
         "userNum": 1,
         "userNickname": "건피의악마로즈너",
         "characterCode": 24,
         "slotId": 0,
         "weaponType": 3,
-        "weaponCodes": "[104408,202412,201410,205201,204419]",
+        "weaponCodes": "[104408,202412,201422,205201,204419]",
         "traitCodes": "[7000201,7011001,7011101,7310401,7310101]",
         "lateGameItemCodes": "{\"0\":[202503,108503,205505,201533,204505,999999],\"1\":[108702,205507,204513,201411,203510]}",
         "tacticalSkillGroupCode": 30,
-        "paths": "[130,170]",
+        "paths": "[130,100]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 351,
-        "v2WinRate": 14.07,
-        "updateDtm": 1795122555000,
+        "v2Like": 373,
+        "v2WinRate": 14.14,
+        "updateDtm": 1795574139000,
         "routeSource": "dak.gg"
       }
     },
@@ -993,8 +993,8 @@
         "paths": "[70,120]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 1920,
-        "v2WinRate": 16.59,
+        "v2Like": 2042,
+        "v2WinRate": 16.46,
         "updateDtm": 1795423002000,
         "routeSource": "dak.gg"
       }
@@ -1015,8 +1015,8 @@
         "paths": "[70,110]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 395,
-        "v2WinRate": 17.63,
+        "v2Like": 433,
+        "v2WinRate": 17.62,
         "updateDtm": 1795196324000,
         "routeSource": "dak.gg"
       }
@@ -1025,7 +1025,7 @@
       "recommendWeaponRoute": {
         "id": 2060,
         "title": "강소금식 알렉스",
-        "userNum": 7,
+        "userNum": 6,
         "userNickname": "소금49호",
         "characterCode": 27,
         "slotId": 0,
@@ -1037,8 +1037,8 @@
         "paths": "[30,110]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 68,
-        "v2WinRate": 15.42,
+        "v2Like": 71,
+        "v2WinRate": 15.38,
         "updateDtm": 1795087274000,
         "routeSource": "dak.gg"
       }
@@ -1059,31 +1059,31 @@
         "paths": "[120,50]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 481,
-        "v2WinRate": 12.37,
+        "v2Like": 510,
+        "v2WinRate": 12.32,
         "updateDtm": 1795159418000,
         "routeSource": "dak.gg"
       }
     },
     {
       "recommendWeaponRoute": {
-        "id": 18582,
-        "title": "test",
-        "userNum": 18,
-        "userNickname": "밀감성",
+        "id": 18119,
+        "title": "아드 평렉스",
+        "userNum": 7,
+        "userNickname": "보이면박는사람09",
         "characterCode": 27,
-        "slotId": 3,
+        "slotId": 1,
         "weaponType": 6,
-        "weaponCodes": "[113401,202411,201421,203415,204418]",
-        "traitCodes": "[7300101,7310201,7310101,7011501,7011201]",
-        "lateGameItemCodes": "{\"0\":[113401,202521,201518,205501,204504,999999],\"1\":[111501,102502,113502,116501]}",
+        "weaponCodes": "[113401,202413,201421,203415,204418]",
+        "traitCodes": "[7000601,7010901,7011301,7010701,7310301]",
+        "lateGameItemCodes": "{\"0\":[113502,202506,701451,205408,204514,999999],\"1\":[102504,111502,111504,116501,102412]}",
         "tacticalSkillGroupCode": 30,
         "paths": "[40,190]",
-        "version": "13.1.0",
+        "version": "13.0.0",
         "teamMode": 0,
-        "v2Like": 0,
-        "v2WinRate": 0,
-        "updateDtm": 1795145734000,
+        "v2Like": 2,
+        "v2WinRate": 33.33,
+        "updateDtm": 1794737087000,
         "routeSource": "dak.gg"
       }
     },
@@ -1095,7 +1095,7 @@
         "userNickname": "알렉스는원딜이야",
         "characterCode": 27,
         "slotId": 1,
-        "weaponType": 6,
+        "weaponType": 9,
         "weaponCodes": "[113401,202405,201421,205308,204418]",
         "traitCodes": "[7300101,7310201,7310701,7011001,7011301]",
         "lateGameItemCodes": "{\"0\":[205408,202510,201525,116501,204504,999999],\"1\":[301329,102502,116410]}",
@@ -1103,8 +1103,8 @@
         "paths": "[120,40]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 21,
-        "v2WinRate": 13.33,
+        "v2Like": 22,
+        "v2WinRate": 12.92,
         "updateDtm": 1795427464000,
         "routeSource": "dak.gg"
       }
@@ -1113,7 +1113,7 @@
       "recommendWeaponRoute": {
         "id": 8613,
         "title": "아망의선택 성법우뚝에타",
-        "userNum": 6,
+        "userNum": 5,
         "userNickname": "블랙페이퍼",
         "characterCode": 28,
         "slotId": 0,
@@ -1125,8 +1125,8 @@
         "paths": "[170,150]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 122,
-        "v2WinRate": 12.39,
+        "v2Like": 127,
+        "v2WinRate": 12.23,
         "updateDtm": 1795095284000,
         "routeSource": "dak.gg"
       }
@@ -1147,8 +1147,8 @@
         "paths": "[130,170]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 1659,
-        "v2WinRate": 12.41,
+        "v2Like": 1751,
+        "v2WinRate": 12.46,
         "updateDtm": 1795462545000,
         "routeSource": "dak.gg"
       }
@@ -1169,8 +1169,8 @@
         "paths": "[60,190]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 1951,
-        "v2WinRate": 16.47,
+        "v2Like": 2077,
+        "v2WinRate": 16.34,
         "updateDtm": 1795068662000,
         "routeSource": "dak.gg"
       }
@@ -1186,14 +1186,14 @@
         "weaponType": 2,
         "weaponCodes": "[111402,202419,201409,203306,204419]",
         "traitCodes": "[7000501,7010701,7310301,7211001,7210801]",
-        "lateGameItemCodes": "{\"0\":[111501,203512,202511,201519,204410,999999],\"1\":[111503,111702]}",
+        "lateGameItemCodes": "{\"0\":[111501,202511,201519,203512,204410,999999],\"1\":[111503,111702]}",
         "tacticalSkillGroupCode": 160,
         "paths": "[60,50]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 114,
-        "v2WinRate": 16.09,
-        "updateDtm": 1795093998000,
+        "v2Like": 129,
+        "v2WinRate": 15.95,
+        "updateDtm": 1795519037000,
         "routeSource": "dak.gg"
       }
     },
@@ -1213,8 +1213,8 @@
         "paths": "[50,90,160]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 1539,
-        "v2WinRate": 16.86,
+        "v2Like": 1653,
+        "v2WinRate": 16.76,
         "updateDtm": 1795318563000,
         "routeSource": "dak.gg"
       }
@@ -1235,8 +1235,8 @@
         "paths": "[180,40]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 3472,
-        "v2WinRate": 14.96,
+        "v2Like": 3836,
+        "v2WinRate": 15.04,
         "updateDtm": 1795454832000,
         "routeSource": "dak.gg"
       }
@@ -1257,8 +1257,8 @@
         "paths": "[130,190]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 297,
-        "v2WinRate": 17.18,
+        "v2Like": 306,
+        "v2WinRate": 17.06,
         "updateDtm": 1795337977000,
         "routeSource": "dak.gg"
       }
@@ -1279,8 +1279,8 @@
         "paths": "[120,60]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 2063,
-        "v2WinRate": 12.11,
+        "v2Like": 2192,
+        "v2WinRate": 12.26,
         "updateDtm": 1795335243000,
         "routeSource": "dak.gg"
       }
@@ -1301,9 +1301,9 @@
         "paths": "[120,150]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 567,
-        "v2WinRate": 16.32,
-        "updateDtm": 1795435835000,
+        "v2Like": 627,
+        "v2WinRate": 16.5,
+        "updateDtm": 1795515008000,
         "routeSource": "dak.gg"
       }
     },
@@ -1323,9 +1323,9 @@
         "paths": "[120,160]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 187,
-        "v2WinRate": 11.24,
-        "updateDtm": 1795293035000,
+        "v2Like": 192,
+        "v2WinRate": 10.88,
+        "updateDtm": 1795583167000,
         "routeSource": "dak.gg"
       }
     },
@@ -1345,8 +1345,8 @@
         "paths": "[60,170]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 1027,
-        "v2WinRate": 13.91,
+        "v2Like": 1113,
+        "v2WinRate": 13.98,
         "updateDtm": 1795470042000,
         "routeSource": "dak.gg"
       }
@@ -1367,31 +1367,31 @@
         "paths": "[130,100]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 1210,
-        "v2WinRate": 15.42,
+        "v2Like": 1321,
+        "v2WinRate": 15.5,
         "updateDtm": 1795196814000,
         "routeSource": "dak.gg"
       }
     },
     {
       "recommendWeaponRoute": {
-        "id": 5978,
-        "title": "씹방관",
-        "userNum": 2,
-        "userNickname": "왕꿈툴이",
+        "id": 2881,
+        "title": "나는겜안분",
+        "userNum": 1,
+        "userNickname": "현지원주민",
         "characterCode": 37,
         "slotId": 0,
         "weaponType": 15,
-        "weaponCodes": "[101407,202406,201418,203407,204304]",
+        "weaponCodes": "[101407,202405,201418,203415,204417]",
         "traitCodes": "[7300201,7310401,7310501,7211001,7211101]",
-        "lateGameItemCodes": "{\"0\":[705614,202513,201509,204414,101405,999999],\"1\":[101701,201411,101502,204515,202515]}",
+        "lateGameItemCodes": "{\"0\":[203514,202510,204508,201509,101502,999999],\"1\":[705614,202515,201509,204508,101502]}",
         "tacticalSkillGroupCode": 30,
-        "paths": "[170,140]",
+        "paths": "[120,100]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 313,
-        "v2WinRate": 12.33,
-        "updateDtm": 1795071969000,
+        "v2Like": 631,
+        "v2WinRate": 12.21,
+        "updateDtm": 1795593751000,
         "routeSource": "dak.gg"
       }
     },
@@ -1411,8 +1411,8 @@
         "paths": "[180,110]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 1204,
-        "v2WinRate": 16.07,
+        "v2Like": 1277,
+        "v2WinRate": 16.08,
         "updateDtm": 1795156830000,
         "routeSource": "dak.gg"
       }
@@ -1433,8 +1433,8 @@
         "paths": "[130,190]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 832,
-        "v2WinRate": 14.19,
+        "v2Like": 882,
+        "v2WinRate": 14.18,
         "updateDtm": 1795116034000,
         "routeSource": "dak.gg"
       }
@@ -1443,7 +1443,7 @@
       "recommendWeaponRoute": {
         "id": 7677,
         "title": "먹던거",
-        "userNum": 2,
+        "userNum": 3,
         "userNickname": "메가톤박치기",
         "characterCode": 39,
         "slotId": 0,
@@ -1455,8 +1455,8 @@
         "paths": "[60,190]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 358,
-        "v2WinRate": 12.03,
+        "v2Like": 382,
+        "v2WinRate": 12.15,
         "updateDtm": 1795081233000,
         "routeSource": "dak.gg"
       }
@@ -1477,8 +1477,8 @@
         "paths": "[180,170]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 846,
-        "v2WinRate": 16.67,
+        "v2Like": 908,
+        "v2WinRate": 16.6,
         "updateDtm": 1795081101000,
         "routeSource": "dak.gg"
       }
@@ -1499,8 +1499,8 @@
         "paths": "[160,60]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 361,
-        "v2WinRate": 16.23,
+        "v2Like": 396,
+        "v2WinRate": 16.42,
         "updateDtm": 1795329237000,
         "routeSource": "dak.gg"
       }
@@ -1514,16 +1514,16 @@
         "characterCode": 42,
         "slotId": 0,
         "weaponType": 24,
-        "weaponCodes": "[130404,202412,201409,203410,204419]",
+        "weaponCodes": "[130401,202307,201409,203410,204406]",
         "traitCodes": "[7200201,7211001,7211101,7310401,7310501]",
-        "lateGameItemCodes": "{\"0\":[202503,203512,201507,130501,204405,999999],\"1\":[202209,202526,202508,202501,202511]}",
+        "lateGameItemCodes": "{\"0\":[202503,705620,130501,203512,204410,999999],\"1\":[202209,202526,202508,202501,202511]}",
         "tacticalSkillGroupCode": 160,
-        "paths": "[160,200]",
+        "paths": "[70,120]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 1947,
-        "v2WinRate": 12.91,
-        "updateDtm": 1795419276000,
+        "v2Like": 2068,
+        "v2WinRate": 12.88,
+        "updateDtm": 1795553758000,
         "routeSource": "dak.gg"
       }
     },
@@ -1543,8 +1543,8 @@
         "paths": "[60,160]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 318,
-        "v2WinRate": 16.05,
+        "v2Like": 331,
+        "v2WinRate": 16.02,
         "updateDtm": 1795076882000,
         "routeSource": "dak.gg"
       }
@@ -1565,8 +1565,8 @@
         "paths": "[180,200]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 350,
-        "v2WinRate": 10.34,
+        "v2Like": 373,
+        "v2WinRate": 10.5,
         "updateDtm": 1795100227000,
         "routeSource": "dak.gg"
       }
@@ -1587,8 +1587,8 @@
         "paths": "[190,40]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 759,
-        "v2WinRate": 14.65,
+        "v2Like": 812,
+        "v2WinRate": 14.54,
         "updateDtm": 1795472794000,
         "routeSource": "dak.gg"
       }
@@ -1609,8 +1609,8 @@
         "paths": "[170,130]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 815,
-        "v2WinRate": 12.64,
+        "v2Like": 867,
+        "v2WinRate": 12.62,
         "updateDtm": 1795395971000,
         "routeSource": "dak.gg"
       }
@@ -1631,8 +1631,8 @@
         "paths": "[60,170]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 1196,
-        "v2WinRate": 12.42,
+        "v2Like": 1275,
+        "v2WinRate": 12.48,
         "updateDtm": 1795068868000,
         "routeSource": "dak.gg"
       }
@@ -1653,8 +1653,8 @@
         "paths": "[190,40]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 1530,
-        "v2WinRate": 13.06,
+        "v2Like": 1661,
+        "v2WinRate": 13.15,
         "updateDtm": 1795081993000,
         "routeSource": "dak.gg"
       }
@@ -1675,8 +1675,8 @@
         "paths": "[60,10]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 909,
-        "v2WinRate": 13.73,
+        "v2Like": 968,
+        "v2WinRate": 13.47,
         "updateDtm": 1795463494000,
         "routeSource": "dak.gg"
       }
@@ -1697,8 +1697,8 @@
         "paths": "[50,90]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 769,
-        "v2WinRate": 13.71,
+        "v2Like": 828,
+        "v2WinRate": 13.89,
         "updateDtm": 1795183272000,
         "routeSource": "dak.gg"
       }
@@ -1719,8 +1719,8 @@
         "paths": "[110,150]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 367,
-        "v2WinRate": 14.74,
+        "v2Like": 384,
+        "v2WinRate": 14.58,
         "updateDtm": 1795357969000,
         "routeSource": "dak.gg"
       }
@@ -1741,8 +1741,8 @@
         "paths": "[110,130]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 577,
-        "v2WinRate": 12.85,
+        "v2Like": 616,
+        "v2WinRate": 12.82,
         "updateDtm": 1795345145000,
         "routeSource": "dak.gg"
       }
@@ -1763,8 +1763,8 @@
         "paths": "[80,190]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 1293,
-        "v2WinRate": 14.79,
+        "v2Like": 1367,
+        "v2WinRate": 14.71,
         "updateDtm": 1795395657000,
         "routeSource": "dak.gg"
       }
@@ -1785,8 +1785,8 @@
         "paths": "[120,40]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 101,
-        "v2WinRate": 18.89,
+        "v2Like": 108,
+        "v2WinRate": 19.2,
         "updateDtm": 1795078972000,
         "routeSource": "dak.gg"
       }
@@ -1807,8 +1807,8 @@
         "paths": "[60,190]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 253,
-        "v2WinRate": 12.6,
+        "v2Like": 272,
+        "v2WinRate": 12.82,
         "updateDtm": 1795253715000,
         "routeSource": "dak.gg"
       }
@@ -1829,8 +1829,8 @@
         "paths": "[40,110]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 1583,
-        "v2WinRate": 14.95,
+        "v2Like": 1687,
+        "v2WinRate": 14.91,
         "updateDtm": 1795375333000,
         "routeSource": "dak.gg"
       }
@@ -1851,8 +1851,8 @@
         "paths": "[60,160]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 599,
-        "v2WinRate": 13.3,
+        "v2Like": 639,
+        "v2WinRate": 13.31,
         "updateDtm": 1795097498000,
         "routeSource": "dak.gg"
       }
@@ -1873,8 +1873,8 @@
         "paths": "[120,180]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 444,
-        "v2WinRate": 14.79,
+        "v2Like": 479,
+        "v2WinRate": 14.73,
         "updateDtm": 1795232037000,
         "routeSource": "dak.gg"
       }
@@ -1895,8 +1895,8 @@
         "paths": "[120,150]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 1430,
-        "v2WinRate": 14.65,
+        "v2Like": 1471,
+        "v2WinRate": 14.63,
         "updateDtm": 1795086347000,
         "routeSource": "dak.gg"
       }
@@ -1917,8 +1917,8 @@
         "paths": "[80,200]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 1738,
-        "v2WinRate": 16.32,
+        "v2Like": 2011,
+        "v2WinRate": 15.94,
         "updateDtm": 1795272728000,
         "routeSource": "dak.gg"
       }
@@ -1939,8 +1939,8 @@
         "paths": "[200,160]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 611,
-        "v2WinRate": 13.3,
+        "v2Like": 656,
+        "v2WinRate": 13.42,
         "updateDtm": 1795181875000,
         "routeSource": "dak.gg"
       }
@@ -1948,22 +1948,22 @@
     {
       "recommendWeaponRoute": {
         "id": 1841,
-        "title": "고쿨감에타흡마,너프의미X",
+        "title": "진은에타흡마냥이",
         "userNum": 1,
         "userNickname": "건피의악마로즈너",
         "characterCode": 61,
         "slotId": 0,
         "weaponType": 5,
-        "weaponCodes": "[112408,202419,201420,203410,204406]",
+        "weaponCodes": "[112302,202419,201410,203410,204412]",
         "traitCodes": "[7000401,7011001,7011101,7310201,7310301]",
-        "lateGameItemCodes": "{\"0\":[205508,201504,202514,112405,204410,999999],\"1\":[112503,204513,201411]}",
+        "lateGameItemCodes": "{\"0\":[205508,112405,202508,201526,204505,999999],\"1\":[112405,202514,201504,205508,204410]}",
         "tacticalSkillGroupCode": 160,
-        "paths": "[90,70]",
+        "paths": "[60,160]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 476,
-        "v2WinRate": 11.11,
-        "updateDtm": 1795124453000,
+        "v2Like": 500,
+        "v2WinRate": 11.08,
+        "updateDtm": 1795586433000,
         "routeSource": "dak.gg"
       }
     },
@@ -1983,8 +1983,8 @@
         "paths": "[100,110]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 1142,
-        "v2WinRate": 14.03,
+        "v2Like": 1190,
+        "v2WinRate": 14,
         "updateDtm": 1795068353000,
         "routeSource": "dak.gg"
       }
@@ -2005,8 +2005,8 @@
         "paths": "[60,30]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 192,
-        "v2WinRate": 13.44,
+        "v2Like": 202,
+        "v2WinRate": 13.02,
         "updateDtm": 1795071762000,
         "routeSource": "dak.gg"
       }
@@ -2022,14 +2022,14 @@
         "weaponType": 24,
         "weaponCodes": "[130404,202419,201413,203410,204419]",
         "traitCodes": "[7000401,7011501,7011101,7110101,7111201]",
-        "lateGameItemCodes": "{\"0\":[202503,130501,201507,999999,203515,204410],\"1\":[130702,130501,130504,307001]}",
+        "lateGameItemCodes": "{\"0\":[202503,130501,201507,999999,203512,204410],\"1\":[130702,130501,130504,307001]}",
         "tacticalSkillGroupCode": 80,
         "paths": "[200,150]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 1241,
-        "v2WinRate": 18.57,
-        "updateDtm": 1795172045000,
+        "v2Like": 1332,
+        "v2WinRate": 18.68,
+        "updateDtm": 1795518078000,
         "routeSource": "dak.gg"
       }
     },
@@ -2049,8 +2049,8 @@
         "paths": "[60,120]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 2432,
-        "v2WinRate": 12.68,
+        "v2Like": 2551,
+        "v2WinRate": 12.66,
         "updateDtm": 1795088792000,
         "routeSource": "dak.gg"
       }
@@ -2064,16 +2064,16 @@
         "characterCode": 66,
         "slotId": 0,
         "weaponType": 24,
-        "weaponCodes": "[130404,202404,201409,205201,204406]",
+        "weaponCodes": "[130401,202419,201409,203306,204406]",
         "traitCodes": "[7000501,7010701,7310501,7010501,7011101]",
         "lateGameItemCodes": "{\"0\":[130501,202508,201533,203512,204410,999999],\"1\":[130702,202502,203515,204513]}",
         "tacticalSkillGroupCode": 30,
-        "paths": "[90,160]",
+        "paths": "[160,190]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 947,
+        "v2Like": 1006,
         "v2WinRate": 15.49,
-        "updateDtm": 1795495808000,
+        "updateDtm": 1795517033000,
         "routeSource": "dak.gg"
       }
     },
@@ -2093,31 +2093,31 @@
         "paths": "[60,50]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 4845,
-        "v2WinRate": 14.26,
+        "v2Like": 5338,
+        "v2WinRate": 14.19,
         "updateDtm": 1795274488000,
         "routeSource": "dak.gg"
       }
     },
     {
       "recommendWeaponRoute": {
-        "id": 6861,
-        "title": "수호자 프로토콜 위반",
-        "userNum": 3,
-        "userNickname": "앙카말이김치찜",
+        "id": 3829,
+        "title": "알론소의 우람한 성......뚝",
+        "userNum": 2,
+        "userNickname": "밥버거맛사탕",
         "characterCode": 68,
         "slotId": 0,
         "weaponType": 1,
-        "weaponCodes": "[110406,202417,201413,203402,204412]",
-        "traitCodes": "[7000201,7011501,7011201,7111001,7110601]",
-        "lateGameItemCodes": "{\"0\":[202522,201415,999999,705603,204409,110502],\"1\":[110702,110504]}",
+        "weaponCodes": "[110406,202408,201407,203402,204303]",
+        "traitCodes": "[7200301,7200101,7210801,7111101,7110201]",
+        "lateGameItemCodes": "{\"0\":[202522,201415,203505,204409,110502,999999],\"1\":[110503,203504,203402,110504]}",
         "tacticalSkillGroupCode": 50,
-        "paths": "[110,100]",
+        "paths": "[80,190]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 259,
-        "v2WinRate": 18.13,
-        "updateDtm": 1795068175000,
+        "v2Like": 547,
+        "v2WinRate": 17.37,
+        "updateDtm": 1795536895000,
         "routeSource": "dak.gg"
       }
     },
@@ -2137,8 +2137,8 @@
         "paths": "[200,40]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 1678,
-        "v2WinRate": 13.91,
+        "v2Like": 1783,
+        "v2WinRate": 13.84,
         "updateDtm": 1795273142000,
         "routeSource": "dak.gg"
       }
@@ -2159,8 +2159,8 @@
         "paths": "[40,60]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 2063,
-        "v2WinRate": 15.16,
+        "v2Like": 2219,
+        "v2WinRate": 15.12,
         "updateDtm": 1795101518000,
         "routeSource": "dak.gg"
       }
@@ -2181,8 +2181,8 @@
         "paths": "[110,180]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 1877,
-        "v2WinRate": 13.85,
+        "v2Like": 2010,
+        "v2WinRate": 13.76,
         "updateDtm": 1795348518000,
         "routeSource": "dak.gg"
       }
@@ -2197,15 +2197,15 @@
         "slotId": 0,
         "weaponType": 11,
         "weaponCodes": "[118406,202420,201421,203415,204408]",
-        "traitCodes": "[7000601,7010501,7011101,7310601,7310701]",
+        "traitCodes": "[7000601,7010501,7011101,7310601,7310101]",
         "lateGameItemCodes": "{\"0\":[118502,202509,201525,205305,204515,999999],\"1\":[118502,202509,201518,205501,204509]}",
         "tacticalSkillGroupCode": 60,
         "paths": "[40,60]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 5642,
-        "v2WinRate": 15.78,
-        "updateDtm": 1795345217000,
+        "v2Like": 6044,
+        "v2WinRate": 15.74,
+        "updateDtm": 1795528775000,
         "routeSource": "dak.gg"
       }
     },
@@ -2225,8 +2225,8 @@
         "paths": "[70,90]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 140,
-        "v2WinRate": 23.76,
+        "v2Like": 155,
+        "v2WinRate": 24.42,
         "updateDtm": 1795184659000,
         "routeSource": "dak.gg"
       }
@@ -2247,8 +2247,8 @@
         "paths": "[40,70]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 3245,
-        "v2WinRate": 16.05,
+        "v2Like": 3458,
+        "v2WinRate": 16.08,
         "updateDtm": 1795355302000,
         "routeSource": "dak.gg"
       }
@@ -2269,8 +2269,8 @@
         "paths": "[200,160]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 498,
-        "v2WinRate": 18.42,
+        "v2Like": 535,
+        "v2WinRate": 18.17,
         "updateDtm": 1795082249000,
         "routeSource": "dak.gg"
       }
@@ -2291,8 +2291,8 @@
         "paths": "[110]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 3010,
-        "v2WinRate": 13.21,
+        "v2Like": 3263,
+        "v2WinRate": 13.31,
         "updateDtm": 1795338538000,
         "routeSource": "dak.gg"
       }
@@ -2301,7 +2301,7 @@
       "recommendWeaponRoute": {
         "id": 1616,
         "title": "New 도깨비불 유민",
-        "userNum": 3,
+        "userNum": 2,
         "userNickname": "선령비주",
         "characterCode": 77,
         "slotId": 4,
@@ -2313,9 +2313,9 @@
         "paths": "[160,190]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 1086,
-        "v2WinRate": 15.43,
-        "updateDtm": 1795215702000,
+        "v2Like": 1174,
+        "v2WinRate": 15.45,
+        "updateDtm": 1795554280000,
         "routeSource": "dak.gg"
       }
     },
@@ -2335,8 +2335,8 @@
         "paths": "[130,170]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 2750,
-        "v2WinRate": 13.66,
+        "v2Like": 2933,
+        "v2WinRate": 13.73,
         "updateDtm": 1795418921000,
         "routeSource": "dak.gg"
       }
@@ -2357,8 +2357,8 @@
         "paths": "[170,130]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 2829,
-        "v2WinRate": 13.09,
+        "v2Like": 3051,
+        "v2WinRate": 13.1,
         "updateDtm": 1795092365000,
         "routeSource": "dak.gg"
       }
@@ -2379,8 +2379,8 @@
         "paths": "[60,50]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 690,
-        "v2WinRate": 11.6,
+        "v2Like": 814,
+        "v2WinRate": 11.66,
         "updateDtm": 1795492021000,
         "routeSource": "dak.gg"
       }
@@ -2401,8 +2401,8 @@
         "paths": "[40,130]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 2508,
-        "v2WinRate": 14.14,
+        "v2Like": 2705,
+        "v2WinRate": 14.16,
         "updateDtm": 1795472186000,
         "routeSource": "dak.gg"
       }
@@ -2423,8 +2423,8 @@
         "paths": "[90,10]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 2920,
-        "v2WinRate": 14.91,
+        "v2Like": 3110,
+        "v2WinRate": 14.98,
         "updateDtm": 1795247260000,
         "routeSource": "dak.gg"
       }
@@ -2445,9 +2445,9 @@
         "paths": "[90,70]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 1934,
-        "v2WinRate": 17.44,
-        "updateDtm": 1795068857000,
+        "v2Like": 2066,
+        "v2WinRate": 17.45,
+        "updateDtm": 1795516703000,
         "routeSource": "dak.gg"
       }
     },
@@ -2467,8 +2467,8 @@
         "paths": "[170,130]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 1574,
-        "v2WinRate": 8.74,
+        "v2Like": 1633,
+        "v2WinRate": 8.8,
         "updateDtm": 1795355388000,
         "routeSource": "dak.gg"
       }
@@ -2489,8 +2489,8 @@
         "paths": "[100,110]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 462,
-        "v2WinRate": 15.17,
+        "v2Like": 500,
+        "v2WinRate": 15.18,
         "updateDtm": 1795319029000,
         "routeSource": "dak.gg"
       }
@@ -2511,8 +2511,8 @@
         "paths": "[120,40]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 2068,
-        "v2WinRate": 14.08,
+        "v2Like": 2261,
+        "v2WinRate": 14.11,
         "updateDtm": 1795259207000,
         "routeSource": "dak.gg"
       }
@@ -2533,31 +2533,31 @@
         "paths": "[120,150]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 7682,
-        "v2WinRate": 11.74,
+        "v2Like": 8026,
+        "v2WinRate": 11.78,
         "updateDtm": 1795337357000,
         "routeSource": "dak.gg"
       }
     },
     {
       "recommendWeaponRoute": {
-        "id": 1834,
-        "title": "솔라비형",
-        "userNum": 2,
-        "userNickname": "수영장파티김민석",
+        "id": 821,
+        "title": "산책비형",
+        "userNum": 1,
+        "userNickname": "로그인중이네",
         "characterCode": 88,
         "slotId": 0,
         "weaponType": 3,
-        "weaponCodes": "[108403,202423,201406,205309,204417]",
-        "traitCodes": "[7100501,7111001,7111201,7011501,7011201]",
-        "lateGameItemCodes": "{\"0\":[705601,108505,202407,701451,204514,999999],\"1\":[705601,108505,202521,701451,204512]}",
-        "tacticalSkillGroupCode": 30,
-        "paths": "[80,190]",
+        "weaponCodes": "[108404,202423,201406,205309,204303]",
+        "traitCodes": "[7000601,7011501,7011201,7111001,7111201]",
+        "lateGameItemCodes": "{\"0\":[705601,108505,202407,701451,999999,204514],\"1\":[705601,108505,202521,701451,204514]}",
+        "tacticalSkillGroupCode": 70,
+        "paths": "[200,180]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 1972,
-        "v2WinRate": 16.39,
-        "updateDtm": 1795461584000,
+        "v2Like": 3614,
+        "v2WinRate": 16.53,
+        "updateDtm": 1795560137000,
         "routeSource": "dak.gg"
       }
     },
@@ -2577,8 +2577,8 @@
         "paths": "[60,50]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 1519,
-        "v2WinRate": 10.27,
+        "v2Like": 1617,
+        "v2WinRate": 10.29,
         "updateDtm": 1795075717000,
         "routeSource": "dak.gg"
       }
@@ -2599,8 +2599,8 @@
         "paths": "[40,80]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 5150,
-        "v2WinRate": 13.53,
+        "v2Like": 5554,
+        "v2WinRate": 13.56,
         "updateDtm": 1795462433000,
         "routeSource": "dak.gg"
       }
@@ -2614,16 +2614,16 @@
         "characterCode": 91,
         "slotId": 0,
         "weaponType": 16,
-        "weaponCodes": "[102407,202417,201407,205404,204303]",
+        "weaponCodes": "[102407,202417,201407,203402,204303]",
         "traitCodes": "[7200301,7210101,7210801,7111001,7110601]",
-        "lateGameItemCodes": "{\"0\":[201415,202415,999999,205601,204409,102502],\"1\":[202416,202421,202407]}",
+        "lateGameItemCodes": "{\"0\":[201415,999999,202415,205601,204409,102502],\"1\":[202416,202421,202407]}",
         "tacticalSkillGroupCode": 110,
         "paths": "[170,190]",
         "version": "13.1.0",
         "teamMode": 0,
-        "v2Like": 677,
-        "v2WinRate": 15.83,
-        "updateDtm": 1795098858000,
+        "v2Like": 750,
+        "v2WinRate": 15.81,
+        "updateDtm": 1795519669000,
         "routeSource": "dak.gg"
       }
     }

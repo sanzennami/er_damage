@@ -1,7 +1,7 @@
 {
   "_comment": "武器类型基础攻速与基础射程表（源自 pypy-vrc/er-gamedata data/WeaponTypeInfo.json）。实验体面板基础攻速 = characters.json base.attackSpeed（角色修正值） + weaponTypes[weapon].attackSpeed。",
-  "source": "https://github.com/pypy-vrc/er-gamedata (data/WeaponTypeInfo.json)",
-  "updatedAt": "2026-11-24T09:17:39.352Z",
+  "source": "https://github.com/pypy-vrc/er-gamedata.git",
+  "updatedAt": "2026-11-25T08:46:56.295Z",
   "count": 23,
   "weaponTypes": {
     "Glove": {

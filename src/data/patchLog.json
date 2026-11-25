@@ -2,13 +2,13 @@
   "_comment": "官方补丁变更日志。每条记录的是「该补丁之后应该是什么值」（目标态），不是增量。",
   "_usage": "新版本上线：在 patches 末尾追加一段，然后跑 node scripts/apply-patch-log.mjs。脚本幂等，重跑只会跳过已达标的条目，不需要还原任何数据。",
   "gameVersion": {
-    "label": "13.1",
-    "date": "2026-11-19",
-    "url": "https://playeternalreturn.com/posts/news/3969?hl=zh-CN",
-    "note": "已核对至 S13 正式赛季 13.1 更新日志（含新实验体塞莉丝及 12.3~13.1 平衡调整）。",
-    "lastDataChange": "13.1"
+    "label": "13.2",
+    "date": "2026-11-26",
+    "url": "https://playeternalreturn.com/posts/news/3982?hl=zh-CN",
+    "note": "已核对至 S13 正式赛季 13.2 更新日志（含新实验体弥莎及 27 名实验体、装备、潜能、战术/武器技能调整）。",
+    "lastDataChange": "13.2"
   },
-  "updatedAt": "2026-11-23T13:48:12.255Z",
+  "updatedAt": "2026-11-25T08:43:27.908Z",
   "patches": [
     {
       "version": "sweep-2023-07-19",
@@ -14729,6 +14729,579 @@
       "equipment": [],
       "characters": [],
       "mastery": []
+    },
+    {
+      "version": "13.2",
+      "label": "13.2",
+      "order": 20261126,
+      "date": "2026-11-26",
+      "title": "2026.11.26 - 13.2 更新日志",
+      "url": "https://playeternalreturn.com/posts/news/3982?hl=zh-CN",
+      "skills": [
+        {
+          "create": true,
+          "id": "patch-132-meissa-p-damage",
+          "hero": "弥莎",
+          "heroKey": "Meissa",
+          "slot": "P",
+          "title": "P 能量调律 强化普攻额外技能伤害",
+          "group": 1092100,
+          "skillId": "MeissaPassive",
+          "dataKey": "Damage",
+          "bases": "0,0,0",
+          "maxLevel": 3,
+          "formula": "baseAttack * 2 * (1 + critChance * (1 + critDamage))",
+          "kind": "basicAttack",
+          "coefficientText": "(+基础攻击力的200%) × (1 + 暴击率 × (100% + 额外暴击伤害))",
+          "note": "技能造成3次伤害后强化下一次普攻并附带4秒20%减疗；弥莎普攻无法暴击，该额外技能伤害受暴击率与额外暴击伤害增幅。"
+        },
+        {
+          "create": true,
+          "id": "patch-132-meissa-p-as-buff",
+          "hero": "弥莎",
+          "heroKey": "Meissa",
+          "slot": "P",
+          "title": "P 能量调律 攻速叠层",
+          "group": 1092100,
+          "skillId": "MeissaPassiveAs",
+          "dataKey": "AttackSpeedBuff",
+          "bases": "0.08,0.09,0.1",
+          "maxLevel": 3,
+          "formula": "base",
+          "kind": "buff",
+          "buffKey": "attackSpeedRatio",
+          "maxStacks": 4,
+          "defaultStacks": 4,
+          "stackLabel": "调律层数",
+          "coefficientText": "每层攻击速度 +8/9/10%（上限 4 层）",
+          "note": "使用技能造成伤害获得5秒叠层，最多4层。"
+        },
+        {
+          "create": true,
+          "id": "patch-132-meissa-p-dmg-buff",
+          "hero": "弥莎",
+          "heroKey": "Meissa",
+          "slot": "P",
+          "title": "P 能量调律 技能增伤叠层",
+          "group": 1092100,
+          "skillId": "MeissaPassiveAmp",
+          "dataKey": "DamageAmpBuff",
+          "bases": "0.01,0.015,0.02",
+          "maxLevel": 3,
+          "formula": "base",
+          "kind": "buff",
+          "buffKey": "damageBonus",
+          "maxStacks": 4,
+          "defaultStacks": 4,
+          "stackLabel": "调律层数",
+          "coefficientText": "每层技能造成伤害 +1/1.5/2%（上限 4 层）",
+          "note": "使用技能造成伤害获得5秒叠层，最多4层（注：W能量痕迹触发的额外箭矢不受此加成）。"
+        },
+        {
+          "create": true,
+          "id": "patch-132-meissa-q-damage",
+          "hero": "弥莎",
+          "heroKey": "Meissa",
+          "slot": "Q",
+          "title": "Q 凝神之箭",
+          "group": 1092200,
+          "skillId": "MeissaQ",
+          "dataKey": "Damage",
+          "bases": "20,30,40,50,60",
+          "maxLevel": 5,
+          "formula": "base + attack * [1.2,1.25,1.3,1.35,1.4][level - 1]",
+          "damageType": "basicAttack",
+          "coefficientText": "20/30/40/50/60(+攻击力的120/125/130/135/140%) * (普攻增幅) 普攻伤害",
+          "note": "对首个命中敌人造成普攻伤害并缩减技能冷却1.5秒，适用普攻及普攻命中效果。"
+        },
+        {
+          "create": true,
+          "id": "patch-132-meissa-w-damage",
+          "hero": "弥莎",
+          "heroKey": "Meissa",
+          "slot": "W",
+          "title": "W 能量轨迹-波动伤害",
+          "group": 1092300,
+          "skillId": "MeissaW",
+          "dataKey": "Damage",
+          "bases": "50,75,100,125,150",
+          "maxLevel": 5,
+          "formula": "base + attack * 0.45",
+          "coefficientText": "50/75/100/125/150(+攻击力的45%)",
+          "note": "命中产生半径3m波动并施加4秒能量痕迹。"
+        },
+        {
+          "create": true,
+          "id": "patch-132-meissa-w-arrows",
+          "hero": "弥莎",
+          "heroKey": "Meissa",
+          "slot": "W",
+          "title": "W 能量轨迹-痕迹额外能量箭矢",
+          "group": 1092300,
+          "skillId": "MeissaWExtra",
+          "dataKey": "ExtraArrowDamage",
+          "bases": "16,20,24,28,32",
+          "maxLevel": 5,
+          "formula": "base + attack * 0.18",
+          "maxHits": 6,
+          "defaultHits": 6,
+          "hitLabel": "命中箭数",
+          "coefficientText": "每支 16/20/24/28/32(+攻击力的18%)，共发射 6 支",
+          "note": "Q 命中或 E 突进结束引爆能量痕迹发射6支能量箭矢（官方说明不受被动技能伤害增加影响）。"
+        },
+        {
+          "create": true,
+          "id": "patch-132-meissa-r-first",
+          "hero": "弥莎",
+          "heroKey": "Meissa",
+          "slot": "R",
+          "title": "R 正中靶心-1段探测箭矢",
+          "group": 1092500,
+          "skillId": "MeissaR1",
+          "dataKey": "FirstDamage",
+          "bases": "50,67,84",
+          "maxLevel": 3,
+          "formula": "base + attack * 0.35 + targetCurrentHp * 0.05",
+          "maxHits": 2,
+          "defaultHits": 2,
+          "hitLabel": "命中箭数",
+          "coefficientText": "每支 50/67/84(+攻击力的35%)(+目标当前体力的5%)，共 2 支",
+          "note": "发射2支无法躲避的能量箭矢并施加能量痕迹。"
+        },
+        {
+          "create": true,
+          "id": "patch-132-meissa-r-second",
+          "hero": "弥莎",
+          "heroKey": "Meissa",
+          "slot": "R",
+          "title": "R 正中靶心-2段极限能量箭矢",
+          "group": 1092500,
+          "skillId": "MeissaR2",
+          "dataKey": "SecondDamage",
+          "bases": "150,250,350",
+          "maxLevel": 3,
+          "formula": "base + attack * 1.2 + targetLostHp * 0.12",
+          "coefficientText": "150/250/350(+攻击力的120%)(+目标失去体力的12%)"
+        },
+        {
+          "id": "patch-113-nicky-1033400-damage",
+          "hero": "妮琪",
+          "slot": "E",
+          "title": "E 重拳 伤害",
+          "bases": "60,95,130,165,200",
+          "formula": "base + ap * 1",
+          "coefficientText": "60/95/130/165/200(+技能增幅的100%)"
+        },
+        {
+          "id": "external-laura-w-1047300-damage-stat1",
+          "hero": "劳拉",
+          "slot": "W",
+          "title": "W 预告函-命中伤害",
+          "bases": "60,90,120,150,180",
+          "formula": "base + ap * 0.6",
+          "coefficientText": "60/90/120/150/180(+技能增幅的60%)"
+        },
+        {
+          "id": "external-leon-r-1029500-collision-damage-stat2",
+          "hero": "里昂",
+          "slot": "R",
+          "title": "R 冲浪-撞墙追加伤害",
+          "bases": "100,200,300",
+          "formula": "base + ap * 0.8",
+          "coefficientText": "100/200/300(+技能增幅的80%)"
+        },
+        {
+          "id": "patch-122-lucia-p-1090100-damage",
+          "hero": "露西娅",
+          "slot": "P",
+          "title": "P 千金的自我修养 水晶普攻额外伤害",
+          "bases": "30,65,100",
+          "formula": "base + ap * 0.5",
+          "kind": "basicAttack",
+          "coefficientText": "30/65/100(+技能增幅的50%)"
+        },
+        {
+          "id": "augment-022-luke-r-1022500-extra-damage-stat1",
+          "hero": "卢克",
+          "slot": "R",
+          "title": "R 售后服务 每叠层额外伤害",
+          "bases": "20,45,70",
+          "formula": "(base + attack * 0.18 + targetHp * 0.02) * stacks",
+          "coefficientText": "20/45/70(+攻击力的18%)(+目标体力上限2%)"
+        },
+        {
+          "create": true,
+          "id": "patch-132-blair-d-damage",
+          "hero": "布莱尔",
+          "heroKey": "Blair",
+          "slot": "P",
+          "title": "P/D 疾刃突进（专属武器技）",
+          "group": 1084110,
+          "skillId": "BlairWeaponSkill",
+          "dataKey": "Damage",
+          "bases": "60,80,100,120",
+          "maxLevel": 4,
+          "formula": "attack * base * 0.01",
+          "coefficientText": "攻击力的 60/80/100/120%",
+          "note": "布莱尔专属武器技能 D（4级制）。"
+        },
+        {
+          "id": "release-84-q-01-6",
+          "hero": "布莱尔",
+          "slot": "Q",
+          "title": "Q 双重斩击（双剑） 第1段",
+          "bases": "20,40,60,80,100",
+          "formula": "base + extraAttack * [0.8,0.9,1,1.1,1.2][level - 1] + targetHp * ([0.01,0.015,0.02,0.025,0.03][level - 1] + extraAttack * 0.0004)",
+          "coefficientText": "20/40/60/80/100(+额外攻击力80/90/100/110/120%)(+目标体力上限1/1.5/2/2.5/3(+额外攻击力4%)%)"
+        },
+        {
+          "id": "release-84-q-02-6",
+          "hero": "布莱尔",
+          "slot": "Q",
+          "title": "Q 双重斩击（双剑） 第2段",
+          "bases": "10,40,70,100,130",
+          "formula": "base + extraAttack * [0.7,0.8,0.9,1,1.1][level - 1]",
+          "coefficientText": "10/40/70/100/130(+额外攻击力70/80/90/100/110%)"
+        },
+        {
+          "id": "external-celine-r-1043500-damage-stat1",
+          "hero": "席琳",
+          "slot": "R",
+          "title": "R 磁力融合 伤害",
+          "bases": "60,85,110,135,160",
+          "formula": "(base + ap * 0.37) * stacks",
+          "coefficientText": "60/85/110/135/160(+技能增幅的37%) × 融合层数"
+        },
+        {
+          "id": "external-adela-w-1024300-damage-stat1",
+          "hero": "阿德拉",
+          "slot": "W",
+          "title": "W 单马捉双-单次落点",
+          "bases": "20,60,100,140,180",
+          "formula": "base + ap * 0.7",
+          "coefficientText": "20/60/100/140/180(+技能增幅的70%)"
+        },
+        {
+          "id": "calib-adina-w-1052310-moon-conjunct",
+          "hero": "阿迪娜",
+          "slot": "W",
+          "title": "W 日月星界-月亮连接单次",
+          "bases": "50,100,150,200",
+          "formula": "base + ap * 0.55",
+          "coefficientText": "50/100/150/200(+技能增幅的55%)"
+        },
+        {
+          "id": "external-isaac-w-1059300-damage-stat1",
+          "hero": "伊萨克",
+          "slot": "W",
+          "title": "W 武装硬化-额外伤害",
+          "bases": "30,40,50,60,70",
+          "formula": "base + attack * 0.6",
+          "coefficientText": "30/40/50/60/70(+攻击力的60%)"
+        },
+        {
+          "id": "external-elena-r-1050500-damage-stat1",
+          "hero": "埃琳娜",
+          "slot": "R",
+          "title": "R 霜心之舞-外圈冰区伤害",
+          "bases": "120,200,280",
+          "formula": "base + ap * 0.45 + extraHp * 0.12",
+          "coefficientText": "120/200/280(+技能增幅的45%)(+额外体力12%)"
+        },
+        {
+          "id": "external-elena-r-1050500-icicle-damage-stat2",
+          "hero": "埃琳娜",
+          "slot": "R",
+          "title": "R 霜心之舞-内圈冰刺伤害",
+          "bases": "150,230,310",
+          "formula": "base + ap * 0.6 + extraHp * 0.15",
+          "coefficientText": "150/230/310(+技能增幅的60%)(+额外体力15%)"
+        },
+        {
+          "id": "yumin-w",
+          "hero": "俞岷",
+          "slot": "W",
+          "title": "W 风刃",
+          "bases": "80,110,140,170,200",
+          "formula": "base + ap * 0.75",
+          "overrideManual": true,
+          "coefficientText": "80/110/140/170/200(+技能增幅的75%)"
+        },
+        {
+          "id": "yumin-ew",
+          "hero": "俞岷",
+          "slot": "W",
+          "title": "EW 风刃(风之领域)",
+          "bases": "100,135,170,205,240",
+          "formula": "base + ap * 0.9",
+          "overrideManual": true,
+          "coefficientText": "100/135/170/205/240(+技能增幅的90%)"
+        },
+        {
+          "id": "external-tsubame-p-1070100-max-hp-damage-stat1",
+          "hero": "燕翼",
+          "slot": "P",
+          "title": "P 奥义 - 生死印记 割裂伤害",
+          "bases": "15,15,15",
+          "formula": "base + extraAttack * 0.25 + targetHp * ([0.04,0.07,0.1][level - 1] + extraAttack * 0.0005)",
+          "coefficientText": "15(+额外攻击力25%)(+目标体力上限4/7/10(+额外攻击力5%)%)"
+        },
+        {
+          "id": "ingame-071-kenneth-w-1071300-shield",
+          "hero": "肯尼思",
+          "slot": "W",
+          "title": "W 业火 护盾",
+          "bases": "20,35,50,65,80",
+          "formula": "base + attack * 0.7",
+          "kind": "shield",
+          "coefficientText": "20/35/50/65/80(+攻击力的70%)"
+        },
+        {
+          "id": "patch-coraline-1087100-damage",
+          "hero": "卡洛琳",
+          "slot": "P",
+          "title": "P 因果 真实伤害",
+          "bases": "20,40,60,80,100",
+          "formula": "base + ap * 0.08",
+          "coefficientText": "20/40/60/80/100(+技能增幅的8%)"
+        },
+        {
+          "id": "patch-coraline-1087200-damage",
+          "hero": "卡洛琳",
+          "slot": "Q",
+          "title": "Q 断罪之光",
+          "bases": "50,90,130,170,210",
+          "formula": "base + ap * 0.85",
+          "coefficientText": "50/90/130/170/210(+技能增幅的85%)"
+        },
+        {
+          "id": "patch-coraline-1087200-white-mirror-damage",
+          "hero": "卡洛琳",
+          "slot": "Q",
+          "title": "Q 断罪之光 白镜强化",
+          "bases": "60,105,150,195,240",
+          "formula": "base + ap * 0.85 + targetCurrentHp * [0.04,0.05,0.06,0.07,0.08][level - 1]",
+          "coefficientText": "60/105/150/195/240(+技能增幅的85%)(+目标当前体力的4/5/6/7/8%)"
+        },
+        {
+          "id": "patch-coraline-1087200-black-mirror-damage",
+          "hero": "卡洛琳",
+          "slot": "Q",
+          "title": "Q 断罪之光 黑镜强化",
+          "bases": "60,105,150,195,240",
+          "formula": "base + ap * 0.85 + targetLostHp * [0.02,0.04,0.06,0.08,0.1][level - 1]",
+          "coefficientText": "60/105/150/195/240(+技能增幅的85%)(+目标失去体力2/4/6/8/10%)"
+        },
+        {
+          "id": "patch-coraline-1087400-white-mirror-damage",
+          "hero": "卡洛琳",
+          "slot": "E",
+          "title": "E 罪业枷锁 白镜强化",
+          "bases": "80,110,140,170,200",
+          "formula": "base + ap * 0.7",
+          "coefficientText": "80/110/140/170/200(+技能增幅的70%)"
+        },
+        {
+          "id": "patch-coraline-1087400-black-mirror-damage",
+          "hero": "卡洛琳",
+          "slot": "E",
+          "title": "E 罪业枷锁 黑镜强化",
+          "bases": "80,110,140,170,200",
+          "formula": "base + ap * 0.7",
+          "coefficientText": "80/110/140/170/200(+技能增幅的70%)"
+        },
+        {
+          "id": "patch-115-craver-1089200-double-tap-damage",
+          "hero": "克雷弗",
+          "slot": "Q",
+          "title": "Q 双重射击",
+          "bases": "60,80,100,120,140",
+          "formula": "base + ap * 0.4",
+          "coefficientText": "60/80/100/120/140(+技能增幅的40%)"
+        },
+        {
+          "id": "patch-115-craver-1089300-sweep-kick-damage",
+          "hero": "克雷弗",
+          "slot": "W",
+          "title": "W 横扫千军（每段）",
+          "bases": "40,65,90,115,140",
+          "formula": "base + ap * 0.45",
+          "coefficientText": "40/65/90/115/140(+技能增幅的45%)"
+        },
+        {
+          "id": "nun-r",
+          "hero": "奇娅拉",
+          "slot": "R",
+          "title": "R 献祭炼狱-每秒伤害",
+          "bases": "60,75,90",
+          "formula": "base + ap * 0.25",
+          "overrideManual": true,
+          "coefficientText": "60/75/90(+技能增幅的25%)"
+        },
+        {
+          "id": "release-86-p-01",
+          "hero": "芬里尔",
+          "slot": "P",
+          "title": "P 最后的挣扎 VF吸收恢复",
+          "bases": "10,15,20",
+          "formula": "base + extraAttack * 0.15",
+          "kind": "heal",
+          "coefficientText": "10/15/20(+额外攻击力15%)"
+        },
+        {
+          "id": "external-felix-q-1049200-final-cast-damage-stat2",
+          "hero": "费利克斯",
+          "slot": "Q",
+          "title": "Q 破风斩-最终施放",
+          "bases": "60,85,110,135,160",
+          "formula": "base + attack * 0.75 + heroLevel * 3",
+          "coefficientText": "60/85/110/135/160(+攻击力的75%)(+实验体级别*3)"
+        },
+        {
+          "id": "external-felix-e-1049400-final-cast-damage-stat2",
+          "hero": "费利克斯",
+          "slot": "E",
+          "title": "E 半月斩-最终施放",
+          "bases": "22,44,66,88,110",
+          "formula": "base + attack * 0.5 + heroLevel * 3",
+          "coefficientText": "22/44/66/88/110(+攻击力的50%)(+实验体级别*3)"
+        },
+        {
+          "id": "ingame-056-piolo-r-1056500-shield",
+          "hero": "皮奥洛",
+          "slot": "R",
+          "title": "R 惩戒者 护盾",
+          "bases": "50,100,150",
+          "formula": "base + ap * 0.5",
+          "kind": "shield",
+          "coefficientText": "50/100/150(+技能增幅的50%)"
+        },
+        {
+          "id": "008-hart-q-1008200-max-skill-damage",
+          "hero": "哈特",
+          "slot": "Q",
+          "title": "Q 延音 声波伤害",
+          "bases": "20,40,60,80,100",
+          "formula": "base + attack * 0.35",
+          "progressiveDamage": {
+            "id": "charge",
+            "label": "充电时间",
+            "unit": "秒",
+            "selectedLabel": "充电",
+            "min": 0,
+            "max": 4,
+            "default": 4,
+            "base": {
+              "fromMultiplier": 1,
+              "toMultiplier": 2
+            },
+            "coefficients": [
+              {
+                "variable": "attack",
+                "from": 0.35,
+                "to": 0.7
+              }
+            ],
+            "note": "20(+攻击力35%) ~ 40(+攻击力70%)，等待 4 秒后再次使用达到最大伤害。基础值与攻击力系数同时翻倍。"
+          },
+          "coefficientText": "最小 20/40/60/80/100(+攻击力35%) ～ 最大 40/80/120/160/200(+攻击力70%)"
+        }
+      ],
+      "equipment": [
+        {
+          "name": "摇滚乐手夹克",
+          "stat": "penetrationDefense",
+          "was": 10,
+          "value": 8
+        },
+        {
+          "name": "摇滚外套",
+          "stat": "penetrationDefense",
+          "was": 12,
+          "value": 10
+        },
+        {
+          "name": "夜视头盔",
+          "stat": "attackPower",
+          "was": 25,
+          "value": 24
+        },
+        {
+          "name": "星魂臂章",
+          "stat": "attackPower",
+          "was": 25,
+          "value": 24
+        },
+        {
+          "name": "白羽扇",
+          "stat": "skillAmp",
+          "was": 55,
+          "value": 50
+        }
+      ],
+      "characters": [
+        {
+          "hero": "伦诺克斯",
+          "path": "base.defense",
+          "was": 51,
+          "value": 53
+        },
+        {
+          "hero": "阿迪娜",
+          "path": "base.hp",
+          "was": 880,
+          "value": 930
+        },
+        {
+          "hero": "尤斯蒂娜",
+          "path": "growth.maxHp",
+          "was": 76,
+          "value": 74
+        },
+        {
+          "hero": "尤斯蒂娜",
+          "path": "base.defense",
+          "was": 52,
+          "value": 50
+        }
+      ],
+      "mastery": [
+        {
+          "hero": "里昂",
+          "type": "Glove",
+          "stat": "SkillAmpRatio",
+          "was": 0.042,
+          "value": 0.04
+        },
+        {
+          "hero": "伯尼斯",
+          "type": "SniperRifle",
+          "stat": "AttackSpeedRatio",
+          "was": 0.024,
+          "value": 0.02
+        },
+        {
+          "hero": "比安卡",
+          "type": "Arcana",
+          "stat": "SkillAmpRatio",
+          "was": 0.044,
+          "value": 0.045
+        },
+        {
+          "hero": "秀雅",
+          "type": "Hammer",
+          "stat": "SkillAmpRatio",
+          "was": 0.044,
+          "value": 0.046
+        },
+        {
+          "hero": "凯希",
+          "type": "OneHandSword",
+          "stat": "SkillAmpRatio",
+          "was": 0.043,
+          "value": 0.042
+        }
+      ]
     }
   ]
 }

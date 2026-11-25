@@ -1,14 +1,15 @@
 {
   "_comment": "推荐武器路线导出的装备预设，键是「实验体名|武器类型」。由 scripts/sync-weapon-routes.mjs 与 scripts/build-weapon-route-presets.mjs 生成，不要手改。",
   "_usage": "切换实验体或武器类型时，若用户没有自己改过这个组合的配装，就套用这里的预设；用户改过则以用户的为准（存在浏览器缓存里）。",
-  "generatedAt": "2026-11-24T09:18:07.028Z",
+  "generatedAt": "2026-11-25T08:14:45.208Z",
   "source": "dak.gg routes API (zh-CN) + pypy-vrc/er-gamedata WeaponRoute.json fallback",
   "counts": {
     "routes": 119,
     "presets": 119,
     "heroes": 91,
     "byVersion": {
-      "13.1.0": 119
+      "13.1.0": 118,
+      "13.0.0": 1
     }
   },
   "presets": {
@@ -36,7 +37,7 @@
       "routeTitle": "단재 만점",
       "routeAuthor": "뮤황이",
       "gameVersion": "13.1.0",
-      "routeLikes": 389,
+      "routeLikes": 407,
       "routeSource": "dak.gg"
     },
     "杰琪|TwoHandSword": {
@@ -63,7 +64,7 @@
       "routeTitle": "10174점 재키",
       "routeAuthor": "Husky",
       "gameVersion": "13.1.0",
-      "routeLikes": 1442,
+      "routeLikes": 1576,
       "routeSource": "dak.gg"
     },
     "杰琪|Axe": {
@@ -90,7 +91,7 @@
       "routeTitle": "불괴 도재",
       "routeAuthor": "뮤황이",
       "gameVersion": "13.1.0",
-      "routeLikes": 554,
+      "routeLikes": 593,
       "routeSource": "dak.gg"
     },
     "杰琪|DualSword": {
@@ -117,7 +118,7 @@
       "routeTitle": "만점 쌍재",
       "routeAuthor": "Husky",
       "gameVersion": "13.1.0",
-      "routeLikes": 1155,
+      "routeLikes": 1223,
       "routeSource": "dak.gg"
     },
     "阿雅|Pistol": {
@@ -144,7 +145,7 @@
       "routeTitle": "권아야",
       "routeAuthor": "김딱대",
       "gameVersion": "13.1.0",
-      "routeLikes": 986,
+      "routeLikes": 1053,
       "routeSource": "dak.gg"
     },
     "阿雅|AssaultRifle": {
@@ -171,7 +172,7 @@
       "routeTitle": "稳健阿雅←关注B站",
       "routeAuthor": "SnowPodicepsR",
       "gameVersion": "13.1.0",
-      "routeLikes": 410,
+      "routeLikes": 448,
       "routeSource": "dak.gg"
     },
     "阿雅|SniperRifle": {
@@ -198,7 +199,7 @@
       "routeTitle": "저격아야)루트바뀜 설명",
       "routeAuthor": "택시",
       "gameVersion": "13.1.0",
-      "routeLikes": 1960,
+      "routeLikes": 2083,
       "routeSource": "dak.gg"
     },
     "菲欧娜|Rapier": {
@@ -225,7 +226,7 @@
       "routeTitle": "익숙한 맛",
       "routeAuthor": "도화",
       "gameVersion": "13.1.0",
-      "routeLikes": 268,
+      "routeLikes": 294,
       "routeSource": "dak.gg"
     },
     "菲欧娜|TwoHandSword": {
@@ -252,7 +253,7 @@
       "routeTitle": "전시즌꺼",
       "routeAuthor": "킹반인입니다",
       "gameVersion": "13.1.0",
-      "routeLikes": 124,
+      "routeLikes": 134,
       "routeSource": "dak.gg"
     },
     "菲欧娜|Spear": {
@@ -279,7 +280,7 @@
       "routeTitle": "앙가 흡마창피",
       "routeAuthor": "개구택",
       "gameVersion": "13.1.0",
-      "routeLikes": 299,
+      "routeLikes": 322,
       "routeSource": "dak.gg"
     },
     "马格努斯|Hammer": {
@@ -306,7 +307,7 @@
       "routeTitle": "탱매그",
       "routeAuthor": "연못여우",
       "gameVersion": "13.1.0",
-      "routeLikes": 1917,
+      "routeLikes": 2062,
       "routeSource": "dak.gg"
     },
     "马格努斯|Bat": {
@@ -333,7 +334,7 @@
       "routeTitle": "방매그는 살아있다!",
       "routeAuthor": "얀한준이야",
       "gameVersion": "13.1.0",
-      "routeLikes": 447,
+      "routeLikes": 472,
       "routeSource": "dak.gg"
     },
     "扎希尔|HighAngleFire": {
@@ -360,7 +361,7 @@
       "routeTitle": "이거쓰셈1",
       "routeAuthor": "레입아",
       "gameVersion": "13.1.0",
-      "routeLikes": 62,
+      "routeLikes": 80,
       "routeSource": "dak.gg"
     },
     "扎希尔|DirectFire": {
@@ -387,7 +388,7 @@
       "routeTitle": "3124",
       "routeAuthor": "네네코마시로",
       "gameVersion": "13.1.0",
-      "routeLikes": 132,
+      "routeLikes": 145,
       "routeSource": "dak.gg"
     },
     "娜町|Bow": {
@@ -414,7 +415,7 @@
       "routeTitle": "도불활딘의시대",
       "routeAuthor": "활나딘인권운동가",
       "gameVersion": "13.1.0",
-      "routeLikes": 125,
+      "routeLikes": 134,
       "routeSource": "dak.gg"
     },
     "娜町|CrossBow": {
@@ -441,7 +442,7 @@
       "routeTitle": "나딘",
       "routeAuthor": "베베코",
       "gameVersion": "13.1.0",
-      "routeLikes": 21,
+      "routeLikes": 22,
       "routeSource": "dak.gg"
     },
     "玄佑|Glove": {
@@ -468,7 +469,7 @@
       "routeTitle": "패시브 버프 개쳐나이스ㅋㅋ",
       "routeAuthor": "과거에살았던사람",
       "gameVersion": "13.1.0",
-      "routeLikes": 1889,
+      "routeLikes": 2030,
       "routeSource": "dak.gg"
     },
     "玄佑|Tonfa": {
@@ -495,7 +496,7 @@
       "routeTitle": "미움받을 용기",
       "routeAuthor": "게1이스",
       "gameVersion": "13.1.0",
-      "routeLikes": 222,
+      "routeLikes": 233,
       "routeSource": "dak.gg"
     },
     "哈特|Guitar": {
@@ -522,7 +523,7 @@
       "routeTitle": "123",
       "routeAuthor": "인세인",
       "gameVersion": "13.1.0",
-      "routeLikes": 767,
+      "routeLikes": 862,
       "routeSource": "dak.gg"
     },
     "埃索|AssaultRifle": {
@@ -549,7 +550,7 @@
       "routeTitle": "13.1 적용 - 학개 0주문",
       "routeAuthor": "초코쉐이크미디움",
       "gameVersion": "13.1.0",
-      "routeLikes": 1537,
+      "routeLikes": 1630,
       "routeSource": "dak.gg"
     },
     "埃索|Pistol": {
@@ -576,7 +577,7 @@
       "routeTitle": "정중히 찢어발겨주지",
       "routeAuthor": "Progetto65",
       "gameVersion": "13.1.0",
-      "routeLikes": 108,
+      "routeLikes": 114,
       "routeSource": "dak.gg"
     },
     "李黛琳|Glove": {
@@ -603,7 +604,7 @@
       "routeTitle": "브루저 글리다",
       "routeAuthor": "귀련",
       "gameVersion": "13.1.0",
-      "routeLikes": 635,
+      "routeLikes": 666,
       "routeSource": "dak.gg"
     },
     "李黛琳|Nunchaku": {
@@ -630,7 +631,7 @@
       "routeTitle": "개사기 템이 된 락자",
       "routeAuthor": "hwata",
       "gameVersion": "13.1.0",
-      "routeLikes": 770,
+      "routeLikes": 826,
       "routeSource": "dak.gg"
     },
     "雪|TwoHandSword": {
@@ -657,7 +658,7 @@
       "routeTitle": "13시즌 정석 오메르타 유키",
       "routeAuthor": "이월",
       "gameVersion": "13.1.0",
-      "routeLikes": 1429,
+      "routeLikes": 1556,
       "routeSource": "dak.gg"
     },
     "雪|DualSword": {
@@ -684,7 +685,7 @@
       "routeTitle": "13시즌을 맞이하는 쌍유루트",
       "routeAuthor": "음쩝맛있다",
       "gameVersion": "13.1.0",
-      "routeLikes": 1295,
+      "routeLikes": 1398,
       "routeSource": "dak.gg"
     },
     "慧珍|Bow": {
@@ -711,7 +712,7 @@
       "routeTitle": "2루트 0배달",
       "routeAuthor": "유갸무",
       "gameVersion": "13.1.0",
-      "routeLikes": 633,
+      "routeLikes": 682,
       "routeSource": "dak.gg"
     },
     "慧珍|DirectFire": {
@@ -738,7 +739,7 @@
       "routeTitle": "암기 혜진",
       "routeAuthor": "치카쟝",
       "gameVersion": "13.1.0",
-      "routeLikes": 49,
+      "routeLikes": 57,
       "routeSource": "dak.gg"
     },
     "修凯|Spear": {
@@ -765,7 +766,7 @@
       "routeTitle": "뉴비용 쇼우",
       "routeAuthor": "띠띠",
       "gameVersion": "13.1.0",
-      "routeLikes": 298,
+      "routeLikes": 319,
       "routeSource": "dak.gg"
     },
     "修凯|OneHandSword": {
@@ -792,7 +793,7 @@
       "routeTitle": "퀘이크 단검 쇼우(설명o)",
       "routeAuthor": "김미",
       "gameVersion": "13.1.0",
-      "routeLikes": 90,
+      "routeLikes": 98,
       "routeSource": "dak.gg"
     },
     "奇娅拉|Rapier": {
@@ -819,7 +820,7 @@
       "routeTitle": "에타개사긴데?",
       "routeAuthor": "Tear",
       "gameVersion": "13.1.0",
-      "routeLikes": 1306,
+      "routeLikes": 1388,
       "routeSource": "dak.gg"
     },
     "希瑟拉|DirectFire": {
@@ -846,7 +847,7 @@
       "routeTitle": "셀루",
       "routeAuthor": "정상현",
       "gameVersion": "13.1.0",
-      "routeLikes": 120,
+      "routeLikes": 131,
       "routeSource": "dak.gg"
     },
     "希瑟拉|HighAngleFire": {
@@ -855,8 +856,8 @@
       "gear": {
         "武器": "追猎者",
         "衣服": "血色斗篷",
-        "头部": "瘟疫使者",
-        "手部": "龙鳞",
+        "头部": "幽灵面具",
+        "手部": "翡翠石板",
         "鞋子": "万年冰鞋"
       },
       "traitSelection": {
@@ -873,7 +874,7 @@
       "routeTitle": "노주문 셀라루트(설명있음)",
       "routeAuthor": "도화가",
       "gameVersion": "13.1.0",
-      "routeLikes": 880,
+      "routeLikes": 950,
       "routeSource": "dak.gg"
     },
     "西尔维娅|Pistol": {
@@ -900,7 +901,7 @@
       "routeTitle": "튜닝의 끝은 순정",
       "routeAuthor": "의문의실비아장인",
       "gameVersion": "13.1.0",
-      "routeLikes": 774,
+      "routeLikes": 821,
       "routeSource": "dak.gg"
     },
     "阿德瑞娜|HighAngleFire": {
@@ -927,7 +928,7 @@
       "routeTitle": "아드1",
       "routeAuthor": "RIOORI",
       "gameVersion": "13.1.0",
-      "routeLikes": 1976,
+      "routeLikes": 2090,
       "routeSource": "dak.gg"
     },
     "彰一|OneHandSword": {
@@ -954,7 +955,7 @@
       "routeTitle": "숲고",
       "routeAuthor": "Luminal",
       "gameVersion": "13.1.0",
-      "routeLikes": 2397,
+      "routeLikes": 2534,
       "routeSource": "dak.gg"
     },
     "艾玛|DirectFire": {
@@ -981,7 +982,7 @@
       "routeTitle": "먹던 맛",
       "routeAuthor": "엠마가너무예뻐요",
       "gameVersion": "13.1.0",
-      "routeLikes": 754,
+      "routeLikes": 790,
       "routeSource": "dak.gg"
     },
     "艾玛|Arcana": {
@@ -1008,7 +1009,7 @@
       "routeTitle": "엠마의 시대가 왔나요",
       "routeAuthor": "SoundVoltex",
       "gameVersion": "13.1.0",
-      "routeLikes": 442,
+      "routeLikes": 462,
       "routeSource": "dak.gg"
     },
     "伦诺克斯|Whip": {
@@ -1035,7 +1036,7 @@
       "routeTitle": "레녹시",
       "routeAuthor": "앙영몽둥방강웡",
       "gameVersion": "13.1.0",
-      "routeLikes": 69,
+      "routeLikes": 76,
       "routeSource": "dak.gg"
     },
     "洛兹|Pistol": {
@@ -1062,7 +1063,7 @@
       "routeTitle": "321",
       "routeAuthor": "페이블",
       "gameVersion": "13.1.0",
-      "routeLikes": 2361,
+      "routeLikes": 2589,
       "routeSource": "dak.gg"
     },
     "卢克|Bat": {
@@ -1089,7 +1090,7 @@
       "routeTitle": "13시즌 청소 시작 ",
       "routeAuthor": "노토",
       "gameVersion": "13.1.0",
-      "routeLikes": 2222,
+      "routeLikes": 2355,
       "routeSource": "dak.gg"
     },
     "凯希|OneHandSword": {
@@ -1116,7 +1117,7 @@
       "routeTitle": "저점퀸-엑셀캐시",
       "routeAuthor": "주유소직원",
       "gameVersion": "13.1.0",
-      "routeLikes": 43,
+      "routeLikes": 49,
       "routeSource": "dak.gg"
     },
     "凯希|DualSword": {
@@ -1170,7 +1171,7 @@
       "routeTitle": "S12 아델라 1등",
       "routeAuthor": "띠후",
       "gameVersion": "13.1.0",
-      "routeLikes": 317,
+      "routeLikes": 339,
       "routeSource": "dak.gg"
     },
     "阿德拉|Bat": {
@@ -1194,10 +1195,10 @@
       },
       "tacticalSkill": "闪灵",
       "routeId": 9,
-      "routeTitle": "신속 좋네",
+      "routeTitle": "찾았다 스선루트",
       "routeAuthor": "건피의악마로즈너",
       "gameVersion": "13.1.0",
-      "routeLikes": 351,
+      "routeLikes": 373,
       "routeSource": "dak.gg"
     },
     "伯尼斯|SniperRifle": {
@@ -1224,7 +1225,7 @@
       "routeTitle": "네 님블이 쓰지 말라고 하네요",
       "routeAuthor": "털보냥이TV",
       "gameVersion": "13.1.0",
-      "routeLikes": 1920,
+      "routeLikes": 2042,
       "routeSource": "dak.gg"
     },
     "芭芭拉|Pistol": {
@@ -1251,7 +1252,7 @@
       "routeTitle": "이터니티 바바라",
       "routeAuthor": "manaya",
       "gameVersion": "13.1.0",
-      "routeLikes": 395,
+      "routeLikes": 433,
       "routeSource": "dak.gg"
     },
     "亚历克斯|Tonfa": {
@@ -1278,7 +1279,7 @@
       "routeTitle": "강소금식 알렉스",
       "routeAuthor": "소금49호",
       "gameVersion": "13.1.0",
-      "routeLikes": 68,
+      "routeLikes": 71,
       "routeSource": "dak.gg"
     },
     "亚历克斯|TwoHandSword": {
@@ -1305,34 +1306,34 @@
       "routeTitle": "슈스자 날개를 달아줘요",
       "routeAuthor": "알렉스는숨어야해",
       "gameVersion": "13.1.0",
-      "routeLikes": 481,
+      "routeLikes": 510,
       "routeSource": "dak.gg"
     },
     "亚历克斯|DirectFire": {
       "hero": "亚历克斯",
       "weaponTypeRaw": "DirectFire",
       "gear": {
-        "武器": "疯子国王的卡片",
-        "衣服": "赛车服",
-        "头部": "夜视头盔",
-        "手部": "命运之骰",
-        "鞋子": "亚历山大"
+        "武器": "满天花雨",
+        "衣服": "幽灵战衣",
+        "头部": "战术面罩",
+        "手部": "苏丹箭筒",
+        "鞋子": "战术鞋"
       },
       "traitSelection": {
-        "group": "Chaos",
-        "core": "7300101",
-        "sub1": "7310201",
-        "sub2": "7310101",
-        "secondaryGroup": "Havoc",
-        "secondarySub1": "7011501",
-        "secondarySub2": "7011201"
+        "group": "Havoc",
+        "core": "7000601",
+        "sub1": "7010901",
+        "sub2": "7011301",
+        "secondaryGroup": "Chaos",
+        "secondarySub1": "7010701",
+        "secondarySub2": "7310301"
       },
       "tacticalSkill": "闪灵",
-      "routeId": 18582,
-      "routeTitle": "test",
-      "routeAuthor": "밀감성",
-      "gameVersion": "13.1.0",
-      "routeLikes": 0,
+      "routeId": 18119,
+      "routeTitle": "아드 평렉스",
+      "routeAuthor": "보이면박는사람09",
+      "gameVersion": "13.0.0",
+      "routeLikes": 2,
       "routeSource": "dak.gg"
     },
     "亚历克斯|Pistol": {
@@ -1359,7 +1360,7 @@
       "routeTitle": "알렉스는원딜이야",
       "routeAuthor": "알렉스는원딜이야",
       "gameVersion": "13.1.0",
-      "routeLikes": 21,
+      "routeLikes": 22,
       "routeSource": "dak.gg"
     },
     "秀雅|Hammer": {
@@ -1386,7 +1387,7 @@
       "routeTitle": "아망의선택 성법우뚝에타",
       "routeAuthor": "블랙페이퍼",
       "gameVersion": "13.1.0",
-      "routeLikes": 122,
+      "routeLikes": 127,
       "routeSource": "dak.gg"
     },
     "秀雅|Bat": {
@@ -1413,7 +1414,7 @@
       "routeTitle": "★ 시즌13 방수아 ★",
       "routeAuthor": "민트별",
       "gameVersion": "13.1.0",
-      "routeLikes": 1659,
+      "routeLikes": 1751,
       "routeSource": "dak.gg"
     },
     "里昂|Glove": {
@@ -1440,7 +1441,7 @@
       "routeTitle": "전시즌 루트 1등 엑셀 2루트",
       "routeAuthor": "알만딘",
       "gameVersion": "13.1.0",
-      "routeLikes": 1951,
+      "routeLikes": 2077,
       "routeSource": "dak.gg"
     },
     "里昂|Tonfa": {
@@ -1467,7 +1468,7 @@
       "routeTitle": "극딜번개파도",
       "routeAuthor": "젤리켓",
       "gameVersion": "13.1.0",
-      "routeLikes": 114,
+      "routeLikes": 129,
       "routeSource": "dak.gg"
     },
     "Eleven|Hammer": {
@@ -1494,7 +1495,7 @@
       "routeTitle": "햄버거",
       "routeAuthor": "레몬부거",
       "gameVersion": "13.1.0",
-      "routeLikes": 1539,
+      "routeLikes": 1653,
       "routeSource": "dak.gg"
     },
     "莉央|Bow": {
@@ -1521,7 +1522,7 @@
       "routeTitle": "321",
       "routeAuthor": "페이블",
       "gameVersion": "13.1.0",
-      "routeLikes": 3472,
+      "routeLikes": 3836,
       "routeSource": "dak.gg"
     },
     "威廉|HighAngleFire": {
@@ -1548,7 +1549,7 @@
       "routeTitle": "갤스",
       "routeAuthor": "StandByYou",
       "gameVersion": "13.1.0",
-      "routeLikes": 297,
+      "routeLikes": 306,
       "routeSource": "dak.gg"
     },
     "妮琪|Glove": {
@@ -1575,7 +1576,7 @@
       "routeTitle": "레버넌트 니키",
       "routeAuthor": "Eilundrol",
       "gameVersion": "13.1.0",
-      "routeLikes": 2063,
+      "routeLikes": 2192,
       "routeSource": "dak.gg"
     },
     "纳塔朋|Camera": {
@@ -1602,7 +1603,7 @@
       "routeTitle": "병묘의 정석(다른루트 설명에)",
       "routeAuthor": "useless0man",
       "gameVersion": "13.1.0",
-      "routeLikes": 567,
+      "routeLikes": 627,
       "routeSource": "dak.gg"
     },
     "扬|Glove": {
@@ -1629,7 +1630,7 @@
       "routeTitle": "국밥 2루트 / 설명 o",
       "routeAuthor": "헤이스트",
       "gameVersion": "13.1.0",
-      "routeLikes": 187,
+      "routeLikes": 192,
       "routeSource": "dak.gg"
     },
     "扬|Tonfa": {
@@ -1656,7 +1657,7 @@
       "routeTitle": "이터니티 얀 ",
       "routeAuthor": "Kayoko68",
       "gameVersion": "13.1.0",
-      "routeLikes": 1027,
+      "routeLikes": 1113,
       "routeSource": "dak.gg"
     },
     "伊娃|HighAngleFire": {
@@ -1683,18 +1684,18 @@
       "routeTitle": "이바",
       "routeAuthor": "Stormchaser",
       "gameVersion": "13.1.0",
-      "routeLikes": 1210,
+      "routeLikes": 1321,
       "routeSource": "dak.gg"
     },
     "丹尼尔|OneHandSword": {
       "hero": "丹尼尔",
       "weaponTypeRaw": "OneHandSword",
       "gear": {
-        "武器": "佛拉格拉克",
-        "衣服": "摇滚外套",
+        "武器": "噬灵短剑",
+        "衣服": "魅影",
         "头部": "暮光头饰",
-        "手部": "普赛克之刃",
-        "鞋子": "剑齿虎"
+        "手部": "蓝纹臂章",
+        "鞋子": "幻影行者"
       },
       "traitSelection": {
         "group": "Chaos",
@@ -1706,11 +1707,11 @@
         "secondarySub2": "7211101"
       },
       "tacticalSkill": "闪灵",
-      "routeId": 5978,
-      "routeTitle": "씹방관",
-      "routeAuthor": "왕꿈툴이",
+      "routeId": 2881,
+      "routeTitle": "나는겜안분",
+      "routeAuthor": "현지원주민",
       "gameVersion": "13.1.0",
-      "routeLikes": 313,
+      "routeLikes": 631,
       "routeSource": "dak.gg"
     },
     "珍妮|Pistol": {
@@ -1737,7 +1738,7 @@
       "routeTitle": "내가쓰는루트",
       "routeAuthor": "Hasuki",
       "gameVersion": "13.1.0",
-      "routeLikes": 1204,
+      "routeLikes": 1277,
       "routeSource": "dak.gg"
     },
     "卡米洛|DualSword": {
@@ -1764,7 +1765,7 @@
       "routeTitle": "흠냐흠냐",
       "routeAuthor": "귤귤귤귤귤귤귤귤",
       "gameVersion": "13.1.0",
-      "routeLikes": 832,
+      "routeLikes": 882,
       "routeSource": "dak.gg"
     },
     "卡米洛|Rapier": {
@@ -1791,7 +1792,7 @@
       "routeTitle": "먹던거",
       "routeAuthor": "메가톤박치기",
       "gameVersion": "13.1.0",
-      "routeLikes": 358,
+      "routeLikes": 382,
       "routeSource": "dak.gg"
     },
     "克洛伊|DirectFire": {
@@ -1818,7 +1819,7 @@
       "routeTitle": "성공",
       "routeAuthor": "자래",
       "gameVersion": "13.1.0",
-      "routeLikes": 846,
+      "routeLikes": 908,
       "routeSource": "dak.gg"
     },
     "约翰|Arcana": {
@@ -1845,7 +1846,7 @@
       "routeTitle": "나 마스터즈3등요한이야",
       "routeAuthor": "전요한",
       "gameVersion": "13.1.0",
-      "routeLikes": 361,
+      "routeLikes": 396,
       "routeSource": "dak.gg"
     },
     "比安卡|Arcana": {
@@ -1854,9 +1855,9 @@
       "gear": {
         "武器": "女帝",
         "衣服": "神职法衣",
-        "头部": "太空头盔",
+        "头部": "龙首簪",
         "手部": "鬼灵之爪",
-        "鞋子": "恨天高"
+        "鞋子": "万年冰鞋"
       },
       "traitSelection": {
         "group": "Support",
@@ -1872,7 +1873,7 @@
       "routeTitle": "youtube빈혈비앙카/설명",
       "routeAuthor": "빈혈비앙카",
       "gameVersion": "13.1.0",
-      "routeLikes": 1947,
+      "routeLikes": 2068,
       "routeSource": "dak.gg"
     },
     "席琳|HighAngleFire": {
@@ -1899,7 +1900,7 @@
       "routeTitle": "13.1 요얀 고숲 or 고모 ",
       "routeAuthor": "요얀",
       "gameVersion": "13.1.0",
-      "routeLikes": 318,
+      "routeLikes": 331,
       "routeSource": "dak.gg"
     },
     "厄喀翁|VFArm": {
@@ -1926,7 +1927,7 @@
       "routeTitle": "탱애더/탱맘바",
       "routeAuthor": "유체",
       "gameVersion": "13.1.0",
-      "routeLikes": 350,
+      "routeLikes": 373,
       "routeSource": "dak.gg"
     },
     "梅|Whip": {
@@ -1953,7 +1954,7 @@
       "routeTitle": "딴딴한 마이",
       "routeAuthor": "R3ady",
       "gameVersion": "13.1.0",
-      "routeLikes": 759,
+      "routeLikes": 812,
       "routeSource": "dak.gg"
     },
     "艾登|TwoHandSword": {
@@ -1980,7 +1981,7 @@
       "routeTitle": "정석든(설명 O)",
       "routeAuthor": "날개여다시돋아라",
       "gameVersion": "13.1.0",
-      "routeLikes": 815,
+      "routeLikes": 867,
       "routeSource": "dak.gg"
     },
     "劳拉|Whip": {
@@ -2007,7 +2008,7 @@
       "routeTitle": "정석 라우라",
       "routeAuthor": "캐리해줄게",
       "gameVersion": "13.1.0",
-      "routeLikes": 1196,
+      "routeLikes": 1275,
       "routeSource": "dak.gg"
     },
     "蒂娅|Bat": {
@@ -2034,7 +2035,7 @@
       "routeTitle": "0만",
       "routeAuthor": "영만",
       "gameVersion": "13.1.0",
-      "routeLikes": 1530,
+      "routeLikes": 1661,
       "routeSource": "dak.gg"
     },
     "费利克斯|Spear": {
@@ -2061,7 +2062,7 @@
       "routeTitle": "우냐야하",
       "routeAuthor": "성현23",
       "gameVersion": "13.1.0",
-      "routeLikes": 909,
+      "routeLikes": 968,
       "routeSource": "dak.gg"
     },
     "埃琳娜|Rapier": {
@@ -2088,7 +2089,7 @@
       "routeTitle": "김연아",
       "routeAuthor": "moonho06",
       "gameVersion": "13.1.0",
-      "routeLikes": 769,
+      "routeLikes": 828,
       "routeSource": "dak.gg"
     },
     "普里亚|Guitar": {
@@ -2115,7 +2116,7 @@
       "routeTitle": "프리야를 위대하게 ",
       "routeAuthor": "hungran",
       "gameVersion": "13.1.0",
-      "routeLikes": 367,
+      "routeLikes": 384,
       "routeSource": "dak.gg"
     },
     "阿迪娜|Arcana": {
@@ -2142,7 +2143,7 @@
       "routeTitle": "디나",
       "routeAuthor": "강민",
       "gameVersion": "13.1.0",
-      "routeLikes": 577,
+      "routeLikes": 616,
       "routeSource": "dak.gg"
     },
     "马库斯|Axe": {
@@ -2169,7 +2170,7 @@
       "routeTitle": "시작하면 체육관쪽으로 뛰세요",
       "routeAuthor": "앙카루치아닷지침",
       "gameVersion": "13.1.0",
-      "routeLikes": 1293,
+      "routeLikes": 1367,
       "routeSource": "dak.gg"
     },
     "马库斯|Hammer": {
@@ -2196,7 +2197,7 @@
       "routeTitle": "성뚝의 시대",
       "routeAuthor": "일광욕하는치킨",
       "gameVersion": "13.1.0",
-      "routeLikes": 101,
+      "routeLikes": 108,
       "routeSource": "dak.gg"
     },
     "卡拉|CrossBow": {
@@ -2223,7 +2224,7 @@
       "routeTitle": "한동루트 8607",
       "routeAuthor": "자민",
       "gameVersion": "13.1.0",
-      "routeLikes": 253,
+      "routeLikes": 272,
       "routeSource": "dak.gg"
     },
     "艾丝蒂尔|Axe": {
@@ -2250,7 +2251,7 @@
       "routeTitle": "27세 에스텔성@기삽니다.",
       "routeAuthor": "율설",
       "gameVersion": "13.1.0",
-      "routeLikes": 1583,
+      "routeLikes": 1687,
       "routeSource": "dak.gg"
     },
     "皮奥洛|Nunchaku": {
@@ -2277,7 +2278,7 @@
       "routeTitle": "메릿치 노주문 2루트",
       "routeAuthor": "먹어버릴거야",
       "gameVersion": "13.1.0",
-      "routeLikes": 599,
+      "routeLikes": 639,
       "routeSource": "dak.gg"
     },
     "玛蒂娜|Camera": {
@@ -2304,7 +2305,7 @@
       "routeTitle": "치명",
       "routeAuthor": "유니짜장귀신",
       "gameVersion": "13.1.0",
-      "routeLikes": 444,
+      "routeLikes": 479,
       "routeSource": "dak.gg"
     },
     "海因茨|AssaultRifle": {
@@ -2331,7 +2332,7 @@
       "routeTitle": "몽이즈",
       "routeAuthor": "몽몽글",
       "gameVersion": "13.1.0",
-      "routeLikes": 1430,
+      "routeLikes": 1471,
       "routeSource": "dak.gg"
     },
     "伊萨克|Tonfa": {
@@ -2358,7 +2359,7 @@
       "routeTitle": "제뚝 못씀",
       "routeAuthor": "사색",
       "gameVersion": "13.1.0",
-      "routeLikes": 1738,
+      "routeLikes": 2011,
       "routeSource": "dak.gg"
     },
     "塔齐娅|DirectFire": {
@@ -2385,7 +2386,7 @@
       "routeTitle": "131",
       "routeAuthor": "소에",
       "gameVersion": "13.1.0",
-      "routeLikes": 611,
+      "routeLikes": 656,
       "routeSource": "dak.gg"
     },
     "爱琳|HighAngleFire": {
@@ -2393,10 +2394,10 @@
       "weaponTypeRaw": "HighAngleFire",
       "gear": {
         "武器": "火球",
-        "衣服": "私人定制",
-        "头部": "先知头巾",
+        "衣服": "优雅礼服",
+        "头部": "En Garde",
         "手部": "翡翠石板",
-        "鞋子": "万年冰鞋"
+        "鞋子": "锋利长靴"
       },
       "traitSelection": {
         "group": "Havoc",
@@ -2409,10 +2410,10 @@
       },
       "tacticalSkill": "斥力弹",
       "routeId": 1841,
-      "routeTitle": "고쿨감에타흡마,너프의미X",
+      "routeTitle": "진은에타흡마냥이",
       "routeAuthor": "건피의악마로즈너",
       "gameVersion": "13.1.0",
-      "routeLikes": 476,
+      "routeLikes": 500,
       "routeSource": "dak.gg"
     },
     "西奥多|SniperRifle": {
@@ -2439,7 +2440,7 @@
       "routeTitle": "이제 고경 노배달 안됨",
       "routeAuthor": "히메카와",
       "gameVersion": "13.1.0",
-      "routeLikes": 1142,
+      "routeLikes": 1190,
       "routeSource": "dak.gg"
     },
     "伊安|OneHandSword": {
@@ -2466,7 +2467,7 @@
       "routeTitle": "늘 먹던 오메르타",
       "routeAuthor": "울부짖는이안",
       "gameVersion": "13.1.0",
-      "routeLikes": 192,
+      "routeLikes": 202,
       "routeSource": "dak.gg"
     },
     "万尼亚|Arcana": {
@@ -2476,7 +2477,7 @@
         "武器": "女帝",
         "衣服": "神职法衣",
         "头部": "太空头盔",
-        "手部": "超星臂章",
+        "手部": "鬼灵之爪",
         "鞋子": "万年冰鞋"
       },
       "traitSelection": {
@@ -2493,7 +2494,7 @@
       "routeTitle": "흡마 ( 설명있음 1.1V )",
       "routeAuthor": "I초월냥I",
       "gameVersion": "13.1.0",
-      "routeLikes": 1241,
+      "routeLikes": 1332,
       "routeSource": "dak.gg"
     },
     "黛比&玛莲|TwoHandSword": {
@@ -2520,7 +2521,7 @@
       "routeTitle": "제왕의투구 다터진다",
       "routeAuthor": "Mallon",
       "gameVersion": "13.1.0",
-      "routeLikes": 2432,
+      "routeLikes": 2551,
       "routeSource": "dak.gg"
     },
     "阿尔达|Arcana": {
@@ -2547,7 +2548,7 @@
       "routeTitle": "벽력 아르다",
       "routeAuthor": "침대",
       "gameVersion": "13.1.0",
-      "routeLikes": 947,
+      "routeLikes": 1006,
       "routeSource": "dak.gg"
     },
     "艾比盖尔|Axe": {
@@ -2574,7 +2575,7 @@
       "routeTitle": "앙가르드",
       "routeAuthor": "oracle1",
       "gameVersion": "13.1.0",
-      "routeLikes": 4845,
+      "routeLikes": 5338,
       "routeSource": "dak.gg"
     },
     "阿隆索|Glove": {
@@ -2584,24 +2585,24 @@
         "武器": "冻土传说",
         "衣服": "幽灵新娘的嫁纱",
         "头部": "圣骑士头盔",
-        "手部": "燃烧之心",
+        "手部": "蜈蚣护肩",
         "鞋子": "EOD防爆靴"
       },
       "traitSelection": {
-        "group": "Havoc",
-        "core": "7000201",
-        "sub1": "7011501",
-        "sub2": "7011201",
+        "group": "Support",
+        "core": "7200301",
+        "sub1": "7200101",
+        "sub2": "7210801",
         "secondaryGroup": "Fortification",
-        "secondarySub1": "7111001",
-        "secondarySub2": "7110601"
+        "secondarySub1": "7111101",
+        "secondarySub2": "7110201"
       },
       "tacticalSkill": "违规者",
-      "routeId": 6861,
-      "routeTitle": "수호자 프로토콜 위반",
-      "routeAuthor": "앙카말이김치찜",
+      "routeId": 3829,
+      "routeTitle": "알론소의 우람한 성......뚝",
+      "routeAuthor": "밥버거맛사탕",
       "gameVersion": "13.1.0",
-      "routeLikes": 259,
+      "routeLikes": 547,
       "routeSource": "dak.gg"
     },
     "雷妮|Pistol": {
@@ -2628,7 +2629,7 @@
       "routeTitle": "일단 국밥 ",
       "routeAuthor": "tlasi",
       "gameVersion": "13.1.0",
-      "routeLikes": 1678,
+      "routeLikes": 1783,
       "routeSource": "dak.gg"
     },
     "燕翼|DirectFire": {
@@ -2655,7 +2656,7 @@
       "routeTitle": "미완선강",
       "routeAuthor": "인세인",
       "gameVersion": "13.1.0",
-      "routeLikes": 2063,
+      "routeLikes": 2219,
       "routeSource": "dak.gg"
     },
     "肯尼思|Axe": {
@@ -2682,7 +2683,7 @@
       "routeTitle": "큐브워치",
       "routeAuthor": "Rokuon",
       "gameVersion": "13.1.0",
-      "routeLikes": 1877,
+      "routeLikes": 2010,
       "routeSource": "dak.gg"
     },
     "卡缇娅|SniperRifle": {
@@ -2702,14 +2703,14 @@
         "sub2": "7011101",
         "secondaryGroup": "Chaos",
         "secondarySub1": "7310601",
-        "secondarySub2": "7310701"
+        "secondarySub2": "7310101"
       },
       "tacticalSkill": "赤色风暴",
       "routeId": 745,
       "routeTitle": "현통(선강)",
       "routeAuthor": "인세인",
       "gameVersion": "13.1.0",
-      "routeLikes": 5642,
+      "routeLikes": 6044,
       "routeSource": "dak.gg"
     },
     "夏洛特|Arcana": {
@@ -2736,7 +2737,7 @@
       "routeTitle": "쮸비냥의 샬럿",
       "routeAuthor": "쮸비냥",
       "gameVersion": "13.1.0",
-      "routeLikes": 140,
+      "routeLikes": 155,
       "routeSource": "dak.gg"
     },
     "达尔科|Bat": {
@@ -2763,7 +2764,7 @@
       "routeTitle": "다르코 왜함?",
       "routeAuthor": "shuukin",
       "gameVersion": "13.1.0",
-      "routeLikes": 3245,
+      "routeLikes": 3458,
       "routeSource": "dak.gg"
     },
     "莉诺尔|Guitar": {
@@ -2790,7 +2791,7 @@
       "routeTitle": "르노어1",
       "routeAuthor": "우화",
       "gameVersion": "13.1.0",
-      "routeLikes": 498,
+      "routeLikes": 535,
       "routeSource": "dak.gg"
     },
     "盖瑞特|Bat": {
@@ -2817,7 +2818,7 @@
       "routeTitle": "1루트 가붕이",
       "routeAuthor": "사무실카누도둑",
       "gameVersion": "13.1.0",
-      "routeLikes": 3010,
+      "routeLikes": 3263,
       "routeSource": "dak.gg"
     },
     "俞岷|Arcana": {
@@ -2844,7 +2845,7 @@
       "routeTitle": "New 도깨비불 유민",
       "routeAuthor": "선령비주",
       "gameVersion": "13.1.0",
-      "routeLikes": 1086,
+      "routeLikes": 1174,
       "routeSource": "dak.gg"
     },
     "翡翠|TwoHandSword": {
@@ -2871,7 +2872,7 @@
       "routeTitle": "TCD - 3 (설명 참조)",
       "routeAuthor": "초운",
       "gameVersion": "13.1.0",
-      "routeLikes": 2750,
+      "routeLikes": 2933,
       "routeSource": "dak.gg"
     },
     "尤斯蒂娜|CrossBow": {
@@ -2898,7 +2899,7 @@
       "routeTitle": "유스1",
       "routeAuthor": "RIOORI",
       "gameVersion": "13.1.0",
-      "routeLikes": 2829,
+      "routeLikes": 3051,
       "routeSource": "dak.gg"
     },
     "伊舒特|Spear": {
@@ -2925,7 +2926,7 @@
       "routeTitle": "들박",
       "routeAuthor": "포항참치",
       "gameVersion": "13.1.0",
-      "routeLikes": 690,
+      "routeLikes": 814,
       "routeSource": "dak.gg"
     },
     "妮娅|Pistol": {
@@ -2952,7 +2953,7 @@
       "routeTitle": "Youtube 진이",
       "routeAuthor": "Jinyee",
       "gameVersion": "13.1.0",
-      "routeLikes": 2508,
+      "routeLikes": 2705,
       "routeSource": "dak.gg"
     },
     "雪琳|Rapier": {
@@ -2979,7 +2980,7 @@
       "routeTitle": "공격력 450 슈린",
       "routeAuthor": "혜안",
       "gameVersion": "13.1.0",
-      "routeLikes": 2920,
+      "routeLikes": 3110,
       "routeSource": "dak.gg"
     },
     "亨利|DirectFire": {
@@ -3006,7 +3007,7 @@
       "routeTitle": "쿨감헨리의 철학",
       "routeAuthor": "효민",
       "gameVersion": "13.1.0",
-      "routeLikes": 1934,
+      "routeLikes": 2066,
       "routeSource": "dak.gg"
     },
     "布莱尔|DualSword": {
@@ -3033,7 +3034,7 @@
       "routeTitle": "피할수없는블레어     설명있음",
       "routeAuthor": "피할수없는노현준",
       "gameVersion": "13.1.0",
-      "routeLikes": 1574,
+      "routeLikes": 1633,
       "routeSource": "dak.gg"
     },
     "米尔卡|Hammer": {
@@ -3060,7 +3061,7 @@
       "routeTitle": "★ 미르카 ★",
       "routeAuthor": "민트별",
       "gameVersion": "13.1.0",
-      "routeLikes": 462,
+      "routeLikes": 500,
       "routeSource": "dak.gg"
     },
     "芬里尔|Glove": {
@@ -3087,7 +3088,7 @@
       "routeTitle": "극딜 펜리르",
       "routeAuthor": "구룬",
       "gameVersion": "13.1.0",
-      "routeLikes": 2068,
+      "routeLikes": 2261,
       "routeSource": "dak.gg"
     },
     "卡洛琳|Arcana": {
@@ -3114,7 +3115,7 @@
       "routeTitle": "코렐1",
       "routeAuthor": "RIOORI",
       "gameVersion": "13.1.0",
-      "routeLikes": 7682,
+      "routeLikes": 8026,
       "routeSource": "dak.gg"
     },
     "鼻荆|Bat": {
@@ -3128,20 +3129,20 @@
         "鞋子": "战术鞋"
       },
       "traitSelection": {
-        "group": "Fortification",
-        "core": "7100501",
-        "sub1": "7111001",
-        "sub2": "7111201",
-        "secondaryGroup": "Havoc",
-        "secondarySub1": "7011501",
-        "secondarySub2": "7011201"
+        "group": "Havoc",
+        "core": "7000601",
+        "sub1": "7011501",
+        "sub2": "7011201",
+        "secondaryGroup": "Fortification",
+        "secondarySub1": "7111001",
+        "secondarySub2": "7111201"
       },
-      "tacticalSkill": "闪灵",
-      "routeId": 1834,
-      "routeTitle": "솔라비형",
-      "routeAuthor": "수영장파티김민석",
+      "tacticalSkill": "超越",
+      "routeId": 821,
+      "routeTitle": "산책비형",
+      "routeAuthor": "로그인중이네",
       "gameVersion": "13.1.0",
-      "routeLikes": 1972,
+      "routeLikes": 3614,
       "routeSource": "dak.gg"
     },
     "克雷弗|Pistol": {
@@ -3168,7 +3169,7 @@
       "routeTitle": "고주가 화학품 삭제 루트변경",
       "routeAuthor": "Twitch로링티나",
       "gameVersion": "13.1.0",
-      "routeLikes": 1519,
+      "routeLikes": 1617,
       "routeSource": "dak.gg"
     },
     "露西娅|SniperRifle": {
@@ -3195,7 +3196,7 @@
       "routeTitle": "★ 루치아데스와 ★",
       "routeAuthor": "민트별",
       "gameVersion": "13.1.0",
-      "routeLikes": 5150,
+      "routeLikes": 5554,
       "routeSource": "dak.gg"
     },
     "塞莉丝|TwoHandSword": {
@@ -3222,7 +3223,7 @@
       "routeTitle": "히히 원더레빗 세레스",
       "routeAuthor": "뽀짝곤듀상하기",
       "gameVersion": "13.1.0",
-      "routeLikes": 677,
+      "routeLikes": 750,
       "routeSource": "dak.gg"
     }
   }

@@ -2,7 +2,7 @@
   "sourcePage": "https://dak.gg/er/routes/simulator/YuMin",
   "apiBase": "https://er.dakgg.io/api/v1/data",
   "locale": "zh-CN",
-  "generatedAt": "2026-11-23T14:54:19.476Z",
+  "generatedAt": "2026-11-25T08:47:00.563Z",
   "naming": {
     "traitGroups": "assets/loadout/trait-groups/group-{groupKey}.png",
     "traits": "assets/loadout/traits/trait-{id}-{groupKey}-{type}.png",

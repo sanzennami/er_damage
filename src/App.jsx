@@ -63,7 +63,7 @@ import {
   statConversionFor
 } from './lib/specialRules.js';
 
-const APP_VERSION = 'v0.2.094';
+const APP_VERSION = 'v0.2.095';
 
 const EXPORTED_LOCAL_CONFIG_MODULES = import.meta.glob('./data/localConfig.export.json', {
   eager: true,
@@ -516,7 +516,7 @@ function buffTotals(skillRows, skillLevels = {}, stackCounts = {}) {
     const stacks = buffStackCount(skill, stackCounts);
     const key = skill.buffKey || 'apPct';
     return { ...totals, [key]: getNumber(totals[key]) + buffContribution(skill, level, stacks) };
-  }, { apPct: 0, damageBonus: 0, basicAttackAmp: 0, ap: 0, attackPower: 0, healShieldAmp: 0 });
+  }, { apPct: 0, damageBonus: 0, basicAttackAmp: 0, ap: 0, attackPower: 0, healShieldAmp: 0, attackSpeedRatio: 0 });
 }
 
 /** 体力百分比控件：滑条 + 右侧数字框，和技能面板表头那个自身当前体力同一套。 */
@@ -1570,8 +1570,8 @@ function calculateTacticalSkillEffect({ name, upgraded, level, extraHp, targetHp
       return tacticalDamageResult('实刃F', base + extra, finalMod, isUpgraded ? '140 + 等级*20；升级额外50 + 等级*10' : '140 + 等级*20');
     }
     case '等离子冲击': {
-      const raw = isUpgraded ? 150 + heroLevel * 10 : 120 + heroLevel * 5;
-      return tacticalDamageResult('等离子冲击F', raw, finalMod, isUpgraded ? '150 + 等级*10；命中后5秒内防御力降低10%' : '120 + 等级*5');
+      const raw = isUpgraded ? 150 + heroLevel * 12 : 120 + heroLevel * 7;
+      return tacticalDamageResult('等离子冲击F', raw, finalMod, isUpgraded ? '150 + 等级*12；命中后5秒内防御力降低10%' : '120 + 等级*7');
     }
     default:
       return null;
@@ -1661,7 +1661,8 @@ function calc({
   const equipAttackSpeedRatio = statValue(equipmentStats, 'attackSpeedRatio');
   const traitAttackSpeedRatio = getNumber(traitBonuses.attackSpeedRatio);
   const effectAttackSpeedRatio = getNumber(effectMods.attackSpeedRatio);
-  const totalBonusAttackSpeed = masteryAttackSpeedRatio + equipAttackSpeedRatio + traitAttackSpeedRatio + effectAttackSpeedRatio;
+  const buffAttackSpeedRatio = getNumber(buffs.attackSpeedRatio);
+  const totalBonusAttackSpeed = masteryAttackSpeedRatio + equipAttackSpeedRatio + traitAttackSpeedRatio + effectAttackSpeedRatio + buffAttackSpeedRatio;
   const uncappedAttackSpeed = baseAttackSpeed * (1 + totalBonusAttackSpeed);
   const asRule = attackSpeedRuleFor(selectedHero);
   const attackSpeedCap = getNumber(asRule?.cap) > 0 ? getNumber(asRule.cap) : 2.5;
@@ -1827,6 +1828,8 @@ function calc({
       * (1 - passiveTargetDefenseShred)
       * (1 - hammerWeaponShred)
   };
+  const equipCritDamage = statValue(equipmentStats, 'criticalStrikeDamage');
+  const effectiveBasicCritChance = passiveStatRule?.noCritBasicAttack ? 0 : equipCritChance;
   const basicAttackDamage = calculateBasicAttackDamage({
     attackPower,
     target: effectiveTargetForBa,
@@ -1835,8 +1838,8 @@ function calc({
     flatBonus: basicAttackFlatBonus,
     damageIncreaseRatio: basicAttackDamageIncreaseRatio,
     targetDamageReductionRatio: basicAttackTargetReductionRatio,
-    criticalStrikeChance: equipCritChance,
-    criticalStrikeDamage: statValue(equipmentStats, 'criticalStrikeDamage'),
+    criticalStrikeChance: effectiveBasicCritChance,
+    criticalStrikeDamage: equipCritDamage,
     critScaledBasicAttack: passiveStatRule?.critScaledBasicAttack || null
   });
   const selfDefense = getNumber(baseDefense) + equipDefense;
@@ -1849,6 +1852,7 @@ function calc({
   const context = {
     ap,
     attack: attackPower,
+    baseAttack: baseAttackPower,
     extraAttack: extraAttackPower,
     targetHp: target.hp,
     targetCurrentHp: target.hp * targetHpRatio,
@@ -1860,6 +1864,7 @@ function calc({
     defense: selfDefense,
     shield: getNumber(selfShield),
     critChance: equipCritChance,
+    critDamage: equipCritDamage,
     pen: pen + effectMods.pen,
     attackSpeed: finalAttackSpeed,
     bonusAttackSpeed: totalBonusAttackSpeed,
@@ -1915,7 +1920,7 @@ function calc({
       ? { title: '绝对武力(真伤)', raw: damageFloor(20 + mastery * 5), value: damageFloor(20 + mastery * 5), note: '20+实验体等级*5；防御降低 15% 需手动在目标栏设置。' }
       : null,
     activeTraitEffectIds.has('stardust')
-      ? { title: '星尘蓄势(真伤)', raw: damageFloor(30 + mastery * 2), value: damageFloor(30 + mastery * 2), note: '对实验体/召唤物：30+等级*2；野生动物为两倍。' }
+      ? { title: '星尘蓄势(真伤)', raw: damageFloor(30 + mastery * 3), value: damageFloor(30 + mastery * 3), note: '13.2加强：对实验体/召唤物造成 30+等级*3（33~90）真实伤害。' }
       : null,
     activeTraitEffectIds.has('thunder')
       ? { title: '霹雳(技)', raw: damageFloor(thunderFormula.value), value: damageFloor(damageFloor(thunderFormula.value) * finalMod), note: `30+等级*2+额外攻击力45%或技能增幅26%；当前按${thunderFormula.route}计算；5m外+20%未默认计入。` }

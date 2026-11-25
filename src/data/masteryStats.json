@@ -623,7 +623,7 @@
       },
       {
         "stat": "SkillAmpRatio",
-        "value": 0.043
+        "value": 0.042
       }
     ]
   },
@@ -675,7 +675,7 @@
     "options": [
       {
         "stat": "AttackSpeedRatio",
-        "value": 0.024
+        "value": 0.02
       },
       {
         "stat": "IncreaseBasicAttackDamageRatio",
@@ -763,7 +763,7 @@
       },
       {
         "stat": "SkillAmpRatio",
-        "value": 0.044
+        "value": 0.046
       }
     ]
   },
@@ -791,7 +791,7 @@
       },
       {
         "stat": "SkillAmpRatio",
-        "value": 0.042
+        "value": 0.04
       }
     ]
   },
@@ -1015,7 +1015,7 @@
       },
       {
         "stat": "SkillAmpRatio",
-        "value": 0.044
+        "value": 0.045
       }
     ]
   },

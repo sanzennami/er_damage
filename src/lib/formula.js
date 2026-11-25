@@ -88,10 +88,10 @@ export function clampLevel(skill, level) {
  *                  （丹尼尔 W 灵感引爆的真伤）。界面上是个手填框，只在有技能引用时出现。
  */
 const FORMULA_VARIABLES = [
-  'base', 'ap', 'attack', 'extraAttack',
+  'base', 'ap', 'attack', 'baseAttack', 'extraAttack',
   'targetHp', 'targetCurrentHp', 'targetLostHp',
   'maxHp', 'selfCurrentHp', 'selfLostHp',
-  'extraHp', 'defense', 'shield', 'critChance', 'pen',
+  'extraHp', 'defense', 'shield', 'critChance', 'critDamage', 'pen',
   'attackSpeed', 'bonusAttackSpeed',
   'basicAttackAmp', 'accumulatedDamage', 'stacks', 'level', 'passiveLevel', 'heroLevel'
 ];
@@ -210,6 +210,7 @@ export function skillFormulaDescription(skill, level) {
   [
     ['ap', '技能增幅'],
     ['attack', '攻击力'],
+    ['baseAttack', '基础攻击力'],
     ['extraAttack', '额外攻击力'],
     ['targetHp', '目标体力'],
     ['targetCurrentHp', '目标当前体力'],

@@ -279,6 +279,20 @@
         "step": 1,
         "mode": "slider"
       }
+    },
+    "弥莎": {
+      "passiveStatRule": {
+        "noCritBasicAttack": true,
+        "note": "P 能量调律：弥莎的普攻无法触发暴击，强化普攻额外技能伤害按 暴击率 × (100% + 额外暴击伤害) 增幅；技能命中叠层提供额外攻速与技能增伤（上限 4 层）。"
+      },
+      "display": {
+        "patch-132-meissa-w-arrows": {
+          "hits": 6
+        },
+        "patch-132-meissa-r-first": {
+          "hits": 2
+        }
+      }
     }
   }
 }

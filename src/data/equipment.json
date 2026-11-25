@@ -1,7 +1,7 @@
 {
   "_comment": "装备总表：属性定义 + 全部装备。与英雄技能分开存储。",
   "_usage": "改官方装备数值直接改这里；新增自定义装备追加一条，name 不要与官方重名。",
-  "generatedAt": "2026-08-09T07:48:01.569Z",
+  "generatedAt": "2026-11-25T08:46:56.339Z",
   "source": "https://github.com/pypy-vrc/er-gamedata.git",
   "counts": {
     "items": 666,
@@ -9401,11 +9401,11 @@
       "makeMaterial2": 401208,
       "effect": "",
       "stats": {
-        "attackPower": 78,
+        "attackPower": 80,
         "attackSpeedRatio": 0.3
       },
       "ap": 0,
-      "attackPower": 78,
+      "attackPower": 80,
       "cd": 0,
       "pen": 0,
       "penPct": 0,
@@ -9413,9 +9413,7 @@
       "defense": 0,
       "maxHp": 0,
       "sightRange": 0,
-      "dmgAmp": 0,
-      "patchVersion": "12.2",
-      "patchOrder": 20260820
+      "dmgAmp": 0
     },
     {
       "code": 117505,
@@ -13107,12 +13105,12 @@
       "makeMaterial2": 131102,
       "effect": "",
       "stats": {
-        "attackPower": 52,
+        "attackPower": 50,
         "maxHpByLv": 4,
         "lifeSteal": 0.08
       },
       "ap": 0,
-      "attackPower": 52,
+      "attackPower": 50,
       "cd": 0,
       "pen": 0,
       "penPct": 0,
@@ -13120,9 +13118,7 @@
       "defense": 0,
       "maxHp": 0,
       "sightRange": 0,
-      "dmgAmp": 0,
-      "patchVersion": "11.6",
-      "patchOrder": 20260709
+      "dmgAmp": 0
     },
     {
       "code": 131403,
@@ -14813,23 +14809,19 @@
       "makeMaterial2": 401209,
       "effect": "",
       "stats": {
-        "attackPower": 33,
-        "attackSpeedRatio": 0.42,
-        "skillAmp": 80,
-        "maxHp": 230
+        "attackPower": 35,
+        "attackSpeedRatio": 0.42
       },
-      "ap": 80,
-      "attackPower": 33,
+      "ap": 0,
+      "attackPower": 35,
       "cd": 0,
       "pen": 0,
       "penPct": 0,
       "apPct": 0,
       "defense": 0,
-      "maxHp": 230,
+      "maxHp": 0,
       "sightRange": 0,
-      "dmgAmp": 0,
-      "patchVersion": "auto-12.5-stats",
-      "patchOrder": 20261001
+      "dmgAmp": 0
     },
     {
       "code": 201507,
@@ -14977,12 +14969,12 @@
       "makeMaterial2": 401304,
       "effect": "",
       "stats": {
-        "attackPower": 25,
+        "attackPower": 24,
         "attackSpeedRatio": 0.22,
         "criticalStrikeChance": 0.35
       },
       "ap": 0,
-      "attackPower": 25,
+      "attackPower": 24,
       "cd": 0,
       "pen": 0,
       "penPct": 0,
@@ -14990,7 +14982,9 @@
       "defense": 0,
       "maxHp": 0,
       "sightRange": 0,
-      "dmgAmp": 0
+      "dmgAmp": 0,
+      "patchVersion": "13.2",
+      "patchOrder": 20261126
     },
     {
       "code": 201519,
@@ -16376,18 +16370,20 @@
         "attackPower": 10,
         "attackPowerByLv": 3,
         "defense": 20,
-        "penetrationDefense": 10
+        "penetrationDefense": 8
       },
       "ap": 0,
       "attackPower": 10,
       "cd": 0,
-      "pen": 10,
+      "pen": 8,
       "penPct": 0,
       "apPct": 0,
       "defense": 20,
       "maxHp": 0,
       "sightRange": 0,
-      "dmgAmp": 0
+      "dmgAmp": 0,
+      "patchVersion": "13.2",
+      "patchOrder": 20261126
     },
     {
       "code": 202407,
@@ -17325,18 +17321,20 @@
         "attackPowerByLv": 3,
         "defense": 20,
         "cooldownReduction": 10,
-        "penetrationDefense": 12
+        "penetrationDefense": 10
       },
       "ap": 0,
       "attackPower": 10,
       "cd": 10,
-      "pen": 12,
+      "pen": 10,
       "penPct": 0,
       "apPct": 0,
       "defense": 20,
       "maxHp": 0,
       "sightRange": 0,
-      "dmgAmp": 0
+      "dmgAmp": 0,
+      "patchVersion": "13.2",
+      "patchOrder": 20261126
     },
     {
       "code": 202514,
@@ -18682,12 +18680,12 @@
       "makeMaterial2": 205204,
       "effect": "",
       "stats": {
-        "attackPower": 25,
+        "attackPower": 24,
         "attackSpeedRatio": 0.18,
         "criticalStrikeChance": 0.24
       },
       "ap": 0,
-      "attackPower": 25,
+      "attackPower": 24,
       "cd": 0,
       "pen": 0,
       "penPct": 0,
@@ -18695,7 +18693,9 @@
       "defense": 0,
       "maxHp": 0,
       "sightRange": 0,
-      "dmgAmp": 0
+      "dmgAmp": 0,
+      "patchVersion": "13.2",
+      "patchOrder": 20261126
     },
     {
       "code": 203501,
@@ -19063,11 +19063,10 @@
       "effect": "",
       "stats": {
         "skillAmp": 70,
-        "cooldownReduction": 15,
-        "attackPower": 15
+        "cooldownReduction": 15
       },
       "ap": 70,
-      "attackPower": 15,
+      "attackPower": 0,
       "cd": 15,
       "pen": 0,
       "penPct": 0,
@@ -19075,9 +19074,7 @@
       "defense": 0,
       "maxHp": 0,
       "sightRange": 0,
-      "dmgAmp": 0,
-      "patchVersion": "auto-13.0-part2-stats",
-      "patchOrder": 20261112
+      "dmgAmp": 0
     },
     {
       "code": 203513,
@@ -19097,7 +19094,7 @@
       "effect": "",
       "stats": {
         "attackPower": 25,
-        "defense": 20,
+        "defense": 22,
         "cooldownReduction": 15
       },
       "ap": 0,
@@ -19106,12 +19103,10 @@
       "pen": 0,
       "penPct": 0,
       "apPct": 0,
-      "defense": 20,
+      "defense": 22,
       "maxHp": 0,
       "sightRange": 0,
-      "dmgAmp": 0,
-      "patchVersion": "11.4",
-      "patchOrder": 20260611
+      "dmgAmp": 0
     },
     {
       "code": 203514,
@@ -19163,7 +19158,7 @@
       "effect": "",
       "stats": {
         "defense": 15,
-        "adaptiveForce": 43,
+        "adaptiveForce": 45,
         "cooldownReduction": 20
       },
       "ap": 45,
@@ -19175,9 +19170,7 @@
       "defense": 15,
       "maxHp": 0,
       "sightRange": 0,
-      "dmgAmp": 0,
-      "patchVersion": "12.0-part2",
-      "patchOrder": 20260806
+      "dmgAmp": 0
     },
     {
       "code": 203516,
@@ -20497,13 +20490,13 @@
       "makeMaterial2": 401401,
       "effect": "",
       "stats": {
-        "attackPower": 17,
+        "attackPower": 18,
         "attackSpeedRatio": 0.25,
         "criticalStrikeChance": 0.35,
         "moveSpeed": 0.27
       },
       "ap": 0,
-      "attackPower": 17,
+      "attackPower": 18,
       "cd": 0,
       "pen": 0,
       "penPct": 0,
@@ -20511,9 +20504,7 @@
       "defense": 0,
       "maxHp": 0,
       "sightRange": 0,
-      "dmgAmp": 0,
-      "patchVersion": "12.0-part2",
-      "patchOrder": 20260806
+      "dmgAmp": 0
     },
     {
       "code": 204511,
@@ -20532,23 +20523,20 @@
       "makeMaterial2": 401401,
       "effect": "",
       "stats": {
-        "skillAmp": 45,
+        "skillAmp": 50,
         "cooldownReduction": 10,
-        "moveSpeed": 0.27,
-        "penetrationDefenseRatio": 0.12
+        "moveSpeed": 0.27
       },
-      "ap": 45,
+      "ap": 50,
       "attackPower": 0,
       "cd": 10,
       "pen": 0,
-      "penPct": 0.12,
+      "penPct": 0,
       "apPct": 0,
       "defense": 0,
       "maxHp": 0,
       "sightRange": 0,
-      "dmgAmp": 0,
-      "patchVersion": "auto-12.6-stats",
-      "patchOrder": 20261015
+      "dmgAmp": 0
     },
     {
       "code": 204512,
@@ -20727,10 +20715,10 @@
       "makeMaterial2": 205312,
       "effect": "",
       "stats": {
-        "skillAmp": 55,
+        "skillAmp": 50,
         "cooldownReduction": 10
       },
-      "ap": 55,
+      "ap": 50,
       "attackPower": 0,
       "cd": 10,
       "pen": 0,
@@ -20739,7 +20727,9 @@
       "defense": 0,
       "maxHp": 0,
       "sightRange": 0,
-      "dmgAmp": 0
+      "dmgAmp": 0,
+      "patchVersion": "13.2",
+      "patchOrder": 20261126
     },
     {
       "code": 205304,

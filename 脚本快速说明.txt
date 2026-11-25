@@ -1,4 +1,18 @@
-常用命令速查：
+常用命令速查（零 Agent 独立日常维护）：
+
+【推荐】每次新版本上线一键自动同步（自动探测本地代理，更新装备/角色面板、图标、独有特效名、119套高赞出装，并生成 docs/auto-update-report.md 待核对清单）：
+双击根目录 update.cmd   或命令行运行：npm run update:auto
+
+快速更新（跳过 119 套推荐出装同步，仅需几秒）：
+npm run update:fast     或：update.cmd -SkipRoutes
+
+查看/提交推送到 GitHub（自动探测本地代理）：
+双击根目录 push.cmd     或命令行运行：npm run push
+
+全项目一致性自检：
+npm run self-check
+
+------------------------------------------------------------
 
 只读体检（查缺哪些头像、哪些角色缺成长/武器）：
 node scripts/sync-er-data.mjs --check

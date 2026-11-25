@@ -114,6 +114,7 @@ console.log(`[3/5] 推荐出装预设检查通过（${Object.keys(presets).lengt
 const sampleCtx = {
   ap: 450,
   attack: 260,
+  baseAttack: 130,
   extraAttack: 130,
   targetHp: 2200,
   targetCurrentHp: 1320,
@@ -125,6 +126,7 @@ const sampleCtx = {
   defense: 130,
   shield: 300,
   critChance: 0.65,
+  critDamage: 0.15,
   pen: 24,
   attackSpeed: 1.45,
   bonusAttackSpeed: 0.85,

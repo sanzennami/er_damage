@@ -445,24 +445,24 @@
     "Arcana": {
       "group": 3024000,
       "name": "VF介质",
-      "cooldown": "30 / 25 / 20秒",
+      "cooldown": "25秒",
       "icon": "/assets/game-icons/weapon-skills/weapon-skill-d-3024000.png",
-      "summary": "生成 3/4/5 颗 VF 能量球；普攻或技能命中时向目标发射造成技能伤害。",
+      "summary": "生成 3/4/5 颗 VF 能量球；普攻或技能命中时向目标发射造成技能伤害（13.2：技增系数 20%→18%，冷却统一为 25 秒）。",
       "segments": [
         {
           "id": "ws-arcana-orb",
           "title": "D VF介质-单颗球体",
           "bases": "20,40,60",
           "maxLevel": 3,
-          "formula": "base + ap * 0.2",
-          "coefficientText": "20/40/60(+技能增幅20%)"
+          "formula": "base + ap * 0.18",
+          "coefficientText": "20/40/60(+技能增幅18%)"
         },
         {
           "id": "ws-arcana-all",
           "title": "D VF介质-全数命中（3/4/5颗）",
           "bases": "20,40,60",
           "maxLevel": 3,
-          "formula": "(base + ap * 0.2) * [3,4,5][level - 1]",
+          "formula": "(base + ap * 0.18) * [3,4,5][level - 1]",
           "coefficientText": "单颗伤害 × 3/4/5 颗球体"
         }
       ]
