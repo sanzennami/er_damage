@@ -12,7 +12,9 @@ const outFile = path.join(outDir, 'erGameData.json');
 // masteryStats 与 weaponTypeInfo 是 App 直接读取的活数据，留在 src/data 顶层
 const masteryOutFile = path.join(rootDir, 'src', 'data', 'masteryStats.json');
 const weaponTypeInfoOutFile = path.join(rootDir, 'src', 'data', 'weaponTypeInfo.json');
+const bserStateFile = path.join(cacheDir, '.bser-openapi-state.json');
 const repoUrl = 'https://github.com/pypy-vrc/er-gamedata.git';
+const skipGit = process.argv.includes('--skip-git');
 
 const SKILL_SLOT_LABELS = new Map([
   [100, 'P'],
@@ -362,6 +364,10 @@ function dedupeSkillsByLatest(skills) {
 }
 
 async function ensureRepo() {
+  if (skipGit && existsSync(path.join(cacheDir, 'data', 'Character.json'))) {
+    return true;
+  }
+
   if (!existsSync(cacheDir)) {
     try {
       run('git', ['clone', '--depth', '1', repoUrl, cacheDir]);
@@ -375,8 +381,29 @@ async function ensureRepo() {
     }
   }
 
+  if (skipGit) return true;
+
   try {
-    run('git', ['-C', cacheDir, 'pull', '--ff-only']);
+    execFileSync('git', ['-C', cacheDir, 'fetch', '--depth', '1', 'origin'], { stdio: 'inherit', cwd: rootDir });
+    if (existsSync(bserStateFile)) {
+      const state = JSON.parse(await readFile(bserStateFile, 'utf8'));
+      const localLevelCount = Number(state?.counts?.CharacterLevelUpStat || 0);
+      const remoteRaw = execFileSync('git', ['-C', cacheDir, 'show', 'FETCH_HEAD:data/CharacterLevelUpStat.json'], {
+        encoding: 'utf8',
+        maxBuffer: 16 * 1024 * 1024
+      });
+      const remoteLevelCount = JSON.parse(remoteRaw).length;
+      const remoteCommitEpoch = Number(
+        execFileSync('git', ['-C', cacheDir, 'log', '-1', '--format=%ct', 'FETCH_HEAD'], { encoding: 'utf8' }).trim()
+      ) * 1000;
+      const openApiEpoch = Date.parse(state?.syncedAt || '') || 0;
+
+      if (localLevelCount > remoteLevelCount || (openApiEpoch > remoteCommitEpoch && state?.hasDirtyOverlay)) {
+        console.log('ℹ 本地官方 OpenAPI 缓存新于 er-gamedata 远端仓库，保留官方最新数据表。');
+        return true;
+      }
+    }
+    execFileSync('git', ['-C', cacheDir, 'reset', '--hard', 'FETCH_HEAD'], { stdio: 'inherit', cwd: rootDir });
   } catch {
     console.warn('Unable to pull latest er-gamedata; using the existing local cache.');
   }
@@ -392,9 +419,9 @@ async function main() {
     readJson('data/CharacterMastery.json'),
     readJson('data/MasteryStat.json'),
     existsSync(path.join(cacheDir, 'data/WeaponTypeInfo.json')) ? readJson('data/WeaponTypeInfo.json') : Promise.resolve([]),
-    readJson('data/CharacterAttributes.json'),
-    readJson('data/SkillGroup.json'),
-    readJson('data/SkillExtension.json'),
+    existsSync(path.join(cacheDir, 'data/CharacterAttributes.json')) ? readJson('data/CharacterAttributes.json') : Promise.resolve([]),
+    existsSync(path.join(cacheDir, 'data/SkillGroup.json')) ? readJson('data/SkillGroup.json') : Promise.resolve([]),
+    existsSync(path.join(cacheDir, 'data/SkillExtension.json')) ? readJson('data/SkillExtension.json') : Promise.resolve([]),
     readJson('data/ItemWeapon.json'),
     readJson('data/ItemArmor.json'),
     loadL10n('ChineseSimplified'),

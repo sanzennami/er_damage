@@ -1,6 +1,6 @@
 {
   "source": "https://github.com/pypy-vrc/er-gamedata.git",
-  "generatedAt": "2026-11-25T08:46:56.280Z",
+  "generatedAt": "2026-11-26T07:28:03.990Z",
   "counts": {
     "characters": 92,
     "rawSkillGroups": 450,
@@ -1291,7 +1291,7 @@
       "base": {
         "hp": 970,
         "attackPower": 32,
-        "defense": 51,
+        "defense": 53,
         "skillAmp": 0,
         "moveSpeed": 3.6,
         "attackSpeed": 0.14
@@ -3184,7 +3184,7 @@
         "Arcana"
       ],
       "base": {
-        "hp": 880,
+        "hp": 930,
         "attackPower": 34,
         "defense": 52,
         "skillAmp": 0,
@@ -4715,7 +4715,7 @@
       "base": {
         "hp": 930,
         "attackPower": 42,
-        "defense": 52,
+        "defense": 50,
         "skillAmp": 0,
         "moveSpeed": 3.45,
         "attackSpeed": 0.14
@@ -4723,7 +4723,7 @@
       "growth": {
         "code": 79,
         "name": "Justyna",
-        "maxHp": 76,
+        "maxHp": 74,
         "maxVp": 0,
         "attackPower": 4.3,
         "defense": 2.8,
@@ -5434,26 +5434,57 @@
     {
       "code": 92,
       "id": "Meissa",
-      "name": "Meissa",
+      "name": "弥莎",
       "englishName": "Meissa",
       "resource": "Meissa",
       "archetypes": [
         "Marksman"
       ],
       "weaponRangeType": "Range",
-      "weapons": [],
+      "weapons": [
+        "Bow"
+      ],
       "base": {
         "hp": 930,
-        "attackPower": 40,
+        "attackPower": 34,
         "defense": 49,
         "skillAmp": 0,
         "moveSpeed": 3.5,
-        "attackSpeed": 0.08
+        "attackSpeed": 0.06
       },
-      "growth": null,
-      "ratings": [],
-      "playTip": "",
-      "storyName": "",
+      "growth": {
+        "code": 92,
+        "name": "Meissa",
+        "maxHp": 73,
+        "maxVp": 0,
+        "attackPower": 5,
+        "defense": 2.8,
+        "skillAmp": 0,
+        "adaptiveForce": 0,
+        "hpRegen": 0.088,
+        "vpRegen": 0,
+        "attackSpeed": 0,
+        "moveSpeed": 0,
+        "attackSpeedRatio": 0,
+        "increaseBasicAttackDamageRatio": 0,
+        "skillAmpRatio": 0,
+        "preventBasicAttackDamagedRatio": 0,
+        "preventSkillDamagedRatio": 0
+      },
+      "ratings": [
+        {
+          "characterCode": 92,
+          "mastery": "Bow",
+          "controlDifficulty": 2,
+          "attack": 5,
+          "defense": 1,
+          "disruptor": 1,
+          "move": 3,
+          "assistance": 1
+        }
+      ],
+      "playTip": "弥莎虽然失去了视力，却能通过能量的流动感知世界，并利用操控能量形成的弓箭，在远距离持续与敌人交战。",
+      "storyName": "弥莎・霍金斯",
       "image": "/assets/characters/092-Meissa.png"
     }
   ],
@@ -5466,8 +5497,8 @@
       "skillId": "None",
       "passiveSkillId": "JackiePassive",
       "name": "鲜血盛宴",
-      "description": "杰琪使用普攻或技能造成伤害时，将在{0}秒内对敌人施加可以造成{1}持续伤害的流血效果，最多可以叠加{2} 层。 流血达到叠层上限或杰琪参与击杀实验体时，杰琪将进入持续{3}秒的分泌肾上腺素状态，此时每次对敌人造成普攻或者技能伤害时，将赋予敌人流血叠层上限，并造成{4}的额外技能伤害，同时杰琪根据自身失去的体力恢复{5} ~ {6}的体力。 当杰琪体力低于{7}时，将获得最大的体力恢复效果。",
-      "coefficientText": "杰琪使用普攻或技能造成伤害时，将在{0}秒内对敌人施加可以造成{1}(+攻击力{2})持续伤害的流血效果，最多可以叠加{3}层。 流血达到叠层上限或杰琪参与击杀实验体时，杰琪将进入持续{4}秒的分泌肾上腺素状态，此时每次对敌人造成普攻或者技能伤害时，将赋予敌人流血叠层上限，并造成{5}(+攻击力{6})的额外技能伤害，同时杰琪根据自身失去的体力恢复{7}(+攻击力{8}) ~ {9}(+攻击力{10})的体力。 当杰琪体力低于{11}时，将获得最大的体力恢复效果。",
+      "description": "杰琪使用普攻或技能造成伤害时，将在{0}秒内对敌人施加可以造成{1}持续伤害的流血效果，最多可以叠加{2}层。 流血达到叠层上限或杰琪参与击杀实验体时，杰琪将进入持续{3}秒的分泌肾上腺素状态，此时每次对敌人造成普攻或者技能伤害时，使敌人的流血叠层达到上限，并造成{4}的额外技能伤害，同时杰琪根据自身失去的体力恢复{5} ~ {6}的体力。 当杰琪体力低于{7}时，将获得最大的体力恢复效果。",
+      "coefficientText": "杰琪使用普攻或技能造成伤害时，将在{0}秒内对敌人施加可以造成{1}(+攻击力{2})持续伤害的流血效果，最多可以叠加{3}层。 流血达到叠层上限或杰琪参与击杀实验体时，杰琪将进入持续{4}秒的分泌肾上腺素状态，此时每次对敌人造成普攻或者技能伤害时，使敌人的流血叠层达到上限，并造成{5}(+攻击力{6})的额外技能伤害，同时杰琪根据自身失去的体力恢复{7}(+攻击力{8}) ~ {9}(+攻击力{10})的体力。 当杰琪体力低于{11}时，将获得最大的体力恢复效果。",
       "extensionName": "JackiePassiveData"
     },
     {
@@ -5490,7 +5521,7 @@
       "skillId": "JackieActive2",
       "passiveSkillId": "None",
       "name": "断筋",
-      "description": "杰琪下一次普攻得到了强化，额外造成{0}的技能伤害，同时使可以使目标的移动速度减少{2}，持续{1}秒。",
+      "description": "杰琪下一次普攻得到了强化，额外造成{0}的技能伤害，同时使目标的移动速度减少{2}，持续{1}秒。",
       "coefficientText": "杰琪下一次普攻得到了强化，额外造成{0}(+额外攻击力的{1})的技能伤害，同时使目标的移动速度减少{3}，持续{2}秒。",
       "extensionName": "JackieActive2Data"
     },
@@ -10578,8 +10609,8 @@
       "skillId": "CoralineActive1",
       "passiveSkillId": "None",
       "name": "断罪之光",
-      "description": "卡洛琳向指定方向发射光弹。光弹将飞行至最大射程，或在命中敌人时产生爆炸，对范围内敌人造成{0}技能伤害。 光弹触碰到镜子时，效果将得到强化。 白镜：镜子向其面对的方向发射强化光弹，对范围内敌人造成{3}(+目标当前体力{1})技能伤害，并使目标{5}秒内的移动速度减少{6}。 黑镜：镜子向其面对的方向发射强化光弹，对范围内敌人造成{4}(+目标失去体力{2})的伤害，并使目标{7}秒内的移动速度减少{8}。",
-      "coefficientText": "卡洛琳向指定方向发射光弹。光弹将飞行至最大射程，或在命中敌人时产生爆炸，对范围内敌人造成{20}(+技能增幅{21})技能伤害。 光弹触碰到镜子时，效果将得到强化。 白镜：镜子向其面对的方向发射强化光弹，对范围内敌人造成{22}(+技能增幅{23})(+目标当前体力{1})技能伤害，并使目标{5}秒内的移动速度减少{6}。 黑镜：镜子向其面对的方向发射强化光弹，对范围内敌人造成{24}(+技能增幅{25})(+目标失去体力{2})的伤害，并使目标{7}秒内的移动速度减少{8}。",
+      "description": "卡洛琳向指定方向发射光弹。光弹在命中敌人时产生爆炸，对范围内敌人造成{0}技能伤害。 光弹触碰到镜子时，效果将得到强化。 白镜：镜子向其面对的方向发射强化光弹，对范围内敌人造成{3}(+目标当前体力{1})技能伤害，并使目标{5}秒内的移动速度减少{6}。 黑镜：镜子向其面对的方向发射强化光弹，对范围内敌人造成{4}(+目标失去体力{2})的伤害，并使目标{7}秒内的移动速度减少{8}。",
+      "coefficientText": "卡洛琳向指定方向发射光弹。光弹在命中敌人时产生爆炸，对范围内敌人造成{20}(+技能增幅{21})技能伤害。 光弹触碰到镜子时，效果将得到强化。 白镜：镜子向其面对的方向发射强化光弹，对范围内敌人造成{22}(+技能增幅{23})(+目标当前体力{1})技能伤害，并使目标{5}秒内的移动速度减少{6}。 黑镜：镜子向其面对的方向发射强化光弹，对范围内敌人造成{24}(+技能增幅{25})(+目标失去体力{2})的伤害，并使目标{7}秒内的移动速度减少{8}。",
       "extensionName": ""
     },
     {
@@ -10746,8 +10777,8 @@
       "skillId": "None",
       "passiveSkillId": "LuciaPassive",
       "name": "千金的自我修养",
-      "description": "露西娅使用技能对敌人造成伤害时，会为目标留下持续{0}秒的水晶标记，。 露西娅使用普攻造成伤害时，移除水晶标记，对目标造成{1}的额外技能伤害，同时自身移动速度将在{3}秒内增加{2}。 对带有水晶标记的敌人进行普攻时，露西娅的攻击速度提升{4}。",
-      "coefficientText": "露西娅使用技能对敌人造成伤害时，会为目标留下持续{0}秒的水晶标记，。 露西娅使用普攻造成伤害时，移除水晶标记，对目标造成{20}(+技能增幅{21})的额外技能伤害，同时自身移动速度将在{3}秒内增加{2}。 对带有水晶标记的敌人进行普攻时，露西娅的攻击速度提升{4}。",
+      "description": "露西娅使用技能对敌人造成伤害时，会为目标留下持续{0}秒的水晶标记。 露西娅使用普攻造成伤害时，移除水晶标记，对目标造成{1}的额外技能伤害，同时自身移动速度将在{3}秒内增加{2}。 对带有水晶标记的敌人进行普攻时，露西娅的攻击速度提升{4}。",
+      "coefficientText": "露西娅使用技能对敌人造成伤害时，会为目标留下持续{0}秒的水晶标记。 露西娅使用普攻造成伤害时，移除水晶标记，对目标造成{20}(+技能增幅{21})的额外技能伤害，同时自身移动速度将在{3}秒内增加{2}。 对带有水晶标记的敌人进行普攻时，露西娅的攻击速度提升{4}。",
       "extensionName": ""
     },
     {
@@ -10759,7 +10790,7 @@
       "passiveSkillId": "None",
       "name": "绮丽浪漫 / 流光浪漫",
       "description": "露西娅朝指定方向发射水晶弹，对命中的首个敌人造成{0}技能伤害。 流光浪漫：露西娅向指定方向发射一道光束，对范围内所有敌人造成{1}技能伤害，并使其移动速度降低{3}，持续{2}秒。",
-      "coefficientText": "露西娅朝指定方向发射水晶弹，对命中的首个敌人造成{20}(+技能增幅{21})的技能伤害。 流光浪漫：露西娅向指定方向发射一道光束，对范围内所有敌人造成{22}(+스技能增幅{23})的技能伤害，并使其移动速度降低{3}，持续{2}秒。",
+      "coefficientText": "露西娅朝指定方向发射水晶弹，对命中的首个敌人造成{20}(+技能增幅{21})的技能伤害。 流光浪漫：露西娅向指定方向发射一道光束，对范围内所有敌人造成{22}(+技能增幅{23})的技能伤害，并使其移动速度降低{3}，持续{2}秒。",
       "extensionName": ""
     },
     {
@@ -33018,12 +33049,12 @@
       "makeMaterial2": 401304,
       "effect": "",
       "stats": {
-        "attackPower": 25,
+        "attackPower": 24,
         "attackSpeedRatio": 0.22,
         "criticalStrikeChance": 0.35
       },
       "ap": 0,
-      "attackPower": 25,
+      "attackPower": 24,
       "cd": 0,
       "pen": 0,
       "penPct": 0,
@@ -34417,12 +34448,12 @@
         "attackPower": 10,
         "attackPowerByLv": 3,
         "defense": 20,
-        "penetrationDefense": 10
+        "penetrationDefense": 8
       },
       "ap": 0,
       "attackPower": 10,
       "cd": 0,
-      "pen": 10,
+      "pen": 8,
       "penPct": 0,
       "apPct": 0,
       "defense": 20,
@@ -35366,12 +35397,12 @@
         "attackPowerByLv": 3,
         "defense": 20,
         "cooldownReduction": 10,
-        "penetrationDefense": 12
+        "penetrationDefense": 10
       },
       "ap": 0,
       "attackPower": 10,
       "cd": 10,
-      "pen": 12,
+      "pen": 10,
       "penPct": 0,
       "apPct": 0,
       "defense": 20,
@@ -36723,12 +36754,12 @@
       "makeMaterial2": 205204,
       "effect": "",
       "stats": {
-        "attackPower": 25,
+        "attackPower": 24,
         "attackSpeedRatio": 0.18,
         "criticalStrikeChance": 0.24
       },
       "ap": 0,
-      "attackPower": 25,
+      "attackPower": 24,
       "cd": 0,
       "pen": 0,
       "penPct": 0,
@@ -38756,10 +38787,10 @@
       "makeMaterial2": 205312,
       "effect": "",
       "stats": {
-        "skillAmp": 55,
+        "skillAmp": 50,
         "cooldownReduction": 10
       },
-      "ap": 55,
+      "ap": 50,
       "attackPower": 0,
       "cd": 10,
       "pen": 0,

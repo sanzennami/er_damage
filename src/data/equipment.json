@@ -1,7 +1,7 @@
 {
   "_comment": "装备总表：属性定义 + 全部装备。与英雄技能分开存储。",
   "_usage": "改官方装备数值直接改这里；新增自定义装备追加一条，name 不要与官方重名。",
-  "generatedAt": "2026-11-25T08:46:56.339Z",
+  "generatedAt": "2026-11-26T07:28:04.191Z",
   "source": "https://github.com/pypy-vrc/er-gamedata.git",
   "counts": {
     "items": 666,
@@ -14982,9 +14982,7 @@
       "defense": 0,
       "maxHp": 0,
       "sightRange": 0,
-      "dmgAmp": 0,
-      "patchVersion": "13.2",
-      "patchOrder": 20261126
+      "dmgAmp": 0
     },
     {
       "code": 201519,
@@ -16381,9 +16379,7 @@
       "defense": 20,
       "maxHp": 0,
       "sightRange": 0,
-      "dmgAmp": 0,
-      "patchVersion": "13.2",
-      "patchOrder": 20261126
+      "dmgAmp": 0
     },
     {
       "code": 202407,
@@ -17332,9 +17328,7 @@
       "defense": 20,
       "maxHp": 0,
       "sightRange": 0,
-      "dmgAmp": 0,
-      "patchVersion": "13.2",
-      "patchOrder": 20261126
+      "dmgAmp": 0
     },
     {
       "code": 202514,
@@ -18693,9 +18687,7 @@
       "defense": 0,
       "maxHp": 0,
       "sightRange": 0,
-      "dmgAmp": 0,
-      "patchVersion": "13.2",
-      "patchOrder": 20261126
+      "dmgAmp": 0
     },
     {
       "code": 203501,
@@ -20727,9 +20719,7 @@
       "defense": 0,
       "maxHp": 0,
       "sightRange": 0,
-      "dmgAmp": 0,
-      "patchVersion": "13.2",
-      "patchOrder": 20261126
+      "dmgAmp": 0
     },
     {
       "code": 205304,

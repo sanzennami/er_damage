@@ -45,10 +45,11 @@ if (proxyRaw) {
         fn(val);
       };
 
+      const timeoutMs = Number(process.env.ER_PROXY_TIMEOUT_MS) || 25000;
       const hardTimer = setTimeout(() => {
         if (activeSocket) activeSocket.destroy();
-        finish(reject, new Error(`Proxy request timeout (12s): ${target.href}`));
-      }, 12000);
+        finish(reject, new Error(`Proxy request timeout (${Math.round(timeoutMs / 1000)}s): ${target.href}`));
+      }, timeoutMs);
 
       const handleIncoming = (res) => {
         const code = res.statusCode || 200;

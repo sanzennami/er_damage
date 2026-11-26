@@ -4,7 +4,7 @@
   "sourcePage": "https://dak.gg/er/routes/simulator/YuMin",
   "apiBase": "https://er.dakgg.io/api/v1/data",
   "locale": "zh-CN",
-  "generatedAt": "2026-11-25T08:46:59.621Z",
+  "generatedAt": "2026-11-26T07:28:12.147Z",
   "naming": {
     "equipment": "assets/game-icons/equipment/{type}/equipment-{id}-{type}-{subType}.png",
     "items": "assets/game-icons/items/{type}/item-{id}-{type}-{subType}.png",
@@ -9795,7 +9795,7 @@
     {
       "id": 201518,
       "name": "夜视头盔",
-      "tooltip": "传说 / 头部\n\n攻击力 +25\n攻击速度 +22%\n暴击率 +35%\n\n<b><color=yellow>火力延伸</color></b>\n每7秒，下一个普攻得到强化射程增加<color=white>20%</color>，普攻命中时造成<color=green>(实验体等级 * 2)</color>的额外技能伤害。（射程上限7.5m） 每次普攻时火力延伸的技能冷却时间缩减1秒。",
+      "tooltip": "传说 / 头部\n\n攻击力 +24\n攻击速度 +22%\n暴击率 +35%\n\n<b><color=yellow>火力延伸</color></b>\n每7秒，下一个普攻得到强化射程增加<color=white>20%</color>，普攻命中时造成<color=green>(实验体等级 * 2)</color>的额外技能伤害。（射程上限7.5m） 每次普攻时火力延伸的技能冷却时间缩减1秒。",
       "type": "Armor",
       "subType": "Head",
       "grade": "Legend",
@@ -10709,7 +10709,7 @@
     {
       "id": 202406,
       "name": "摇滚乐手夹克",
-      "tooltip": "英雄 / 胸部\n\n攻击力 +10\n每级别攻击力 +3~60\n防御力 +20\n防御穿透 +10\n\n有什么东西…在我心中燃烧。 今天，我，无所不能，无所不为。我就 是摇滚巨星",
+      "tooltip": "英雄 / 胸部\n\n攻击力 +10\n每级别攻击力 +3~60\n防御力 +20\n防御穿透 +8\n\n有什么东西…在我心中燃烧。 今天，我，无所不能，无所不为。我就 是摇滚巨星",
       "type": "Armor",
       "subType": "Chest",
       "grade": "Epic",
@@ -11238,7 +11238,7 @@
     {
       "id": 202510,
       "name": "魅影",
-      "tooltip": "传说 / 胸部\n\n攻击力 +10\n每级别攻击力 +3~60\n防御力 +18\n暴击率 +34%\n\n<b><color=yellow>锁定</color></b>\n每10秒，下一次普攻命中时，造成<color=white>10</color><color=#FFD775>(+攻击力10%)</color>伤害，并对目标施加持续5秒的标记。使用独立技能对被标记的目标造成伤害时，将移除标记并造成<color=white>40</color><color=#FFD775>(+攻击力25%)</color><color=#FF6171>(+暴击率50%)</color>的额外技能伤害，移动速度增加<color=white>8%</color>，持续2秒。\n\n<b><color=yellow>减少治愈</color></b>\n对目标造成伤害时，目标4秒内减少治愈效果<color=white>20%</color>。\n\n不仅能造成视觉上的欺骗性，甚至还可以欺骗听觉、嗅觉的万能套装。 但是触感是无法掩盖的，如果有讨厌的人，就狠狠地捶打他吧。",
+      "tooltip": "传说 / 胸部\n\n攻击力 +10\n每级别攻击力 +3~60\n防御力 +18\n暴击率 +34%\n\n<b><color=yellow>锁定</color></b>\n每10秒，下一次普攻命中时，造成<color=white>10</color><color=#FFD775>(+攻击力10%)</color>伤害，并对目标施加持续5秒的标记。使用独立技能对被标记的目标造成伤害时，将移除标记并造成<color=white>20</color><color=#FFD775>(+攻击力25%)</color><color=#FF6171>(+暴击率50%)</color>的额外技能伤害，移动速度增加<color=white>8%</color>，持续2秒。\n\n<b><color=yellow>减少治愈</color></b>\n对目标造成伤害时，目标4秒内减少治愈效果<color=white>20%</color>。\n\n不仅能造成视觉上的欺骗性，甚至还可以欺骗听觉、嗅觉的万能套装。 但是触感是无法掩盖的，如果有讨厌的人，就狠狠地捶打他吧。",
       "type": "Armor",
       "subType": "Chest",
       "grade": "Legend",
@@ -11297,7 +11297,7 @@
     {
       "id": 202513,
       "name": "摇滚外套",
-      "tooltip": "传说 / 胸部\n\n攻击力 +10\n每级别攻击力 +3~60\n防御力 +20\n冷却缩减 +10\n防御穿透 +12\n\n<b><color=yellow>刺伤</color></b>\n在5秒内，对同一敌方实验体普攻命中或使用独立技能造成伤害共3次时，使其进入持续4秒的刺伤状态，每秒受到<color=white>10</color><color=#FF6171>(+防御穿透50%)</color><color=#FFD775>(+额外攻击力10%)</color>的真实伤害。朝处于刺伤状态的敌方实验体移动时，移动速度增加<color=white>8%</color>。（冷却时间：12秒）\n\n传奇摇滚明星外套。 在灯光的照耀下，夹克上的金属配件如流星雨般闪闪发光。",
+      "tooltip": "传说 / 胸部\n\n攻击力 +10\n每级别攻击力 +3~60\n防御力 +20\n冷却缩减 +10\n防御穿透 +10\n\n<b><color=yellow>刺伤</color></b>\n在5秒内，对同一敌方实验体普攻命中或使用独立技能造成伤害共3次时，使其进入持续4秒的刺伤状态，每秒受到<color=white>10</color><color=#FF6171>(+防御穿透50%)</color><color=#FFD775>(+额外攻击力10%)</color>的真实伤害。朝处于刺伤状态的敌方实验体移动时，移动速度增加<color=white>8%</color>。（冷却时间：12秒）\n\n传奇摇滚明星外套。 在灯光的照耀下，夹克上的金属配件如流星雨般闪闪发光。",
       "type": "Armor",
       "subType": "Chest",
       "grade": "Legend",
@@ -12177,7 +12177,7 @@
     {
       "id": 203415,
       "name": "星魂臂章",
-      "tooltip": "英雄 / 手臂/装饰\n\n攻击力 +25\n攻击速度 +18%\n暴击率 +24%\n\n投入战斗只需一分钟的臂章。",
+      "tooltip": "英雄 / 手臂/装饰\n\n攻击力 +24\n攻击速度 +18%\n暴击率 +24%\n\n投入战斗只需一分钟的臂章。",
       "type": "Armor",
       "subType": "Arm",
       "grade": "Epic",
@@ -13460,7 +13460,7 @@
     {
       "id": 205201,
       "name": "白羽扇",
-      "tooltip": "英雄 / 手臂/装饰\n\n技能增幅 +55\n冷却缩减 +10\n\n<b><color=yellow>神速</color></b>\n4秒内造成3次普攻或独立技能伤害时，3秒间移动速度增加<color=white>18%</color>。 (冷却 10秒) 造成持续伤害的独立技能每3秒适用一次判定。\n\n诸葛孔明说过：谋事在人，成事在天。",
+      "tooltip": "英雄 / 手臂/装饰\n\n技能增幅 +50\n冷却缩减 +10\n\n<b><color=yellow>神速</color></b>\n4秒内造成3次普攻或独立技能伤害时，3秒间移动速度增加<color=white>18%</color>。 (冷却 10秒) 造成持续伤害的独立技能每3秒适用一次判定。\n\n诸葛孔明说过：谋事在人，成事在天。",
       "type": "Armor",
       "subType": "Arm",
       "grade": "Epic",
@@ -21475,7 +21475,7 @@
     {
       "id": 1001100,
       "name": "鲜血盛宴",
-      "tooltip": "无消耗\n\n杰琪使用普攻或技能造成伤害时，将赋予目标持续一段时间的流血叠层。 流血达到叠层上限或杰琪参与击杀实验体时，杰琪将进入分泌肾上腺素状态，此时每次对敌人造成普攻或者技能伤害时，将赋予敌人流血叠层上限，并造成额外技能伤害，同时杰琪根据自身失去的体力恢复体力。",
+      "tooltip": "无消耗\n\n杰琪使用普攻或技能造成伤害时，将赋予目标持续一段时间的流血叠层。 流血达到叠层上限或杰琪参与击杀实验体时，杰琪将进入分泌肾上腺素状态，此时每次对敌人造成普攻或者技能伤害时，使敌人的流血叠层达到上限，并造成额外技能伤害，同时杰琪根据自身失去的体力恢复体力。",
       "slot": "T",
       "maxLevel": 2,
       "characterId": 1,
@@ -23665,7 +23665,7 @@
     {
       "id": 1028300,
       "name": "青鸟",
-      "tooltip": "无消耗 / 冷却19秒\n\n用于自身 : 吸收技能伤害并赋予免疫负面效果的护盾。 用于敌人 : 青鸟会对敌人造成技能伤害并使敌人暂时失明。",
+      "tooltip": "无消耗 / 冷却18秒\n\n用于自身 : 吸收技能伤害并赋予免疫负面效果的护盾。 用于敌人 : 青鸟会对敌人造成技能伤害并使敌人暂时失明。",
       "slot": "W",
       "maxLevel": 5,
       "characterId": 28,
@@ -25285,7 +25285,7 @@
     {
       "id": 1048600,
       "name": "着色 - 黄色",
-      "tooltip": "无消耗 / 冷却13秒\n\n蒂娅以大地为画板，拖着染上颜料的画笔向指定方向突进。给路径上的敌人造成技能伤害并给敌人涂上指定颜色的颜料。 冷却固定: 此技能不受冷却缩减影响。",
+      "tooltip": "无消耗 / 冷却12秒\n\n蒂娅以大地为画板，拖着染上颜料的画笔向指定方向突进。给路径上的敌人造成技能伤害并给敌人涂上指定颜色的颜料。 冷却固定: 此技能不受冷却缩减影响。",
       "slot": "E",
       "maxLevel": 5,
       "characterId": 48,
@@ -26830,7 +26830,7 @@
     {
       "id": 1066500,
       "name": "沉睡之力",
-      "tooltip": "无消耗 / 冷却20秒\n\n阿尔达破译了隐藏在文物背后的故事，恢复了文物原始数据。可以强化一段时间内使用的下一个基本技能。",
+      "tooltip": "无消耗 / 冷却19秒\n\n阿尔达破译了隐藏在文物背后的故事，恢复了文物原始数据。可以强化一段时间内使用的下一个基本技能。",
       "slot": "R",
       "maxLevel": 3,
       "characterId": 66,
@@ -28375,7 +28375,7 @@
     {
       "id": 1087200,
       "name": "断罪之光",
-      "tooltip": "无消耗 / 冷却8秒\n\n卡洛琳向指定方向发射光弹。光弹将飞行至最大射程，或在命中敌人时产生爆炸，对范围内敌人造成技能伤害。 光弹触碰到镜子时，效果将得到强化。 白镜：镜子向其面对的方向发射强化光弹，对范围内敌人造成基于目标当前体力的百分比伤害，并使其减速。 黑镜：镜子向其面对的方向发射强化光弹，对范围内敌人造成基于目标失去体力的百分比伤害，并使其减速。",
+      "tooltip": "无消耗 / 冷却8秒\n\n卡洛琳向指定方向发射光弹。光弹在命中敌人时产生爆炸，对范围内敌人造成技能伤害。 光弹触碰到镜子时，效果将得到强化。 白镜：镜子向其面对的方向发射强化光弹，对范围内敌人造成基于目标当前体力的百分比伤害，并使其减速。 黑镜：镜子向其面对的方向发射强化光弹，对范围内敌人造成基于目标失去体力的百分比伤害，并使其减速。",
       "slot": "Q",
       "maxLevel": 5,
       "characterId": 87,
@@ -28896,6 +28896,81 @@
       "imageAvailable": true,
       "byteSize": 19253,
       "imageDownloadError": null
+    },
+    {
+      "id": 1092100,
+      "name": "能量调律",
+      "tooltip": "无消耗\n\n弥莎使用技能造成3次伤害后，下一次普攻将获得强化，造成额外技能伤害，并在一定时间内降低目标的治愈效果。此外，使用技能造成伤害时，将在一定时间内提高攻击速度及技能造成的伤害。 弥莎的普攻无法触发暴击，但强化普攻造成的额外技能伤害会随暴击率的提高而增加。",
+      "slot": "T",
+      "maxLevel": 2,
+      "characterId": 92,
+      "characterKey": "Meissa",
+      "characterName": "弥莎",
+      "image": "/assets/game-icons/hero-skills/meissa/skill-92-t-1092100.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/13.2.0/SkillIcon_1092100.png",
+      "imageAvailable": true,
+      "byteSize": 20645,
+      "imageDownloadError": null
+    },
+    {
+      "id": 1092200,
+      "name": "凝神之箭",
+      "tooltip": "无消耗 / 冷却6秒\n\n弥莎发射凝聚能量的箭矢，对首个命中的敌人造成普攻伤害，并减少弥莎技能的冷却时间。",
+      "slot": "Q",
+      "maxLevel": 5,
+      "characterId": 92,
+      "characterKey": "Meissa",
+      "characterName": "弥莎",
+      "image": "/assets/game-icons/hero-skills/meissa/skill-92-q-1092200.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/13.2.0/SkillIcon_1092200.png",
+      "imageAvailable": true,
+      "byteSize": 16900,
+      "imageDownloadError": null
+    },
+    {
+      "id": 1092300,
+      "name": "能量轨迹",
+      "tooltip": "无消耗 / 冷却10秒\n\n弥莎发射能量，命中敌人时产生波动，对范围内的敌人造成技能伤害，并施加持续一定时间的能量痕迹，使弥莎获得目标的视野。 弥莎使用凝神之箭对带有能量痕迹的目标造成伤害时，将发射多支额外的能量箭矢，造成额外技能伤害。",
+      "slot": "W",
+      "maxLevel": 5,
+      "characterId": 92,
+      "characterKey": "Meissa",
+      "characterName": "弥莎",
+      "image": "/assets/game-icons/hero-skills/meissa/skill-92-w-1092300.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/13.2.0/SkillIcon_1092300.png",
+      "imageAvailable": true,
+      "byteSize": 18386,
+      "imageDownloadError": null
+    },
+    {
+      "id": 1092400,
+      "name": "能量跃迁",
+      "tooltip": "无消耗 / 冷却18秒\n\n弥莎将自身的一部分转化为能量，快速突进并获得能量调律叠层。突进结束后，触发一定范围内敌人身上的所有能量痕迹。",
+      "slot": "E",
+      "maxLevel": 5,
+      "characterId": 92,
+      "characterKey": "Meissa",
+      "characterName": "弥莎",
+      "image": "/assets/game-icons/hero-skills/meissa/skill-92-e-1092400.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/13.2.0/SkillIcon_1092400.png",
+      "imageAvailable": true,
+      "byteSize": 18240,
+      "imageDownloadError": null
+    },
+    {
+      "id": 1092500,
+      "name": "正中靶心",
+      "tooltip": "无消耗 / 冷却100秒\n\n弥莎探测前方范围内敌人的能量，发射多支无法躲避的能量箭矢，造成技能伤害，并对命中的目标施加能量痕迹。随后发射凝聚至极限的能量箭矢，造成技能伤害。",
+      "slot": "R",
+      "maxLevel": 3,
+      "characterId": 92,
+      "characterKey": "Meissa",
+      "characterName": "弥莎",
+      "image": "/assets/game-icons/hero-skills/meissa/skill-92-r-1092500.png",
+      "imageUrl": "https://cdn.dak.gg/assets/er/game-assets/13.2.0/SkillIcon_1092500.png",
+      "imageAvailable": true,
+      "byteSize": 20724,
+      "imageDownloadError": null
     }
   ],
   "weaponSkills": [
@@ -29217,7 +29292,7 @@
     {
       "id": 3024000,
       "name": "VF介质",
-      "tooltip": "无消耗 / 冷却30秒\n\n在自身周围生成旋转的VF能量球体。生成的球体会在使用普攻或技能对目标造成伤害时飞向目标，对目标及其周围敌人造成技能伤害。对野生动物造成的伤害增加。 冷却固定: 此技能不受冷却缩减影响。",
+      "tooltip": "无消耗 / 冷却25秒\n\n在自身周围生成旋转的VF能量球体。生成的球体会在使用普攻或技能对目标造成伤害时飞向目标，对目标及其周围敌人造成技能伤害。对野生动物造成的伤害增加。 冷却固定: 此技能不受冷却缩减影响。",
       "slot": "D",
       "maxLevel": 3,
       "characterId": null,

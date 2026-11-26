@@ -1,5 +1,12 @@
 常用命令速查（零 Agent 独立日常维护）：
 
+【官方 OpenAPI 抢先直连】刚开服维护完、第三方解包尚未更新时，用官方 API Key 一键秒抓官方最新面板/成长/武器熟练度（仅内存粘贴 Key，绝不保存到本地）：
+双击根目录 update-bser.cmd   或命令行运行：npm run update:bser
+官方 OpenAPI + 顺带补抓小头像/推荐出装并自动转正新英雄：
+update-bser.cmd -Full        或命令行运行：npm run update:bser:full
+只读探查官方 API 是否已放出新英雄数据（不改任何本地文件）：
+update-bser.cmd -CheckOnly   或命令行运行：npm run check:bser
+
 【推荐】每次新版本上线一键自动同步（自动探测本地代理，更新装备/角色面板、图标、独有特效名、119套高赞出装，并生成 docs/auto-update-report.md 待核对清单）：
 双击根目录 update.cmd   或命令行运行：npm run update:auto
 

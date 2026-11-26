@@ -36,6 +36,7 @@ const reportPath = path.join(rootDir, 'docs', 'auto-update-report.md');
 const args = process.argv.slice(2);
 const isOffline = args.includes('--offline');
 const skipRoutes = args.includes('--skip-routes');
+const skipGamedataGit = args.includes('--skip-gamedata-git');
 const proxyIdx = args.indexOf('--proxy');
 const explicitProxy = proxyIdx >= 0 ? (args[proxyIdx + 1] || '').trim() : '';
 
@@ -205,6 +206,7 @@ async function main() {
     equipmentRemoved: [],
     equipmentStatChanged: [],
     charactersAdded: [],
+    charactersPromoted: [],
     characterStatChanged: [],
     newIconsDownloaded: 0,
     newAvatarsDownloaded: [],
@@ -222,7 +224,9 @@ async function main() {
   // --------------------------------------------------------------------------
   // 1. 拉取 er-gamedata 解包表并更新 masteryStats.json / weaponTypeInfo.json
   // --------------------------------------------------------------------------
-  if (!isOffline) {
+  if (skipGamedataGit) {
+    console.log('[1/6] 已由前置官方 OpenAPI 完成底层缓存刷新，跳过重复 git 拉取。');
+  } else if (!isOffline) {
     console.log('[1/6] 正在拉取最新 pypy-vrc/er-gamedata 解包数据...');
     try {
       runNodeScript('scripts/update-er-gamedata.mjs');
@@ -351,19 +355,27 @@ async function main() {
     console.log(`  ✓ characters.json 已同步：共 ${mergedChars.length} 名实验体（新增 ${report.charactersAdded.length} 名，基础/成长变动 ${report.characterStatChanged.length} 名）`);
   }
 
-  // 若 patchLog.json 记录的最新补丁日期 ≥ .er-gamedata-cache 最新提交日期（例如周三已按官网公告预录入周四补丁，客户端尚未维护），
-  // 自动叠跑一次 apply-patch-log.mjs 保护预录入数值不被旧解包冲回上一版；一旦解包仓库更新超过该日期，则以最新解包为准。
+  // 若 patchLog.json 记录的最新补丁日期 ≥ 底层缓存日期（例如周三已按官网公告预录入周四补丁，客户端尚未维护），
+  // 自动叠跑一次 apply-patch-log.mjs 保护预录入数值不被旧解包冲回上一版；一旦官方 OpenAPI 或解包仓库更新超过该日期，则以最新数据为准。
   const patchLogDoc = await readJson(path.join(dataDir, 'patchLog.json'), { patches: [] });
   const latestPatch = [...(patchLogDoc.patches || [])].sort((a, b) => (b.order || 0) - (a.order || 0))[0];
-  if (latestPatch?.date && existsSync(path.join(rootDir, '.er-gamedata-cache', '.git'))) {
+  if (latestPatch?.date) {
     try {
-      const cacheCommitDate = execFileSync('git', ['-C', path.join(rootDir, '.er-gamedata-cache'), 'log', '-1', '--format=%cs'], { encoding: 'utf8' }).trim();
-      if (cacheCommitDate && latestPatch.date >= cacheCommitDate) {
-        console.log(`  ℹ 检测到预实装补丁 ${latestPatch.version} (${latestPatch.date}) 新于解包仓库 (${cacheCommitDate})，自动叠加保护...`);
+      let cacheDate = '';
+      if (existsSync(path.join(rootDir, '.er-gamedata-cache', '.git'))) {
+        cacheDate = execFileSync('git', ['-C', path.join(rootDir, '.er-gamedata-cache'), 'log', '-1', '--format=%cs'], { encoding: 'utf8' }).trim();
+      }
+      const bserState = await readJson(path.join(rootDir, '.er-gamedata-cache', '.bser-openapi-state.json'), null);
+      const ts = String(bserState?.l10nTimestamp || '');
+      const openApiDate = ts.length >= 8 ? `${ts.slice(0, 4)}-${ts.slice(4, 6)}-${ts.slice(6, 8)}` : '';
+      const effectiveDate = openApiDate && (!cacheDate || openApiDate > cacheDate) ? openApiDate : cacheDate;
+
+      if (effectiveDate && (openApiDate ? latestPatch.date > effectiveDate : latestPatch.date >= effectiveDate)) {
+        console.log(`  ℹ 检测到预实装补丁 ${latestPatch.version} (${latestPatch.date}) 新于底层数据 (${effectiveDate})，自动叠加保护...`);
         runNodeScript('scripts/apply-patch-log.mjs', ['--from', latestPatch.version]);
       }
     } catch {
-      // ignore git date check failure
+      // ignore date check failure
     }
   }
 
@@ -755,6 +767,42 @@ async function main() {
   console.log(`  ✓ itemUniqueEffects.json 已同步：特效绑定更新 ${report.uniqueEffectsChanged.length} 件`);
 
   // --------------------------------------------------------------------------
+  // 5a. 检查待转正新实验体（若成长 + 熟练度 + 技能 + 小头像已齐备，先开放以纳入推荐出装同步，校验预设完整后正式转正）
+  // --------------------------------------------------------------------------
+  const latestCharsDocForPromote = await readJson(path.join(dataDir, 'characters.json'), { characters: [] });
+  const latestMasteryForPromote = await readJson(path.join(dataDir, 'masteryStats.json'), []);
+  const latestSkillsForPromote = (await readJson(path.join(dataDir, 'heroSkills.json'), { skills: [] })).skills || [];
+  const latestHeroStatus = await readJson(path.join(dataDir, 'heroStatus.json'), { heroes: {} });
+  const candidatePromotions = [];
+
+  if (!skipRoutes) {
+    for (const ch of latestCharsDocForPromote.characters || []) {
+      const st = latestHeroStatus.heroes?.[ch.name];
+      if (!st || st.damageTestOnly !== true) continue;
+      if (!ch.growth || !Array.isArray(ch.weapons) || ch.weapons.length === 0) continue;
+      const hasAllMastery = ch.weapons.every((w) => (
+        latestMasteryForPromote.some((m) => m.characterCode === ch.code && m.type === w && m.options?.length > 0)
+      ));
+      if (!hasAllMastery) continue;
+      const skillCount = latestSkillsForPromote.filter((s) => s.hero === ch.name).length;
+      if (skillCount < 3) continue;
+      const avRel = String(ch.image || '').replace(/^\//, '');
+      const avAbs = path.join(rootDir, avRel);
+      if (!avRel || !existsSync(avAbs) || statSync(avAbs).size < 100) continue;
+
+      candidatePromotions.push({ char: ch, prevEntry: { ...st } });
+      latestHeroStatus.heroes[ch.name] = {
+        ...st,
+        damageTestOnly: false
+      };
+    }
+    if (candidatePromotions.length > 0) {
+      await writeJson(path.join(dataDir, 'heroStatus.json'), latestHeroStatus);
+      console.log(`\n  ✨ 检测到 ${candidatePromotions.length} 名待转正实验体已凑齐面板/熟练度/技能/头像，纳入本次出装同步：${candidatePromotions.map((x) => x.char.name).join('、')}`);
+    }
+  }
+
+  // --------------------------------------------------------------------------
   // 5. 同步全实验体 × 全武器高赞推荐出装
   // --------------------------------------------------------------------------
   if (!skipRoutes) {
@@ -764,6 +812,28 @@ async function main() {
     } catch (err) {
       report.warnings.push(`同步推荐出装失败：${err.message}`);
       console.warn(`  ⚠ 推荐出装同步出错：${err.message}`);
+    }
+
+    if (candidatePromotions.length > 0) {
+      const refreshedPresets = (await readJson(path.join(dataDir, 'weaponRoutePresets.json'), { presets: {} })).presets || {};
+      let revertedAny = false;
+      for (const item of candidatePromotions) {
+        const allValid = item.char.weapons.every((w) => {
+          const p = refreshedPresets[`${item.char.name}|${w}`];
+          return p && Object.values(p.gear || {}).filter(Boolean).length === 5 && p.traitSelection?.core && p.tacticalSkill;
+        });
+        if (allValid) {
+          report.charactersPromoted.push(`${item.char.code} ${item.char.name} (${item.char.id})`);
+          console.log(`  🎉 新实验体已自动转正开放：${item.char.name}`);
+        } else {
+          latestHeroStatus.heroes[item.char.name] = item.prevEntry;
+          revertedAny = true;
+          report.warnings.push(`${item.char.name} 尚无完整的 5 槽推荐路线预设，暂保持 damageTestOnly: true`);
+        }
+      }
+      if (revertedAny) {
+        await writeJson(path.join(dataDir, 'heroStatus.json'), latestHeroStatus);
+      }
     }
   } else {
     console.log('\n[5/6] 已跳过推荐出装同步（--skip-routes）。');
@@ -856,6 +926,13 @@ async function main() {
     lines.push(
       '### 新入库实验体（默认标记 `damageTestOnly: true`，录入技能公式后可在 `heroStatus.json` 开放）',
       ...report.charactersAdded.map((x) => `- ${x}`),
+      ''
+    );
+  }
+  if (report.charactersPromoted.length) {
+    lines.push(
+      '### 已自动转正开放的新实验体（面板、熟练度、技能、头像、出装均已就绪）',
+      ...report.charactersPromoted.map((x) => `- ${x}`),
       ''
     );
   }

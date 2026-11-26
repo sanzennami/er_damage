@@ -999,5 +999,16 @@
     "source": "dak.gg",
     "sha1": "f2324c71fc845607a3df11184e773968bfbba68e",
     "bytes": 46665
+  },
+  {
+    "code": 92,
+    "name": "Meissa",
+    "resource": "Meissa",
+    "file": "assets/characters/092-Meissa.png",
+    "sourcePage": "https://dak.gg/er/characters/Meissa",
+    "sourceImage": "https://cdn.dak.gg/assets/er/game-assets/13.2.0/CharProfile_Meissa_S000.png",
+    "source": "dak.gg",
+    "sha1": "5cd6458df201da854e991dcae863e4c4811c4e3b",
+    "bytes": 48986
   }
 ]

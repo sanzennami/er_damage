@@ -17,6 +17,7 @@
 [CmdletBinding()]
 param(
     [string]$Proxy,
+    [string]$BserKey,
     [switch]$SkipRoutes,
     [switch]$Offline,
     [switch]$NoProxy
@@ -119,7 +120,22 @@ if ($activeProxy) {
     $env:GIT_CONFIG_VALUE_1 = $activeProxy
 }
 
+$usedBserApi = $false
+if (-not $Offline -and (-not [string]::IsNullOrWhiteSpace($BserKey) -or -not [string]::IsNullOrWhiteSpace($env:BSER_API_KEY))) {
+    try {
+        if (-not [string]::IsNullOrWhiteSpace($BserKey)) { $env:BSER_API_KEY = $BserKey.Trim() }
+        $bserArgs = @('scripts/sync-bser-openapi.mjs', '--cache-only')
+        if ($activeProxy) { $bserArgs += @('--proxy', $activeProxy) }
+        if ($NoProxy)     { $bserArgs += '--no-proxy' }
+        & node @bserArgs
+        if ($LASTEXITCODE -eq 0) { $usedBserApi = $true }
+    } finally {
+        Remove-Item Env:\BSER_API_KEY -ErrorAction SilentlyContinue
+    }
+}
+
 $nodeArgs = @('scripts/auto-update.mjs')
+if ($usedBserApi) { $nodeArgs += '--skip-gamedata-git' }
 if ($activeProxy) { $nodeArgs += @('--proxy', $activeProxy) }
 if ($SkipRoutes)  { $nodeArgs += '--skip-routes' }
 if ($Offline)     { $nodeArgs += '--offline' }

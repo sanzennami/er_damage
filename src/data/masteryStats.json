@@ -1714,5 +1714,19 @@
         "value": 0.046
       }
     ]
+  },
+  {
+    "characterCode": 92,
+    "type": "Bow",
+    "options": [
+      {
+        "stat": "AttackSpeedRatio",
+        "value": 0.026
+      },
+      {
+        "stat": "IncreaseBasicAttackDamageRatio",
+        "value": 0.015
+      }
+    ]
   }
 ]

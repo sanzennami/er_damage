@@ -2,7 +2,7 @@
   "_comment": "装备唯一效果说明。按装备 code 和名称建立索引，用于在装备表里显示特殊效果。",
   "_usage": "effectsByCode 优先，effectsByName 兜底；修改效果文案时保持 code 字符串键不变。",
   "source": "dakItemSkillIcons tooltip <b> tags (auto-synced)",
-  "generatedAt": "2026-11-25T08:47:00.582Z",
+  "generatedAt": "2026-11-26T07:28:14.154Z",
   "effectsByCode": {
     "101401": [
       "充能 - 闪光"
