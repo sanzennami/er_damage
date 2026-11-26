@@ -63,7 +63,7 @@ import {
   statConversionFor
 } from './lib/specialRules.js';
 
-const APP_VERSION = 'v0.2.096';
+const APP_VERSION = 'v0.2.097';
 
 const EXPORTED_LOCAL_CONFIG_MODULES = import.meta.glob('./data/localConfig.export.json', {
   eager: true,
@@ -467,8 +467,14 @@ function statValue(stats, key) {
 
 // 增益类条目把每级的百分点写在 bases 里（例如卡洛琳 W 的 "5,7,9" = 5%/7%/9%）
 const BUFF_KEY_LABELS = {
-  apPct: '技能增幅百分比', damageBonus: '伤害提升', basicAttackAmp: '普攻增幅',
-  ap: '技能增幅', attackPower: '攻击力', healShieldAmp: '恢复与护盾效果'
+  apPct: '技能增幅百分比',
+  damageBonus: '伤害提升',
+  skillDamageBonus: '技能伤害提升',
+  basicAttackAmp: '普攻增幅',
+  attackSpeedRatio: '额外攻击速度',
+  ap: '技能增幅',
+  attackPower: '攻击力',
+  healShieldAmp: '恢复与护盾效果'
 };
 // 大部分增益条目的 bases 写的是百分点（5 = 5%），但「技能增幅 +10」这种是实打实的点数，
 // 不能再除以 100。这里列出按原值取的 buffKey。
@@ -487,9 +493,13 @@ function buffValueAtLevel(skill, level) {
  * 叠层数：用户没动过步进器时取条目上的 defaultStacks（夏洛特 R 那种无条件常驻的被动写 1），
  * 动过就以用户选的为准 —— 所以要区分「没设过」和「手动设成 0」。
  */
+function buffStackStateKey(skill) {
+  return skill?.stackGroup ? `${skill.stackGroup}-buffStacks` : `${skill.id}-buffStacks`;
+}
+
 function buffStackCount(skill, stackCounts = {}) {
   const maxStacks = Math.max(1, getNumber(skill.maxStacks) || 1);
-  const saved = stackCounts[`${skill.id}-buffStacks`];
+  const saved = stackCounts[buffStackStateKey(skill)];
   const value = saved === undefined || saved === null || saved === ''
     ? getNumber(skill.defaultStacks)
     : getNumber(saved);
@@ -516,7 +526,7 @@ function buffTotals(skillRows, skillLevels = {}, stackCounts = {}) {
     const stacks = buffStackCount(skill, stackCounts);
     const key = skill.buffKey || 'apPct';
     return { ...totals, [key]: getNumber(totals[key]) + buffContribution(skill, level, stacks) };
-  }, { apPct: 0, damageBonus: 0, basicAttackAmp: 0, ap: 0, attackPower: 0, healShieldAmp: 0, attackSpeedRatio: 0 });
+  }, { apPct: 0, damageBonus: 0, skillDamageBonus: 0, basicAttackAmp: 0, ap: 0, attackPower: 0, healShieldAmp: 0, attackSpeedRatio: 0 });
 }
 
 /** 体力百分比控件：滑条 + 右侧数字框，和技能面板表头那个自身当前体力同一套。 */
@@ -1801,14 +1811,17 @@ function calc({
   const enhancementDeviceDamageBonus = activeTraitEffectIds.has('enhancementDevice') ? 0.08 + mastery * 0.005 : 0;
   const falseVowBonus = tacticalSkill === '虚言' ? (tacticalUpgraded ? 0.12 : 0.08) : 0;
   const potentialDamageBonus = talentDamageBonus + enhancementDeviceDamageBonus + falseVowBonus;
-  const totalDamageBonus = damageBonus + equipDamageBonus + potentialDamageBonus + effectMods.damageBonus + heroModifiers.damageBonus + buffs.damageBonus;
+  const baseDamageBonus = damageBonus + equipDamageBonus + potentialDamageBonus + effectMods.damageBonus + heroModifiers.damageBonus + buffs.damageBonus;
+  const totalDamageBonus = baseDamageBonus + getNumber(buffs.skillDamageBonus);
   const targetMasteryLevel = Math.max(1, Math.min(20, getNumber(targetMastery) || 1));
   const targetMasterySkillReduction = targetMasteryLevel <= 1 ? 0 : targetMasteryLevel * 0.008;
   // 目标武器熟练度带来的普攻减伤：每级 1%，1 级 1% ~ 20 级 20% 线性增长
   const targetMasteryBasicReduction = targetMasteryLevel * 0.01;
   const totalSkillReduction = skillReduction + targetMasterySkillReduction;
   const damageMod = 1 + totalDamageBonus - target.reduction - totalSkillReduction;
+  const noSkillBuffDamageMod = 1 + baseDamageBonus - target.reduction - totalSkillReduction;
   const finalMod = defenseMod * damageMod;
+  const noSkillBuffFinalMod = defenseMod * noSkillBuffDamageMod;
   const stackCount = Math.min(stackLimitForHero(selectedHero, selectedHeroSkillRows), Math.max(0, r2Stacks));
   // 普攻增幅（IncreaseBasicAttackDamageRatio）：官方独立的一档乘区，只作用于普攻伤害，
   // 跟技能增幅互不影响。装备的「每级别普攻增幅」已由 aggregateEquipmentStats 乘好等级
@@ -1819,7 +1832,7 @@ function calc({
     + buffs.basicAttackAmp;
   // 普攻额外伤害（IncreaseBasicAttackDamage）：防御结算之后才加的固定值，同样已折好等级
   const basicAttackFlatBonus = statValue(equipmentStats, 'increaseBasicAttackDamage');
-  const basicAttackDamageIncreaseRatio = totalDamageBonus + basicAttackAmp;
+  const basicAttackDamageIncreaseRatio = baseDamageBonus + basicAttackAmp;
   const basicAttackTargetReductionRatio = target.reduction + targetMasteryBasicReduction;
   const effectiveTargetForBa = {
     ...target,
@@ -1874,6 +1887,7 @@ function calc({
     passiveLevel,
     heroLevel: mastery,
     finalMod,
+    noSkillBuffFinalMod,
     // 被官方判定为普攻伤害的技能段（damageType: "basicAttack"）走这条：
     // 增伤那一档换成普攻增幅，减伤那一档换成目标的普攻减伤，防御修正两边一样
     basicAttackFinalMod: defenseMod * (1 + basicAttackDamageIncreaseRatio - basicAttackTargetReductionRatio)
@@ -6353,7 +6367,7 @@ export default function App() {
     const sourceMeta = skillSourceMeta(skill);
     const skillLevel = skill.level || skillLevels[skill.id] || 1;
     const maxStacks = Math.max(1, getNumber(skill.maxStacks) || 1);
-    const stackKey = `${skill.id}-buffStacks`;
+    const stackKey = buffStackStateKey(skill);
     const stacks = buffStackCount(skill, skillTargetCounts);
     const perStack = buffValueAtLevel(skill, skillLevel);
     // buffKey: ap 那种是实打实的点数，不能按百分比显示（会写成「每层 3000%」）

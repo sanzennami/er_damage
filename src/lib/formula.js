@@ -271,6 +271,9 @@ export function skillFinalMod(skill, context) {
   if (skill?.damageType === 'basicAttack') {
     return getNumber(context?.basicAttackFinalMod ?? context?.finalMod);
   }
+  if (skill?.ignoreSkillDamageBonus && context?.noSkillBuffFinalMod !== undefined) {
+    return getNumber(context.noSkillBuffFinalMod);
+  }
   return getNumber(context?.finalMod);
 }
 
@@ -298,7 +301,7 @@ export function calculateSkill(skill, level, context) {
  */
 export function scaledSkillDamage(skill, finalMod, { scale = 1, hits = 1, context } = {}) {
   const singleRaw = damageFloor(getNumber(skill.rawDamage) * scale);
-  const mod = context && skill?.damageType === 'basicAttack'
+  const mod = context && (skill?.damageType === 'basicAttack' || skill?.ignoreSkillDamageBonus)
     ? skillFinalMod(skill, context)
     : finalMod;
   // 真实伤害不吃防御与减伤，和 calculateSkill 保持一致
